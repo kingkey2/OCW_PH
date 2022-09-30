@@ -34,3 +34,4 @@
 /.vs/VSWorkspaceState.json
 /.vs/config/applicationhost.config
 /.vs
+*.config
