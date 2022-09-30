@@ -1,0 +1,602 @@
+﻿<!doctype html>
+<html id="myHTML" lang="zh-Hant-TW" class="mainHtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Maharaja</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> -->
+    <link rel="stylesheet" href="css/basic.min.css">
+    <link rel="stylesheet" href="css/main.css">      
+</head>
+<body class="mainBody vertical-menu">
+    <div class="loader-container" style="display: none;">
+        <div class="loader-box">
+            <div class="loader-spinner">
+                <div class="sk-fading-circle">
+                    <div class="loader-logo"></div>
+                    <div class="sk-circle1 sk-circle"></div>
+                    <div class="sk-circle2 sk-circle"></div>
+                    <div class="sk-circle3 sk-circle"></div>
+                    <div class="sk-circle4 sk-circle"></div>
+                    <div class="sk-circle5 sk-circle"></div>
+                    <div class="sk-circle6 sk-circle"></div>
+                    <div class="sk-circle7 sk-circle"></div>
+                    <div class="sk-circle8 sk-circle"></div>
+                    <div class="sk-circle9 sk-circle"></div>
+                    <div class="sk-circle10 sk-circle"></div>
+                    <div class="sk-circle11 sk-circle"></div>
+                    <div class="sk-circle12 sk-circle"></div>
+                </div>
+                <div class="loader-text">正在加載...</div>
+            </div>
+
+
+        </div>
+        <div class="loader-backdrop is-show"></div>
+    </div>
+    <header class="header_area" id="">
+        <div class="header_menu">
+            <!-- class="navbar-expand-xl" trigger hidden -->
+            <nav class="navbar">
+                <div class="container-fluid navbar__content">
+                    <!--MENU BUTTON -->
+                    <button id="navbar_toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Sidebar Menu 側邊選單-->
+                    <div class="navbarMenu collapse navbar-menu navbar-collapse offset" id="navbarMenu">
+                        <ul class="nav navbar-nav menu_nav no-gutters">
+                            <li class="nav-item navbarMenu__catagory">
+                                <ul class="catagory">
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="lobby.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon icon-mask icon-all"></i>
+                                            <span class="title language_replace">賭場</span>
+                                        </a>
+                                    </li>
+                                    <!-- <li class="nav-item submenu dropdown">
+                                        <a href="lobby.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-poker"></i>
+                                            <span class="title language_replace">撲克</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="lobby.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-real"></i>
+                                            <span class="title language_replace">真人</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="lobby.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-slot"></i>
+                                            <span class="title language_replace">SLOT</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-mahjong"></i>
+                                            <span class="title language_replace">麻將</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="lobby.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-sport"></i>
+                                            <span class="title language_replace">體育</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="lobby.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-ect"></i>
+                                            <span class="title language_replace">其他</span>
+                                        </a>
+                                    </li>                                    -->
+                                </ul>
+                            </li>
+                            <li class="nav-item navbarMenu__catagory">
+                                <ul class="catagory">
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="memberCenter.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-people"></i>
+                                            <span class="title language_replace">會員中心</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="record.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-wallet"></i>
+                                            <span class="title language_replace">錢包中心</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="memberCenter.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-calendar"></i>
+                                            <span class="title language_replace">履歷記錄</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-logo"></i>
+                                            <span class="title language_replace">關於我們</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-hot"></i>
+                                            <span class="title language_replace">熱門文章</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown"
+                                        onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
+                                        <a class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-QA"></i>
+                                            <span class="title language_replace">Q&A</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="activity.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-loudspeaker"></i>
+                                            <span class="title language_replace">活動</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="prize.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-prize"></i>
+                                            <span class="title language_replace">領獎</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="prize.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-word"></i>
+                                            <span class="title language_replace">客服信箱</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item submenu dropdown">
+                                <a class="nav-link" target="mainiframe">
+                                    <!-- <i class="icon icon2020-ico-login"></i> -->
+                                    <i class="icon icon-mask icon-logout"></i>
+                                    <span class="language_replace" langkey="登出">登出</span>
+                                </a>
+                            </li>
+                            <!-- <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown with Mask <span class="caret"></span></a>
+                                <ul class="dropdown-menu list-inline">
+                                  <li><strong>Tools:</strong></li>
+                                  <li><a class="btn btn-default" href="#">Foo</a></li>
+                                  <li><a class="btn btn-default" href="#">Bar</a></li>
+                                </ul>
+                              </li>                   -->
+
+                        </ul>
+                    </div>
+                    <!-- 頂部 NavBar -->
+                    <div class="header_topNavBar">
+                        <!-- 左上角 -->
+                        <div class="header_leftWrapper navbar-nav">
+                            <div class="navbar-brand">
+                                <div class="logo">
+                                    <a href="home.html" target="mainiframe"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 右上角 -->
+                        <div class="header_rightWrapper">
+                            <div class="header_setting">
+                                <ul class="nav header_setting_content">
+                                    <!-- Search -->
+                                    <li class="navbar-search nav-item">
+                                        <button type="button" class="btn btn-search" data-toggle="modal" data-target="#exampleModal">
+                                            <i class="icon icon-mask icon-search"></i>
+                                        </button>
+                                    </li>
+                                    <!-- ==== 登入前 ====-->
+                                    <li class="nav-item unLogIn_wrapper is-hide">
+                                        <ul class="horiz-list">
+                                            <li class="login">
+                                                <button class="btn-login btn " type="button">
+                                                    <span class="avater"><img src="images/avatar/avater-2.png" alt=""></span>
+                                                    <span class="title language_replace">ログイン</span>
+                                                </button>
+                                            </li>
+                                            <li class="register">
+                                                <button class="btn-register btn" type="button"><span class="title language_replace">登録</span></button>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!--  ==== 登入後 ====-->
+                                    <li class="nav-item logIned_wrapper ">
+                                        <!-- <li class="nav-item logIned_wrapper "> -->
+                                        <ul class="horiz-list">
+                                            <li class="nav-item ">
+                                                <span class="balance-container">
+                                                    <span class="balance-inner">
+                                                        <span class="game-coin">
+                                                            <!-- 未完成存款訂單小紅點 -->
+                                                            <span class="notify"><span class="notify-dot"></span></span>
+                                                            <img src="images/icon/coin-Ocoin.png" alt="">
+                                                        </span>
+                                                        <span class="balance-info">
+                                                            <span class="amount">999,999</span>
+                                                        </span>
+                                                        <button class="btn btn-deposit btn-full-stress" onclick="">
+                                                            <span class="icon icon-add"></span>
+                                                        </button>
+                                                    </span>
+                                                </span>
+                                                </span>
+                                            </li>
+                                            <!-- User 無下拉選項-->
+                                            <li class="nav-item submenu dropdown avater_wrapper">
+                                                <a href="memberCenter.html" class="btn nav-link btnDropDown" role="button" target="mainiframe">
+                                                    <span class="avater">
+                                                        <span class="avater-img">
+                                                            <img src="images/avatar/avater-2.png" alt="">
+                                                        </span>
+                                                        <span class="avater-name">elma@kingkey.com.tw</span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <!-- User 有下拉選項-->
+                                            <!-- <li class="nav-item submenu dropdown">
+                                                <a href="#" class="btn btn-round nav-link btnDropDown avater_wrapper"
+                                                    data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                    aria-expanded="false" id="dropdown_navbar_Member">
+                                                    <span class="avater"><img src="images/avatar/avater-2.png" alt=""></span>
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdown_navbar_Member">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link"
+                                                            href="home.html"
+                                                            target="mainiframe"><i class="icon icon-mask icon-user"></i><span class="language_replace">入金</span></a>
+
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link"
+                                                            href="home.html"
+                                                            target="mainiframe"><i class="icon icon-mask icon-user"></i><span class="language_replace">出金</span></a>
+
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link"
+                                                            href="home.html"
+                                                            target="mainiframe"><i class="icon icon-mask icon-user"></i><span class="language_replace">會員設定</span></a>
+
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link"
+                                                            href="home.html"
+                                                            target="mainiframe"><i class="icon icon-mask icon-user"></i><span class="language_replace">錢包中心</span></a>
+                                                    </li>
+                                                </ul>
+                                            </li> -->
+                                        </ul>
+                                    </li>
+                                    <!-- 語系 -->
+                                    <li class="nav-item lang_wrapper submenu dropdown">
+                                        <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage">
+                                            <!-- 語系 轉換 ICON -->
+                                            <i class="icon icon-mask icon-flag-JP"></i>
+                                            <!-- <i class="icon icon-mask icon-flag-EN"></i>
+                                            <i class="icon icon-mask icon-flag-ZH"></i> -->
+                                        </button>
+
+                                        <!-- 語系 有下拉選項-->
+                                        <!-- <a href="#" class="btn btn-round nav-link btnDropDown"
+                                            data-toggle="dropdown" role="button" aria-haspopup="true"
+                                            aria-expanded="false" id="dropdown_navbar_Lang">
+                                            <i class="icon icon-mask icon-flag-JP"></i></a>
+                                        </a>
+                                         <ul class="dropdown-menu" aria-labelledby="dropdown_navbar_Lang">
+                                            <li class="nav-item">
+                                                <a class="nav-link language_replace"
+                                                    href="UserAccount_Add.html"
+                                                    target="mainiframe">日語</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link language_replace"
+                                                    href="UserAccountAgentMulti_Login.html"
+                                                    target="mainiframe">英</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link language_replace"
+                                                    href="UserAccountAgentMulti_Login.html"
+                                                    target="mainiframe">繁中</a>
+                                            </li>
+                                        </ul> -->
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="mask_overlay" class="mask_overlay"></div>
+    </header>
+
+    <div class="main_area">
+        <iframe frameborder="0" marginwidth="0" marginheight="0" src="record.html" class="mainIframe" name="mainiframe"></iframe>
+    </div>
+    <!-- Modal Language -->
+    <div class="modal fade footer-center" id="ModalLanguage" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><span class="language_replace">言語を選択してください</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="lang-popup-wrapper">
+                        <ul class="lang-popup-list">
+                            <li class="lang-item custom-control custom-radioValue-lang">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden" checked>
+                                    <div class="custom-input radio-button">
+                                        <span class="flag JP"><i class="icon icon-mask icon-flag-JP"></i></span>
+                                        <span class="name">日本文</span>
+                                    </div>
+                                </label>
+                            </li>
+                            <li class="lang-item custom-control custom-radioValue-lang">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
+                                    <div class="custom-input radio-button">
+                                        <span class="flag EN"><i class="icon icon-mask icon-flag-EN"></i></span>
+                                        <span class="name">English</span>
+                                    </div>
+                                </label>
+                            </li>
+                            <li class="lang-item custom-control custom-radioValue-lang">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
+                                    <div class="custom-input radio-button">
+                                        <span class="flag ZH"><i class="icon icon-mask icon-flag-ZH"></i></span>
+                                        <span class="name">繁體中文</span>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">確定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Search -->
+    <div class="modal fade no-footer" id="exampleModal" tabindex="-1" aria-hidden="true" style="display: ;">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title"></h5> -->
+                    <div class="searchFilter-wrapper">
+                        <div class="searchFilter-item input-group">
+                            <input type="text" class="form-control" language_replace="placeholder" placeholder="請輸入關鍵字">
+                            <label for="" class="form-label"><span class="language_replace">請輸入關鍵字</span></label>
+                        </div>
+                        <div class="searchFilter-item input-group">
+                            <select class="custom-select">
+                                <option class="title" selected><span class="language_replace">遊戲品牌</span></option>
+                                <option class="searchFilter-option" value=""><span class="language_replace">PG</span></option>
+                            </select>
+                        </div>
+                        <div class="searchFilter-item input-group">
+                            <select class="custom-select">
+                                <option class="title" selected><span class="language_replace">遊戲類型</span></option>
+                                <option class="searchFilter-option" value=""><span class="language_replace">真人</span></option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-sm"><span class="">搜尋</span></button>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="game-search-wrapper">
+                        <div class="search-result-wrapper">
+                            <div class="search-result-inner">
+                                <div class="search-result-list">
+                                    <div class="game-item-group list-row row">
+                                        <div class="game-item col-auto">
+                                            <div class="game-item-inner">
+                                                <div class="game-item-img">
+                                                    <span class="game-item-link"></span>
+                                                    <div class="img-wrap">
+                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                    </div>
+                                                </div>
+                                                <div class="game-item-info">
+                                                    <div class="game-item-info-inner">
+                                                        <div class="game-item-info-brief">
+                                                            <div class="game-item-info-pre">
+                                                                <h3 class="gameName">バタフライブロッサムバタフライブロッサムバタフライブロッサムバタフライブロッサム</h3>
+                                                            </div>
+                                                            <div class="game-item-info-moreInfo">
+                                                                <ul class="moreInfo-item-wrapper">
+                                                                    <!-- <li class="moreInfo-item gamecode">
+                                                                        <span class="title">NO.</span>
+                                                                        <span class="value number">00976</span>
+                                                                    </li> -->
+                                                                    <li class="moreInfo-item brand">
+                                                                        <h4 class="value">evolution</h3>
+                                                                    </li>
+                                                                    <li class="moreInfo-item RTP">
+                                                                        <span class="title">RTP</span>
+                                                                        <span class="value number">96.66</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="game-item-info-indicator">
+                                                            <div class="action">
+                                                                <div class="btn-s-wrapper">
+                                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                                        <i class="icon icon-thumup"></i>
+                                                                    </button>
+                                                                    <button type="button" class="btn-like btn btn-round">
+                                                                        <i class="icon icon-favorite"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <button type="button" class="btn btn-play">
+                                                                    <span class="language_replace title">プレイ</span><i class="triangle"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="game-item col-auto">
+                                            <div class="game-item-inner">
+                                                <div class="game-item-img">
+                                                    <span class="game-item-link"></span>
+                                                    <div class="img-wrap">
+                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                    </div>
+                                                </div>
+                                                <div class="game-item-info">
+                                                    <div class="game-item-info-inner">
+                                                        <div class="game-item-info-brief">
+                                                            <div class="game-item-info-pre">
+                                                                <h3 class="gameName">バタフライブロ</h3>
+                                                            </div>
+                                                            <div class="game-item-info-moreInfo">
+                                                                <ul class="moreInfo-item-wrapper">
+                                                                    <li class="moreInfo-item brand">
+                                                                        <h4 class="value">evolution</h3>
+                                                                    </li>
+                                                                    <li class="moreInfo-item RTP">
+                                                                        <span class="title">RTP</span>
+                                                                        <span class="value number">96.66</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="game-item-info-indicator">
+                                                            <div class="action">
+                                                                <div class="btn-s-wrapper">
+                                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                                        <i class="icon icon-thumup"></i>
+                                                                    </button>
+                                                                    <button type="button" class="btn-like btn btn-round">
+                                                                        <i class="icon icon-favorite"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <button type="button" class="btn btn-play">
+                                                                    <span class="language_replace title">プレイ</span><i class="triangle"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="game-item">
+                                            <!-- <div class="game-item-inner">
+                                                <div class="game-item-focus">
+                                                    <div class="game-item-img">
+                                                        <span class="game-item-link"></span>
+                                                        <div class="img-wrap">
+                                                            <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                        </div>
+                                                    </div>
+                                                    <div class="game-item-info-detail">
+                                                        <div class="game-item-info-detail-wrapper">
+                                                            <div class="game-item-info-detail-moreInfo">
+                                                                <ul class="moreInfo-item-wrapper">
+                                                                    <li class="moreInfo-item brand">
+                                                                        <span class="title">メーカー</span>
+                                                                        <span class="value">PG</span>
+                                                                    </li>
+                                                                    <li class="moreInfo-item RTP">
+                                                                        <span class="title">RTP</span>
+                                                                        <span class="value number">96.66</span>
+                                                                    </li>
+                                                                    <li class="moreInfo-item gamecode">
+                                                                        <span class="title">NO.</span>
+                                                                        <span class="value number">00976</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="game-item-info-detail-indicator">
+                                                                <div class="game-item-info-detail-indicator-inner">
+                                                                    <div class="info">
+                                                                        <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                                    </div>
+                                                                    <div class="action">
+                                                                        <div class="btn-s-wrapper">
+                                                                            <button type="button" class="btn-thumbUp btn btn-round">
+                                                                                <i class="icon icon-thumup"></i>
+                                                                            </button>
+                                                                            <button type="button" class="btn-like btn btn-round">
+                                                                                <i class="icon icon-favorite"></i>
+                                                                            </button>
+                                                                            <button type="button" class="btn-more btn btn-round">
+                                                                                <i class="arrow arrow-down"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                        <button type="button" class="btn btn-play">
+                                                                            <span class="language_replace">プレイ</span><i class="triangle"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div> -->
+                                        </div>
+                                    </div>
+
+                                    <!-- 舊的  -->
+                                    <!-- <div class="game-item-group list-grid">
+                                         <div class="game-item">
+                                             <div class="game-item-inner">
+                                                 <div class="game-item-focus">
+                                                     <div class="game-item-img">
+                                                         <span class="game-item-link"></span>
+                                                         <div class="img-wrap">
+                                                             <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                                 <div class="game-item-info">
+                                                     <div class="game-item-info-inner">
+                                                         <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                     </div>
+                                                 </div>
+
+                                             </div>
+                                         </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <footer class="footer"></footer> -->
+    <!-- mask_overlay 黑色半透明遮罩-->
+    <div id="mask_overlay_popup" class="mask_overlay_popup"></div>
+    </div>
+    <!--=========JS========-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script src="js/theme.js"></script>
+</body>
+</html>

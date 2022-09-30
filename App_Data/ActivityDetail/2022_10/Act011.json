@@ -1,0 +1,41 @@
+{
+  "Name": "Act011",
+  "State": 0,
+  "StartDate": "2022/10/01 11:00:00",
+  "EndDate": "2022/11/01 11:00:00",
+  "IntroPath": "",
+  "Title": "十月限定入金キャンペーン",
+  "SubTitle": "入金還元プラン大好評復活！銀行振込は2倍！",
+  "Rate1Title": "入金還元プラン大好評復活！銀行振込は2倍！",
+  "Rate1SubTitle": "",
+  "Rate2Title": "入金還元プラン大好評復活！銀行振込は2倍！",
+  "Rate2SubTitle": "",
+  "CollectAreaType": "1",
+  "Rate1": [
+    {
+      "PaymentCode": "EWINPAY",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    }
+  ],
+  "Rate2": [
+    {
+      "PaymentCode": "EWINPAY",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    }
+  ],
+  "Rate3": [
+    {
+      "PaymentCode": "EWINPAY",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.3
+    }
+  ]
+}

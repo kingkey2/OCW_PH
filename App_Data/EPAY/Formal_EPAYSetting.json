@@ -1,0 +1,8 @@
+{
+  "ApiUrl": "https://ewin-pay.com/api/Gate/",
+  "CompanyCode": "OCW_JPY",
+  "ApiKey": "2cef3173aaeb421993e29ff36b3824c0",
+  "ServiceType": "JOOB01",
+  "CyrrencyType": "JPY",
+  "ProviderIP": [ "43.132.149.133" ]
+}

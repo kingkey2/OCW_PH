@@ -1,0 +1,19 @@
+﻿{
+  "存款": "deposit",
+  "完成": "complete",
+  "存款完成": "Payment is complete",
+  "您存款的金額已經追加至您的錢包!": "Your deposit amount has been added to your wallet",
+  "交易時間": "Trading time",
+  "本次存款金額": "This deposit amount",
+  "手續費": "commission",
+  "合計": "total",
+  "至": "to",
+  "錢包": "wallet",
+  "查看交易紀錄": "Search transaction records",
+  "回到首頁": "back to homepage",
+  "繼續存款": "Continue Deposit",
+  "存款成功 !": "Successful deposit",
+  "您可進入遊戲確認您本次的入金，以及對應的 Bouns 獎勵。": "Enter the game and check this deposit and earned bonus",
+  "溫馨提醒": "remind",
+  "不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。": "Different deposit method may affect when the deposit amount reaches the player's wallet. One business day at the latest is a reasonable range."
+}

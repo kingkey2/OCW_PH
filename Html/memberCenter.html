@@ -1,0 +1,437 @@
+﻿<!doctype html>
+<html lang="zh-Hant-TW" class="innerHtml">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Maharaja</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/basic.min.css">
+  <link rel="stylesheet" href="js/vendor/swiper/css/swiper-bundle.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/member.css">
+</head>
+<body class="innerBody">
+    <main class="innerMain">
+        <div class="page-content">
+            <div class="container">
+                <article class="article-member-center">
+                    <!-- 個人資料 -->
+                    <section class="section-member-profile">
+                        <div class="member-profile-avater-wrapper">
+                            <span class="avater">
+                                <span class="avater-img">
+                                    <img src="images/avatar/avater-2.png" alt="">
+                                </span>
+                                <button type="button" class="btn btn-round btn-full-main btn-exchange-avater" data-toggle="modal" data-target="#ModalAvatar"><i class="icon icon-mask icon-camera "></i>
+                            </span>
+                            </button>
+                            </span>
+                        </div>
+                        <div class="member-profile-data-wrapper dataList">
+                            <fieldset class="dataFieldset">
+                                <legend class="sec-title-container sec-title-member">
+                                    <div class="sec-title-wrapper">
+                                        <h1 class="sec-title title-deco"><span class="language_replace">アカウント情報</span></h1>
+                                    </div>
+                                    <!-- 資料更新 Button-->
+                                    <button type="button" class="btn btn-edit btn-full-main"><i class="icon icon-mask icon-pencile"></i></button>
+                                </legend>
+
+                                <!-- 當點擊 資料更新 Button時 text input可編輯的項目 會移除 readonly-->
+                                <div class="dataFieldset-content row no-gutters">
+                                    <div class="data-item name">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-people"></i>
+                                                <span class="title-name language_replace">名前</span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="text" class="custom-input-edit" value="elma2" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="data-item-group group-password">
+                                        <div class="data-item password" style="display: ;">
+                                            <div class="data-item-title">
+                                                <label class="title">
+                                                    <i class="icon icon-mask icon-lock-closed"></i>
+                                                    <span class="title-name language_replace">舊密碼</span>
+                                                </label>
+                                            </div>
+                                            <div class="data-item-content">
+                                                <input type="password" class="custom-input-edit" id="idOldPassword" value="">
+                                            </div>
+                                        </div>
+                                        <div class="data-item password" style=" display: ;">
+
+                                            <div class="data-item-title">
+                                                <label class="title">
+                                                    <i class="icon icon-mask icon-lock-closed"></i>
+                                                    <span class="title-name language_replace">新密碼</span>
+                                                </label>
+                                            </div>
+                                            <div class="data-item-content">
+                                                <input type="password" class="custom-input-edit" id="idNewPassword" value="">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="data-item birth">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-gift"></i>
+                                                <span class="title-name language_replace">誕生日</span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="text" class="custom-input-edit" value="1990/01/01" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="data-item currency">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-coin"></i>
+                                                <span class="title-name language_replace">通貨</span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="text" class="custom-input-edit" value="USD" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="data-item mobile">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-mobile"></i>
+                                                <span class="title-name language_replace">携帯番号</span>
+                                            </label>
+                                            <div class="labels labels-status">
+                                                <span class="label language_replace update">更新</span>
+                                                <span class="label language_replace validated">驗證</span>
+                                                <span class="label language_replace unvalidated">未驗證</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="text" class="custom-input-edit" value="080-1224-1241" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="data-item email">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-mail"></i>
+                                                <span class="title-name language_replace">メールアドレス</span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="text" class="custom-input-edit" value="amamiya_kokoro@gmail.com" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="data-item-group">
+                                        <div class="data-item home">
+                                            <div class="data-item-title">
+                                                <label class="title">
+                                                    <i class="icon icon-mask icon-location"></i>
+                                                    <span class="title-name language_replace">住所</span>
+                                                </label>
+                                            </div>
+                                            <div class="data-item-content">
+                                                <input type="text" class="custom-input-edit" value="〒100-0014　東京都千代田区永田町2-14-3" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="data-item news">
+                                            <div class="data-item-title">
+                                                <label class="title">
+                                                    <i class="icon icon-mask icon-flag"></i>
+                                                    <span class="title-name language_replace">メッセージ通知</span>
+                                                </label>
+                                            </div>
+                                            <div class="data-item-content">
+                                                <div class="custom-control custom-checkboxValue custom-control-inline">
+                                                    <label class="custom-label">
+                                                        <input type="checkbox" class="custom-control-input-hidden" checked="checked">
+                                                        <div class="custom-input checkbox"><span class="language_replace">最新のイベント情報を受信できるようにする</span></div>
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="wrapper_center">
+                                            <button type="button" class="btn btn-confirm btn-full-stress-2"><span class="language_replace">確認</span></button>
+                                        </div>
+                                        <div class="data-item qrcode">
+                                            <div class="data-item-title">
+                                                <label class="title">
+                                                    <i class="icon icon-mask icon-qrocde"></i>
+                                                    <span class="title-name language_replace">招待コード</span>
+                                                </label>
+                                            </div>
+                                            <div class="data-item-content">
+                                                <div class="member-profile-QRcode">
+                                                    <div class="qrcode-img">
+                                                        <span class="img">
+                                                            <img src="images/member/member-qrcode.png" alt="">
+                                                        </span>
+                                                    </div>
+                                                    <div class="qrcode-number">
+                                                        <span class="number">N65015747161991</span>
+
+                                                        <button type="button" class="btn btn-transparent btn-exchange-avater">
+                                                            <i class="icon icon-mask icon-copy"></i></span>
+                                                        </button>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </section>
+
+                    <!-- 會員簽到進度顯示 + 活動中心 -->
+                    <section class="section-member-activity">
+                        <!-- 會員簽到進度顯示 -->
+                        <div class="activity-dailylogin-wrapper">
+                            <div class="dailylogin-bouns-wrapper">
+                                <div class="dailylogin-bouns-inner">
+                                    <div class="dailylogin-bouns-content">
+                                        <h3 class="title">
+                                            <span class="name ">ログイン毎日の賞</span>
+                                        </h3>
+                                        <ul class="dailylogin-bouns-list">
+                                            <!-- 已領取 bouns => got-->
+                                            <li class="bouns-item got">
+                                                <span class="day"><span class="language_replace">金</span></span>
+                                            </li>
+                                            <li class="bouns-item saturday">
+                                                <span class="day"><span class="language_replace">土</span></span>
+                                            </li>
+                                            <li class="bouns-item sunday">
+                                                <span class="day"><span class="language_replace">日</span></span>
+                                            </li>
+                                            <li class="bouns-item">
+                                                <span class="day"><span class="language_replace">月</span></span>
+                                            </li>
+                                            <li class="bouns-item">
+                                                <span class="day"><span class="language_replace">火</span></span>
+                                            </li>
+                                            <li class="bouns-item">
+                                                <span class="day"><span class="language_replace">水</span></span>
+                                            </li>
+                                            <li class="bouns-item">
+                                                <span class="day"><span class="language_replace">木</span></span>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 活動中心 -->
+                        <div class="activity-center-wrapper" onclick="location.href='activity.html';">
+                            <div class="activity-center-inner">
+                                <div class="title">キャンペーン</div>
+                            </div>
+                        </div>
+
+                    </section>
+
+
+                    <!-- 會員錢包中心 - 入金 + 履歷紀錄 / 出金 -->
+                    <section class="section-member-wallet-transaction">
+                        <div class="member-wallet-deposit-wrapper">
+                            <!-- 錢包中心 -->
+                            <div class="member-wallet-wrapper">
+                                <div class="member-wallet-inner">
+                                    <div class="member-wallet-contnet">
+                                        <h3 class="member-wallet-title">メインウォレット</h3>
+                                        <div class="member-wallet-amount">
+                                            <span class="unit">Ocoin</span>
+                                            <div class="member-deposit">
+                                                <span class="amount">999,999,999</span>
+                                                <!-- 入金 Button -->
+                                                <span class="btn btn-deposit btn-full-stress btn-round"><i class="icon icon-add"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 履歷紀錄 -->
+                                    <div class="member-record-wrapper">
+                                        <div class="btn" onclick="location.href='record.html';">
+                                            <div class="member-record-title">
+                                                <i class="icon icon-mask icon-list-time"></i><h3 class="title language_replace">履歷紀錄</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 出金門檻: class判斷=> 不足:lacking  足夠:enough-->
+                        <div class="member-withdraw-wrapper lacking">
+                            <div class="member-withdraw-limit-wrapper">
+                                <div class="member-withdraw-limit-inner ">
+                                    <i class="icon icon-mask icon-lock"></i>
+                                    <span class="member-withdraw-limit-content">
+                                        <!-- 出金門檻 不足-->
+                                        <span class="title lacking">出金ロック解除まで</span>
+                                        <!-- 出金門檻 足夠-->
+                                        <span class="title enough">ゴールドアウト</span>
+                                        <!-- 出入金說明 -->
+                                        <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
+                                        <!-- 出金門檻 -->
+                                        <span class="limit-amount">999,999,999</span>
+                                    </span>
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </div>
+    </main>
+    <footer class="footer"></footer>
+    <!-- Modal - Game Info for Mobile Device-->
+    <div class="modal fade no-footer popupGameInfo " id="popupGameInfo" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="game-info-mobile-wrapper gameinfo-pack-bg">
+                        <div class="game-item">
+                            <div class="game-item-inner">
+                                <div class="game-item-focus">
+                                    <div class="game-item-img">
+                                        <span class="game-item-link"></span>
+                                        <div class="img-wrap">
+                                            <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                        </div>
+                                    </div>
+                                    <div class="game-item-info-detail open">
+                                        <div class="game-item-info-detail-wrapper">
+                                            <div class="game-item-info-detail-moreInfo">
+                                                <ul class="moreInfo-item-wrapper">
+                                                    <li class="moreInfo-item brand">
+                                                        <span class="title">メーカー</span>
+                                                        <span class="value">PG</span>
+                                                    </li>
+                                                    <li class="moreInfo-item RTP">
+                                                        <span class="title">RTP</span>
+                                                        <span class="value number">96.66</span>
+                                                    </li>
+                                                    <li class="moreInfo-item gamecode">
+                                                        <span class="title">NO.</span>
+                                                        <span class="value number">00976</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="game-item-info-detail-indicator">
+                                                <div class="game-item-info-detail-indicator-inner">
+                                                    <div class="info">
+                                                        <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                    </div>
+                                                    <div class="action">
+                                                        <div class="btn-s-wrapper">
+                                                            <button type="button" class="btn-thumbUp btn btn-round">
+                                                                <i class="icon icon-thumup"></i>
+                                                            </button>
+                                                            <button type="button" class="btn-like btn btn-round">
+                                                                <i class="icon icon-favorite"></i>
+                                                            </button>
+                                                            <button type="button" class="btn-more btn btn-round">
+                                                                <i class="arrow arrow-down"></i>
+                                                            </button>
+                                                        </div>
+                                                        <button type="button" class="btn btn-play">
+                                                            <span class="language_replace">プレイ</span><i class="triangle"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Language -->
+    <div class="modal fade footer-center" id="ModalAvatar" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><span class="language_replace">言語を選択してください</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="lang-popup-wrapper">
+                        <ul class="lang-popup-list">
+                            <li class="lang-item custom-control custom-radioValue-lang">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden" checked>
+                                    <div class="custom-input radio-button">
+                                        <span class="flag JP"><i class="icon icon-mask icon-flag-JP"></i></span>
+                                        <span class="name">日本文</span>
+                                    </div>
+                                </label>
+                            </li>
+                            <li class="lang-item custom-control custom-radioValue-lang">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
+                                    <div class="custom-input radio-button">
+                                        <span class="flag EN"><i class="icon icon-mask icon-flag-EN"></i></span>
+                                        <span class="name">English</span>
+                                    </div>
+                                </label>
+                            </li>
+                            <li class="lang-item custom-control custom-radioValue-lang">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
+                                    <div class="custom-input radio-button">
+                                        <span class="flag ZH"><i class="icon icon-mask icon-flag-ZH"></i></span>
+                                        <span class="name">繁體中文</span>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">確定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--===========JS========-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
+    <script src="js/theme.js"></script>
+</body>
+
+</html>

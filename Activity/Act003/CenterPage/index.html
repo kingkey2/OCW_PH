@@ -1,0 +1,361 @@
+
+<!doctype html>
+<html class="">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.css" />
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>-->
+    <style>
+        .act-wrapper {
+            margin: 0 auto;
+            padding: 0 5%;
+            color: #666;
+            font-family: 'Noto Sans JP', sans-serif !important;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+        }
+
+        .section-wrap p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #555;
+            margin-left: 25px;
+        }
+
+        .act-title {
+            width: 100%;
+            margin: 10px auto !important;
+            color: #0185FF !important;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .act-subtitle {
+            font-size: 1.2em;
+            color: #0185FF !important;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .activity-popup-detail-content .section-wrap-title:before {
+            width: 10px;
+            height: 14px;
+        }
+
+        .act-notice {
+            color: #666;
+        }
+
+        .mark-red {
+            color: #940202;
+            font-weight: bold;
+        }
+
+        .day-login {
+            list-style-type: none;
+            width: 100%;
+            margin: 0 auto;
+            /* max-width: 720px; */
+        }
+
+            .day-login li {
+                float: left;
+                width: 50%;
+            }
+
+                .day-login li img {
+                    width: 100%;
+                }
+
+        @media screen and (min-width: 768px) {
+            .day-login li {
+                width: 20%;
+            }
+
+                .day-login li img {
+                    width: 100%;
+                }
+        }
+    </style>
+</head>
+<body>
+
+    <script type="text/javascript">
+        function init3() {
+            sleep(500).then(function () {
+                new Swiper(".mySwiper", {
+                    slidesPerView: 1,
+                    autoplay: {
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true,
+                    },
+                });
+            });
+
+        }
+
+        function goRolling() {
+            window.top.API_LoadPage('QA', "/Article/guide_Rolling.html");
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        window.onload = init3();
+    </script>
+    <!-- 設定 Swiper -->
+    <!-- 活動 Banner Start "activity-popup-detail-img" ====-->
+    <div class="activity-popup-detail-img">
+        <img src="/Activity/Act003/CenterPage/img/activity-popup-b-01.jpg" class="desktop" alt="">
+        <img src="/Activity/Act003/CenterPage/img/activity-popup-b-m-01.jpg" class="mobile" alt="">
+    </div>
+    <!-- 活動 Banner END ===================-->
+
+
+    <div class="act-wrapper">
+        <section class="section-wrap">
+
+            <p class="act-title">デイリーミッションキャンペーンリニューアル登場！女神様のご命令で、この狛犬大吉が勤勉なマハラジャ全会員に豊かなデイリーミッションギフトマネーをプレゼントするぞ！</p>
+            <!--活動期間
+            <h3>【 キャンペーン期間 】</h3>-->
+            <!--每日登入顯示區域
+                   <div class="calendar-dailylogin">
+                       <div class="calendar-item-container">
+                           <div class="calendar-head week">
+                               <div class="head-item">
+                                   <span class="name"><span class="language_replace">金</span></span></div>
+                               <div class="head-item saturday">
+                                   <span class="name"><span class="language_replace">土</span></span>
+                               </div>
+                               <div class="head-item sunday">
+                                   <span class="name"><span class="language_replace">日</span></span></div>
+                               <div class="head-item">
+                                   <span class="name"><span class="language_replace">月</span></span>
+                               </div>
+                               <div class="head-item">
+                                   <span class="name"><span class="language_replace">火</span></span></div>
+                               <div class="head-item">
+                                   <span class="name"><span class="language_replace">水</span></span>
+                               </div>
+                               <div class="head-item">
+                                   <span class="name"><span class="language_replace">木</span></span>
+                               </div>
+                           </div>
+                           <div class="calendar-body day">
+
+                               <div class="body-item got">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">1</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">2</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">3</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">4</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">5</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">6</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">7</div>
+                               </div>
+
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">8</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">9</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">10</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">11</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">12</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">13</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">14</div>
+                               </div>
+
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">15</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">16</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">17</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">18</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">19</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">20</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">21</div>
+                               </div>
+
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">22</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">23</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">24</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">25</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">26</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">27</div>
+                               </div>
+                               <div class="body-item">
+                                   <div class="body-item-link">
+                                   </div>
+                                   <div class="date">28</div>
+                               </div>
+                           </div>
+                   </div>-->
+            <!--活動流程
+            <h3>【 デイリーミッションの流れ 】</h3>
+            <ul class="day-login">
+                    <li><a href="#" target="_self"><img src="/Activity/Act003/CenterPage/img/step01.png" alt="" width=""
+                                height=""></a></li>
+                    <li><img src="/Activity/Act003/CenterPage/img/step02.png" alt="" width="" height=""></li>
+                    <li><img src="/Activity/Act003/CenterPage/img/step03.png" alt="" width="" height=""></li>
+                    <li><a href="#" target="_self"><img src="/Activity/Act003/CenterPage/img/step04.png" alt="" width=""
+                                height=""></a></li>
+                    <li><a href="#" target="_self"><img src="/Activity/Act003/CenterPage/img/step05.png" alt="" width=""
+                                height=""></a></li>
+                </ul>
+            <div style="clear: both;"></div>
+            <p align="center" style="color: #003DD6;font-size: 1rem; margin-top: 1rem;">※STEP4 ~ 5 金曜日~木曜日</p>
+            -->
+            <!--活動內容-->
+            <!-- 圖片輪播 Swiper-->
+
+            <div class="swiper-container mySwiper" style="text-align: center;">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="/Activity/Act003/CenterPage/img/step01.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="/Activity/Act003/CenterPage/img/step02.gif" alt=""></div>
+                    <div class="swiper-slide"><img src="/Activity/Act003/CenterPage/img/step03.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="/Activity/Act003/CenterPage/img/step04.jpg" alt=""></div>
+                </div>
+                <!-- <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div> -->
+                <div class="swiper-pagination"></div>
+            </div>
+            <h3>【 デイリーミッションの流れ 】</h3>
+            <p>1. ログインし、任意のゲームをプレイ。</p>
+            <p>2. 毎日20,000 ローリングを達成し、デイリーミッションギフトマネーを貯める。</p>
+            <p><a href="#" onclick="goRolling()"  style="color: red;"><img src="/Activity/Act003/CenterPage/img/qa.png" alt="">※ローリングとは？</a></p>
+            <p>3. 金曜日に「ボーナス受取り」でギフトマネーがもらえる。</p>
+            <p style="color: red;">注：2022/08/12 から新しいルールを適用。2022/08/05 ~ 2022/08/11に貯まったギフトマネーはその金額の3倍を入金することが必要です。</p>
+
+            <h3>【 ルール説明 】</h3>
+            <p>1.デイリーミッションをクリアすれば、一日につき1,000ギフトマネーが貯まれます。七日皆勤すれば、さらに3,000ギフトマネーが貯まります。</p>
+            <p>例1：デイリーミッションを三日クリアした大吉は、金曜日に「ボーナス受け取り」で3,000ギフトマネーがもらえます。</p>
+            <p>例2：デイリーミッションを七日クリアした四葉は、金曜日に「ボーナス受け取り」で7,000ギフトマネー+3,000皆勤ギフトマネー、合計10,000ギフトマネーがもらえます。</p>
+            <p>2. 毎週金曜日の05：00AMから、先週貯まったデイリーミッションギフトマネーを受け取ることができます。</p>
+            
+            <p>3. ギフトマネーは90日間保留できます。</p>
+            
+            <p>4. 受け取った後、出金制限のローリングはデイリーミッションギフトマネーの20倍が追加されます。</p>
+            
+            <span style="margin-bottom: 0.875rem;"></span>
+
+            <!--注意事項-->
+            <h3 class="section-wrap-title">【 注意事項 】</h3>
+            <p class="act-notice">
+                1. ゲーム記録の反映に遅延が生じる場合がございます。その遅延でキャンペーンの計算に誤りが起こらないように、なるべく23：50までに、その日のローリングを達成してください。
+            </p>
+            <p class="act-notice">2. 本キャンペーンで受け取ったギフトマネーはOCoin本金と一緒に使うことができます。</p>
+            <p class="act-notice">3. 同一アカウント・電話番号・IPアドレス・共有PC・ネット環境につき、毎週一回のみミッションに参加できます。</p>
+            <p class="act-notice">4. 公正なゲーム環境を確保するため、不正行為でゲームしたり、ほかの会員を妨害したりし、ゲーム規約に違反したことが確された場合、該当アカウントを凍結させていただきます。</p>
+            <p class="act-notice">5. マハラジャはキャンペーンの修正およびキャンセルする権利を留保します。</p>
+        </section>
+
+    </div>
+
+</body>
+</html>
+
+

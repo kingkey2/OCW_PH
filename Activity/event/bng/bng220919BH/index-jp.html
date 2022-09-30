@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="/Activity/event/basic.css">
+<link rel="stylesheet" href="/Activity/event/bng/bng220919BH/index.css">
+<!-- <link rel="stylesheet" href="/Activity/event/bng/09092022moonfestival/index.css"> -->
+<!-- 活動 Banner Start "activity-popup-detail-img" ====-->
+<div class="activity-popup-detail-img">
+    <img src="/Activity/event/bng/bng220919BH/img/img-w.jpg" class="desktop" alt="">
+    <img src="/Activity/event/bng/bng220919BH/img/img-act.jpg" class="mobile" alt="">
+</div>
+<!-- 活動 Banner END ===================-->
+
+<div class="section-act-wrapper">
+    <article class="article-act">
+        <p class="act-title act-intro">まほう怪盗襲来！この大吉と一緒にランキング上位を狙い、高額のギフトマネーに挑戦してみよう！</p>
+        <p class="act-title"></p>
+
+        <!--活動期間-->
+        <section class="section-act-wrap">
+            <h3 class="section-act-title">【 キャンペーン期間 】</h3>
+            <div class="section-act-content">
+                <p>2022/09/19 13:00 ~ 2022/09/21 13:00 (UTC+9)</p>
+            </div>
+        </section>
+
+        <!--活動內容-->
+        <section class="section-act-wrap">
+            <h3 class="section-act-title">【 キャンペーン内容 】</h3>
+            <div class="section-act-content">
+                <p>キャンペーン期間中にブン―ゴーの対象ゲーム（ビッグハイスト）でベットし、ポイントを貯め、ランキング上位を狙えば、高額のギフトマネーがもらえます。</p>
+            </div>
+        </section>
+
+        <!--活動規則-->
+        <section class="section-act-wrap">
+            <p class="btn-wrap">
+                <a id="btn1" href=""
+                   class="act-Button" target="_blank">キャンペーン詳細及びルール説明</a>
+            </p>
+        </section>
+
+        <!--活動對象遊戲-->
+        <section class="section-act-wrap">
+            <h3 class="section-act-title">【 対象ゲーム 】</h3>
+            <ul class="act-game-list row justify-content-center">
+                <li class="act-game-item"><a onclick="window.parent.openGame('BNG','274','ビッグハイスト')"><span class="img-crop"><img src="Activity/event/bng/bng220919BH/img/icon/274.png" alt="ビッグハイスト" title="ビッグハイスト"></span></a></li>
+            </ul>
+        </section>
+
+        <!--注意事項-->
+        <section class="section-act-wrap">
+            <h3 class="section-act-wrap-title">【 注意事項 】</h3>
+            <div class="section-act-content">
+                <ul class="act-notice-list">
+                    <li class="act-notice-item">1. プレイヤーがランキングの資格を得ると、キャンペーン期間中のすべての有効な賭けラウンドがポイント計算に含まれます。</li>
+                    <li class="act-notice-item">2. ポイントは小数点以下第2位に四捨五入して計算します。</li>
+                    <li class="act-notice-item">3. このキャンペーンに参加できるのは、有効なベットラウンドのみです。</li>
+                    <li class="act-notice-item">4. 同一アカウント・電話番号・IPアドレス・共有PC・ネット環境につき、一回のみ参加できます。</li>
+                    <li class="act-notice-item">5. 公正なゲーム環境を確保するため、不正行為でゲームしたり、ほかの会員を妨害したりし、ゲーム規約に違反したことが確認された場合、該当アカウントを凍結させていただきます。</li> 
+                    <li class="act-notice-item">6. マハラジャはキャンペーンの修正およびキャンセルする権利を留保します。</li>
+                </ul>
+            </div>
+        </section>
+    </article>
+</div>
+
+
+<script>
+    function init() {
+        var SID = window.top.EWinWebInfo.SID;
+        var btn = document.getElementById("btn1");
+        if (SID != "") {
+            btn.setAttribute('href', "/OpenBNGActivity.aspx?SID=" + window.top.EWinWebInfo.SID + "&event=202209BH");
+        } else {
+            btn.setAttribute('href', "/OpenBNGActivity.aspx?event=202209BH");
+        }
+    }
+
+    window.onload = init();
+</script>

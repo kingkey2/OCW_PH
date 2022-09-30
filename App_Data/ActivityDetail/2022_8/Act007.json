@@ -1,0 +1,293 @@
+{
+  "Name": "Act007",
+  "State": 0,
+  "StartDate": "2022/07/01 11:00:00",
+  "EndDate": "2022/09/01 11:00:00",
+  "IntroPath": "",
+  "Title": "八月限定入金キャンペーン",
+  "SubTitle": "史上最大還元キャンペーン！方法問わず、毎回入金最大100,000 Ocoin還元！",
+  "Rate1Title": "一回目の入金ボーナスは100％、上限100,000 Ocoinまで 。",
+  "Rate1SubTitle": "",
+  "Rate2Title": "二回目以降の入金ボーナスは50％、上限100,000 Ocoinまで 。",
+  "Rate2SubTitle": "",
+  "CollectAreaType": "1",
+  "Rate1": [
+    {
+      "PaymentCode": "HLN",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "JKC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "XRP",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "ETH",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "Paypal",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "USDT",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "USDC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "BTC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "USDC_TRC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "USDT_TRC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "EWINPAY",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "JKCCASH",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "JOOB01",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    }
+  ],
+  "Rate2": [
+    {
+      "PaymentCode": "HLN",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "JKC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "XRP",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "ETH",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "Paypal",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "USDT",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "USDC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "BTC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "USDC_TRC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "USDT_TRC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "EWINPAY",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "JKCCASH",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "JOOB01",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    }
+  ],
+  "Rate3": [
+    {
+      "PaymentCode": "HLN",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "JKC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "XRP",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "ETH",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "Paypal",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "USDT",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "USDC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "BTC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "USDC_TRC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "USDT_TRC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "EWINPAY",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "JKCCASH",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "JOOB01",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    }
+  ]
+}

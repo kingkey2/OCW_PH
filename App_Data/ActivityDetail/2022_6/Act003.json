@@ -1,0 +1,14 @@
+{
+  "Name": "Act003",
+  "State": 0,
+  "StartDate": "2022/07/15 00:00:00",
+  "EndDate": "2022/08/01 00:00:00",
+  "OneDayBonus": 1000,
+  "FullAttendance": 3000,
+  "ThresholdRate": 20,
+  "OrderValue": 5000,
+  "BonusRate": 1,
+  "CollectAreaType": "2",
+  "Title": "金曜日のプレゼント",
+  "SubTitle": "金曜日のプレゼント"
+}

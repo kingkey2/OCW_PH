@@ -1,0 +1,36 @@
+﻿################################################################################
+# 這個 .gitignore 檔案由 Microsoft(R) Visual Studio 自動建立。
+################################################################################
+
+/.vs/OCW_JP/v15
+/.vs/OCW_JP/config/applicationhost.config
+/scss
+/prepros.config
+/.vs/GIT/v16
+/.vs/GIT/config
+/.vs/OCW_JP/v16
+/.vs/ProjectSettings.json
+/.vs/tasks.vs.json
+/Casino - 複製.aspx
+/.vs/OCW_JP/v17
+/.vs/slnx.sqlite
+/memberCenter copy.aspx
+/Html/prepros.config
+/css/vendors/bootstrap/bootstrap.css
+/css/vendors/bootstrap/bootstrap-reboot.css
+/css/vendors/bootstrap/bootstrap-grid.css
+/images/index/vtuber - 複製.png
+/images/index/writer - 複製.png
+/.vs/OCW_JP0520/v15/Server/sqlite3
+/index - 複製.aspx
+/Activity/event/pp-1/index-jp - 複製.html
+/Casino - 0624-滿版.aspx
+/css/pages/lobby - 0624.css
+/Casino copy.aspx
+/.vs/OCW_JP/FileContentIndex
+/.vs/config
+/.vs/OCW_JP/FileContentIndex
+/.vs/OCW_JP0520/config
+/.vs/VSWorkspaceState.json
+/.vs/config/applicationhost.config
+/.vs

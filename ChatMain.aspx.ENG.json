@@ -1,0 +1,10 @@
+{
+  "昨日": "yesterday",
+  "上午": "morning",
+  "登入復原中": "login is recovering",
+  "登入已過期, 請重新登入": "login expired　try again login",
+  "重新連線中...": "Reconnecting…",
+  "服務器連線中斷": "Server connection interrupted.",
+  "說點甚麼...": "talk to",
+  "登出客服系統中": "customer service system logout"
+}

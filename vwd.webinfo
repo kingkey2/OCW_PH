@@ -1,0 +1,40 @@
+﻿<?xml version="1.0"?>
+<!-- 
+  Visual Studio global web project settings.
+-->
+<VisualWebDeveloper>
+
+  <Globals>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    <UserProperties App_3Data_4Activity_1json__JSONSchema="OpenBonusDeposit_Loop" Payment_4PayPal_4Formal_3PayPalSetting_1json__JSONSchema="https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json" Payment_4PayPal_4Test_3PayPalSetting_1json__JSONSchema="https://carafe.fm/schema/draft-02/bundle.schema.json"/>
+  </Globals>
+</VisualWebDeveloper>

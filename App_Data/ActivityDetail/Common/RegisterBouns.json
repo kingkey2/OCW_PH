@@ -1,0 +1,15 @@
+{
+  "Name": "RegisterBouns",
+  "State": 0,
+  "StartDate": "2022/02/20 00:00:00",
+  "EndDate": "2062/05/31 00:00:00",
+  "Self": {
+    "BonusValue": 500,
+    "ThresholdValue": 10000
+  },
+  "Parent": {
+
+  },
+  "Title": "マハラジャ歓迎キャンペーン",
+  "SubTitle": "500 OCOIN"
+}

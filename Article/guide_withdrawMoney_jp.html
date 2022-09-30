@@ -1,0 +1,605 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title></title>
+    <meta name='robots' content='max-image-preview:large' />
+    <link rel='dns-prefetch' href='//cdnjs.cloudflare.com' />
+    <!--<link rel="preload" href="https://img.japanesecasino.com/themes/sunrise2/japan-dark-bg-mobile.jpg" as="image">-->
+    <link rel="stylesheet" href="CSS/bootstrap.min.css">
+    <link rel='stylesheet' id='wp-block-library-css' href='CSS/StyleSheet.css' media='all' />
+    <link rel='stylesheet' id='bootstrap-style-css' href='CSS/StyleSheet2.css' media='all' />
+    <link rel="stylesheet" href="CSS/layout.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="CSS/QaStyle.css">
+    <link href="../css/footer-new.css" rel="stylesheet" />
+    <!--<script defer src='https://www.japanesecasino.com/wp-content/themes/sunrise2/js/components/loadMorePosts.js?ver=5.7.2' id='sunrise2-loadMorePosts-js'></script>-->
+    <link rel="canonical" href="Guide.html" />
+    <meta name="description"
+        content="カジノの情報全てが一箇所にまとまっていて簡単に見られるところはないか？まさに、ジャパニーズカジノのカジノガイドページがお探しのページです！カジノ用語、ゲーム、ルール、ボーナス、ランドベースカジノを始めとした様々な情報がここで見つかります。" />
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-M38QK3D');
+    </script>
+    <link rel="icon"
+        href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-32x32.png"
+        sizes="32x32" />
+    <link rel="icon"
+        href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-192x192.png"
+        sizes="192x192" />
+    <link rel="apple-touch-icon"
+        href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-180x180.png" />
+    <meta name="msapplication-TileImage"
+        content="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-270x270.png" />
+
+    <script type="module">
+        /**
+* Script to toggle and enable search
+*/
+        (function () {
+
+            document.addEventListener("DOMContentLoaded", init);
+
+            /**
+             * Initiate script
+             */
+            function init() {
+                //if (document.URL.includes('WithdrawQ&A')) {
+                //    $('#nav-PopularArticles-tab').trigger("click");
+                //    $('#withdrawQA').trigger("click");
+                //    var href = $('#withdrawQA').attr('href');
+                //    href = "guide_Rolling.html"
+                //    window.location.href = href;
+                //}
+
+                var search_toggler = document.getElementById("search_toggler");
+
+                if (!search_toggler) return;
+
+                search_toggler.addEventListener("click", function () {
+                    var icon = this.children[0];
+                    var form = document.getElementById('search_form');
+                    if (icon.classList.contains('fa-search')) {
+                        icon.classList.remove('fa-search'); icon.classList.add('fa-times');
+                        form.querySelector('.search-input-field').classList.add('show');
+                        setTimeout(function () { form.querySelector('.search-input-field').focus(); }, 10);
+                    } else {
+                        icon.classList.remove('fa-times'); icon.classList.add('fa-search');
+                        form.querySelector('.search-input-field').classList.remove('show');
+                    }
+                }, false);
+            }
+
+        })();        /**
+         * Script to show more elements
+         */
+        (function () {
+
+            // Elements
+            var elems = [];
+
+            // Run
+            document.addEventListener("DOMContentLoaded", init);
+
+            /**
+             * Initiate script
+             */
+            function init() {
+
+                elems['buttons'] = document.getElementsByClassName("showmore");
+
+                // No buttons found
+                if (elems['buttons'].length === 0) return;
+
+                Array.prototype.forEach.call(elems['buttons'], function (el) {
+                    // Find the target parent
+                    var target = el.getAttribute('data-target');
+
+                    // No target found
+                    if (target == null) return;
+
+                    // Add listeners
+                    el.addEventListener("click", showMore);
+                });
+            }
+
+            /**
+             * Show more elements
+             */
+            function showMore() {
+                // Hidden elements within target container
+                var target = event.target.getAttribute('data-target');
+                var hidden = document.getElementById(target).getElementsByClassName('hidden');
+
+                // No hidden elements found
+                if (hidden == null || target == null) return;
+
+                // Count number of
+                var length = hidden.length;
+                var offset = (event.target.getAttribute('data-offset') == null ? length : event.target.getAttribute('data-offset'));
+
+                // Loop through the hidden elements
+                var count = 0;
+                while (hidden.length && (count < offset)) {
+                    hidden[0].classList.remove('hidden');
+                    length--;
+                    count++;
+                }
+
+                // No hidden elements left
+                if (length == 0) {
+                    event.target.classList.add('d-none');
+                    event.target.removeEventListener('click', showMore);
+                    return;
+                }
+            }
+
+        })();                            /**
+         * Script for activating the sticky-element
+         */
+        (function () {
+
+            // Elements
+            var elems = [];
+
+            // Bools
+            var error = false;
+            var passiveSupport = false;
+
+            // Ints
+            var targetTop;
+            var windowHeight;
+            var windowWidth;
+            var tocBtnText;
+
+            // Run
+            document.addEventListener("DOMContentLoaded", init);
+
+            function init() {
+
+                elems['sticky'] = document.getElementById("sticky");
+                elems['breakpoint'] = document.getElementById("stickyBreakpoint");
+                elems['navbar'] = document.getElementById("navbar");
+
+                // Check that all required elements is in place
+                Object.keys(elems).forEach(function (key) {
+                    if (elems[key] === null) {
+                        //console.log( key + ' is missing.' );
+                        error = true;
+                    }
+                });
+
+                // Required element(s) missing, abort
+                if (error === true) return;
+
+                targetTop = elems['navbar'].offsetHeight;
+                windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+                windowWidth = (window.innerWidth || document.documentElement.clientWidth);
+
+                elems['sticky'].style.top = targetTop + 'px';
+
+                window.addEventListener('resize', function () {
+                    targetTop = elems['navbar'].offsetHeight;
+                    elems['sticky'].style.top = targetTop + 'px';
+                }, false);
+
+                window.addEventListener('orientationchange', function () {
+                    targetTop = elems['navbar'].offsetHeight;
+                    elems['sticky'].style.top = targetTop + 'px';
+                }, false);
+
+                // Check if #sticky contains tracked elements
+                elems['anchors'] = elems['sticky'].getElementsByClassName("anchor");
+                elems['toc_dropdown_btn'] = document.getElementById("toc_dropdown_btn");
+
+                // Tracked elements found, add listeners
+                if (elems['anchors'] !== null && elems['toc_dropdown_btn'] !== null) {
+
+                    tocBtnText = elems['toc_dropdown_btn'].innerHTML;
+
+                    Array.prototype.forEach.call(elems['anchors'], function (el) {
+                        el.addEventListener("click", trackAnchorsByClick);
+                    });
+
+                    document.addEventListener("scroll", trackAnchorsByScroll, passiveSupport ? { passive: true } : false);
+                }
+
+                // Add listeners
+                checkPassiveSupport();
+                window.addEventListener("scroll", sticky, passiveSupport ? { passive: true } : false);
+            }
+
+            /**
+             * Check if the browser supports passive listeners
+             */
+            function checkPassiveSupport() {
+
+                try {
+                    var options = {
+                        get passive() {
+                            passiveSupport = true;
+                        }
+                    };
+
+                    window.addEventListener("test", options, options);
+                    window.removeEventListener("test", options, options);
+                } catch (err) {
+                    passiveSupport = false;
+                }
+            }
+
+            /**
+             * Sticky
+             */
+            function sticky() {
+
+                // Get the breakpoint element's position
+                var breakpoint_rect = elems['breakpoint'].getBoundingClientRect();
+
+                // Get sticky, or not
+                if (isInViewport(breakpoint_rect) || isBelowViewport(breakpoint_rect)) {
+                    elems['sticky'].classList.remove("show");
+
+                    if (tocBtnText != null) elems['toc_dropdown_btn'].innerHTML = tocBtnText;
+
+                } else {
+                    elems['sticky'].classList.add("show");
+                }
+            }
+
+            /**
+             * Check if the element is below the viewport
+             */
+            function isInViewport(rect) {
+
+                var vertInView = ((rect.top - targetTop) <= windowHeight) && (((rect.top - targetTop) + rect.height) >= 0);
+                return (vertInView);
+            }
+
+            /**
+             * Check if the element is below the viewport
+             */
+            function isBelowViewport(rect) {
+                if (rect.top >= windowHeight) return true;
+            }
+
+            /**
+             * Set the active anchor by click
+             */
+            function trackAnchorsByClick() {
+
+                // Remove listener by scroll, to avoid conflicts
+                document.removeEventListener("scroll", trackAnchorsByScroll, passiveSupport ? { passive: true } : false);
+
+                // Do have an active anchor set?
+                if (elems['active_anchor'] !== undefined) {
+                    elems['active_anchor'].classList.remove("txt-mid-blue");
+                }
+
+                // Set the active anchor
+                elems['active_anchor'] = event.target;
+                event.target.classList.add("txt-mid-blue");
+                elems['toc_dropdown_btn'].innerHTML = elems['active_anchor'].innerHTML;
+
+                // Re-add listener
+                document.addEventListener("scroll", trackAnchorsByScroll, passiveSupport ? { passive: true } : false);
+            }
+
+            /**
+             * Set the active anchor by scroll
+             */
+            function trackAnchorsByScroll() {
+
+                Array.prototype.forEach.call(elems['anchors'], function (el) {
+
+                    // Remove the hashtag to get a clean id
+                    var target = document.getElementById(el.getAttribute("href").substring(1));
+
+                    // Get the target element's position
+                    var target_rect = target.getBoundingClientRect();
+
+                    // Is the heading in the viewport?
+                    if (isInViewport(target_rect)) {
+
+                        // Do have an active anchor set?
+                        if (elems['active_anchor'] !== undefined) {
+                            elems['active_anchor'].classList.remove("txt-mid-blue");
+                        }
+
+                        // Set the active anchor
+                        elems['active_anchor'] = el;
+                        elems['toc_dropdown_btn'].innerHTML = elems['active_anchor'].innerHTML;
+                        el.classList.add("txt-mid-blue");
+                    }
+
+                });
+            }
+
+        })();</script>
+</head>
+
+<body class="onlinecasinoworld-com" style="background-color: #fff;">
+    <div class="site-content article__subPage">
+
+
+        <main class="article__subPageContent" style=" background: rgba(0,0,0, 0);">
+            <!-- 出金 內容 ================ -->
+            <article class="hotarticle_area container mx-auto one-column py-4 py-lg-5"
+                     style="padding-bottom:0px !important">
+
+                <div class="btn-back-cashQa" onclick="window.top.API_LoadPage('Withdrawal','Withdrawal.aspx', true)">↩︎ 出金へ</div>
+                <div style="clear: both;"></div>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col justify-content-center" style="margin: 0 auto;">
+
+                            <!--tabs-->
+
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+                                    <button class="nav-link col language_replace active" id="nav-crypto-tab"
+                                            data-toggle="tab" data-target="#nav-crypto" type="button" role="tab"
+                                            aria-controls="nav-crypto" aria-selected="true" style="background: none;">
+                                        暗号通貨
+                                    </button>
+
+                                    <button class="nav-link col language_replace" id="nav-bank-tab"
+                                            data-toggle="tab" data-target="#nav-bank" type="button" role="tab"
+                                            aria-controls="nav-bank" aria-selected="false"
+                                            style="background: none;">
+                                        銀行振込
+                                    </button>
+
+                                </div>
+                            </nav>
+
+                            <div class="tab-content" id="nav-tabContent">
+
+                                <div class="tab-pane fade show active" id="nav-crypto" role="tabpanel"
+                                     aria-labelledby="nav-crypto-tab">
+                                    <!--001 暗号通貨-->
+                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+
+                                        <div class="accordion-item">
+                                            <div class="act-wrapper">
+                                                <div class="fixed-btn">
+                                                    <div style="position: fixed;">
+                                                        <div class="btn-gold-deposit">
+                                                            <a href="guide_CashQa_jp.html" target="_self">
+                                                            <p>入金方法</p>
+                                                            </a>
+                                                        </div>
+                                                        <div class="btn-gold-withdarw-active">
+                                                            <a href="#">
+                                                            <p>出金方法</p>
+                                                            </a>
+                                                        </div>    
+                                                    </div>
+                                                </div>
+                                                <p class="img-explain">ステップ 1</p>
+                                                <p>マハラジャにログインし、左のメニューから「出金」をタップすれば出金画面に入れます。</p>
+                                                <div class="img-explain-img">
+                                                    <img src="images/withdrawMoney/crypto/1.png"
+                                                         alt="" class="cash-img-explain">
+                                                </div>
+
+                                                <p class="img-explain">ステップ 2</p>
+                                                <p>暗号通貨をお選びください。</p>
+                                                <div class="img-explain-img">
+                                                    <img src="images/withdrawMoney/crypto/2.png"
+                                                         alt="" class="cash-img-explain">
+                                                </div>
+
+                                                <p class="img-explain">ステップ 3</p>
+                                                <p>下から金額を選択、またはご希望の入金金額をご入力ください。そして出金アドレスを入力し、ご使用の暗号通貨をお選びください。最後に注意事項のチェックボックスにチェックし、「次へ」をタップ。</p>
+                                                <P class="font-red">※出金最低金額は10,000 Ocoinになります。</P>
+                                                <P class="font-red">※出金表示金額には燃料費が含まれておりません(10万OCOIN以下の場合は、燃料費を差引いての着金となります。)</P>
+                                                <P class="font-red">※10万 OCOIN 以上の出金の場合は燃料費は無料となります。</P>
+                                                <P class="font-red">※出金は1日３回までとなります。</P>
+                                                <P class="font-red">※1日出金最大限度額が100万OCOINとなります。</P>
+                                                <P class="font-red">※出金申請後、弊社が送金完了した時点でお客様からのウォレットアドレスの変更、間違い等の申請には対応を協力致しますが、責任は一切負いかねます。出金の際、よくウォレットアドレス確認して下さい。</P>
+                                                <div class="img-explain-img"><img src="images/withdrawMoney/crypto/3.png" alt="" class="cash-img-explain"></div>
+
+                                                <p class="img-explain">ステップ 4</p>
+                                                <p>注文内容が正しいかどうかを確認し、「次へ」をタップすると、申請が完了します。</p>
+                                                <div class="img-explain-img"><img src="images/withdrawMoney/crypto/4.png" alt="" class="cash-img-explain"></div>
+                                                <P class="font-red">
+                                                    注：ステップを全部完了すれば、履歴一覧で注文の状態を確認できます。矢印記号をタップすれば詳しい情報が表示されます。
+                                                </P>
+                                                <div class="img-explain-img"><img src="images/withdrawMoney/crypto/5.png" alt="" class="cash-img-explain"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--001 暗号通貨 end-->
+                                </div>
+
+                                <div class="tab-pane fade" id="nav-bank" role="tabpanel"
+                                     aria-labelledby="nav-bank-tab">
+
+                                    <!--002 bank-->
+                                    <div class="accordion accordion-flush" id="accordionFlushExample2">
+
+                                        <div class="accordion-item">
+                                            <div class="act-wrapper">
+                                                <div class="fixed-btn">
+                                                    <div style="position: fixed;">
+                                                        <div class="btn-gold-deposit">
+                                                            <a href="guide_CashQa_jp.html" target="_self">
+                                                            <p>入金方法</p>
+                                                            </a>
+                                                        </div>
+                                                        <div class="btn-gold-withdarw-active">
+                                                            <a href="#">
+                                                            <p>出金方法</p>
+                                                            </a>
+                                                        </div>    
+                                                    </div>
+                                                </div>
+                                                <p class="img-explain">ステップ 1</p>
+                                                <p>マハラジャにログインし、左のメニューから「出金」をタップすれば出金画面に入れます。</p>
+                                                <div class="img-explain-img">
+                                                    <img src="images/withdrawMoney/bank/1.png"
+                                                         alt="" class="cash-img-explain">
+                                                </div>
+
+                                                <p class="img-explain">ステップ 2</p>
+                                                <p>銀行振込をお選びください。</p>
+                                                <div class="img-explain-img">
+                                                    <img src="images/withdrawMoney/bank/2.png"
+                                                         alt="" class="cash-img-explain">
+                                                </div>
+
+                                                <p class="img-explain">ステップ 3</p>
+                                                <p>下から金額を選択、またはご希望の入金金額をご入力ください。</p>
+                                                <p>口座番号、カード名義、銀行、支店コードを入力し、最後に注意事項のチェックボックスにチェックし、「次へ」をタップしてください。</p>
+                                                <P class="font-red">※出金希望金額は手数料3％及び振込手数料175 OCoinとして、3％+175JPYを差引き着金致します。</P>
+                                                <P class="font-red">※出金は1回最小5500、最大50万ocoinです、1日3回までとなります。</P>
+                                                <P class="font-red">※1日出金最大限度額が100万OCoinとなります。</P>
+                                                <P class="font-red">※出金オーダー後金融機関にもよりますが、着金は翌営業になる場合がございます。</P>
+                                                <P class="font-red">※この部分の記入は銀行の振込名義と同じで有る事が必須に成ります。ご了承下さい。</P>
+                                                <div class="img-explain-img"><img src="images/withdrawMoney/bank/3.png" alt="" class="cash-img-explain"></div>
+
+                                                <p class="img-explain">ステップ 4</p>
+                                                <p>注文内容が正しいかどうかを確認し、「次へ」をタップすると、申請が完了します。</p>
+                                                <div class="img-explain-img"><img src="images/withdrawMoney/bank/4.png" alt="" class="cash-img-explain"></div>
+                                                <P class="font-red">
+                                                    注：ステップを全部完了すれば、履歴一覧で注文の状態を確認できます。矢印記号をタップすれば詳しい情報が表示されます。
+                                                </P>
+                                                <div class="img-explain-img"><img src="images/withdrawMoney/bank/5.png" alt="" class="cash-img-explain"></div>
+                                            </div>
+                                        </div>
+
+                                        <!--002 bank end-->
+                                    </div>
+                                </div>
+                                <div class="btn-back-cashQa" onclick="window.top.API_LoadPage('Withdrawal','Withdrawal.aspx', true)">↩︎ 出金へ</div>
+                            </div>
+                        </div>
+                        <!--tabs-->
+                    </div>
+                </div>
+            </article>
+
+
+        </main>
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script src='js/main.js'></script>
+    <script>
+        function getCookie(name) {
+            var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+            return v ? v[2] : null;
+        }
+
+
+        if (getCookie('cookie_consent')) {
+            // SCRIPT NAME: xtremepush
+            (function (p, u, s, h, e, r, l, i, b) {
+                p['XtremePushObject'] = s;
+                p[s] = function () {
+                    (p[s].q = p[s].q || []).push(arguments)
+                };
+                i = u.createElement('script');
+                i.async = 1;
+                i.src = h;
+                b = u.getElementsByTagName('script')[0];
+                b.parentNode.insertBefore(i, b);
+                i.onload = function () {
+                    if (typeof window.dataLayer === 'undefined') {
+                        window.dataLayer = [];
+                    } else {
+                        window.dataLayer.push({
+                            'event': 'xp_sdk_loaded'
+                        });
+
+                        // Wordpress doesn't use sessions -> solution? -> Maybe create a unqiue ID for every user visiting site. How to handle returning users? Cookie!
+                        // xp_http.open("POST", "/services/sessions/json-id", true);
+                        // xp_http.send();
+                    }
+                };
+            })(window, document, 'xtremepush', 'https://cdn.webpu.sh/D-78tQ9V-iLG5U6_j80fZyc_-MH80D9f/sdk.js');
+
+            var xp_http = new XMLHttpRequest();
+            xp_http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    if (response.session_id) {
+                        xtremepush('set', 'user_id', response.session_id);
+                    }
+                }
+            };
+
+
+
+        }
+
+        function getOrginPath() {
+            var temp;
+            temp = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            temp = temp.substring(0, temp.lastIndexOf('.'));
+
+            if (temp.lastIndexOf('_') != -1) {
+                temp = temp.substring(0, temp.lastIndexOf('_'));
+            }
+
+            return temp;
+        }
+
+        function init() {
+            if (window.parent != window.top) {
+                window.parent.location.href = "index.aspx";
+            }
+            window.parent.API_LoadingEnd();
+        }
+
+        function EWinEventNotify(eventName, isDisplay, param) {
+            switch (eventName) {
+                case "LoginState":
+                    //updateBaseInfo();
+
+                    break;
+                case "BalanceChange":
+                    break;
+                case "SetLanguage":
+                    var orgin = getOrginPath();
+
+                    switch (param) {
+                        case "JPN":
+                            orgin = orgin + "_jp";
+                            break;
+                        case "CHT":
+                            break;
+                        case "ENG":
+                            orgin = orgin + "_en";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    orgin = "Article/guide_Q&A_jp.html";
+
+                    window.parent.API_LoadPage("Article", orgin);
+                    break;
+            }
+        }
+
+        window.onload = init;
+    </script>
+</body>
+
+</html>
