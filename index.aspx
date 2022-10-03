@@ -3161,17 +3161,12 @@
         <footer class="footer-container">
             <div class="footer-inner">
                 <div class="container">
-                    <ul class="company-info row">
+
+<%--                    <ul class="company-info row">
                         <li class="info-item col">
                            <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
                         </li>
-                        <%--
-                        <li class="info-item col">
-                            <a onclick="window.parent.API_ShowContactUs()">
-                                <span class="language_replace">聯絡客服</span>
-                            </a>
-                        </li>
-                        --%>
+
                         <li class="info-item col">
                             <a id="Footer_ResponsibleGaming" onclick="window.parent.API_ShowPartialHtml('', 'ResponsibleGaming', true, null)">
                                 <span class="language_replace">負責任的賭博</span>
@@ -3186,13 +3181,8 @@
                             <a id="Footer_PrivacyPolicy" onclick="window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)">
                                 <span class="language_replace">隱私權政策</span>
                             </a>
-                        </li>
-                        <%-- <li class="info-item col" id="li_HotArticle">
-                            <a onclick="openHotArticle()">
-                                <span class="language_replace">熱門文章</span>
-                            </a>
-                        </li>--%>
-                    </ul>
+
+                    </ul>--%>
                     <div class="partner">
                         <div class="logo">
                             <div class="row">
