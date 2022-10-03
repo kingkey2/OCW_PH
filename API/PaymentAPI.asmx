@@ -3139,6 +3139,52 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public APIResult GetExchangeRateFromKucoin(string WebSID, string GUID)
+    {
+        string RedisReturn = string.Empty;
+        string strCryptoExchangeRateFromKucoin;
+        RedisCache.SessionContext.SIDInfo SI;
+        APIResult R = new APIResult()
+        {
+            GUID = GUID,
+            Result = enumResult.ERR
+        };
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+        {
+            RedisReturn = RedisCache.CryptoExchangeRate.GetCryptoExchangeRate();
+
+            if (string.IsNullOrEmpty(RedisReturn))
+            {
+                strCryptoExchangeRateFromKucoin = CryptoExpand.GetAllCryptoExchangeRateFromKucoin();
+                if (!string.IsNullOrEmpty(strCryptoExchangeRateFromKucoin))
+                {
+                    RedisCache.CryptoExchangeRate.UpdateCryptoExchangeRate(strCryptoExchangeRateFromKucoin);
+                    R.Message = strCryptoExchangeRateFromKucoin;
+                    R.Result = enumResult.OK;
+                }
+                else
+                {
+                    SetResultException(R, "InvalidCryptoExchangeRate");
+                }
+            }
+            else
+            {
+                R.Message = RedisReturn;
+                R.Result = enumResult.OK;
+            }
+        }
+        else
+        {
+            SetResultException(R, "InvalidWebSID");
+        }
+        return R;
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public UserAccountEventBonusHistoryResult GetUserAccountEventBonusHistoryByLoginAccount(string WebSID, string GUID, DateTime StartDate, DateTime EndDate)
     {
         string RedisReturn = string.Empty;

@@ -678,6 +678,29 @@
         //xmlHttp.send();
     }
 
+    this.GetExchangeRateFromKucoin = function (WebSID, GUID, cb) {
+
+        var url = APIUrl + "/GetExchangeRateFromKucoin";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    }
+
     this.GetUserAccountEventBonusHistoryByLoginAccount = function (WebSID, GUID, startDate, endDate, cb) {
         var url = APIUrl + "/GetUserAccountEventBonusHistoryByLoginAccount";
         var postData;

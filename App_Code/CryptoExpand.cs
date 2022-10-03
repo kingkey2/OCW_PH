@@ -19,21 +19,18 @@ public static class CryptoExpand
 
         if (CurrencyType == "JKC") {
             TargetCurrencyType = "ETH";
+        } else if (CurrencyType == "HLN") {
+            TargetCurrencyType = "USDT";
         } else {
             TargetCurrencyType = CurrencyType;
         }
 
-        string BasicTradeUrl = "https://api.nomics.com/v1/currencies/ticker?key=df6c6e3b0b12a416d08079b30118c78a7a07e403&ids=" + TargetCurrencyType + "&interval=1d&convert=" + EWinWeb.ConvertCurrencyType + "&per-page=100&page=1";
+        string BasicTradeUrl = "https://api.kucoin.com/api/v1/prices?base=" + EWinWeb.ConvertCurrencyType + "&currencies=" + TargetCurrencyType;
 
         var ReturnBodyStr = CodingControl.GetWebJSONContent(BasicTradeUrl);
-        CryptoArrays = JArray.Parse(ReturnBodyStr.ToString());
-
-        foreach (var Crypto in CryptoArrays) {
-            if (Crypto["currency"].ToString() == TargetCurrencyType) {
-                Price = (decimal)Crypto["price"];
-                break;
-            }
-        }
+        Newtonsoft.Json.Linq.JObject CryptoObjs = JObject.Parse(ReturnBodyStr["data"].ToString());
+        
+        Price = (decimal)CryptoObjs[TargetCurrencyType];
 
         if (Price == 0) {
             ExchangeRate = 0;
@@ -45,6 +42,34 @@ public static class CryptoExpand
             }
         }
 
+        //if (CurrencyType == "JKC") {
+        //    TargetCurrencyType = "ETH";
+        //} else {
+        //    TargetCurrencyType = CurrencyType;
+        //}
+
+        //string BasicTradeUrl = "https://api.nomics.com/v1/currencies/ticker?key=df6c6e3b0b12a416d08079b30118c78a7a07e403&ids=" + TargetCurrencyType + "&interval=1d&convert=" + EWinWeb.ConvertCurrencyType + "&per-page=100&page=1";
+
+        //var ReturnBodyStr = CodingControl.GetWebJSONContent(BasicTradeUrl);
+        //CryptoArrays = JArray.Parse(ReturnBodyStr.ToString());
+
+        //foreach (var Crypto in CryptoArrays) {
+        //    if (Crypto["currency"].ToString() == TargetCurrencyType) {
+        //        Price = (decimal)Crypto["price"];
+        //        break;
+        //    }
+        //}
+
+        //if (Price == 0) {
+        //    ExchangeRate = 0;
+        //} else {
+        //    if (CurrencyType == "JKC") {
+        //        ExchangeRate = 1 / (Price / 3000);
+        //    } else {
+        //        ExchangeRate = 1 / Price;
+        //    }
+        //}
+
         return ExchangeRate;
     }
 
@@ -55,6 +80,16 @@ public static class CryptoExpand
 
         var ReturnBodyStr = CodingControl.GetWebJSONContent(BasicTradeUrl);
         CryptoArrays = JArray.Parse(ReturnBodyStr.ToString());
+
+        return CryptoArrays.ToString();
+    }
+
+    public static string GetAllCryptoExchangeRateFromKucoin() {
+
+        string BasicTradeUrl = "https://api.kucoin.com/api/v1/prices?base=" + EWinWeb.ConvertCurrencyType + "&currencies=HLN,USDT,USDC,XRP,BTC,ETH";
+
+        var ReturnBodyStr = CodingControl.GetWebJSONContent(BasicTradeUrl);
+        Newtonsoft.Json.Linq.JObject CryptoArrays = JObject.Parse(ReturnBodyStr["data"].ToString());
 
         return CryptoArrays.ToString();
     }
