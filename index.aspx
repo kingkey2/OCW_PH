@@ -2265,7 +2265,7 @@
                         clearUrlParams();
                         API_LoadPage("Login", "Login.aspx");
                     } else {
-                        API_Home();
+                        API_Casino();
                     }
                     
                 }
@@ -2949,12 +2949,7 @@
                                                 <i class="icon icon-mask icon-all"></i>
                                                 <span class="title language_replace">遊戲大廳</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown"
-                                            onclick="openGame('YS', 'Sumo', '')">
-                                            <a class="nav-link">
-                                                <i class="icon icon-mask icon-sumo"></i>
-                                                <span class="title language_replace">相撲</span></a>
-                                        </li>
+                                   
                                     </ul>
                                 </li>
                                 <li class="nav-item navbarMenu__catagory">
@@ -2986,12 +2981,7 @@
                                 </li>
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
-                                        <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('QA','/Article/guide_Q&A.html')">
-                                            <a class="nav-link">
-                                                <i class="icon icon-mask icon-QA"></i>
-                                                <span class="title language_replace">Q&A</span></a>
-                                        </li>
+                                  
                                         <li class="nav-item submenu dropdown"
                                             onclick="window.open('https://lin.ee/KD05l9X')">
                                             <a class="nav-link">
@@ -3040,7 +3030,7 @@
                     <!-- 頂部 NavBar -->
                     <div class="header_topNavBar">
                         <!-- 左上角 -->
-                        <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Home','Home.aspx')">
+                        <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Casino','Casino.aspx')">
                             <div class="navbar-brand">
                                 <div class="logo"><a></a></div>
                             </div>
