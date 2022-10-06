@@ -429,7 +429,8 @@
                                             </div>
                                         </div>                                        
                                     </div>
-                                    <div class="data-item verify">
+
+                                   <div class="data-item verify">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-verify"></i>
@@ -833,11 +834,13 @@
     </div>
 
      <!-- Modal Complete Register -->
-     <div class="modal fade footer-center" id="ModalRegisterComplete" tabindex="-1" aria-hidden="true" style="display: ;">
+     <div class="modal fade footer-center" id="ModalRegisterComplete" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title language_replace">進行資料認證</h5><span class="btn btn-Q-mark btn-round btn-sm" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
+                    <div class="sec-title-container">
+                        <h5 class="modal-title language_replace">進行資料認證</h5><span class="btn btn-Q-mark btn-round ml-2" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
+                    </div>                    
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -864,9 +867,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md">
-                                        <label class="form-title">
-                                            姓
-                                            <span class="form-title-note language_replace">(羅馬字)</span></label>
+                                        <label class="form-title">姓<span class="form-title-note language_replace">(羅馬字)</span></label>
                                         <div class="input-group">
                                             <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
                                             <div class="invalid-feedback language_replace">提示</div>
