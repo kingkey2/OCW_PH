@@ -771,12 +771,12 @@
         }
     }
 
-    function showBoardMsg(title, message, time) {
+    function showBoardMsg(title, docNumber) {
         if ($("#alertBoardMsg").attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("alertBoardMsg");
             var divMessageBoxOKButton = divMessageBox.querySelector(".alert_OK");
             var divMessageBoxTitle = divMessageBox.querySelector(".alert_Title");
-            var divMessageBoTime = divMessageBox.querySelector(".alert_Time");
+            //var divMessageBoTime = divMessageBox.querySelector(".alert_Time");
             var divMessageBoxContent = divMessageBox.querySelector(".alert_Text");
             var modal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
 
@@ -791,8 +791,16 @@
                 }
 
                 divMessageBoxTitle.innerHTML = title;
-                divMessageBoTime.innerHTML = time;
-                divMessageBoxContent.innerHTML = message;
+                //divMessageBoTime.innerHTML = time;
+
+                $.ajax({
+                    url: "https://ewin.dev.mts.idv.tw/GetDocument.aspx?DocNumber=" + docNumber,
+                    success: function (res) {
+                        divMessageBoxContent.innerHTML = res;
+                    },
+                    error: function (err) { console.log(err) },
+                });
+
             }
         }
     }
@@ -841,7 +849,7 @@
         }
     }
 
-    function WithCheckBoxShowMessageOK(title, message, cbOK) {
+    function WithCheckBoxShowMessageOK(title, docNumber, cbOK) {
         var alertDom = $("#alertContactWithCheckBox")
         if (alertDom.attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("alertContactWithCheckBox");
@@ -874,7 +882,15 @@
                 }
 
                 divMessageBoxTitle.innerHTML = title;
-                divMessageBoxContent.innerHTML = message;
+
+                $.ajax({
+                    url: "https://ewin.dev.mts.idv.tw/GetDocument.aspx?DocNumber=" + docNumber,
+                    success: function (res) {
+                        divMessageBoxContent.innerHTML = res;
+                    },
+                    error: function (err) { console.log(err) },
+                });
+
             }
         }
     }
@@ -1822,6 +1838,10 @@
         }
     }
 
+    function ddd() {
+
+    }
+
     function updateBaseInfo() {
         var idMenuLogin = document.getElementById("idMenuLogin");
         var idLoginBtn = document.getElementById("idLoginBtn");
@@ -2016,18 +2036,37 @@
     }
 
     function getLoginMessage(cb) {
-        lobbyClient.GetLoginMessage(EWinWebInfo.SID, Math.uuid(), function (success, o) {
+        //lobbyClient.GetLoginMessage(EWinWebInfo.SID, Math.uuid(), function (success, o) {
+        //    if (success) {
+        //        if (o.Result == 0) {
+        //            LoginMessageTitle = o.Title;
+        //            LoginMessage = o.Message;
+        //            LoginMessageVersion = o.Version;
+        //            if (cb != null) {
+        //                cb();
+        //            }
+        //        }
+        //    }
+        //});
+
+        lobbyClient.CheckDocumentByTagName(Math.uuid(), "N2", function (success, o) {
+            console.log("N2",o)
             if (success) {
                 if (o.Result == 0) {
-                    LoginMessageTitle = o.Title;
-                    LoginMessage = o.Message;
-                    LoginMessageVersion = o.Version;
-                    if (cb != null) {
-                        cb();
+
+                    if (o.DocumentList.length > 0) {
+                        var record = o.DocumentList[o.DocumentList.length - 1];
+                        LoginMessageTitle = record.DocumentTitle;
+                        LoginMessage = record.DocNumber;
+                        LoginMessageVersion = record.DocumentID;
+                        if (cb != null) {
+                            cb();
+                        }
                     }
                 }
             }
         });
+
     }
 
     function showLoginMessage() {

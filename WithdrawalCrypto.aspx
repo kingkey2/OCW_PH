@@ -890,7 +890,7 @@
                         </div>
                     </div>
                     <div class="main-panel cryptopanel" data-deposite="step2">
-                        <h5 class="language_replace">選擇加密貨幣</h5>
+                        <h5 class="language_replace">請選擇加密貨幣</h5>
                         <div>
                             <span id="idRecClock">30</span><span class="language_replace">秒後，重新取得匯率</span>
                         </div>
