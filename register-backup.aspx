@@ -520,17 +520,12 @@
 
             <!-- 註冊 -->
             <div id="idRegister" class="form-container">
-                <div class="sec-title-wrapper">
-                    <div class="heading-title">
-                        <h3 class="language_replace">創建新帳號</h3>
-                    </div>
-                    <span class="sec-title-intro-link ml-2" data-toggle="modal" data-target="#ModalRegisterWay">
-                        <span class="btn btn-Q-mark btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
-                    </span>
+                <div class="heading-title">
+                    <h3 class="language_replace">創建新帳號</h3>
                 </div>
 
                 <!-- 步驟 -->
-                <div class="progress-container mb-4 pb-2 is-hide">
+                <div class="progress-container mb-4 pb-2">
                     <div id="progressStep1" class="progress-step cur">
                         <div class="progress-step-item"></div>
                     </div>
@@ -539,25 +534,7 @@
                     </div>
                 </div>
 
-                <!-- 簡易/完整步驟 -->
-                <div class="tab-primary tab-scroller tab-2">
-                    <div class="tab-scroller__area">
-                        <ul class="tab-scroller__content">
-                            <li class="tab-item active" id="li_bonus1" onclick="GetPromotionCollectAvailable(1)">
-                                <span class="tab-item-link"><span class="title language_replace">簡易註冊</span>
-                                </span>
-                            </li>
-                            <li class="tab-item" id="li_bonus2" onclick="GetPromotionCollectAvailable(2)">
-                                <span class="tab-item-link">
-                                    <span class="title language_replace">完整註冊</span>
-                                </span> 
-                            </li>
-                            <li class="tab-slide"></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- 簡易註冊 -->
+                <!-- 註冊 step1 -->
                 <div id="contentStep1" class="form-content" data-form-group="registerStep1">
                     <form id="registerStep1">
                         <div class="form-group">
@@ -567,65 +544,6 @@
                                 <div class="invalid-feedback language_replace">請輸入正確信箱</div>
                             </div>
                         </div>
-                        <div class="btn-container register" id="divSendValidateCodeBtn">
-                            <button type="button" class="btn btn-primary btn-ValidateCode" onclick="onBtnSendValidateCode()" id="btnSendValidateCode">
-                                <span class="language_replace">傳送驗證碼</span>
-                            </button>
-                        </div>
-                        <div class="form-group">
-                            <div class="text-s text-indent">
-                                <label class=" language_replace">E-mail驗證相關說明：</label></br>
-                                <label class=" language_replace">1.輸入信箱後點擊『傳送驗證碼』後，驗證碼將會發送到您填寫的E-mail。</label></br>
-                                <label class=" language_replace">2.將驗證碼回填於下方輸入框內。</label></br>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-title language_replace">驗證碼</label>
-                            <div class="input-group">
-                                <input id="idValidateCode" name="ValidateCode" type="text" class="form-control custom-style" onkeyup="CheckValidateCode()">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-title language_replace">暱稱</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="暱稱請輸入英文與數字，長度12位元以內" inputmode="" name="NickName">
-                                <div class="invalid-feedback language_replace">提示</div>
-                            </div>
-                        </div>                       
-                        <div class="form-group">
-                            <label class="form-title language_replace">密碼</label>
-                            <div class="input-group">
-                                <input id="idLoginPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
-                                <div class="invalid-feedback language_replace">請輸入密碼</div>
-                            </div>
-                            <button class="btn btn-icon" type="button" onclick="showPassword('idLoginPassword')">
-                                <i class="icon-eye-off"></i>
-                            </button>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-title language_replace">確認密碼</label>
-                            <div class="input-group">
-                                <input id="idLoginCheckPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
-                                <div class="invalid-feedback language_replace">確認密碼</div>
-                            </div>
-                            <button class="btn btn-icon" type="button" onclick="showPassword('idLoginCheckPassword')">
-                                <i class="icon-eye-off"></i>
-                            </button>
-                        </div>                        
-                        <div id="divStep1Btn" style="display: none">
-                            <div class="btn-container">
-                                <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep1()">
-                                    <span class="language_replace">下一步</span>
-                                </button>
-                            </div>
-                        </div>                       
-                    </form>
-                </div>
-
-                <!-- 以下為 完整註冊-進階版 -->
-                <div id="contentStep2" class="form-content" data-form-group="registerStep2">
-                    <form id="registerStep2">
                         <div class="form-row">
                             <div class="form-group col phonePrefix">
                                 <label class="form-title language_replace">國碼</label>
@@ -642,6 +560,60 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="form-title language_replace">密碼</label>
+                            <div class="input-group">
+                                <input id="idLoginPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
+                                <div class="invalid-feedback language_replace">請輸入密碼</div>
+                            </div>
+                            <button class="btn btn-icon" type="button" onclick="showPassword('idLoginPassword')">
+                                <i class="icon-eye-off"></i>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-title language_replace">驗證碼</label>
+                            <div class="input-group">
+                                <input id="idValidateCode" name="ValidateCode" type="text" class="form-control custom-style" onkeyup="CheckValidateCode()">
+                            </div>
+                        </div>
+
+                        <div class="btn-container" id="divSendValidateCodeBtn">
+                            <button type="button" class="btn btn-primary" onclick="onBtnSendValidateCode()" id="btnSendValidateCode">
+                                <span class="language_replace">傳送驗證碼</span>
+                            </button>
+                        </div>
+                        <div id="divStep1Btn" style="display: none">
+                            <div class="btn-container">
+                                <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep1()">
+                                    <span class="language_replace">下一步</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <label class=" language_replace">E-mail將用於發送確認碼，請填寫正確的E-mail。</label></br>
+                               
+                                <label class=" language_replace">1.請先輸入正確E-mail。</label></br>
+
+                                <label class=" language_replace">2.從註冊會員的畫面點擊發送驗證碼。</label></br>
+                               
+                                <label class=" language_replace">3.驗證碼將會發送到您填寫的E-mail。</label></br>
+                               
+                                <label class=" language_replace">4.輸入驗證碼之後就可進行下一個步驟。</label></br>
+                
+                                <label class=" language_replace">5.您需要填寫您的姓名、暱稱、出生日期等。</label></br>
+            
+                                <label class=" language_replace">6.開戶後，您將通過一封簡短的電子郵件收到有關 Club Maharaja 的信息。</label></br>
+                           
+                                <label class=" language_replace">※為了能夠接收活動及獎金，請填寫正確的E-mail。</label></br>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 註冊 stepTwo -->
+                <div id="contentStep2" class="form-content is-hide" data-form-group="registerStep2">
+                    <form id="registerStep2">
                         <div class="form-row">
                             <div class="form-group col-md">
                                 <label class="form-title">
@@ -663,7 +635,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group is-hide">
+                        <div class="form-group">
+                            <label class="form-title language_replace">暱稱</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="暱稱請輸入英文與數字，長度12位元以內" inputmode="" name="NickName">
+                                <div class="invalid-feedback language_replace">提示</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="form-title language_replace">國家</label>
                             <div class="input-group">
                                 <select class="form-control custom-style" name="Country">
@@ -919,6 +899,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-row" style="display: none">
                             <div class="form-group col">
                                 <label class="form-title language_replace">郵遞區號</label>
@@ -935,6 +916,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group" style="display: none">
                             <label class="form-title language_replace">市區町村以下的地址<%--<span class="form-title-note language_replace">(羅馬字)</span>--%></label>
                             <div class="input-group">
@@ -942,6 +924,7 @@
                                 <div class="invalid-feedback language_replace">提示</div>
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group col">
                                 <label class="form-title language_replace">出生年</label>
@@ -976,21 +959,26 @@
                                 </div>
                             </div>
                         </div>
+
+
+
                         <div class="form-group">
                             <label class="form-title language_replace">推廣碼</label>
                             <div class="input-group">
                                 <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="若無推廣碼可不填寫" inputmode="" name="PersonCode">
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="CheckAge" name="eighteenCheck">
-                                <label class=" language_replace text-s" for="CheckAge">我已年滿20歲，且我已了解資料僅作為本網站會員所使用，不會在其他地方使用。</label>
+                                <label class=" language_replace" for="CheckAge">我已年滿20歲，且我已了解資料僅作為本網站會員所使用，不會在其他地方使用。</label>
                             </div>
                         </div>
                         <div class="form-group rules-privacy text-small">
-                            <p class="language_replace text-s">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。</p>
+                            <p class="language_replace">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。</p>
                         </div>
+
                         <div class="btn-container">
                             <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep2()">
                                 <span class="language_replace">註冊</span>
@@ -998,18 +986,14 @@
                         </div>
                     </form>
                 </div>
+
                 <div class="get-start-header">
                     <div class="language_replace">已有帳號了?</div>
                     <button type="button" class="btn btn-outline-primary btn-sm" onclick="window.parent.API_LoadPage('Login', 'Login.aspx')">
                         <span class="language_replace">前往登入</span>
                     </button>
                 </div>
-                <div class="form-group">
-                    <div class="LineOfficialQrcode">
-                        <p class="QrCode"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6AQAAAACgl2eQAAABrklEQVR4Xu2YXYrDMAyEBT5AjuSr+0g+gEGrmXHYbFna1w5YuMGRvpdBP3Ya+d5GvHpe7ACyA8gOICMwouwaOXtcyTUWXIrZAPVbVzaSbfZVwLX9RkCJohOrZQZfIdwPQJoqWjKdgYHQlVQKvXZAsuSCZUb/+Lcmvxyo7MRdcnvBpZgLINvZgcDZH14ngMWGOaY0SawVgNSkJnD0NoNDAE8vIGcsHCWxdu9jlDWmzAgI+FNRhTTQvIDSFVHJykoW8lXu6AhbAWp8JIvR0lgbOY2AqrcFXaUXTqpGK1kBfC2ZXCSxeci0ARbbBNEJgX+HmAWAxiHWU2JnoPcnYz5AY9VhIMvPw0UZ9AE2gycbH3DaAdhjAvBYUcug5J7HogOwy6wMoa7GSZoRQKWdBGYyxpd6xwsoXXhLtUxCKSR7AY0XRbY/OmhRr/LlA8hQeJRMuCK/Mi2AAVV7CGMj1TgirYDE5Qo5Qu1hdlGmG8A5XEMYehNZ4+ZRk05A5YiftIsHyrPkrICe90VLTi8gUXJIVuJMBxz7XzgnoAoMnvtLUIxU+wDv7ACyA8gOIPsM/AA5dNe87D/VlAAAAABJRU5ErkJggg==" alt=""></p>
-                        <p class="text-note text-gray">* 若有任何問題歡迎資詢マハラジャ官方Line客服</p>
-                    </div>
-                </div>
+
             </div>
 
             <!-- 註冊完成 -->
@@ -1037,37 +1021,6 @@
                         <span class="language_replace">首頁</span>
                     </a>
                 </div>
-            </div>
-        </div>
-    </div>
-
-     <!-- Modal RegisterWay -->
-     <div class="modal fade footer-center" id="ModalRegisterWay" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <!-- <h5 class="modal-title"></h5> -->
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="registerWay-popup-wrapper">
-                        <ul class="registerWay-popup-list">
-                            <li class="item">
-                            <h3 class="title">簡易註冊與完整註冊</h3>
-                            <p class="desc">簡易註冊可讓玩家填入最低限度的內容，即可進入網站體驗，但完整註冊才能享有領取獎勵、充值、提款等完整會員才有的特定功能喔!</p>  
-                            </li>
-                            <li class="item">
-                                <h3 class="title">簡易註冊後如何升級完整會員?</h3>
-                                <p class="desc">於會員中心按下『進行認證』之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <%--<div class="modal-footer">
-                    <button type="button" class="btn btn-primary">確定</button>
-                </div>--%>
             </div>
         </div>
     </div>
