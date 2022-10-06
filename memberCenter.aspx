@@ -429,6 +429,35 @@
                                             </div>
                                         </div>                                        
                                     </div>
+                                    <div class="data-item verify">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-verify"></i>
+                                                <span class="title-name language_replace">認證狀態</span>
+                                                <span class="btn btn-Q-mark btn-round btn-sm" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <div class="verify-item">
+                                                <!-- 尚未認證 -->
+                                                <span class="verify-result fail">
+                                                    <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
+                                                    <span class="verify-desc language_replace">尚未認證</span>  
+                                                    <button type="button" class="btn btn-verify" data-toggle="modal" data-target="#ModalRegisterComplete">
+                                                        <span class="title language_replace">進行認證</span>
+                                                        <i class="icon icon-mask icon-pencile"></i>
+                                                    </button>
+                                                </span>
+
+                                                <!-- 認證完成 -->
+                                                <span class="verify-result success">
+                                                    <span class="label success"><i class="icon icon-mask icon-check"></i></span>
+                                                    <span class="verify-desc language_replace">認證完成</span>
+                                                </span>
+                                               
+                                            </div>
+                                        </div>                                        
+                                    </div>
                                   
                                     <div class="data-item mobile">
                                         <div class="data-item-title">
@@ -524,8 +553,6 @@
 
                                             </div>
                                         </div>
-
-                                       
 
                                     </div>
                                 </div>
@@ -801,6 +828,190 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Save</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Modal Complete Register -->
+     <div class="modal fade footer-center" id="ModalRegisterComplete" tabindex="-1" aria-hidden="true" style="display: ;">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title language_replace">進行資料認證</h5><span class="btn btn-Q-mark btn-round btn-sm" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="registerComplete-popup-wrapper">
+                        <form id="">
+                            <div class="registerComplete-popup-inner">
+                                <div class="form-row">
+                                    <div class="form-group col phonePrefix">
+                                        <label class="form-title language_replace">國碼</label>
+                                        <div class="input-group">
+                                            <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                            <div class="invalid-feedback language_replace">請輸入國碼</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label class="form-title language_replace">手機電話號碼</label>
+                                        <div class="input-group">
+                                            <input id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
+                                            <div class="invalid-feedback language_replace">請輸入正確電話</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md">
+                                        <label class="form-title">
+                                            姓
+                                            <span class="form-title-note language_replace">(羅馬字)</span></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
+                                            <div class="invalid-feedback language_replace">提示</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md">
+                                        <label class="form-title">名<span class="form-title-note language_replace">(羅馬字)</span></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
+                                            <div class="invalid-feedback language_replace">提示</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <label class="form-title language_replace">出生年</label>
+                                        <div class="input-group">
+                                            <input id="idBornYear" type="text" class="form-control custom-style" placeholder="1900" inputmode="numeric" name="BornYear" onchange="AdjustDate()" value="1990">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label class="form-title language_replace">月</label>
+                                        <div class="input-group">
+                                            <select id="idBornMonth" class="form-control custom-style" name="BornMonth" onchange="AdjustDate()">
+                                                <option value="1" selected>1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col">
+                                        <label class="form-title language_replace">日</label>
+                                        <div class="input-group">
+                                            <select id="idBornDate" class="form-control custom-style" name="BornDate">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> 
+
+                            </div>
+                            <div class="wrapper_center">
+                                <button class="btn btn-full-main btn-roundcorner" type="button" onclick="">
+                                    <span class="language_replace">確認</span>
+                                </button>
+                            </div>            
+                        </form>
+
+                        <div class="verifyResult-wrapper">
+
+                            <!-- 認證成功 -->
+                            <div class="resultShow success">
+                                <div class="verifyResult-inner">
+                                    <div class="verify_resultShow">
+                                        <div class="verify_resultDisplay">
+                                            <div class="icon-symbol"></div>
+                                        </div>
+                                        <p class="verify_resultTitle"><span class="language_replace" >認證完成</span></p>
+                                    </div>
+                                </div>
+                                <div class="verify_detail">
+                                    <div class="item-detail">
+                                        <div class="title language_replace">
+                                            <span class="memeberNickname">Eddie</span>
+                                            <span class="language_replace">升級為完整會員</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wrapper_center">
+                                    <button class="btn btn-full-main btn-roundcorner" type="button" onclick="">
+                                        <span class="language_replace">確認</span>
+                                    </button>
+                                </div>   
+                            </div>
+
+                            <!-- 認證失敗 -->
+                            <div class="resultShow fail">
+                                <div class="verifyResult-inner">
+                                    <div class="verify_resultShow">
+                                        <div class="verify_resultDisplay">
+                                            <div class="icon-symbol"></div>
+                                        </div>
+                                        <p class="verify_resultTitle"><span class="language_replace" >認證失敗</span></p>
+                                    </div>
+                                </div>
+                                <div class="verify_detail">
+                                    <div class="item-detail">
+                                        <div class="title language_replace">
+                                            <span class="memeberNickname">Eddie</span>
+                                            <span class="language_replace">尚未升級為完整會員</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wrapper_center">
+                                    <button class="btn btn-gray btn-roundcorner" type="button" onclick="">
+                                        <span class="language_replace">取消</span>
+                                    </button>
+                                    <button class="btn btn-full-main btn-roundcorner" type="button" onclick="">
+                                        <span class="language_replace">重新認證</span>
+                                    </button>
+                                </div>   
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <%--<div class="modal-footer">
+                <button type="button" class="btn btn-primary">確定</button>
+            </div>--%>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Verify Tip -->
+    <div class="modal fade footer-center" id="ModalVerify" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="Verify-popup-wrapper">
+                        <ul class="Verify-popup-list">
+                            <li class="item">
+                                <h3 class="title language_replace">為何需要認證</h3>
+                                <p class="desc language_replace">認證需要您填入您實際的姓名，以證明為帳號之所有者，未來於出入金時的證明。因此若為完成認證，則無法使用出入金等部分功能，也無法享有領取獎勵的權益。</p>
+                            </li>
+                            <li class="item">
+                                <h3 class="title language_replace">如何進行認證?</h3>
+                                <p class="desc language_replace">於會員中心按下『進行認證』之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
