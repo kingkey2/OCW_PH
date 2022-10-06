@@ -1834,6 +1834,14 @@ public class LobbyAPI : System.Web.Services.WebService {
         return a;
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.DocumentListResult CheckDocumentByTagName(string GUID,string TagName) {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        var a = lobbyAPI.CheckDocumentByTagName(GetToken(), GUID,TagName);
+        return a;
+    }
+
     public class UserTwoMonthSummaryResult : EWin.Lobby.APIResult {
         public List<Payment> PaymentResult { get; set; }
         public List<Game> GameResult { get; set; }

@@ -68,9 +68,6 @@
     }
 
     function CheckAccountPhoneExist(cb) {
-
-        var idPhonePrefix = document.getElementById("idPhonePrefix");
-        var idPhoneNumber = document.getElementById("idPhoneNumber");
         var idLoginAccount = document.getElementById("idLoginAccount");
 
         if (idLoginAccount.value == "") {
@@ -80,43 +77,6 @@
         } else {
             if (!IsEmail(idLoginAccount.value)) {
                 window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
-                cb(false);
-                return;
-            }
-        }
-
-        if (idPhonePrefix.value == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
-            cb(false);
-            return;
-        }
-        //else if (idPhonePrefix.value != "+81") {
-        //    window.parent.showMessageOK("", mlp.getLanguageKey("國碼只能為+81"));
-        //    cb(false);
-        //    return;
-        //}
-        else if (idPhoneNumber.value == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入電話"));
-            cb(false);
-            return;
-        } else {
-            var phoneValue = idPhonePrefix.value + idPhoneNumber.value;
-            var phoneObj;
-
-            try {
-                phoneObj = PhoneNumberUtil.parse(phoneValue);
-
-                var type = PhoneNumberUtil.getNumberType(phoneObj);
-
-                if (type != libphonenumber.PhoneNumberType.MOBILE && type != libphonenumber.PhoneNumberType.FIXED_LINE_OR_MOBILE) {
-                    window.parent.showMessageOK("", mlp.getLanguageKey("電話格式有誤"));
-                    cb(false);
-                    return;
-                }
-            } catch (e) {
-
-                window.parent.showMessageOK("", mlp.getLanguageKey("電話格式有誤"));
-
                 cb(false);
                 return;
             }
@@ -148,17 +108,6 @@
             }
         }
         return true;
-        //p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
-        //    if (success) {
-        //        if (o.Result != 0) {
-        //            idLoginAccount.setCustomValidity("");
-        //        } else {
-        //            idLoginAccount.setCustomValidity(mlp.getLanguageKey("信箱已存在"));
-        //        }
-        //    }
-
-        //    cb();
-        //});
     }
 
     function CheckPassword() {
@@ -180,7 +129,6 @@
 
     function onBtnSendValidateCode() {
         if (isSent == false) {
-            var form = document.getElementById("registerStep1");
             CheckAccountPhoneExist(function (check) {
                 if (check) {
                     window.top.API_ShowLoading();
@@ -193,13 +141,11 @@
                                 window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼成功"));
 
                                 startCountDown(120);
-                                //$("#divSendValidateCodeBtn").hide();
-                                $("#divStep1Btn").show();
                             }
                         }
                     });
                 } else {
-                    //window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
+                    
                 }
             });
         } else {
@@ -214,96 +160,68 @@
     }
 
     function onBtnUserRegisterStep1() {
-        if (isSent) {
-            var form = document.getElementById("registerStep1");
-
-            if ($("#idValidateCode").val() == "") {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
-            } else {
-                if (!CheckPassword()) {
-                    return;
-                }
-
-                if (!CheckUserAccountExist()) {
-                    return;
-                }
-
-                CheckAccountPhoneExist(function (isCheck) {
-                    if (isCheck) {
-                        var PhonePrefix = $("#idPhonePrefix").val();
-                        if (PhonePrefix.substring(0, 1) == "+") {
-                            PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
-                        }
-                        p.CheckValidateCode(Math.uuid(), 0, $("#idLoginAccount").val(), PhonePrefix, $("#idPhoneNumber").val(), $("#idValidateCode").val(), function (success, o) {
-                            if (success) {
-                                if (o.Result != 0) {
-                                    window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確驗證碼"));
-                                } else {
-                                    document.getElementById("contentStep1").classList.add("is-hide");
-                                    document.getElementById("contentStep2").classList.remove("is-hide");
-
-                                    document.getElementById("progressStep1").classList.remove("cur");
-                                    document.getElementById("progressStep2").classList.add("cur");
-                                }
-                            } else {
-                                window.parent.showMessageOK("", mlp.getLanguageKey("驗證碼錯誤"));
-                            }
-                        });
-                    }
-                });
-            }
+        if ($("#idValidateCode").val() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
         } else {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請先取得驗證碼"));
+            p.CheckValidateCode(Math.uuid(), 0, $("#idLoginAccount").val(), "", "", $("#idValidateCode").val(), function (success, o) {
+                if (success) {
+                    if (o.Result != 0) {
+                        window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確驗證碼"));
+                    } else {
+                        onBtnUserRegisterStep2();
+                    }
+                } else {
+                    window.parent.showMessageOK("", mlp.getLanguageKey("驗證碼錯誤"));
+                }
+            });
         }
     }
 
     function onBtnUserRegisterStep2() {
-        //var re = /^[\s-_a-zA-Z0-9]+$/i;
         var form2 = document.getElementById("registerStep2");
-        //var idNickName = document.getElementById("idNickName");
         var CurrencyList = WebInfo.RegisterCurrencyType;
 
         initValid(form2);
 
-        // if (form2.PostalCode.value == "") {
-        //    form2.PostalCode.setCustomValidity(mlp.getLanguageKey("請輸入郵遞區號"));
-        //} else if (form2.PostalCode.value.indexOf(',') != -1) {
-        //    form2.PostalCode.setCustomValidity(mlp.getLanguageKey("不可輸入 , "));
-        //} else if (form2.Prefectures.value == "") {
-        //    form2.Prefectures.setCustomValidity(mlp.getLanguageKey("請輸入都到縣府"));
-        //} else if (form2.Prefectures.value.indexOf(',') != -1) {
-        //    form2.Prefectures.setCustomValidity(mlp.getLanguageKey("不可輸入 , "));
-        //} else if (form2.Address.value == "") {
-        //    form2.Address.setCustomValidity(mlp.getLanguageKey("請輸入地址"));
-        //} else if (form2.Address.value.indexOf(',') != -1) {
-        //    form2.Address.setCustomValidity(mlp.getLanguageKey("不可輸入 , "));
-        //}  
-
         let nowYear = new Date().getFullYear();
+        //完整註冊
+        if ($("#li_register2").hasClass("active")) {
+            if (form2.Name1.value == "") {
+                form2.Name1.setCustomValidity(mlp.getLanguageKey("請輸入姓"));
+            } else if (form2.Name2.value == "") {
+                form2.Name2.setCustomValidity(mlp.getLanguageKey("請輸入名"));
+            } else if (form2.BornYear.value.length != 4) {
+                form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
+            } else if (parseInt(form2.BornYear.value) < 1900) {
+                form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
+            } else if (parseInt(form2.BornYear.value) > nowYear) {
+                form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
+            } else if (form2.PhonePrefix.value == "") {
+                form2.PhonePrefix.setCustomValidity(mlp.getLanguageKey("請輸入國碼"));
+            } else if (form2.PhoneNumber.value == "") {
+                form2.PhoneNumber.setCustomValidity(mlp.getLanguageKey("請輸入正確電話"));
+            } 
+        }
 
-        if (form2.Name1.value == "") {
-            form2.Name1.setCustomValidity(mlp.getLanguageKey("請輸入姓"));
-        } else if (form2.Name2.value == "") {
-            form2.Name2.setCustomValidity(mlp.getLanguageKey("請輸入名"));
-        } else if (form2.NickName.value == "") {
-            form2.NickName.setCustomValidity(mlp.getLanguageKey("請輸入暱稱"));
-        } else if (form2.eighteenCheck.checked == false) {
-            form2.eighteenCheck.setCustomValidity(mlp.getLanguageKey("請確認已年滿20歲"));
-        } else if (form2.BornYear.value.length != 4) {
-            form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
-        } else if (parseInt(form2.BornYear.value) < 1900) {
-            form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
-        } else if (parseInt(form2.BornYear.value) > nowYear) {
-            form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
+
+        if ($("#NickName").val() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入暱稱20歲"));
+            return;
+        } 
+
+        if (!$("#CheckAge").prop("checked")) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請確認已年滿20歲"));
+            return;
         }
 
         form2.reportValidity();
 
         if (form2.checkValidity()) {
             var LoginPassword = document.getElementById("idLoginPassword").value;
-            var ParentPersonCode = form2.PersonCode.value;
-            var PhonePrefix = document.getElementById("idPhonePrefix").value
-            var PhoneNumber = document.getElementById("idPhoneNumber").value
+            var ParentPersonCode = $("#PersonCode").val();
+            var PhonePrefix = document.getElementById("idPhonePrefix").value;
+            var PhoneNumber = document.getElementById("idPhoneNumber").value;
+            var PS;
 
             if (typeof (ParentPersonCode) == "string") {
                 ParentPersonCode = ParentPersonCode.trim();
@@ -313,17 +231,21 @@
                 PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
             }
 
-            var PS = [
-                { Name: "RealName", Value: form2.NickName.value },
-                { Name: "KYCRealName", Value: form2.Name1.value + form2.Name2.value },
-                { Name: "ContactPhonePrefix", Value: PhonePrefix },
-                { Name: "ContactPhoneNumber", Value: PhoneNumber },
-                { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
-                //{ Name: "ContactAddress", Value: form2.PostalCode.value + "," + form2.Prefectures.value + "," + form2.Address.value },
-                { Name: "CountryName", Value: form2.Country.options[form2.Country.selectedIndex].text },
-                { Name: "Country", Value: form2.Country.options[form2.Country.selectedIndex].value },
-                { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
-            ];
+            if ($("#li_register2").hasClass("active")) {
+                PS = [
+                    { Name: "RealName", Value: $("#NickName").val() },
+                    { Name: "KYCRealName", Value: form2.Name1.value + form2.Name2.value },
+                    { Name: "ContactPhonePrefix", Value: PhonePrefix },
+                    { Name: "ContactPhoneNumber", Value: PhoneNumber },
+                    { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
+                    { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
+                ];
+            } else {
+                PS = [
+                    { Name: "RealName", Value: $("#NickName").val() },
+                    { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
+                ];
+            }
 
             p.CreateAccount(Math.uuid(), document.getElementById("idLoginAccount").value, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
                 if (success) {
@@ -502,6 +424,17 @@
         }
     }
 
+    function ChangeRegister(registertype) {
+        $(".tab-scroller__content").find(".tab-item").removeClass("active");
+        $("#li_register" + registertype).addClass("active");
+
+        if (registertype == 2) {
+            $("#contentStep2").removeClass("is-hide");
+        } else {
+            $("#contentStep2").addClass("is-hide");
+        }
+    }
+
     window.onload = init;
 </script>
 <body>
@@ -542,11 +475,11 @@
                 <div class="tab-primary tab-scroller tab-2">
                     <div class="tab-scroller__area">
                         <ul class="tab-scroller__content">
-                            <li class="tab-item active" id="li_bonus1" onclick="GetPromotionCollectAvailable(1)">
+                            <li class="tab-item active" id="li_register1" onclick="ChangeRegister(1)">
                                 <span class="tab-item-link"><span class="title language_replace">簡易註冊</span>
                                 </span>
                             </li>
-                            <li class="tab-item" id="li_bonus2" onclick="GetPromotionCollectAvailable(2)">
+                            <li class="tab-item" id="li_register2" onclick="ChangeRegister(2)">
                                 <span class="tab-item-link">
                                     <span class="title language_replace">完整註冊</span>
                                 </span> 
@@ -588,7 +521,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">暱稱</label>
                             <div class="input-group">
-                                <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="暱稱請輸入英文與數字，長度12位元以內" inputmode="" name="NickName">
+                                <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="暱稱請輸入英文與數字，長度12位元以內" inputmode="" id="NickName" name="NickName">
                                 <div class="invalid-feedback language_replace">提示</div>
                             </div>
                         </div>                       
@@ -611,14 +544,7 @@
                             <button class="btn btn-icon" type="button" onclick="showPassword('idLoginCheckPassword')">
                                 <i class="icon-eye-off"></i>
                             </button>
-                        </div>                        
-                        <div id="divStep1Btn" style="display: none">
-                            <div class="btn-container">
-                                <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep1()">
-                                    <span class="language_replace">下一步</span>
-                                </button>
-                            </div>
-                        </div>                       
+                        </div>                                              
                     </form>
                 </div>
 
@@ -629,14 +555,14 @@
                             <div class="form-group col phonePrefix">
                                 <label class="form-title language_replace">國碼</label>
                                 <div class="input-group">
-                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                    <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
                                     <div class="invalid-feedback language_replace">請輸入國碼</div>
                                 </div>
                             </div>
                             <div class="form-group col">
                                 <label class="form-title language_replace">手機電話號碼</label>
                                 <div class="input-group">
-                                    <input id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
+                                    <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
                                     <div class="invalid-feedback language_replace">請輸入正確電話</div>
                                 </div>
                             </div>
@@ -654,291 +580,11 @@
                             <div class="form-group col-md">
                                 <label class="form-title">
                                     名
-                               
                                     <span class="form-title-note language_replace">(羅馬字)</span></label>
                                 <div class="input-group">
                                     <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group is-hide">
-                            <label class="form-title language_replace">國家</label>
-                            <div class="input-group">
-                                <select class="form-control custom-style" name="Country">
-                                    <option value="AF">Afghanistan</option>
-                                    <option value="AX">Åland Islands</option>
-                                    <option value="AL">Albania</option>
-                                    <option value="DZ">Algeria</option>
-                                    <option value="AS">American Samoa</option>
-                                    <option value="AD">Andorra</option>
-                                    <option value="AO">Angola</option>
-                                    <option value="AI">Anguilla</option>
-                                    <option value="AQ">Antarctica</option>
-                                    <option value="AG">Antigua and Barbuda</option>
-                                    <option value="AR">Argentina</option>
-                                    <option value="AM">Armenia</option>
-                                    <option value="AW">Aruba</option>
-                                    <option value="AU">Australia</option>
-                                    <option value="AT">Austria</option>
-                                    <option value="AZ">Azerbaijan</option>
-                                    <option value="BS">Bahamas (the)</option>
-                                    <option value="BH">Bahrain</option>
-                                    <option value="BD">Bangladesh</option>
-                                    <option value="BB">Barbados</option>
-                                    <option value="BY">Belarus</option>
-                                    <option value="BE">Belgium</option>
-                                    <option value="BZ">Belize</option>
-                                    <option value="BJ">Benin</option>
-                                    <option value="BM">Bermuda</option>
-                                    <option value="BT">Bhutan</option>
-                                    <option value="BO">Bolivia (Plurinational State of)</option>
-                                    <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
-                                    <option value="BA">Bosnia and Herzegovina</option>
-                                    <option value="BW">Botswana</option>
-                                    <option value="BV">Bouvet Island</option>
-                                    <option value="BR">Brazil</option>
-                                    <option value="IO">British Indian Ocean Territory (the)</option>
-                                    <option value="BN">Brunei Darussalam</option>
-                                    <option value="BG">Bulgaria</option>
-                                    <option value="BF">Burkina Faso</option>
-                                    <option value="BI">Burundi</option>
-                                    <option value="CV">Cabo Verde</option>
-                                    <option value="KH">Cambodia</option>
-                                    <option value="CM">Cameroon</option>
-                                    <option value="CA">Canada</option>
-                                    <option value="KY">Cayman Islands (the)</option>
-                                    <option value="CF">Central African Republic (the)</option>
-                                    <option value="TD">Chad</option>
-                                    <option value="CL">Chile</option>
-                                    <option value="CN">China</option>
-                                    <option value="CX">Christmas Island</option>
-                                    <option value="CC">Cocos (Keeling) Islands (the)</option>
-                                    <option value="CO">Colombia</option>
-                                    <option value="KM">Comoros (the)</option>
-                                    <option value="CD">Congo (the Democratic Republic of the)</option>
-                                    <option value="CG">Congo (the)</option>
-                                    <option value="CK">Cook Islands (the)</option>
-                                    <option value="CR">Costa Rica</option>
-                                    <option value="HR">Croatia</option>
-                                    <option value="CU">Cuba</option>
-                                    <option value="CW">Curaçao</option>
-                                    <option value="CY">Cyprus</option>
-                                    <option value="CZ">Czechia</option>
-                                    <option value="CI">Côte d'Ivoire</option>
-                                    <option value="DK">Denmark</option>
-                                    <option value="DJ">Djibouti</option>
-                                    <option value="DM">Dominica</option>
-                                    <option value="DO">Dominican Republic (the)</option>
-                                    <option value="EC">Ecuador</option>
-                                    <option value="EG">Egypt</option>
-                                    <option value="SV">El Salvador</option>
-                                    <option value="GQ">Equatorial Guinea</option>
-                                    <option value="ER">Eritrea</option>
-                                    <option value="EE">Estonia</option>
-                                    <option value="SZ">Eswatini</option>
-                                    <option value="ET">Ethiopia</option>
-                                    <option value="FK">Falkland Islands (the) [Malvinas]</option>
-                                    <option value="FO">Faroe Islands (the)</option>
-                                    <option value="FJ">Fiji</option>
-                                    <option value="FI">Finland</option>
-                                    <option value="FR">France</option>
-                                    <option value="GF">French Guiana</option>
-                                    <option value="PF">French Polynesia</option>
-                                    <option value="TF">French Southern Territories (the)</option>
-                                    <option value="GA">Gabon</option>
-                                    <option value="GM">Gambia (the)</option>
-                                    <option value="GE">Georgia</option>
-                                    <option value="DE">Germany</option>
-                                    <option value="GH">Ghana</option>
-                                    <option value="GI">Gibraltar</option>
-                                    <option value="GR">Greece</option>
-                                    <option value="GL">Greenland</option>
-                                    <option value="GD">Grenada</option>
-                                    <option value="GP">Guadeloupe</option>
-                                    <option value="GU">Guam</option>
-                                    <option value="GT">Guatemala</option>
-                                    <option value="GG">Guernsey</option>
-                                    <option value="GN">Guinea</option>
-                                    <option value="GW">Guinea-Bissau</option>
-                                    <option value="GY">Guyana</option>
-                                    <option value="HT">Haiti</option>
-                                    <option value="HM">Heard Island and McDonald Islands</option>
-                                    <option value="VA">Holy See (the)</option>
-                                    <option value="HN">Honduras</option>
-                                    <option value="HK">Hong Kong</option>
-                                    <option value="HU">Hungary</option>
-                                    <option value="IS">Iceland</option>
-                                    <option value="IN">India</option>
-                                    <option value="ID">Indonesia</option>
-                                    <option value="IR">Iran (Islamic Republic of)</option>
-                                    <option value="IQ">Iraq</option>
-                                    <option value="IE">Ireland</option>
-                                    <option value="IM">Isle of Man</option>
-                                    <option value="IL">Israel</option>
-                                    <option value="IT">Italy</option>
-                                    <option value="JM">Jamaica</option>
-                                    <option value="JP" selected>Japan</option>
-                                    <option value="JE">Jersey</option>
-                                    <option value="JO">Jordan</option>
-                                    <option value="KZ">Kazakhstan</option>
-                                    <option value="KE">Kenya</option>
-                                    <option value="KI">Kiribati</option>
-                                    <option value="KP">Korea (the Democratic People's Republic of)</option>
-                                    <option value="KR">Korea (the Republic of)</option>
-                                    <option value="KW">Kuwait</option>
-                                    <option value="KG">Kyrgyzstan</option>
-                                    <option value="LA">Lao People's Democratic Republic (the)</option>
-                                    <option value="LV">Latvia</option>
-                                    <option value="LB">Lebanon</option>
-                                    <option value="LS">Lesotho</option>
-                                    <option value="LR">Liberia</option>
-                                    <option value="LY">Libya</option>
-                                    <option value="LI">Liechtenstein</option>
-                                    <option value="LT">Lithuania</option>
-                                    <option value="LU">Luxembourg</option>
-                                    <option value="MO">Macao</option>
-                                    <option value="MG">Madagascar</option>
-                                    <option value="MW">Malawi</option>
-                                    <option value="MY">Malaysia</option>
-                                    <option value="MV">Maldives</option>
-                                    <option value="ML">Mali</option>
-                                    <option value="MT">Malta</option>
-                                    <option value="MH">Marshall Islands (the)</option>
-                                    <option value="MQ">Martinique</option>
-                                    <option value="MR">Mauritania</option>
-                                    <option value="MU">Mauritius</option>
-                                    <option value="YT">Mayotte</option>
-                                    <option value="MX">Mexico</option>
-                                    <option value="FM">Micronesia (Federated States of)</option>
-                                    <option value="MD">Moldova (the Republic of)</option>
-                                    <option value="MC">Monaco</option>
-                                    <option value="MN">Mongolia</option>
-                                    <option value="ME">Montenegro</option>
-                                    <option value="MS">Montserrat</option>
-                                    <option value="MA">Morocco</option>
-                                    <option value="MZ">Mozambique</option>
-                                    <option value="MM">Myanmar</option>
-                                    <option value="NA">Namibia</option>
-                                    <option value="NR">Nauru</option>
-                                    <option value="NP">Nepal</option>
-                                    <option value="NL">Netherlands (the)</option>
-                                    <option value="NC">New Caledonia</option>
-                                    <option value="NZ">New Zealand</option>
-                                    <option value="NI">Nicaragua</option>
-                                    <option value="NE">Niger (the)</option>
-                                    <option value="NG">Nigeria</option>
-                                    <option value="NU">Niue</option>
-                                    <option value="NF">Norfolk Island</option>
-                                    <option value="MP">Northern Mariana Islands (the)</option>
-                                    <option value="NO">Norway</option>
-                                    <option value="OM">Oman</option>
-                                    <option value="PK">Pakistan</option>
-                                    <option value="PW">Palau</option>
-                                    <option value="PS">Palestine, State of</option>
-                                    <option value="PA">Panama</option>
-                                    <option value="PG">Papua New Guinea</option>
-                                    <option value="PY">Paraguay</option>
-                                    <option value="PE">Peru</option>
-                                    <option value="PH">Philippines (the)</option>
-                                    <option value="PN">Pitcairn</option>
-                                    <option value="PL">Poland</option>
-                                    <option value="PT">Portugal</option>
-                                    <option value="PR">Puerto Rico</option>
-                                    <option value="QA">Qatar</option>
-                                    <option value="MK">Republic of North Macedonia</option>
-                                    <option value="RO">Romania</option>
-                                    <option value="RU">Russian Federation (the)</option>
-                                    <option value="RW">Rwanda</option>
-                                    <option value="RE">Réunion</option>
-                                    <option value="BL">Saint Barthélemy</option>
-                                    <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
-                                    <option value="KN">Saint Kitts and Nevis</option>
-                                    <option value="LC">Saint Lucia</option>
-                                    <option value="MF">Saint Martin (French part)</option>
-                                    <option value="PM">Saint Pierre and Miquelon</option>
-                                    <option value="VC">Saint Vincent and the Grenadines</option>
-                                    <option value="WS">Samoa</option>
-                                    <option value="SM">San Marino</option>
-                                    <option value="ST">Sao Tome and Principe</option>
-                                    <option value="SA">Saudi Arabia</option>
-                                    <option value="SN">Senegal</option>
-                                    <option value="RS">Serbia</option>
-                                    <option value="SC">Seychelles</option>
-                                    <option value="SL">Sierra Leone</option>
-                                    <option value="SG">Singapore</option>
-                                    <option value="SX">Sint Maarten (Dutch part)</option>
-                                    <option value="SK">Slovakia</option>
-                                    <option value="SI">Slovenia</option>
-                                    <option value="SB">Solomon Islands</option>
-                                    <option value="SO">Somalia</option>
-                                    <option value="ZA">South Africa</option>
-                                    <option value="GS">South Georgia and the South Sandwich Islands</option>
-                                    <option value="SS">South Sudan</option>
-                                    <option value="ES">Spain</option>
-                                    <option value="LK">Sri Lanka</option>
-                                    <option value="SD">Sudan (the)</option>
-                                    <option value="SR">Suriname</option>
-                                    <option value="SJ">Svalbard and Jan Mayen</option>
-                                    <option value="SE">Sweden</option>
-                                    <option value="CH">Switzerland</option>
-                                    <option value="SY">Syrian Arab Republic</option>
-                                    <option value="TW">Taiwan (Province of China)</option>
-                                    <option value="TJ">Tajikistan</option>
-                                    <option value="TZ">Tanzania, United Republic of</option>
-                                    <option value="TH">Thailand</option>
-                                    <option value="TL">Timor-Leste</option>
-                                    <option value="TG">Togo</option>
-                                    <option value="TK">Tokelau</option>
-                                    <option value="TO">Tonga</option>
-                                    <option value="TT">Trinidad and Tobago</option>
-                                    <option value="TN">Tunisia</option>
-                                    <option value="TR">Turkey</option>
-                                    <option value="TM">Turkmenistan</option>
-                                    <option value="TC">Turks and Caicos Islands (the)</option>
-                                    <option value="TV">Tuvalu</option>
-                                    <option value="UG">Uganda</option>
-                                    <option value="UA">Ukraine</option>
-                                    <option value="AE">United Arab Emirates (the)</option>
-                                    <option value="GB">United Kingdom of Great Britain and Northern Ireland (the)</option>
-                                    <option value="UM">United States Minor Outlying Islands (the)</option>
-                                    <option value="US">United States of America (the)</option>
-                                    <option value="UY">Uruguay</option>
-                                    <option value="UZ">Uzbekistan</option>
-                                    <option value="VU">Vanuatu</option>
-                                    <option value="VE">Venezuela (Bolivarian Republic of)</option>
-                                    <option value="VN">Viet Nam</option>
-                                    <option value="VG">Virgin Islands (British)</option>
-                                    <option value="VI">Virgin Islands (U.S.)</option>
-                                    <option value="WF">Wallis and Futuna</option>
-                                    <option value="EH">Western Sahara</option>
-                                    <option value="YE">Yemen</option>
-                                    <option value="ZM">Zambia</option>
-                                    <option value="ZW">Zimbabwe</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row" style="display: none">
-                            <div class="form-group col">
-                                <label class="form-title language_replace">郵遞區號</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="123-4567" inputmode="numeric" name="PostalCode">
-                                    <div class="invalid-feedback language_replace">提示</div>
-                                </div>
-                            </div>
-                            <div class="form-group col">
-                                <label class="form-title language_replace">都道縣府<%--<span class="form-title-note language_replace">(羅馬字)</span>--%></label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Tokyo" inputmode="" name="Prefectures">
-                                    <div class="invalid-feedback language_replace">提示</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group" style="display: none">
-                            <label class="form-title language_replace">市區町村以下的地址<%--<span class="form-title-note language_replace">(羅馬字)</span>--%></label>
-                            <div class="input-group">
-                                <input type="text" class="form-control custom-style" placeholder="shinjiku-ku 1-2-3" inputmode="" name="Address">
-                                <div class="invalid-feedback language_replace">提示</div>
                             </div>
                         </div>
                         <div class="form-row">
@@ -982,7 +628,7 @@
                     <div class="form-group">
                         <label class="form-title language_replace">推廣碼</label>
                         <div class="input-group">
-                            <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="若無推廣碼可不填寫" inputmode="" name="PersonCode">
+                            <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="若無推廣碼可不填寫" inputmode="" id="PersonCode" name="PersonCode">
                         </div>
                     </div>   
                     <div class="form-group">
@@ -995,7 +641,7 @@
                         <p class="language_replace text-s">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。</p>
                     </div>
                     <div class="btn-container">
-                        <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep2()">
+                        <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep1()">
                             <span class="language_replace">註冊</span>
                         </button>
                     </div>
