@@ -517,7 +517,6 @@
 
         <!-- 主內容框 -->
         <div class="main-panel">
-
             <!-- 註冊 -->
             <div id="idRegister" class="form-container">
                 <div class="sec-title-wrapper">
@@ -624,7 +623,7 @@
                 </div>
 
                 <!-- 以下為 完整註冊-進階版 -->
-                <div id="contentStep2" class="form-content" data-form-group="registerStep2">
+                <div id="contentStep2" class="form-content is-hide" data-form-group="registerStep2">
                     <form id="registerStep2">
                         <div class="form-row">
                             <div class="form-group col phonePrefix">
@@ -975,40 +974,45 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-title language_replace">推廣碼</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="若無推廣碼可不填寫" inputmode="" name="PersonCode">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="CheckAge" name="eighteenCheck">
-                                <label class=" language_replace text-s" for="CheckAge">我已年滿20歲，且我已了解資料僅作為本網站會員所使用，不會在其他地方使用。</label>
-                            </div>
-                        </div>
-                        <div class="form-group rules-privacy text-small">
-                            <p class="language_replace text-s">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。</p>
-                        </div>
-                        <div class="btn-container">
-                            <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep2()">
-                                <span class="language_replace">註冊</span>
-                            </button>
-                        </div>
+                        </div>             
                     </form>
                 </div>
-                <div class="get-start-header">
-                    <div class="language_replace">已有帳號了?</div>
-                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="window.parent.API_LoadPage('Login', 'Login.aspx')">
-                        <span class="language_replace">前往登入</span>
-                    </button>
-                </div>
-                <div class="form-group">
-                    <div class="LineOfficialQrcode">
-                        <p class="QrCode"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6AQAAAACgl2eQAAABrklEQVR4Xu2YXYrDMAyEBT5AjuSr+0g+gEGrmXHYbFna1w5YuMGRvpdBP3Ya+d5GvHpe7ACyA8gOICMwouwaOXtcyTUWXIrZAPVbVzaSbfZVwLX9RkCJohOrZQZfIdwPQJoqWjKdgYHQlVQKvXZAsuSCZUb/+Lcmvxyo7MRdcnvBpZgLINvZgcDZH14ngMWGOaY0SawVgNSkJnD0NoNDAE8vIGcsHCWxdu9jlDWmzAgI+FNRhTTQvIDSFVHJykoW8lXu6AhbAWp8JIvR0lgbOY2AqrcFXaUXTqpGK1kBfC2ZXCSxeci0ARbbBNEJgX+HmAWAxiHWU2JnoPcnYz5AY9VhIMvPw0UZ9AE2gycbH3DaAdhjAvBYUcug5J7HogOwy6wMoa7GSZoRQKWdBGYyxpd6xwsoXXhLtUxCKSR7AY0XRbY/OmhRr/LlA8hQeJRMuCK/Mi2AAVV7CGMj1TgirYDE5Qo5Qu1hdlGmG8A5XEMYehNZ4+ZRk05A5YiftIsHyrPkrICe90VLTi8gUXJIVuJMBxz7XzgnoAoMnvtLUIxU+wDv7ACyA8gOIPsM/AA5dNe87D/VlAAAAABJRU5ErkJggg==" alt=""></p>
-                        <p class="text-note text-gray">* 若有任何問題歡迎資詢マハラジャ官方Line客服</p>
+
+                <div id="" class="form-content">
+                    <div class="form-group">
+                        <label class="form-title language_replace">推廣碼</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="若無推廣碼可不填寫" inputmode="" name="PersonCode">
+                        </div>
+                    </div>   
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="CheckAge" name="eighteenCheck">
+                            <label class=" language_replace text-s" for="CheckAge">我已年滿20歲，且我已了解資料僅作為本網站會員所使用，不會在其他地方使用。</label>
+                        </div>
                     </div>
+                    <div class="form-group rules-privacy text-small">
+                        <p class="language_replace text-s">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。</p>
+                    </div>
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep2()">
+                            <span class="language_replace">註冊</span>
+                        </button>
+                    </div>
+
+                    <div class="get-start-header">
+                        <div class="language_replace">已有帳號了?</div>
+                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="window.parent.API_LoadPage('Login', 'Login.aspx')">
+                            <span class="language_replace">前往登入</span>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <div class="LineOfficialQrcode">
+                            <p class="QrCode"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6AQAAAACgl2eQAAABrklEQVR4Xu2YXYrDMAyEBT5AjuSr+0g+gEGrmXHYbFna1w5YuMGRvpdBP3Ya+d5GvHpe7ACyA8gOICMwouwaOXtcyTUWXIrZAPVbVzaSbfZVwLX9RkCJohOrZQZfIdwPQJoqWjKdgYHQlVQKvXZAsuSCZUb/+Lcmvxyo7MRdcnvBpZgLINvZgcDZH14ngMWGOaY0SawVgNSkJnD0NoNDAE8vIGcsHCWxdu9jlDWmzAgI+FNRhTTQvIDSFVHJykoW8lXu6AhbAWp8JIvR0lgbOY2AqrcFXaUXTqpGK1kBfC2ZXCSxeci0ARbbBNEJgX+HmAWAxiHWU2JnoPcnYz5AY9VhIMvPw0UZ9AE2gycbH3DaAdhjAvBYUcug5J7HogOwy6wMoa7GSZoRQKWdBGYyxpd6xwsoXXhLtUxCKSR7AY0XRbY/OmhRr/LlA8hQeJRMuCK/Mi2AAVV7CGMj1TgirYDE5Qo5Qu1hdlGmG8A5XEMYehNZ4+ZRk05A5YiftIsHyrPkrICe90VLTi8gUXJIVuJMBxz7XzgnoAoMnvtLUIxU+wDv7ACyA8gOIPsM/AA5dNe87D/VlAAAAABJRU5ErkJggg==" alt=""></p>
+                            <p class="text-note text-gray">* 若有任何問題歡迎資詢マハラジャ官方Line客服</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
