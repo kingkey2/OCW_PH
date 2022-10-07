@@ -1,8 +1,8 @@
 {
   "ApiUrl": "http://epay.dev4.mts.idv.tw/api/Gate/",
-  "CompanyCode": "OCW_JPY",
-  "ApiKey": "5a39646a56114a9d9279e099431f36da",
-  "ServiceType": "JOOB01",
-  "CyrrencyType": "JPY",
+  "CompanyCode": "OCW_PHP",
+  "ApiKey": "a8513205c0044cb480d5c3c903271966",
+  "ServiceType": "PHP01",
+  "CyrrencyType": "PHP",
   "ProviderIP": [ "172.16.16.34", "172.16.16.1" ]
 }

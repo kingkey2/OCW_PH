@@ -91,6 +91,31 @@
         });
     };
 
+    this.GetPaymentMethodByPaymentCode = function (WebSID, GUID, PaymentCategoryCode, PaymentType, PaymentCode, cb) {
+        var url = APIUrl + "/GetPaymentMethodByPaymentCode";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            PaymentCategoryCode: PaymentCategoryCode,
+            PaymentType: PaymentType,
+            PaymentCode: PaymentCode
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.GetPaymentMethodByCategory = function (WebSID, GUID, PaymentCategoryCode, PaymentType, cb) {
         var url = APIUrl + "/GetPaymentMethodByCategory";
         var postData;

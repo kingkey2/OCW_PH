@@ -71,6 +71,44 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public PaymentMethodResult GetPaymentMethodByPaymentCode(string WebSID, string GUID, string PaymentCategoryCode, int PaymentType,string PaymentCode)
+    {
+        RedisCache.SessionContext.SIDInfo SI;
+        PaymentMethodResult R = new PaymentMethodResult() { GUID = GUID, Result = enumResult.ERR, PaymentMethodResults = new List<PaymentMethod>() };
+        System.Data.DataTable DT = new System.Data.DataTable();
+        DT = RedisCache.PaymentMethod.GetPaymentMethodByCategory(PaymentCategoryCode);
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+        {
+            if (DT != null)
+            {
+                if (DT.Rows.Count > 0)
+                {
+                    R.Result = enumResult.OK;
+                    R.PaymentMethodResults = EWinWeb.ToList<PaymentMethod>(DT).Where(x => x.PaymentType == PaymentType&&x.PaymentCode==PaymentCode && x.State == 0).ToList();
+                }
+                else
+                {
+                    SetResultException(R, "NoData");
+                }
+            }
+            else
+            {
+                SetResultException(R, "NoData");
+            }
+        }
+        else
+        {
+            SetResultException(R, "InvalidWebSID");
+        }
+
+        return R;
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public PaymentMethodResult GetPaymentMethodByCategory(string WebSID, string GUID, string PaymentCategoryCode, int PaymentType)
     {
         RedisCache.SessionContext.SIDInfo SI;
@@ -1048,6 +1086,7 @@ public class PaymentAPI : System.Web.Services.WebService
         string Decription = "";
         dynamic o = null;
         decimal JPYRate=0;
+        string ServiceType = "";
         System.Data.DataTable DT;
         EWin.Payment.PaymentDetailInheritsBase[] p;
 
@@ -1067,6 +1106,14 @@ public class PaymentAPI : System.Web.Services.WebService
                 tagInfoData.ThresholdValue = TempCommonData.ThresholdValue;
                 PointValue = TempCommonData.Amount;
                 ReceiveCurrencyType = TempCommonData.ReceiveCurrencyType;
+
+                if (tagInfoData.PaymentCode=="DiDiPay")
+                {
+                    ServiceType = "PHP01";
+                }
+                else if(tagInfoData.PaymentCode=="YuHong"){ 
+                     ServiceType = "PHP02";
+                }
 
                 if (PaymentType == "EPayJKC")
                 {
@@ -1237,7 +1284,7 @@ public class PaymentAPI : System.Web.Services.WebService
                             {
                                 EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
                                 EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
-                                var CreateEPayDepositeReturn = Payment.EPay.CreateEPayDeposite(paymentResult.PaymentSerial, TempCommonData.Amount, PaymentType, TempCommonData.ToInfo, userInfoResult.ContactPhoneNumber);
+                                var CreateEPayDepositeReturn = Payment.EPay.CreateEPayDeposite(paymentResult.PaymentSerial, TempCommonData.Amount, PaymentType, TempCommonData.ToInfo, userInfoResult.ContactPhoneNumber,ServiceType);
                                 if (CreateEPayDepositeReturn.ResultState == Payment.APIResult.enumResultCode.OK)
                                 {
                                     int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, TempCommonData.ToInfo, paymentResult.PaymentSerial, "", PointValue, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData.ActivityDatas));
