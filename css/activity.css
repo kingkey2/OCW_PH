@@ -119,6 +119,20 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .tab-prize.tab-scroller .tab-item:not(.active):hover {
   background-color: #369AD6;
 }
+.tab-activity {
+  margin-bottom: 15px;
+}
+.tab-activity .tab-scroller .tab-item {
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 1.0625rem;
+}
+.tab-activity .tab-scroller .tab-item.active {
+  color: #009FE8;
+}
+.tab-activity .tab-slide {
+  background-color: #009FE8;
+}
+
 .prize-item {
   position: relative;
   padding: 12px;

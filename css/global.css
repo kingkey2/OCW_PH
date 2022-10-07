@@ -2644,7 +2644,7 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
       align-self: flex-start;
 }
 .sign-container .heading-title {
-  margin: 0 0 2em;
+  margin: 0 0 1.5em;
 }
 .sign-container .heading-title h3 {
   font-size: 1.5em;
@@ -4568,6 +4568,14 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
    padding-bottom: 30px;
 }
 
+.tab-register{
+  position: sticky;
+  top: 0;
+  z-index: 11;
+  background-color: #fff;
+  padding: 5px 0 5px;
+}
+
 .tab-scroller {
   width: 100%;
   overflow-x: hidden;
@@ -4675,7 +4683,7 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   /* background-color: rgba(133, 133, 133, 0.85); */
   background-color: rgba(137, 153, 167, 0.15);
   border-radius: 30px;
-  margin-bottom: 30px;
+  /* margin-bottom: 20px; */
 }
 
 .tab-primary.tab-scroller .tab-item.active {
@@ -4770,7 +4778,7 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
 }
 
 /* 簡易註冊與完整註冊 Popup*/
-.registerWay-popup-wrapper{
+/* .registerWay-popup-wrapper{
   font-weight: 300;
 }
 
@@ -4784,7 +4792,23 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
 
 .registerWay-popup-list .item .title{
   font-size: 1.5rem;
+} */
+.text-bold{
+	font-weight: 500;	
 }
+.popup-tip {
+  font-weight: 300
+}
+
+.popup-tip .item {
+  margin-bottom: 45px
+}
+
+.popup-tip .item .title {
+  font-size: 1.125rem
+}
+
+
 
 .LineOfficialQrcode{
   margin: 10px auto;
