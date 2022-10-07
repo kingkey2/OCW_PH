@@ -329,6 +329,25 @@
                         <h1 class="sec-title title-deco"><span class="language_replace">活動</span></h1>
                     </div>
                 </div>
+                <nav class="tab-activity is-hide">
+                    <div class="tab-scroller tab-2">
+                        <div class="tab-scroller__area">
+                            <ul class="tab-scroller__content" id="idTabActivityList">
+                                <li class="tab-item act-running active">
+                                    <span class="tab-item-link">
+                                        <span class="title language_replace">進行中</span>
+                                    </span>
+                                </li>
+                                <li class="tab-item act-finish">
+                                    <span class="tab-item-link">
+                                        <span class="title language_replace">已結束</span>
+                                    </span>
+                                </li>
+                                <div class="tab-slide"></div>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group">
                         <figure class="activity-item">
