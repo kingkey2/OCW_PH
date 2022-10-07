@@ -1652,10 +1652,11 @@
 
             if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
                 gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
+                CloseWindowOpenGamePage(gameWindow);
             } else {
                 if (EWinWebInfo.DeviceType == 1) {
                     gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
-
+                    CloseWindowOpenGamePage(gameWindow);
                     //window.location.href = "/kevintest.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";
 
                 } else {
@@ -1718,6 +1719,12 @@
             <iframe id="GameIFramePage" style="width:${w}px;height:${vh}px;background-color:#09f" name="mainiframe" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-pointer-lock"></iframe>
         </div>`;
         $("#divGameFrame").append(tmp);
+    }
+    
+    function CloseWindowOpenGamePage(e) {
+        showMessageOK("", "關閉", function () {
+            e.close();
+        })
     }
     //#endregion
 
@@ -2036,21 +2043,8 @@
     }
 
     function getLoginMessage(cb) {
-        //lobbyClient.GetLoginMessage(EWinWebInfo.SID, Math.uuid(), function (success, o) {
-        //    if (success) {
-        //        if (o.Result == 0) {
-        //            LoginMessageTitle = o.Title;
-        //            LoginMessage = o.Message;
-        //            LoginMessageVersion = o.Version;
-        //            if (cb != null) {
-        //                cb();
-        //            }
-        //        }
-        //    }
-        //});
 
         lobbyClient.CheckDocumentByTagName(Math.uuid(), "N2", function (success, o) {
-            console.log("N2",o)
             if (success) {
                 if (o.Result == 0) {
 

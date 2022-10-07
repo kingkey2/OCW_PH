@@ -85,6 +85,8 @@
         $("#RealName").val(WebInfo.UserInfo.RealName);
         $("#Email").val(WebInfo.UserInfo.EMail == undefined ? "" : WebInfo.UserInfo.EMail);
         $("#PhoneNumber").val(WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber);
+        let IsFullRegistration = 0; 
+
         if (WebInfo.UserInfo.ExtraData) {
             var ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
             for (var i = 0; i < ExtraData.length; i++) {
@@ -97,6 +99,10 @@
 
                 if (ExtraData[i].Name == "UserGetMail") {
                     $("#check_UserGetMail").prop("checked", ExtraData[i].Value);
+                }
+
+                if (ExtraData[i].Name == "IsFullRegistration") {
+                    IsFullRegistration = ExtraData[i].Value;
                 }
             }
         }
@@ -140,6 +146,12 @@
             $("#idThrehold").text("0");
             $("#divThrehold").addClass("enough");
             $("#divThrehold").removeClass("lacking");
+        }
+
+        if (IsFullRegistration == 0) {
+            $("#IsFullRegistration0").show();
+        } else {
+            $("#IsFullRegistration1").show();
         }
     }
 
@@ -306,6 +318,8 @@
             }
         });
 
+        AdjustDate();
+
         memberInit();
         //changeAvatar(getCookie("selectAvatar"));
 
@@ -331,6 +345,120 @@
             () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
             () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
         //alert("Copied the text: " + copyText.value);
+    }
+
+    function AdjustDate() {
+        var idBornYear = document.getElementById("idBornYear1");
+        var idBornMonth = document.getElementById("idBornMonth1");
+        var idBornDate = document.getElementById("idBornDate");
+        idBornDate.options.length = 0;
+
+        var year = idBornYear.value;
+        var month = parseInt(idBornMonth.value);
+
+        //get the last day, so the number of days in that month
+        var days = new Date(year, month, 0).getDate();
+
+        //lets create the days of that month
+        for (var d = 1; d <= days; d++) {
+            var dayElem = document.createElement("option");
+            dayElem.value = d;
+            dayElem.textContent = d;
+
+            if (d == 1) {
+                dayElem.selected = true;
+            }
+
+            idBornDate.append(dayElem);
+        }
+    }
+
+    function Certification() {
+        var idBornYear = document.getElementById("idBornYear1");
+        var idBornMonth = document.getElementById("idBornMonth1");
+        var idBornDate = document.getElementById("idBornDate");
+        var PhonePrefix = document.getElementById("idPhonePrefix").value;
+        var PhoneNumber = document.getElementById("idPhoneNumber").value;
+        var Name1 = document.getElementById("Name1").value;
+        var Name2 = document.getElementById("Name2").value;
+
+        var year = idBornYear.value;
+        var month = parseInt(idBornMonth.value);
+        var date = parseInt(idBornDate.value);
+        let nowYear = new Date().getFullYear();
+        let strExtraData = "";
+
+        if (year.length != 4) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+            return;
+        } else if (parseInt(year) < 1900) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+            return;
+        } else if (parseInt(year) > nowYear) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+            return;
+        } else if (Name1 == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入姓"));
+            return;
+        } else if (Name2 == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入名"));
+            return;
+        } else if (PhonePrefix == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
+            return;
+        } else if (PhoneNumber == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入電話"));
+            return;
+        }
+
+        let ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
+
+        if (WebInfo.UserInfo.ExtraData.indexOf("IsFullRegistration") > 0) {
+            for (var i = 0; i < ExtraData.length; i++) {
+                if (ExtraData[i].Name == "IsFullRegistration") {
+                    ExtraData[i].Value = 1;
+                }
+            }
+        } else {
+            ExtraData.push({
+                Name: 'IsFullRegistration', Value: 1
+            });
+        }
+
+        strExtraData = JSON.stringify(ExtraData);
+
+        var data = {
+            "OldPassword": "",
+            "ContactPhonePrefix": PhonePrefix,
+            "ContactPhoneNumber": PhoneNumber,
+            "RealName": Name1 + Name2,
+            "Birthday": year + "/" + month + "/" + date,
+            "ExtraData": strExtraData
+        }
+
+        p.UpdateUserAccount(WebInfo.SID, Math.uuid(), data, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    updateBaseInfo();
+                    $("#CertificationForm").hide();
+                    $("#CertificationSucc").show();
+                } else {
+                    $("#CertificationForm").hide();
+                    $("#CertificationFail").show();
+                }
+            } else {
+                if (o == "Timeout") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                } else {
+                    $("#CertificationForm").hide();
+                    $("#CertificationFail").show();
+                }
+            }
+        });
+    }
+
+    function closeCertification() {
+        $("#btn_PupLangClose1").click();
     }
 
     window.onload = init;
@@ -441,7 +569,7 @@
                                         <div class="data-item-content">
                                             <div class="verify-item">
                                                 <!-- 尚未認證 -->
-                                                <span class="verify-result fail">
+                                                <span class="verify-result fail" id="IsFullRegistration0" style="display:none">
                                                     <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
                                                     <span class="verify-desc language_replace">尚未認證</span>  
                                                     <button type="button" class="btn btn-verify" data-toggle="modal" data-target="#ModalRegisterComplete">
@@ -451,7 +579,7 @@
                                                 </span>
 
                                                 <!-- 認證完成 -->
-                                                <span class="verify-result success">
+                                                <span class="verify-result success" id="IsFullRegistration1" style="display:none">
                                                     <span class="label success"><i class="icon icon-mask icon-check"></i></span>
                                                     <span class="verify-desc language_replace">認證完成</span>
                                                 </span>
@@ -841,13 +969,13 @@
                     <div class="sec-title-container">
                         <h5 class="modal-title language_replace">進行資料認證</h5><span class="btn btn-Q-mark btn-round ml-2" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
                     </div>                    
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose1">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="registerComplete-popup-wrapper">
-                        <form id="">
+                        <form id="CertificationForm">
                             <div class="registerComplete-popup-inner">
                                 <div class="form-row">
                                     <div class="form-group col phonePrefix">
@@ -869,14 +997,14 @@
                                     <div class="form-group col-md">
                                         <label class="form-title">姓<span class="form-title-note language_replace">(羅馬字)</span></label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
+                                            <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" id="Name1" name="Name1">
                                             <div class="invalid-feedback language_replace">提示</div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md">
                                         <label class="form-title">名<span class="form-title-note language_replace">(羅馬字)</span></label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
+                                            <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" id="Name2" name="Name2">
                                             <div class="invalid-feedback language_replace">提示</div>
                                         </div>
                                     </div>
@@ -885,13 +1013,13 @@
                                     <div class="form-group col">
                                         <label class="form-title language_replace">出生年</label>
                                         <div class="input-group">
-                                            <input id="idBornYear" type="text" class="form-control custom-style" placeholder="1900" inputmode="numeric" name="BornYear" onchange="AdjustDate()" value="1990">
+                                            <input id="idBornYear1" type="text" class="form-control custom-style" placeholder="1900" inputmode="numeric" name="BornYear" onchange="AdjustDate()" value="1990">
                                         </div>
                                     </div>
                                     <div class="form-group col">
                                         <label class="form-title language_replace">月</label>
                                         <div class="input-group">
-                                            <select id="idBornMonth" class="form-control custom-style" name="BornMonth" onchange="AdjustDate()">
+                                            <select id="idBornMonth1" class="form-control custom-style" name="BornMonth" onchange="AdjustDate()">
                                                 <option value="1" selected>1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -918,7 +1046,7 @@
 
                             </div>
                             <div class="wrapper_center">
-                                <button class="btn btn-full-main btn-roundcorner" type="button" onclick="">
+                                <button class="btn btn-full-main btn-roundcorner" type="button" onclick="Certification()">
                                     <span class="language_replace">確認</span>
                                 </button>
                             </div>            
@@ -927,7 +1055,7 @@
                         <div class="verifyResult-wrapper">
 
                             <!-- 認證成功 -->
-                            <div class="resultShow success">
+                            <div class="resultShow success" id="CertificationSucc" style="display:none">
                                 <div class="verifyResult-inner">
                                     <div class="verify_resultShow">
                                         <div class="verify_resultDisplay">
@@ -939,20 +1067,20 @@
                                 <div class="verify_detail">
                                     <div class="item-detail">
                                         <div class="title language_replace">
-                                            <span class="memeberNickname">Eddie</span>
+                                            <%--<span class="memeberNickname">Eddie</span>--%>
                                             <span class="language_replace">升級為完整會員</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="wrapper_center">
-                                    <button class="btn btn-full-main btn-roundcorner" type="button" onclick="">
+                                    <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeCertification()">
                                         <span class="language_replace">確認</span>
                                     </button>
                                 </div>   
                             </div>
 
                             <!-- 認證失敗 -->
-                            <div class="resultShow fail">
+                            <div class="resultShow fail" id="CertificationFail" style="display:none">
                                 <div class="verifyResult-inner">
                                     <div class="verify_resultShow">
                                         <div class="verify_resultDisplay">
@@ -964,17 +1092,22 @@
                                 <div class="verify_detail">
                                     <div class="item-detail">
                                         <div class="title language_replace">
-                                            <span class="memeberNickname">Eddie</span>
+                                            <%--<span class="memeberNickname">Eddie</span>--%>
                                             <span class="language_replace">尚未升級為完整會員</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="wrapper_center">
+                               <%-- <div class="wrapper_center">
                                     <button class="btn btn-gray btn-roundcorner" type="button" onclick="">
                                         <span class="language_replace">取消</span>
                                     </button>
                                     <button class="btn btn-full-main btn-roundcorner" type="button" onclick="">
                                         <span class="language_replace">重新認證</span>
+                                    </button>
+                                </div>   --%>
+                                <div class="wrapper_center">
+                                    <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeCertification()">
+                                        <span class="language_replace">確認</span>
                                     </button>
                                 </div>   
                             </div>

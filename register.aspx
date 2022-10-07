@@ -230,9 +230,10 @@
             if (PhonePrefix.substring(0, 1) == "+") {
                 PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
             }
-
+            //full registration
             if ($("#li_register2").hasClass("active")) {
                 PS = [
+                    { Name: "IsFullRegistration", Value: 1 },
                     { Name: "RealName", Value: $("#NickName").val() },
                     { Name: "KYCRealName", Value: form2.Name1.value + form2.Name2.value },
                     { Name: "ContactPhonePrefix", Value: PhonePrefix },
@@ -242,6 +243,7 @@
                 ];
             } else {
                 PS = [
+                    { Name: "IsFullRegistration", Value: 0 },
                     { Name: "RealName", Value: $("#NickName").val() },
                     { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
                 ];
