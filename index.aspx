@@ -1845,10 +1845,6 @@
         }
     }
 
-    function ddd() {
-
-    }
-
     function updateBaseInfo() {
         var idMenuLogin = document.getElementById("idMenuLogin");
         var idLoginBtn = document.getElementById("idLoginBtn");
