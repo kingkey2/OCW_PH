@@ -474,27 +474,28 @@
                 </div>
 
                 <!-- 簡易/完整步驟 -->
-                <div class="tab-primary tab-scroller tab-2">
-                    <div class="tab-scroller__area">
-                        <ul class="tab-scroller__content">
-                            <li class="tab-item active" id="li_register1" onclick="ChangeRegister(1)">
-                                <span class="tab-item-link"><span class="title language_replace">簡易註冊</span>
-                                </span>
-                            </li>
-                            <li class="tab-item" id="li_register2" onclick="ChangeRegister(2)">
-                                <span class="tab-item-link">
-                                    <span class="title language_replace">完整註冊</span>
-                                </span> 
-                            </li>
-                            <li class="tab-slide"></li>
-                        </ul>
+                <div class="tab-register">
+                    <div class="tab-primary tab-scroller tab-2">
+                        <div class="tab-scroller__area">
+                            <ul class="tab-scroller__content">
+                                <li class="tab-item active" id="li_register1" onclick="ChangeRegister(1)">
+                                    <span class="tab-item-link"><span class="title language_replace">簡易註冊</span>
+                                    </span>
+                                </li>
+                                <li class="tab-item" id="li_register2" onclick="ChangeRegister(2)">
+                                    <span class="tab-item-link">
+                                        <span class="title language_replace">完整註冊</span>
+                                    </span> 
+                                </li>
+                                <li class="tab-slide"></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-
                 <!-- 簡易註冊 -->
                 <div id="contentStep1" class="form-content" data-form-group="registerStep1">
                     <form id="registerStep1">
-                        <div class="form-group">
+                        <div class="form-group mt-4">
                             <label class="form-title language_replace">信箱</label>
                             <div class="input-group">
                                 <input id="idLoginAccount" name="LoginAccount" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
@@ -693,8 +694,8 @@
         </div>
     </div>
 
-     <!-- Modal RegisterWay -->
-     <div class="modal fade footer-center" id="ModalRegisterWay" tabindex="-1" aria-hidden="true">
+      <!-- Modal RegisterWay -->
+      <div class="modal fade footer-center" id="ModalRegisterWay" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -704,15 +705,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="registerWay-popup-wrapper">
+                    <div class="registerWay-popup-wrapper popup-tip">
                         <ul class="registerWay-popup-list">
                             <li class="item">
                             <h3 class="title">簡易註冊與完整註冊</h3>
-                            <p class="desc">簡易註冊可讓玩家填入最低限度的內容，即可進入網站體驗，但完整註冊才能享有領取獎勵、充值、提款等完整會員才有的特定功能喔!</p>  
+                            <p class="desc"><span class="text-bold">簡易註冊</span>可讓玩家填入最低限度的內容，即可進入網站體驗，但<span class="text-bold">完整註冊</span>才能享有<span class="text-bold text-primary">領取獎勵、充值、提款</span>等完整會員才有的特定功能喔!</p>  
                             </li>
                             <li class="item">
                                 <h3 class="title">簡易註冊後如何升級完整會員?</h3>
-                                <p class="desc">於會員中心按下『進行認證』之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
+                                <p class="desc">於會員中心按下<span class="text-bold">『進行認證』</span>之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
                             </li>
                         </ul>
                     </div>
