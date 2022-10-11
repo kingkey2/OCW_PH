@@ -1,0 +1,192 @@
+
+.btn {
+  border-radius: 0;
+  // padding: .75rem 2rem;
+}
+
+.btn-primary {
+  background-color: #146e6e;
+  border-color: #146e6e;
+
+  &:hover,
+  &.disabled,
+  &:disabled,
+  &:not(:disabled):not(.disabled).active,
+  &:not(:disabled):not(.disabled):active,
+.show>&.dropdown-toggle {
+    background-color: #126262;
+    border-color: #126262;
+   }
+
+   &.focus,
+   &:focus {
+       box-shadow: 0 0 0 .2rem rgba(0, 82, 57, 0)
+   }
+
+}
+
+.btn-secondary {
+  background-color: #707070;
+  border-color: #707070;
+  // &:hover{
+  //   background-color: #126262;
+  //   border-color: #126262;
+  // }
+}
+
+
+
+
+
+ .btn-Line{
+
+//   position: relative;
+
+//   // background-color: $btn-Line-base;
+//   // border-color: $btn-Line-base;
+//   color: #ffffff;
+  
+
+
+// background: $btn-Line-base; /* Old browsers */
+
+// background: $btn-Line-bgImg 6px center no-repeat, -moz-linear-gradient(left, $btn-Line-base 0%, $btn-Line-base $btn-Line-separateStart, $btn-Line-base-line $btn-Line-separateStart, $btn-Line-base-line $btn-Line-separateEnd, $btn-Line-base $btn-Line-separateEnd,$btn-Line-base 100%); /* FF3.6-15 */
+
+// background: $btn-Line-bgImg 6px center no-repeat, -webkit-linear-gradient(left, $btn-Line-base 0%, $btn-Line-base $btn-Line-separateStart, $btn-Line-base-line $btn-Line-separateStart, $btn-Line-base-line $btn-Line-separateEnd, $btn-Line-base $btn-Line-separateEnd,$btn-Line-base 100%); /* Chrome10-25,Safari5.1-6 */
+
+
+
+// background: $btn-Line-bgImg 6px center no-repeat, linear-gradient(to right, $btn-Line-base 0%, $btn-Line-base $btn-Line-separateStart, $btn-Line-base-line $btn-Line-separateStart, $btn-Line-base-line $btn-Line-separateEnd, $btn-Line-base $btn-Line-separateEnd,$btn-Line-base 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$btn-Line-base', endColorstr='$btn-Line-base',GradientType=1 ); /* IE6-9 */
+
+//   background-size: $btn-bgSize;
+
+//   padding-left: 50px !important;
+
+
+
+
+//   &:hover{
+
+//     // border-color: #00e000;
+
+
+//     background: $btn-Line-hover; /* Old browsers */
+
+//     background: $btn-Line-bgImg 6px center no-repeat, -moz-linear-gradient(left, $btn-Line-hover 0%, $btn-Line-hover $btn-Line-separateStart, $btn-Line-hover-line $btn-Line-separateStart, $btn-Line-hover-line $btn-Line-separateEnd, $btn-Line-hover $btn-Line-separateEnd,$btn-Line-hover 100%); /* FF3.6-15 */
+    
+//     background: $btn-Line-bgImg 6px center no-repeat, -webkit-linear-gradient(left, $btn-Line-hover 0%, $btn-Line-hover $btn-Line-separateStart, $btn-Line-hover-line $btn-Line-separateStart, $btn-Line-hover-line $btn-Line-separateEnd, $btn-Line-hover $btn-Line-separateEnd,$btn-Line-hover 100%); /* Chrome10-25,Safari5.1-6 */
+    
+    
+    
+//     background: $btn-Line-bgImg 6px center no-repeat, linear-gradient(to right, $btn-Line-hover 0%, $btn-Line-hover $btn-Line-separateStart, $btn-Line-hover-line $btn-Line-separateStart, $btn-Line-hover-line $btn-Line-separateEnd, $btn-Line-hover $btn-Line-separateEnd,$btn-Line-hover 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+//     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$btn-Line-hover', endColorstr='$btn-Line-hover',GradientType=1 ); /* IE6-9 */
+
+    
+//      background-size:$btn-bgSize;
+
+//   }
+//   &.disabled,
+//   &:disabled{
+
+//     background: $btn-Line-disabled; /* Old browsers */
+
+//     background: $btn-Line-bgImg 6px center no-repeat, -moz-linear-gradient(left, $btn-Line-disabled 0%, $btn-Line-disabled $btn-Line-separateStart, $btn-Line-disabled-line $btn-Line-separateStart, $btn-Line-disabled-line $btn-Line-separateEnd, $btn-Line-disabled $btn-Line-separateEnd,$btn-Line-disabled 100%); /* FF3.6-15 */
+    
+//     background: $btn-Line-bgImg 6px center no-repeat, -webkit-linear-gradient(left, $btn-Line-disabled 0%, $btn-Line-disabled $btn-Line-separateStart, $btn-Line-disabled-line $btn-Line-separateStart, $btn-Line-disabled-line $btn-Line-separateEnd, $btn-Line-disabled $btn-Line-separateEnd,$btn-Line-disabled 100%); /* Chrome10-25,Safari5.1-6 */
+    
+    
+    
+//     background: $btn-Line-bgImg 6px center no-repeat, linear-gradient(to right, $btn-Line-disabled 0%, $btn-Line-disabled $btn-Line-separateStart, $btn-Line-disabled-line $btn-Line-separateStart, $btn-Line-disabled-line $btn-Line-separateEnd, $btn-Line-disabled $btn-Line-separateEnd,$btn-Line-disabled 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+//     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$btn-Line-disabled', endColorstr='$btn-Line-disabled',GradientType=1 ); /* IE6-9 */
+
+    
+//      background-size:$btn-bgSize;
+
+
+
+//   }
+//   &:not(:disabled):not(.disabled).active,
+//   &:not(:disabled):not(.disabled):active,
+// .show>&.dropdown-toggle {
+
+//   background: $btn-Line-base; /* Old browsers */
+
+//   background: $btn-Line-bgImg 6px center no-repeat, -moz-linear-gradient(left, $btn-Line-base 0%, $btn-Line-base $btn-Line-separateStart, $btn-Line-base-line $btn-Line-separateStart, $btn-Line-base-line $btn-Line-separateEnd, $btn-Line-base $btn-Line-separateEnd,$btn-Line-base 100%); /* FF3.6-15 */
+  
+//   background: $btn-Line-bgImg 6px center no-repeat, -webkit-linear-gradient(left, $btn-Line-base 0%, $btn-Line-base $btn-Line-separateStart, $btn-Line-base-line $btn-Line-separateStart, $btn-Line-base-line $btn-Line-separateEnd, $btn-Line-base $btn-Line-separateEnd,$btn-Line-base 100%); /* Chrome10-25,Safari5.1-6 */
+  
+  
+  
+//   background: $btn-Line-bgImg 6px center no-repeat, linear-gradient(to right, $btn-Line-base 0%, $btn-Line-base $btn-Line-separateStart, $btn-Line-base-line $btn-Line-separateStart, $btn-Line-base-line $btn-Line-separateEnd, $btn-Line-base $btn-Line-separateEnd,$btn-Line-base 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+//   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$btn-Line-base', endColorstr='$btn-Line-base',GradientType=1 ); /* IE6-9 */
+  
+//     background-size: $btn-bgSize;
+//    }
+
+//    &.focus,
+//    &:focus {
+
+//     background: $btn-Line-focus; /* Old browsers */
+
+//     background: $btn-Line-bgImg 6px center no-repeat, -moz-linear-gradient(left, $btn-Line-focus 0%, $btn-Line-focus $btn-Line-separateStart, $btn-Line-focus-line $btn-Line-separateStart, $btn-Line-focus-line $btn-Line-separateEnd, $btn-Line-focus $btn-Line-separateEnd,$btn-Line-focus 100%); /* FF3.6-15 */
+    
+//     background: $btn-Line-bgImg 6px center no-repeat, -webkit-linear-gradient(left, $btn-Line-focus 0%, $btn-Line-focus $btn-Line-separateStart, $btn-Line-focus-line $btn-Line-separateStart, $btn-Line-focus-line $btn-Line-separateEnd, $btn-Line-focus $btn-Line-separateEnd,$btn-Line-focus 100%); /* Chrome10-25,Safari5.1-6 */
+    
+//     background: $btn-Line-bgImg 6px center no-repeat, linear-gradient(to right, $btn-Line-focus 0%, $btn-Line-focus $btn-Line-separateStart, $btn-Line-focus-line $btn-Line-separateStart, $btn-Line-focus-line $btn-Line-separateEnd, $btn-Line-focus $btn-Line-separateEnd,$btn-Line-focus 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+//     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$btn-Line-focus', endColorstr='$btn-Line-focus',GradientType=1 ); /* IE6-9 */
+        
+//       background-size: $btn-bgSize;
+
+//     box-shadow: 0 0 0 .2rem rgba(0, 82, 57, 0)
+//    }
+ 
+}
+
+
+.custom-textinput  {
+  display: inline;
+  width: 100px;
+  // margin-top: .8em;
+  // padding: .8rem .75rem;
+  // font-size: 0.8rem;
+  // line-height: 1.5;
+  // color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 0px solid #ced4da;
+  border-bottom: 1px solid #222222;
+  background-color: transparent;
+  // border-radius: 0;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+}
+
+
+//Table=====================================
+.table-simple {
+  .date {
+      // display: block;
+      color: $tableTextSmall;
+      
+      margin-right: 5px;
+  }
+
+  .name {
+      color: $baseColortheme-1;
+  }
+
+  thead th {
+      font-weight: bold;
+      
+      font-size: font-resize(18px);
+      
+      border-bottom-color: $borderColor;
+      border-top: none;
+  }
+
+  .table thead th {}
+
+}
+
+//Pagination=====================================

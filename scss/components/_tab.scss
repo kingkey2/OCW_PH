@@ -1,0 +1,280 @@
+// .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active
+.nav-tabs-block{
+
+    &.nav-tabs{
+        position: relative;
+        // max-width: 90%;
+        margin: 10px auto;
+        // margin-bottom: 10px;
+
+        // border: solid 1px #e3c38d;
+        border: solid 1px #c9ae7f;
+
+        border-radius: 5px;
+        overflow: hidden;
+        align-items: center;
+        background: rgba(#393d50, 1);
+
+        max-width: 768px;
+        margin: 10px auto;
+
+        height: font-resize(36px);
+        margin-top: font-resize(12px);
+        margin-bottom: font-resize(12px);
+
+        //Styling 2 =============================
+       
+        // background: rgba(#64656e, .3);      
+        border: none;  
+        background: rgba(#55596c, 1);
+
+        .nav-link{
+           
+           //Bootstrap Reset ===============
+           padding-top: 0;
+           padding-bottom: 0;
+           //END OF Bootstrap Reset ===============
+
+           position: relative;
+           z-index: 2;
+           width: 100%;
+
+           display: flex;
+           align-content: center;
+           justify-content: center;
+          
+
+           &:hover{
+             border-color: transparent;
+            //  background: rgba(#2a2d3c, 1);
+           }
+
+            &.active{
+                // color: #fff;
+                background-color: transparent;
+                border-color: transparent;                    
+            }
+
+        }
+
+        @include media-breakpoint-up(md){
+            height: font-resize(38px); //這部分 須跟 tab.scss 中的 .nav-tabs-block .nav-tabs 高度一樣
+        }
+
+    }
+
+    .nav-item{
+
+        flex: 1;
+        justify-self: center;
+        text-align: center;
+        margin-bottom: 0;
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+       
+        // border-right: solid 1px #c9ae7f;
+        border-right: solid 1px rgba(#fff, .08);   
+
+        transition: all 0.3s ease-in-out;
+
+        &:hover{            
+            background: rgba(#2a2d3c, 1);
+        }
+        
+        &:nth-last-child(2){
+            border-right: none;
+        }
+
+        &.active{
+            // color: #000;
+            color: #262936;
+            font-weight: 600;
+        }
+       
+
+    }
+
+    .tab-slide{
+        // background: #e3c38d;
+        background: #c9ae7f;
+        
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transition: left 0.3s ease-out;
+        z-index: 0;
+    }
+
+    &.tab-items-2{
+        .tab-slide{
+            width: calc(100% / 2);
+        }
+        
+        .nav-item{         
+    
+            &.active{
+                &:nth-of-type(2) ~ .tab-slide{
+                   left: calc((100% / 2) * 1);
+                }
+            }
+        }
+    }
+
+    &.tab-items-3{
+        .tab-slide{
+            width: calc(100% / 3);
+        } 
+        
+        .nav-item{         
+    
+            &.active{
+
+                &:nth-of-type(2) ~ .tab-slide{
+                   left: calc((100% / 3) * 1);
+                }
+                &:nth-of-type(3) ~ .tab-slide{
+                   left: calc((100% / 3) * 2);
+                }
+
+            }
+        }
+    }
+
+    &.tab-items-4{
+        .tab-slide{
+            width: calc(100% / 4);
+        } 
+        
+        .nav-item{         
+    
+            &.active{
+
+                &:nth-of-type(2) ~ .tab-slide{
+                   left: calc((100% / 4) * 1);
+                }
+                &:nth-of-type(3) ~ .tab-slide{
+                   left: calc((100% / 4) * 2);
+                }
+                &:nth-of-type(4) ~ .tab-slide{
+                   left: calc((100% / 4) * 3);
+                }
+
+            }
+        }
+    }
+   
+
+}
+
+
+.tab-header{
+    @include media-breakpoint-up(lg) {
+        // display: none;
+    }
+}
+
+.tab-content{
+    height: 100%;
+}
+
+
+//手機版時 為 FIXED，和UserAccount_Add.aspx 的 .step__content 相同， 因防止 iOS Scroll 時會將內容高度直接 100vh
+
+.tab__contentBox{   
+
+    @media screen and (max-width:breakpoints_BS4(lg)-1){
+
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        list-style: none;
+        padding: 0;
+        position: fixed;
+        top: 90px;
+        overflow-y: auto;
+        height: calc(100% - 90px);
+
+    }
+
+    @include media-breakpoint-up(sm){
+        top: 100px;
+        height: calc(100% - 100px);
+    }
+
+    
+    @include media-breakpoint-up(lg) {
+        
+        //to do 設定 breakpoint為多少時，可show出
+        &.show-xl{
+
+            .tab-content{
+
+                >.tab-pane {
+                    display: block;
+                    opacity: 1;
+               }
+            }
+            
+        }
+    
+    
+    }
+    
+}
+
+
+// scrollable Tab =================================
+.tab-scroller{
+
+    @include TAB-Scroller-AnimationLine(2);    
+
+    &.tab-2{
+        // @include TAB-Scroller-AnimationLine(2);
+    }
+
+    &.tab-5{
+        // @include TAB-Scroller-AnimationLine(7);
+        
+        .tab-item{ 
+            width: calc(100% / 5);
+
+            &.active{     
+                @include TAB-Scroller_AnimationLine_tabItem_activeMove(5);  
+            }
+        }
+
+        .tab-slide {
+            width: calc(100% / 5);
+        }
+
+    }
+    &.tab-7{
+        // @include TAB-Scroller-AnimationLine(7);
+        
+        .tab-item{ 
+            width: calc(100% / 7);
+
+            &.active{     
+                @include TAB-Scroller_AnimationLine_tabItem_activeMove(7);  
+            }
+        }
+
+        .tab-slide {
+            width: calc(100% / 7);
+        }
+        
+    }
+    
+  
+   
+}
+
+

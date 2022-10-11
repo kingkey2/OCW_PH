@@ -1,0 +1,205 @@
+@import "../base/base";
+// .footer {    
+
+//     &-container {
+//         padding: 0px 0 0;
+       
+//         background: $white;
+//         background: url(../images/bg_Footer.jpg) center bottom no-repeat;
+//         background-size: cover;
+
+//         .container{
+//             border-top: 1px solid #E4E4E4;
+//             padding-top: 1.2rem;
+
+//         }
+//     }
+
+
+
+//     &-inner {
+//         margin: 0 auto;
+//         width: 100%;
+//         // max-width: 1200px;
+//         // padding: 0 10px;
+        
+
+//         display: flex;
+//         flex-flow: row wrap;
+//         justify-content: space-between;
+//         align-items: center;
+
+//         color: rgba(#000, 0.6);
+
+//         .footer-wrapper{         
+//             padding: 0 10px;
+//             margin: 0 auto;
+//         }
+
+//         .partner{            
+           
+//             width: 100%;
+//             margin: 20px 0;
+
+//             .logo-item{                
+//                 // flex: 1;
+//                 width: calc( 100% / 4);
+//                 // padding: 0 4px;
+//                 padding: 0 15px;
+//                 display: inline-flex;
+//                 justify-content: center;
+                
+//                .img-crop{
+//                     max-width: 65px;
+//                     display: inline-flex;
+//                     align-items: center;
+
+//                }
+
+//                 img{
+//                     width: 100%;
+//                     filter: grayscale(100%);                    
+//                 }
+
+//                 &:hover{
+                    
+//                     img{                       
+//                         filter: unset;                    
+//                     }
+
+//                 }
+//             }
+
+//         }
+
+//         .company-info{
+
+//             display: flex;
+//             flex-flow: row wrap;
+//             justify-content: center;
+//             font-size: font-resize(13px);
+//             width: 100%;
+//             // border-bottom: 1px solid rgba(#000, 0.05);
+
+//             .info-item{
+//                 padding: 8px 8px;
+//                 cursor: pointer;
+//                 // width: 50%;
+//                 // flex:0 0 50%;
+//                 display: inline-flex;
+//                 justify-content: center;
+//                 flex: 1;
+
+
+//                 &:hover{
+
+//                     color: rgba(#000, 0.8);
+//                 }
+//             }
+
+//         }
+
+//         .company-detail{
+//             display: flex;
+//             flex-flow: row wrap;
+//         }
+
+//         .company-license{
+//             // text-align: center;
+//             flex: 1;
+//             display: flex;
+//             justify-content: center;
+//             margin-bottom: 1rem;
+
+//             iframe{
+//                 // width: 100%;
+//                 // height: 100%;
+//             }
+
+//         }
+
+//         .company-address{
+           
+//             // display: flex;
+//             flex-flow: row wrap;
+//             justify-content: center;
+//             font-size: font-resize(15px);
+//             width: 100%;
+//             padding: 10px 10px;
+
+//             .name{
+//                 margin-right: 2rem;  
+//                 font-size: font-resize(14px);  
+//                 font-weight: 500;        
+//             }
+
+//             .address{
+//             }
+//         }
+//     }
+
+//     &-copyright {
+
+//         width: 100%;
+//         // border-top: 1px solid $black10;
+//         padding-top: 10px;
+//         margin-top: 5px;
+//         // background-color: rgba($black, 0.05);
+//         padding-bottom: 10px;
+
+//         p {
+//             margin: 0;
+//             text-align: center;
+//             font-size: .8125em;
+//         }
+//     }
+
+
+
+
+//     @include media-breakpoint-up(sm){
+//         &-inner {
+//             .partner{ 
+//                 .logo-item{
+//                     width: calc( 100% / 5);
+//                 }
+//              }
+//         }
+//     }
+//     @include media-breakpoint-up(smg){
+//         &-inner {
+//             .partner{ 
+//                 .logo-item{
+//                     width: calc( 100% / 8);
+//                 }
+//              }
+
+//              .company-license{
+//                  flex: 0 0 120px;
+//                  justify-content: flex-start;
+//              }
+
+//              .company-address{
+//                 flex: 1;
+//             }
+
+
+//         }
+//     }
+//     @include media-breakpoint-up(desc-gx){
+//         &-inner {
+//             .partner{ 
+//                 .logo-item{
+//                     width: calc( 100% / 10);
+//                 }
+//              }
+
+//              .company-license{
+//                 flex: 0 0 200px;
+//             }
+
+
+//         }
+//     }
+    
+// }

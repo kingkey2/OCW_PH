@@ -1,0 +1,214 @@
+.main_area{
+
+	&:not(.main__login){
+
+		position: absolute;
+		
+		width: 100% ;
+
+
+		//header 高度--60px
+		//footer 高度--97px
+	
+
+		// 日本版 ===========================================================
+		
+		height: calc( 100% - constant(safe-area-inset-top) - constant(safe-area-inset-bottom)) !important; /* 重要!! 不能用 100vh,要用100% */
+		height: calc( 100% - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important; /* 重要!! 不能用 100vh,要用100% */
+
+	    padding-top: 60px;
+	    // padding-bottom: calc( 97px + 0px);
+		top:0;
+		
+		
+		// > div{
+		// 	width: 100% !important; 
+		// 	height: 100%; //重要!! 不能用 100vh,要用100%	
+
+		// 	// position: fixed;	
+		// }	
+		
+
+	}
+	
+}
+
+.mainIframe {
+	border: 0px !important;
+	width: 100% ; 
+	height: 100% ; //重要!! 不能用 100vh,要用100%	
+	// height: calc( 100vh + env(safe-area-inset-top) + 60px) !important; //重要!! 不能用 100vh,要用100%	
+	margin: 0px ;	
+	overflow: hidden !important;
+	// background: linear-gradient(320deg , #323647, #464c67);
+	@include bg-gradient(320deg, $body-gradient-background);
+
+	// position: fixed;
+	// top: calc(env(safe-area-inset-top) + 60px) !important;
+	// height: calc( 100% - env(safe-area-inset-top) - 60px - env(safe-area-inset-bottom)) !important; //重要!! 不能用 100vh,要用100%	
+
+	//測試用---------------------------------------------------------
+	// top: calc( 60px + constant(safe-area-inset-top)) !important;
+	// top: calc( 60px + env(safe-area-inset-top)) !important;
+
+}
+
+html{
+
+	@include scrollbar(rgba(#adb5bd, .8),#3DB6FF, 12px);
+	// background-size: cover; //重要!! 必加
+	background-repeat:no-repeat; //重要!! 必加
+	background-attachment: fixed; //重要!! 必加
+	
+
+	&.mainHtml{
+		// @include bg-gradient(0deg, $body-background);
+		background: $html-mainHtml-background;
+		// background: red;
+
+		// //For Edge
+        // height: 100%;
+        //  // WebKit-based browsers will ignore this
+        //  height: -moz-available;
+        //  // Mozilla-based browsers will ignore this.
+        //  height: -webkit-fill-available;  
+        //  // For WebKit-based browsers, Edge not support this
+        // height: fill-available; //這裡要用 fill-available
+		
+		// min-height: 100%;
+		
+		height: calc( 100% + constant(safe-area-inset-top) + constant(safe-area-inset-bottom));
+		
+		height: calc( 100% + env(safe-area-inset-top) + env(safe-area-inset-bottom));
+		
+				
+
+		padding-top: constant(safe-area-inset-top);
+		padding-top: env(safe-area-inset-top);
+
+		padding-bottom: constant(safe-area-inset-bottom);
+		padding-bottom: env(safe-area-inset-bottom);
+		
+		
+
+		&:before{
+			content: "";
+			position: fixed;
+			z-index: -1;
+			top: 0;			
+			right: 0;
+			// bottom: 0;
+			left: 0;
+
+			height: 100%;
+
+			// height: calc( 100% + env(safe-area-inset-top) + env(safe-area-inset-bottom));
+
+			// background: $body-background;
+			//背景漸層用法
+			@include bg-gradient(0deg, $body-gradient-background);
+	
+		}
+
+	
+	}
+
+	&.innerHtml{
+
+		//重要!! 必加 - iPhone Home鍵機 頁面無法 Scroll 修正
+		//因為直接指定了這個元素的height，所以導致momentum-based scrolling失效 參考資料：https://medium.com/@littleDog/%E7%94%A8-webkit-overflow-scrolling-touch-%E8%AE%93%E4%BD%A0%E7%9A%84mobile-web-application%E6%94%AF%E6%8F%B4momentum-based-scrolling-1efacea28611
+		
+		// overflow: auto;		
+		-webkit-overflow-scrolling: touch;
+
+		// -webkit-backface-visibility: hidden;
+        // -webkit-transform: translate3d(0,0,0);
+	}
+	
+}
+
+
+
+
+body{
+
+	&.mainBody{
+		width: 100%;
+		height: 100%; //重要!! 不能用 100vh,要用100%	
+		overflow: hidden;
+		
+
+		//橫式============================================	
+		@media screen and (orientation: landscape) and (max-width:breakpoints_BS4(md)){
+
+			// margin-left: constant(safe-area-inset-left);
+			// margin-left: env(safe-area-inset-left);
+			// padding-left: calc( 20px + constant(safe-area-inset-left));
+			// padding-left: calc( 20px + env(safe-area-inset-left));
+
+			
+			// padding-right: constant(safe-area-inset-right);
+			// padding-right: env(safe-area-inset-right);
+
+			// width: calc(100% - 20px - constant(safe-area-inset-left) - constant(safe-area-inset-right));
+			// width: calc(100% - 20px -  env(safe-area-inset-left) - env(safe-area-inset-right));
+		
+
+			// @supports(padding: max(0px)) {
+				
+			// 		padding-left: max(50px, env(safe-area-inset-left));
+			// 		padding-right: max(50px, env(safe-area-inset-right));
+				
+			// }
+			
+
+		}	
+	}
+
+	&.innerBody{
+        //重要!! 必加 - iPhone Home鍵機 頁面無法 Scroll 修正
+		//因為直接指定了這個元素的height，所以導致momentum-based scrolling失效 參考資料：https://medium.com/@littleDog/%E7%94%A8-webkit-overflow-scrolling-touch-%E8%AE%93%E4%BD%A0%E7%9A%84mobile-web-application%E6%94%AF%E6%8F%B4momentum-based-scrolling-1efacea28611
+		
+		// overflow: auto;
+		// height: auto;
+		// overflow: hidden; 
+		
+        -webkit-overflow-scrolling: touch;
+
+		// -webkit-backface-visibility: hidden;
+        // -webkit-transform: translate3d(0,0,0);
+
+		&.fixed{
+			position: fixed;
+			overflow: hidden;
+		}
+	}
+	
+	&:not(.mainBody) // 包括 iframe內的body和 login.aspx 的body
+	{
+		// box-shadow: inset 0 0 120px 0 rgba(#000, 0.15);
+		// min-height: 100vh;
+	}
+
+	&.bg_mainBody{
+		box-shadow: none;
+	}
+
+}
+
+main{
+	&.innerMain{
+		&.fixed{
+			height: 100%;
+			overflow: hidden;
+		}
+	}
+}
+
+@include media-breakpoint-up(md) {	
+
+	.innerBody{
+		padding-left: $header-navbarMenu-width-xl-default;
+	}
+
+}

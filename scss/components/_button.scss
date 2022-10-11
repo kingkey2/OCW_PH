@@ -1,0 +1,235 @@
+// @import "../base/base";
+//!default 用法 => https://www.html.cn/doc/sass/#variable-defaults
+
+// !default 即此變數之前無賦值時，此宣告值才會被套用=============
+$gray: #EAEAEA;
+$black-1: #333 !default; // $black 沒被賦值過，所以會套用此設定值
+$gray: #CACACA !default; // $gray 被賦值過，所以不會套用此設定值
+
+.block {
+  background-color: $black-1;
+  color: $gray;
+}
+
+// each..... in .寫法 
+// ==>使用each+Sass Maps來設計程式碼
+// 參考文章：https://github.com/gonsakon/Learn-Sass-in-90-days/blob/master/docs/Sass/%40each%2BSass%20Maps%E6%89%B9%E6%AC%A1%E7%94%A2%E7%94%9F%E5%90%84%E5%85%83%E7%B4%A0%E6%A8%A3%E5%BC%8F.markdown
+
+// SASS:  MAP 中的 MAP ==> Sass Map 快速產出大量樣式
+// 自寫，非引用Bootstrap4 
+.btn{
+  // margin: 0 5px;
+  .icon{
+    // margin-left: 8px;
+    // margin-right: 8px;
+  }
+}
+
+.btn + .btn{
+  // margin-left: 10px;
+}
+
+// [class*="btn-"]{
+.btn{
+  
+    // display: inline-block;
+    display: inline-flex;
+    padding: 7px 12px;
+    // margin: 0 10px;
+    // white-space: nowrap;
+    white-space: normal;
+    // font-size: font-resize();
+    font-weight: bold;
+    text-align: center;
+
+    border-color: transparent;
+    user-select: none;
+    text-decoration: none;
+    background-repeat: no-repeat;
+
+    justify-content: center;
+    align-items: center;
+    
+    // transition: none;
+
+
+    // @include hover-focus{
+    //   color: inherit;
+    //   text-decoration: none;
+
+    // }
+
+
+ //Hover 效果引用 BS4 => scss\vendors\bootstrap\_buttons.scss
+ // Share hover and focus styles
+  @include hover-focus {
+
+    text-decoration: none;
+   
+  }
+
+  &:focus,
+  &.focus {
+    outline: 0;
+    // box-shadow: $btn-focus-box-shadow;
+    box-shadow: none;
+
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    opacity: $btn-disabled-opacity;
+    @include box-shadow(none);
+  }
+
+  // Opinionated: add "hand" cursor to non-disabled .btn elements
+  &:not(:disabled):not(.disabled) {
+    // cursor: pointer;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    // @include box-shadow($btn-active-box-shadow);
+
+    &:focus {
+      // @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
+    }
+  }    
+
+
+}
+
+
+.btn-s{
+    padding-left: 10px;
+    padding-right: 10px;  
+    font-size: font-resize(14px);
+    min-width: 80px ;
+}
+
+.btn-round{
+   border-radius: 50%;
+   padding: 5px;
+
+   @include hover-focus{
+    // color: inherit;
+    // text-decoration: none;
+    // background-color: $button-round-hover-background;
+  }
+
+
+  &:focus,
+  &.focus {
+
+    // background-color: $button-round-focus-background;
+    // box-shadow: $button-round-focus-boxshadow;
+    
+  }
+
+}
+
+.btn-roundcorner{
+  @include Btn-RoundCorner;
+
+}
+
+.btn-icon{
+}
+
+.btn-close{
+
+  width: 30px;
+  height: 30px; 
+  // background: rgba(#000, 0.25) url(../images/theme/dark/icon/icon_close_w.svg) no-repeat center center;
+
+  border-radius: 50%;
+  
+  // background-color: rgba(black, 0.25);
+  background-color: rgba(#000, 0.25);
+
+  background-image: url(../images/theme/dark/icon/icon_close_w.svg); 
+
+  background-position: center center;
+  background-repeat: no-repeat;
+  
+  // background-size: 50% 50%;
+  // padding: 0;
+
+  background-size: 15px 15px; // 經測試 iPhone7 ~~ iPhoneXS=> background-size 似乎對百分比支援度不好? 要用 絕對數值(PX,REM等)
+
+  
+ 
+ 
+
+  // font-size: 0;
+  // line-height: 0;
+  
+  // display: inline-block;
+
+}
+
+
+
+
+
+@each $btn-name, $btn-value in $btn-config {
+    //$btn-name: 物件MAP btn-config : KEY 值 =>'default', 's-blue'
+    //$btn-value : 物件MAP btn-config : Value 值  => 此Value亦為物件MAP
+    
+    $class: map-get($btn-value, class);
+    $txtColor: map-get($btn-value, txtcolor);    
+    $bgColor: map-get($btn-value, bgcolor);
+
+    $border-color: map-get($btn-value, border-color);
+    $border-radius: map-get($btn-value, border-radius);
+    $bgcolor-Hover: map-get($btn-value, bgcolor-hover);
+    
+    $borderColor-Hover: map-get($btn-value, border-color-hover);
+
+    $textColor-Hover: map-get($btn-value, txtcolor-hover);
+    
+    .btn-#{$class}{
+        //File Path => scss\helpers\_mixin.scss   
+      @include custom-button-variant( $txtColor, $bgColor, $border-color, $border-radius, $bgcolor-Hover,$borderColor-Hover, $textColor-Hover);
+      
+    }
+	
+}
+
+
+
+
+//以下為套用Bootstrap4 設定================================
+//scss\vendors\bootstrap\mixins\_buttons.scss
+//scss\vendors\bootstrap\_buttons.scss
+
+  $blue: color_main('blue');
+ 
+  
+  $theme-colors: map-merge(
+    (
+      "s-blue": $blue,
+      // "gold-default": $gold-default,
+     
+    ),
+    $theme-colors
+  );
+
+//   @each $color, $value in $theme-colors {
+//     .btn-#{$color} {
+//       @include button-variant($value, $value);
+//     }
+//   }
+  
+  
+  
+
+
+
+
+
+
+
+
+  

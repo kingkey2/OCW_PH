@@ -1,0 +1,155 @@
+%animate {
+    // @include transition;
+    //可更換變數
+    @include transition($duration: 2s, $timingfunction: ease);
+
+}
+
+$opacity: .86;
+
+// $color1: rgba(#dbd4a2, $opacity);
+$color2: rgba(#b27e86, $opacity);
+$color3: rgba(#817596, $opacity);
+$color4: rgba(#2989d8, $opacity);
+$color5: rgba(#000000, $opacity);
+
+
+$list1: (
+    // color : ($color1, $color2, $color3),
+    color : ( $color2, $color3),
+    positon : (0%, 55%, 100%) //   color :  $color5
+);
+
+
+
+.custAnimate {
+    //   -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    //   -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+
+
+
+    &,
+    & *,
+    & *:after,
+    & *:before,
+    &:after,
+    &:before {
+        // @extend %animate;
+        @include transition($duration: .5s, $timingfunction: ease);
+    }
+
+}
+
+
+.perspective {
+    perspective: 500px;
+}
+
+
+$mask-positon: 105%;
+
+    //Image Mask
+    [class*="maskSlideIn"] {
+        &:after,&:before {
+            content: ' ';
+            display: flex;
+            position: absolute;
+            bottom: 0;
+            @include size($mask-positon);
+        }
+
+        &:hover:after,&:hover:before {
+            @include translate();
+        }
+
+
+    }
+
+    //move UP
+    .maskSlideInUp{
+        &:after {
+            @include bg-gradient(bottom, $list1);
+            // transform-origin: center top;
+            @include transform-origin(center top);            
+            @include translate($y:$mask-positon);
+        }
+    }
+
+     //move UP
+     .maskSlideInDown{
+        &:after {
+            @include bg-gradient(top, $list1);           
+            @include transform-origin(center top);            
+            @include translate($y:-$mask-positon);
+        }
+    }
+
+    //move from Left Side
+    .maskSlideInLeft {
+        // &:after {
+        //     @include bg-gradient(left, $list1);            
+        //     @include transform-origin(center top);                   
+        //     @include translate($x:-$mask-positon);
+        // }
+          &:before {
+            @include bg-gradient(left, $list1);            
+            @include transform-origin(center top);                   
+            @include translate($x:-$mask-positon);
+        }
+
+    }
+
+    //move from Right Side
+    .maskSlideInRight {
+        &:after {
+            @include bg-gradient(right, $list1);
+            @include translate($x:$mask-positon);
+        }
+
+    }
+
+
+
+
+
+
+@mixin animTranslate3D($zNum){    
+    @include translate3D();   
+    @include hover-focus {
+        @include translate3D($z:($zNum*1px));     
+
+    }
+}
+
+
+
+@mixin animScale($scaleNum){
+    @include scale();
+
+    @include hover-focus {
+        @include scale($scaleNum);
+
+    }
+
+}
+
+@mixin animRotate($rotateNum){
+    @include rotate(0);
+    @include hover-focus {
+        @include rotate($rotateNum);
+
+    }
+}
+
+
+@mixin animSkew($skewNum){
+    @include skew();
+        @include hover-focus {
+            @include skew($skewNum);
+    
+        }
+
+}
+

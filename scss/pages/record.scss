@@ -1,0 +1,1530 @@
+@import "../base/base";
+
+.icon-mask{
+    &:before{
+        background-color: #fff;
+    }
+}
+
+.sec-month{
+    .btn{
+        // padding-left: 20px;
+        // padding-right: 20px;
+    }
+}
+
+.sec-title-record{
+    .date_text{
+        text-align: center;
+        font-weight: 500;
+       				
+    }
+}
+
+.sec-record-payment{
+    .date_text{
+        color: #459E74;
+    }
+}
+.sec-record-games{
+    .date_text{
+        color: #C89447;
+    }
+}
+
+.date-period{
+    font-size: font-resize(14px);
+    .time{
+        margin-left: 0.5rem;
+
+    }
+}
+
+
+.btn-copy{
+   
+    width: 45px;
+    height: 45px;
+    background-color: transparent;
+    
+
+    .icon{
+        background-color: #FF6396;
+        width: 33px;
+        height: 33px;
+        border-radius: 50%;
+        padding: 0.25em;
+
+        transition: all 0.3s ease;
+    }
+
+    &:hover{
+        
+        .icon{
+            background-color: darken(#FF6396, 10.5);
+
+        }
+
+    }
+}
+
+.deposit{
+    .label-status{
+        background-color: #F47BAB;
+    }
+}
+.withdraw{
+    .label-status{
+        background-color: #369AD6;
+    }
+}
+
+.win{
+    .label-status{
+        background-color: #FFB103;
+    }
+}
+.lose{
+    .label-status{
+        background-color: #2477A8;
+    }
+}
+
+.tab-record{
+
+    width: 100%;
+    max-width: 640px;
+
+    margin:0 auto;
+    background-color: rgba(#858585, .85);
+    border-radius: 30px;
+    margin-bottom: 1rem;
+
+    &.tab-scroller {
+        .tab-item{
+            color: rgba(#fff, 1);
+            z-index: 1;
+            position: relative;
+
+            &.active{
+                color: #fff;        
+            }
+            &.payment.active{  
+                background-color: rgba(#7ACEA6, 1);              
+                ~ .tab-slide{
+                    // background-color: rgba(#7ACEA6, 1);
+                }              
+            }            
+            &.game.active{
+                background-color: rgba(#F3B20C, 1);                
+                ~ .tab-slide{
+                    // background-color: rgba(#F3B20C, 1); 
+                }   
+            }
+        }
+    }
+
+    .tab-slide{
+        height: 100%;
+        z-index: 0;
+        border-radius: 30px;
+        box-shadow: 0 4px 12px -4px #8999a780;        
+    }
+
+
+}
+
+.sec-record-payment{
+
+    .tab-record{
+        .tab-item{
+
+            &:hover,
+            &.active{
+                color: #459E74;
+            }
+        }
+
+    }
+
+    .sec_link{
+        .btn{
+            &:hover,
+            &.active{
+               background-color:#459E74;
+            }
+        }
+    }
+}
+.sec-record-games{
+
+    .tab-record{
+        .tab-item{
+
+            &:hover,
+            &.active{
+                color: #C89447;
+            }
+        }
+
+    }
+
+    .sec_link{
+        .btn{
+            &:hover,
+            &.active{
+               background-color:#C89447;
+            }
+
+        }
+
+    }
+}
+
+
+// 紀錄總覽
+.record-overview{
+
+    &-wrapper{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        margin-bottom: 1.6rem;
+        color:#fff;
+
+        .MT__table {
+            border-radius: 15px;
+            // margin-bottom: 10px;
+            padding: 10px;
+            
+            .Thead .thead__th{
+                background-color: transparent;
+                padding-top: 6px;
+                padding-bottom: 6px;
+            }
+
+            .Thead .thead__th:not(:last-child):after{
+                content: none;
+            }
+            .Tbody .tbody__td:not(:last-child) .td__content::after{
+                content: none;
+            }
+
+            .td__content{
+            }
+
+            .amount{
+                font-size: font-resize(25px);
+            }
+
+            .thead__tr{
+                height: auto;
+            }
+
+            .tbody__tr{
+                // height: auto;
+                &.stress{
+                    
+                    .tbody__td{
+                        padding: 0;
+                        padding-top: 3px;
+                        padding-bottom: 3px;
+
+                        &:first-child{                           
+                            .td__content{
+                                border-radius: 10px 0 0 10px;
+                            }
+                        }
+                        &:last-child{                           
+                            .td__content{
+                                border-radius: 0 10px 10px 0;
+                            }
+                        }
+
+                    }
+                    .td__content{
+                        // background-color: #7ACEA6;
+                       
+                    }
+
+                }
+            }
+
+            .Tbody .tbody__td .td__title{
+                font-weight: 300;
+                font-size: font-resize(14.5px);
+                color: rgba(#fff, .9);
+            }
+    
+        }
+
+        .btn-detail-link{
+            padding-top: 0;
+            padding-bottom: 0;
+            display: none;
+        }
+    }
+    
+    &-box{
+        width: 100%;
+        border-radius: 15px;
+        padding: 10px 5px;
+        position: relative;
+        transition: all 0.35s ease-in-out;
+
+        &.active{
+            .btn-detail-link{
+                display: none;
+            }
+        }
+
+        &.payment{
+            background-color: #7ACEA6;
+            // padding-right: 8px;
+
+            .MT__table {
+                background-color: #459E74;               
+        
+            }
+            .btn-detail-link{
+                background-color: #459E74;    
+            }
+
+            .MT__table {
+                .tbody__tr{
+                    &.stress{                       
+                        .td__content{
+                            background-color: #7ACEA6;
+                        }
+    
+                    }
+                }
+
+            }
+            
+        }
+        
+        &.game{
+            background-color: #E5C573;
+
+            .MT__table {
+                background-color: #C89447;
+            }
+            .btn-detail-link{
+                background-color: #C89447;    
+            } 
+            .MT__table {
+                .tbody__tr{
+                    &.stress{                       
+                        .td__content{
+                            background-color: #E5C573;
+                        }
+    
+                    }
+                }
+
+            }   
+        }
+    }
+    //遊戲總覽 連結
+    &-link{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+        z-index: 1;
+        // display: none; //TEST
+        
+    }
+
+    &-inner{
+        padding: 5px 10px;
+    }
+
+    &-content{
+        // padding: 10px 10px;       
+    }
+
+    &-title-wrapper{
+       display: flex;
+       justify-content: space-between;
+       margin-bottom: 5px;
+       font-size: font-resize(18px);
+    }
+
+}
+
+.MT__table{
+    position: relative;
+    .arrow {
+        // border: solid rgba(#fff, 1);
+        // border-width: 2px 2px 0 0;      
+        border-color: rgba(#fff, 1);
+        margin-left: 0.5rem;
+    }
+
+}
+
+.table-payment{
+    .Thead .thead__th {
+        background-color: #459E74;
+    }
+}
+
+.label{
+    &.order-status{
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        padding: 0.2em;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;       
+       
+
+        .icon{
+            width: 20px;
+            height: 20px;
+            color: #fff;
+        }
+    }
+
+}
+
+.section-record-payment{
+    .table-desktop{
+        display: none; 
+    }
+
+}
+
+.record-table{
+    td,th{
+        word-break: break-all;
+    }
+
+    &-date-select {
+
+        display: flex;
+        justify-content: space-between;
+        margin: 0 0 .25em;
+
+        .desc {
+            font-size: 1.25em;
+            font-weight: 500;
+        }
+        .btn-container {
+            display: flex;
+        }
+        .btn-icon {
+            margin: 0;
+            padding: .25em;
+            color: #000;
+            &:hover {
+                opacity: .5;
+            }
+        }
+        .modal-info {
+            margin: 0 12px 0 0;
+        }
+        .wrap-box {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .header{
+        .arrow{
+            border-color: #fff;
+            margin-left: 0.5rem;
+        }
+    }
+
+    &-item {        
+        
+        background: #fff;
+        
+        box-sizing: border-box;
+        border-radius: 8px;
+        // @include ease(.25s);
+        transition: all 0.25s ease;
+        // margin-left: 20px;
+
+        &:hover {
+            // box-shadow: 4px 4px 16px -8px gray;            
+        }
+
+        &.show{
+            .btn-toggle{
+                .arrow{
+                    transform: rotate(-45deg);
+                }
+            }
+        }
+
+        &.header {
+            display: flex;
+            padding: .25em 1em;
+            background-color: gray;
+            border: 0;
+            border-radius: 4px;
+
+            &:hover {
+                box-shadow: none;
+            }
+
+            .record-table-cell{
+                flex: auto;
+                // font-size: .75em;
+                white-space: nowrap;
+                text-align: center;
+            }
+        }
+
+
+        //入金 ============================================
+        &.deposit{
+
+            .label-status{
+                background-color: #F47BAB;
+            }
+
+            .thead-th{                
+                .title{
+                   background-color: #F47BAB;
+                   padding: 0.1em 0;
+                }
+            }          
+        }
+
+        //出金 ============================================
+        &.withdraw{
+            .label-status{
+                background-color: #369AD6;
+            }
+            .thead-th{                
+                .title{
+                   background-color: #369AD6;
+                }
+            }
+        }
+
+        //處理中訂單 ============================================
+        &.order-processing{
+            .td-toggle{
+                .btn-toggle{
+                    // padding-right: 1px;
+                }
+                .arrow.arrow-down{
+                    transform: rotate(45deg);
+                    position: relative;
+                    right: 2px;
+                }
+            }
+
+        }
+    }
+
+    &-tab {
+        
+        display: flex;
+        // align-items: center;
+        width: 100%;
+        position: relative;
+        padding-left: 20px;
+        transition: all 0.3s ease;
+
+        
+        &:hover {            
+            background-color: rgba(#000, .05);
+            cursor: pointer;
+
+            .btn-toggle{                
+                background-color: #B4B4B4;
+                border-color: #B4B4B4;                
+                .arrow{
+                    border-color: #fff;
+                }
+            }
+        }       
+
+        .record-table-cell {
+            flex: auto;
+            padding: .45em .45em;
+       
+            .count {
+                // font-size: 1.25em;
+                font-size: font-resize(18px);
+                font-weight: 500;
+                &.positive {
+                    color: #e24f4f;
+                }
+                &.negative {                    
+                    color: #59B587;
+                }
+            }
+        }
+
+        .td-toggle{
+            flex: 0 0 auto;
+        }
+
+        .td-status{
+            position: absolute;
+            left: -30px;
+            top: 0;
+            bottom: 0;
+            display: inline-flex;
+            // align-items: center;
+        }
+
+        .td-amount{
+            font-weight: 700;
+            // display: inline-flex;
+            min-width: 115px;
+        }
+
+        .td-paymentWay{
+            font-weight: 500;
+            font-size: font-resize(14px);
+            display: inline-flex;
+
+            .order-status{
+                margin-right: 0.25rem;
+            }
+
+        }
+
+        .data-amount{
+            display: inline-flex;
+            align-items: center;
+
+            .label{
+                margin-left: 0.5em;
+            }
+            
+        }
+    }
+
+    &-drop-panel {
+        padding: 1em 1em 2em 0;
+        // border-top: 1px solid $black10;
+
+        .tbody-td{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .thead-th{                
+            .title{
+                border-radius: 20px;
+                background-color: gray;
+                display: inline-flex;
+                justify-content: center;                    
+                width: 100%;
+                color: #fff;
+
+            }
+        }
+        .table {
+            margin: 0 auto;
+            font-size: .9125em;
+            th {
+                font-weight: lighter;
+                // color: $black50;
+                border: 0;                    
+            }
+            td {
+                // text-align: right;
+                border: 0;
+            }
+           
+        }
+    }
+
+    //出入金紀錄 ================
+    &.payment-record{
+        margin: 0 auto;
+        // max-wvidth: 600px; 
+
+        .record-table {
+            &-item {
+                border: 1px solid rgba(#000, 0.1);   
+            }
+        }
+    }
+
+    //遊戲紀錄 ================
+    &.games-record {
+
+        .record-table {
+
+            &-item {
+                &.header{ 
+                    display: none; 
+
+                    background-color: #C89447;
+                    color:#fff;
+
+                    .record-table-cell {
+                        
+                    }
+                }   
+                
+                .number{
+                    // text-align: right;
+                    // width: 100%;
+                    display: block;
+                    font-weight: 500;
+                }
+            }
+
+            &-tab {
+                // border:solid 1px rgba(#000, 0.1);
+                border-radius: 10px; 
+                padding: 10px 0 5px;    
+                padding-left: 30px;           
+            }
+
+            &-wrapper{
+                flex: 1;
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: space-between;
+                align-items: center;
+
+                .record-table-cell{
+                    flex: 0 0 50%;
+                    padding: 0.05rem 0.35rem;
+                }
+
+                .td-orderValue,
+                .td-validBet{
+                    display: flex;
+                    .title{
+                        padding-right: 0.6em;
+                        color: rgba(#000, .6);
+                    }
+                }
+
+                .td-orderValue{
+                    // text-align: right;
+                }
+                .td-rewardValue{
+                    font-size: font-resize(24px);
+                    text-align: right;
+                }
+
+            }
+           
+            &-drop-panel {
+
+                .record-drop-item{
+                    margin-bottom: 0.5rem;
+
+                    //game collaspe Header
+                    &.header {
+                        
+                        display: flex;
+                        // padding: .25em 0.2em;
+                        background-color: #E5C573;
+                        color: #fff;
+                        border: 0;
+                        border-radius: 4px;
+            
+                        &:hover {
+                            box-shadow: none;
+                        }
+            
+                        .record-table-cell{
+                            flex: auto;
+                            padding: 0.5em 0.3em;
+                            
+                            white-space: nowrap;
+                            text-align: center;
+
+                            //輸/贏
+                            &.cell-orderValue,
+                            &.cell-validBet,
+                            &.cell-rewardValue{
+                                flex: 0 0 100px;
+                            }
+
+                        }
+                    }
+
+                    .data{
+                        word-break: break-all;
+                    }
+
+                    &.win{
+                       
+                        .record-drop-item-rewardValue{
+                            color:#FF0000
+                        }
+
+                        .record-drop-item-inner{
+                            
+                        }
+                        &:before{
+                            background-color: #FFB103;  
+                        }
+
+                    }
+                    &.lose{
+                        .record-drop-item-rewardValue{
+                            color:#59B587
+                        }
+                        .record-drop-item-inner{
+                           
+                        }
+                        &:before{
+                            background-color: #2477A8;  
+                        }
+
+                    }
+
+                    &-inner{
+                        display: flex;
+                        flex-flow: row wrap;
+                        // align-items: center;
+
+                        // > *{
+                        //     padding-right: 0.5em;
+
+                        // }
+                    }
+
+                    &-wrapper{
+                        flex: 1;
+                        display: flex;
+                        flex-flow: row wrap;
+                        align-items: center;
+                    }
+
+                    &-rewardValue{                        
+                        flex: 0 0 100px;
+                        // padding: 0 0.5em;
+                        // text-align: right;  
+                        align-items: center;
+                        display: inline-flex;
+                        justify-content: flex-end;
+                        padding-right: 1.5em;   
+                    }
+
+                    &-img{
+                        order: -2;
+                        width: 70px;
+                        margin-right: 0.5rem;
+                       
+                        .img-wrap{
+                            border-radius: 5px;
+                        }
+
+                        img{
+                            width: 100%;
+                        }
+                    }
+
+                }
+
+                
+            }
+        }
+    }
+
+    .btn-toggle {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #969696;
+        border-radius: 50%;
+        
+        .arrow{
+            display: inline-flex;
+            // width: 100%;
+            border-color: #969696;
+        }
+
+    }
+
+
+
+}
+
+// 推廌會員管理
+.agentDownline-member{
+
+    &-list{
+        display: flex;
+        flex-flow: row wrap;
+        .icon{
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            background-color: #EDEDED;
+            padding: 2px;
+            margin-right: 0.4rem;
+        }
+        .icon-mask:before {
+            background-color: #00B0FF;
+        }
+
+        .member-item{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            
+
+            &.agent{                
+                .icon-mask:before {
+                    background-color: #FF6396;
+                }
+            }
+        }
+
+        .member-inner{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            border-bottom: solid 1px rgba(#000, .1);
+            padding: 0.8rem;
+        }
+    }
+
+    @include media-breakpoint-up(md){
+        &-list{
+            .member-item{
+                width: 50%;
+            }
+        }
+
+    }
+    @include media-breakpoint-up(lg){
+        &-list{
+            .member-item{
+                width: 33.33%;
+            }
+        }
+
+    }
+
+}
+
+
+
+
+// 640px以上 =================
+@include media-breakpoint-up(smg){
+
+    .record-table {
+
+        //遊戲紀錄 ================
+        &.games-record {
+
+            .record-table {
+
+                &-tab{
+                    justify-content: space-between;
+                }
+
+                &-wrapper{
+                    .td-orderValue{
+                        justify-content: flex-end;
+                    }
+                }
+
+                
+                
+                // 下拉明細
+                &-drop-panel {
+
+                    .record-drop-item{
+                        display: flex;
+                        align-items: center;
+
+                        &:before{
+                            content: '';
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 50%;
+                            display: inline-flex;
+                            margin-right: 0.8rem;
+                        }
+
+                        .record-item{
+                            padding: 0.5em 1em 0.5em 0.3em;
+                            text-align: center;
+                        }
+                       
+                        &-inner{
+                            flex: 1;
+                        }
+
+                        &-wrapper{
+                            // flex: 0 0 70%;  
+                            order: -1;  
+                            justify-content: space-between;  
+                           
+    
+                            .record-drop-item-gameName{
+                                flex: 1;
+                                .data{
+                                    display: -webkit-box;
+                                    text-overflow: ellipsis;
+                                    -webkit-line-clamp: 2;
+                                    -webkit-box-orient: vertical;
+                                    overflow: hidden; 
+    
+                                }
+                            }                           
+                            // 投注 / 有效投注
+                            .record-drop-item-orderValue,
+                            .record-drop-item-validBet
+                            {         
+                                flex: 0 0 100px;  
+
+                                .title{
+                                    display: none;
+                                }
+                            }
+                            
+                            // 有效投注
+                            .record-drop-item-validBet{
+                                flex: 0 0 140px;
+                            }
+                           
+                        } 
+
+                    }                   
+                  
+                }               
+            }
+
+        }
+
+    }
+
+}
+
+// @include media-breakpoint-up(desc-md){
+@include media-breakpoint-up(md){
+
+    // 紀錄總覽
+    .record-overview{
+        &-box{
+            width: 49%;
+    
+            &.payment{
+                &.active{
+                    // border:solid 4px #59B587;
+                    box-shadow: inset 0 0 0 5px #59b587;
+                }
+                &:hover{
+                    // border:solid 4px #59B587;
+                    box-shadow: inset 0 0 0 5px #59b587,
+                    0 0 7px 3px rgba(#7acea6, 1);;
+                }
+            }
+
+            &.game{
+                &.active{
+                    // border:solid 4px #DD8800;
+                    box-shadow: inset 0 0 0 5px #DD8800;
+                }
+                &:hover{
+                    // border:solid 4px #DD8800;
+                    box-shadow: inset 0 0 0 5px #DD8800,
+                    0 0 7px 3px rgba(#ff9d00, .55);
+                }     
+            }
+
+            &.active{
+                //遊戲總覽 連結
+                .record-overview-link{
+                    &:after{
+                    //    display: none;
+                    opacity: 0;
+                    }
+                }
+            }
+
+            &:hover{
+                //遊戲總覽 連結
+                .record-overview-link{
+                    &:after{
+                    //    display: none;
+                      opacity: 0;
+                    }
+                }
+            }
+        }
+        
+        //遊戲總覽 連結
+        &-link{
+            &:after{
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                display: block;
+
+                background-color: rgba(#000, .3);
+                border-radius: 15px; 
+
+                transition: all 0.25s ease-in-out;               
+                opacity: 1;
+            }            
+        }
+
+        
+    }
+
+    .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-orderValue{
+        flex: 0 0 120px;
+    }
+
+    .tab-record{
+        display: none;
+    }
+    
+}
+
+// @include media-breakpoint-up(desc-lg){
+@include media-breakpoint-up(lg){    
+    
+    //出入金--桌機版
+    .MT__table.table-desktop{
+
+        .Tbody{ 
+            .tbody__tr{
+                &:hover{
+                    background-color: rgba(#000, 0.05);                   
+                }
+            }            
+
+            .td-transesult{
+                .td__content{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+    
+                    .label{
+                        margin-right: 4px;
+                    }
+    
+                }
+            }
+
+        }
+
+        //處理中訂單 =================================
+        .order-processing{
+            cursor: pointer;           
+
+            .td-transesult{     
+                .td__content{
+                    &::before{
+                        content: '';
+                        position: absolute;
+                        width: 30px;
+                        height: 30px;
+                                         
+                        display: inline-flex;                       
+                        align-items: center;
+                        border: 1px solid #969696;
+                        border-radius: 50%;
+                        right: 10px;
+                    }
+                    &::after{
+                        content: '';
+                        transition: all 0.3s ease-out;
+                        width: 3px;
+                        height: 3px;
+                        border: solid rgba(0, 0, 0, 0.7);
+                        border-width: 2px 2px 0 0;
+                        display: inline-block;
+                        padding: 3px;
+                        -webkit-transform-origin: center center;
+                        transform-origin: center center;
+                        transform: rotate(45deg);
+                        position: absolute;
+                        right: 23px;
+                    }
+                }    
+
+                .PaymentStatus{
+                }
+            }
+
+        
+            &.tbody__tr{
+                &:hover{
+                    .td-transesult{     
+                        .td__content{
+                            &::before{
+                                background-color: #B4B4B4;
+                                border-color: #B4B4B4;
+                            }
+                            &::after{ 
+                                border-color: #fff;  
+                            }
+                        } 
+                        
+                    }
+                }                    
+            }           
+            
+        }
+    } 
+   
+
+    .section-record-payment{
+        .table-desktop{
+            display: table;
+        }
+        .table-mobile{
+            // display: none;
+        }    
+    }
+
+    .record-table {
+        &-tab{
+            border-bottom:solid 1px rgba(#000, 0.1);
+        }
+
+        //遊戲紀錄 ================
+        &.games-record {
+           .record-table {
+
+               &-tab {
+                   border-radius: 0;
+                //    border-width: 0 0 1px 0;
+                //    border: 0;
+                   padding-left: 0;
+                   
+                   .td-status{
+                       position: static;
+                       flex: 0 0 40px;
+                   }
+
+               }
+
+               &-item {
+                   &.header {
+                       display: flex;
+                       padding: 10px 8px;
+                       padding-right: 60px;
+
+                       .td-validBet,
+                       .td-orderValue,
+                       .td-rewardValue{
+                           flex: 0 0 150px;
+                       }
+
+                       .td-rewardValue{
+                        text-align: right;
+                       }
+                   }
+               }
+
+               &-wrapper{
+                   
+                   padding-bottom:1rem;
+                   .record-table-cell{
+                       flex: 1;
+
+                       &.td-orderValue,
+                       &.td-validBet,
+                       &.td-rewardValue{
+                         flex: 0 0 150px;
+                         justify-content: center;
+                       }
+
+                       .title{
+                           display: none;
+                       }
+
+                       &.td-rewardValue{
+                         font-size: 1rem;
+                         padding-right: 10px;
+                       }
+                   }
+
+               }
+               
+               // 下拉明細
+               &-drop-panel {
+
+                   padding-left: 70px;
+                   padding-right: 50px;
+                //    max-width: 910px;
+
+                   .record-drop-item.header{
+                       display: none;
+                   }
+                   .record-drop-item {
+
+                      &-rewardValue{
+                        flex: 0 0 150px;
+                     }
+
+                       &-wrapper {
+                           justify-content: flex-end;
+
+                           // 投注 / 有效投注
+                           .record-drop-item-orderValue,
+                           .record-drop-item-validBet {
+                               flex: 0 0 150px;
+                           }
+                           
+
+                           .record-drop-item-gameName{
+                            //  flex: 0 0 230px;
+                           }
+
+
+                       }
+
+                   }
+                 
+               }               
+           }
+
+       }
+
+   }
+   // 紀錄總覽
+   .record-overview{
+        &-title-wrapper{           
+            // font-size: font-resize(20px);
+        }
+   }
+
+}
+
+// 991px以下 =================
+@media screen and (max-width:breakpoints_BS4(lg) - 1)  {
+    .record-table{
+        &-container{
+            padding-left: calc( 45px / 2);    
+        }
+       
+        &-item {
+            margin: 0 0 .55em;
+        }
+        
+        &-tab{
+            border:solid 1px rgba(#000, 0.1);
+        }
+    }
+
+}
+// 767px以下 =================
+// @media screen and (max-width:breakpoints_BS4(desc-md) - 1)  {
+@media screen and (max-width:breakpoints_BS4(md) - 1)  {
+    
+    // 紀錄總覽
+    .record-overview{
+
+        &-box{
+            margin-bottom: 1rem;
+    
+            &:not(.active){
+                display: none;
+            }
+        }
+
+        //遊戲總覽 連結
+        &-link{
+            display: none;           
+        }
+    }
+
+    .record-table{
+        &.games-record {
+            .record-table-drop-panel {
+                .record-drop-item{
+                    &.header {
+                        display: none;
+                    }    
+                }
+            }
+        }        
+    }
+}
+
+// 640px以下 =================
+@media screen and (max-width:breakpoints_BS4(smg) - 1)  {
+
+    .record-table {
+
+        &.games-record {
+
+            .record-table {
+                &-tab{
+                    .record-table-cell {
+
+                    }
+
+                    .td-date{
+                        order: -2;
+                    }
+                    .td-rewardValue{
+                        order: -1;
+                    }
+
+                    .td-orderValue,
+                    .td-validBet{
+                        flex: 0 0 100%;
+                        justify-content: space-between;
+                    }
+                    
+                }
+
+                &-drop-panel {
+
+                    .record-drop-item{
+                        position: relative;
+                        &-rewardValue{
+                            align-items: flex-start;
+                        }
+
+                        &-wrapper{                          
+    
+                            > * {
+                                width: 100%;
+                            }
+    
+                            .record-drop-item-gameName{
+                                .data{
+                                    display: -webkit-box;
+                                    text-overflow: ellipsis;
+                                    -webkit-line-clamp: 1;
+                                    -webkit-box-orient: vertical;
+                                    overflow: hidden;  
+    
+                                }
+                            }
+
+                            .record-drop-item-orderValue,
+                            .record-drop-item-validBet{
+                                display: flex;
+                                justify-content: space-between;
+
+                                .title{
+                                    padding-right: 0.5em;
+                                    color: rgba(#000, .6);
+                                }
+
+                                .data{
+                                    flex: 0 0 60px;
+                                    text-align: right;
+                                }
+                            }
+                           
+                        } 
+
+                    }
+                  
+                }
+            }
+
+        }
+
+    }
+
+    .sec-title-container{
+        // margin-bottom: 1rem;
+    }
+    .sec-month{
+        margin: 0.8rem 0;
+    }
+    
+
+}
+
+@media screen and (max-width:breakpoints_BS4(smd))  {
+    .record-table {
+        &.games-record {
+            .record-table {
+                &-drop-panel {
+                    .record-drop-item{
+                        margin-bottom: 0.8rem;
+
+                        &-img{
+                            width: 66px;
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+
+   }
+
+}
+@media screen and (max-width:breakpoints_BS4(sm))  {
+    .record-table.games-record .record-table-drop-panel{
+        .record-drop-item{
+            min-height: 70px;
+            &-img{
+                width: 50px;
+            }
+            &-wrapper{
+                position: absolute;
+                width: calc(100% - 2em - 30px);
+                right: 0;
+            }
+    
+            &-rewardValue{
+                padding-right: 0;
+                flex: 1;
+                text-align: right;
+                font-size: 1rem;
+            }
+            &-gameName{
+                .data{
+                    max-width: 60%;
+                }
+
+            } 
+
+        }       
+    }  
+
+}
+
+// 360px以下 =================
+@media screen and (max-width:breakpoints_BS4(sm) - 15)  {
+    .record-table {
+        &.games-record {
+            .record-table {
+                &-drop-panel {
+                    .record-drop-item{
+                        &-rewardValue{
+                            // flex: 0 0 70px;
+                        }
+
+                    }
+
+                }
+
+            }
+        }
+
+
+   }
+}

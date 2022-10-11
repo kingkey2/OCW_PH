@@ -1,0 +1,1744 @@
+@import "../base/base";
+
+.tab {
+    &-game {
+        // background: linear-gradient(180deg, rgba(#fff, 1) 0%, #D6D6D6 100%);
+        background-color: #D9D9D9;
+        position: sticky;
+        top: 0;
+        z-index: 100;  
+        padding: 0 10px 0;  
+        
+        .icon-mask::before{
+            color: #454545;
+        }
+
+        .content {
+            max-width: calc(120px * 7);
+            margin: 0 auto;
+        }
+
+        // 使用 mask 的 icon
+        .icon-mask {
+            // width: font-resize(45px);
+            // height: font-resize(45px);    
+            width: 100%;
+            height: 45px;
+            padding: 3px 0;                    
+        }
+        
+        //TAB Tooltip
+        .title {
+            // display: none;
+            // width: font-resize(45px);
+            // height: font-resize(45px);  
+            width: 100%;
+            height: 45px;
+            padding: 3px 0;
+             
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;     
+            // background-color: rgba(#6DBCE1, 1);
+            background-color: rgba(#00AFFF, 1);
+            // background-color: rgba(#000, .25);
+            color: #fff;
+            text-shadow: 0px 0px 4px #004565;
+            // text-shadow: 0px 0px 4px #369AD6;
+            text-align: center;
+        }
+
+
+        .tab-scroller {  
+            max-height: 45px;      
+    
+            .tab-scroller__area {               
+            }
+    
+            .tab-item-link {
+                position: relative;
+                flex-flow: column wrap;
+                align-items: center;
+                padding: 0;                
+
+                transition: all 0.3s ease-in-out;
+                will-change: transform;
+                transform: translate3d(0, 0, 0);
+            }
+    
+            .tab-item { 
+                white-space:normal;              
+
+                &:hover,
+                &.active{
+                    .tab-item-link{
+                        transform: translate3d(0, -50%, 0);
+                    }    
+                }
+                
+                &.active{
+                    .title{
+                                              
+                        // background-color: rgba(#50baeb, 1);                     
+                        background-color: rgba(#48C5FF, 1);                     
+                    }    
+                } 
+                
+            }
+
+             // .tab-item {
+
+            //     
+
+            //     &:hover {
+
+            //         //TAB Tooltip
+            //         .title {
+            //             opacity: 1;
+            //             top: -40px;
+            //         }
+
+            //         .icon-mask::before {
+            //             background-color: rgba(#0095da, 1);
+            //         }
+
+
+            //     }
+            // }
+    
+        }
+    }
+
+    &-inner{
+        display: flex;
+        // align-items: center;
+        align-items: stretch;
+        width: 96%;
+        max-width: 640px;
+        margin: 0 auto;
+        // padding-left: 10px;
+        position: relative;
+        padding-left: ((54/46)*(45px+10px+5px));
+    }   
+    
+    &-search{
+        // align-self: center;       
+        position: relative;
+        // position: absolute;
+        display: inline-flex;
+        cursor: pointer;
+        margin-right: 2px;
+        width:((54/46)*(45px+10px-5px));
+        height:((54/46)*(45px+10px-5px));
+
+        border-radius: 50%;
+        background-color: #48C5FF;
+        border: solid 2px #fff;
+        box-shadow: 0 0 0px 5px #D9D9D9;
+        padding: 3px;
+
+        position: absolute;
+        left: 0;
+        top:5px;
+        z-index: 1;
+
+        img{
+            // max-width: none;
+            // height: 100%;
+            
+        }
+
+        //TAB Tooltip
+        .title{
+            // left: -30px;
+            display: none;
+        }
+
+        //TAB Tooltip
+        &:hover .title {
+            // opacity: 1;
+            // top: -40px;
+        }
+    }
+
+}
+
+.section-wrap.hero {
+    overflow: hidden;
+}
+
+.hero_slider_lobby {
+    position: relative;
+    overflow: hidden;
+
+    .container {
+        // position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .hero-item {
+        position: relative;
+
+        &-box {
+            border-radius: 12px;
+            overflow: hidden;
+
+            &.mobile {
+                display: inherit !important;
+            }
+
+            &.pad {
+                display: none !important;
+            }
+
+            &.desktop {
+                display: none !important;
+            }
+        }
+    }
+
+    .hero-item-link {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .img-wrap {
+        position: relative;
+        // z-index: 1;
+        padding-bottom: 200px;
+        overflow: hidden;
+        border-radius: 12px;
+
+        img.bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            object-fit: cover;
+            object-position: center top;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .swiper-slide {
+        // max-width: 75%;
+        max-width: 85%;
+        padding: 0 8px;
+        opacity: 0.65;
+    }
+
+
+    .swiper-slide-active {
+        // z-index: 2;
+        opacity: 1;
+    }
+
+    .swiper-pagination {
+        position: absolute;
+        bottom: 10px;
+        right: 0;
+    }
+
+    .swiper-pagination-bullet {
+        width: 15px;
+        height: 15px;
+        // margin-right: 20px;
+        // opacity: 1;
+        // background-color: #fff;
+        // border: solid 3px #008fd0;
+        // transition: all 0.3s ease-in;
+        // transform: scale(1);
+        // overflow: hidden;
+        // background-color: rgba(#fff, 0.6);
+    }
+
+    .swiper-pagination-bullet-active {
+        // transform: scale(1.2);
+        background-color: rgba(#68bcff, 0.9);
+    }
+
+}
+
+// 各分類-單一遊戲推薦區
+.section-category-dailypush{
+    margin-bottom: 1.5rem;
+    .container{
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.category-dailypush{
+    cursor: pointer;
+
+    &-wrapper {
+        &[class*="crownLevel-"] {
+
+            .title {
+                display: flex;
+                align-items: flex-end;
+
+                &::after {
+                    margin-left: 4px;
+                    content: '';
+                    display: inline-block;
+                    width: 70px;
+                    height: 50px;
+                    // position: absolute;
+                    background-position: center bottom;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+
+                    transition: transform 0.45s ease-in-out;
+                    // transform: translate(0, 0) scale(1, 1);
+                    // top: -6px;
+                    // left: -6px;
+                    // z-index: 3;
+                }
+            }
+        }
+
+        &.crownLevel-1 {
+            .title {
+                &::after {
+                    background-image: url(../images/icon/ico-crown-dog-star-1.svg);
+                }
+            }
+
+            //派彩
+            &.crown-Payout{
+                .title{ 
+                    &::after{                       
+                        background-image: url(../images/icon/ico-crown-dog-star-1-payout.svg);                        
+                    }
+                } 
+            }
+
+            //倍率
+            &.crown-Multiplier{
+                .title{ 
+                    &::after{  
+                        background-image: url(../images/icon/ico-crown-dog-star-1-multiplier.svg);                        
+                    }
+                }      
+               
+            }
+
+            //轉數
+            &.crown-Spin{
+                .title{ 
+                    &::after{  
+                        background-image: url(../images/icon/ico-crown-dog-star-1-spin.svg);
+                    }
+                }
+            }
+        }
+    }
+    
+    &-inner{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        // aspect-ratio: 15 / 8;
+            
+    }
+
+    &-img{
+        position: absolute;
+        width: 100%;
+        height: 100%;       
+        top: 0;
+        left: 0;
+        right: 0;
+
+        .img-box{
+            width: 100%;
+            height: 100%;
+        }
+
+        .img-wrap{
+            position: relative;
+            width: 100%;
+            height: 100%;           
+            
+            // padding-bottom: ((400/750)*100%);
+        }
+
+        .mobile{
+            .img-wrap{
+                // aspect-ratio: 15 / 8;
+            }
+        }
+
+        img{
+            // position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+          
+            object-fit: cover;           
+            // object-fit: contain;           
+            object-position: left top;
+            width: 100%;
+            height: 100%;
+            
+        }
+
+        .pad{
+            display: none;
+        }
+        .desktop{
+            display: none;
+        }
+    }
+
+    &-cotentBox{
+        // position: absolute;
+        position: relative;
+        padding: 15px 20px;
+        // top: 0;
+        right: 0;
+        width: 50%;
+        max-width: 300px;
+        min-width: 200px;
+        // height: 100%;
+        height: 90%;
+        max-height: 250px;
+        min-height: 180px;
+
+        color: #fff;
+        display: flex;
+        flex-flow: row wrap;
+
+        .title{
+            font-weight: 500;
+            font-size: font-resize(18px);
+            margin-bottom: 1rem;
+            width: 100%;
+            
+        }
+        .info{
+            // width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .detail{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            // align-items: center;    
+            font-size: font-resize(12px);
+            font-weight: 300;
+        }
+
+        .gamename{
+            font-size: font-resize(18px);
+            margin-bottom: 0.6rem;
+            font-weight: 500;
+            
+        }
+
+        .gamecategory{
+            border: solid 1px #fff;
+            margin-left: 1rem;
+            padding: 5px;
+            height: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;            
+            white-space: nowrap;         
+        }
+        // .gamebrand{
+        //     display: -webkit-box;
+        //     text-overflow: ellipsis;
+        //     -webkit-line-clamp: 2;
+        //     -webkit-box-orient: vertical;
+        //     overflow: hidden;
+        //     min-height: (font-resize(14px)*(2+0.5+0.5));
+        // }
+        
+
+        .intro{
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            font-size: font-resize(12px);
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .action{
+            width: 100%;
+            height: 38px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-play{
+            border-radius: 50px;
+            background-color: #00AFFF;
+            color: #fff;
+            flex: 1;
+        }
+
+        .btn-like{
+            background-color: transparent;
+            border: solid 1px #fff;
+            font-size: 26px;
+            width: 38px;
+            // height: 38px;
+            margin-left: 1rem;
+
+            color: #fff;
+
+            .icon{
+               
+            }
+
+            &:not(.added).desktop{
+                &:hover{
+                    // color: #ff0000;
+                    color: #fff;     
+    
+                    .icon-m-favorite:before {
+                        content: 'a';
+                    }
+                }
+            }
+
+            
+            &.added{
+                color: #ff0000;
+            //  border-color: #ff0000;
+                background-color: rgba(#fff, 0.25);
+            }
+
+        }
+       
+    }
+    
+    &-cotent{
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+        align-content: space-between;
+    }
+
+
+}
+
+//圖片倒影效果 ====================
+.game_slider.swiper-cover .swiper-slide{
+    width: 130px;
+}
+
+.section-levelUp{
+    // 575px以下 =================
+    @media screen and (max-width:breakpoints_BS4(smd) - 1){
+        padding-left: 10px;        
+    }
+}
+
+$swiper-slide-list-deault-width: 100%;
+
+$swiper-slide-width-default: $swiper-slide-list-deault-width / 3.2;
+$swiper-slide-width-sm: $swiper-slide-list-deault-width / 3.5;
+$swiper-slide-width-smd: $swiper-slide-list-deault-width / 4.5;
+$swiper-slide-width-smg: $swiper-slide-list-deault-width / 5.5;
+$swiper-slide-width-md: $swiper-slide-list-deault-width / 5.5;
+
+// 滿版時設定 ==============================================
+// $swiper-slide-width-lg: $swiper-slide-list-deault-width / 6;
+// $swiper-slide-width-gx: $swiper-slide-list-deault-width / 7;
+
+// $swiper-slide-width-xl: $swiper-slide-list-deault-width / 8;
+// $swiper-slide-width-xml: $swiper-slide-list-deault-width / 9;
+// $swiper-slide-width-xxl: $swiper-slide-list-deault-width / 10;
+
+//非滿版時設定
+$swiper-slide-width-lg: $swiper-slide-list-deault-width / 6;
+$swiper-slide-width-gx: $swiper-slide-list-deault-width / 7;
+
+$swiper-slide-width-xl: $swiper-slide-list-deault-width / 7;
+$swiper-slide-width-xml: $swiper-slide-list-deault-width / 7;
+$swiper-slide-width-xxl: $swiper-slide-list-deault-width / 8;
+$swiper-slide-width-over-xxl: 200px;
+
+.game_slider {
+    .swiper-slide {
+        padding-right: 10px; //game slider 間隔        
+        width: $swiper-slide-width-default;
+    }
+
+    //滑鼠滑過 Button 出現效果 ===============
+    .swiper-button-next{
+        // right: -25px;
+    }
+
+    .swiper-button-prev{
+        // left: -15px;
+    }
+
+}
+
+// $gameRanking-swiper-slide-list-deault-width: 100%;
+$n-compare-normal-gameslider: 3/2;
+$n-divide-paddingleft: 3;
+
+
+$gameRanking-swiper-slide-width-default: $swiper-slide-width-default * $n-compare-normal-gameslider;
+$gameRanking-swiper-slide-width-sm: $swiper-slide-width-sm           * $n-compare-normal-gameslider;
+// $gameRanking-swiper-slide-width-sm: $swiper-slide-width-sm*3/2;
+$gameRanking-swiper-slide-width-smd: $swiper-slide-width-smd         * $n-compare-normal-gameslider;
+$gameRanking-swiper-slide-width-smg: $swiper-slide-width-smg         * $n-compare-normal-gameslider;
+$gameRanking-swiper-slide-width-md: $swiper-slide-width-md           * $n-compare-normal-gameslider;
+
+//非滿版時設定
+$gameRanking-swiper-slide-width-lg: $swiper-slide-width-lg           * $n-compare-normal-gameslider;
+$gameRanking-swiper-slide-width-gx:$swiper-slide-width-gx            * $n-compare-normal-gameslider;
+
+$gameRanking-swiper-slide-width-xl: $swiper-slide-width-xl           * $n-compare-normal-gameslider;
+$gameRanking-swiper-slide-width-xml: $swiper-slide-width-xml         * $n-compare-normal-gameslider;
+$gameRanking-swiper-slide-width-xxl: $swiper-slide-width-xxl         * $n-compare-normal-gameslider;
+
+$gameRanking-swiper-slide-width-over-xxl: $swiper-slide-width-over-xxl         * $n-compare-normal-gameslider;
+
+
+// 遊戲-排名區
+.gameRanking{    
+
+    .swiper-wrapper{
+        counter-reset:num;        
+    }
+
+    .swiper-slide{  
+        position: relative;
+        padding-left: $gameRanking-swiper-slide-width-default/$n-divide-paddingleft;
+        width: $gameRanking-swiper-slide-width-default;
+        
+       
+        &:before{
+            // counter-increment:num; 
+            // content:counter(num);
+            // position: absolute;
+            // left: 0;
+            // top: 0px;
+            // font-size: 100px;
+            content: '';
+            display: inline-flex;
+            width: 100%;
+            height: calc(100% - 10px);
+            background-repeat: no-repeat;
+            background-position: left top;
+            
+            background-size: contain;
+
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            top: 10px;
+        }
+               
+        .game-item-img{
+
+        }
+
+       
+        &:nth-child(1){
+            &:before{
+                background-image: url(../images/icon/num01.svg) ;
+            }
+        }
+        &:nth-child(2){
+            &:before{
+                background-image: url(../images/icon/num02.svg) ;
+            }
+        }
+        &:nth-child(3){
+            &:before{
+                background-image: url(../images/icon/num03.svg) ;
+            }
+        }
+        &:nth-child(4){
+            &:before{
+                background-image: url(../images/icon/num04.svg) ;
+            }
+        }
+        &:nth-child(5){
+            &:before{
+                background-image: url(../images/icon/num05.svg) ;
+            }
+        }
+        &:nth-child(6){
+            &:before{
+                background-image: url(../images/icon/num06.svg) ;
+            }
+        }
+        &:nth-child(7){
+            &:before{
+                background-image: url(../images/icon/num07.svg) ;
+            }
+        }
+        &:nth-child(8){
+            &:before{
+                background-image: url(../images/icon/num08.svg) ;
+            }
+        }
+        &:nth-child(9){
+            &:before{
+                background-image: url(../images/icon/num09.svg) ;
+            }
+        }
+        &:nth-child(10){
+            &:before{
+                background-image: url(../images/icon/num10.svg) ;
+            }
+
+            ~ .swiper-slide{
+                display: none;
+            }
+        }        
+
+        // &[aria-label^="1"]{
+        //     &:before{
+        //         left: 0;
+        //         background-image: url(../images/icon/num01.svg) ;
+        //     } 
+        //     &:after{
+        //         left: 77px;
+        //     }               
+        // }
+    }
+
+    .swiper-button-next, .swiper-button-prev{
+        height: calc(100% - 10px);
+    }
+}
+
+
+@include media-breakpoint-up(sm) {
+    .hero_slider_lobby {
+        .img-wrap {
+            padding-bottom: 230px;
+
+        }
+    }
+
+    //遊戲 Slider 共用------------
+    .game_slider {
+        .swiper-slide {
+            width: $swiper-slide-width-sm;
+
+        }
+    }
+
+    // 遊戲-排名區
+    .gameRanking{
+        .swiper-slide {
+            padding-left: $gameRanking-swiper-slide-width-sm/$n-divide-paddingleft;
+            width: $gameRanking-swiper-slide-width-sm;
+
+        }
+    }
+}
+
+@include media-breakpoint-up(smd) {
+    .hero_slider_lobby {
+        .img-wrap {
+            padding-bottom: 300px;
+        }
+
+        .swiper-slide {
+            max-width: 68%;
+        }
+    }
+
+    //遊戲 Slider 共用------------
+    .game_slider {
+        .swiper-slide {
+            width: $swiper-slide-width-smd;
+
+        }
+    }
+
+     // 遊戲-排名區
+     .gameRanking{
+        .swiper-slide {
+            padding-left: $gameRanking-swiper-slide-width-smd/$n-divide-paddingleft;
+            width: $gameRanking-swiper-slide-width-smd;
+
+        }
+    }
+
+     // 各分類-單一遊戲推薦區
+     .category-dailypush{
+        &-img{
+            border-radius: 15px;
+            overflow: hidden;
+        }
+     }
+
+
+}
+
+@include media-breakpoint-up(smg) {
+
+
+    .hero_slider_lobby {
+        .swiper-slide {
+            max-width: 70%;
+        }
+    }
+
+    
+    //遊戲 Slider 共用------------
+    .game_slider {
+        .swiper-slide {
+            width: $swiper-slide-width-smg;
+        }
+    }
+
+     // 遊戲-排名區
+     .gameRanking{
+        .swiper-slide {
+            padding-left: $gameRanking-swiper-slide-width-smg/$n-divide-paddingleft;
+            width: $gameRanking-swiper-slide-width-smg;
+        }
+    }
+
+}
+
+@include media-breakpoint-up(desc-md) {
+
+    .tab {
+        &-game {
+            .tab-scroller { 
+                max-height: 52px;
+            }
+
+            .tab-inner{
+                padding-left: ((54/46)*(52px+10px-5px));
+            }
+
+            .tab-search{
+                // width:((54/46)*(52px-5px));
+                width:((54/46)*(52px+10px-5px));
+                height:((54/46)*(52px+10px-5px));
+            }
+
+            .icon-mask {
+                // width: font-resize(64px);
+                // height: font-resize(64px);
+                height: 52px;
+                padding: 3px 0;
+            }
+
+            .title {               
+                // width: font-resize(64px);
+                // height: font-resize(64px);
+                height: 52px;
+                padding: 3px 0;
+                
+                font-size: font-resize(18px);
+                font-weight: 700;  
+            }
+            
+            
+
+
+            //以下是為了 tooltip 將 over-hidden 都取消
+
+            //TAB Tooltip 開始 ========================
+            // .tab-scroller {
+            //     overflow: visible;
+
+            //     .tab-scroller__area {
+            //         overflow-x: visible;
+            //     }
+
+            //     .tab-item-link {
+            //         position: relative;
+            //     }
+
+            //     .tab-item {
+            //         overflow: visible;
+            //     }
+
+            // }
+
+            // //TAB Tooltip
+            // .title {
+               
+            //     position: absolute;
+            //     display: inline-block;
+            //     font-size: font-resize(14px);
+            //     background-color: rgba(#009FE8, 1);
+            //     color: #fff;
+            //     padding: 3px;
+            //     border-radius: 10px;
+
+            //     text-align: center;
+
+            //     top: -30px;
+            //     width: calc((100vw - 30px) / 5);
+            //     max-width: 150px;
+            //     z-index: 99;
+
+            //     pointer-events: none;
+            //     word-break: break-all;
+
+            //     opacity: 0;
+            //     transition: all 0.3s ease-in-out;
+            //     box-shadow: 0 0 10px 0 #000;
+
+
+            //     &:after {
+            //         content: "";
+            //         position: absolute;
+            //         bottom: -7px;
+            //         width: 0px;
+            //         height: 0px;
+            //         border-style: solid;
+            //         border-width: 10px 6px 0px;
+            //         border-color: rgba(#009FE8, 1) transparent transparent;
+            //         left: 0;
+            //         right: 0;
+            //         // transform: translateX(calc(((100vw - 30px) / 5) / 2.5));
+            //         transform: translateX(500%);
+            //     }
+            // }
+
+            // .tab-item {
+
+            //     &.active {
+            //         .icon-mask::before {
+            //             background-color: rgba(#0081bd, 1);
+            //         }
+            //     }
+
+            //     &:hover {
+
+            //         //TAB Tooltip
+            //         .title {
+            //             opacity: 1;
+            //             top: -40px;
+            //         }
+
+            //         .icon-mask::before {
+            //             background-color: rgba(#0095da, 1);
+            //         }
+
+
+            //     }
+            // }
+            //TAB Tooltip 結束 ========================
+        }
+
+    }
+
+    .hero_slider_lobby {
+        .img-wrap {
+            padding-bottom: 280px;
+
+        }
+
+        .hero-item {
+
+            &-box {
+                &.mobile {
+                    display: none !important;
+                }
+
+                &.desktop {
+                    display: inherit !important;
+                }
+            }
+        }
+
+        .swiper-slide {
+            max-width: 75%;
+
+        }
+
+
+
+    }
+
+    //遊戲 Slider 共用------------
+    .game_slider {
+        .swiper-slide {
+            width: $swiper-slide-width-md;
+        }
+    }
+
+    // 遊戲-排名區
+    .gameRanking{
+        .swiper-slide {
+            padding-left: $gameRanking-swiper-slide-width-md/$n-divide-paddingleft;
+            width: $gameRanking-swiper-slide-width-md;
+        }
+    }
+
+    //圖片倒影效果 ====================
+    .game_slider.swiper-cover .swiper-slide{
+        width: 140px;
+    }
+
+}
+
+@include media-breakpoint-up(md) {
+    // 各分類-單一遊戲推薦區
+    .category-dailypush{
+        &-inner{         
+            justify-content: flex-start; 
+            // aspect-ratio: 288 / 65;
+            aspect-ratio: 288 / 100;
+            // min-height: 200px;
+        }
+
+        &-img{
+            // border-radius: 15px;
+            // overflow: hidden;
+            img{
+                // object-fit: contain;  
+                object-fit: cover;  
+            }
+            .img-wrap{
+                // padding-bottom: ((305/1440)*100%);
+                // aspect-ratio: 288 / 61;
+            }
+            .mobile{
+                display: none;
+            }
+            .pad {
+                display: inherit;
+            }
+            .desktop{
+                // display: inherit;
+                display: none;
+                .img-wrap{
+                    // aspect-ratio: 288 / 61;
+                }
+            }
+           
+            img{
+                object-position: 100% 0;
+            }
+        }
+
+    }
+
+}
+
+@include media-breakpoint-up(desc-lg) {
+
+    //遊戲 Slider 共用------------
+    .game_slider {
+        .swiper-slide {
+            padding-right: 1vw; //game slider 間隔  
+        }
+    }
+
+    //圖片倒影效果 ====================
+    .game_slider.swiper-cover .swiper-slide{
+        width: 170px;
+    }
+
+    // 各分類-單一遊戲推薦區
+    .category-dailypush{
+        &-inner{
+            aspect-ratio: 288 / 80;
+        }
+
+        &-img{
+            .pad {
+                display: none;
+            }
+            .desktop{              
+                display: inherit;                
+            }
+        }
+    }
+
+}
+
+//Slicer 資訊 截斷問題 FIX
+@media (min-width:breakpoints_BS4(desc-lg)) and (max-width:breakpoints_BS4(desc-gx) - 1) {
+
+    //遊戲 Slider 共用------------
+    .game_slider {      
+
+        .swiper-slide {
+            width: $swiper-slide-width-lg;
+
+            &:nth-child(6n+1) {
+                .game-item-info-detail {
+                    left: 0;
+                }
+
+                .game-item-focus {
+
+                    &:hover {
+
+                        .game-item-img {
+                            // left: 60px;
+                            left: auto;
+                            transform: translateX(38%);
+
+                        }
+
+                    }
+                }
+
+            }
+
+            &:nth-child(6n),
+            &:last-child {
+                .game-item-info-detail {
+                    left: auto;
+                    right: 0px;
+                }
+
+                .game-item-focus {
+                    &:hover {
+                        .game-item-img {
+                            // right: 60px;
+                            left: auto;
+                            right: auto;
+                            transform: translateX(-38%);
+                        }
+
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+    // 遊戲-排名區
+    .gameRanking{
+        .swiper-slide {
+            padding-left: $gameRanking-swiper-slide-width-lg/$n-divide-paddingleft;
+            width: $gameRanking-swiper-slide-width-lg;
+        }
+    }
+
+}
+
+@include media-breakpoint-up(desc-gx) {
+    .hero_slider_lobby {
+        .img-wrap {
+            padding-bottom: 320px;
+        }
+
+        .swiper-slide {
+            max-width: 70%;
+        }
+
+    }
+
+    //圖片倒影效果 ====================
+    .game_slider.swiper-cover .swiper-slide{
+        width: 200px;
+    }
+
+    // 各分類-單一遊戲推薦區
+    .category-dailypush{
+        &-inner{
+            aspect-ratio: 288 / 65;
+        }
+        &-img{           
+            img{
+                object-fit: contain;  
+                // object-fit: cover;  
+            }
+        }
+
+        &-wrapper {
+            &[class*="crownLevel-"] {
+                .title {
+                    &::after {
+                        width: 90px;
+                    }                    
+                }
+           }
+       }
+    }
+}
+
+//Slicer 資訊 截斷問題 FIX
+@media (min-width:breakpoints_BS4(desc-gx)) and (max-width:breakpoints_BS4(desc-xl) - 1) {
+
+    //遊戲 Slider 共用------------
+    .game_slider {
+        .swiper-slide {
+            // width: calc((100% - 10px) / 5.35);
+            width: $swiper-slide-width-gx;
+
+            &:nth-child(7n+1) {
+                .game-item-info-detail {
+                    left: 0;
+                }
+
+                .game-item-focus {
+                    &:hover {
+                        .game-item-img {
+                            // left: 60px;
+                            left: auto;
+                            transform: translateX(38%);
+                        }
+
+                    }
+                }
+
+            }
+
+            &:nth-child(7n),
+            &:last-child {
+                .game-item-info-detail {
+                    left: auto;
+                    right: 0px;
+                }
+
+                .game-item-focus {
+                    &:hover {
+                        .game-item-img {
+                            // right: 80px;
+                            left: auto;
+                            right: auto;
+                            transform: translateX(-38%);
+                        }
+
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+     // 遊戲-排名區
+     .gameRanking{
+        .swiper-slide {
+            padding-left: $gameRanking-swiper-slide-width-gx/$n-divide-paddingleft;
+            width: $gameRanking-swiper-slide-width-gx;
+        }
+    }
+}
+
+@include media-breakpoint-up(desc-xl) {
+
+    .hero_slider_lobby {
+        .img-wrap {
+            padding-bottom: 340px;
+        }
+
+        .swiper-slide {
+            max-width: 66%;
+        }
+
+    }
+    .category-dailypush-cotentBox{
+        // height: 90%;
+        // max-height: 250px;
+    }
+
+    //圖片倒影效果 ====================
+    .game_slider.swiper-cover .swiper-slide{
+        width: 220px;
+    }
+
+    
+}
+
+//Slicer 資訊 截斷問題 FIX
+@media (min-width:breakpoints_BS4(desc-xl)) and (max-width:breakpoints_BS4(desc-xml) - 1) {
+    .game_slider {
+       
+    }
+
+    //遊戲 Slider 共用------------
+    .game_slider {
+        .swiper-slide {
+            // width: calc((100% - 10px) / 5.35);
+            width: $swiper-slide-width-xl;
+
+            &:nth-child(8n+1) {
+                .game-item-info-detail {
+                    left: 0;
+                }
+
+                .game-item-focus {
+                    &:hover {
+                        .game-item-img {
+                            // left: 80px;
+                            left: auto;
+                            transform: translateX(38%);
+                        }
+
+                    }
+                }
+
+            }
+
+            &:nth-child(8n),
+            &:last-child {
+                .game-item-info-detail {
+                    left: auto;
+                    right: 0;
+                }
+
+                .game-item-focus {
+
+                    // transition: all 0.3s linear;
+                    &:hover {
+                        .game-item-img {
+                            // right: 80px;
+                            left: auto;
+                            right: auto;
+                            transform: translateX(-38%);
+                        }
+
+                    }
+                }
+
+            }
+
+        }
+    }
+
+     // 遊戲-排名區
+     .gameRanking{
+        .swiper-slide {
+            padding-left: $gameRanking-swiper-slide-width-xl/$n-divide-paddingleft;
+            width: $gameRanking-swiper-slide-width-xl;
+        }
+    }
+
+}
+
+@include media-breakpoint-up(desc-xml) {
+
+    .hero_slider_lobby {
+        .img-wrap {
+            padding-bottom: 380px;
+        }
+
+        .swiper-slide {
+            max-width: 70%;
+        }
+
+    }
+
+    //圖片倒影效果 ====================
+    .game_slider.swiper-cover .swiper-slide{
+        width: 240px;
+    }
+}
+
+
+//Slicer 資訊 截斷問題 FIX
+@media (min-width:breakpoints_BS4(desc-xml)) and (max-width:breakpoints_BS4(desc-xxl) - 1) {
+    .game_slider {
+        
+    }
+
+    //遊戲 Slider 共用------------
+    .game_slider {
+
+        .swiper-slide {
+            // width: calc((100% - 10px) / 5.35);
+            width: $swiper-slide-width-xml;
+
+            &:nth-child(9n+1) {
+                .game-item-info-detail {
+                    left: 0;
+                }
+
+                .game-item-focus {
+                    &:hover {
+                        .game-item-img {
+                            // left: 80px;
+                            left: auto;
+                            transform: translateX(38%);
+                        }
+
+                    }
+                }
+
+            }
+
+            &:nth-child(9n),
+            &:last-child {
+                .game-item-info-detail {
+                    left: auto;
+                    right: 0;
+                }
+
+                .game-item-focus {
+                    &:hover {
+                        .game-item-img {
+                            // right: 80px;
+                            left: auto;
+                            right: auto;
+                            transform: translateX(-38%);
+                        }
+
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+     // 遊戲-排名區
+     .gameRanking{
+        .swiper-slide {
+            padding-left: $gameRanking-swiper-slide-width-xml/$n-divide-paddingleft;
+            width: $gameRanking-swiper-slide-width-xml;
+        }
+    }
+
+}
+
+//Slicer 資訊 截斷問題 FIX
+@media (min-width:breakpoints_BS4(desc-xxl)) and (max-width:breakpoints_BS4(xxl) - 1) {
+    .game_slider {
+
+       
+    }
+
+    //遊戲 Slider 共用------------
+    .game_slider {
+
+        .swiper-slide {
+            // width: calc((100% - 10px) / 5.35);
+            width: $swiper-slide-width-xxl;
+            // max-width: 220px;
+
+            &:nth-child(10n+1) {
+                .game-item-info-detail {
+                    left: 0;
+                }
+
+                .game-item-focus {
+
+                    &:hover {
+
+
+                        .game-item-img {
+                            // left: 75px;
+                            left: auto;
+                            transform: translateX(38%);
+                        }
+
+                    }
+                }
+
+            }
+
+            &:nth-child(10n),
+            &:last-child {
+                .game-item-info-detail {
+                    left: auto;
+                    right: 0;
+                }
+
+                .game-item-focus {
+                    &:hover {
+                        .game-item-img {
+                            // right: 75px;
+                            left: auto;
+                            right: auto;
+                            transform: translateX(-38%);
+                        }
+
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+     // 遊戲-排名區
+     .gameRanking{
+        .swiper-slide {
+            padding-left: $gameRanking-swiper-slide-width-xxl/$n-divide-paddingleft;
+            width: $gameRanking-swiper-slide-width-xxl;
+        }
+    }
+
+}
+
+@include media-breakpoint-up(desc-xxl) {
+
+    .hero_slider_lobby {
+        .img-wrap {
+            padding-bottom: 420px;
+        }
+
+        .swiper-slide {
+            max-width: 73%;
+        }
+    }
+
+    
+}
+
+@include media-breakpoint-up(xxl) {   
+
+    .tab {
+        &-game {
+            .tab-scroller { 
+                max-height: 60px;
+            }
+            .tab-inner{
+                padding-left: ((54/46)*(60px+10px-5px));
+            }
+
+            .tab-search{              
+                // width:((54/46)*(64px-5px));
+                width:((54/46)*(60px+5px-5px));
+                height:((54/46)*(60px+5px-5px));
+            }
+
+            .icon-mask {
+                height: 60px;
+            }
+
+            .title {
+                height: 60px;
+            } 
+        }
+    }
+
+    .hero_slider_lobby { 
+        .swiper-slide {
+            max-width: 70%;
+        }
+    }
+
+
+    //遊戲 Slider 共用------------
+    .game_slider {
+        .swiper-slide {
+
+           
+            // width: 200px;
+            width: $swiper-slide-width-over-xxl;
+            // max-width: 240px;
+
+            &:nth-child(10n+1) {
+                .game-item-info-detail {
+                    left: 0;
+                }
+
+                .game-item-focus {
+                    &:hover {
+                        .game-item-img {
+                            // left: 75px;
+                            left: auto;
+                            transform: translateX(38%);
+                        }
+
+                    }
+                }
+
+            }
+
+            &:nth-child(10n),
+            &:last-child {
+                .game-item-info-detail {
+                    left: auto;
+                    right: 0;
+                }
+
+                .game-item-focus {
+                    &:hover {
+
+                        .game-item-img {
+                            // right: 75px;
+                            left: auto;
+                            right: auto;
+                            transform: translateX(-38%);
+                        }
+
+                    }
+                }
+
+            }
+
+        }
+
+
+    }
+
+    // 遊戲-排名區
+    .gameRanking{
+        .swiper-slide {
+            padding-left: $gameRanking-swiper-slide-width-over-xxl/$n-divide-paddingleft;
+            width: $gameRanking-swiper-slide-width-over-xxl;
+        }
+    }
+
+    //圖片倒影效果 ====================
+    .game_slider.swiper-cover .swiper-slide{
+        width: 260px;
+    }
+
+    
+
+    .category-dailypush-cotentBox{
+        padding: 20px 30px;
+        max-width: 360px;
+
+        
+
+        .title,
+        .gamename{
+            font-size: font-resize(22px);          
+        }
+
+        .action{
+            height: 48px;
+        }
+        .btn-like{
+            width: 48px;
+        }
+    }
+    
+
+}
+
+@media (min-width: 2560px){
+    .hero_slider_lobby {
+        .img-wrap {
+            padding-bottom: 570px;
+       }       
+    }   
+
+}
+
+@media (max-width:breakpoints_BS4(desc-md) - 1) {
+    .tab-game{
+        .icon-all-tt{
+            &::before{
+              -webkit-mask-image: url(../images/icon/ico-all-tt-m.svg) ;
+              mask-image: url(../images/icon/ico-all-tt-m.svg) ;
+            }
+          }
+          .icon-hot-tt{
+            &::before{
+            //   -webkit-mask-image: url(../images/icon/ico-hot-tt-m.svg) ;
+            //   mask-image: url(../images/icon/ico-hot-tt-m.svg) ;
+              -webkit-mask-image: url(../images/icon/ico-hot-tt-jp-m.svg) ;
+              mask-image: url(../images/icon/ico-hot-tt-jp-m.svg) ;
+            }
+          }
+          .icon-etc-tt{
+            &::before{
+            //   -webkit-mask-image: url(../images/icon/ico-etc-tt-m.svg) ;
+            //   mask-image: url(../images/icon/ico-etc-tt-m.svg) ;
+              -webkit-mask-image: url(../images/icon/ico-etc-tt-jp-m.svg) ;
+              mask-image: url(../images/icon/ico-etc-tt-jp-m.svg) ;
+            }
+          }
+          .icon-live-tt{
+            &::before{
+            //   -webkit-mask-image: url(../images/icon/ico-live-tt-m.svg) ;
+            //   mask-image: url(../images/icon/ico-live-tt-m.svg) ;
+              -webkit-mask-image: url(../images/icon/ico-live-tt-jp-m.svg) ;
+              mask-image: url(../images/icon/ico-live-tt-jp-m.svg) ;
+            }
+          }
+          .icon-slot-tt{
+            &::before{
+            //   -webkit-mask-image: url(../images/icon/ico-slot-tt-m.svg) ;
+            //   mask-image: url(../images/icon/ico-slot-tt-m.svg) ;
+              -webkit-mask-image: url(../images/icon/ico-slot-tt-jp-m.svg) ;
+              mask-image: url(../images/icon/ico-slot-tt-jp-m.svg) ;
+            }
+          }
+          .icon-brand-tt{
+            &::before{
+            //   -webkit-mask-image: url(../images/icon/ico-brand-tt-m.svg) ;
+            //   mask-image: url(../images/icon/ico-brand-tt-m.svg) ;
+              -webkit-mask-image: url(../images/icon/ico-brand-tt-jp-m.svg) ;
+              mask-image: url(../images/icon/ico-brand-tt-jp-m.svg) ;
+            }
+          }
+
+
+          .icon-elec-tt{
+            &::before{
+              -webkit-mask-image: url(../images/icon/ico-elec-tt-m.svg) ;
+              mask-image: url(../images/icon/ico-elec-tt-m.svg) ;
+            }
+          }
+          
+          .icon-poker-tt{
+            &::before{
+              -webkit-mask-image: url(../images/icon/ico-poker-tt-m.svg) ;
+              mask-image: url(../images/icon/ico-poker-tt-m.svg) ;
+            }
+          }
+          
+
+          .icon-favo-tt{
+            &::before{
+              -webkit-mask-image: url(../images/icon/ico-favo-tt-m.svg) ;
+              mask-image: url(../images/icon/ico-favo-tt-m.svg) ;
+            }
+          }
+            
+          
+    
+
+    }
+     
+}
+
+@media (max-width:breakpoints_BS4(smd) - 1){
+    .gamename{
+        min-height: (2rem+0.2rem);
+    }
+    .gamebrand{
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: (font-resize(14px)*(2+0.5+0.5));
+    }
+
+}
+
+// 320px以下 =================
+@media screen and (max-width:320px){
+    .category-dailypush-cotentBox{
+        min-width: 150px;
+        max-width: 160px;       
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
