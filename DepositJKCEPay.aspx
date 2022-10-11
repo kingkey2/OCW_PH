@@ -507,6 +507,7 @@
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-collectareatype", CollectAreaType);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].id = "award-bonus" + ActivityCount;
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("checked", "true");
+        ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("disabled", "disabled");
         ActivityDom.getElementsByClassName("custom-control-label")[0].setAttribute("for", "award-bonus" + ActivityCount);
 
         $(".ThresholdValue_" + CollectAreaType).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CollectAreaType).text()) + ThresholdValue));

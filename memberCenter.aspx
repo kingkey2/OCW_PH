@@ -90,12 +90,12 @@
         if (WebInfo.UserInfo.ExtraData) {
             var ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
             for (var i = 0; i < ExtraData.length; i++) {
-                //if (ExtraData[i].Name == "Birthday") {
-                //    var Birthdays = ExtraData[i].Value.split('/');
-                //    $("#idBornYear").val(Birthdays[0]);
-                //    $("#idBornMonth").val(Birthdays[1]);
-                //    $("#idBornDay").val(Birthdays[2]);
-                //}
+                if (ExtraData[i].Name == "Birthday") {
+                    var Birthdays = ExtraData[i].Value.split('/');
+                    $("#idBornYear").val(Birthdays[0]);
+                    $("#idBornMonth").val(Birthdays[1]);
+                    $("#idBornDay").val(Birthdays[2]);
+                }
 
                 if (ExtraData[i].Name == "UserGetMail") {
                     $("#check_UserGetMail").prop("checked", ExtraData[i].Value);

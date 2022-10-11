@@ -103,19 +103,19 @@
         }
         else if (userLang.ToUpper() == "en-US".ToUpper())
         {
-            Lang = "JPN";
+            Lang = "ENG";
         }
         else if (userLang.ToUpper() == "en-CA".ToUpper())
         {
-            Lang = "JPN";
+            Lang = "ENG";
         }
         else if (userLang.ToUpper() == "en-PH".ToUpper())
         {
-            Lang = "JPN";
+            Lang = "ENG";
         }
         else if (userLang.ToUpper() == "en".ToUpper())
         {
-            Lang = "JPN";
+            Lang = "ENG";
         }
         else if (userLang.ToUpper() == "ko-KR".ToUpper())
         {
@@ -220,18 +220,7 @@
         }
     </style>
 </head>
-<% if (EWinWeb.IsTestSite == false)
-    { %>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRNSR38PQ7"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
 
-    gtag('config', 'G-097DC2GB6H');
-</script>
-<% } %>
 <script
     src="https://code.jquery.com/jquery-2.2.4.js"
     integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
@@ -806,11 +795,13 @@
     }
 
     function showLangProp() {
-
+        
         if (EWinWebInfo.Lang=='JPN') {
             $('.lang-popup-list').eq(0).find('input').eq(0).prop("checked", true);
-        } else {
+        } else if (EWinWebInfo.Lang == 'ENG') {
             $('.lang-popup-list').eq(0).find('input').eq(1).prop("checked", true);
+        } else {
+            $('.lang-popup-list').eq(0).find('input').eq(2).prop("checked", true);
         }
         
         $('#ModalLanguage').modal('show');
@@ -1980,9 +1971,9 @@
                 $('#langIcon').addClass('icon-flag-ZH');
                 break;
             case "ENG":
-                LangText = "日本語";
-                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-JP"></i>`);
-                $('#langIcon').addClass('icon-flag-JP');
+                LangText = "English";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-EN"></i>`);
+                $('#langIcon').addClass('icon-flag-EN');
                 break;
             case "CHS":
                 LangText = "簡體中文";
@@ -3373,7 +3364,7 @@
                                     </div>
                                 </label>
                             </li>
-                            <%--<li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
+                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
                                     <div class="custom-input radio-button">
@@ -3381,7 +3372,7 @@
                                         <span class="name">English</span>
                                     </div>
                                 </label>
-                            </li>--%>
+                            </li>
                             <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('CHT', true)">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
