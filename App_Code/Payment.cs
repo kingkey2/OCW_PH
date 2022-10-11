@@ -167,7 +167,7 @@ public class Payment {
             }
         }
 
-        public static APIResult CreateEPayDeposite(string OrderID, decimal OrderAmount, string Type, string UserName,string ContactPhoneNumber)
+        public static APIResult CreateEPayDeposite(string OrderID, decimal OrderAmount, string Type, string UserName,string ContactPhoneNumber,string ServiceType)
         {
             APIResult R = new APIResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject sendData = new JObject();
@@ -177,7 +177,6 @@ public class Payment {
             string CompanyCode;
             string CurrencyType;
             string CompanyKey;
-            string ServiceType;
             DateTime OrderDate = DateTime.Now;
             string Sign;
             string result;
@@ -237,7 +236,6 @@ public class Payment {
             CompanyCode = (string)EPAYSetting.CompanyCode;
             CurrencyType = (string)EPAYSetting.CyrrencyType;
             CompanyKey = (string)EPAYSetting.ApiKey;
-            ServiceType = (string)EPAYSetting.ServiceType;
             sendData.Add("ManageCode", CompanyCode);
             sendData.Add("Currency", CurrencyType);
             sendData.Add("Service", ServiceType);

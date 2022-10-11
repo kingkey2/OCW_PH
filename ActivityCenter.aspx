@@ -314,6 +314,19 @@
         }
     }
 
+    function ChangeActivity(type) {
+        $(".tab-scroller__content").find(".tab-item").removeClass("active");
+        $("#li_activity" + type).addClass("active");
+
+        if (type == 0) {
+            $("#divProcessing").show();
+            $("#divFinish").hide();
+        } else {
+            $("#divFinish").show();
+            $("#divProcessing").hide();
+        }
+    }
+
     window.onload = init;
 </script>
 <body class="innerBody">
@@ -329,8 +342,27 @@
                         <h1 class="sec-title title-deco"><span class="language_replace">活動</span></h1>
                     </div>
                 </div>
+                <nav class="tab-activity">
+                    <div class="tab-scroller tab-2">
+                        <div class="tab-scroller__area">
+                            <ul class="tab-scroller__content" id="idTabActivityList">
+                                <li class="tab-item act-running active" id="li_activity0" onclick="ChangeActivity(0)">
+                                    <span class="tab-item-link">
+                                        <span class="title language_replace">進行中</span>
+                                    </span>
+                                </li>
+                                <li class="tab-item act-finish" id="li_activity1" onclick="ChangeActivity(1)">
+                                    <span class="tab-item-link">
+                                        <span class="title language_replace">已結束</span>
+                                    </span>
+                                </li>
+                                <div class="tab-slide"></div>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
                 <section class="section-wrap section-activity">
-                    <div class="activity-item-group">
+                    <div class="activity-item-group" id="divProcessing">
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(14,'/Activity/event/ne-rt/202210/index-jp.html')">
                                 <!-- 活動連結 -->
@@ -466,6 +498,8 @@
                                 </div>
                             </div>
                         </figure>
+                    </div>
+                    <div class="activity-item-group" id="divFinish" style="display:none">
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(10,'/Activity/event/bng/bng220919BH/index-jp.html')">
                                 <!-- 活動連結 -->

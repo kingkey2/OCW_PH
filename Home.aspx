@@ -997,7 +997,7 @@
 
     function setBulletinBoard() {
         var GUID = Math.uuid();
-        p.GetBulletinBoard(GUID, function (success, o) {
+        p.CheckDocumentByTagName(GUID, "N1", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     var ParentMain = document.getElementById("idBulletinBoardContent");
@@ -1005,26 +1005,21 @@
                     ParentMain.innerHTML = "";
                     ParentMain2.innerHTML = "";
 
-                    if (o.Datas.length > 0) {
+                    if (o.DocumentList.length > 0) {
                         var RecordDom;
                         var RecordDom2;
                         //var numGameTotalValidBetValue = new BigNumber(0);
-                        for (var i = 0; i < o.Datas.length; i++) {
-                            var record = o.Datas[i];
+                        for (var i = 0; i < o.DocumentList.length; i++) {
+                            var record = o.DocumentList[i];
 
                             RecordDom = c.getTemplate("idTempBulletinBoard");
                             RecordDom2 = c.getTemplate("idTempBulletinBoard");
 
-                            var recordDate = new Date(parseInt(record.CreateDate.replace(')/', '').replace('/Date(', '')));
-                            var date = recordDate.getFullYear() + '.' + (recordDate.getMonth() + 1) + '.' + recordDate.getDate();
-                            c.setClassText(RecordDom, "CreateDate", null, date);
-                            c.setClassText(RecordDom, "BulletinTitle", null, record.BulletinTitle);
-                            c.setClassText(RecordDom2, "CreateDate", null, date);
-                            c.setClassText(RecordDom2, "BulletinTitle", null, record.BulletinTitle);
+                            c.setClassText(RecordDom, "BulletinTitle", null, record.DocumentTitle);
+                            c.setClassText(RecordDom2, "BulletinTitle", null, record.DocumentTitle);
 
-                            //RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinBoardID +"."+ record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
-                            RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
-                            RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
+                            RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.DocumentTitle + "','" + record.DocNumber + "')");
+                            RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.DocumentTitle + "','" + record.DocNumber + "')");
                             ParentMain.appendChild(RecordDom);
                             ParentMain2.appendChild(RecordDom2);
                         }

@@ -760,12 +760,12 @@
         }
     }
 
-    function showBoardMsg(title, message, time) {
+    function showBoardMsg(title, docNumber) {
         if ($("#alertBoardMsg").attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("alertBoardMsg");
             var divMessageBoxOKButton = divMessageBox.querySelector(".alert_OK");
             var divMessageBoxTitle = divMessageBox.querySelector(".alert_Title");
-            var divMessageBoTime = divMessageBox.querySelector(".alert_Time");
+            //var divMessageBoTime = divMessageBox.querySelector(".alert_Time");
             var divMessageBoxContent = divMessageBox.querySelector(".alert_Text");
             var modal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
 
@@ -780,8 +780,16 @@
                 }
 
                 divMessageBoxTitle.innerHTML = title;
-                divMessageBoTime.innerHTML = time;
-                divMessageBoxContent.innerHTML = message;
+                //divMessageBoTime.innerHTML = time;
+
+                $.ajax({
+                    url: "https://ewin.dev.mts.idv.tw/GetDocument.aspx?DocNumber=" + docNumber,
+                    success: function (res) {
+                        divMessageBoxContent.innerHTML = res;
+                    },
+                    error: function (err) { console.log(err) },
+                });
+
             }
         }
     }
@@ -830,7 +838,7 @@
         }
     }
 
-    function WithCheckBoxShowMessageOK(title, message, cbOK) {
+    function WithCheckBoxShowMessageOK(title, docNumber, cbOK) {
         var alertDom = $("#alertContactWithCheckBox")
         if (alertDom.attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("alertContactWithCheckBox");
@@ -863,7 +871,15 @@
                 }
 
                 divMessageBoxTitle.innerHTML = title;
-                divMessageBoxContent.innerHTML = message;
+
+                $.ajax({
+                    url: "https://ewin.dev.mts.idv.tw/GetDocument.aspx?DocNumber=" + docNumber,
+                    success: function (res) {
+                        divMessageBoxContent.innerHTML = res;
+                    },
+                    error: function (err) { console.log(err) },
+                });
+
             }
         }
     }
@@ -1625,10 +1641,11 @@
 
             if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
                 gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
+                CloseWindowOpenGamePage(gameWindow);
             } else {
                 if (EWinWebInfo.DeviceType == 1) {
                     gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
-
+                    CloseWindowOpenGamePage(gameWindow);
                     //window.location.href = "/kevintest.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";
 
                 } else {
@@ -1691,6 +1708,12 @@
             <iframe id="GameIFramePage" style="width:${w}px;height:${vh}px;background-color:#09f" name="mainiframe" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-pointer-lock"></iframe>
         </div>`;
         $("#divGameFrame").append(tmp);
+    }
+    
+    function CloseWindowOpenGamePage(e) {
+        showMessageOK("", "關閉", function () {
+            e.close();
+        })
     }
     //#endregion
 
@@ -2005,18 +2028,24 @@
     }
 
     function getLoginMessage(cb) {
-        lobbyClient.GetLoginMessage(EWinWebInfo.SID, Math.uuid(), function (success, o) {
+
+        lobbyClient.CheckDocumentByTagName(Math.uuid(), "N2", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    LoginMessageTitle = o.Title;
-                    LoginMessage = o.Message;
-                    LoginMessageVersion = o.Version;
-                    if (cb != null) {
-                        cb();
+
+                    if (o.DocumentList.length > 0) {
+                        var record = o.DocumentList[o.DocumentList.length - 1];
+                        LoginMessageTitle = record.DocumentTitle;
+                        LoginMessage = record.DocNumber;
+                        LoginMessageVersion = record.DocumentID;
+                        if (cb != null) {
+                            cb();
+                        }
                     }
                 }
             }
         });
+
     }
 
     function showLoginMessage() {

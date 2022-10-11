@@ -246,12 +246,27 @@ img[src=""], img:not([src]) {
   font-size: 0.8125em;
 }
 
+.text-note.text-indent > *{
+  text-indent: -0.8125em;
+  margin-left: 0.8125em;
+}
+
+
 .text-s {
   font-size: 0.875rem;
 }
 
+.text-s.text-indent > *{
+  text-indent: -0.875rem;
+  margin-left:  0.875rem;
+}
+
 .text-primary {
   color: #ff0066 !important;
+}
+
+.text-gray {
+  color: rgba(44, 45, 58, 0.75);
 }
 
 .text-bolder {
@@ -260,6 +275,12 @@ img[src=""], img:not([src]) {
 
 .rules-privacy .link {
   color: #FF0066;
+  text-decoration: underline;
+  margin: 0 4px;
+}
+.rules-privacy .link:hover {
+  /* text-decoration: none; */
+  text-decoration-color: #2C2D3A;
 }
 
 /*--------------
@@ -605,6 +626,10 @@ button {
 }
 .btn-container .btn {
   margin: 0 0.5em;
+}
+.btn-ValidateCode{
+   width: 100%;
+   max-width: 200px;
 }
 
 [class^=badge] {
@@ -2619,7 +2644,7 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
       align-self: flex-start;
 }
 .sign-container .heading-title {
-  margin: 0 0 2em;
+  margin: 0 0 1.5em;
 }
 .sign-container .heading-title h3 {
   font-size: 1.5em;
@@ -4538,3 +4563,266 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   }
 }
 
+/* 新註冊頁 */
+.sign-container .form-group + .btn-container.register{
+   padding-bottom: 30px;
+}
+
+.tab-register{
+  position: sticky;
+  top: 0;
+  z-index: 11;
+  background-color: #fff;
+  padding: 5px 0 5px;
+}
+
+.tab-scroller {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative
+}
+
+.tab-scroller:after {
+  width: 100%;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.25);
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: absolute;
+  bottom: 0;
+  z-index: -1
+}
+
+.tab-scroller .tab-scroller__area {
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+  max-width: 768px;
+  margin: 0 auto
+}
+
+.tab-scroller .tab-scroller__area::-webkit-scrollbar {
+  display: none
+}
+
+.tab-scroller .tab-scroller__content {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.tab-scroller .tab-item {
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  width: 50%
+}
+
+.tab-scroller .tab-item .tab-item-link {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding: 0.5rem 0;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 100%
+}
+
+.tab-scroller .tab-item.active {
+  color: rgba(201, 174, 127, 0.9)
+}
+
+
+.tab-scroller .tab-item.active:nth-of-type(2)~.tab-slide {
+  left: 50%
+}
+
+.tab-scroller .tab-slide {
+  position: absolute;
+  bottom: 0;
+  -webkit-transition: left 0.3s ease-out;
+  transition: left 0.3s ease-out;
+  z-index: 1;
+  width: 50%;
+  height: 100%;
+  -webkit-transition: left 0.2s ease-in-out;
+  transition: left 0.2s ease-in-out;
+  left: 0;
+ 
+  z-index: 0;
+}
+
+.tab-primary {
+  width: 100%;
+  max-width: 640px;
+  margin: 0.6rem auto;
+  /* background-color: rgba(133, 133, 133, 0.85); */
+  background-color: rgba(137, 153, 167, 0.15);
+  border-radius: 30px;
+  /* margin-bottom: 20px; */
+}
+
+.tab-primary.tab-scroller .tab-item.active {
+  color: rgb(255, 255, 255);
+  /* background-color: rgb(69, 197, 255); */
+}
+.tab-primary.tab-scroller .tab-item {
+  /* color: white; */
+  z-index: 1;
+  position: relative;
+  transition: all 0.35s linear 0s;
+}
+
+.tab-primary.tab-scroller .tab-item .title{
+    padding: 0.25em 0;
+    /* text-align: center; */
+    font-size: 0.9125em;
+}
+
+.tab-primary.tab-scroller .tab-slide {  
+  background-color: rgb(69, 197, 255);
+  background-color: #2C2D3A;
+  border-radius: 30px;
+  -webkit-box-shadow: 0 4px 12px -4px rgb(137 153 167 / 50%);
+  box-shadow: 0 4px 12px -4px rgb(137 153 167 / 50%);
+}
+
+.sec-title-wrapper{
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.icon-mask {
+  width: 1rem;
+  height: 1rem;
+}
+
+.icon.icon-mask {
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-flex: 0 !important;
+  flex: 0 0 auto !important;
+}
+.icon-mask.icon-question::before {
+  -webkit-mask-image: url(../images/icon/ico-question.svg);
+  mask-image: url(../images/icon/ico-question.svg);
+  background-color: rgb(255, 255, 255);
+}
+.icon-mask::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  -webkit-mask-position: center center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: none;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transition: all 0.15s ease 0s;
+}
+
+.btn-full-stress {
+  background-color: rgb(232, 62, 140) !important;
+}
+.btn-Q-mark {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  padding: 7px;
+  white-space: normal;
+  font-weight: bold;
+  text-align: center;
+  border-color: transparent;
+  user-select: none;
+  text-decoration: none;
+  background-repeat: no-repeat;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  
+}
+
+.sec-title-container .btn .icon-mask::before {
+  background-color: rgb(255, 255, 255);
+}
+
+/* 簡易註冊與完整註冊 Popup*/
+/* .registerWay-popup-wrapper{
+  font-weight: 300;
+}
+
+.registerWay-popup-list{
+
+}
+
+.registerWay-popup-list .item{
+  margin-bottom: 25px;
+}
+
+.registerWay-popup-list .item .title{
+  font-size: 1.5rem;
+} */
+.text-bold{
+	font-weight: 500;	
+}
+.popup-tip {
+  font-weight: 300
+}
+
+.popup-tip .item {
+  margin-bottom: 45px
+}
+
+.popup-tip .item .title {
+  font-size: 1.125rem
+}
+
+
+
+.LineOfficialQrcode{
+  margin: 10px auto;
+  text-align: center;
+}
+
+.LineOfficialQrcode .QrCode {
+  margin: 15px auto;
+  max-width: 200px;
+  /* height: 250px; */
+  border: #cdcdcd 1px solid;
+}
+
+.LineOfficialQrcode .QrCode img{
+  max-width: 100%;
+
+}
