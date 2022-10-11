@@ -829,6 +829,7 @@
             <section class="section-wrap section-agentDownline-report">
                 <div class="container">
 
+                    <!-- PC -->
                     <div class="MT__table table-RWD table-desktop table-agentDownline">
                         <!-- thead  -->
                         <div class="Thead">
@@ -884,8 +885,48 @@
                         </div>
                     </div>
 
+                    <!-- MOBILE -->
+                    <div class="record-table-container">
+                        <div class="record-table games-record">
+                            <div class="record-table-item">
+                            <div class="record-table-tab">
+                                <div class="record-table-wrapper">
+                                    <!-- 日期 -->
+                                    <div class="record-table-cell td-date">
+                                        <span class="date-period">
+                                            
+                                            <span class="SummaryDate">2022/06/14</span>
+                                        </span>
+                                    </div>
+                                    <!-- 投注 -->
+                                    <div class="record-table-cell td-orderValue">
+                                        <span class="title language_replace" langkey="投注">投注</span>
+                                        <span class="data number orderValue">60.00</span>
+                                    </div>
+                                    <!-- 有效投注 -->
+                                    <div class="record-table-cell td-validBet">
+                                        <span class="title language_replace" langkey="出款門檻扣除值">出款門檻扣除值</span>
+                                        <span class="data number validBet">9.00</span>
+                                    </div>
+                                    <!-- 勝/負 -->
+                                    <div class="record-table-cell td-rewardValue">
+                                        <span class="data number rewardValue">-60.00</span>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="no-Data" id="idNoGameData" style="display: ;">
+                                <div class="data">
+                                    <span class="text language_replace" langkey="沒有資料">沒有資料</span>
+                                </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+
               </div>
-        </section>
+             </section>
         </div>
     </main>
 
