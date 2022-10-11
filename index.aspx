@@ -103,19 +103,19 @@
         }
         else if (userLang.ToUpper() == "en-US".ToUpper())
         {
-            Lang = "JPN";
+            Lang = "ENG";
         }
         else if (userLang.ToUpper() == "en-CA".ToUpper())
         {
-            Lang = "JPN";
+            Lang = "ENG";
         }
         else if (userLang.ToUpper() == "en-PH".ToUpper())
         {
-            Lang = "JPN";
+            Lang = "ENG";
         }
         else if (userLang.ToUpper() == "en".ToUpper())
         {
-            Lang = "JPN";
+            Lang = "ENG";
         }
         else if (userLang.ToUpper() == "ko-KR".ToUpper())
         {
