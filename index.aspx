@@ -806,11 +806,13 @@
     }
 
     function showLangProp() {
-
+        
         if (EWinWebInfo.Lang=='JPN') {
             $('.lang-popup-list').eq(0).find('input').eq(0).prop("checked", true);
-        } else {
+        } else if (EWinWebInfo.Lang == 'ENG') {
             $('.lang-popup-list').eq(0).find('input').eq(1).prop("checked", true);
+        } else {
+            $('.lang-popup-list').eq(0).find('input').eq(2).prop("checked", true);
         }
         
         $('#ModalLanguage').modal('show');
@@ -1980,9 +1982,9 @@
                 $('#langIcon').addClass('icon-flag-ZH');
                 break;
             case "ENG":
-                LangText = "日本語";
-                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-JP"></i>`);
-                $('#langIcon').addClass('icon-flag-JP');
+                LangText = "English";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-EN"></i>`);
+                $('#langIcon').addClass('icon-flag-EN');
                 break;
             case "CHS":
                 LangText = "簡體中文";
@@ -3369,7 +3371,7 @@
                                     </div>
                                 </label>
                             </li>
-                            <%--<li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
+                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
                                     <div class="custom-input radio-button">
@@ -3377,7 +3379,7 @@
                                         <span class="name">English</span>
                                     </div>
                                 </label>
-                            </li>--%>
+                            </li>
                             <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('CHT', true)">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
