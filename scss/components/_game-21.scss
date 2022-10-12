@@ -1,0 +1,614 @@
+
+
+.hero_slider_lobby {
+    position: relative;
+
+    .container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .img-wrap {
+        position: relative;
+        // z-index: 1;
+        padding-bottom: 420px;
+        overflow: hidden;
+
+        img.bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            object-fit: cover;
+            object-position: center top;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+
+    .swiper-slide-active {
+        z-index: 2;
+    }
+
+    .swiper-pagination {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    .swiper-pagination-bullet {
+        width: 60px;
+        height: 60px;
+        margin-right: 20px;
+        opacity: 1;
+        background-color: #fff;
+        border: solid 3px #008fd0;
+        transition: all 0.3s ease-in;
+        transform: scale(1);
+        overflow: hidden;
+    }
+
+    .swiper-pagination-bullet-active {
+        transform: scale(1.2);
+    }
+
+}
+
+
+.sec-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+        font-size: font-resize(24px);
+        font-weight: bold;
+    }
+
+    .icon {
+        font-size: font-resize(18px);
+        margin-right: 0.5rem;
+    }
+
+    .text-link {
+        font-size: font-resize(13px);
+
+    }
+}
+
+.section-levelUp{
+    position: relative;
+    padding-bottom: 30px;
+
+    &:hover{
+        z-index: 99;
+    }
+}
+
+.game-area{
+    &.overflow-hidden{
+        overflow-x: hidden;
+        padding-bottom: 160px;
+    }
+}
+
+.game_wrapper {
+    margin-bottom: 20px;
+}
+
+.game-item {
+
+    transition: all 0.35s ease;
+
+    &-img{
+        position: relative;
+        z-index: 1;
+    }
+    
+    &-inner{
+        position: relative;
+        // overflow: hidden;
+
+        &:hover {    
+            .game-item-link {
+
+                // Mask ================
+                &::after{
+                    opacity: 1;
+                 }       
+            }
+           
+        }
+    }
+
+    .img-wrap {
+        position: relative;
+        padding-bottom: 100%;
+        border-radius: 8px;
+        // background-image: url(../images/assets/icon-00.svg);
+        @include bg-basic;
+        overflow: hidden;
+
+        // transition: all 0.65s ease-in-out;
+
+        img {
+            @include img-fit;
+        }        
+    }
+
+    // 遊戲試玩 BUTTON ================
+    &-info-hidden{
+        transition: all 0.35s linear;
+        // height: 0;
+        // opacity: 0;
+    }
+    
+
+    &-info-hidden{
+        // position: absolute;        
+        // left: 0;
+        // right: 0;
+        // width: 90%;
+        // // height: 50%;
+        // height: 100%;
+        // margin: 0 auto;
+
+        // // top: calc(50% - 25%);
+        // text-align: center;
+
+        // display: inline-flex;
+        // flex-flow: column nowrap;
+        // align-items: center;
+        // justify-content: center;
+
+        // transition: all 0.35s ease-in-out;
+        // transform: translateY(0%);
+        // // transform: translateY(-100%);
+        // z-index: 2;        
+    }
+
+    &-info{
+        transition: all 0.35s linear;
+        padding-top: 0.5rem;        
+    }
+   
+    // 遊戲名稱 ================
+    &-name{
+        font-size: font-resize(15px);        
+    }
+
+    &-like{       
+        // position: absolute;
+        right: 1rem;
+        bottom: 1rem;
+        z-index: 3;        
+    }
+    
+    &-link {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        cursor: pointer;
+        z-index: 2;
+
+        // Mask ================
+        &::after{
+            // content: ''; 
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(#000, 0.75);
+            border-radius: 8px;
+
+            transition: all 0.35s ease-in-out;
+            opacity: 0;
+            z-index: 2;
+       }
+    }
+
+    &.label-new .img-wrap:before,
+    &.label-hot  .img-wrap:after
+    { 
+       
+                position: absolute;
+                top: 12px;
+                left: 0;
+                content: '';
+                display: inline-flex;
+                width: 46px;
+                height: 23px;
+              
+                border-radius: 0 15px 15px 0;
+
+                font-size: 10px;
+                font-weight: 400;
+                color: rgba(#fff, 1);
+                
+
+                align-items: center;
+                padding: 5px 4px 5px 8px;
+                z-index: 1;
+              
+                box-shadow: 0px 1px 5px 0px rgba(#000, 0.29);
+
+    }
+
+    &.label-new{
+
+        .img-wrap{
+
+            &:before{
+                content: 'NEW';
+                background-image: linear-gradient(to right, #358DD4 0% , #06F2FA 100%);
+                text-shadow: 0 0 3px #00364b;
+            }
+
+        }
+        
+
+    }
+
+    &.label-hot{
+        .img-wrap{
+            &:after{
+                content: 'HOT';
+                background-image: linear-gradient(to right, #D81C85 0% , #FE0066 100%);
+                text-shadow: 0 0 3px #530023;
+            }
+        }        
+    }
+
+    &.label-new.label-hot{
+
+        .img-wrap{
+
+            &:after{
+                top: 42px;
+            }
+        }   
+
+    }
+
+}
+
+//遊戲 Slider 共用------------
+.game_slider {
+    // overflow: hidden;
+
+    .game-item {
+        margin-right: 15px;
+    }
+
+    .img-wrap {
+        border-radius: 15px;
+        background-color: #031d4b;
+    }
+
+    .swiper-button-next {
+        background-color: #A445B2;
+    }
+
+    &.round-arrow {
+        .swiper-button-next {
+            right: 0;
+            width: 36px;
+            height: 36px;
+            color: #fff;
+            border-radius: 100%;
+
+            box-shadow: 0 0 10px rgba(#8999a7, .5);
+            background: linear-gradient(270deg, #009FE8 5.1%, #4FC8FF 106.12%);
+
+            &::after {
+                font-size: 15px;
+            }
+        }
+    }
+
+    //遊戲 BUTTON ================
+         
+    .btn{
+        border-radius: 50px;
+        padding: 10px 20px;
+    }
+
+    .btn-play{
+        width: 100%;
+        font-size: 16px !important;
+    } 
+
+    
+    .swiper-slide{
+        transition: all 0.35s linear;
+    }
+
+
+    &.gameinfo-hover{
+
+        .btn{
+            padding: 5px 10px;
+        }
+
+        .game-item {
+
+            &-inner{
+                background-color: #fff;
+                // border-radius: 15px 15px 0 0;                 
+                border-radius: 15px;        
+            }
+
+            &-info {
+                position: absolute;
+                padding: 0.5rem;
+                width: 100%;
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+                // background-color: #fff;
+                top: calc( 100% - 15px);
+                padding-top: 25px;
+                pointer-events: none;
+            }
+
+            &-info-hidden {               
+                opacity: 0; 
+                // pointer-events: none;
+            }
+
+            &-info-inner {
+                // transition: all 0.;
+                transform-origin: left top;
+            }
+
+            &-name{
+                margin-bottom: 0.5rem;
+                text-align: center;
+                font-weight: bold;
+            }
+
+
+        }
+
+        .swiper-slide{           
+
+            //mousehover 遊戲放大效果
+            &:hover {
+                // position: absolute;
+                transform: scale(1.3, 1.3);                
+                z-index: 99;
+
+                .game-item{
+
+                    &-info {                       
+                        background-color: #fff;
+                        pointer-events: auto;
+                    }
+
+                    &-name{
+                        font-size: 16px;
+                    }
+
+                    .btn{
+                        font-size: 12px; 
+                    }
+
+
+                }
+
+                .game-item-img {
+                    // transform: scale(1.5, 1.5);
+                }
+
+                .game-item-info-inner {
+                    // transform: scale(0.73, 0.73);
+                    // background-color: #fff;
+                }
+                
+        
+                .game-item-info-hidden {
+                    // display: block;
+                    height: auto;
+                    opacity: 1;
+                    // transform: scale(0.75, 0.75);
+                }
+        
+               
+            }
+
+           
+        
+           
+        }
+
+        .btn{         
+            
+            color: #fff;
+
+            &.btn-round,
+            &.btn-more{
+                background: rgba(#000, .65);               
+            }
+
+            &.btn-round{
+                width: 30px;
+                height: 30px;
+            }
+
+
+            &:hover{
+                background: rgba(#fff, .85);
+                color: red;
+            }
+
+        }
+
+        .top{
+            margin-bottom: 0.5rem;
+        }
+
+        .bottom{
+            margin-bottom: 0.5rem;
+        }
+
+    }
+
+    &.swiper-cover{
+
+        padding-bottom: 100px;
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 350px;
+            height: 350px;
+             // -webkit-box-reflect: below 1px linear-gradient(transparent 0%, #0006 2%, #0006 100%); 
+             -webkit-box-reflect: below 0px linear-gradient(to bottom, transparent 0% , transparent 85%, rgba(0, 0, 0, 0.555) 100%);
+           
+            img{
+                width: 100%;
+            }
+        }
+
+        
+        .game-item{
+            margin: 0;
+
+            &-info{
+                // opacity: 0;
+                // height: 0;
+                position: absolute;
+                bottom: -50px;
+                left: 0;
+                right: 0;
+                text-align: center;
+                
+            }
+            &-name{
+                font-size: font-resize(20px);
+            }
+        }
+        
+
+        
+    }
+
+}
+
+.section_randomRem{
+    background: linear-gradient(180deg, #1B1B1B 0%, #464646 100%);
+   
+    color: #fff;
+    padding: 70px 0;
+
+    .swiper-cover{
+        padding-bottom: 100px;
+    }
+    
+    .sec-title-container{
+        justify-content: center;
+        margin-bottom: 70px;
+    }
+}
+
+
+// game-item 共用 ----------------
+.game-item-group {
+    display: flex;
+    flex-wrap: wrap;
+
+    .game-item {
+        position: relative;
+        margin: 12px;
+        width: calc(100% / 5 - 24px);
+        
+        
+        //HOVER樣式 ---------------
+        &:before {
+            // content: ''; //這裡會影響其他
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            width: calc(100% + 8px);
+            padding-bottom: calc(100% + 4px);
+            border: 2px solid $pink;
+            border-radius: 10px;
+            box-shadow: 0 4px 24px -8px #000;
+            opacity: 0;
+            transition: all 0.3s ease;
+           
+        }
+        &:hover {
+            &:before {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.triangle {
+    width: 20px;
+    height: 20px;
+    // border: solid 2px #fff;
+    border-radius: 50%;
+    margin-left: 0.5rem; 
+    display: inline-flex;
+    align-items: center; 
+    justify-content: center;
+    position: relative;
+    padding-left: 2px;
+    background-color: #fff;
+  
+    transition: all 0.3s ease;
+
+    &:after {
+        display: block;
+        content: "";
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 5px 0 5px 8.7px;
+        border-color: transparent transparent transparent #067eff;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+}
+
+// @-webkit-keyframes anim-role_left {
+
+// }
+
+@keyframes anim-role_left {
+    0% {
+        opacity: 0;
+        
+        transform: translateY(-30px);
+    }
+    25% {
+        opacity: 1;
+        // -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    90% {
+        opacity: 1;
+        // -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-10px);
+        opacity: 0;        
+       
+    }
+}

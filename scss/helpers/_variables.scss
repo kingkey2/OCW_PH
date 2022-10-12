@@ -1,0 +1,367 @@
+
+//body====================*/
+//'midtones-a-1': #323647,
+//'midtones-a-2': #3e4359,
+//'midtones-a-3': #333849,
+//'midtones-a-4': #2d3040,
+
+//don't use $body-bg to avoid conflict in bootstrap
+// $body-background: (color : (color_main('midtones-a-1'), color_main('midtones-a-2')));
+
+
+$html-mainHtml-background: color_body('body-bg1');
+
+$body-background: color_main('midtones-a-2');
+
+
+$body-gradient-background: (color : (color_body('body-bg1'), color_body('body-bg2')));
+
+$body-fontSize-default: 14px; 
+
+$body-default-sm: 15px; //375px
+$body-default-smd: 15px; //576px
+$body-default-md: 16px;  //768px
+
+
+
+$body-default-fontColor: rgba(color_main('text'), 0.8);
+$body-main-fontColor: color_main('theme-main-a-1');
+
+$body-row-border: solid 1px rgba(color_main('white'), 0.1);
+
+//Text ====================*/
+$text-color-sub-a: color_main('theme-sub-a-3');
+$text-color-sub-b: color_main('theme-sub-b-4');
+
+ 
+//Header ====================*/
+// $header-background: color_main('midtones-a-2');
+$header-background: rgba(color_main('white'), 1);
+$header-default-text: color_main('text');
+$header-navbar-toggler-background:  color_main('text');
+
+$header-nav-default-text: color_main('white');
+$header-nav-link-text: color_main('white');
+$header-nav-link-background: rgba(color_main('black'), .65);
+
+
+$navbar-dropdown-submenu-background: color_main('theme-sub-a-1');
+$navbar-dropdown-submenu-hover-background: darken(color_main('theme-sub-a-1'), 20%);
+$navbar-dropdown-submenu-borderColor: rgba(color_main('white'), .2);
+$header-round-button-Size: 35px;
+
+// Sidebar Menu 側選單
+$header-navbarMenu-backgroundColor: color_main('theme-main-a-2');
+$header-navbarMenu-gradient-backgroundColor: (color : (color_header('header-main-bg1'), color_header('header-main-bg2')));
+
+$header-navbarMenu-width: 200px;
+$header-navbarMenu-width-xl-default: 56px;
+$header-navbarMenu-width-xl-expand: $header-navbarMenu-width;
+
+
+//Heading ====================*/
+$heading-fontColor:color_main('theme-main-a-1');
+
+//input ==============================*/
+// Bootstrap RESET
+// $input-color:white;
+// END Bootstrap RESET-------------------
+
+$input-default-border-color: color_main('white');
+$input-default-border: 1px solid rgba($input-default-border-color, 0.45);
+$input-default-label-color: rgba(color_main('text'), .65);
+$input-default-label-iconSize: 25px;
+$input-default-label-iconSize-padding: 7px;
+$input-default-hidden-input-label-background: transparent;
+
+$input-focus-label-text: rgba(color_main('theme-main-a-1'), 0.65);
+
+// $input-focus-border-background: rgba(color_main('theme-main-a-1'), .7);
+
+$input-form-control-hover-color: rgba(color_main('theme-main-a-1'), .7 );
+$input-form-control-focus-color: $input-form-control-hover-color;
+
+
+
+$input-form-control-hover-boxshadow: inset 0 0 0 1px $input-form-control-hover-color;
+$input-form-control-focus-boxshadow: inset 0 0 0 0.2rem $input-form-control-focus-color;
+
+
+$input-focus-placholder-position-y: 10px;
+
+//form-control-underline
+$input-form-control-focus-border-background: $input-form-control-focus-color;
+
+$input-form-control-error-focus-border-background: rgba(color_main('gray-1'), .9 );
+
+//form-control-darkbg
+// $input-form-control-focus-boxshadow: 0 0 0 0.2rem $input-form-control-focus-color;
+
+
+
+
+
+
+
+//custom radio button-- default
+$input-default-radio-label-background: transparent;
+$input-default-radio-label-chedcked: rgba(color_main('theme-main-a-1'),1);
+
+//custom radio button -- circle check like checkbox
+$input-radio-check-label-default-color: rgba(color_main('white'), .6);
+$input-radio-check-label-backgound: rgba(color_main('theme-main-a-1'),1);
+
+$input-radio-check-label-chedcked: rgba(color_main('theme-main-a-1'),1);
+$input-radio-check-label-chedcked-color: rgba(color_main('theme-main-a-1'),1);
+$input-radio-check-label-chedcked-border: rgba(color_main('theme-main-a-1'),1);
+
+
+
+
+
+$custom-search-background: rgba(color_main('white'), .1);
+$custom-search-textColor: rgba(color_main('white'), 1);
+
+
+
+//custom radio button -- circle check like button
+$input-radio-button-label-default-color: rgba(color_main('white'), .6);
+$input-radio-button-label-default-border: solid 1px rgba(color_main('white'), .25);
+$input-radio-button-label-default-border-radius:50px;
+
+
+$input-radio-button-label-default-padding-top: 7px;
+$input-radio-button-label-default-padding-bottom: 7px;
+
+$input-radio-button-label-default-padding-left: 10px;
+$input-radio-button-label-default-padding-right: 10px;
+
+
+
+
+
+
+
+$input-radio-button-label-default-iconcheck-bg: rgba(color_main('black'), .5);
+$input-radio-button-label-default-iconcheck-bg-bordercolor: rgba(color_main('black'), 0.5);
+
+
+
+
+
+$input-radio-button-label-hover-custom-input-radio-txtcolor: rgba(color_main('white'), 1);
+$input-radio-button-label-hover-custom-input-radio-bordercolor: rgba(color_main('theme-main-a-1'), 1);
+
+
+//icon check - hover
+$input-radio-button-label-hover-iconcheck-bg: rgba(color_main('theme-main-a-2'), 1);
+$input-radio-button-label-hover-iconcheck-bg-bordercolor: rgba(color_main('theme-main-a-2'), 1);
+
+
+
+$input-radio-button-label-checked-custom-input-radio-bg: rgba(color_main('theme-main-a-2'), 1);
+$input-radio-button-label-checked-custom-input-radio-bordercolor: rgba(color_main('theme-main-a-2'), 1);
+
+//icon check - checked
+$input-radio-button-label-checked-iconcheck-bg: rgba(color_main('white'), 1);
+$input-radio-button-label-checked-iconcheck-bg-bordercolor: rgba(color_main('white'), 1);
+$input-radio-button-label-checked-iconcheck-bgcolor: rgba(color_main('theme-main-a-2'), 1);
+
+
+
+
+
+
+//custom checkbox-- default
+// $input-default-checkbox-label-backgound: transparent;
+// $input-default-checkbox-label-checked: rgba(color_main('white'),1);
+$input-default-checkbox-label-checked: rgba(#ffffff,1);
+$input-default-checkbox-checked-label-backgound: rgba(color_main('theme-main-a-1'),1);
+// $input-default-checkbox-checked-label-background: (
+//   color : (color_main('theme-main-a-1'), color_main('theme-main-a-2'))
+//   );
+
+
+//custom select - underline style + JS
+$custom-select-options-background: color_main('theme-sub-a-2');
+$custom-select-option-hover-background: color_main('theme-main-a-1');
+$custom-select-option-hover-color: color_main('theme-sub-a-2');
+
+
+//Bootstrap custom input
+$custom-control-indicator-checked-color:        $input-default-radio-label-chedcked ;
+$custom-radio-indicator-icon-checked:           str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='#{$input-default-radio-label-chedcked}'/%3E%3C/svg%3E"), "#", "%23");
+$custom-checkbox-indicator-icon-checked:        str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='#{input-default-checkbox-label-checked}' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E"), "#", "%23") ;
+
+//Toggle Buttons --- Bootstrap 4.5 increasement
+// $custom-switch-default-width: $custom-control-indicator-size * 2.15 !default;
+$custom-switch-default-background: rgba(black, .5);
+$custom-switch-checked-indicator: color_main('theme-main-a-1');
+$custom-switch-checked-background: darken( color_main('theme-main-a-1'), 10%);
+
+$custom-switch-indicator-size-big: 1.45rem;
+$custom-switch-indicator-border-radius:         $custom-switch-indicator-size-big / 2 ;
+$custom-switch-indicator-size: subtract($custom-switch-indicator-size-big, $custom-control-indicator-border-width * 4);
+
+$custom-switch-notify-background: color_main('theme-sub-b-1');
+
+//form-control-switch
+$custom-switch-notify-background: color_main('theme-sub-b-1');
+
+//Button  =============================================*/
+// Bootstrap Modify----------------------------
+$input-btn-focus-width:       .2rem !default;
+$input-btn-focus-color:       rgba(color_main('theme-main-a-1'), 0.35);
+$input-btn-focus-box-shadow:  0 0 0 $input-btn-focus-width $input-btn-focus-color ;
+
+$btn-focus-box-shadow: $input-btn-focus-box-shadow;
+// END OF Bootstrap ---------------------------
+
+$button-main-full-text: rgba(color_main('white'), 1);
+// $button-main-full-background: rgba(color_main('black'), .55);
+$button-main-full-background: color_main('theme-main-a-1');
+
+
+$button-full-outline-border: rgba(color_main('theme-main-a-1'), 1);
+$button-full-outline-text: rgba(color_main('white'), 0.8);
+
+$button-more-dorpdown: rgba(color_main('theme-main-a-1'),1);
+
+$button-sub-full-text: rgba(color_main('white'), 1);
+$button-sub-full-background: rgba(color_main('theme-sub-b-3'),1);
+
+//transparent button
+$button-transparent-text: rgba(color_main('theme-main-a-1'), .8);
+$button-transparent-background: transparent;
+
+$button-transparent-text: rgba(color_main('theme-main-a-1'), .8);
+
+//sub button
+$button-sub-full-text: rgba(color_main('white'), 1);
+$button-sub-full-background: rgba(color_main('theme-sub-b-3'),1);
+
+
+//round button
+$button-round-hover-background: rgba(color_main('black'), .3);
+
+// $button-round-focus-background: darken($button-main-full-background, 5%);
+
+$button-round-focus-background:rgba(color_main('black'), .75);
+$button-round-focus-boxshadow: 0 0 5px 1px rgba(color_main('theme-main-a-1'), 1);
+
+
+//POPUP ==========================*/
+$popup-wrapper-background:rgba(color_main('midtones-a-4'), 1);
+$popup-title-color:rgba(white, 0.6);
+$popup-title-size: 18px;
+$popup-btn-cancel-color: rgba(color_main('white'), .7);
+$popup-btn-confirm-color: rgba(color_main('theme-main-a-1'),1);
+
+$popup-row-border: $body-row-border;
+
+
+//客制化 表格 MT__tableDiv====================
+$MT-table-thead-th-background: rgba(color_main('theme-main-a-1'), 1);
+
+
+//copyright*/
+$copyright-text: rgba(color_main('white'),.5);
+$copyright-fontSize: 12px;
+
+//login page
+$login-form-gradient-background:(
+  color : ( rgba(color_main('black'), 0.07), rgba(color_main('black'), 0.1))
+);
+
+// *******************************************
+//  Gradient list 
+//  => @include bg-gradient(bottom, $list1);
+//  => @include bg-gradient(90deg, $list1);
+// *******************************************
+$opacity: 1;
+$color5: color_main('black');
+$color6: color_main('midtones-a-2');
+
+$gradient-marquee: (
+  color : ( rgba(#ffffff, 0.1), rgba(#ffffff, 0.1), rgba(#ffffff, 0)),
+  positon : (0%, 50%, 100%)
+);
+$gradient-footerTabHover: (color : (color_main('theme-sub-1'), color_main('theme-sub-2')));
+
+$login-wrapper-background: (
+  color : ( rgba($color5, 0), rgba($color5, 0), rgba($color5, .1), rgba($color5, .1)),
+  positon : (0%, 50%, 50%, 100%)
+);
+
+$currencyWallet-type: (
+  color : ( rgba(color_main('theme-main-a-1'), 1), rgba(color_main('theme-main-a-1'), 0.75)
+  )
+);
+
+// $color:red; //global variables
+// $color-hover:green; //global variables
+
+
+/*=================== fonts ====================*/
+
+
+
+// SASS:  MAP 中的 MAP ==> Sass Map 快速產出大量樣式
+// 自寫，非引用Bootstrap4 
+$btn-config:(
+  // default:(
+  //   class: 'default',
+  //   txtColor: $white,
+  //   // bgcolor:  $s-blue,
+  //   bgcolor:  color_main('theme-main-a-1'),
+        
+  // ),	
+  // s-blue:(
+  //   class: 's-blue',
+  //   txtcolor: $white,
+  //   bgcolor:   color_main('theme-sub-a-1'),  
+  // ),
+  btn-full-main:(
+    class: 'full-main',
+    txtcolor: $button-main-full-text,
+    bgcolor:  $button-main-full-background,
+    border-color: $button-main-full-background,
+    bgcolor-hover: darken($button-main-full-background, 10%),
+    border-color-hover: darken($button-main-full-background, 15%),
+    txtcolor-hover: $button-main-full-text
+
+  ),
+  btn-outline-main:(
+    class: 'outline-main',
+    txtcolor: $button-full-outline-text,
+    bgcolor:  transparent,
+    border-color: $button-full-outline-border,
+    bgcolor-hover:  $button-main-full-background,
+    border-color-hover: $button-main-full-background,
+    txtcolor-hover: $button-main-full-text
+  ),
+  btn-full-sub:(
+    class: 'full-sub',
+    txtcolor: $button-sub-full-text,
+    bgcolor:  $button-sub-full-background,
+    border-color: $button-sub-full-background,
+    bgcolor-hover:  $button-main-full-background,
+    border-color-hover: $button-main-full-background,
+    txtcolor-hover: $button-main-full-text
+  ),
+  btn-transparent:(
+    class: 'transparent',
+    txtcolor: $button-transparent-text,
+    bgcolor:  $button-transparent-background,
+    border-color: $button-transparent-background,
+    bgcolor-hover:  $button-transparent-background,
+    border-color-hover: $button-transparent-background,
+    txtcolor-hover: $button-transparent-text
+  )
+
+);
+
+
+//轉場效果transition =================
+$transition-duration-default: 2.5s;
+

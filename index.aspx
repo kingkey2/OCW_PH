@@ -3023,6 +3023,11 @@
                                                 <i class="icon icon-mask icon-withdarw"></i>
                                                 <span class="title language_replace">出款</span></a>
                                         </li>
+                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','ReportAgent.aspx', true)">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-withdarw"></i>
+                                                <span class="title language_replace">報表</span></a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item submenu dropdown" id="idLogoutItem">
@@ -3031,7 +3036,6 @@
                                         <i class="icon icon-mask icon-logout"></i>
                                         <span class="language_replace" langkey="登出">登出</span></a>
                                 </li>
-
                             </ul>
                             <li class="nav-item navbarMenu__catagory nav-lang">
                                 <ul class="catagory">

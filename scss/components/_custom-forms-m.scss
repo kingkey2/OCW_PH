@@ -1,0 +1,1781 @@
+// Embedded icons from Open Iconic.
+// Released under MIT and copyright 2014 Waybury.
+// https://useiconic.com/open
+
+// Checkboxes and radios
+// Base class takes care of all the key behavioral aspects.
+
+// .custom-control {
+//   position: relative;
+//   display: block;
+//   min-height: ($font-size-base * $line-height-base);
+//   padding-left: $custom-control-gutter;
+// }
+
+
+
+//to hide checkbox/radio button default style 
+// custom-control-input 改為 custom-control-input-hidden
+
+// .custom-control-input,
+.custom-control-input-hidden {
+  position: absolute;
+  z-index: -1; // Put the input behind the label so it doesn't overlay text
+  opacity: 0;
+
+  &:checked ~ .custom-control-label::before {
+    color: $custom-control-indicator-checked-color;
+    @include gradient-bg($custom-control-indicator-checked-bg);
+    @include box-shadow($custom-control-indicator-checked-box-shadow);
+  }
+
+  &:focus ~ .custom-control-label::before {
+    // the mixin is not used here to make sure there is feedback
+    box-shadow: $custom-control-indicator-focus-box-shadow;
+  }
+
+  &:active ~ .custom-control-label::before {
+    color: $custom-control-indicator-active-color;
+    background-color: $custom-control-indicator-active-bg;
+    @include box-shadow($custom-control-indicator-active-box-shadow);
+  }
+
+  &:disabled {
+    ~ .custom-control-label {
+      color: $custom-control-label-disabled-color;
+
+      &::before {
+        background-color: $custom-control-indicator-disabled-bg;
+      }
+    }
+  }
+}
+
+// Custom control indicators
+
+// 把 BS4 中 的 custom input 改大點----------------------------------
+.custom-control-label {
+  // position: relative;
+  // margin-bottom: 0;
+
+  // Background-color and (when enabled) gradient
+  &::before {
+    top: (($font-size-base * $line-height-base - $custom-control-indicator-size-large) / 2);
+    left: -$custom-control-gutter-large;
+    width: $custom-control-indicator-size-large;
+    height: $custom-control-indicator-size-large;
+  }
+
+  // Foreground (icon)
+  &::after {
+    top: (($font-size-base * $line-height-base - $custom-control-indicator-size-large) / 2);
+    left: -$custom-control-gutter-large;
+
+    width: $custom-control-indicator-size-large;
+    height: $custom-control-indicator-size-large;
+
+  }
+  
+  
+}
+
+//自訂 label --------------------------
+.custom-label{
+  display: inline-flex;
+  align-items: center;
+}
+
+//自訂 label 包含 input--Global Setting --------------------------
+.custom-input,
+.custom-input-icon{
+  position: relative;
+  margin-bottom: 0;
+  // display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.custom-input-icon{
+  justify-content: center;
+  min-width: 100px;
+}
+
+.custom-input{
+  
+
+  // Background-color and (when enabled) gradient
+  &::before {
+
+    content: "";
+    position: absolute;
+
+    // top: (($font-size-base * $line-height-base - $custom-control-indicator-size) / 2);
+    // left: -$custom-control-gutter;
+    top: (($font-size-base * $line-height-base - $custom-control-indicator-size-large) / 2);
+    left: -$custom-control-gutter-large;
+
+
+    display: block;
+
+    // width: $custom-control-indicator-size;
+    // height: $custom-control-indicator-size;
+    width: $custom-control-indicator-size-large;
+    height: $custom-control-indicator-size-large;
+
+    pointer-events: none;
+    
+    user-select: none;
+    background-color: $custom-control-indicator-bg;
+    @include box-shadow($custom-control-indicator-box-shadow);
+
+    border: solid 1px #fff;
+    background-color: transparent;
+   
+  }
+
+  // Foreground (icon)
+  &::after {
+
+    content: "";
+    position: absolute;
+    // top: (($font-size-base * $line-height-base - $custom-control-indicator-size) / 2);
+    // left: -$custom-control-gutter;
+
+    /* Large Size */
+    top: (($font-size-base * $line-height-base - $custom-control-indicator-size-large) / 2);
+    left: -$custom-control-gutter-large;
+
+    display: block;
+
+    // width: $custom-control-indicator-size;
+    // height: $custom-control-indicator-size;
+
+    /* Large Size */
+    width: $custom-control-indicator-size-large;
+    height: $custom-control-indicator-size-large;
+
+   
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: $custom-control-indicator-bg-size;
+
+    font-family: "svg-font-2020-10" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+
+   
+
+    
+  }
+
+
+  &.radio-button{
+
+    &::before{
+      border-radius: $custom-radio-indicator-border-radius;
+
+    }
+
+    &::after{
+      border-radius: $custom-radio-indicator-border-radius;
+
+    }
+
+  }
+
+  &.checkbox{
+
+    &::before{
+      @include border-radius($custom-checkbox-indicator-border-radius);
+      // background-color: $input-default-checkbox-label-backgound;
+    }
+
+    //Circle Shape
+    &.check-round{       
+       &::before{
+         border-radius: 50%;
+       }
+    }
+
+  }
+
+
+  //BIG CHECKBOX
+  &.checkbox-lg{
+
+    &::before{
+
+      top: (($font-size-base * $line-height-base - $custom-control-indicator-size-large) / 2);
+      left: -$custom-control-gutter-large;
+
+      width: $custom-control-indicator-size-large;
+      height: $custom-control-indicator-size-large;
+
+      
+
+      @include border-radius($custom-checkbox-indicator-border-radius);
+      // background-color: $input-default-checkbox-label-backgound;
+    }
+
+    &::after{
+
+    top: (($font-size-base * $line-height-base - $custom-control-indicator-size-large) / 2);
+    left: -$custom-control-gutter-large; 
+
+    width: $custom-control-indicator-size-large;
+    height: $custom-control-indicator-size-large;
+
+    
+
+    }
+
+
+
+
+  }
+}
+
+
+
+
+
+
+// Checkboxes ===========================
+//
+// Tweak just a few things for checkboxes.
+.custom-checkbox {
+
+  .custom-control-label::before {
+    @include border-radius($custom-checkbox-indicator-border-radius);
+  }
+
+  .custom-control-input:checked ~ .custom-control-label,
+  .custom-control-input-hidden:checked ~ .custom-control-label {
+    &::before {
+      @include gradient-bg($custom-control-indicator-checked-bg);
+    }
+    &::after {      
+      background-image: $custom-checkbox-indicator-icon-checked;
+    }
+
+  }
+
+
+  .custom-control-input:indeterminate ~ .custom-control-label,
+  .custom-control-input-hidden:indeterminate ~ .custom-control-label {
+    &::before {
+      @include gradient-bg($custom-checkbox-indicator-indeterminate-bg);
+      @include box-shadow($custom-checkbox-indicator-indeterminate-box-shadow);
+    }
+    &::after {
+      background-image: $custom-checkbox-indicator-icon-indeterminate;
+    }
+  }
+
+
+  .custom-control-input-hidden,
+  .custom-control-input-hidden:disabled {
+    &:checked ~ .custom-control-label::before {
+      background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+    &:indeterminate ~ .custom-control-label::before {
+      background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+  }
+}
+
+
+
+
+
+
+//label 為 group 取 value值 的 checkbox - default
+.custom-checkboxValue {
+
+  .checkbox{
+
+    &::before{    
+    }
+
+  }
+
+  &:not(.check-bg){
+
+   .checkbox{
+
+      &::after {
+        color: rgba(#000, 0);
+
+      }
+
+    }
+
+  }  
+
+
+
+
+  //input
+  .custom-control-input-hidden{
+
+    
+    ~ .checkbox{
+      // ~ [class*="checkbox"]{
+        &::before { 
+          border-color: rgba(#000, 1);
+        }
+      
+
+          &::after {
+            // background-image: $custom-checkbox-indicator-icon-checked;
+          
+            content: "\54";           
+            font-size: font-resize(13px);
+            top: 0.3rem;
+            left: -1.55rem;          
+          }
+
+      }      
+
+   
+      //checked
+      &:checked {
+
+        // ~ .checkbox{
+        ~ [class*="checkbox"]{
+          // color: $input-radio-check-label-chedcked-color;
+          
+    
+          &::before {     
+            background: $input-default-checkbox-checked-label-backgound;
+            border-color: $input-default-checkbox-checked-label-backgound;
+          
+            // @include bg-gradient(180deg, $input-default-checkbox-checked-label-background);
+          }
+          &::after {
+            // background-image: $custom-checkbox-indicator-icon-checked;
+            color: rgba(#fff, 1);
+            
+          }  
+        }
+
+      }
+
+    //focus
+      &:focus ~ .checkbox{
+
+        &::before {   
+          // box-shadow: 0 0 0 1px rgba(color_main('black'),1), 0 0 0 0.2rem rgba(color_main('black'),1);
+          box-shadow: none;
+        }
+
+      }
+
+      //disabled
+      &:disabled{
+        
+          ~ .checkbox{
+            color: $custom-control-label-disabled-color;
+          }
+
+          &:checked ~ .custom-control-label::before {
+            background-color: $custom-control-indicator-checked-disabled-bg;
+          }
+        
+      }
+
+
+    
+  }
+ 
+
+
+
+
+}
+
+// label 為 group 取 value值 的 switches checkbox - default   ===========================  
+.custom-checkboxSwitchValue{
+
+  padding-left: 0;
+
+  .custom-label{
+    display: flex;
+  }
+
+  .custom-switch-text{
+    white-space: nowrap;
+  }
+
+  .custom-switch-text-left{
+    margin-right: 15px;
+  }
+
+  .toggle-button{
+    padding-left: $custom-switch-width + $custom-control-gutter;
+    height: 100%;
+    width: auto;
+
+  
+    &::before {
+      // left: -($custom-switch-width + $custom-control-gutter);
+      left: 0;
+      width: $custom-switch-width;
+      pointer-events: all;
+      // stylelint-disable-next-line property-blacklist
+      border-radius: $custom-switch-indicator-border-radius;
+      background-color: $custom-switch-default-background;
+      // border: none;
+      border-color: $custom-switch-default-background;
+    }
+  
+    &::after {
+      //@function add --Bootstrap 4.5 increasement
+      top: add(($font-size-base * $line-height-base - $custom-switch-indicator-size-big) / 2, $custom-control-indicator-border-width * 2);
+      //@function add --Bootstrap 4.5 increasement
+      // left: add(-($custom-switch-width + $custom-control-gutter), $custom-control-indicator-border-width * 2);
+      // left: add( 0, $custom-control-indicator-border-width * 2);
+      left: 0;
+      width: $custom-switch-indicator-size;
+      height: $custom-switch-indicator-size;
+      background-color: $custom-control-indicator-border-color;
+      // stylelint-disable-next-line property-blacklist
+      border-radius: $custom-switch-indicator-border-radius;
+      @include transition(transform .15s ease-in-out, $custom-forms-transition);
+    }
+  
+  }
+
+  .custom-control-input-hidden{
+   
+    //checked
+    &:checked {
+
+      ~ .toggle-button{
+        &::before {
+          // @include gradient-bg($custom-switch-checked-background);
+
+        }
+
+        &::after {
+          // background-color: $custom-control-indicator-bg;
+          background-color: $custom-switch-checked-indicator;
+          transform: translateX($custom-switch-width - $custom-control-indicator-size);
+        }
+
+      }
+
+    }
+  
+
+    //disabled
+    &:disabled{
+       
+        ~ .toggle-button{
+          color: $custom-control-label-disabled-color;
+          &::before {
+            // background-color: $custom-control-indicator-checked-disabled-bg;
+          }
+
+        }
+
+      
+    }
+    
+  }
+
+
+
+  &.custom-switch-notify{
+    .custom-control-input-hidden{
+      //checked
+    &:checked {
+
+      ~ .toggle-button{       
+
+        &::after {        
+         
+          background-color: $custom-switch-notify-background;
+         
+        }
+
+      }
+
+    }
+
+    }
+
+  }
+
+
+}
+
+
+
+
+
+// Radios ===========================
+
+// Tweak just a few things for radios.
+.custom-radio {
+  .custom-control-label::before {
+    border: solid 1px #fff;
+    border-radius: $custom-radio-indicator-border-radius;
+    background: $input-default-radio-label-background;
+  }
+
+  .custom-control-input:checked ~ .custom-control-label,
+  .custom-control-input-hidden:checked ~ .custom-control-label {
+    &::before {
+      // @include gradient-bg($custom-control-indicator-checked-bg);
+      background: $input-default-radio-label-background;
+    }
+    &::after {
+      // background-image: $custom-radio-indicator-icon-checked;
+      background-image: none;
+      background-color: $input-default-radio-label-background;
+    
+      background-color: $input-default-radio-label-chedcked;
+      transform: scale(0.6);
+      border-radius: 50%;
+      // background-size: 75%;
+      
+    }
+  }
+
+
+  .custom-control-input:focus ~ .custom-control-label,
+  .custom-control-input-hidden:focus ~ .custom-control-label {
+    &::before {
+      box-shadow: 0 0 0 1px rgba(color_main('white'),1), 0 0 0 0.1rem rgba(color_main('theme-main-a-1'),1);
+    }
+    
+  }
+
+
+
+  .custom-control-input:disabled,
+  .custom-control-input-hidden:disabled {
+    &:checked ~ .custom-control-label::before {
+      background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+  }
+}
+
+//類似 checkbox => Lable with ID
+.custom-radio-check {
+
+  .custom-control-label{
+    color: $input-radio-check-label-default-color;
+    
+    &::before {
+
+    border: solid 1px #fff;
+    border-radius: $custom-radio-indicator-border-radius;
+    background: $input-default-radio-label-background;
+    }
+  }
+  .custom-control-input-hidden:checked ~ .custom-control-label {
+    color: $input-radio-check-label-chedcked-color;
+
+    &::before {     
+      background: $input-radio-check-label-backgound;
+      border-color: $input-radio-check-label-chedcked-border;
+    }
+    &::after {
+      background-image: url(../images/theme/dark/icon/icon_check_dark.svg);
+      background-color: $input-default-radio-label-background;
+    
+      background-size: 75%;
+      
+    }
+  }
+
+  .custom-control-input-hidden:focus ~ .custom-control-label {
+    &::before {   
+      // box-shadow: 0 0 0 1px rgba(color_main('black'),1), 0 0 0 0.2rem rgba(color_main('black'),1);
+      box-shadow: none;
+    }
+    
+  }
+
+  .custom-control-input-hidden:disabled {
+    &:checked ~ .custom-control-label::before {
+      background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+  }
+
+
+
+}
+
+[class *="custom-radioValue"] {
+  &, & *{    
+    // cursor: pointer;
+  }
+
+  label{
+    // margin: 0;
+  }
+
+  
+
+}
+
+//label 為 group 取 value值 的 radio button - default
+.custom-radioValue {
+
+  .custom-control-label{
+    color: $input-radio-check-label-default-color;
+    
+  }
+
+  
+
+  .radio-button {
+
+    &::before {
+     
+    }
+
+    &::after {
+    
+    }
+
+  }
+
+
+
+
+
+  .custom-control-input-hidden{
+   
+    &:checked ~ .radio-button{
+      // color: $input-radio-check-label-chedcked-color;
+
+      &::before {     
+        // background: $input-radio-check-label-backgound;
+        // border-color: $input-radio-check-label-chedcked-border;
+      }
+      &::after {
+        // background-image: url(../images/theme/dark/icon/icon_check_dark.svg);
+        // background-image: $custom-radio-indicator-icon-checked;
+        // background-color: $input-default-radio-label-background;      
+        // background-size: 75%;
+
+        background-color: $input-default-radio-label-chedcked;
+        transform: scale(0.6);
+        
+        
+      }
+
+    }
+
+    &:focus ~ .radio-button{
+
+      &::before {  
+       
+        box-shadow: 0 0 0 1px rgba(color_main('white'),1), 0 0 0 0.1rem rgba(color_main('theme-main-a-1'),1);
+        
+      }
+
+    }
+
+    
+  }
+ 
+
+  .custom-control-input-hidden:disabled {
+    
+    ~ .radio-button{
+      color: $custom-control-label-disabled-color;
+    }
+
+
+
+    &:checked ~ .custom-control-label::before {
+      background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+  }
+
+
+
+}
+
+
+
+
+
+//label 為 group 取 value值 的 radio button - 類似 checkbox
+.custom-radioValue-check {
+
+  .custom-control-label{
+    color: $input-radio-check-label-default-color;
+    
+    
+  }
+
+  .custom-control-input-hidden{
+  }
+
+  .radio-button {
+
+    &::before {           
+     
+    }
+   
+
+  }
+
+
+
+  .custom-control-input-hidden:checked ~ .radio-button {
+
+    color: $input-radio-check-label-chedcked-color;
+
+    &::before {     
+      background: $input-radio-check-label-backgound;
+      border-color: $input-radio-check-label-chedcked-border;
+    }
+
+    &::after {
+      background-image: url(../images/theme/dark/icon/icon_check_dark.svg);
+      // background-color: $input-default-radio-label-background;
+    
+      background-size: 75%;
+      
+    }
+
+    
+  }
+
+  .custom-control-input-hidden:focus ~ .radio-button {
+    &::before {   
+      // box-shadow: 0 0 0 1px rgba(color_main('black'),1), 0 0 0 0.2rem rgba(color_main('black'),1);
+      box-shadow: none;
+    }
+    
+  }
+
+  .custom-control-input-hidden:disabled {
+    &:checked ~ .custom-control-label::before {
+      background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+  }
+
+
+
+}
+
+//label 為 group 取 value值 的 radio button - 類似 button
+.custom-radioValue-button {
+
+  &, & *,
+  &::after, &::before,
+  & *::after, & *::before
+  {
+    transition: all 0.3s ease-in, color 0.1s ease;
+  }
+  
+  padding-left: 0;
+  
+
+  .custom-control-label{
+    color: $input-radio-check-label-default-color;    
+  }
+
+  .custom-control-input-hidden{
+  }
+
+  .custom-input{    
+    padding-left: calc( #{$custom-control-gutter-large} + #{$input-radio-button-label-default-padding-left}) ;
+    padding-right: $input-radio-button-label-default-padding-right;
+  }
+
+  .custom-input-icon{
+    padding-left: $input-radio-button-label-default-padding-left ;
+    padding-right: $input-radio-button-label-default-padding-right;
+
+  }
+
+
+  .radio-button {
+
+    border: $input-radio-button-label-default-border;
+    color: $input-radio-button-label-default-color;
+
+    padding-top: $input-radio-button-label-default-padding-top;
+    padding-bottom: $input-radio-button-label-default-padding-bottom;
+    
+    display: flex;
+    width: 100%;
+
+    border-radius: $input-radio-button-label-default-border-radius;
+
+    .icon-circle{
+      border-radius: 50%;
+      background-color: rgba(#000000, 0.5);
+      // width: $custom-control-indicator-size-large;
+      // height: $custom-control-indicator-size-large;
+
+      width: font-resize(25px);
+      height: font-resize(25px);
+
+      background-color: rgba(0,0,0,1.0);
+      background: -webkit-linear-gradient(80deg ,rgba(0,0,0,0.2) ,rgba(0,0,0,0.4));
+      background: -moz-linear-gradient(80deg ,rgba(0,0,0,0.2) ,rgba(0,0,0,0.4));
+      background: -o-linear-gradient(80deg ,rgba(0,0,0,0.2) ,rgba(0,0,0,0.4));
+      background: linear-gradient(80deg ,rgba(0,0,0,0.2) ,rgba(0,0,0,0.4));
+      
+    }
+
+
+    &::before {
+
+      left: $input-radio-button-label-default-padding-left;      
+
+      // top: (($font-size-base * $line-height-base + $input-radio-button-label-default-padding-top + $input-radio-button-label-default-padding-bottom - $custom-control-indicator-size-large) / 2);
+
+      top: calc( (#{$font-size-base} * #{$line-height-base} + #{$input-radio-button-label-default-padding-top} + #{$input-radio-button-label-default-padding-bottom} - #{$custom-control-indicator-size-large}) / 2);
+
+      // opacity: 0.5;
+      border-color: $input-radio-button-label-default-iconcheck-bg-bordercolor;
+      background-color: $input-radio-button-label-default-iconcheck-bg;
+     
+    }
+
+    .iconCheck{
+
+      position: relative;
+      // opacity: 0.5;
+
+      &::before, &::after{
+        box-sizing: border-box;
+        content: " ";
+        position: absolute;
+        height: 0;
+        width: 2px;
+        
+        display: inline-block;
+        transform-origin: left top;
+        border-radius: 10px;
+
+        background-color: rgba(#fff, .5);
+       
+    
+      }
+
+      &::before{
+        height: 5px;
+        // top: calc(#{(($font-size-base * $line-height-base - $custom-control-indicator-size-large) / 2)}
+        // + 8px) ; 
+
+        // left: calc(#{-$custom-control-gutter-large} + 4px) ;
+       
+        top: calc(0.125rem + 7.1px);
+        left: calc(-1.75rem + 3.05px);
+
+        transform: rotate(-45deg);
+      }
+
+      &::after{
+        height: 11px;
+       
+        top: calc(#{(($font-size-base * $line-height-base - $custom-control-indicator-size-large) / 2)}
+        + 12px) ;
+
+        left: calc(#{-$custom-control-gutter-large} + 8px) ;
+        transform: rotate(-135deg);
+
+      }
+
+
+    }
+
+    //文字 ==================
+    .radioText{
+      flex:1;
+      text-align: center;
+    }
+
+  }
+
+  .custom-control-input-hidden:checked ~ .radio-button {
+    color: #ffffff;
+    // background-color: $input-radio-check-label-backgound;
+
+    // background-color: #9c8866;
+    // border-color: #9c8866;
+    background-color: $input-radio-button-label-checked-custom-input-radio-bg;
+    border-color: $input-radio-button-label-checked-custom-input-radio-bordercolor;
+    background: linear-gradient(120deg, #d3b485, #c1a678, #aa916b);
+
+    .icon-circle{
+      background-color: rgba(255,255,255,1.0);
+      background: linear-gradient(80deg ,rgba(255,255,255,0.8) ,rgba(255,255,255,1.0));
+
+      &::before{
+        color:rgba( #c1a678, 1);
+      }
+    }
+
+
+    &::before {     
+      // background-color: $input-radio-check-label-backgound;
+      border-color: $input-radio-button-label-checked-iconcheck-bg-bordercolor;
+      background-color: $input-radio-button-label-checked-iconcheck-bg;
+
+
+    }
+    &::after {
+      // background-image: url(../images/theme/dark/icon/icon_check_dark.svg);
+      // background-color: $input-default-radio-label-background;    
+      // background-size: 75%;      
+    }
+
+    .iconCheck{
+      &::before, &::after{      
+           
+        // background-color: #9c8866;       
+        background-color: $input-radio-button-label-checked-iconcheck-bgcolor;       
+    
+      }
+
+    }
+
+    
+  }
+
+  .custom-control-input-hidden:focus ~ .radio-button {
+    &::before {   
+      // box-shadow: 0 0 0 1px rgba(color_main('black'),1), 0 0 0 0.2rem rgba(color_main('black'),1);
+      box-shadow: none;
+    }
+    
+  }
+
+  .custom-control-input-hidden:disabled {
+    &:checked ~ .custom-control-label::before {
+      background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+  }
+
+
+  &:hover{
+
+    .custom-label{
+      cursor: pointer; 
+    }
+
+    .radio-button {
+
+      border-color: $input-radio-button-label-hover-custom-input-radio-bordercolor;
+      color: $input-radio-button-label-hover-custom-input-radio-txtcolor;
+
+      box-shadow: 0 2px 5px 0px rgba(#000000, .58);
+      background-color: rgba(#000, .12);
+
+      .icon-circle{
+
+        background-color: rgba(193,166,120,1.0);
+        background: linear-gradient(80deg ,rgba(193,166,120,0.8) ,rgba(193,166,120,1.0));
+
+      }
+
+
+
+
+      &::before {
+
+        background-color: $input-radio-button-label-hover-iconcheck-bg;
+        border-color: $input-radio-button-label-hover-iconcheck-bg-bordercolor;
+
+      }
+
+      .iconCheck{
+        &::before, &::after{
+          background-color: rgba(#ffffff, 1);
+        }
+
+      }
+     
+
+    }
+
+  }
+
+
+
+}
+
+
+//label 為 group 取 value值 的 radio button -  新增下線 popup + 出款popup
+.custom-radioValue-button-bigGlory {
+
+  &, & *,
+  &::after, &::before,
+  & *::after, & *::before
+  {
+    transition: all 0.3s ease-in, color 0.1s ease;
+  }
+  
+  padding-left: 0;
+  
+
+  .custom-control-label{
+    color: $input-radio-check-label-default-color;    
+  }
+  .custom-label{
+    width: 100%;
+  }
+
+
+
+  .custom-control-input-hidden{
+  }
+
+  .custom-input{    
+    padding-left: calc( #{$custom-control-gutter-large} + #{$input-radio-button-label-default-padding-left}) ;
+    padding-right: $input-radio-button-label-default-padding-right;
+  }
+
+  .custom-input-icon{
+    padding-left: $input-radio-button-label-default-padding-left ;
+    padding-right: $input-radio-button-label-default-padding-right;
+
+  }
+
+  .icon{
+    width: font-resize(42px);
+    height: font-resize(42px);
+    margin-right: font-resize(5px);
+  }
+
+
+  .radio-button {
+    
+    border: none;
+
+    // border: $input-radio-button-label-default-border;
+    // color: $input-radio-button-label-default-color;
+
+    // padding-top: $input-radio-button-label-default-padding-top;
+    // padding-bottom: $input-radio-button-label-default-padding-bottom;
+    
+   
+
+    // border-radius: $input-radio-button-label-default-border-radius;
+      
+    display: flex;
+    width: 95%;
+    
+    // box-shadow: 0 0 0 0 #000;
+    background: linear-gradient( 180deg , rgba(#000, 0.18), rgba(#000, 0.23));
+    // flex: 1;
+
+    
+    height: 90px;
+  
+    align-items: center;
+    // justify-content: center;
+    justify-content: space-around;
+
+    border-radius: 10px;
+    // padding: 10px;
+    padding: 10px calc( 50% - 130px );
+    margin: 0 auto;
+
+    font-size: font-resize(18px);        
+    box-shadow: 0 0 3px 0px rgba(#000, 0.18);
+    cursor: pointer;
+
+    transition: all 0.3s ease-in-out;
+    
+    box-shadow: 0 0 3px 0 rgba(#000, 0.65), 0 0 11px 0 rgba(#839eff, 0), inset 0 0 5px 0 rgba(#8b9cdc, 0);
+    border-top:solid 1px rgba(#ffffff, 0);
+    border-bottom:solid 1px rgba(#000000, 0);
+
+    color: rgba(#fff, 0.65);
+
+    &::before {
+      content: none;
+    
+    
+    }
+
+    //文字 ==================
+    .radioText{
+      flex:1;
+      text-align: center;
+    }
+
+  }
+
+
+  .custom-control-input-hidden:checked ~ .radio-button {
+    color: #ffffff;
+
+    // background-color: #9c8866;
+    // border-color: #9c8866;
+    background-color: linear-gradient(90deg, #1f2027, #181a22);
+    border-color: $input-radio-button-label-checked-custom-input-radio-bordercolor;
+    background: linear-gradient(90deg, #1f2027, #181a22);
+
+  
+    &::after {
+      // background-image: url(../images/theme/dark/icon/icon_check_dark.svg);
+      // background-color: $input-default-radio-label-background;    
+      // background-size: 75%;      
+    }   
+
+    
+  }
+
+  .custom-control-input-hidden:focus ~ .radio-button {
+   
+
+    &::before {   
+      // box-shadow: 0 0 0 1px rgba(color_main('black'),1), 0 0 0 0.2rem rgba(color_main('black'),1);
+      box-shadow: none;
+    }
+    
+  }
+
+  .custom-control-input-hidden:disabled {
+    &:checked ~ .custom-control-label::before {
+      background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+  }
+
+
+  &:hover{
+
+    .custom-label{
+      cursor: pointer; 
+    }
+
+    .radio-button {
+      color: rgba(#fff, 0.85);
+
+      background: linear-gradient(180deg, rgba(#60698b, 0.41), rgba(#7c7c7c, 0.11), rgba(0, 0, 0, 0.23));
+      box-shadow: 0 0 10px 0 rgba(#000, 0.65), 0 0 11px 0 rgba(#839dff, 0.78), inset 0 0 5px 0 rgba(#8b9cdc, 0.23);
+      border-top:solid 1px rgba(#ffffff, 0.5);
+      border-bottom:solid 1px rgba(#000000, 0.47);
+    }
+
+  }
+
+
+
+}
+
+//label 為 group 取 value值 的 radio button - 類似 button
+.btn-group-toggle{
+  
+  .custom-radioValue-button{
+
+    .radio-button{
+      border-radius: 0;
+      border-color: #9c8866;
+
+      padding: 6px 8px;
+      min-width: 90px;
+    
+      font-size: font-resize(14px);
+    }
+
+
+    &:first-child{
+      .radio-button{       
+        border-top-left-radius: $input-radio-button-label-default-border-radius;
+        border-bottom-left-radius: $input-radio-button-label-default-border-radius;    
+      }
+    }
+
+    &:last-child{
+
+      .radio-button{       
+        border-top-right-radius: $input-radio-button-label-default-border-radius;
+        border-bottom-right-radius: $input-radio-button-label-default-border-radius;    
+      }
+    }
+
+
+  }
+
+}
+
+//label 為 group 取 value值 的 radio button - 類似 button - 語系
+.custom-radioValue-lang {
+
+  &, & *,
+  &::after, &::before,
+  & *::after, & *::before
+  {
+    transition: all 0.3s ease-in, color 0.1s ease;
+  }
+  
+  padding-left: 0;
+  
+
+  .custom-control-label{
+    color: $input-radio-check-label-default-color;    
+  }
+
+  .custom-control-input-hidden{
+  }
+
+  .custom-input{    
+    // padding-left: calc( #{$custom-control-gutter-large} + #{$input-radio-button-label-default-padding-left}) ;
+    // padding-right: $input-radio-button-label-default-padding-right;
+
+    &::before,
+    &::after{
+      content: none;
+    }
+  }
+
+  .custom-input-icon{
+    padding-left: $input-radio-button-label-default-padding-left ;
+    padding-right: $input-radio-button-label-default-padding-right;
+
+  }
+
+
+  .radio-button {
+   
+    
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;  
+    
+
+    //文字 ==================
+    .radioText{
+      flex:1;
+      text-align: center;
+    }
+
+  }
+  
+  
+  .custom-control-input-hidden:checked ~ .radio-button ,
+  .custom-control-input-hidden:focus ~ .radio-button {    
+    .flag { 
+      box-shadow: 0px 0px 10px 3px rgba(rgb(0, 110, 255), 0.55); 
+    }
+    
+  }
+
+  .custom-control-input-hidden:disabled {
+    &:checked ~ .custom-control-label::before {
+      // background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+  }
+
+
+  &:hover{
+
+      .custom-label{
+        cursor: pointer; 
+      }
+
+      .radio-button {}
+
+      .flag { 
+        box-shadow: 0px 0px 10px rgba(rgb(0, 110, 255), 0.55);
+      }
+
+
+  }
+
+
+
+}
+
+
+//label 為 group 取 value值 的 checkbox button  - 語系
+.custom-checkboxValue-noCheck {
+
+  &, & *,
+  &::after, &::before,
+  & *::after, & *::before
+  {
+    transition: all 0.15s ease-in;
+  }
+  
+  padding-left: 0;
+ 
+
+  .custom-input{    
+    
+
+    &::before,
+    &::after{
+      content: none;
+    }
+  }
+
+
+  .checkbox {
+    
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+    
+
+    //文字 ==================
+    .radioText{
+      flex:1;
+      text-align: center;
+    }
+
+  }
+
+  .custom-control-input-hidden{
+    ~ .checkbox{
+      border: solid 1px rgba( #C2C2C2, 1);
+      border-radius: 10px;     
+
+    }
+
+  }
+
+  
+  
+  .custom-control-input-hidden:checked ~ .checkbox
+  {    
+
+    box-shadow: 0px 0px 5px 3px rgba(rgb(0, 110, 255), 0.55); 
+    border-color: #009FE8;
+
+    .logo-wrap { 
+      // box-shadow: 0px 0px 10px 3px rgba(rgb(0, 110, 255), 0.55); 
+    }
+    
+  }
+
+  .custom-control-input-hidden:disabled {
+    &:checked ~ .custom-control-label::before {
+      // background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+  }
+
+
+  &:hover{
+
+      .custom-label{
+        cursor: pointer; 
+      }
+
+      .logo-wrap { 
+        // box-shadow: 0px 0px 10px rgba(rgb(0, 110, 255), 0.55);
+      }
+
+
+  }
+
+
+
+}
+
+
+
+//Bootstrap 4.5 increasement
+// switches
+//
+// Tweak a few things for switches
+
+.custom-switch {
+ 
+
+  .custom-control-label {
+    &::before {
+     
+    }
+
+    &::after {    
+     
+    }
+    
+  }
+
+  .custom-control-input:checked ~ .custom-control-label {
+    &::after {
+      background-color: $custom-control-indicator-bg;
+      // transform: translateX($custom-switch-width - $custom-control-indicator-size);
+    }
+  }
+
+  .custom-control-input:disabled {
+    &:checked ~ .custom-control-label::before {
+      background-color: $custom-control-indicator-checked-disabled-bg;
+    }
+  }
+}
+
+// Select===========================
+//
+// Replaces the browser default select with a custom one, mostly pulled from
+// https://primer.github.io/.
+//
+
+
+.custom-select{
+  
+}
+
+
+.custom-input::after,
+.custom-input::before,
+.custom-file-label,
+.custom-select {
+  @include transition($custom-forms-transition);
+}
+
+
+.dataList{
+
+  .data-item{
+    // align-items: stretch;   
+    // flex-flow: column wrap;
+    // overflow-wrap: anywhere;
+    // display: flex;
+		// flex-flow: row wrap;
+		// align-items: center;	
+    word-break: break-all;
+    margin-bottom: 1rem;
+
+    &-title{
+      flex: 0 0 auto;
+
+      .title{
+        display: flex;
+        // justify-content: space-between;       
+    
+        margin-right: 10px;
+        // width: calc( 1rem * 6);
+        display: block;
+        // width: 100%;
+        // text-align: right;
+        font-size: font-resize(15px);
+        // margin-bottom: font-resize(13px) * 0.3;	
+        margin-bottom: 5px;
+        // font-weight: bold;
+        display: flex;
+        align-items: center;
+        // justify-content: space-between;
+        
+      }
+    }
+    
+    &-content{
+      flex: 1;
+      min-height: 1.5rem;
+    }
+
+  }
+
+  .data-item.data-noTitle{
+    .data-item-title{
+      height: 100%;
+
+      .title{
+        height: 100%;
+        margin-bottom: 0;
+        margin-right: 0;
+
+      }
+    }
+
+  }
+
+} 
+
+.data-item-group {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+.data-item-form-group{
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  margin-bottom: 1rem;
+  position: relative;  
+
+  .form-control{
+      flex: 1;
+  }
+
+  .label{
+      flex: 0 0 auto;
+      margin-left: 0.5rem;        
+  }
+
+  .notice{
+      color: #D33605;
+      width: 100%;
+  }
+  
+}
+
+
+
+.dataFieldset{
+
+  margin-bottom: 35px;
+  padding: font-resize(10px);
+
+  &-title{
+    font-size: font-resize(16px);
+    margin-bottom: 10px;
+    color: rgba(#dabc89, 0.8);
+    
+  }
+
+  @include media-breakpoint-up(lg) {
+  
+    &-title{
+      display: flex !important;
+      align-items: center;
+    }
+   
+
+  }
+
+}
+
+
+.dataList-box{
+
+    // box-shadow: 0px 8px 20px 9px rgba(0, 0, 0, 0.22);
+    box-shadow: 0px 18px 30px 3px rgba(0, 0, 0, 0.22);
+    
+
+    &.fixed{
+        // position: fixed;
+        position: sticky;
+        top:0;
+        z-index: 2;
+        width: 100%;
+      
+
+        &::after{
+
+          // content: '';
+          position: absolute;
+          width: 300px;
+          height: 30px;
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+          background: rgba(#383c4f, 1);
+          bottom: -15px;
+          border-radius: 100px;
+          box-shadow: 0px 18px 30px 3px rgba(0, 0, 0, 0.22);
+
+        }
+
+    }
+
+    &.real-fixed{
+      position: fixed;
+
+    }
+
+    &.top{
+
+      margin-bottom: 25px;
+      border-radius: 0 0 35px 35px;
+
+      background: linear-gradient(0deg, rgba(#383c4f, 1), #4c5267);
+      // background: linear-gradient(0deg, rgba(#3d4152, 1), #4c5165);
+
+      @include media-breakpoint-up(smd){
+         padding-bottom: 15px;
+      }
+
+    }
+
+    .wrapper_center{
+
+        .btn{
+
+            width: 100%;
+            max-width: 360px;
+
+            @include media-breakpoint-down(sm) {
+              
+
+            }
+
+        }
+
+    }
+  
+
+}
+
+.popUp .dataList{
+
+  .title{
+    color: rgba(#e3c38d, 0.75);
+    font-size: font-resize(13px);
+  }
+
+  .data-item-content{
+    font-size: font-resize(14px);
+  }
+
+}
+
+
+// Titel 有底線的 Group
+.form-group-s2{
+
+  // padding-right: 15px;
+  // margin-left: 20px;
+
+	.title{
+		border-bottom: solid 1px rgba(#ffffff, 0.1);
+    padding-bottom: 5px;   
+    
+  }
+
+  .content{
+    margin-left: 5px;
+  }
+  
+  .check-all{
+
+    .custom-input{
+
+      &::before{
+        // border-color: rgba(#fff, 0);
+        // background-color: rgba(#000000, 0.3);
+      }
+
+      &::after{       
+        // background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='input-default-checkbox-label-checked' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E")
+        // color: rgba(#ffffff, 0.1);
+      }
+
+    }    
+
+    // position: relative;
+    // margin-right: 25px;
+
+    &::after{
+
+      // content: '';
+      // position: absolute;
+      // display: block;
+      // right: 0;
+      // width: 1px;
+      // height: 18px;
+      // background: rgba(#ffffff, 0.3);
+
+      // margin: 3px 0px 3px 15px;
+
+    }
+
+    .custom-control-input-hidden{
+
+      ~ .custom-input{
+        color: rgba(#fff, .85);
+
+      }
+
+
+      &:checked{
+
+        ~ .custom-input{
+          color: #ffdda3;
+  
+        }
+
+      }    
+
+    }
+
+    @include media-breakpoint-down(smd) {
+        position: absolute;
+        right: 5px;
+        top: 1px;
+
+        padding-right: 0;
+    }
+  }
+
+  .custom-control{
+    // text-indent: -20px;
+    
+     &:not(.check-all-top){
+       
+        // color: red;
+
+     }
+
+  }
+
+
+} 
+
+
+
+//Dark Background checkbox
+.check-bg {
+
+  .custom-input{
+
+    &::before{
+      border-color: rgba(#fff, 0);
+      background-color: rgba(#ffffff, 0.2);
+    }
+  
+    &::after{    
+      // color: rgba(#000000, 0.2);  
+      color: rgba(#000000, 0);  
+    }
+
+  }
+
+  
+
+  .custom-control-input-hidden:checked ~ 
+
+  
+  .checkbox{
+  // [class*=checkbox]{
+
+      &::before{    
+        background-color: rgba(#e3c38d, 0.75);
+        border-color: rgba(#e3c38d, 0.3);
+
+        // background-color: rgba(#000000, 0.5);
+        // border-color: rgba(#000000, 0.5);
+
+      }
+
+      &::after{    
+        color: rgba(#000000, 0.75);  
+      }
+      
+  }
+
+}
+
+
+
+

@@ -1,0 +1,248 @@
+// EVENT CSS
+@import "../base/base";
+.act-wrapper{
+    margin: 0 auto;
+    padding: 0 5%;
+    color: #666;
+    font-family: 'Noto Sans JP', sans-serif!important;
+}
+.section-act-wrapper{
+    font-weight: 300;
+}
+.section-act-wrap{
+    margin-bottom: 2.5rem;
+}
+.section-act-wrap h3{
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+.section-act-wrap p{
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #555;
+    font-weight: 300;   
+}
+
+.section-act-content{
+    padding-left: 1rem;
+}
+
+
+.act-title{
+    width: 100%;
+    margin: 10px auto;
+    color: #0185FF!important;
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+.act-intro{
+    padding: 0 10px;
+    margin-bottom: 2rem;
+}
+.act-title2{
+    /* width: 100%; */
+    /* margin: 10px auto; */
+    width: auto !important;
+    color: #AC580B!important;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 10px 0 !important;
+    
+}
+.act-subtitle{
+    font-size: 1.2em;
+    color: #0185FF!important;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.btn-wrap{
+    text-align: center;
+    margin: 30px auto;
+}
+
+.activity-popup-detail-content .section-wrap-title:before {
+    width: 10px;
+    height: 14px;
+}
+/* 注意事項 */
+.act-notice{
+    color: #666;
+}
+
+.act-notice-list .act-notice-item{
+    text-indent: -1.2rem;
+    margin-bottom: 1rem;
+    margin-left: 1.2rem;
+}
+
+.act-game-list{
+    /* width: 90%; */
+    margin: 0 auto;
+    max-width: 660px;
+    margin-top: 20px;
+
+}
+
+.act-game-list .act-game-item{
+    margin-bottom: 10px;
+    cursor: pointer;
+    
+}
+.act-game-list .act-game-item .img-crop{
+    border-radius: 20px;
+    overflow: hidden;
+    display: inline-block;    
+}
+
+
+.mark-red{
+    color: #940202;
+    font-weight: bold;
+}
+
+.text-red{
+    color: red;
+}
+.act-Button {
+background-color:#2dabf9;
+border-radius:28px;
+display:inline-block;
+cursor:pointer;
+color:#ffffff;
+font-family:Arial;
+font-size:17px;
+padding:16px 31px;
+text-decoration:none;
+text-shadow:0px 1px 0px #263666;
+box-shadow: 0px 1px 10px #333;
+}
+.act-Button:hover {
+    background-color:#0688fa;
+}
+.act-Button:active {
+    position:relative;
+    top:1px;
+}
+.font-red{
+    display: block;
+    width: 250px;
+    background-color: red;
+    font-weight: bold;
+    color: #fff!important;
+    text-align: center;
+    padding: 10px;
+}
+.font-yellow{
+    color: #E58A4C!important;
+}
+
+
+.table-winners-wrapper{
+    margin: 15px 0;
+}
+
+.table-winners-list{
+    display: flex;
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+    justify-content: center;
+   
+
+    .item{
+        flex: 1;        
+        // border-right: solid 1px rgba(#ccc, 0.25);
+        // border-right: solid 1px rgba(#fff, 1);
+        background-color: rgba(#ccc, 0.1);
+
+       
+    }
+
+    .title{
+        background-color: #3db6ff;
+        color: #fff;
+        text-align: center;
+        border-right: solid 1px rgba(#fff, 0.45);
+        font-weight: 500;
+    }
+    .value{
+        font-size: font-resize(15px);
+        font-weight: 500;
+        // border-bottom: solid 1px rgba(#ccc, 0.15);
+        // border-bottom: solid 1px rgba(#fff, 0.95);
+    }
+
+    .item-content{
+       
+    }
+
+    .item-col{
+        padding: 10px 10px;
+        text-align: center;
+    }
+
+    @media screen and (min-width:481px) {
+        border-radius: 20px;
+        overflow: hidden;
+        .item{              
+            border-right: solid 1px rgba(#ccc, 0.25);
+
+            &:last-child{
+                border: none;
+
+                .title{
+                    // border-radius: 0 20px 0 0;
+                }
+            }
+
+            &:first-child{
+                .title{
+                    // border-radius: 20px 0 0 0;
+                }
+            }
+           
+        }
+    
+    }
+
+    @media screen and (max-width:480px) {
+        flex-direction: column;
+        .item-content{
+            
+        }
+
+        .item{
+            margin-bottom: 10px;
+
+            &:first-child{
+                .title{
+                    border-radius: 20px 20px 0 0;
+                }
+            }
+
+            &:last-child{
+                border-radius: 0 0 20px 20px ;
+
+                .title{
+                    
+                }
+            }
+
+            .title{
+                // border-radius: 20px 20px 0 0;
+            }
+        }
+
+        .value{
+            border-bottom: solid 1px rgba(#ccc, 0.25);
+        }
+        
+    }
+
+    
+    
+}
+

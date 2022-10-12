@@ -1,0 +1,409 @@
+
+// SASS:  MAP 中的 MAP ==>Sass Map 快速產出大量樣式
+// 非引用Bootstrap4 =>可參考 scss\vendors\bootstrap\mixins\_buttons.scss
+
+@mixin custom-button-variant( $txtcolor, $bgcolor, $border-color,  $border-radius, $bgcolor-hover, $border-color-hover, $txtcolor-hover, $box-shadow-focus: rgba($border-color, 0.5) ) {
+
+  color: $txtcolor;     
+  background-color: $bgcolor; 
+  border-radius: $border-radius;
+ 
+
+  @if( $border-color){
+    // border: solid 1px $border-color;
+    // border-style: solid;
+    // border-width: 1px;
+    border-color:  $border-color;
+
+  } 
+
+  &:disabled{
+    background: rgba(#ffffff, 0.3);
+    color: rgba(#ffffff, 0.9);
+    border-color: rgba(#a59f9f, 0.2);
+
+  }
+
+
+  &:not(:disabled){
+
+    @include hover{
+
+      color: $txtcolor-hover;
+      background-color: $bgcolor-hover;
+      border-color:  $border-color-hover;
+     
+    }
+
+  }
+
+ 
+
+  &:focus {
+    // box-shadow: 0 0 0 3px $box-shadow-focus;
+    box-shadow: none;
+  }
+
+
+  // transition: background-color .15s;  
+}
+
+
+
+//FONT STYLE=============================
+@mixin font-size($size) {
+    font-size: $size;
+    font-size: calculateRem($size);
+}
+
+
+//FONT 字數限制=============================
+@mixin ellipsis($numLine:1) {
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  display: -webkit-box;
+	-webkit-line-clamp: $numLine;
+	-webkit-box-orient: vertical;
+  white-space: normal;
+ 
+
+}
+
+
+//position absolute center 絕對位置水平置中
+@mixin absolute-center($margin: 0, $right: 0, $left: 0){
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  
+  }
+  
+
+
+
+// Placeholder Mixins
+@mixin placeholder {
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+}
+
+@mixin fontPlusSelection_Transparent_Setting { 
+
+  &{ @content; } //本身透明
+  //反白透明 ==========================
+  &::-moz-selection { @content; }
+  &::-webkit-selection { @content; }
+  &::selection { @content; }
+
+  // &,
+  // &::-moz-selection,
+  // &::-webkit-selection,
+  // &::selection {     
+  //   @content; 
+  // }
+
+}
+
+
+//=======================================================
+// 轉場效果 Transition Setting
+//=======================================================
+
+// @mixin transition($property: all, $duration: 300ms, $timingfunction: linear, $delay:0s)
+//  {
+//   transition: $property $duration $timingfunction $delay;
+//   @content;
+// }
+
+@mixin anim-delay($element, $time:.3s, $num:9, $duration:$transition-duration-default){
+    #{$element}{
+    transition-duration: $duration;
+  }
+  @for $i from 2 through $num {
+      #{$element}:nth-child(#{$i}){         
+          transition-delay: ($i - 1) * $time;          
+      } 
+  }
+
+}
+
+
+// Gneric Transform
+@mixin transform($transforms) {  
+  // @include transition; 
+	   -moz-transform: $transforms;
+	     -o-transform: $transforms;
+	    -ms-transform: $transforms;
+	-webkit-transform: $transforms;
+          transform: $transforms;
+   @content;
+}
+
+//transform origin
+@mixin transform-origin ($origin) {
+  -moz-transform-origin: $origin;
+     -o-transform-origin: $origin;
+    -ms-transform-origin: $origin;
+-webkit-transform-origin: $origin;
+        transform-origin: $origin;
+}
+
+// rotate 旋轉
+@mixin rotate ($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+ 
+// scale 縮放
+@mixin scale($scaleX:1,$scaleY:$scaleX) {
+	 @include transform(scale($scaleX,$scaleY));
+} 
+@mixin scaleX($scaleX:1) {
+  @include transform(scaleX($scaleX));
+} 
+@mixin scaleY($scaleY:1) {
+  @include transform(scaleY($scaleY));
+} 
+
+
+// translate 位移
+@mixin translate($x:0, $y:0) {
+   @include transform(translate($x, $y));
+}
+
+
+
+
+// translate3D
+// =============================================================
+// 1.perspective 屬性定義 3D 元素距視圖的距離，以像素計。該屬性允許您改變 3D 元素查 看3D 元素的視圖。
+// 2.3D元素 的 父元素需設  perspective，否則看不出z軸效果
+// =============================================================
+
+@mixin translate3D($x:0, $y:0, $z:0) {
+  @include transform(translate3d($x,$y,$z));
+}
+
+
+
+// skew 傾斜
+@mixin skew ($x:0, $y:0) {
+   @include transform(skew(#{$x}deg, #{$y}deg));
+}
+
+
+
+
+//=======================================================
+//漸層 GRADIENT LISTS
+//=======================================================
+
+//to do
+@mixin gradient-all($direction, $list) {  
+  background: linear-gradient(to $direction, $list);
+  @content;
+
+}
+
+
+
+
+@mixin bg-gradient($direction, $list) {
+
+  //$direction => 角度 ex:90deg
+  $temp: null;
+  $colors: null;
+  $positons: null;
+
+
+  @each $g-color, $g-positon in $list { 
+
+    $colors: map-get($list, color);
+    $positons: map-get($list, positon);
+
+    $temp : $colors;
+
+    //zip(1px 1px 3px, solid dashed solid, red green blue)
+    //=>  1px solid red, 1px dashed green, 3px solid blue
+    @if( map-has-key($list, positon) ) {        
+      $temp : zip( $colors, $positons);
+    }
+   
+  }
+
+  background-color: nth($colors,1) ;/* Old browsers */
+  // @include  gradient-all(left , $temp);
+
+  
+  background: linear-gradient($direction, $temp);  
+  
+  // $ie-color-start:ie-hex-str(nth($colors,1)) ;
+  // $ie-color-end:ie-hex-str( nth($colors,length($colors)) ) ;
+
+  //to do => filter 還要考慮 opacity 對應數值
+
+  // $filterStart: "progid:DXImageTransform.Microsoft.gradient( startColorstr="+ quote(nth($colors,1))+ ", endColorstr="+ quote(nth($colors,length($colors)))+",GradientType=0 )";
+
+  // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=quote(nth($colors,1)), endColorstr=quote(nth($colors,length($colors))),GradientType=0 ); /* IE6-9 */
+
+  // color: $ie-color-start;
+  // color: $ie-color-end;    
+
+  @content;
+
+}
+
+//=======================================================
+//Scrollbar
+//=======================================================
+
+@mixin scrollbar($scrollbarColors, $scrollbarHoverColors:#adb5bd, $scrollbarWidth:6px, $scrollbar-track-color:#ececec) {
+ 
+
+   /* scroll 樣式 -- IE，Edge不適用   */ 
+   scrollbar-face-color:$scrollbarColors;
+
+   scrollbar-arrow-color:#444;
+  //  scrollbar-track-color: #222;
+   scrollbar-track-color: $scrollbar-track-color;
+   ;
+
+   scrollbar-shadow-color: $scrollbarColors;
+   scrollbar-highlight-color: $scrollbarColors;
+   scrollbar-3dlight-color: $scrollbarColors;
+   scrollbar-darkshadow-Color: $scrollbarColors;
+
+   /* scroll 樣式 -- Firefox Scrollbar  */
+  //scrollbar-width: thin;
+  scrollbar-width: none;
+  scrollbar-color: rgba(#adb5bd, .8) transparent;
+  @include media-breakpoint-up(smd) {
+    scrollbar-width: thin;
+  }
+
+
+   /* scroll 樣式 -- chrome   */ 
+   &::-webkit-scrollbar
+   {
+      //  background-color: #222;
+       background-color: $scrollbar-track-color;
+      //  width: $scrollbarWidth;
+         width: 3px;
+
+       @include media-breakpoint-up(smd) {
+          // width: 5px;
+       }
+
+       @include media-breakpoint-up(md) {
+          // width: $scrollbarWidth;
+          width: 5px;
+       }
+       @include media-breakpoint-up(lg) {
+          // width: $scrollbarWidth;
+          width: 10px;
+       }
+   }
+
+   //外層軌道
+   &::-webkit-scrollbar-track
+   {
+       -webkit-box-shadow: inset 0px 0px 0px rgba(0,0,0,0.0);
+       box-shadow: inset 0px 0px 0px #00000000;
+      //  background-color: #222;
+       background-color: $scrollbar-track-color;
+       border-radius: 5px;
+      //  width: 3px;
+   }
+
+   //內層軌道，滾動條中間部分（除去）
+   &::-webkit-scrollbar-track-piece{
+    // background-color: red;
+      //  width: 3px;
+
+   }
+
+   //滾動條裡可拖動的部分
+   &::-webkit-scrollbar-thumb
+   {   
+       background-color: $scrollbarColors;
+       // background-color: #ffffff;
+       // border: 1px solid $scrollbarColors;
+       border-radius: 5px;
+
+      //  width: 5px;
+      
+   }
+
+  &::-webkit-scrollbar-thumb:active,
+  &::-webkit-scrollbar-thumb:hover
+   {
+      background: $scrollbarHoverColors; 
+  }
+
+
+  
+
+}
+
+//=======================================================
+//Animation
+//=======================================================
+/* animation =================================
+animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
+
+@mixin iconfont{ 
+
+  font-family: "svg-font" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+}
+
+@mixin iconfont2020 {
+  
+  font-family: "svg-font-2020-10" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+}
+
+//Arrow =======================
+@mixin Arrow {
+
+
+}
+
+
+@mixin img-fit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+}
+
+@mixin bg-basic {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}

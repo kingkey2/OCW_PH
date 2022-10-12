@@ -1,0 +1,881 @@
+// Bootstrap modal RESET ==============
+.modal{
+
+    .modal-dialog{
+        width: calc(100% - 20px);
+    }
+    
+
+    &.no-header{
+        .modal-header{
+            display: none;
+        }
+    }
+
+    &.no-footer{
+        .modal-footer{
+            display: none;
+        }
+    }
+
+    &.footer-center{
+        .modal-footer{
+           justify-content:center;
+        }
+    }
+
+    .modal-header{
+        .close{
+            flex: 0 0 48px;
+            width: 48px;
+            height: 48px;
+        }
+    }
+
+    .modal-body{
+        @include scrollbar(rgba(#adb5bd, .8),#3DB6FF, 12px);
+        // @include scrollbar(rgba(#3DB6FF, .8),#3DB6FF, 12px);
+    }
+   
+
+}
+
+
+// END OF Bootstrap modal RESET ==============
+
+
+.popUp{    
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+
+    margin-top: constant(safe-area-inset-top);  
+    margin-top: env(safe-area-inset-top);  
+    
+    transition: all 250ms linear; /* !!!VERY Important , transition 時間上用 ms 取代 s，因 iOS Chrome 僅支援 ms */  
+    // transition: opacity 150ms linear;
+    // display: none;
+
+
+    pointer-events: none;
+    opacity: 0;   
+    // z-index: -1;
+    z-index: $zIndexs-popup;
+
+    .popUpWrapper{
+        // position: relative;
+        position: absolute;
+        left: 0;
+        right: 0;
+        // padding: 15px;
+        display: flex;
+        flex-flow: column nowrap;
+        margin: 0px auto;
+        width: calc(100% - 40px);
+        max-width: 640px;       
+        max-height: calc( 100% - #{font-resize(70px)});
+        
+        box-sizing: border-box;
+        /* background: linear-gradient( rgba(20,20,80,0.8),rgba(10,10,70,0.98)); */   
+        // background: $popup-wrapper-background;
+        background: $popup-wrapper-background;
+        
+        box-shadow: inset 0px -1px 1px 0px rgba(60,160,230,0.1), 0px 5px 15px 0px rgba(0,0,0,0.8);
+        
+        padding-bottom: 10px;
+        border-radius: 10px;
+        overflow: hidden;
+        // -webkit-animation: popUpAni 0.3s ease;
+        // -moz-animation: popUpAni 0.3s ease;
+        // animation: popUpAni 0.3s ease;       
+        z-index: 4;
+          
+        transition: all 250ms ease-out; /* !!!VERY Important , transition 時間上用 ms 取代 s，因 iOS Chrome 僅支援 ms */  
+        
+        // opacity: 0;
+        // display: none;
+        top: font-resize(-5px);       
+        // transform: translateY(0px);
+
+        .search__wrapper{
+            margin-bottom: font-resize(25px);
+         }
+         
+    }
+
+    // POPUP MASK ==============
+    .mask_overlay_popup{
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        width: 100%;
+        // height: calc( 100% + 100px);
+        height: 100%;
+        background: rgba(#000,0.75); 
+
+         
+        transition: all 200ms linear; /* !!!VERY Important , transition 時間上用 ms 取代 s，因 iOS Chrome 僅支援 ms */  
+        opacity: 0;
+        // backdrop-filter: blur(6px);
+
+        &.opacityAdj{
+            backdrop-filter: blur(6px);
+            background: rgba(#000,0.93); 
+        }
+    }
+
+
+    &__title,
+    &__content,
+    &__footer
+    {
+        width: 100%;
+        padding-left: 8px;
+        padding-right: 8px;
+
+        @include media-breakpoint-up(sm){
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+
+    &__title{
+        
+        flex: 0 0 50px;
+
+        position: relative;
+        color: $popup-title-color;
+        // font-size: $popup-title-size;
+        padding-top: 15px;
+        padding-bottom: 15px;
+
+        margin-bottom: 10px;
+        background: linear-gradient( 180deg, rgba(#323647, .6), rgba(#262936, 1));
+
+        &::after{
+            // content: '';
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: rgba(white, 0.1);            
+            position: absolute;
+            bottom: 0;
+        }
+        
+    }
+
+    &__content{
+        
+        flex: 1 1 auto;
+        min-height: 50px;
+
+        overflow-y: auto;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        overflow-wrap:anywhere;
+        word-wrap: break-all;
+
+        @include scrollbar(rgba(#adb5bd, .8),#c1a678, 5px);
+        //Firefox Custom Scrollbar =================
+         //scrollbar-width: thin;
+         scrollbar-width: thin;
+         scrollbar-color: rgba(#adb5bd, .8) transparent;
+
+         &::-webkit-scrollbar{
+             width: 5px;
+         }   
+    }
+
+    &__footer{        
+        flex: 0 0 font-resize(75px);        
+    }
+    
+    
+    &.show{    
+
+        opacity: 1;
+        // z-index: $zIndexs-popup;
+        pointer-events: auto;
+
+        // 
+        .popUpWrapper{           
+            // opacity: 1;
+            top: font-resize(25px);            
+        }
+
+        // POPUP MASK ==============
+        .mask_overlay_popup{
+            opacity: 1;
+        }
+        
+    }
+
+    &.popUp_tabs{
+
+        .popUp__content{
+            height: calc( 100% -  #{font-resize(110px)});
+
+        }
+    }
+
+
+    .mask_overlay_loading{       
+        background: rgba(0,0,0,0.95); 
+       
+        // background: linear-gradient(0deg, rgba(#1e212b, .95), rgba(#424862, .95));
+        background: linear-gradient(0deg, rgba(#262931, .55), rgba(#424862, .5));
+        
+        backdrop-filter: blur(5px);
+    }
+
+
+    .btn-close{
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        z-index: $zIndexs-popup-btn-close;
+        
+    }
+
+    
+
+    .form-group-popupBtn{
+        
+        text-align: center;
+        // margin: 15px 0;
+        border-top: solid 1px rgba(white, 0.1);
+        margin-top: 1rem;
+
+        padding-top: font-resize(15px);
+        // padding-bottom: font-resize(15px);
+
+        .btn{
+            width: auto;
+            display: inline-block ;
+            font-size: font-resize(15px);
+            margin-left: 10px;
+            border-radius: 20px;
+
+            max-width: 20%;
+            min-width: 5rem;
+            margin: 0 auto;
+        }
+
+        .btn-popup-confirm{
+            color: #3e4359;
+            background-color: #e3c38d;
+            border-color: #e3c38d;
+
+        }
+
+        .btn-popup-cancel{
+            color: rgba(255, 255, 255, 0.8);
+            background-color: transparent;
+            border-color: #e3c38d;
+            margin-right: 8px;
+
+        }
+
+        @include media-breakpoint-up(md) {
+            text-align: center;
+
+        }
+
+    }
+
+    .btn-popup-cancel{        
+        // color: $popup-btn-cancel-color;
+        
+    }
+
+    .btn-popup-confirm{        
+        // color: $popup-btn-confirm-color;
+        
+    }
+
+    .currency{
+        margin-right: 8px;
+    }
+}
+
+
+//Search Popup ========================
+.alertSearch{
+    .modal-header{
+        flex-flow: row wrap;
+    }
+    .modal-title{
+        flex: 1;
+    }
+
+    .brand{
+        flex: 0 0 100%;
+    }
+    
+    .moreInfo-item-wrapper{
+        flex-flow: row wrap;
+    }
+
+    .action{
+        // align-items: center;
+        align-items: flex-end;
+
+        .btn-round{
+            // width: 40px;
+            // height: 40px;
+            // font-size: font-resize(24px);
+            width: 33px;
+            height: 33px;
+            font-size: font-resize(20px);
+        }
+        .btn-like{
+            // margin-bottom: 5px;
+            margin-right: 8px;
+        }
+        .btn-play{
+            height: 100%;
+        }
+    }
+
+    .btn-s-wrapper{
+        margin-right: 0 !important;
+    }
+
+    .game-item{
+       
+        padding: 8px 8px;
+        margin-bottom: 0 !important;
+
+        &-inner{
+            border: 1px solid #B9B9B9;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            padding: 10px;
+
+            &:hover{
+                border-color: #009FE8;                
+                box-shadow: 0px 4px 10px rgba(#009FE8, 0.45);
+                cursor: pointer;
+            }
+
+        }
+    }
+
+   
+
+   
+}
+
+
+//Modal Search 新版 - 品牌-LOGO版 ========================
+
+.alertSearchTemp{
+
+    .modal-dialog{
+        min-height: 90%;
+        // height: 80%;
+    }
+
+    .modal-header{
+        flex-flow: row wrap;
+        position: relative;
+        z-index: 4;
+        background-color: #fff;
+        padding: 0;
+    }
+
+    .modal-header-container{
+        // width: 100%;
+        // padding: 1rem;
+        // position: relative;
+    }
+
+    .modal-header-container{
+        display: flex;
+        flex-flow: row wrap;
+        flex: 0 0 100%;
+        position: relative;
+        padding: 5px 1rem;
+        justify-content: space-between;
+    }
+
+
+    .modal-title{
+        flex: 1;
+    }
+
+    .brand{
+        flex: 0 0 100%;
+    }
+    
+    .moreInfo-item-wrapper{
+        flex-flow: row wrap;
+    }
+
+    .action{
+        align-items: center;
+        // align-items: flex-end;
+
+        .btn-round{
+            width: 40px;
+            height: 40px;
+            font-size: font-resize(24px);
+           
+        }
+        .btn-like{
+            // margin-bottom: 5px;
+            // margin-right: 8px;
+        }
+        .btn-play{
+            height: 100%;
+        }
+    }
+
+    .btn-s-wrapper{
+        margin-right: 0 !important;
+    }
+
+    .game-item{
+       
+        padding: 8px 8px;
+        margin-bottom: 0 !important;
+
+        &-inner{
+            border: 1px solid #B9B9B9;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            padding: 10px;
+
+            &:hover{
+                border-color: #009FE8;                
+                box-shadow: 0px 4px 10px rgba(#009FE8, 0.45);
+                cursor: pointer;
+            }
+
+        }
+    }
+
+    .mask-header{
+        position: absolute;
+        width: 100%;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 3;
+        background-color: #000;
+        opacity: 0;
+        pointer-events: none;
+
+        &.show{
+            opacity: 0.5;
+            pointer-events: auto;
+
+        }
+
+    }
+    
+    .wrapper_center{
+        margin-bottom: 0;
+        // width: 100%;
+        flex: 0 0 100%;
+
+        &.action-outter{
+            // max-width: 360px;
+            // margin: 0.4rem;
+            margin-top: 0.4rem; 
+            margin-bottom: 0.4rem; 
+            .btn{
+
+                border-radius: 30px;
+            }
+        }
+    }   
+}
+
+.brand-wrapper{
+    // position: relative;
+    // top: -45px;
+
+    position: absolute;
+    top: 45px;
+
+    width: 100%;
+    // height: 80%;
+    z-index: 3; 
+    text-align: center;
+    background-color: #fff;
+    
+
+    .modal-header-container{
+
+    }
+
+    .brand-inner{
+        // height: calc(100% - 30px - 60px);
+        // height: 250px;
+    
+        // min-height: 400px;
+        // max-height: 450px;
+        // overflow-y: auto;
+        width: 100%;
+
+        border: solid 1px rgba( #C2C2C2, 1);
+        border-radius: 10px;
+        margin: 10px 0;
+        padding:10px 10px;
+        margin-bottom: 20px;
+       
+        // padding: 10px 8px;
+    }
+
+    .btn-brand-confirm{        
+        background-color: #009FE8;
+        border-radius: 30px;
+        max-width: 150px;
+        padding: 6px 20px !important;       
+    }
+
+    .btn-brand-cancel{        
+       
+        color: #009FE8;
+      
+        border: solid 1px #009FE8;
+        border-radius: 30px;
+        max-width: 150px;
+        padding: 6px 20px !important;
+
+    }
+
+    
+    
+
+}
+
+
+
+.brand-popup-list{
+    display: flex;
+    flex-flow: row wrap;
+
+    margin-bottom: 1.5rem;
+    
+    // max-height: calc(50px * 5 + 10px * 5);
+    // max-height: calc(100vh - 250px);
+    max-height: calc(100vh - 400px);
+
+    min-height: 200px;
+    overflow-y: auto;
+
+    @media screen and (orientation: landscape) {
+        // max-height: calc(100vh - 250px);
+        min-height: 100px;
+    }
+
+    .brand-item{
+        width: 33.33%;
+        padding: 5px 6px;
+
+        display: inline-flex;
+
+        .custom-label{
+            width: 100%;
+        }
+
+        .checkbox{
+            display: inline-flex;
+            padding: 8px 8px;
+            // max-height: 50px;
+            height: 45px;
+            
+            .logo-wrap{
+                height: 100%;
+                display: inline-flex;
+                align-items: center;                
+            }
+
+        }
+
+
+        .img-wrap{
+            // max-height: 50px;
+            height: 100%;
+            display: inline-flex;
+            align-items: center;
+
+            img{
+                // width: 100%;
+                // height: 100%;
+                max-height: 100%;
+            }
+        }
+
+    }
+}
+
+
+.searchFilter-wrapper{
+
+    display: flex;
+    flex-flow: row wrap;
+    // flex: 1;
+    flex: 0 0 100%;
+    position: relative;  
+    box-shadow: 0px 3px 4px 0px rgb(#000, .35); 
+    
+    
+    
+
+    &.sticky{
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: #fff;
+    }
+
+    .searchFilter-item{
+        flex: 0 0 100%;
+        margin-bottom: 0.5rem;    
+        
+        &.game-brand{
+            flex: 0 0 100% ;
+        }
+    }
+
+    .btn-search-popup{
+        width: 100%;
+        height: 40px;
+        // margin-bottom: 0.5rem;
+    }
+
+    .btn-reset-popup{
+        color: #009FE8;
+        border: solid 1px #009FE8;
+    }
+
+    .btn{
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+   
+
+    @media screen and (max-width: breakpoints_BS4(smd) - 1) {        
+    
+        
+    }
+
+    @include media-breakpoint-up(sm){
+        
+        .searchFilter-item{
+            // flex: 1;
+            flex: 0 0 49%; 
+            
+
+            &:first-of-type{
+                margin-left: 0;
+            }
+
+            &.game-type{
+                // margin-right: 0.5rem;
+            }
+
+        }
+
+        .wrapper_center{
+            // flex: 0 0 50%;            
+        }
+
+    }
+}
+
+
+//TIP POPUP
+.popup-tip{
+    font-weight: 300;
+
+    .item{
+        margin-bottom: 45px;
+
+        .title{
+            font-size: font-resize(19px);
+            margin-bottom: 0.3rem;
+          }
+      }
+}
+
+
+@include media-breakpoint-up(smg){
+    .brand-popup-list{
+       
+        .brand-item{
+            width: calc(100% / 4);
+           
+        }
+    }
+
+}
+@include media-breakpoint-up(md){
+    .brand-popup-list{
+        
+        .brand-item{
+            width: calc(100% / 5);
+        }
+    }
+
+    
+}
+
+@include media-breakpoint-up(desc-lg){
+    .alertSearchTemp{
+        .modal-dialog{
+            max-width: 768px;
+        }
+
+        .searchFilter-item{
+            &.game-brand{
+                flex: 0 0 40% ;
+            }
+
+            &.game-type
+            {
+                flex: 0 0 29% ;
+            }
+            &.keyword
+            {
+                flex: 0 0 29% ;
+            }
+        }
+
+        .wrapper_center{
+           
+
+            &.action-outter{               
+                margin: 0.4rem auto; 
+                margin-top: 1rem; 
+                max-width: 480px;
+                
+                .btn{
+                    // border-radius: 30px;
+                }
+         
+            }
+
+        }
+    }
+
+}
+
+@include media-breakpoint-up(gx){
+    .alertSearchTemp{
+        .modal-dialog{
+            max-width: 900px;
+        }
+    }
+}
+
+@include media-breakpoint-up(xl){
+    .brand-popup-list{
+        .brand-item{
+            width: calc(100% / 7);
+        }
+
+    }
+
+    .alertSearchTemp{
+        .modal-dialog{
+            max-width: 1200px;
+        }
+    }
+
+}
+
+
+
+@include media-breakpoint-up(xl){
+
+    .alertSearch{
+        .game-item{
+            width: 33.33% !important;    
+        }
+    }   
+
+    .alertSearchTemp{
+        .game-item{
+            width: 33.33% !important;    
+        }        
+    } 
+    
+    .brand-popup-list{
+        .brand-item{
+            width: calc(100% / 8);
+        }
+    }
+
+}
+
+
+//Language Popup
+.lang-popup{
+    &-list{
+        
+        display: flex;
+
+        .lang-item{
+            flex: 1;
+            display: flex;
+            flex-flow: column wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flag{  
+            box-shadow: 0px 0px 4px rgba(#000, 0.25);  
+            border-radius: 7px;
+            width: 80px;
+            height: 60px; 
+            padding: 10px; 
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+
+            .icon{
+                 width: 40px;
+                 height: 40px;  
+
+                &:before{
+                    width: 100%;
+                    height: 100%;    
+                }
+            }
+        }
+    }
+
+}
+
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes PromotionCodeFadein {
+    from { bottom: 7vh; opacity: 0;}
+    to { bottom: calc(7vh + 10px); opacity: 1;}
+}
+
+@keyframes PromotionCodeFadein {
+    from { bottom: 7vh; opacity: 0;}
+    to { bottom: calc(7vh + 10px); opacity: 1;}
+}
+
+@-webkit-keyframes PromotionCodeFadeout {
+    from {bottom: calc(7vh + 10px); opacity: 1;}
+    to {bottom: 7vh; opacity: 0;}
+}
+
+@keyframes PromotionCodeFadeout {
+    from {bottom: calc(7vh + 10px); opacity: 1;}
+    to {bottom: 7vh; opacity: 0;}
+}

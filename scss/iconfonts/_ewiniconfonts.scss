@@ -1,0 +1,560 @@
+[class^="icon-ewin"]:before,
+[class*="icon-ewin"]:before {  
+  @include iconfont2020;
+}
+
+// Global ICON ===============
+.icon-ewin-input-chip{
+  font-size: font-resize(20px);
+  &:before {
+    content: "\48";
+  }
+}
+
+.icon-ewin-default-submit{
+  @extend .icon2020-page-export;
+}
+.icon-ewin-default-arrow-right{
+  @extend .icon2020-ico-goleft;
+  // &:before {
+  //   content: "\30";
+  // }
+}
+
+.icon-ewin-default-arrow-left{
+  @extend .icon2020-ico-goright;
+  // &:before {
+  //   content: "\5a";
+  // }
+}
+
+.icon-ewin-default-cancel{
+  @extend .icon2020-ico-cancel;
+
+  // &:before {
+  //   content: "\44";
+  // }
+}
+
+.icon-ewin-default-user{
+    &:before {
+        content: "\36";
+      }
+}
+
+.icon-ewin-default-user-s{
+    &:before {
+      content: "\34";
+      }
+
+}
+
+.icon-ewin-default-downlineuser{
+    &:before {
+      content: "\34";
+      }
+
+}
+
+//帳號暱稱
+.icon-ewin-default-accountNickname{  
+  // @extend .icon2020-id-card;
+  @extend .icon2020-name;
+}
+
+//帳號暱稱 - s
+.icon-ewin-default-accountName-s{
+  @extend .icon2020-businessman;
+    // &:before {
+    //   content: "\e000";
+    //   }
+}
+
+//帳號密碼
+.icon-ewin-default-accountPassword{
+   font-size: font-resize(15px);
+    @extend .icon2020-login-1;
+}
+
+//錢包密碼
+.icon-ewin-default-walletPassword{
+   font-size: font-resize(15px);
+    @extend .icon2020-ico-lock;
+}
+
+//帳號電話
+.icon-ewin-default-accounCellphone{ 
+  font-size: font-resize(16px);
+  @extend .icon2020-call-phone-outline;
+}
+
+//我的推廣碼
+.icon-ewin-default-myQrCode{
+  @extend .icon2020-ico-qrcode;
+}
+
+//我的推廣碼
+.icon-ewin-default-copy{
+  @extend .icon2020-ico-files-o;
+}
+
+
+
+//帳戶狀態
+.icon-ewin-default-accountStatus{
+  // @extend .icon2020-settings-streamline-1;
+  @extend .icon2020-user-o-check;  
+    // &:before {
+    //   content: "\e002";
+    // }
+}
+
+//帳戶類型
+.icon-ewin-default-accountType{
+  @extend .icon2020-user-setting;
+
+}
+
+ /* 帳戶狀態 - small- 預設啟用 下線列表頁 */
+.icon-ewin-default-accountStatus-s{
+  @extend .icon2020-user-o-check;  
+  // &:before {
+  //   content: "\e009";
+  //   }
+}
+
+//錢包狀態
+.icon-ewin-default-walletStatus{
+  @extend .icon2020-wallet;
+    // &:before {
+    //   content: "\e002";
+    //   }
+}
+
+//錢包類型
+.icon-ewin-default-walletType{
+  @extend .icon2020-wallet;
+}
+
+//出款狀態
+.icon-ewin-default-cashOutStatus{
+  @extend .icon2020-currency-exchange;
+
+}
+
+//允許使用支付系統
+.icon-ewin-default-paymentSystem{
+  @extend .icon2020-currency-exchange;
+  
+}
+//允許使用線上客服系統
+.icon-ewin-default-callCenter{
+  @extend .icon2020-headset;
+  
+}
+
+//區塊鏈錢包
+.icon-ewin-default-cryptoWalletAdress{
+  @extend .icon2020-cloud;
+  //  &:before {
+  //   content: "\e028";
+  //   }  
+}
+
+
+.icon-ewin-default-coin{
+    &:before {
+        content: "\46";
+      }
+
+}
+
+.icon-ewin-default-betValid{
+    &:before {
+      content: "\e038";
+      }
+
+}
+.icon-ewin-default-betDetail{
+    &:before {
+        content: "\49";
+      }
+
+}
+
+//結算
+.icon-ewin-default-settleAccount{
+    &:before {
+        content: "\46";
+      }
+
+}
+
+.icon-ewin-default-downlineMember{
+    &:before {
+        content: "\43";
+      }
+}
+
+.icon-ewin-default-coin-o{
+    &:before {
+        content: "\69";
+      }
+}
+
+//帳號
+.icon-ewin-default-account{
+  font-size: font-resize(12px);
+  @extend .icon2020-user;
+    // &:before {
+    //   // content: "\36";
+    //   content: "\34";
+    // }
+}
+
+.icon-ewin-default-transitionType{
+    &:before {
+      content: "\e00a";
+      }
+}
+.icon-ewin-default-currencyType{
+    &:before {
+      content: "\69";
+      }
+}
+.icon-ewin-default-betyType{
+    &:before {
+      content: "\49";
+      }
+}
+
+.icon-ewin-default-amount{
+    &:before {
+      content: "\e025"
+      }
+}
+.icon-ewin-default-betAmount{
+    &:before {
+      content: "\e034";
+      }
+}
+//開牌狀態
+.icon-ewin-default-betStatus{
+  @extend .icon2020-ico-poker;
+   
+}
+
+//開牌結果
+.icon-ewin-default-betResult{
+    &:before {
+      content: "\49";
+      }
+}
+//開牌結果 - 閒
+.icon-ewin-default-betResultPlayer{
+    &:before {
+      content: "\49";
+      }
+}
+
+//開牌結果 - 庄
+.icon-ewin-default-betResultBanker{
+    &:before {
+      content: "\49";
+      }
+}
+
+.icon-ewin-default-balance{
+    &:before {
+      content: "\37";
+      }
+}
+.icon-ewin-default-totalWinLose{
+    &:before {
+      // content: "\69";
+      content: "\e017";
+      }
+}
+.icon-ewin-default-totalRolling{
+    &:before {
+      content: "\48";
+      // content: "\e037";
+      // content: "\e038";
+      }
+}
+.icon-ewin-default-accountWinLose{
+    &:before {
+      // content: "\69";
+      content: "\e017";
+      }
+}
+.icon-ewin-default-accountRolling{
+    &:before {
+      content: "\48";
+      // content: "\e037";
+      // content: "\e038";
+      }
+}
+
+.icon-ewin-default-accounting{
+    &:before {
+      
+     
+      content: "\e019";
+      // content: "\e01b";
+      // content: "\e01a";
+
+      }
+}
+
+.icon-ewin-default-commission{
+    &:before {
+      content: "\e016";
+     
+      }
+}
+
+.icon-ewin-default-downlineWalletAmount{
+  &:before {
+    content: "\37"; 
+    }
+}
+.icon-ewin-default-periodWinLose{
+  &:before {
+    content: "\e02c";
+  }
+}
+.icon-ewin-default-periodRolling{
+  // font-size: font-resize(15px);
+  &:before {
+    // content: "\48";
+    content: "\e02c";
+  }
+}
+
+.icon-ewin-default-periodRolling{
+  // font-size: font-resize(15px);
+  &:before {
+    // content: "\48";
+    content: "\e02c";
+  }
+}
+
+.icon-ewin-default-toast-arrow{
+  font-size: font-resize(12px);
+  &:before {    
+    content: "\28";
+  }
+}
+
+.icon-ewin-default-note{ 
+  @extend .icon2020-pencil-3;
+  font-size: 12px;
+  transform: rotateY(-180deg);
+}
+
+.icon-ewin-default-card{ 
+  @extend .icon2020-credit-card-2;
+}
+
+.icon-ewin-default-mycard{ 
+  @extend .icon2020-credit-card-2;
+}
+.icon-ewin-default-addcard{ 
+  @extend .icon2020-credit-card-2;
+}
+
+.icon-ewin-default-bank{ 
+  @extend .icon2020-bank;
+}
+.icon-ewin-default-trash{ 
+  @extend .icon2020-trash-bin;
+}
+
+.icon-ewin-default-n-user{ 
+  @extend .icon2020-ewin-user;
+}
+.icon-ewin-default-n-user-add{ 
+  @extend .icon2020-ewin-user-add;
+}
+
+.icon-ewin-default-n-assisant{ 
+  @extend .icon2020-ewin-assisant;
+}
+.icon-ewin-default-n-assisant-add{ 
+  @extend .icon2020-ewin-assisant-add;
+}
+
+.icon-ewin-default-n-user-multi{ 
+  @extend .icon2020-icon-ewin-user-multi;
+}
+.icon-ewin-default-n-user-multi-add{ 
+  @extend .icon2020-ewin-user-multi-add;
+}
+.icon-ewin-default-n-user-multi-exchange{ 
+  @extend .icon2020-ewin-user-multi-exchange;
+}
+
+
+
+// Table ICON ===============
+.icon-ewin-default-notebook{ 
+  font-size: 12px;
+  @extend .icon2020-pencil-3;
+  transform: rotateY(-180deg);
+}
+
+
+
+
+// Tab ICON ===============
+.icon-ewin-tab-account{
+  @extend .icon2020-ico-account;
+}
+.icon-ewin-tab-wallet{
+  @extend .icon2020-ico-wallet;
+}
+
+
+// Input ICON ===============
+
+.icon-ewin-input-downlineMember{
+  font-size: font-resize(20px);
+  
+  &:before {
+     content: "\43";
+     
+    }
+}
+
+//多重帳號 切換
+.icon-ewin-input-user-multi-exchange{
+  @extend .icon2020-ewin-user-multi-exchange;
+  font-size: font-resize(21px);
+}
+
+//刪除 - trash
+.icon-ewin-input-delete{
+  // @extend .icon2020-trash-bin;
+  @extend .icon2020-ewin-trash;
+  font-size: font-resize(15px);
+}
+
+.icon-ewin-input-cancel{
+  @extend .icon2020-ico-cancel;
+}
+
+.icon-ewin-input-reset{
+  @extend .icon2020-ico-cancel;
+}
+
+.icon-ewin-input-arrow-right{
+  @extend .icon2020-ico-goleft;
+}
+.icon-ewin-input-arrow-left{
+  @extend .icon2020-ico-goright;
+}
+
+.icon-ewin-input-submit{
+  @extend .icon2020-page-export;
+}
+
+.icon-ewin-input-settleAccount{
+
+  &:before {
+    content: "\46";
+  }
+}
+.icon-ewin-input-cashOut{
+
+  &:before {
+    content: "\46";
+  }
+}
+
+.icon-ewin-input-cryptoPayout{
+  @extend .icon2020-coin;
+  // &:before {
+  //   content: "\46";
+  //   }
+}
+
+
+
+.icon-ewin-input-betDetail{
+  font-size: font-resize(16px);
+  
+  &:before {
+    content: "\49";
+    }
+}
+
+.icon-ewin-input-chip{
+  font-size: font-resize(20px);
+
+  &:before {
+   content: "\48";
+    }
+
+}
+
+.icon-ewin-input-edit{
+  font-size: font-resize(14px);
+   &:before {
+    content: "\22";
+    }
+}
+.icon-ewin-input-accountEdit{
+  font-size: font-resize(14px);
+   &:before {
+    content: "\22";
+    }
+}
+
+.icon-ewin-input-accountDeactive{ 
+  &:before {
+    content: "\e01e";
+    }
+}
+
+.icon-ewin-input-transfer{ 
+  &:before {
+      content: "\40";
+      // content: "\e00a";
+    }
+}
+
+.icon-ewin-input-note{ 
+  @extend .icon2020-pencil-3;
+}
+
+
+.icon-ewin-input-wallet{ 
+  &:before {
+    content: "\4c";
+    }
+}
+
+/* 開牌截圖 */
+.icon-ewin-input-snapShot{ 
+  @extend .icon2020-screen-shut;
+  // &:before {
+  //   content: "\4c";
+  //   }
+}
+
+.icon-ewin-input-setUserAccountType{ 
+  // &:before {
+  //   content: "\e04e";
+  //   }
+  @extend .icon-ewin-input-edit;
+}
+
+// header 縮放 icon
+.icon-ewin-input-compress{ 
+  @extend .icon2020-ico-goright;
+}
+
+
+
+// SideBar ICON ===============

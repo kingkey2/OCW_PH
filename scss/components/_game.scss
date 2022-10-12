@@ -1,0 +1,2508 @@
+@mixin gameCrownLevelPuseudo {
+        content: '';
+        display: inline-block;
+        width: 45%;
+        height: 45%;
+        min-width: 40px;
+        max-width: 70px;        
+        position: absolute;
+        background-position: left top;
+        background-repeat: no-repeat;
+        background-size: contain;
+        transition: transform 0.45s ease-in-out;        
+        transform: translate(0, 0) scale(1, 1);
+        // top: -6px;
+        // left: -6px;
+         // background: url(../images/icon/ico-crown-dog-star-1.svg) left top no-repeat;
+         z-index: 3;
+         pointer-events: none; //!!IMPORTANT 讓ICON不會影響HOVER感應區
+    
+}
+
+// 遊戲開啟
+.headerGameName {
+    display: inherit;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: 500;
+    padding-top: 10px;
+}
+
+.headerGameDetail {
+    margin: 0 auto;
+    vertical-align: middle;
+}
+/*   .box {
+    aspect-ratio: 16 / 9;
+    border: 0px!important;
+    height: 95%;
+    margin: 0 auto;
+    display: inherit;
+    overflow: hidden!important;
+    vertical-align: middle;
+}*/
+/*滿版遊戲介面*/
+.divGameFrameBody {
+    z-index: 5;
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(#000, .95);
+    position: relative;
+
+
+    .btn{
+        background-color: #036EB7;  
+
+        &,& *{
+            transition: all 0.15s ease-in-out;             
+        } 
+
+        &:hover{            
+            background-color: #00497A;  
+
+            .icon{
+                transform: scale(1.2, 1.2);
+            }
+        }   
+    }
+
+    .btn-game-close{
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        // background-color: rgba(#000, .70);
+        border-radius: 0 5px 5px 0;
+        right: -50px;
+        top: 0;
+        // border:solid 1px rgba(#fff, 0.55);
+
+    
+        .icon{
+            width: 50px;
+             height: 50px;
+    
+            &:before{
+                background-color: #fff;
+            }
+        }
+    }
+
+   
+}
+
+.divGameFrameWrapper{
+    position: relative;
+}
+
+.divGameFrame {
+    width: 70vw;
+    // height: 39.375vw; /* 70 ÷ 16 × 9 = 39.375 */
+    height: 70vw/16*9 ;
+    background-color: #09f;
+}
+
+.categoryPage{
+    overflow: hidden;
+    // padding-bottom: 0px;
+}
+
+
+
+.icon-m-favorite{
+    &:before {
+        content: "\62";
+      }
+}
+
+.icon-m-thumup{
+   font-size: 17px;
+}
+
+.btn{
+    
+    &.added{
+
+        .icon-m-favorite{
+            &:before {
+                content: "\61";
+              }
+         }
+
+         .icon-m-thumup{
+            &:before {
+                content: "\51";
+              }
+        }
+        
+    } 
+
+}
+
+.tab-game{
+      // @include TAB-Scroller-AnimationLine(7);
+    margin-bottom: 25px
+}
+
+.sec-title-container{    
+
+    .tab-scroller{
+        .tab-item{
+            &:not(:first-child){
+               
+                // &:before{
+                //     content: '';
+                //     display: inline-flex;
+                //     width: 1px;
+                //     height: 14px;
+                //     // margin-left: 1rem;
+                //     background-color: rgba(#000, 0.5);
+                // }
+            }
+    
+        }
+
+    }
+
+}
+
+.game-area{
+    &.overflow-hidden{
+        overflow-x: hidden;
+        padding-bottom: 20px;
+        // max-width: 100%; 
+    } 
+}
+
+.game-area.overflow-hidden{
+    // padding-left: 10px;    
+    .container{
+        overflow: hidden;
+        // 這裡設 左右 padding:0 是為了 pc版時 左右button貼邊
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+}
+
+.section-levelUp{
+    position: relative;
+    // padding-bottom: font-resize(10px);
+
+    &:hover{
+        z-index: 99;
+    }
+
+    .sec-title-container{        
+    }
+
+    // 575px以下 =================
+    @media screen and (max-width:breakpoints_BS4(smd) - 1){
+        // padding-left: 10px;        
+    }
+
+}
+
+.game_wrapper {
+    // margin-bottom: 20px;
+
+    .sec-title-container{
+        // margin-bottom: 0.2rem;
+        margin-bottom: 0;
+
+        .sec-title{
+            // font-size: font-resize(20px);
+            margin-bottom: 0;
+        }
+
+    }
+
+    @include media-breakpoint-up(desc-xl){
+        .sec-title-container{          
+            .sec-title{
+                // font-size: font-resize(20px);
+                margin-bottom: font-resize(5px);
+            }    
+        }
+    }
+
+    // 575px以下 =================
+    @media screen and (max-width:breakpoints_BS4(smd)){
+        .sec-title-container{
+            margin-bottom: 0.45rem;
+        }
+        
+    }
+}
+
+
+//滑鼠滑過 Button 出現效果 ===============
+.swiper-button-next, .swiper-button-prev{    
+    display: none;
+    width: 5%;
+    min-width: 60px;
+    max-width: 80px;
+    // height: 180px;
+    // height: calc(100% - 60px - 0.7rem);
+    height: calc(100% - 60px); //height + top:50px+10px
+    top: 10px;
+    margin-top: 0; //RESET
+    cursor: pointer;
+
+    //BUTTON MASK
+    &::before{
+        content: "";  
+        position: absolute;      
+        display: inline-flex;
+        width: 99%;
+        max-width: 80px;
+        // height: calc(((100vw - 56px) / 5) - 1.2vw); 
+        height: calc(100%);
+        // background-color: rgba(#fff, 0.5);         
+        
+        background-size: contain;
+        
+        // z-index: -1;       
+        top: 0;
+
+        // opacity: 0;            
+    }
+
+        
+    &::before{
+        // background: linear-gradient(-270deg, rgba(#fff, 1) 0%, rgba(#fff, 0.7) 70%, rgba(#fff, 0) 100%);
+        // left: 0;
+    }
+
+
+   //BUTTON ARROW
+    &::after{
+        position: absolute;
+        top: 38%;
+        // right: 0;
+        // left: 0;
+        margin: 0 auto;
+        width: 40%;
+        height: 45px;
+        font-weight: 500;
+        font-size: 0;
+        background: url(../images/icon/ico-arrow-L.svg) center center no-repeat;
+        background-size: cover;
+    }
+
+    &.swiper-button-disabled{
+        opacity: 0;
+    }
+
+
+ }
+
+ .swiper-button-next{
+     right: 0;
+    //  background: linear-gradient(270deg, rgba(#008ccc, 1) 0%, rgba(#008ccc, 0.8) 75%, rgba(#008ccc, 0) 100%);
+    //  background: linear-gradient(270deg, rgba(#000, 0.7) 0%, rgba(#000, 0.6) 75%, rgba(#000, 0) 100%);
+
+     //後面白色 mask ============
+     background: linear-gradient(270deg, rgba(#fff, .9) 0%, rgba(#fff, .9) 50%, rgba(#fff, 0) 100%);
+    //  border-radius: 0 15px 15px 0;
+
+     //BUTTON MASK
+    &::before{
+        background: linear-gradient(270deg, rgba(#000, 0.85) 0%, rgba(#000, 0.7) 75%, rgba(#000, 0) 100%);  
+        // border-radius: 0 15px 15px 0;
+    }
+
+     //BUTTON ARROW
+     &::after{
+        right: 22%;      
+     }    
+
+ }
+
+ .swiper-button-prev{
+     left: 0;
+    //  background: linear-gradient(-270deg, rgba(#008ccc, 1) 0%, rgba(#008ccc, 0.8) 75%, rgba(#008ccc, 0) 100%);
+    // background: linear-gradient(-270deg, rgba(#000, 0.7) 0%, rgba(#000, 0.6) 75%, rgba(#000, 0) 100%);
+
+    //後面白色 mask ============
+    background: linear-gradient(-270deg, rgba(#fff, .9) 0%, rgba(#fff, .9) 50%, rgba(#fff, 0) 100%);
+    // border-radius: 15px 0 0 15px;
+
+     //BUTTON MASK
+     &::before{
+        background: linear-gradient(-270deg, rgba(#000, 0.85) 0%, rgba(#000, 0.7) 75%, rgba(#000, 0) 100%);  
+        // border-radius: 15px 0 0 15px;
+    }
+      //BUTTON ARROW
+      &::after{
+        left: 15%;
+        transform: rotate(-180deg);
+     }
+    
+ }
+
+// Slider Prev NEXT BUTTON MASK
+.game_slider{
+    position: relative;
+
+    .swiper-wrapper{
+            // &::before,
+            // &::after{
+            //     content: "";  
+            //     position: absolute;      
+            //     display: inline-flex;
+            //     width:  4%;
+            //     // height: calc(((100vw - 56px) / 5) - 1.2vw); 
+            //     height: calc(100% - 60px - 0.7rem);
+            //     background-color: blue;      
+                
+            //     background-size: contain;
+            //     // border-radius: 0 10px 10px 0;
+            //     z-index: 5;       
+            //     top: 10px;
+        
+            //     // opacity: 0;            
+            // }
+
+                
+            // &::before{
+            //     background: linear-gradient(-270deg, rgba(#fff, 1) 0%, rgba(#fff, 0.7) 70%, rgba(#fff, 0) 100%);
+            //     left: 0;
+
+            // }
+            // &::after{
+            //     // background: linear-gradient(270deg, rgba(#000, 0.7) 0%, rgba(#000, 0.6) 70%, rgba(#000, 0) 100%);
+            //     right: 0; 
+
+            // }
+
+    }
+   
+
+    // 搭配 .sec-title-container 高度
+    @include media-breakpoint-up(desc-xl){
+
+       
+    }
+
+}
+
+.game-item-mobile-popup{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    // display: none;
+}
+
+ // 滑鼠 HOVER 效果 =====================================
+ $backgrond-image-hover-height:calc(100% + 55px);
+
+//遊戲項目預設 -------------------
+.game-item {
+
+   transition: all 0.35s ease;
+   width: 100%;  
+   
+   //三冠王
+   &[class*="crownLevel-"]{ 
+
+   }
+
+   .img-wrap {
+        position: relative;
+        padding-bottom: 100%;
+        border-radius: 8px;
+        // background-image: url(../images/assets/icon-00.svg);
+        @include bg-basic;
+        overflow: hidden;
+        // transition: all 0.65s ease-in-out;
+
+        img {
+            @include img-fit;
+        }
+
+   }
+
+   
+   
+
+   .btn{         
+       padding: 5px 10px;
+       // color: #fff;
+       border: solid 1px rgba(#000, .85);
+       background: rgba(#fff, 1); 
+
+       &.btn-round{
+           width: 40px;
+           height: 40px;            
+       }
+
+       &:hover{
+
+       }
+
+       &.added,
+       &:hover{
+           color: rgba(#fff, 1);           
+           background: rgba(#358DD4, 1);
+           border-color: #358DD4;
+       }
+
+
+       &:hover{
+           .arrow{
+               border-color: rgba(#fff, 1); 
+           }
+       }
+
+   }
+
+   .btn-more{
+    //    display: none; //TEST
+   }
+
+   //遊戲 NEW/HOT Label
+   .label-push-status{
+        display: inline-flex;
+        width: 30px;
+        height: 30px;
+        
+        background-image: url(../images/theme/icon/label-default.svg);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+   }
+
+   .moreInfo-item-wrapper{
+       display: flex;
+   }
+
+   .action{
+
+    //原本加入最愛位置
+    //flex: 0 0 calc(30px * 3 + 20px);
+
+       .btn-s-wrapper{
+           margin-bottom: 1rem;
+           display: flex;
+        //    justify-content: space-between;
+           justify-content: flex-end;
+       }
+
+       .btn-play{
+           width: 100%;
+           border-radius: 50px;
+       }
+
+        //加入最愛
+        .btn-like{
+            position: absolute;
+            top: -120px;
+            // background-color: rgba(#fff, 0.3);
+            background-color: rgba(#44acf5, 0.3);
+            color: #fff;
+            border-color: #fff;
+            // color: #D33605;
+            // border-color: #D33605;
+            font-size: 22px;
+            z-index: 2;            
+
+            &:not(.added).desktop{
+                &:hover{
+                    // color: #ff0000;
+                    color: #fff;
+                    .icon-m-favorite:before {
+                        content: 'a';
+                    }
+                }
+            }
+
+            &.added{
+                color: #ff0000;
+            //  border-color: #ff0000;
+                background-color: rgba(#fff, 0.45);
+            }
+            
+         }
+
+   }
+  
+    &-img {
+        position: relative;
+        z-index: 2;
+    }
+
+
+   &-link {
+       display: block;
+       position: absolute;
+       top: 0;
+       right: 0;
+       bottom: 0;
+       left: 0;
+       z-index: 1;
+       cursor: pointer;
+       z-index: 2;
+   }
+
+   &-inner{
+       position: relative;     
+       background-color: #fff;
+       // border-radius: 15px 15px 0 0;                 
+       border-radius: 15px;        
+   }
+
+   // 外部 遊戲資訊
+   &-info {
+    &-inner {
+        // 外部 遊戲名稱
+        .game-item-name{
+            text-align: center;
+            font-size: font-resize(13px);
+        } 
+     }      
+  }
+   
+   // 內部 遊戲名稱
+   &-name{
+    //    margin-bottom: 0.5rem;
+    //    text-align: center;
+       
+       font-weight: 400;
+       font-size: font-resize(16px);
+
+       display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+
+   }
+
+   //舊的 label 寫法 開始 ===========================
+   &.label-new .img-wrap:before,
+   &.label-hot  .img-wrap:after
+   { 
+      
+            //    position: absolute;
+            //    top: 12px;
+            //    left: 0;
+            //    content: '';
+            //    display: inline-flex;
+            //    width: 46px;
+            //    height: 23px;
+             
+            //    border-radius: 0 15px 15px 0;
+
+            //    font-size: 10px;
+            //    font-weight: 400;
+            //    color: rgba(#fff, 1);
+               
+
+            //    align-items: center;
+            //    padding: 5px 4px 5px 8px;
+            //    z-index: 1;
+             
+            //    box-shadow: 0px 1px 5px 0px rgba(#000, 0.29);
+
+   }
+
+   &.label-new{
+    //    .img-wrap{
+
+    //        &:before{
+    //            content: 'NEW';
+    //            background-image: linear-gradient(to right, #358DD4 0% , #06F2FA 100%);
+    //            text-shadow: 0 0 3px #00364b;
+    //        }
+
+    //    }
+   }
+
+   &.label-hot{
+    //    .img-wrap{
+    //        &:after{
+    //            content: 'HOT';
+    //            background-image: linear-gradient(to right, #D81C85 0% , #FE0066 100%);
+    //            text-shadow: 0 0 3px #530023;
+    //        }
+    //    }        
+   }
+
+   &.label-new.label-hot{
+
+    //    .img-wrap{
+
+    //        &:after{
+    //            top: 42px;
+    //        }
+    //    }   
+
+   }
+   //舊的 label 寫法 結束 ===========================
+
+
+   //新的 label 寫法 ===============
+   &.label-new{
+        .label-push-status{
+            background-image: url(../images/theme/icon/label-new.svg);
+        }
+   }
+   &.label-hot{
+        .label-push-status{
+            background-image: url(../images/theme/icon/label-hot.svg);
+        }
+   }
+
+
+
+
+}
+
+.game-item-focus{
+   // position: absolute;
+   position: relative;
+   // transform: scale(1.3, 1.3);                
+   // z-index: 3; //TEST
+   
+   width: 100%;    
+   // overflow: hidden; //TEST
+   height: $backgrond-image-hover-height;   
+   
+}
+
+//預設 Hidden ============================
+.game-item-info-detail{
+   // position: relative;  
+   position: absolute;            
+   width: 100%;
+   height: $backgrond-image-hover-height;
+   border-radius: 15px 15px 0 0;
+   
+//    transition: top 0.55s ease-in-out, opacity 0s linear;
+   transition: transform 0.55s ease-in-out, opacity 0s linear;
+   // background: url(../images/theme/blue/game-bg-hover-2.png) center top no-repeat; 
+   background-size: cover;
+   // left: 0;
+   
+   // opacity: 0; //TEST           
+   top: -18px;
+
+ 
+   // z-index: -1;
+
+   &:before{
+       content: '';
+       display: block;
+       width: 100%; 
+       height: 100%;
+       background: url(../images/theme/blue/game-bg-hover.png) center top no-repeat;
+       background-size: cover;
+       // opacity: 0.5;
+       border-radius: 15px 15px 0 0;
+   }
+
+   &-wrapper{
+       position: relative;
+       background: url(../images/theme/blue/game-bg-hover-2.png) center bottom no-repeat; 
+       background-size: cover;
+       
+       //待追，為啥會有腰間肉
+       top: -1px;      
+   }
+
+   &-moreInfo{
+       // position: absolute;
+       height: 60px;
+       
+       .moreInfo-item-wrapper{
+           display: flex;
+           align-items: center;
+           height: 100%;
+           color: #fff;
+           // background-color: rgba(#000, 0.35);
+           background-color: rgba(#6F6F6F, 0.85);
+           // padding-top: 18px; //這裡要和game-item-info-detail的預設 top 一樣數值
+       }
+
+       .moreInfo-item{
+
+           flex: 1;
+           display: flex;
+           flex-flow: column wrap;
+           // justify-content: center;
+           align-items: center;
+           position: relative;
+
+           &:not(:first-child){
+               &:before{
+                   content: '';
+                   display: inline-flex;
+                   width: 1px;
+                   
+                   height: 100%;
+                   // background-color: rgba(#fff, 0.15);
+                   background-color: rgba(#E0E0E0, 0.2);
+                   position: absolute;
+                   left: 0;
+                //    top: calc( -18px + 10px);
+
+               }
+           }
+
+           .title, .value{
+               flex: 1;
+           }
+
+           .title{
+               font-size: font-resize(14px);
+               font-weight: 300;
+               text-align: center;
+           }
+          
+           .value{
+               font-size: font-resize(18px);
+               font-weight: bold;
+           }
+       }
+
+       .category{
+        flex: 0 0 20%;
+            .value{
+                display: flex;
+            }
+            .icon-mask{
+                width: 3rem;
+                height: 3rem;
+
+                &::before{
+                    background-color: #fff;
+                }
+                
+            }
+
+         &.slot{
+            .icon-mask{
+                &::before{
+                    -webkit-mask-image: url(../images/icon/ico-slot-tt.svg) ;
+                    mask-image: url(../images/icon/ico-slot-tt.svg) ;
+                  }
+            }
+         }
+         &.live{
+            .icon-mask{
+                &::before{
+                    -webkit-mask-image: url(../images/icon/ico-live-tt.svg) ;
+                    mask-image: url(../images/icon/ico-live-tt.svg) ;
+                  }
+            }
+         }
+         &.elec{
+            .icon-mask{
+                &::before{
+                    -webkit-mask-image: url(../images/icon/ico-elec-tt.svg) ;
+                    mask-image: url(../images/icon/ico-elec-tt.svg) ;
+                  }
+            }
+         }
+         &.etc{
+            .icon-mask{
+                &::before{
+                    -webkit-mask-image: url(../images/icon/ico-etc-tt.svg) ;
+                    mask-image: url(../images/icon/ico-etc-tt.svg) ;
+                  }
+            }
+         }
+       }
+   }
+
+   &-indicator{
+       position: absolute;
+       background-color: #fff;
+       padding: 10px;
+       width: 100%;
+       top: 0;    
+    //    transition: all 0.35s ease-in-out;
+       transition: box-shadow 0.35s ease-in-out,
+       top 0.35s ease-in-out
+       ;
+
+       box-shadow: 0px 0px 8px 2px rgba(#000, 0.2);
+       border-radius: 0 0 15px 15px
+   }
+
+   &-indicator-inner{
+       position: relative;
+       
+       // width: 100%;
+       // height: 100%;
+       transition: all 0.35s ease-in-out;
+       // left: -10px;
+       display: flex;
+       justify-content: space-between;
+
+       .info{
+           flex: 1;
+           // max-width: 50%;
+           word-break: break-all;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           min-height: 2rem;
+       }
+       .action{     
+            //原本加入最愛位置           
+            //flex: 0 0 calc(30px * 3 + 20px);
+       }
+   
+   }
+
+   &.open{
+
+       .game-item-info-detail-indicator{
+           top: 60px;
+       }
+
+       .game-item-info-detail-moreInfo{
+           box-shadow: 0px 0px 8px 2px rgba(#000, 0.2);
+       }
+       
+       .btn-more{
+        //    background-color: rgba(#fff, 1);
+           background-color: rgba(#358DD4, 1);
+           border-color: rgba(#358DD4, 1);
+            .arrow{
+                transform: rotate(-45deg);
+                border-color: #fff;
+        }
+
+
+        &:hover{
+            background-color: rgba(#358DD4, 1);
+        }
+
+       }
+
+   }
+
+}
+
+// 有 藍色背景的 GAME ITEM ============================
+.gameinfo-pack-bg{
+
+    .game-item{
+
+        &-img {
+            position: relative;
+            z-index: 2;
+            padding-top: 10px; //MUST HAVE!!! 此是為了 HOVER時 img-wrap=>上移 10px
+    
+            .img-wrap { 
+                z-index: 1;
+
+                top: 0;
+                transition: all 0.35s linear;
+                transform: translateY(0) scale(1, 1); 
+            }
+    
+            &:after {
+                content: '';
+                display: block;
+                width: 100%;
+                height: 15px;
+                border-radius: 50%;
+    
+                mix-blend-mode: multiply;
+                filter: blur(5px);
+                margin-top: 10px;
+    
+                position: absolute; 
+                transform-origin: center bottom;    
+                background: rgba(#000, 0.4);
+                z-index: 0;
+
+                // bottom: -20px;
+                bottom:0;
+                // transform: scale(0.35, 0.5);
+                // transform: translateY(-20px) scale(0.35, 0.5);
+                // transform: translateY(10px) scale(0.35, 0.5);
+                transform: translateY(-4px) scale(0.35, 0.5);
+                opacity: 0.15;
+
+                transition: all 0.35s linear; 
+                // transition: transform 0.35s linear, opacity 0s linear; 
+            }
+    
+        }
+
+        //外部 遊戲資訊
+        &-info {
+            // position: absolute;
+            padding: 0.5rem;
+            width: 100%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            // background-color: #fff;
+            top: calc( 100% - 15px);
+            // padding-top: 25px;
+            // pointer-events: none;
+            z-index: 1;
+            min-height: 50px;
+     
+            transition: all 0.35s linear;
+        }
+    }
+}
+
+// PC版預設 Hidden ============================
+.gameinfo-hover{
+
+    .game-item-info-detail {
+        position: absolute;
+        width: 180%;
+        height: $backgrond-image-hover-height;
+        // height: calc(100% + 55px + 62px + 110px);
+        // height: 100%;
+        left: -40%;
+
+        // width: 100%;
+        // left: 0;      
+
+        opacity: 0; //TEST           
+        // top: -18px;
+        top: 0;
+        // transform: translateY(-18px);
+        transform: translateY(-40px);
+        // z-index: -1;
+
+        &-indicator {
+            position: absolute;
+        }
+    }
+
+    .info {
+        // margin-bottom: 0.5rem;
+    }
+
+    .action {
+        margin-bottom: 0.5rem;
+    }
+
+    .game-item{
+
+        //三冠王
+        &[class*="crownLevel-"] {
+            // .game-item-inner{
+            .game-item-inner,
+            .game-item-img {
+                &::before {
+                    @include gameCrownLevelPuseudo;
+                    top: -2px;
+                    left: -6px;
+                    
+                }
+
+            }
+
+            &:hover {
+                .game-item-inner {
+                    &::before {
+                        //  opacity: 0; 
+                        // z-index: 5; 
+                        // transform: translate(-110%, -70px) scale(1.13, 1.13);   
+                        // animation: gameCrownAnim 0.35s 0.45s 1 alternate ease-in-out forwards; 
+
+                    }
+                }
+            }
+
+            .game-item-focus {
+                &:hover {
+                    .game-item-img {
+                        // &::before {
+                        //     transform: translate(-110%, -70px) scale(1.13, 1.13);                             
+                        //     animation: gameCrownAnim 0.35s 0.45s 1 alternate ease-in-out forwards;
+                        // }
+                    }
+                }
+            }
+        }
+       
+        //三冠王 - 一冠
+        &.crownLevel-1{
+            //派彩
+            &.crown-Payout{
+                .game-item-inner{
+                    &::before{                       
+                        background-image: url(../images/icon/ico-crown-dog-star-1-payout.svg);                        
+                    }
+                }       
+                .game-item-img{              
+                    &::before{
+                        background-image: url(../images/icon/ico-crown-dog-star-1-payout.svg);
+    
+                    }
+                }
+            }
+
+            //倍率
+            &.crown-Multiplier{
+                .game-item-inner{
+                    &::before{
+                        background-image: url(../images/icon/ico-crown-dog-star-1-multiplier.svg);
+                    }
+                }       
+                .game-item-img{
+                    &::before{
+                        background-image: url(../images/icon/ico-crown-dog-star-1-multiplier.svg);    
+                    }
+                }
+            }
+
+            //轉數
+            &.crown-Spin{
+                .game-item-inner{
+                    &::before{
+                        background-image: url(../images/icon/ico-crown-dog-star-1-spin.svg);
+                    }
+                }       
+                .game-item-img{
+                    &::before{
+                        background-image: url(../images/icon/ico-crown-dog-star-1-spin.svg);    
+                    }
+                }
+            }
+        }
+
+        //三冠王 - 二冠
+        &.crownLevel-2{
+            //派彩 + 倍率
+            &.crown-P-M{
+                .game-item-inner,
+                .game-item-img{
+                    &::before{                       
+                        background-image: url(../images/icon/ico-crown-dog-star-2-payout-multiplier.svg);                        
+                    }
+                }       
+                // .game-item-img{              
+                //     &::before{
+                //         background-image: url(../images/icon/ico-crown-dog-star-1-payout.svg);
+                //     }
+                // }
+            }
+
+            //派彩 + 轉數
+            &.crown-P-S{
+                .game-item-inner,
+                .game-item-img{
+                    &::before{
+                        background-image: url(../images/icon/ico-crown-dog-star-2-payout-spin.svg);                        
+                    }
+                }       
+                // .game-item-img{
+                //     &::before{
+                //         background-image: url(../images/icon/ico-crown-dog-star-1-multiplier.svg);
+    
+                //     }
+                // }
+            }
+
+            //派彩 + 轉數
+            &.crown-M-S{                
+                .game-item-inner,
+                .game-item-img{
+                    &::before{
+                        background-image: url(../images/icon/ico-crown-dog-star-2-multiplier-spin.svg);
+                    }
+                }       
+                // .game-item-img{
+                //     &::before{
+                //         background-image: url(../images/icon/ico-crown-dog-star-2-payout-spin.svg);    
+                //     }
+                // }
+            }
+        }
+
+         //三冠王 - 三冠
+         &.crownLevel-3{
+            .game-item-inner,
+                .game-item-img{
+                    &::before{                       
+                        background-image: url(../images/icon/ico-crown-dog-star-3.svg);                        
+                    }
+            }
+         }
+      
+    }
+     
+    //非移動裝置時，產生 HOVER 效果======================================
+    // .swiper-slide:not(.mobile){
+    .swiper-slide.desktop{        
+        .game-item{
+           
+            .game-item-focus {
+                overflow: hidden; //TEST
+                height: $backgrond-image-hover-height;            
+        
+                //mousehover 遊戲放大效果
+                &:hover {
+                    z-index: 4;
+                    height: auto;
+                    overflow: visible;
+        
+                    .game-item-img {
+                        // overflow: visible ;
+                        // z-index: 4;
+        
+                        // top: -20px;
+                        &::before {
+                            transform: translate(-110%, -70px) scale(1.13, 1.13);                             
+                            animation: gameCrownAnim 0.35s 0.45s 1 alternate ease-in-out forwards;
+                        }
+                       
+                        .img-wrap{                    
+                            // top: -10px;
+                            // transform: translateY(-20px) scale(1.03, 1.03);
+                            // transform: translateY(-33px) scale(1.05, 1.05);
+                            box-shadow: 0 0 10px 0px rgba(#000, .27);
+                            transform: translateY(-48px) scale(1.05, 1.05);
+        
+                            // animation: gameIconAnimOnce 0.3s 1 normal forwards, gameIconAnim 0.65s infinite alternate ease-in-out both;
+                            // animation: gameIconAnim 0.65s 0.55s infinite alternate ease-in-out both;
+                            animation: gameIconAnim 0.6s 0.35s infinite alternate ease-in-out forwards;                    
+                            
+                        }
+        
+                        &:after {
+                            background: rgba(#000, 0.62);
+                            opacity: 0.8;
+                            // bottom: -17px;
+                            // transform: scale(1, 1);
+                            // transform: translateY(7px) scale(1, 1);
+                            
+        
+                            animation: gameIconAnimShadow 0.6s 0.35s infinite alternate ease-in-out both;                   
+        
+                            transform: translateY(-18px) scale(1, 1);
+                        }
+                    }
+        
+                    .game-item-info-detail {
+                        opacity: 1;
+                        
+                        // top: -27px;
+                        // transform: translateY(-27px);
+                        // transform: translateY(-50px);
+                        transform: translateY(-65px);
+                        box-shadow: 0px 0px 8px 2px rgba(#000, 0.2);
+                        
+        
+                        &-indicator {
+                            // box-shadow: 0px 0px 8px 2px rgba(#000, 0.2);
+                        }
+        
+                        &:before{                   
+                        }
+                    }
+                }       
+        
+            }
+
+            //三冠王
+            &[class*="crownLevel-"] {
+                &:hover {                   
+                    .game-item-inner{ 
+                       &::before{
+                         opacity: 0;                      
+                       }
+                   }
+               }
+            }
+        }
+
+        //三冠王-第一個遊戲
+        &:first-child{
+             
+             .game-item[class*="crownLevel-"] {
+                &:hover {                   
+                    .game-item-inner{ 
+                       &::before{
+                        //  opacity: 0; 
+                        // z-index: -1;                     
+                       }
+                   }
+               }
+            }
+
+        }
+
+    }
+
+    .swiper-slide{
+        &:first-child{
+            margin-left: 10px;            
+        }
+        @include media-breakpoint-up(lg){ 
+            &:first-child{
+                margin-left: 15px;
+            }
+        }
+
+    }
+}
+
+
+@mixin gameItemFocus{
+        z-index: 3;
+        height: auto;
+        overflow: visible;
+    
+        .game-item-img {
+            
+            .img-wrap {
+                top: -10px;
+                transform: scale(1.03, 1.03);
+            }
+    
+            &:after {
+                background: rgba(#000, 0.62);
+                bottom: -17px;
+                opacity: 0.8;
+                transform: scale(1, 1);
+            }
+        }
+    
+        .game-item-info-detail {
+            opacity: 1;
+            transform: scale(1, 1);
+            top: -27px;
+            box-shadow: 0px 0px 8px 2px rgba(#000, 0.2);
+           
+    }
+
+}
+
+
+// PC版預設 Hidden ==========
+.gameinfo-hover {
+
+    //預設 置中 樣式
+    .default{
+
+        @include gameItemFocus;
+
+        // z-index: 3;
+        // height: auto;
+        // overflow: visible;
+    
+        // .game-item-img {
+            
+        //     .img-wrap {
+        //         top: -10px;
+        //         transform: scale(1.03, 1.03);
+        //     }
+    
+        //     &:after {
+        //         background: rgba(#000, 0.62);
+        //         bottom: -17px;
+        //         opacity: 0.8;
+        //         transform: scale(1, 1);
+        //     }
+        // }
+    
+        // .game-item-info-detail {
+        //     opacity: 1;
+        //     transform: scale(1, 1);
+        //     top: -27px;
+        //     box-shadow: 0px 0px 8px 2px rgba(#000, 0.2);
+           
+        // }
+        
+    }
+
+    //置左 樣式
+    .sideLeft{
+
+        @include gameItemFocus;
+
+        .game-item-info-detail {
+            left: 0;
+        }
+
+        .game-item-img {           
+            left: auto;
+            transform: translateX(38%);
+        }    
+    }
+    
+    //預設 置右 樣式
+    .sideRight{
+
+        @include gameItemFocus;
+
+        .game-item-info-detail {
+            left: auto;
+            right: 0;
+        }
+
+        .game-item-img {
+            left: auto;
+            right: auto;
+            transform: translateX(-38%);
+        }
+    }
+
+}
+
+
+
+//遊戲 Slider 共用------------
+.game_slider {
+    // overflow-y: visible;
+    // overflow-x: hidden;
+
+    .game-item {
+        // margin-right: 15px;
+    }
+
+    .swiper-slide{
+        transition: all 0.35s linear;
+        // max-width: 200px; 
+
+        
+         
+        //非移動裝置時，產生 HOVER 效果======================================
+        &.desktop{
+            &:last-child{
+                .game-item-info-detail{
+                    left: auto;
+                    right: 0;
+                }
+                .game-item-focus{                   
+                    &:hover{
+                        .game-item-img{
+                            // right: 60px;
+                            left: auto;
+                            right: auto;                            
+                            transform: translateX(-38%);
+                        }
+    
+                    }
+                }
+    
+            }  
+
+            // &:nth-child(1)
+            &:first-child
+            {
+                .game-item-info-detail{                    
+                    // left: 0;
+                    left: 10px !important;
+                }
+                .game-item-focus{                    
+                    &:hover{        
+                        .game-item-img{
+                            left: auto;
+                            // transform: translateX(38%) ;
+                            transform: translateX(46%) !important;
+                        }
+        
+                    }
+                }
+            } 
+
+        }
+        
+        &:only-child{
+            // color: red !important;
+            .game-item-info-detail{                    
+                left: 0 !important;
+            }
+            .game-item-focus{                    
+                &:hover{        
+                    .game-item-img{
+                        left: auto !important;
+                        right: auto !important;
+                        transform: translateX(38%) !important;
+                    }
+    
+                }
+            }
+
+        }
+    }   
+
+    .img-wrap {
+        border-radius: 15px;
+        
+        background: url(../images/icon/image.png) center center no-repeat;
+        background-color: #031d4b;
+        background-size: 60px;
+        
+    }
+
+    
+
+    &.round-arrow {
+        .swiper-button-next {
+            // right: 0;
+            // width: 36px;
+            // height: 36px;
+            // color: #fff;
+            // border-radius: 100%;
+
+            // box-shadow: 0 0 10px rgba(#8999a7, .5);
+            // background: linear-gradient(270deg, #009FE8 5.1%, #4FC8FF 106.12%);
+
+            &::after {
+                // font-size: 15px;
+            }
+        }
+    }
+    
+    
+    
+    //圖片倒影效果 ====================
+    &.swiper-cover{
+
+        padding-bottom: 100px;        
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            // height: 300px;
+           
+            //  -webkit-box-reflect: below 0px linear-gradient(to bottom, transparent 0% , transparent 75%, rgba(0, 0, 0, 0.555) 100%);
+             -webkit-box-reflect: below 0px linear-gradient(to bottom, transparent 0% , transparent 75%, rgba(#000, 0.355) 100%);
+
+             border-radius: 15px;
+            //  overflow: hidden;
+             padding-right: 0;
+           
+            img{
+                width: 100%;
+            }
+        }
+        
+        .game-item{
+            margin: 0;
+
+            &-info{
+                // opacity: 0;
+                // height: 0;
+                position: absolute;
+                // bottom: -80px;
+                bottom: -85px;
+                left: 0;
+                right: 0;
+                text-align: center;
+                min-height: 60px;
+            }
+            &-name{
+                font-size: font-resize(17px);
+                text-align: center;
+                
+                
+                // text-shadow: 0 0 5px rgba(#03206B, .8);
+                // filter: drop-shadow(0px 0px 5px rgba(#011854, .8));
+                // color: #fff;
+                color: #4A4A4A;
+                // text-shadow: 0 0 8px rgba(#fff, .85);
+            }
+        }
+
+        .game-item-name{
+            opacity: 0;
+        }
+    
+        .swiper-slide-active{
+
+            // -webkit-box-reflect: below 0px linear-gradient(to bottom, transparent 0% , transparent 85%, rgba(0, 0, 0, 0.555) 100%);
+            -webkit-box-reflect: below 0px linear-gradient(to bottom, transparent 0% , transparent 75%, rgba(0, 0, 0, 0.155) 100%);
+
+            .game-item-name{
+                opacity: 1;
+            }
+    
+        }
+        
+    }
+
+}
+
+
+.section_randomRem{
+    // background: linear-gradient(180deg, #1B1B1B 0%, #464646 100%);
+    // background: linear-gradient(180deg, rgba(15, 43, 115, 0) 0%, #0D2870 69.79%);
+
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 40.62%, #03206B 40.63%, rgba(15, 43, 115, 0) 97.92%);
+   
+    // color: #fff;
+    // padding: 170px 0 10px;
+
+    .container{
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+
+        
+        margin: 0 auto;
+        // overflow: hidden;
+
+        @include media-breakpoint-up(smg){
+            max-width: 500px;
+        }
+        @include media-breakpoint-up(desc-md){
+            max-width: 540px;
+        }
+        @include media-breakpoint-up(desc-lg){
+            max-width: 650px;
+        }
+        @include media-breakpoint-up(desc-gx){
+            max-width: 780px;
+        }
+        @include media-breakpoint-up(desc-xl){
+            max-width: 860px;
+        }
+        @include media-breakpoint-up(desc-xml){
+            max-width: 960px;
+        }
+        
+        @include media-breakpoint-up(xxl){
+            max-width: 1020px;
+        }
+    }
+    
+    &:before{
+        // content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 40.62%, #03206B 40.63%, rgba(15, 43, 115, 0) 97.92%);
+    }
+
+    .game_wrapper{
+       
+    }
+
+    .swiper-cover{
+        padding-bottom: 100px;
+    }
+    
+    .sec-title-container{
+        justify-content: center;
+        margin-bottom: 30px;    
+    }
+
+    .container{
+        overflow: hidden;
+    }
+
+    .game_slider .img-wrap{
+        box-shadow: 0px 3px 5px 0px rgba(#000, .85);
+    }
+
+    .game-item {
+        //三冠王
+        &[class*="crownLevel-"] {
+
+            .game-item-inner{                
+                    &::before{
+                        content: '';
+                        display: inline-block;
+                        width: 35%;
+                        height: 35%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;                       
+                        background-position: left top;
+                        background-repeat: no-repeat;
+                        background-size: contain;
+                        z-index: 3;
+                        transition: transform 0.45s ease-in-out;                        
+                        transform: translate(-25%, -25%);
+                                          
+                    }
+             }
+        }
+
+        //三冠王 - 一冠
+        &.crownLevel-1{       
+           
+            //派彩
+            &.crown-Payout{
+                .game-item-inner{
+                    &::before{                       
+                        background-image: url(../images/icon/ico-crown-dog-star-1-payout.svg);                        
+                    }
+                } 
+            }
+
+            //倍率
+            &.crown-Multiplier{
+                .game-item-inner{
+                    &::before{  
+                        background-image: url(../images/icon/ico-crown-dog-star-1-multiplier.svg);                        
+                    }
+                }      
+               
+            }
+
+            //轉數
+            &.crown-Spin{
+                .game-item-inner{
+                    &::before{  
+                        background-image: url(../images/icon/ico-crown-dog-star-1-spin.svg);
+                    }
+                }
+            }
+        }
+
+        //三冠王 - 二冠
+        &.crownLevel-2{       
+           
+            //派彩 + 倍率
+            &.crown-P-M{
+                .game-item-inner{
+                    &::before{                       
+                        background-image: url(../images/icon/ico-crown-dog-star-2-payout-multiplier.svg);                           
+                    }
+                } 
+            }
+
+            //派彩 + 轉數
+            &.crown-P-S{
+                .game-item-inner{
+                    &::before{  
+                        background-image: url(../images/icon/ico-crown-dog-star-2-payout-spin.svg);                          
+                    }
+                }      
+               
+            }
+
+           //派彩 + 轉數
+           &.crown-M-S{    
+                .game-item-inner{
+                    &::before{  
+                        background-image: url(../images/icon/ico-crown-dog-star-2-multiplier-spin.svg);
+                    }
+                }
+            }
+        }
+
+        //三冠王 - 三冠
+        &.crownLevel-3{
+            .game-item-inner{
+                &::before{                       
+                    background-image: url(../images/icon/ico-crown-dog-star-3.svg);     
+                }
+            } 
+        }
+
+
+    }
+   
+}
+
+
+// game-item 共用 ----------------
+.game-item-group {
+    display: flex;
+    flex-wrap: wrap;
+    
+
+    &.list-row{
+
+        .game-item {
+            position: relative;
+            width: 100%;
+            margin-bottom: 1rem;
+
+            .gameName{
+                font-size: font-resize(16px);
+                font-weight: bold;
+                overflow: hidden;
+                display: -webkit-box;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                white-space: normal;
+            }
+
+           &-inner{
+              display: flex;
+              flex-flow: row wrap;
+           } 
+
+           &-img{
+              flex: 0 0 80px;
+              margin-right: 0.5rem;
+           } 
+
+           &-info{
+              flex: 1;  
+
+              &-inner{
+                display: flex;
+                justify-content: space-between;
+                height: 100%;
+
+              }
+           }
+
+           
+           &-info-brief{
+               padding-right: 10px;
+               display: flex;
+               flex-flow: row wrap;
+               align-content: space-between;
+               flex: 1;
+
+           }
+
+           &-info-indicator{
+
+               .action{
+                   flex: 0 0 100%;
+                   display: flex;
+                   height: 100%;
+                //    flex-flow: column wrap;
+               }
+               .btn-s-wrapper{
+                   display: flex;
+                   flex-flow: column wrap;
+                   justify-content: space-between;
+                   margin-bottom: 0;
+                   margin-right: 0.5rem;
+               }
+               
+               .btn-play{
+                   border-radius: 20px;
+               }
+
+           }
+
+           &-info-moreInfo{
+               width: 100%;
+
+               .title{
+                font-size: font-resize(13px);
+               }
+               .value{
+                font-size: font-resize(16px);
+               }
+
+            }
+
+            .moreInfo-item-wrapper{
+                display: flex;
+                justify-content: space-between;
+
+            }
+
+        }
+
+    }
+
+    &.list-grid{
+        .game-item {
+            position: relative;
+            padding: 12px;
+            width: calc(100% / 5 - 24px);
+            
+            //HOVER樣式 ---------------
+           
+        }
+
+    } 
+    
+    .game-item{
+        .action{
+            //加入最愛
+            .btn-like{
+                 position: relative;
+                 background-color: rgba(#fff, 0.3);
+                 border-color: rgba(#000, .85);
+                 color: rgba(#000, .8);
+                 top:0;                
+
+                 &:not(.added).desktop{
+                    &:hover{
+                        color: #ff0000;
+                        // color: #0aa3ff; 
+                        .icon-m-favorite:before {
+                            content: 'b';
+                        }                   
+                     }
+                }
+
+    
+                &.added{
+                    color: #ff0000;               
+                    background-color: rgba(#fff, 0.45);
+                }
+            }
+
+        }
+    }
+    
+    
+}
+
+.box-item {
+    position: relative;
+    padding: 0;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    
+    
+    &-link {
+        display: block;
+    }
+    &-container {
+        display: flex;
+        flex-wrap: wrap;
+      
+    }
+    
+
+    &-inner {
+        display: flex;
+        // align-items: center;
+        position: relative;
+        z-index: 2;
+        padding: .75em;
+        background: $white;
+        border: 1px solid rgba(38, 38, 38, 0.1);
+        border-radius: 8px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+       
+        
+        &:hover {
+            box-shadow: 0 8px 40px -12px rgba(0, 0, 0, 0.55);
+            cursor: pointer;
+        }   
+        
+        .btn{
+            background-color: #067eff;
+            
+            width: font-resize(25px);
+            height: font-resize(25px);
+            flex: 0 0 font-resize(25px);
+            justify-content: center;
+            padding-right: 7px;
+            align-self: center;
+
+            .arrow{
+                border-color: #fff;
+            }
+
+        }
+    }
+
+    &-img{
+        flex-shrink: 0;
+        margin: 0 1em 0 0;
+        width: 100px;
+        
+        .img-wrap{
+            border-radius: 8px;
+            padding-bottom: 88%;
+
+            img {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                // -o-object-fit: cover;
+                object-fit: cover;
+                // -o-object-position: center;
+                object-position: center;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    
+   
+    
+    &-detail {
+        // display: inline;
+        margin: 0 3em 0 0;
+        flex: 1;
+    }
+    &-title {
+        font-size: 1.125em;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+    
+    &-desc {
+        // margin: .5em 0 0;
+        font-size: .875em;
+        color: rgba(#444444, 0.8);
+        font-weight: 400;
+
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+  
+   
+    
+    
+   
+}
+
+.triangle {
+    width: 20px;
+    height: 20px;
+    // border: solid 2px #fff;
+    border-radius: 50%;
+    margin-left: 0.5rem; 
+    display: inline-flex;
+    align-items: center; 
+    justify-content: center;
+    position: relative;
+    padding-left: 2px;
+    background-color: #fff;
+  
+    transition: all 0.3s ease;
+
+    &:after {
+        display: block;
+        content: "";
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 5px 0 5px 8.7px;
+        border-color: transparent transparent transparent #067eff;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+}
+
+
+//手機版 遊戲 POPUP ===========
+.popupGameInfo{
+    
+    // margin: 0 auto;
+
+    .modal-dialog{
+        max-width: 360px;
+    }
+    .modal-content, .modal-body{
+        overflow: visible;
+    }
+
+    .game-item-img{
+        max-width: 180px;
+        margin: 0 auto;
+
+        &:after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 15px;
+            border-radius: 50%;
+
+            mix-blend-mode: multiply;
+            filter: blur(5px);
+            margin-top: 10px;
+
+            position: absolute;
+
+            transition: all 0.35s linear 0.08s;
+
+            transform-origin: center bottom;
+
+            background: rgba(#000, 0.4);
+            bottom: -20px;
+        }
+           
+          
+    }
+
+    .game-info-mobile-wrapper{
+        // min-height: 400px;
+        min-height: 340px;
+    }
+
+    .modal-header{
+        border-bottom: none;
+        position: absolute;
+        top: 0;
+        width: 48px;
+        height: 48px;
+        right: 30px;
+        z-index: 99;
+
+        .close{
+            padding: 0;
+            margin: 0;
+            color: #fff;
+            font-size: 2rem;
+            opacity: 1;
+            font-weight: 500;
+            position: absolute;
+            top: 0;
+            right: -10px;
+            z-index: 2;
+        }
+    }
+    .modal-content{
+        background-color: transparent;
+        border: none;
+    }
+
+    .game-item-inner{
+        background-color: transparent;
+    }
+
+    .game-item{
+        //三冠王
+        &[class*="crownLevel-"] {
+            
+            .game-item-info-detail{ 
+                &::after{
+                    content: '';
+                    display: inline-block;
+                    width: 30%;
+                    height: 30%;
+                    min-width: 65px;
+                    max-width: 70px;
+                    position: absolute;
+                    top: -20px;
+                    left: -15px;
+                    // background: url(../images/icon/ico-crown-dog-star-1.svg) left top no-repeat;
+                    background-position: left top;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    z-index: 3;
+                    transition: transform 0.45s ease-in-out;                    
+                    transform: translate(0, 0) scale(1, 1);
+                    // transform: translate(0, 0) scale(1, 1) rotate(0);
+    
+                    background-image: url(../images/icon/ico-crown-dog-star-1.svg);
+                    
+                } 
+            }
+        }
+
+         //三冠王 - 一冠
+         &.crownLevel-1{
+            //派彩
+            &.crown-Payout{
+                .game-item-info-detail{ 
+                    &::after{                       
+                        background-image: url(../images/icon/ico-crown-dog-star-1-payout.svg);                        
+                    }
+                } 
+            }
+
+            //倍率
+            &.crown-Multiplier{
+                .game-item-info-detail{ 
+                    &::after{  
+                        background-image: url(../images/icon/ico-crown-dog-star-1-multiplier.svg);
+                    }
+                }      
+               
+            }
+
+            //轉數
+            &.crown-Spin{
+                .game-item-info-detail{ 
+                    &::after{  
+                        background-image: url(../images/icon/ico-crown-dog-star-1-spin.svg);
+                    }
+                }
+            }
+         }
+
+          //三冠王 - 二冠
+        &.crownLevel-2{       
+           
+            //派彩 + 倍率
+            &.crown-P-M{
+                .game-item-info-detail{ 
+                    &::after{                         
+                        background-image: url(../images/icon/ico-crown-dog-star-2-payout-multiplier.svg);                           
+                    }
+                } 
+            }
+
+            //派彩 + 轉數
+            &.crown-P-S{
+                .game-item-info-detail{ 
+                    &::after{    
+                        background-image: url(../images/icon/ico-crown-dog-star-2-payout-spin.svg);                          
+                    }
+                }      
+               
+            }
+
+           //派彩 + 轉數
+           &.crown-M-S{    
+            .game-item-info-detail{ 
+                &::after{    
+                        background-image: url(../images/icon/ico-crown-dog-star-2-multiplier-spin.svg);
+                    }
+                }
+            }
+        }
+
+        //三冠王 - 三冠
+        &.crownLevel-3{
+            .game-item-info-detail{ 
+                &::after{                         
+                    background-image: url(../images/icon/ico-crown-dog-star-3.svg);     
+                }
+            } 
+        }
+
+     }
+
+    .game-item-info-detail-moreInfo .moreInfo-item .title{
+        font-size: font-resize(10px);        
+    } 
+
+   
+    @media screen and (max-width:breakpoints_BS4(sm)){
+        // .game-item-img{
+        //     max-width: 180px;
+        // }
+    }
+    @media screen and (max-width:320px){
+        .game-item-img{
+            max-width: 150px;
+        }
+    }
+
+
+}
+
+// 遊戲-排名區
+.gameRanking{
+    margin-bottom: 2rem;
+}
+
+// @include media-breakpoint-up(md){
+@include media-breakpoint-up(desc-md) {
+
+    .section-levelUp {
+        // padding-bottom: font-resize(20px);
+    }
+
+    //遊戲 Slider 共用------------
+    .game_slider {
+        .swiper-slide {
+            // max-width: 220px;
+        }
+    }
+
+   // 外部 遊戲資訊   
+   .game-item-info {
+        &-inner {
+            // 外部 遊戲名稱
+            .game-item-name{            
+                font-size: font-resize(14px);
+            } 
+        }      
+   }
+
+   // 遊戲-排名區
+    .gameRanking{
+        margin-bottom: 3rem;
+    }
+
+
+}
+
+// @include media-breakpoint-up(lg){
+@include media-breakpoint-up(desc-lg){
+
+    .game-area{
+        &.overflow-hidden{        
+            
+            > .container{
+                padding-top: 25px;
+                // padding-bottom: 100px;
+            }
+        }
+    }
+
+    // Slider Prev NEXT BUTTON 滑鼠移過效果
+    .swiper-button-next, .swiper-button-prev{
+
+        &,&.swiper-button-disabled{
+            display: inline-block;     
+            color: #fff;
+            opacity: 0;
+        }
+       
+    }
+
+
+    //滑鼠滑過 Button 出現效果 ===============
+    // .game_wrapper 
+    .game_slider 
+    {
+ 
+        &:hover {
+ 
+            .swiper-button-next,
+            .swiper-button-prev {
+                &:not(.swiper-button-disabled) {
+                    opacity: 1;
+                } 
+
+                &.swiper-button-disabled{                  
+                    opacity: 0;
+                }
+            }
+
+
+ 
+            // Slider Prev NEXT BUTTON MASK
+            .game_slider {
+ 
+                // &::before,
+                // &::after {
+                //     opacity: 1; 
+                // }
+ 
+            }
+ 
+        }
+    }
+
+
+    .game-item-mobile-popup{
+        // display: none;
+     }
+
+   // game-item 共用 ----------------
+    .game-item-group {
+        &.list-row{
+        .game-item {
+            width: 50%;            
+        }
+    }
+   }
+
+
+   .game-area.overflow-hidden{
+      padding-bottom: 0px; 
+
+        .categoryPage>.container{
+            // padding-left: 12px;
+           // padding-right: 12px;
+            padding-top: 45px;
+            // padding-bottom: 100px;
+            
+        }
+
+        .container.category-dailypush{
+            padding-bottom: 20px;
+        }    
+   }
+
+}
+
+
+// @include media-breakpoint-up(xl){
+@include media-breakpoint-up(desc-xl){
+
+    .game-item-name{
+        font-size: font-resize(17px);
+    }
+}
+
+@include media-breakpoint-up(desc-xxl){   
+}
+
+@include media-breakpoint-up(xxl){   
+     //遊戲 Slider 共用------------
+     .game_slider {
+        .swiper-slide {
+            // max-width: 240px;
+        }
+    }
+
+     // 外部 遊戲資訊   
+   .game-item-info {
+        &-inner {
+            // 外部 遊戲名稱
+            .game-item-name{            
+                font-size: font-resize(15px);
+            } 
+        }      
+    }
+    //滑鼠滑過 Button 出現效果 ===============
+    .swiper-button-next, .swiper-button-prev{
+        height: calc(100% - 62px); //height + top:52px+10px         
+    }
+
+    //圖片倒影效果 ====================
+    .game_slider.swiper-cover {
+        .game-item-name{
+            font-size: font-resize(20px);
+        }
+
+    }
+
+}
+
+@media screen and (max-width:breakpoints_BS4(smg)){
+    .section-levelUp{
+        .sec-title-wrapper{
+            margin-bottom: 0;
+        }
+    }
+}
+
+
+// 575px以下 =================
+@media screen and (max-width:breakpoints_BS4(smd) - 1){
+    .section-levelUp{
+        .sec-title-wrapper .sec-title{
+            font-size: font-resize(19.5px);
+        }
+    }
+}
+
+// 575px以下 =================
+@media screen and (max-width:breakpoints_BS4(sm)){
+
+    .section-levelUp{
+        .sec-title-wrapper .sec-title{
+            font-size: font-resize(18.5px);
+        }
+    }
+}
+
+
+// 360px以下 =================
+@media screen and (max-width:360px){
+    .section-levelUp{
+        .sec-title-wrapper .sec-title{
+            font-size: font-resize(17.5px);
+        }
+    }
+}
+
+@media (any-hover: none) {
+
+}
+
+@media (any-hover: hover) {
+
+    .game-area.overflow-hidden{                
+          .categoryPage>.container:not(.category-dailypush){
+              padding-bottom: 90px;             
+          }
+     }
+
+     .game-area{
+        &.overflow-hidden{
+            > .container{
+                padding-bottom: 70px;
+            }
+        }
+    }
+}
+
+
+@keyframes gameCrownAnim{
+    0% {        
+        transform: translate(-110%, -70px) scale(1.13, 1.13); 
+    }
+
+    25% {       
+        transform: translate(-110%, -70px) scale(1.3, 1.3);  
+    }
+    50% {       
+        transform: translate(-110%, -70px) scale(0.9, 0.9);  
+    }
+
+    100% {       
+        transform: translate(-110%, -70px) scale(1.13, 1.13); 
+    }
+}
+
+@keyframes gameIconAnimOnce{
+    0% {
+        // transform: translateY(0px); 
+        transform: translateY(0) scale(1, 1);          
+    }
+    
+    100% {
+        // transform: translateY(-33px);
+        transform: translateY(-33px) scale(1.05, 1.05);
+    }
+}
+
+@keyframes gameIconAnim{
+    0% {
+        // transform: translateY(-33px) ;        
+        transform: translateY(-48px) scale(1.05, 1.05);        
+    }
+    
+    100% {
+        // transform: translateY(-38px);
+        transform: translateY(-56px) scale(1.05, 1.05);
+    }
+}
+
+@keyframes gameIconAnimShadow{
+    0% {        
+        transform: translateY(-18px) scale(1, 0.85);
+        opacity: 0.9;
+    }
+
+    100% {       
+        transform: translateY(-18px) scale(0.45, 0.5);
+        opacity: 0.6;       
+    }
+}
+
+@keyframes anim-role_left {
+    0% {
+        opacity: 0;
+        
+        transform: translateY(-30px);
+    }
+    25% {
+        opacity: 1;
+        // -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    90% {
+        opacity: 1;
+        // -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-10px);
+        opacity: 0;        
+       
+    }
+}
+

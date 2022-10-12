@@ -1,0 +1,566 @@
+/* Sidebar Menu為垂直側邊選單時 */
+.vertical-menu {
+
+    .search-bar.mobile{
+        background-color: #fff;
+        border-radius: 50px;
+        position: absolute;
+        width: calc(100% - 65px);
+        right: 10px;
+        top: 12px;
+        padding: 0px 10px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+
+
+
+
+        .text{
+            color: rgba(#000, 0.6);
+        }
+
+        
+        .btn-search{
+
+                // background-color: rgba(#007fbb, 0.95);
+                border-radius: 50%;
+                // position: absolute;
+                top:10px;
+                right: 10px;
+                width: 30px;
+                height: 30px;
+                padding: 10px;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                margin: 3px 0 3px 3px;
+                
+        
+                .icon{
+                    margin: 0 !important;
+                    width: 25px !important;
+                    height: 25px !important;
+        
+                    &:before{                    
+                        background-color: #007fbb;                                
+                    }
+                }
+            
+        } 
+
+        @include media-breakpoint-up(md){
+            display: none;
+        }
+
+    }
+    
+    
+     
+    //Sidebar Menu Content 側選單
+    .navbarMenu.navbar-collapse {
+        //參考資料 ==============================
+        //fill-available
+        // 1.https://www.zhangxinxu.com/wordpress/2016/05/css3-width-max-contnet-min-content-fit-content/
+        // 2.https://medium.com/@littleDog/mobile-view-height%E7%9A%84%E9%80%9A%E9%80%8F%E4%B8%96%E7%95%8C-b896ac234ba9
+
+        display: block;
+        //position: absolute;
+        position: fixed;
+
+        left: 0;
+        width: 100%;
+        max-width: $header-navbarMenu-width;
+
+        height: 100%;
+        top: 0;
+        // overflow-x: hidden;
+        color: #fff;
+
+        transition: all 0.3s ease;
+        
+        transform: translateX(-100%);
+
+        &.show {
+            // transform: translateX(0%);
+        }
+
+        //    top: calc( 0px + constant(safe-area-inset-top)) ;
+        //    top: calc( 0px + env(safe-area-inset-top)) ;
+
+        padding-top: calc(60px + constant(safe-area-inset-top));
+        padding-top: calc(60px + env(safe-area-inset-top));
+
+        padding-bottom: calc(0px + constant(safe-area-inset-bottom));
+        padding-bottom: calc(0px + env(safe-area-inset-bottom));
+
+        overflow-y: auto;
+
+
+        // @include bg-gradient(0deg, $header-navbarMenu-gradient-backgroundColor);
+
+        // background-color: $header-navbarMenu-backgroundColor;
+        background-color: #0199DE;
+
+
+        z-index: $zIndexs-siderbar-collapse;
+
+        // box-shadow: inset 20px 0px 100px 0px rgba(#1c1d21, 0.42), 0 0 16px 2px rgba(#000, 0.38);
+        box-shadow: 0 0 3px 1px rgba(#000, 0.38);
+      
+
+        @include scrollbar(rgba(#c8dbea, 0.4));
+
+        //Firefox Custom Scrollbar =================
+        //scrollbar-width: thin;
+        scrollbar-width: none;
+        scrollbar-color: rgba(#c8dbea, 0.4) transparent;
+
+        &::-webkit-scrollbar {
+            width: 0px;
+        }
+
+
+         // 使用 mask 的 icon
+         .icon-mask {
+            width: font-resize(30px);
+			height: font-resize(30px);
+         }
+
+        >.navbar-nav {
+            // height: fill-available;
+            width: 100%;
+            // height: 100%;
+
+            // flex-flow: row wrap;
+            flex-flow: column nowrap;
+            position: relative;
+            height: 100%;
+            // padding-bottom: 10px;
+
+            overflow-x: hidden;
+            overflow-y: auto;
+            justify-content: space-between;
+
+            //Firefox Custom Scrollbar =================
+            //scrollbar-width: thin;
+            scrollbar-width: none;
+            scrollbar-color: rgba(#c8dbea, 0.4) transparent;
+
+            &::-webkit-scrollbar {
+                width: 0px;
+            }
+
+
+            // position: fixed;
+            // height: fill-available;
+
+            // top: 60px;
+
+            //測試--------------------------
+            // height: calc( 100% - 60px);
+            // position: fixed;
+            // top: calc( 60px + constant(safe-area-inset-top)) ;
+
+            >.nav-item {
+                width: 100%;
+            }
+        }
+
+        .navbarMenu__catagory {
+            border-bottom: solid 1px rgba(#ffffff, 0.25);
+            margin-bottom: 5px;
+            
+
+            .catagory-item {
+                display: block;
+                font-size: font-resize(15px);
+                color: rgba(#c8dbea, 0.8);
+                margin-top: 10px;
+
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
+            //語系切換
+            &.nav-lang{
+                // position: absolute;
+                // bottom: 0;
+                border-bottom: 0;
+
+                // 使用 mask 的 icon
+               .icon-mask {
+                  padding: 2px 2px;
+
+                  &.icon-flag-JP{
+                    position: relative;
+                    &::after{
+                        content: '';
+                        display: inline-flex;
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        width: 25px;
+                        height: 25px;
+                        margin: 0 auto;
+                        background: #fff;
+                        z-index: -1;
+                        border-radius: 50%;
+                    }                   
+                   
+                    // background: #fff;
+                    // border-radius: 50%;
+                    padding: 8px;
+
+                  }
+               }
+
+           }
+        }
+
+        .nav-item{
+
+            
+
+            &.submenu{
+                .nav-link {
+                    position: relative;
+                    align-items: center;
+                    // padding-left: font-resize(16px);
+                    // padding-top: 0.6rem;
+                    // padding-bottom: 0.6rem;
+                    white-space: nowrap;
+
+                    .notify-dot {
+                        top: 10px;
+                        left: 30px;     
+                        
+                        &::after {
+                            border: solid 1px rgba(#fff, 0.18);
+                        }
+                    }
+    
+                    // active + hover Effect --------------
+                    &:before {
+                        // content: "";
+                        display: inline-flex;
+                        width: font-resize(3px);
+                        height: font-resize(35px);
+                        background: rgba(#8193ff, 0.25);
+                        // background: rgba(#bfa578, .6);
+                        margin-right: font-resize(6px);
+                        border-radius: 2px;
+    
+                        transition: all 0.3s ease-out;
+                        transform: scaleY(0);
+                    }
+    
+                 
+                    &:after {
+                        position: absolute;
+                        content: "";
+                        width: 3px;
+                        height: 100%;
+                        // background-color: rgba(#bfa578, 0.1);
+                        background-color: rgba(#383c4d, 0.55);
+                        // border: 1px solid rgba(#bfa578, 1);
+                        border-radius: 1px;
+    
+                        // transform: scaleX(1);
+                        // right: 0;
+                        right: -5px;
+                        top: 0;
+                        transition: all 0.3s ease-out;
+                    }
+
+                    .icon-mask {
+                        &::before {
+                            background-color: #fff;
+                        }
+                    }
+                }
+    
+                &:hover,
+                &.active {
+                    .nav-link {
+                        // color: rgba(#fff, 0.9);
+                        color: rgba(#e3c38d, 0.8);
+                        background: rgba(#000, 0.25);
+    
+    
+                        &:before {
+                            transform: scaleY(1);
+                            background: rgba(#8193ff, 0.35);
+                            // background: rgba(#bfa578, .65);
+                        }
+    
+                        &:after {
+                            // transform: scaleX(1.5);
+                            background-color: rgba(#bfa578, 0.5);
+                            right: 0;
+                            // border-color: rgba(#8193ff, 0.8);
+                        }
+    
+                        .icon {
+                            // color: rgba(#91a1ff, 0.85);;
+                        }
+    
+                        .icon-mask {
+    
+                            &::before {
+                                // background-color: #fff;
+                            }
+    
+                        }
+                    }
+                }
+            }           
+        }
+
+        .tip {
+            display: none;
+        }
+
+        // 使用 mask 的 icon
+        .icon-mask {
+            &::before {
+                // width: font-resize(18px);
+                // height: font-resize(18px);
+            }
+        }
+       
+    }
+    .navbar-toggler{
+        
+        &[aria-expanded=true]{
+            background: transparent;
+        }
+    }
+
+
+    .header_area {
+
+        &.show {
+            background-color: $header-background;
+        }        
+    }
+
+    .header_menu {   
+        transition: all 0.3s ease;      
+
+        .navbar {
+            padding: 0;
+        }
+
+        &.show {
+             //Sidebar Menu Content 側選單
+             .navbarMenu.navbar-collapse {
+                // transform: translateX(0%);
+            }
+
+        }
+    }
+
+    .main_area{
+        transition: all 0.3s ease;
+    }
+
+    &.navbar-show {
+        //Sidebar Menu Content 側選單
+        .navbarMenu.navbar-collapse {
+            transform: translateX(0%);
+        }
+        .navbar-toggler  .icon-bar{
+            background: #fff;
+        }
+       
+    }
+   
+
+    @include media-breakpoint-up(sm) {
+       
+    }
+
+    @include media-breakpoint-up(md) {
+        .navbar-search{
+            display: inherit;
+        }
+        .navbar-toggler {
+            position: fixed;
+            left: 0;
+            z-index: 4;
+
+            .icon-bar {
+                background: #fff;
+            }
+        }
+        
+        .main_area {
+            //預設扣除 SIDEBAR MENU 預設寬度   
+            // padding-left: $header-navbarMenu-width-xl-default;
+        }
+
+        .header_area {
+        }
+
+        .header_menu {
+            // width: calc(100% - #{$header-navbarMenu-width-xl-default});
+            width: 100%;
+            padding-left: $header-navbarMenu-width-xl-default;
+            // width: calc(100% - $header-navbarMenu-width-xl-default);
+            
+                &.show {
+                    //Sidebar Menu Content 側選單
+                    .navbarMenu.navbar-collapse {
+                        // width: $header-navbarMenu-width-xl-expand;
+                   
+                    }
+
+            }
+        }
+
+        .header_topNavBar{
+            width: 100%;
+        }
+
+        /* Sidebar Menu 側邊選單 */
+        .navbarMenu.navbar-collapse {
+
+            transform: translateX(0);
+
+            width: $header-navbarMenu-width-xl-default;
+
+            align-items: flex-start;
+
+            &.show {
+                // width: $header-navbarMenu-width-xl-expand;
+            }
+
+            
+
+            .tip {
+                // display: block;
+                position: absolute;
+                left: 0px;
+                top: 0;
+                width: auto;
+                white-space: nowrap;
+                z-index: 99;
+                // background-color: rgba(#000, 0.5);
+            }
+
+            
+            // 使用 mask 的 icon
+            .icon-mask {
+                // width: 100%;
+                // margin-right: 1rem;
+                margin-right: 17px;
+                margin-left: -6px;               
+            }
+
+           
+
+            // box-shadow: inset 20px 0px 100px 0px rgba(#1c1d21, 0.62), 0 0 70px 0px rgba(#000, 0);
+            // background: linear-gradient(-90deg, rgba(#141a2e, 0.3), rgba(#000, 0.3));
+
+            @include scrollbar(rgba(#c8dbea, 0.4));
+
+            &::-webkit-scrollbar {
+                width: 0px;
+            }
+
+           
+        }
+        &.navbar-show {
+            //Sidebar Menu Content 側選單
+            .navbarMenu.navbar-collapse {
+                width: $header-navbarMenu-width-xl-expand;
+            }
+
+        }
+
+
+    }
+
+    //斷點 1440px以上===============================
+    @include media-breakpoint-up(xl) {
+        
+
+        .header_area {
+            display: flex;
+            justify-content: flex-end;
+
+            .header_menu {
+                height: 100%;
+                // width: calc(100vw - #{$header-navbarMenu-width-xl-default});
+
+                >.navbar .nav-item {
+                    margin-right: 0px;
+                }
+
+                &.show {
+                    // width: calc(100vw - #{ $header-navbarMenu-width-xl-expand});
+
+                    //Sidebar Menu Content 側選單
+                    .navbarMenu.navbar-collapse {
+                        // transform: translateX(0%);
+                    }
+
+                }
+            }
+        }
+
+        /* Sidebar Menu 側邊選單 */
+        .navbarMenu.navbar-collapse {
+            // width: $header-navbarMenu-width;
+            // width: $header-navbarMenu-width-xl-default;
+
+            align-items: flex-start;
+
+            // &.show{
+            //     width: $header-navbarMenu-width-xl-expand;
+            // }
+
+            // box-shadow: inset 20px 0px 100px 0px rgba(#1c1d21, 0.62), 0 0 70px 0px rgba(#000, 0);
+            // background: linear-gradient(-90deg, rgba(#141a2e, 0.3), rgba(#000, 0.3));
+
+            @include scrollbar(rgba(#c8dbea, 0.4));
+
+            &::-webkit-scrollbar {
+                width: 0px;
+            }
+            
+        }
+
+        .main_area {           
+
+            // width: calc(100% - #{$header-navbarMenu-width-xl-default}) !important;
+            // margin-left: $header-navbarMenu-width-xl-default;
+            
+            // padding-left: $header-navbarMenu-width-xl-default;
+        }
+
+        &.navbar-show {
+
+            .main_area {                
+                // width: calc(100% - #{$header-navbarMenu-width-xl-expand}) !important;
+                // margin-left: $header-navbarMenu-width-xl-expand !important;
+                
+                // padding-left: $header-navbarMenu-width-xl-expand;
+            }
+
+            .header_menu {
+                padding-left: $header-navbarMenu-width-xl-expand;
+                // width: calc(100% - $header-navbarMenu-width-xl-expand);
+
+            }
+
+
+        }
+
+        
+
+    }
+
+}

@@ -398,7 +398,7 @@
                         </span>                       
                     </div>
                      <!-- 獎金/禮金 TAB -->
-                     <div class="tab-prize tab-scroller tab-2">
+                     <div class="tab-prize tab-scroller tab-2 tab-primary">
                         <div class="tab-scroller__area">
                             <ul class="tab-scroller__content">
                                 <li class="tab-item active" id="li_bonus1" onclick="GetPromotionCollectAvailable(1)">
