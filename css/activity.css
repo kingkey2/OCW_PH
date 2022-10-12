@@ -68,9 +68,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-size: 1.125rem;
   border-radius: 0.9375rem;
 }
-.activity-item .btn-popup:hover {
-  background: #0085d6;
-}
 .activity-item .info {
   padding: 0.75rem;
   -webkit-box-flex: 1;
