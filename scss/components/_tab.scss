@@ -237,6 +237,7 @@
     max-width: 640px;
 
     margin:0 auto;
+    // background-color: rgba(#858585, .85);
     background-color: rgba(#858585, .85);
     border-radius: 30px;
 
@@ -253,11 +254,13 @@
 
             &.active{
                 color: #fff; 
-                background-color: rgba(#45C5FF, 1);          
+                // background-color: rgba(#45C5FF, 1);          
+                background-color: $tab-primary-item-active-backgroundColor;          
             }
 
             &:not(.active):hover{ 
-                background-color: #369AD6;          
+                // background-color: #369AD6;          
+                background-color: $tab-primary-item-hover-backgroundColor;          
             }
            
         }

@@ -979,7 +979,8 @@ hr{
 		.sec_link{
 			.btn{				
 				&:hover{
-					background-color: #369AD6;
+					// background-color: #369AD6;
+					background-color: $sec-link-btn-hover-backgroundColor;
 				}
 			}
 		}

@@ -141,15 +141,8 @@ $input-radio-button-label-default-padding-right: 10px;
 
 
 
-
-
-
-
 $input-radio-button-label-default-iconcheck-bg: rgba(color_main('black'), .5);
 $input-radio-button-label-default-iconcheck-bg-bordercolor: rgba(color_main('black'), 0.5);
-
-
-
 
 
 $input-radio-button-label-hover-custom-input-radio-txtcolor: rgba(color_main('white'), 1);
@@ -169,10 +162,6 @@ $input-radio-button-label-checked-custom-input-radio-bordercolor: rgba(color_mai
 $input-radio-button-label-checked-iconcheck-bg: rgba(color_main('white'), 1);
 $input-radio-button-label-checked-iconcheck-bg-bordercolor: rgba(color_main('white'), 1);
 $input-radio-button-label-checked-iconcheck-bgcolor: rgba(color_main('theme-main-a-2'), 1);
-
-
-
-
 
 
 //custom checkbox-- default
@@ -264,31 +253,46 @@ $popup-row-border: $body-row-border;
 
 //TAB ==========================
 $tab-game-backgroundColor: color_tab('tab-game-bg');
-
 $tab-game-item-backgroundColor: color_tab('tab-game-default');
-$tab-game-item-backgroundColor-active: color_tab('tab-game-active');
+$tab-game-item-active-backgroundColor: color_tab('tab-game-active');
 $tab-game-item-textShadowColor: color_tab('tab-game-text-shadow');
 
 $tab-game-search-backgroundColor: color_tab('tab-game-search-bg');
 $tab-game-search-boxshadowColor: color_tab('tab-game-search-boxshadow');
 
+$tab-primary-backgroundColor: color_tab('tab-primary-bg');
+$tab-primary-item-hover-backgroundColor: color_tab('tab-primary-hover');
+$tab-primary-item-active-backgroundColor: color_tab('tab-primary-active');
+
 
 //Game Slider Style==========================
 $section-randomRem-backgroundColor: (
     color : (
-      rgba(game_custom('game-custom-randomRem-bg-1'),0),
-      game_custom('game-custom-randomRem-bg-2'), 
-      rgba(game_custom('game-custom-randomRem-bg-3'),0)),   
+      rgba(color_game_custom('game-custom-randomRem-bg-1'),0),
+      color_game_custom('game-custom-randomRem-bg-2'), 
+      rgba(color_game_custom('game-custom-randomRem-bg-3'),0)),   
     positon : (40.62%, 40.63%, 97.92%) 
 );
-$game-forOne-btn-backgroundColor:game_custom('game-custom-forone-btn-bg');
+$game-forOne-btn-backgroundColor:color_game_custom('game-custom-forone-btn-bg');
 
 //Section Title ==========================
-$sec-title-deco-backgroundColor:sec_title('sec-title-deco-bg');
+$sec-title-deco-backgroundColor:color_sec_title('sec-title-deco-bg');
+$sec-link-btn-hover-backgroundColor:color_sec_title('sec-link-btn-bg-hover');
+
+//代理下線會員 ==========================
+$agentDownline-member-mask-icon-backgroundColor:color_agentDownline('member-mask-icon-background');
+$agentDownline-agent-mask-icon-backgroundColor:color_agentDownline('agent-mask-icon-background');
+
+$agentDownline-member-td-stress-backgroundColor:color_agentDownline('member-td-stress-background');
+$agentDownline-agent-td-stress-backgroundColor:color_agentDownline('agent-td-stress-background');
+
+//會員中心 ==========================
+$qrcode-btn-copy-backgroundColor:color_memberCenter('qrcode-btn-background');
+
 
 
 //客制化 表格 MT__tableDiv=================
-$MT-table-thead-th-background: rgba(color_main('theme-main-a-2'), 1);
+$MT-table-thead-th-background: rgba(color_MT_table('thead-th-background'), 1);
 
 //copyright*/
 $copyright-text: rgba(color_main('white'),.5);
