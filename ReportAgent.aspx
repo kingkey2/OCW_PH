@@ -13,11 +13,11 @@
     <title>Maharaja</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/basic.min.css">    
+    <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/record.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
@@ -41,127 +41,61 @@
     var WebInfo;
     var LobbyClient;
     var v = "<%:Version%>";
-    var search_Year_G;
-    var search_Month_G;
-    var search_Year_P;
-    var search_Month_P;
 
-    //#region 遊戲
-    function getPreMonth_Game() {
-        window.parent.API_ShowLoading();
+    function updateAccountingDetail() {
+        var ParentMain = document.getElementById("divAgentReport_P");
+        var ParentMain_M = document.getElementById("divAgentReport_M");
+        ParentMain.innerHTML = "";
+        ParentMain_M.innerHTML = "";
+        document.getElementById("idNoGameData").style.display = "none";
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
 
-        let newSearchDate = new Date(search_Year_G + "/" + search_Month_G + "/01").addMonths(-1);
-
-        search_Year_G = newSearchDate.toString("yyyy/MM/dd").split('/')[0];
-        search_Month_G = newSearchDate.toString("yyyy/MM/dd").split('/')[1];
-
-        let beginDate = newSearchDate.moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-        let endDate = newSearchDate.moveToLastDayOfMonth().toString("yyyy/MM/dd");
-
-        updateGameHistory(beginDate, endDate);
-
-    }
-
-    function getNextMonth_Game() {
-        window.parent.API_ShowLoading();
-
-        let newSearchDate = new Date(search_Year_G + "/" + search_Month_G + "/01").addMonths(1);
-
-        let beginDate;
-        let endDate;
-        //時間超過當月
-        if (Date.compare(newSearchDate, Date.parse("today")) > 0) {
-            beginDate = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-            endDate = Date.today().moveToLastDayOfMonth().toString("yyyy/MM/dd");
-
-            updateGameHistory(beginDate, endDate);
-        } else {
-            beginDate = newSearchDate.moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-            endDate = newSearchDate.moveToLastDayOfMonth().toString("yyyy/MM/dd");
-
-            search_Year_G = newSearchDate.toString("yyyy/MM/dd").split('/')[0];
-            search_Month_G = newSearchDate.toString("yyyy/MM/dd").split('/')[1];
-
-            updateGameHistory(beginDate, endDate);
+        if (startDate == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入起始時間"));
+            return;
         }
 
-    }
+        if (endDate == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入結束時間"));
+            return;
+        }
 
-    function updateGameHistory(startDate, endDate) {
-        var ParentMain = document.getElementById("divGame");
-        ParentMain.innerHTML = "";
-        document.getElementById("idNoGameData").style.display = "none";
-        document.getElementById("idSearchDate_G").innerText = new Date(endDate).toString("yyyy/MM");
-
-        LobbyClient.GetGameOrderSummaryHistoryGroupGameCode(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
+        LobbyClient.GetAccountingDetailBySummaryDate(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
             if (success) {
-                if (o.Result == 0) {
-                    if (o.SummaryList.length > 0) {
-
-                        let totalOrderValue = 0;
-                        let totalRewardValue = 0;
-
-                        for (var i = 0; i < o.SummaryList.length; i++) {
-                            var daySummary = o.SummaryList[i];
+                if (o.ResultState == 0) {
+                    if (o.AgentAccountingList.length > 0) {
+                        for (var i = 0; i < o.AgentAccountingList.length; i++) {
+                            var k = o.AgentAccountingList[i];
                             var RecordDom;
-                            var summaryDate = new Date(daySummary.SummaryDate);
+                            var RecordDom_M;
 
-                            if (daySummary.TotalRewardValue >= 0) {
-                                RecordDom = c.getTemplate("tmpGame_W")
+                            RecordDom = c.getTemplate("tmpAgentReport_P");
+
+                            if (WebInfo.UserInfo.UserAccountType = 0) {
+                                RecordDom_M = c.getTemplate("tmpAgentReport_M");
                             } else {
-                                RecordDom = c.getTemplate("tmpGame_L")
+                                RecordDom_M = c.getTemplate("tmpAgentReport_M_Agent");
                             }
 
-                            c.setClassText(RecordDom, "SummaryDate", null, summaryDate.toString("yyyy/MM/dd"));
-                            c.setClassText(RecordDom, "orderValue", null, new BigNumber(daySummary.OrderValue).toFixed(2));
-                            c.setClassText(RecordDom, "validBet", null, new BigNumber(daySummary.ValidBetValue).toFixed(2));
-                            c.setClassText(RecordDom, "rewardValue", null, new BigNumber(daySummary.RewardValue).toFixed(2));
+                            c.setClassText(RecordDom, "StartDate", null, k.StartDate);
+                            c.setClassText(RecordDom, "EndDate", null, k.EndDate);
+                            c.setClassText(RecordDom, "LoginAccount", null, k.LoginAccount);
+                            c.setClassText(RecordDom, "AccountingName", null, k.AccountingName);
+                            c.setClassText(RecordDom, "UserCommissionProfit", null, new BigNumber(k.UserCommissionProfit).toFixed(2));
 
-                            totalOrderValue = totalOrderValue + daySummary.OrderValue;
-                            totalRewardValue = totalRewardValue + daySummary.RewardValue;
-
-                            RecordDom.dataset.queryDate = daySummary.SummaryDate;
-                            var toggle = RecordDom.querySelector(".btn-toggle")
-                            RecordDom.onclick = (function () {
-                                var nowJQ = $(this);
-                                var summaryDateDom = nowJQ.parents(".record-table-item").get(0);
-                                var queryDate = summaryDateDom.dataset.queryDate;
-
-                                if (summaryDateDom.classList.contains("show")) {
-                                    summaryDateDom.classList.remove("show");
-                                } else {
-                                    summaryDateDom.classList.add("show");
-                                }
-
-
-                                //Loading => 不重複點擊
-                                //Loaded => 只做切換，不重新撈取數據
-                                if (!summaryDateDom.classList.contains("Loading")) {
-                                    if (summaryDateDom.classList.contains("Loaded")) {
-                                        nowJQ.toggleClass('cur');
-                                        nowJQ.parents('.record-table-item').find('.record-table-drop-panel').slideToggle();
-                                    } else {
-                                        summaryDateDom.classList.add("Loading");
-                                        getGameOrderDetail(summaryDateDom, queryDate, function (success) {
-                                            if (success) {
-                                                nowJQ.toggleClass('cur');
-                                                nowJQ.parents('.record-table-item').find('.record-table-drop-panel').slideToggle();
-                                                summaryDateDom.classList.add("Loaded");
-                                            }
-
-                                            summaryDateDom.classList.remove("Loading");
-                                        });
-                                    }
-                                }
-                            }).bind(toggle);
+                            c.setClassText(RecordDom_M, "StartDate_y", null, k.StartDate.split("-")[0]);
+                            c.setClassText(RecordDom_M, "StartDate_m", null, k.StartDate.split("-")[1]);
+                            c.setClassText(RecordDom_M, "StartDate_d", null, k.StartDate.split("-")[2]);
+                            c.setClassText(RecordDom_M, "EndDate_y", null, k.EndDate.split("-")[0]);
+                            c.setClassText(RecordDom_M, "EndDate_m", null, k.EndDate.split("-")[0]);
+                            c.setClassText(RecordDom_M, "EndDate_d", null, k.EndDate.split("-")[0]);
+                            c.setClassText(RecordDom_M, "LoginAccount", null, k.LoginAccount);
+                            c.setClassText(RecordDom_M, "AccountingName", null, k.AccountingName);
+                            c.setClassText(RecordDom_M, "UserCommissionProfit", null, new BigNumber(k.UserCommissionProfit).toFixed(2));
 
                             ParentMain.prepend(RecordDom);
-
-                        }
-
-                        if (startDate.substring(0, startDate.length - 3) == Date.today().moveToFirstDayOfMonth().toString("yyyy/MM")) {
-                            $("#Game_O_1").text(new BigNumber(totalOrderValue).toFixed(2));
-                            $("#Game_R_1").text(new BigNumber(totalRewardValue).toFixed(2));
+                            ParentMain_M.prepend(RecordDom_M);
                         }
 
                         window.parent.API_CloseLoading();
@@ -180,451 +114,6 @@
                 window.parent.API_CloseLoading();
             }
         });
-    }
-
-    function getGameOrderDetail(Dom, QueryDate, cb) {
-        LobbyClient.GetGameOrderHistoryBySummaryDateAndGameCode(WebInfo.SID, Math.uuid(), QueryDate, function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    var panel = Dom.querySelector(".GameDetailDropPanel");
-                    panel.innerHTML = "";
-
-                    if (o.DetailList.length > 0) {
-                        for (var i = 0; i < o.DetailList.length; i++) {
-                            var record = o.DetailList[i];
-
-                            window.parent.API_GetGameLang(WebInfo.Lang, record.GameCode, (function (langText) {
-                                var record = this;
-                                var RecordDom;
-
-                                if (record.RewardValue >= 0) {
-                                    RecordDom = c.getTemplate("tmpGameDetail_W");
-                                } else {
-                                    RecordDom = c.getTemplate("tmpGameDetail_L");
-                                }
-                                let GameBrand = record.GameCode.split('.')[0];
-                                let GameName = record.GameCode.split('.')[1];
-                                c.setClassText(RecordDom, "gameName", null, langText);
-
-                                if (record.GameCode.toUpperCase() == "PP.VS20STARLIGHT") {
-                                    c.setClassText(RecordDom, "gameName", null, "スタァラァトゥ姫");
-                                }
-
-                                RecordDom.querySelector(".gameName").setAttribute("gameLangkey", record.GameCode);
-                                RecordDom.querySelector(".gameName").classList.add("gameLangkey");
-
-                                c.setClassText(RecordDom, "rewardValue", null, new BigNumber(record.RewardValue).toFixed(2));
-                                c.setClassText(RecordDom, "orderValue", null, new BigNumber(record.OrderValue).toFixed(2));
-                                c.setClassText(RecordDom, "validBet", null, new BigNumber(record.ValidBetValue).toFixed(2));
-
-                                let GI_img = RecordDom.querySelector(".gameimg");
-
-                                if (GameBrand == "EWin") {
-                                    c.setClassText(RecordDom, "gameName", null, "EWinゲーミング");
-                                    GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/EWinGaming.png";
-                                } else {
-                                    GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/" + GameName + ".png";
-                                }
-
-                                panel.appendChild(RecordDom);
-                            }).bind(record))
-                        }
-
-                        if (cb) {
-                            cb(true);
-                        }
-                    } else {
-                        //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
-
-                        if (cb) {
-                            cb(false);
-                        }
-                    }
-
-                } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("取得資料失敗"));
-
-                    if (cb) {
-                        cb(false);
-                    }
-                }
-            } else {
-                if (cb) {
-                    cb(false);
-                }
-            }
-        });
-    }
-    //#endregion 
-
-    //#region 出入金
-    function getPreMonth_Payment() {
-        window.parent.API_ShowLoading();
-
-        let newSearchDate = new Date(search_Year_P + "/" + search_Month_P + "/01").addMonths(-1);
-
-        search_Year_P = newSearchDate.toString("yyyy/MM/dd").split('/')[0];
-        search_Month_P = newSearchDate.toString("yyyy/MM/dd").split('/')[1];
-
-        let beginDate = newSearchDate.moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-        let endDate = newSearchDate.moveToLastDayOfMonth().toString("yyyy/MM/dd");
-
-        updatePaymentHistory(beginDate, endDate);
-
-    }
-
-    function getNextMonth_Payment() {
-        window.parent.API_ShowLoading();
-
-        let newSearchDate = new Date(search_Year_P + "/" + search_Month_P + "/01").addMonths(1);
-
-        let beginDate;
-        let endDate;
-        //時間超過當月
-        if (Date.compare(newSearchDate, Date.parse("today")) > 0) {
-            beginDate = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-            endDate = Date.today().moveToLastDayOfMonth().toString("yyyy/MM/dd");
-
-            updatePaymentHistory(beginDate, endDate);
-        } else {
-            beginDate = newSearchDate.moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-            endDate = newSearchDate.moveToLastDayOfMonth().toString("yyyy/MM/dd");
-
-            search_Year_P = newSearchDate.toString("yyyy/MM/dd").split('/')[0];
-            search_Month_P = newSearchDate.toString("yyyy/MM/dd").split('/')[1];
-
-            updatePaymentHistory(beginDate, endDate);
-        }
-
-    }
-
-    function updatePaymentHistory(startDate, endDate) {
-
-        //減1小時進ewin做搜尋
-        startDate = c.addHours(startDate + " 00:00", -1).format("yyyy/MM/dd");
-
-        var ParentMain = document.getElementById("divPayment");
-        var ParentMain_M = document.getElementById("divPayment_M");
-        ParentMain.innerHTML = "";
-        ParentMain_M.innerHTML = "";
-        document.getElementById("idSearchDate_P").innerText = new Date(endDate).toString("yyyy/MM");
-
-        p.GetPaymentHistory(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    var RecordDom;
-                    var RecordDom_M;
-                    let Amount;
-
-                    if (o.NotFinishDatas.length > 0) {
-                        for (var j = 0; j < o.NotFinishDatas.length; j++) {
-                            var record = o.NotFinishDatas[j];
-                            if (record.PaymentType == 0) {
-                                RecordDom = c.getTemplate("tmpPayment_D");
-                                RecordDom_M = c.getTemplate("tmpPayment_M_D");
-                            } else {
-                                RecordDom = c.getTemplate("tmpPayment_W");
-                                RecordDom_M = c.getTemplate("tmpPayment_M_W");
-                            }
-
-                            var paymentRecordText;
-                            var BasicType;
-
-                            paymentRecordStatus = 0;
-                            paymentRecordText = mlp.getLanguageKey('進行中');
-                            $(RecordDom_M).find('.processing').show();
-                            $(RecordDom).find('.processing').show();
-
-                            $(RecordDom_M).addClass('order-processing');
-                            $(RecordDom).addClass('order-processing');
-                            // 0=一般/1=銀行卡/2=區塊鏈
-                            switch (record.BasicType) {
-                                case 0:
-                                    BasicType = mlp.getLanguageKey('一般');
-                                    break;
-                                case 1:
-                                    BasicType = mlp.getLanguageKey('銀行卡');
-                                    break;
-                                case 2:
-                                    BasicType = mlp.getLanguageKey('區塊鏈');
-                                    break;
-                                default:
-                            }
-
-                            if (record.PaymentType == 0) {
-                                Amount = record.Amount;
-                            } else {
-                                Amount = record.Amount * -1;
-                            }
-
-                            //金額處理
-                            var countDom = RecordDom.querySelector(".amount");
-                            var countDom_M = RecordDom_M.querySelector(".amount");
-                            if (Amount >= 0) {
-                                countDom.classList.add("positive");
-                                countDom.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
-
-                                countDom_M.classList.add("positive");
-                                countDom_M.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
-                            } else {
-                                countDom.classList.add("negative");
-                                countDom.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
-
-                                countDom_M.classList.add("negative");
-                                countDom_M.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
-                            }
-
-                            c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
-                            c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.CreateDate, 1).format("yyyy/MM/dd hh:mm:ss"));
-                            c.setClassText(RecordDom, "BasicType", null, BasicType);
-                            c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
-
-                            c.setClassText(RecordDom_M, "PaymentStatus", null, paymentRecordText);
-                            c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.CreateDate, 1).format("yyyy/MM/dd hh:mm:ss"));
-                            c.setClassText(RecordDom_M, "BasicType", null, BasicType);
-                            c.setClassText(RecordDom_M, "PaymentSerial", null, record.PaymentSerial);
-
-                            let paymentSerial = record.PaymentSerial;
-                            let paymentType = record.PaymentType;
-                            var toggle = RecordDom_M.querySelector(".btn-toggle");
-
-                            RecordDom_M.onclick = (function () {
-                                if (paymentType == 0) {
-                                    window.parent.API_LoadPage('DepositDetail', 'DepositDetail.aspx?PS=' + paymentSerial, true);
-                                } else {
-                                    window.parent.API_LoadPage('WtihdrawalDetail', 'WtihdrawalDetail.aspx?PS=' + paymentSerial, true);
-                                }
-                            }).bind(toggle);
-
-                            RecordDom.onclick = (function () {
-                                if (paymentType == 0) {
-                                    window.parent.API_LoadPage('DepositDetail', 'DepositDetail.aspx?PS=' + paymentSerial, true);
-                                } else {
-                                    window.parent.API_LoadPage('WtihdrawalDetail', 'WtihdrawalDetail.aspx?PS=' + paymentSerial, true);
-                                }
-                            })
-
-                            $(RecordDom).find('.inputPaymentSerial').val(record.PaymentSerial);
-                            $(RecordDom_M).find('.inputPaymentSerial').val(record.PaymentSerial);
-
-                            ParentMain.appendChild(RecordDom);
-                            ParentMain_M.appendChild(RecordDom_M);
-                        }
-                    }
-
-                    if (o.Datas.length > 0) {
-                        for (var i = 0; i < o.Datas.length; i++) {
-                            var record = o.Datas[i];
-                            if (record.PaymentType == 0) {
-                                RecordDom = c.getTemplate("tmpPayment_D");
-                                RecordDom_M = c.getTemplate("tmpPayment_M_D");
-                            } else {
-                                RecordDom = c.getTemplate("tmpPayment_W");
-                                RecordDom_M = c.getTemplate("tmpPayment_M_W");
-                            }
-
-                            //ewin資料存GMT+8，取出後改+9看是否該資料符合搜尋區間
-                            if (c.addHours(record.FinishDate, 1).format("MM") == search_Month_P) {
-                                var paymentRecordText;
-                                var BasicType;
-
-                                switch (record.PaymentFlowType) {
-                                    case 2:
-                                        paymentRecordStatus = 2;
-                                        paymentRecordText = mlp.getLanguageKey('完成');
-                                        $(RecordDom_M).find('.success').show();
-                                        $(RecordDom).find('.success').show();
-                                        $(RecordDom_M).removeClass('order-processing');
-                                        $(RecordDom).removeClass('order-processing');
-                                        break;
-                                    case 3:
-                                        if (record.BasicType == 1) {
-                                            paymentRecordText = mlp.getLanguageKey('審核拒絕');
-                                        } else {
-                                            paymentRecordText = mlp.getLanguageKey('主動取消');
-                                        }
-                                        paymentRecordStatus = 3;
-                                        $(RecordDom_M).find('.fail').show();
-                                        $(RecordDom).find('.fail').show();
-                                        $(RecordDom_M).removeClass('order-processing');
-                                        $(RecordDom).removeClass('order-processing');
-                                        break;
-                                    case 4:
-                                        paymentRecordStatus = 4;
-                                        paymentRecordText = mlp.getLanguageKey('審核拒絕');
-                                        $(RecordDom_M).find('.fail').show();
-                                        $(RecordDom).find('.fail').show();
-                                        $(RecordDom_M).removeClass('order-processing');
-                                        $(RecordDom).removeClass('order-processing');
-                                        break;
-                                }
-
-                                // 0=一般/1=銀行卡/2=區塊鏈
-                                switch (record.BasicType) {
-                                    case 0:
-                                        BasicType = mlp.getLanguageKey('一般');
-                                        break;
-                                    case 1:
-                                        BasicType = mlp.getLanguageKey('銀行卡');
-                                        break;
-                                    case 2:
-                                        BasicType = mlp.getLanguageKey('區塊鏈');
-                                        break;
-                                    default:
-                                }
-
-                                if (record.PaymentType == 0) {
-                                    Amount = record.Amount;
-                                } else {
-                                    Amount = record.Amount * -1;
-                                }
-
-                                //金額處理
-                                var countDom = RecordDom.querySelector(".amount");
-                                var countDom_M = RecordDom_M.querySelector(".amount");
-                                if (Amount >= 0) {
-                                    countDom.classList.add("positive");
-                                    countDom.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
-
-                                    countDom_M.classList.add("positive");
-                                    countDom_M.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
-                                } else {
-                                    countDom.classList.add("negative");
-                                    countDom.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
-
-                                    countDom_M.classList.add("negative");
-                                    countDom_M.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
-                                }
-
-                                c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
-                                c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.FinishDate, 1).format("yyyy/MM/dd hh:mm:ss"));
-                                c.setClassText(RecordDom, "BasicType", null, BasicType);
-                                c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
-
-                                c.setClassText(RecordDom_M, "PaymentStatus", null, paymentRecordText);
-                                c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.FinishDate, 1).format("yyyy/MM/dd hh:mm:ss"));
-                                c.setClassText(RecordDom_M, "BasicType", null, BasicType);
-                                c.setClassText(RecordDom_M, "PaymentSerial", null, record.PaymentSerial);
-
-                                var toggle = RecordDom_M.querySelector(".btn-toggle");
-                                RecordDom_M.onclick = (function () {
-                                    var nowJQ = $(this);
-                                    var parentTarget = nowJQ.parents('.record-table-item');
-                                    nowJQ.toggleClass('cur');
-                                    parentTarget.find('.record-table-drop-panel').slideToggle();
-
-                                    if (parentTarget.hasClass("show")) {
-                                        parentTarget.removeClass("show");
-                                    } else {
-                                        parentTarget.addClass("show");
-                                    }
-                                }).bind(toggle);
-
-                                $(RecordDom).find('.inputPaymentSerial').val(record.PaymentSerial);
-                                $(RecordDom_M).find('.inputPaymentSerial').val(record.PaymentSerial);
-
-                                ParentMain.appendChild(RecordDom);
-                                ParentMain_M.appendChild(RecordDom_M);
-
-                                if ($(ParentMain).length == 0) {
-                                    //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
-                                }
-                            }
-                        }
-                    }
-
-                    if (o.Datas.length == 0 && o.NotFinishDatas.length == 0) {
-                        if (WebInfo.DeviceType == 1) {
-                            $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
-                        } else {
-                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
-                        }
-
-                        //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
-                        window.parent.API_CloseLoading();
-                    } else {
-                        if (WebInfo.DeviceType == 1) {
-                            $("#divPayment_M").show();
-                        } else {
-                            $("#divPayment").show();
-                        }
-                    }
-
-                    window.parent.API_CloseLoading();
-                } else {
-                    if (WebInfo.DeviceType == 1) {
-                        $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
-                    } else {
-                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
-                    }
-                    //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
-                    window.parent.API_CloseLoading();
-                }
-            } else {
-                // 忽略 timeout 
-            }
-        });
-    }
-    //#endregion
-
-    function GetUserTwoMonthSummaryData() {
-        LobbyClient.GetUserTwoMonthSummaryData(WebInfo.SID, Math.uuid(), function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    for (var i = 0; i < o.GameResult.length; i++) {
-                        $("#Game_O_" + i).text(new BigNumber(o.GameResult[i].OrderValue).toFixed(2));
-                        $("#Game_R_" + i).text(new BigNumber(o.GameResult[i].RewardValue).toFixed(2));
-                    }
-
-                    for (var j = 0; j < o.PaymentResult.length; j++) {
-                        $("#Paymeny_D_" + j).text(new BigNumber(o.PaymentResult[j].DepositAmount).toFixed(2));
-                        $("#Paymeny_W_" + j).text(new BigNumber(o.PaymentResult[j].WithdrawalAmount).toFixed(2));
-                    }
-                } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("取得資料失敗"));
-                }
-            } else {
-            }
-        });
-    }
-
-    function showRecord(type) {
-        window.parent.API_ShowLoading();
-        let searchDate;
-        let beginDate;
-        let endDate;
-
-        if (type == 1) {
-            $("#div_Payment").hide();
-            $("#div_Game").show();
-
-            $("#tabRecordPayment").removeClass("active"); //TEST
-            $("#tabRecordGame").addClass("active"); //TEST
-            $("#divOverviewPayment").removeClass("active"); //TEST
-            $("#divOverviewGame").addClass("active"); //TEST
-
-            searchDate = new Date(search_Year_G + "/" + search_Month_G + "/01");
-
-            beginDate = searchDate.moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-            endDate = searchDate.moveToLastDayOfMonth().toString("yyyy/MM/dd");
-
-            updateGameHistory(beginDate, endDate);
-        } else {
-            $("#div_Payment").show();
-            $("#div_Game").hide();
-
-            $("#tabRecordGame").removeClass("active"); //TEST
-            $("#tabRecordPayment").addClass("active"); //TEST
-            $("#divOverviewGame").removeClass("active"); //TEST
-            $("#divOverviewPayment").addClass("active"); //TEST
-
-            searchDate = new Date(search_Year_P + "/" + search_Month_P + "/01");
-
-            beginDate = searchDate.moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-            endDate = searchDate.moveToLastDayOfMonth().toString("yyyy/MM/dd");
-
-            updatePaymentHistory(beginDate, endDate);
-        }
     }
 
     function copyText(tag) {
@@ -662,20 +151,7 @@
     }
 
     function updateBaseInfo() {
-        let now_date = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-        let beginDate;
-        let endDate;
 
-        search_Year_G = now_date.split('/')[0];
-        search_Month_G = now_date.split('/')[1];
-        search_Year_P = now_date.split('/')[0];
-        search_Month_P = now_date.split('/')[1];
-
-        beginDate = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-        endDate = Date.today().moveToLastDayOfMonth().toString("yyyy/MM/dd");
-
-        updatePaymentHistory(beginDate, endDate);
-        GetUserTwoMonthSummaryData();
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -722,6 +198,15 @@
             window.parent.API_LoadingEnd();
 
             if (p != null) {
+
+                if (WebInfo.DeviceType == 1) {
+                    $("#divAgentReport_M").show();
+                    $("#divAgentReport").hide();
+                } else {
+                    $("#divAgentReport_M").hide();
+                    $("#divAgentReport").show();
+                }
+
                 updateBaseInfo();
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
@@ -768,19 +253,13 @@
                             <span class="data">
                                 <span class="number">2021</span>
                                 <span class="unit language_replace">位</span>
-                            </span>                            
+                            </span>
                         </div>
                     </div>
                     <div class="agentDownline-member-wrapper">
                         <ul class="agentDownline-member-list">
                             <!-- 若member為 agent => class=>agent -->
                             <li class="member-item agent">
-                               <span class="member-inner">
-                                    <i class="icon icon-mask icon-people"></i>
-                                    <span class="member-account">eddie1234@kingkey.com.tw</span>
-                               </span>
-                            </li>
-                            <li class="member-item">
                                 <span class="member-inner">
                                     <i class="icon icon-mask icon-people"></i>
                                     <span class="member-account">eddie1234@kingkey.com.tw</span>
@@ -822,11 +301,17 @@
                                     <span class="member-account">eddie1234@kingkey.com.tw</span>
                                 </span>
                             </li>
-                           
+                            <li class="member-item">
+                                <span class="member-inner">
+                                    <i class="icon icon-mask icon-people"></i>
+                                    <span class="member-account">eddie1234@kingkey.com.tw</span>
+                                </span>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
-            </section>   
+            </section>
 
 
             <!-- 紀錄 - Table -->
@@ -841,21 +326,21 @@
                             <div class="form-group col-6 col-smd-4 col-md-auto">
                                 <label class="form-title language_replace">起始日期</label>
                                 <div class="input-group">
-                                    <input id="" type="date" name="" class="form-control custom-style">
+                                    <input id="startDate" type="date" name="" class="form-control custom-style">
                                 </div>
                             </div>
                             <div class="form-group col-6 col-smd-4 col-md-auto">
                                 <label class="form-title language_replace">結束日期</label>
                                 <div class="input-group">
-                                    <input id="" type="date" name="" class="form-control custom-style">
+                                    <input id="endDate" type="date" name="" class="form-control custom-style">
                                 </div>
                             </div>
                             <div class="form-group col-12 col-smd-4 col-md-auto">
-                                <button type="button" class="btn btn-full-main btn-roundcorner btn-sm">
-                                    <span class="language_replace" >検索</span>
+                                <button type="button" class="btn btn-full-main btn-roundcorner btn-sm" onclick="updateAccountingDetail()">
+                                    <span class="language_replace">検索</span>
                                 </button>
                             </div>
-                            
+
                         </div>
                     </div>
                     <!-- PC 版 -->
@@ -870,135 +355,21 @@
                             </div>
                         </div>
                         <!-- tbody -->
-                        <div class="Tbody" id="">
-                            <div class="tbody__tr">
-                                <div class="tbody__td td-date">
-                                    <span class="td__content">
-                                        <span class="date-period">
-                                            <span class="date-start">2022/10/4</span>~<span class="date-end">2022/10/30</span>
-                                        </span>
-                                    </span>
-                                </div>
-                                <div class="tbody__td td-account">
-                                    <span class="td__content"><span class="">Eddie1234@kingkey.com.tw</span></span>
-                                </div>
+                        <div class="Tbody" id="divAgentReport_P">
 
-                                <div class="tbody__td td-project">
-                                    <span class="td__content">
-                                        <span class="">9/20 結算測試</span></span>
-                                </div>
-                                <div class="tbody__td td-amount td-number">
-                                    <span class="td__content"><span class="amount positive">100000.00</span></span>
-                                </div>
-                            </div>
-                            <div class="tbody__tr">
-                                <div class="tbody__td td-date">
-                                    <span class="td__content">
-                                        <span class="date-period">
-                                            <span class="date-start">2022/10/4</span>~<span class="date-end">2022/10/30</span>
-                                        </span>
-                                    </span>
-                                </div>
-                                <div class="tbody__td td-account">
-                                    <span class="td__content"><span class="">Eddie1234@kingkey.com.tw</span></span>
-                                </div>
-
-                                <div class="tbody__td td-project">
-                                    <span class="td__content">
-                                        <span class="">9/20 結算測試</span></span>
-                                </div>
-                                <div class="tbody__td td-amount td-number">
-                                    <span class="td__content"><span class="amount positive">100000.00</span></span>
-                                </div>
-                            </div>                            
+                            
                         </div>
                     </div>
 
                     <!-- MOBILE 版-->
                     <div class="record-table-container">
                         <div class="record-table record-agentDownline">
-                            <div class="record-table-item">
-                                <div class="record-table-tab">
-                                    <!-- 日期 -->
-                                    <div class="record-table-cell td-date">
-                                        <span class="date-period">
-                                            <span class="date-start">
-                                                <span class="year">2022</span>
-                                                <span class="month">06</span>
-                                                <span class="day">14</span>
-                                            </span>
-                                            <span class="date-end">
-                                                <span class="year">2022</span>
-                                                <span class="month">06</span>
-                                                <span class="day">14</span>
-                                            </span>
-                                        </span>
-                                    </div>
-                                    <div class="record-table-wrapper">
-                                        <!-- 帳號 -->
-                                        <div class="record-table-cell td-account">
-                                            <span class="title"><i class="icon icon-mask icon-people"></i></span>
-                                            <span class="data">Eddie1234@kingkey.com.tw</span>
-                                        </div>
-                                        <div class="td-wrapper">
-                                            <!-- 結算計畫 -->
-                                            <div class="record-table-cell td-project">
-                                                <span class="title"><i class="icon icon-mask icon-flag"></i></span>
-                                                <span class="data">結算測試 project</span>
-                                            </div>
-                                            <!-- 結算計畫 -->
-                                            <div class="record-table-cell td-commission">
-                                                <span class="title">
-                                                    <span class="text language_replace">傭金</span>
-                                                </span>
-                                                <span class="data number">3000.00</span>
-                                            </div>
-                                        </div>
-                                    </div>                    
-                                </div>
-                            </div>
+
                             <!-- 若 member為 agent => class=>agent -->
-                            <div class="record-table-item agent">
-                                <div class="record-table-tab">
-                                    <!-- 日期 -->
-                                    <div class="record-table-cell td-date">
-                                        <span class="date-period">
-                                            <span class="date-start">
-                                                <span class="year">2022</span>
-                                                <span class="month">06</span>
-                                                <span class="day">14</span>
-                                            </span>
-                                            <span class="date-end">
-                                                <span class="year">2022</span>
-                                                <span class="month">06</span>
-                                                <span class="day">14</span>
-                                            </span>
-                                        </span>
-                                    </div>
-                                    <div class="record-table-wrapper">
-                                        <!-- 帳號 -->
-                                        <div class="record-table-cell td-account">
-                                            <span class="title"><i class="icon icon-mask icon-people"></i></span>
-                                            <span class="data">Eddie1234@kingkey.com.tw</span>
-                                        </div>
-                                        <div class="td-wrapper">
-                                            <!-- 結算計畫 -->
-                                            <div class="record-table-cell td-project">
-                                                <span class="title"><i class="icon icon-mask icon-flag"></i></span>
-                                                <span class="data">結算測試 project</span>
-                                            </div>
-                                            <!-- 結算計畫 -->
-                                            <div class="record-table-cell td-commission">
-                                                <span class="title">
-                                                    <span class="text language_replace">傭金</span>
-                                                </span>
-                                                <span class="data number">3000.00</span>
-                                            </div>
-                                        </div>
-                                    </div>                    
-                                </div>
+                            <div id="divAgentReport_M">
+
                             </div>
-                           
+
                             <div class="no-Data" id="idNoGameData" style="display: none;">
                                 <div class="data">
                                     <span class="text language_replace">沒有資料</span>
@@ -1006,20 +377,127 @@
                             </div>
                         </div>
                     </div>
-              </div>
-             </section>
+                </div>
+            </section>
         </div>
     </main>
 
     <!-- 推廌會員管理 -->
-   
+
 
     <!-- 代理報表 -->
-    
+
 
     <!-- 代理報表 手機-->
-   
-   
+
+    <div id="tmpAgentReport_P" style="display: none">
+        <div class="tbody__tr">
+            <div class="tbody__td td-date">
+                <span class="td__content">
+                    <span class="date-period">
+                        <span class="date-start StartDate">2022/10/4</span>~<span class="date-end EndDate">2022/10/30</span>
+                    </span>
+                </span>
+            </div>
+            <div class="tbody__td td-account">
+                <span class="td__content"><span class="LoginAccount">Eddie1234@kingkey.com.tw</span></span>
+            </div>
+
+            <div class="tbody__td td-project">
+                <span class="td__content">
+                    <span class="AccountingName">9/20 結算測試</span></span>
+            </div>
+            <div class="tbody__td td-amount td-number">
+                <span class="td__content"><span class="amount positive UserCommissionProfit">100000.00</span></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="tmpAgentReport_M" style="display: none">
+        <div class="record-table-item">
+            <div class="record-table-tab">
+                <!-- 日期 -->
+                <div class="record-table-cell td-date">
+                    <span class="date-period">
+                        <span class="date-start">
+                            <span class="year StartDate_y">2022</span>
+                            <span class="month StartDate_m">06</span>
+                            <span class="day StartDate_d">14</span>
+                        </span>
+                        <span class="date-end">
+                            <span class="year EndDate_y">2022</span>
+                            <span class="month EndDate_m">06</span>
+                            <span class="day EndDate_d">14</span>
+                        </span>
+                    </span>
+                </div>
+                <div class="record-table-wrapper">
+                    <!-- 帳號 -->
+                    <div class="record-table-cell td-account">
+                        <span class="title"><i class="icon icon-mask icon-people"></i></span>
+                        <span class="data LoginAccount">Eddie1234@kingkey.com.tw</span>
+                    </div>
+                    <div class="td-wrapper">
+                        <!-- 結算計畫 -->
+                        <div class="record-table-cell td-project">
+                            <span class="title"><i class="icon icon-mask icon-flag"></i></span>
+                            <span class="data AccountingName">結算測試 project</span>
+                        </div>
+                        <!-- 結算計畫 -->
+                        <div class="record-table-cell td-commission">
+                            <span class="title">
+                                <span class="text language_replace">傭金</span>
+                            </span>
+                            <span class="data number UserCommissionProfit">3000.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tmpAgentReport_M_Agent" style="display: none">
+        <div class="record-table-item agent">
+            <div class="record-table-tab">
+                <!-- 日期 -->
+                <div class="record-table-cell td-date">
+                    <span class="date-period">
+                        <span class="date-start">
+                            <span class="year">2022</span>
+                            <span class="month">06</span>
+                            <span class="day">14</span>
+                        </span>
+                        <span class="date-end">
+                            <span class="year">2022</span>
+                            <span class="month">06</span>
+                            <span class="day">14</span>
+                        </span>
+                    </span>
+                </div>
+                <div class="record-table-wrapper">
+                    <!-- 帳號 -->
+                    <div class="record-table-cell td-account">
+                        <span class="title"><i class="icon icon-mask icon-people"></i></span>
+                        <span class="data LoginAccount">Eddie1234@kingkey.com.tw</span>
+                    </div>
+                    <div class="td-wrapper">
+                        <!-- 結算計畫 -->
+                        <div class="record-table-cell td-project">
+                            <span class="title"><i class="icon icon-mask icon-flag"></i></span>
+                            <span class="data AccountingName">結算測試 project</span>
+                        </div>
+                        <!-- 結算計畫 -->
+                        <div class="record-table-cell td-commission">
+                            <span class="title">
+                                <span class="text language_replace">傭金</span>
+                            </span>
+                            <span class="data number UserCommissionProfit">3000.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

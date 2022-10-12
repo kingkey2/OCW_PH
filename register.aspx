@@ -541,7 +541,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">密碼</label>
                             <div class="input-group">
-                                <input id="idLoginPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
+                                <input id="idLoginPassword" name="LoginPassword" style="letter-spacing:0 !important" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
                                 <div class="invalid-feedback language_replace">請輸入密碼</div>
                             </div>
                             <button class="btn btn-icon" type="button" onclick="showPassword('idLoginPassword')">
@@ -551,7 +551,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">確認密碼</label>
                             <div class="input-group">
-                                <input id="idLoginCheckPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
+                                <input id="idLoginCheckPassword" name="LoginPassword" style="letter-spacing:0 !important" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
                                 <div class="invalid-feedback language_replace">確認密碼</div>
                             </div>
                             <button class="btn btn-icon" type="button" onclick="showPassword('idLoginCheckPassword')">
@@ -582,18 +582,14 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md">
-                                <label class="form-title">
-                                    姓
-                                    <span class="form-title-note language_replace">(羅馬字)</span></label>
+                                <label class="form-title language_replace">姓(羅馬字)</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
                             <div class="form-group col-md">
-                                <label class="form-title">
-                                    名
-                                    <span class="form-title-note language_replace">(羅馬字)</span></label>
+                                <label class="form-title language_replace">名(羅馬字)</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
                                     <div class="invalid-feedback language_replace">提示</div>
@@ -668,7 +664,7 @@
                     <div class="form-group">
                         <div class="LineOfficialQrcode">
                             <p class="QrCode"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6AQAAAACgl2eQAAABrklEQVR4Xu2YXYrDMAyEBT5AjuSr+0g+gEGrmXHYbFna1w5YuMGRvpdBP3Ya+d5GvHpe7ACyA8gOICMwouwaOXtcyTUWXIrZAPVbVzaSbfZVwLX9RkCJohOrZQZfIdwPQJoqWjKdgYHQlVQKvXZAsuSCZUb/+Lcmvxyo7MRdcnvBpZgLINvZgcDZH14ngMWGOaY0SawVgNSkJnD0NoNDAE8vIGcsHCWxdu9jlDWmzAgI+FNRhTTQvIDSFVHJykoW8lXu6AhbAWp8JIvR0lgbOY2AqrcFXaUXTqpGK1kBfC2ZXCSxeci0ARbbBNEJgX+HmAWAxiHWU2JnoPcnYz5AY9VhIMvPw0UZ9AE2gycbH3DaAdhjAvBYUcug5J7HogOwy6wMoa7GSZoRQKWdBGYyxpd6xwsoXXhLtUxCKSR7AY0XRbY/OmhRr/LlA8hQeJRMuCK/Mi2AAVV7CGMj1TgirYDE5Qo5Qu1hdlGmG8A5XEMYehNZ4+ZRk05A5YiftIsHyrPkrICe90VLTi8gUXJIVuJMBxz7XzgnoAoMnvtLUIxU+wDv7ACyA8gOIPsM/AA5dNe87D/VlAAAAABJRU5ErkJggg==" alt=""></p>
-                            <p class="text-note text-gray">* 若有任何問題歡迎資詢マハラジャ官方Line客服</p>
+                            <p class="text-note text-gray language_replace">* 若有任何問題歡迎資詢マハラジャ官方Line客服</p>
                         </div>
                     </div>
 
@@ -718,12 +714,12 @@
                     <div class="registerWay-popup-wrapper popup-tip">
                         <ul class="registerWay-popup-list">
                             <li class="item">
-                            <h3 class="title">簡易註冊與完整註冊</h3>
-                            <p class="desc"><span class="text-bold">簡易註冊</span>可讓玩家填入最低限度的內容，即可進入網站體驗，但<span class="text-bold">完整註冊</span>才能享有<span class="text-bold text-primary">領取獎勵、充值、提款</span>等完整會員才有的特定功能喔!</p>  
+                            <h3 class="title language_replace">簡易註冊與完整註冊</h3>
+                            <p class="desc language_replace">簡易註冊可讓玩家填入最低限度的內容，即可進入網站體驗，但完整註冊才能享有領取獎勵、充值、提款等完整會員才有的特定功能喔!</p>  
                             </li>
                             <li class="item">
-                                <h3 class="title">簡易註冊後如何升級完整會員?</h3>
-                                <p class="desc">於會員中心按下<span class="text-bold">『進行認證』</span>之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
+                                <h3 class="title language_replace">簡易註冊後如何升級完整會員?</h3>
+                                <p class="desc language_replace">於會員中心按下『進行認證』之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
                             </li>
                         </ul>
                     </div>

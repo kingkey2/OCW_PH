@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetAccountingDetailBySummaryDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccountingDetailBySummaryDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAccountingDetailBySummaryDateResult" type="tns:AgentAccountingResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AgentAccountingResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AgentAccountingList" type="tns:ArrayOfAgentAccounting" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="APIResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ResultState" type="tns:enumResultState" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="enumResultState">
+        <s:restriction base="s:string">
+          <s:enumeration value="OK" />
+          <s:enumeration value="ERR" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfAgentAccounting">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AgentAccounting" nillable="true" type="tns:AgentAccounting" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AgentAccounting">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountingName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountingStatus" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountingID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserCommissionProfit" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AgentAccountingResult" nillable="true" type="tns:AgentAccountingResult" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetAccountingDetailBySummaryDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAccountingDetailBySummaryDate" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingDetailBySummaryDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAccountingDetailBySummaryDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingDetailBySummaryDateHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingDetailBySummaryDateHttpGetOut">
+    <wsdl:part name="Body" element="tns:AgentAccountingResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingDetailBySummaryDateHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingDetailBySummaryDateHttpPostOut">
+    <wsdl:part name="Body" element="tns:AgentAccountingResult" />
+  </wsdl:message>
+  <wsdl:portType name="FANTASoap">
+    <wsdl:operation name="GetAccountingDetailBySummaryDate">
+      <wsdl:input message="tns:GetAccountingDetailBySummaryDateSoapIn" />
+      <wsdl:output message="tns:GetAccountingDetailBySummaryDateSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="FANTAHttpGet">
+    <wsdl:operation name="GetAccountingDetailBySummaryDate">
+      <wsdl:input message="tns:GetAccountingDetailBySummaryDateHttpGetIn" />
+      <wsdl:output message="tns:GetAccountingDetailBySummaryDateHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="FANTAHttpPost">
+    <wsdl:operation name="GetAccountingDetailBySummaryDate">
+      <wsdl:input message="tns:GetAccountingDetailBySummaryDateHttpPostIn" />
+      <wsdl:output message="tns:GetAccountingDetailBySummaryDateHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FANTASoap" type="tns:FANTASoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAccountingDetailBySummaryDate">
+      <soap:operation soapAction="http://tempuri.org/GetAccountingDetailBySummaryDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FANTASoap12" type="tns:FANTASoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAccountingDetailBySummaryDate">
+      <soap12:operation soapAction="http://tempuri.org/GetAccountingDetailBySummaryDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FANTAHttpGet" type="tns:FANTAHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetAccountingDetailBySummaryDate">
+      <http:operation location="/GetAccountingDetailBySummaryDate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FANTAHttpPost" type="tns:FANTAHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetAccountingDetailBySummaryDate">
+      <http:operation location="/GetAccountingDetailBySummaryDate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FANTA">
+    <wsdl:port name="FANTASoap" binding="tns:FANTASoap">
+      <soap:address location="https://ewin.dev.mts.idv.tw/API/Partner/FANTA.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FANTASoap12" binding="tns:FANTASoap12">
+      <soap12:address location="https://ewin.dev.mts.idv.tw/API/Partner/FANTA.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FANTAHttpGet" binding="tns:FANTAHttpGet">
+      <http:address location="https://ewin.dev.mts.idv.tw/API/Partner/FANTA.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FANTAHttpPost" binding="tns:FANTAHttpPost">
+      <http:address location="https://ewin.dev.mts.idv.tw/API/Partner/FANTA.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
