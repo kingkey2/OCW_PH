@@ -1136,7 +1136,7 @@
                         <ul class="Verify-popup-list">
                             <li class="item">
                                 <h3 class="title language_replace">為何需要認證?</h3>
-                                <p class="desc language_replace">認證需要您填入您實際的姓名，以證明為帳號之所有者，未來於出入金時的證明。因此若為完成認證，則無法使用出入金等部分功能，也無法享有領取獎勵的權益。</p>
+                                <p class="desc language_replace">認證需要您填入您實際的姓名，以證明為帳號之所有者，未來於出入金時的證明。因此若未完成認證，則無法使用出入金等部分功能，也無法享有領取獎勵的權益。</p>
                             </li>
                             <li class="item">
                                 <h3 class="title language_replace">如何進行認證?</h3>
