@@ -714,12 +714,12 @@
                     <div class="registerWay-popup-wrapper popup-tip">
                         <ul class="registerWay-popup-list">
                             <li class="item">
-                            <h3 class="title">簡易註冊與完整註冊</h3>
-                            <p class="desc"><span class="text-bold">簡易註冊</span>可讓玩家填入最低限度的內容，即可進入網站體驗，但<span class="text-bold">完整註冊</span>才能享有<span class="text-bold text-primary">領取獎勵、充值、提款</span>等完整會員才有的特定功能喔!</p>  
+                            <h3 class="title language_replace">簡易註冊與完整註冊</h3>
+                            <p class="desc language_replace">簡易註冊可讓玩家填入最低限度的內容，即可進入網站體驗，但完整註冊才能享有領取獎勵、充值、提款等完整會員才有的特定功能喔!</p>  
                             </li>
                             <li class="item">
-                                <h3 class="title">簡易註冊後如何升級完整會員?</h3>
-                                <p class="desc">於會員中心按下<span class="text-bold">『進行認證』</span>之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
+                                <h3 class="title language_replace">簡易註冊後如何升級完整會員?</h3>
+                                <p class="desc language_replace">於會員中心按下『進行認證』之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
                             </li>
                         </ul>
                     </div>
