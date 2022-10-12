@@ -44,6 +44,9 @@ $header-nav-default-text: color_main('white');
 $header-nav-link-text: color_main('white');
 $header-nav-link-background: rgba(color_main('black'), .65);
 
+$header-btn-login-backgroundColor: (color : (color_button('btn-main-1'), color_button('btn-main-2')));
+$header-btn-register-backgroundColor: (color : (color_button('btn-sub-1'), color_button('btn-sub-2')));
+
 
 $navbar-dropdown-submenu-background: color_main('theme-sub-a-1');
 $navbar-dropdown-submenu-hover-background: darken(color_main('theme-sub-a-1'), 20%);
@@ -51,7 +54,7 @@ $navbar-dropdown-submenu-borderColor: rgba(color_main('white'), .2);
 $header-round-button-Size: 35px;
 
 // Sidebar Menu 側選單
-$header-navbarMenu-backgroundColor: color_main('theme-main-a-2');
+$header-navbarMenu-backgroundColor: color_header('header-main-bg3');
 $header-navbarMenu-gradient-backgroundColor: (color : (color_header('header-main-bg1'), color_header('header-main-bg2')));
 
 $header-navbarMenu-width: 200px;
@@ -218,23 +221,22 @@ $btn-focus-box-shadow: $input-btn-focus-box-shadow;
 // END OF Bootstrap ---------------------------
 
 $button-main-full-text: rgba(color_main('white'), 1);
-// $button-main-full-background: rgba(color_main('black'), .55);
-$button-main-full-background: color_main('theme-main-a-1');
+$button-main-full-background: color_button('btn-theme-main-a-1');
 
 
-$button-full-outline-border: rgba(color_main('theme-main-a-1'), 1);
+$button-full-outline-border: rgba(color_button('btn-theme-main-a-1'), 1);
 $button-full-outline-text: rgba(color_main('white'), 0.8);
 
-$button-more-dorpdown: rgba(color_main('theme-main-a-1'),1);
+$button-more-dorpdown: rgba(color_button('btn-theme-main-a-1'),1);
 
 $button-sub-full-text: rgba(color_main('white'), 1);
 $button-sub-full-background: rgba(color_main('theme-sub-b-3'),1);
 
 //transparent button
-$button-transparent-text: rgba(color_main('theme-main-a-1'), .8);
+$button-transparent-text: rgba(color_button('btn-theme-main-a-1'), .8);
 $button-transparent-background: transparent;
 
-$button-transparent-text: rgba(color_main('theme-main-a-1'), .8);
+$button-transparent-text: rgba(color_button('btn-theme-main-a-1'), .8);
 
 //sub button
 $button-sub-full-text: rgba(color_main('white'), 1);
@@ -247,7 +249,7 @@ $button-round-hover-background: rgba(color_main('black'), .3);
 // $button-round-focus-background: darken($button-main-full-background, 5%);
 
 $button-round-focus-background:rgba(color_main('black'), .75);
-$button-round-focus-boxshadow: 0 0 5px 1px rgba(color_main('theme-main-a-1'), 1);
+$button-round-focus-boxshadow: 0 0 5px 1px rgba(color_button('btn-theme-main-a-1'), 1);
 
 
 //POPUP ==========================*/
@@ -260,9 +262,33 @@ $popup-btn-confirm-color: rgba(color_main('theme-main-a-1'),1);
 $popup-row-border: $body-row-border;
 
 
-//客制化 表格 MT__tableDiv====================
-$MT-table-thead-th-background: rgba(color_main('theme-main-a-1'), 1);
+//TAB ==========================
+$tab-game-backgroundColor: color_tab('tab-game-bg');
 
+$tab-game-item-backgroundColor: color_tab('tab-game-default');
+$tab-game-item-backgroundColor-active: color_tab('tab-game-active');
+$tab-game-item-textShadowColor: color_tab('tab-game-text-shadow');
+
+$tab-game-search-backgroundColor: color_tab('tab-game-search-bg');
+$tab-game-search-boxshadowColor: color_tab('tab-game-search-boxshadow');
+
+
+//Game Slider Style==========================
+$section-randomRem-backgroundColor: (
+    color : (
+      rgba(game_custom('game-custom-randomRem-bg-1'),0),
+      game_custom('game-custom-randomRem-bg-2'), 
+      rgba(game_custom('game-custom-randomRem-bg-3'),0)),   
+    positon : (40.62%, 40.63%, 97.92%) 
+);
+$game-forOne-btn-backgroundColor:game_custom('game-custom-forone-btn-bg');
+
+//Section Title ==========================
+$sec-title-deco-backgroundColor:sec_title('sec-title-deco-bg');
+
+
+//客制化 表格 MT__tableDiv=================
+$MT-table-thead-th-background: rgba(color_main('theme-main-a-2'), 1);
 
 //copyright*/
 $copyright-text: rgba(color_main('white'),.5);
@@ -326,8 +352,8 @@ $btn-config:(
     txtcolor: $button-main-full-text,
     bgcolor:  $button-main-full-background,
     border-color: $button-main-full-background,
-    bgcolor-hover: darken($button-main-full-background, 10%),
-    border-color-hover: darken($button-main-full-background, 15%),
+    bgcolor-hover: darken($button-main-full-background, 8%),
+    border-color-hover: darken($button-main-full-background, 8%),
     txtcolor-hover: $button-main-full-text
 
   ),

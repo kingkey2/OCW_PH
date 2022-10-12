@@ -153,24 +153,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 .table-winners-wrapper {
   margin: 15px 0;
-  position: relative;
-}
-
-.table-winners-wrapper .winner{
-  position: absolute;
-  top: -30px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  z-index: 1;
-  text-align: center;
-
-}
-
-.table-winners-wrapper .winner .icon-win{
-  max-width: 55px;
-  display: inline-flex;
-
 }
 
 .table-winners-list {
@@ -181,9 +163,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   max-width: 560px;
   margin: 0 auto;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  position: relative;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 .table-winners-list .item {
   -webkit-box-flex: 1;
@@ -197,21 +178,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   text-align: center;
   border-right: solid 1px rgba(255, 255, 255, 0.45);
   font-weight: 500;
-  position: relative;
 }
-
-.table-winners-list .title.win {
-  padding-top: 25px !important;
-  padding-bottom: 10px !important;
-}
-
-
-
-.table-winners-list .icon-win img{
-  width: 100%;
-}
-
-
 .table-winners-list .value {
   font-size: 0.9375rem;
   font-weight: 500;
@@ -223,45 +190,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media screen and (min-width: 481px) {
   .table-winners-list {
     border-radius: 20px;
-    /* overflow: hidden; */
+    overflow: hidden;
   }
-
-  .table-winners-list:has(.item:only-of-type) {
-    max-width: 420px;
-  }
-
   .table-winners-list .item {
     border-right: solid 1px rgba(204, 204, 204, 0.25);
   }
-
-  .table-winners-list .item:first-of-type{
-    border-bottom-left-radius: 15px;
-  }
-  .table-winners-list .item:first-of-type .title{
-    border-top-left-radius: 15px;
-  }
-  
-  .table-winners-list .item:last-of-type{
-    border-bottom-right-radius: 15px;
-  }
-
-  .table-winners-list .item:last-of-type .title{
-    border-top-right-radius: 15px;
-  }
-
-  .table-winners-list .item:only-of-type .title{
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-  }
-  .table-winners-list .item:only-of-type .item-col{
-     padding-top: 15px;
-     padding-bottom: 15px;
-     border-bottom: solid 1px rgba(204, 204, 204, 0.25);
-  }
-  .table-winners-list .item:only-of-type .item-col:last-child {
-    border: none;
-  }
-
   .table-winners-list .item:last-child {
     border: none;
   }
@@ -284,8 +217,5 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .table-winners-list .value {
     border-bottom: solid 1px rgba(204, 204, 204, 0.25);
-  }
-  .table-winners-list .value:last-child {
-    border-bottom: 0;
   }
 }

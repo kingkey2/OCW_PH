@@ -1545,7 +1545,10 @@
     // background: linear-gradient(180deg, #1B1B1B 0%, #464646 100%);
     // background: linear-gradient(180deg, rgba(15, 43, 115, 0) 0%, #0D2870 69.79%);
 
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 40.62%, #03206B 40.63%, rgba(15, 43, 115, 0) 97.92%);
+    // background: linear-gradient(180deg, rgba(255, 255, 255, 0) 40.62%, #03206B 40.63%, rgba(15, 43, 115, 0) 97.92%);
+
+    @include bg-gradient(180deg, $section-randomRem-backgroundColor);
+
    
     // color: #fff;
     // padding: 170px 0 10px;

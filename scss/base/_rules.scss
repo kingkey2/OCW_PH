@@ -1016,9 +1016,11 @@ hr{
 				display: inline-block;
 				margin: 0 0.5em 0 0;
 				vertical-align: bottom;
-				width: 3px;
-				height: 1em;
-				background-color: #45C5FF;
+				width: 5px;
+				height: font-resize(24px);
+				// background-color: #45C5FF;
+				background-color: $sec-title-deco-backgroundColor;
+
 				border-radius: 2px;
 			}
 		}

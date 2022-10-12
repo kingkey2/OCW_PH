@@ -49,7 +49,6 @@
 <script src="Scripts/theme.js"></script>--%>
 <%--<script src="Scripts/OutSrc/js/games.js"></script>--%>
 
-
 <script type="text/javascript">      
     if (self != top) {
         window.parent.API_LoadingStart();
