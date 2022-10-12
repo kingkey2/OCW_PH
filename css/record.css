@@ -5,6 +5,29 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background-color: #fff;
 }
 
+.sec-input {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.sec-input .btn {
+  width: 100%;
+  min-width: 180px;
+  max-width: 360px;
+  display: block;
+  margin: 0 auto;
+}
+
 .sec-title-record .date_text {
   text-align: center;
   font-weight: 500;
@@ -358,6 +381,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding-left: 20px;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  border-radius: 10px;
 }
 .record-table-tab:hover {
   background-color: rgba(0, 0, 0, 0.05);
@@ -638,6 +662,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   border-color: #969696;
 }
 
+@media screen and (max-width: 640px) {
+  .sec-report-agentDownline .sec-number {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+}
+
 .agentDownline-member-list {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -690,6 +722,139 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media (min-width: 992px) {
   .agentDownline-member-list .member-item {
     width: 33.33%;
+  }
+}
+
+.section-agentDownline-report .table-desktop {
+  display: none;
+}
+.section-agentDownline-report .record-table-container {
+  padding-left: 0 !important;
+}
+@media (min-width: 992px) {
+  .section-agentDownline-report .table-desktop {
+    display: table;
+  }
+}
+
+.record-agentDownline {
+  font-weight: 300;
+}
+.record-agentDownline .icon {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  background-color: #EDEDED;
+  padding: 2px;
+  margin-right: 0.4rem;
+}
+.record-agentDownline .icon-mask.icon-people:before {
+  background-color: #00B0FF;
+}
+.record-agentDownline .icon-mask:before {
+  background-color: #808080;
+}
+.record-agentDownline .date-period {
+  text-align: center;
+}
+.record-agentDownline .date-period .year {
+  display: block;
+}
+.record-agentDownline .date-period .month:before {
+  content: none;
+}
+.record-agentDownline .record-table-item.agent .icon-mask.icon-people:before {
+  background-color: #FF6396;
+}
+.record-agentDownline .record-table-tab {
+  padding-left: 0;
+}
+.record-agentDownline .record-table-cell {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.record-agentDownline .record-table-cell.td-date {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 60px;
+          flex: 0 0 60px;
+  background-color: #DFF5FF;
+  font-weight: 500;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.record-agentDownline .record-table-cell.td-date .date-end:before {
+  content: "|";
+  display: block;
+  text-align: center;
+}
+.record-agentDownline .record-table-cell.td-commission {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.record-agentDownline .record-table-cell.td-commission .data {
+  font-size: 1.5625rem;
+  font-weight: 500;
+}
+.record-agentDownline .record-table-wrapper {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.record-agentDownline .td-wrapper {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+}
+@media (min-width: 576px) {
+  .record-agentDownline .record-table-cell.td-project {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+  .record-agentDownline .record-table-cell.td-commission {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column wrap;
+            flex-flow: column wrap;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
   }
 }
 

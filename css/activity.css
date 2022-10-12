@@ -96,29 +96,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-bottom: 0.5rem;
 }
 
-.tab-prize {
-  width: 100%;
-  max-width: 640px;
-  margin: 0 auto;
-  background-color: rgba(133, 133, 133, 0.85);
-  border-radius: 30px;
-  margin-top: 0.6rem;
-  margin-bottom: 0.6rem;
-}
-.tab-prize.tab-scroller .tab-item {
-  color: white;
-  z-index: 1;
-  position: relative;
-  -webkit-transition: all 0.35s linear;
-  transition: all 0.35s linear;
-}
-.tab-prize.tab-scroller .tab-item.active {
-  color: #fff;
-  background-color: #45c5ff;
-}
-.tab-prize.tab-scroller .tab-item:not(.active):hover {
-  background-color: #369AD6;
-}
 .tab-activity {
   margin-bottom: 15px;
 }

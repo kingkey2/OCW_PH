@@ -46,6 +46,10 @@ body {
 	// font-feature-settings: "liga" 1, "dlig" 1;
 }
 
+html{
+	scroll-behavior: smooth;
+}
+
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
 	margin-bottom: 0;
 	font-weight: 400;
@@ -921,7 +925,8 @@ hr{
 	&-container{
         
 		//IMPORTANT!!! button/fieldset/legend NOT SUPPORT FLEXBOX 
-		display: flex;	
+		display: flex;
+		flex-flow: row wrap;	
 
 		justify-content: space-between;
 		align-items: center;

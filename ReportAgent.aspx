@@ -734,37 +734,41 @@
     window.onload = init;
 </script>
 <body class="innerBody">
-    <main class="innerMain">
+    <main class="innerMain" id="top">
         <div class="page-content">
-            <div class="container">
-                <!-- 獎金/禮金 TAB -->
-                    <div class="tab-report tab-scroller tab-2">
+            <!-- TAB -->
+            <div class="tab-wrapper sticky">
+                <div class="container">
+                    <div class="tab-report tab-scroller tab-2 tab-primary">
                         <div class="tab-scroller__area">
                             <ul class="tab-scroller__content">
                                 <li class="tab-item payment active" onclick="" id="tabRecordPayment">
-                                    <span class="tab-item-link"><span class="title"><span class="language_replace">出入金記錄</span></span>
-                                    </span>
+                                    <a class="tab-item-link" href="#top"><span class="title"><span class="language_replace">會員管理</span></span>
+                                    </a>
                                 </li>
                                 <li class="tab-item game" onclick="" id="tabRecordGame">
-                                    <span class="tab-item-link"><span class="title"><span class="language_replace">遊戲記錄資訊</span></span>
-                                    </span>
+                                    <a class="tab-item-link" href="#idMemberReport"><span class="title"><span class="language_replace">代理報表</span></span>
+                                    </a>
                                 </li>
                                 <div class="tab-slide"></div>
                             </ul>
                         </div>
                     </div>
+                </div>
             </div>
 
-            <section class="section-wrap section-agentDownline-member">
+            <section id="idMemberMange" class="section-wrap section-agentDownline-member">
                 <div class="container">
                     <div class="sec-title-container sec-title-record sec-report-agentDownline">
                         <div class="sec-title-wrapper">
                             <h1 class="sec-title title-deco"><span class="language_replace">推廌會員管理</span></h1>
                         </div>
-                        <div class="sec_link">
-                            <span class="language_replace">推廣人數</span>
-                            <span class="">2021</span>
-                            <span class="language_replace">位</span>
+                        <div class="sec_link sec-number">
+                            <span class="title language_replace">推廣人數</span>
+                            <span class="data">
+                                <span class="number">2021</span>
+                                <span class="unit language_replace">位</span>
+                            </span>                            
                         </div>
                     </div>
                     <div class="agentDownline-member-wrapper">
@@ -826,10 +830,35 @@
 
 
             <!-- 紀錄 - Table -->
-            <section class="section-wrap section-agentDownline-report">
+            <section id="idMemberReport" class="section-wrap section-agentDownline-report">
                 <div class="container">
-
-                    <!-- PC -->
+                    <div class="sec-title-container sec-title-record sec-report-agentDownline">
+                        <div class="sec-title-wrapper">
+                            <h1 class="sec-title title-deco"><span class="language_replace">代理報表
+                            </span></h1>
+                        </div>
+                        <div class="sec-input row">
+                            <div class="form-group col-6 col-smd-4 col-md-auto">
+                                <label class="form-title language_replace">起始日期</label>
+                                <div class="input-group">
+                                    <input id="" type="date" name="" class="form-control custom-style">
+                                </div>
+                            </div>
+                            <div class="form-group col-6 col-smd-4 col-md-auto">
+                                <label class="form-title language_replace">結束日期</label>
+                                <div class="input-group">
+                                    <input id="" type="date" name="" class="form-control custom-style">
+                                </div>
+                            </div>
+                            <div class="form-group col-12 col-smd-4 col-md-auto">
+                                <button type="button" class="btn btn-full-main btn-roundcorner btn-sm">
+                                    <span class="language_replace" >検索</span>
+                                </button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- PC 版 -->
                     <div class="MT__table table-RWD table-desktop table-agentDownline">
                         <!-- thead  -->
                         <div class="Thead">
@@ -885,46 +914,98 @@
                         </div>
                     </div>
 
-                    <!-- MOBILE -->
+                    <!-- MOBILE 版-->
                     <div class="record-table-container">
-                        <div class="record-table games-record">
+                        <div class="record-table record-agentDownline">
                             <div class="record-table-item">
-                            <div class="record-table-tab">
-                                <div class="record-table-wrapper">
+                                <div class="record-table-tab">
                                     <!-- 日期 -->
                                     <div class="record-table-cell td-date">
                                         <span class="date-period">
-                                            
-                                            <span class="SummaryDate">2022/06/14</span>
+                                            <span class="date-start">
+                                                <span class="year">2022</span>
+                                                <span class="month">06</span>
+                                                <span class="day">14</span>
+                                            </span>
+                                            <span class="date-end">
+                                                <span class="year">2022</span>
+                                                <span class="month">06</span>
+                                                <span class="day">14</span>
+                                            </span>
                                         </span>
                                     </div>
-                                    <!-- 投注 -->
-                                    <div class="record-table-cell td-orderValue">
-                                        <span class="title language_replace" langkey="投注">投注</span>
-                                        <span class="data number orderValue">60.00</span>
-                                    </div>
-                                    <!-- 有效投注 -->
-                                    <div class="record-table-cell td-validBet">
-                                        <span class="title language_replace" langkey="出款門檻扣除值">出款門檻扣除值</span>
-                                        <span class="data number validBet">9.00</span>
-                                    </div>
-                                    <!-- 勝/負 -->
-                                    <div class="record-table-cell td-rewardValue">
-                                        <span class="data number rewardValue">-60.00</span>
-                                    </div>
+                                    <div class="record-table-wrapper">
+                                        <!-- 帳號 -->
+                                        <div class="record-table-cell td-account">
+                                            <span class="title"><i class="icon icon-mask icon-people"></i></span>
+                                            <span class="data">Eddie1234@kingkey.com.tw</span>
+                                        </div>
+                                        <div class="td-wrapper">
+                                            <!-- 結算計畫 -->
+                                            <div class="record-table-cell td-project">
+                                                <span class="title"><i class="icon icon-mask icon-flag"></i></span>
+                                                <span class="data">結算測試 project</span>
+                                            </div>
+                                            <!-- 結算計畫 -->
+                                            <div class="record-table-cell td-commission">
+                                                <span class="title">
+                                                    <span class="text language_replace">傭金</span>
+                                                </span>
+                                                <span class="data number">3000.00</span>
+                                            </div>
+                                        </div>
+                                    </div>                    
                                 </div>
-                                
+                            </div>
+                            <!-- 若 member為 agent => class=>agent -->
+                            <div class="record-table-item agent">
+                                <div class="record-table-tab">
+                                    <!-- 日期 -->
+                                    <div class="record-table-cell td-date">
+                                        <span class="date-period">
+                                            <span class="date-start">
+                                                <span class="year">2022</span>
+                                                <span class="month">06</span>
+                                                <span class="day">14</span>
+                                            </span>
+                                            <span class="date-end">
+                                                <span class="year">2022</span>
+                                                <span class="month">06</span>
+                                                <span class="day">14</span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="record-table-wrapper">
+                                        <!-- 帳號 -->
+                                        <div class="record-table-cell td-account">
+                                            <span class="title"><i class="icon icon-mask icon-people"></i></span>
+                                            <span class="data">Eddie1234@kingkey.com.tw</span>
+                                        </div>
+                                        <div class="td-wrapper">
+                                            <!-- 結算計畫 -->
+                                            <div class="record-table-cell td-project">
+                                                <span class="title"><i class="icon icon-mask icon-flag"></i></span>
+                                                <span class="data">結算測試 project</span>
+                                            </div>
+                                            <!-- 結算計畫 -->
+                                            <div class="record-table-cell td-commission">
+                                                <span class="title">
+                                                    <span class="text language_replace">傭金</span>
+                                                </span>
+                                                <span class="data number">3000.00</span>
+                                            </div>
+                                        </div>
+                                    </div>                    
+                                </div>
+                            </div>
+                           
+                            <div class="no-Data" id="idNoGameData" style="display: none;">
+                                <div class="data">
+                                    <span class="text language_replace">沒有資料</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="no-Data" id="idNoGameData" style="display: ;">
-                                <div class="data">
-                                    <span class="text language_replace" langkey="沒有資料">沒有資料</span>
-                                </div>
-                        </div>
-                        </div>
                     </div>
-                    
-
               </div>
              </section>
         </div>

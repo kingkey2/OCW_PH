@@ -95,36 +95,36 @@
 //領獎中心
 .tab-prize{
 
-    // width: 20%;
-    width: 100%;
-    max-width: 640px;
+   
+    // width: 100%;
+    // max-width: 640px;
 
-    margin:0 auto;
-    background-color: rgba(#858585, .85);
-    border-radius: 30px;
+    // margin:0 auto;
+    // background-color: rgba(#858585, .85);
+    // border-radius: 30px;
 
-    margin-top: 0.6rem;
-    margin-bottom: 0.6rem;
+    // margin-top: 0.6rem;
+    // margin-bottom: 0.6rem;
     
-    &.tab-scroller {
-        .tab-item{
-            color: rgba(#fff, 1);
-            z-index: 1;
-            position: relative;
+    // &.tab-scroller {
+    //     .tab-item{
+    //         color: rgba(#fff, 1);
+    //         z-index: 1;
+    //         position: relative;
 
-            transition: all 0.35s linear;
+    //         transition: all 0.35s linear;
 
-            &.active{
-                color: #fff; 
-                background-color: rgba(#45C5FF, 1);          
-            }
+    //         &.active{
+    //             color: #fff; 
+    //             background-color: rgba(#45C5FF, 1);          
+    //         }
 
-            &:not(.active):hover{ 
-                background-color: #369AD6;          
-            }
+    //         &:not(.active):hover{ 
+    //             background-color: #369AD6;          
+    //         }
            
-        }
-    }
+    //     }
+    // }
 
 
 
