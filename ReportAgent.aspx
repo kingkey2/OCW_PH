@@ -736,8 +736,8 @@
 <body class="innerBody">
     <main class="innerMain" id="top">
         <div class="page-content">
-            <!-- TAB -->
-            <div class="tab-wrapper sticky">
+            <!-- 代理報表 TAB -->
+            <div class="tab-wrapper sticky tab-report-wrapper">
                 <div class="container">
                     <div class="tab-report tab-scroller tab-2 tab-primary">
                         <div class="tab-scroller__area">

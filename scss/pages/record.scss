@@ -879,11 +879,8 @@
 }
 
 
-
-
 // 推廌會員管理
-.sec-report-agentDownline{
-   
+.sec-report-agentDownline{  
 
     @media screen and (max-width:breakpoints_BS4(smg))  {
         .sec-number{
@@ -893,6 +890,7 @@
 
     }
 }
+
 .agentDownline-member{
 
     &-list{
@@ -1085,8 +1083,6 @@
     }
 
 }
-
-
 
 
 // 640px以上 =================
@@ -1476,6 +1472,11 @@
         &-title-wrapper{           
             // font-size: font-resize(20px);
         }
+   }
+
+   //代理報表 TAB
+   .tab-report-wrapper{
+       display: none;
    }
 
 }

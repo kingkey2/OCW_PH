@@ -1123,6 +1123,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
         -ms-flex: 0 0 150px;
             flex: 0 0 150px;
   }
+  .tab-report-wrapper {
+    display: none;
+  }
 }
 @media screen and (max-width: 991px) {
   .record-table-container {
