@@ -1,13 +1,11 @@
 ﻿{
-  "存款": "deposit",
-  "選擇存款管道": "select deposit method",
-  "溫馨提醒": "remind",
-  "不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。": "Different deposit method may affect when the deposit amount reaches the player's wallet. One business day at the latest is a reasonable range",
-  "虛擬貨幣": "cryptocurrency",
-  "電子錢包": "electronic wallet",
-  "使用說明": "Instructions",
-  "檢視存款紀錄": "View deposit record",
-  "1.OCOIN是客人在マハラジャ遊玩的幣別總稱": "1. OCOIN is the general term for the currency that guests play in Maharajya",
-  "2.因為選擇的送金方法有所不同，在帳戶上反映的時間是入金之後最多一個營業日為範圍。": "2. Because the selected method of sending money is different, the time reflected in the account is at most one business day after the deposit.",
-  "銀行卡": "cash card"
+  "存款": "Deposit",
+  "選擇存款管道": "Choose one to make a deposit.",
+  "溫馨提醒": "Reminder",
+  "不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。": "The time when the amount is transferred to the your wallet will vary according to different deposit channels. The delay time within one business day is a reasonable range.",
+  "虛擬貨幣": "Blockchain",
+  "銀行卡": "Bank Transfer",
+  "電子錢包": "Wallet",
+  "使用說明": "How to use",
+  "檢視存款紀錄": "View Deposit History"
 }

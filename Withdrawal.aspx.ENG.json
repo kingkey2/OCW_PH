@@ -1,15 +1,11 @@
 ﻿{
-  "出款": "withdrawal ",
-  "選擇出款管道": "Select a withdrawal method",
-  "溫馨提醒": "remind",
-  "不同的出款管道可能影響出款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。": "Depending on the remittance method selected, it will be reflected in your account for up to 1 business day immediately after withdrawal.",
-  "虛擬貨幣": "Cryptocurrency",
-  "電子錢包": "Electronic money wallet",
-  "使用說明": "Instructions",
-  "檢視出款紀錄": "View withdrawal record",
-  "1.OCOIN是客人在マハラジャ遊玩的幣別總稱": "1. OCOIN is a general term for points for customers to play at Casino Maharaja.",
-  "2.因為選擇的送金方法有所不同，在帳戶上反映的時間是出金之後最多一個營業日為範圍。": "Depending on the remittance method selected, your account will be reflected within up to one business day after your withdrawal.",
-  "NotInOpenTime": "NotInOpenTime",
-  "WithdrawlTemporaryMaintenance": "Withdrawal TemporaryMaintenance"
-
+  "出款": "Withdrawal",
+  "選擇出款管道": "Choose one to make a withdrawal.",
+  "銀行卡": "Bank Transfer",
+  "銀行卡轉帳": "Bank Transfer",
+  "通知代理": "Via Agent",
+  "虛擬貨幣": "Blockchain",
+  "檢視出款紀錄": "View Withdrawal History",
+  "溫馨提醒": "Reminder",
+  "下載代理APP": "Agent APP Download"
 }

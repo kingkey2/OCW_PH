@@ -1,0 +1,23 @@
+﻿{
+  "錢包中心": "wallet",
+  "存款": "deposit",
+  "取款": "withdrawal",
+  "存取款紀錄": "Deposit / withdrawal record",
+  "存取款說明": "Deposit / withdrawal explanation",
+  "錢包設定": "Wallet settings",
+  "錢包餘額": "Wallet balance",
+  "全部": "all",
+  "日期": "date",
+  "支付方式": "method of payment",
+  "金額": "Amount of money",
+  "狀態": "status",
+  "完成": "completion",
+  "進行中": "in progress",
+  "取消": "cancel",
+  "訂單編號": "order number",
+  "取款門檻": "Rolling until the withdrawal lock is released",
+  "進行中交易": "Transactions in progress",
+  "活動專區": "Event corner",
+  "獎勵專區": "Bonus corner",
+  "活動領取紀錄": "Reward Claim record"
+}
