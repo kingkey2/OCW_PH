@@ -213,13 +213,14 @@ $button-main-full-text: rgba(color_main('white'), 1);
 $button-main-full-background: color_button('btn-theme-main-a-1');
 
 
-$button-full-outline-border: rgba(color_button('btn-theme-main-a-1'), 1);
-$button-full-outline-text: rgba(color_main('white'), 0.8);
+$button-full-outline-border: rgba(color_button('btn-theme-main-b-1'), 1);
+$button-full-outline-text: rgba(color_button('btn-theme-main-b-1'), 0.8);
+$button-full-outline-hover-background: rgba(color_button('btn-theme-main-b-1'), 1);
 
 $button-more-dorpdown: rgba(color_button('btn-theme-main-a-1'),1);
 
-$button-sub-full-text: rgba(color_main('white'), 1);
-$button-sub-full-background: rgba(color_main('theme-sub-b-3'),1);
+//stress button
+$button-full-stress-background: color_button('btn-theme-full-stress');
 
 //transparent button
 $button-transparent-text: rgba(color_button('btn-theme-main-a-1'), .8);
@@ -228,8 +229,8 @@ $button-transparent-background: transparent;
 $button-transparent-text: rgba(color_button('btn-theme-main-a-1'), .8);
 
 //sub button
-$button-sub-full-text: rgba(color_main('white'), 1);
-$button-sub-full-background: rgba(color_main('theme-sub-b-3'),1);
+$button-sub-full-text: rgba(color_button('btn-theme-full-text'), 1);
+$button-sub-full-background: rgba(color_button('btn-theme-sub-a-2'),1);
 
 
 //round button
@@ -273,6 +274,7 @@ $section-randomRem-backgroundColor: (
       rgba(color_game_custom('game-custom-randomRem-bg-3'),0)),   
     positon : (40.62%, 40.63%, 97.92%) 
 );
+
 $game-forOne-btn-backgroundColor:color_game_custom('game-custom-forone-btn-bg');
 
 //Section Title ==========================
@@ -288,6 +290,38 @@ $agentDownline-agent-td-stress-backgroundColor:color_agentDownline('agent-td-str
 
 //會員中心 ==========================
 $qrcode-btn-copy-backgroundColor:color_memberCenter('qrcode-btn-background');
+
+ //出金門檻
+$member-withdraw-limit-backgroundColor:(color : (color_memberCenter('withdraw-limit-background-1'), color_memberCenter('withdraw-limit-background-2')));
+
+$member-withdraw-limit-detail-backgroundColor:color_memberCenter('withdraw-limit-detail-background');
+
+ //活動中心
+ $member-activity-center-backgroundColor:color_memberCenter('activity-center-background');
+ $member-activity-center-btn-backgroundColor:color_memberCenter('activity-center-btn-background');
+ $member-activity-center-btn-textColor:color_memberCenter('activity-center-btn-textColor');
+
+ //獎金中心
+ $member-prize-center-backgroundColor:color_memberCenter('prize-center-background');
+
+//會員簽到進度顯示
+$member-dailylogin-bouns-mobile-backgroundColor: (   
+    color : (
+      color_memberCenter('dailylogin-bouns-mobile-background-1'),
+      color_memberCenter('dailylogin-bouns-mobile-background-2'),
+      ),   
+    positon : (0%, 100%) 
+);
+
+$member-dailylogin-bouns-pc-backgroundColor: (   
+    color : (
+      color_memberCenter('dailylogin-bouns-pc-background-1'),
+      color_memberCenter('dailylogin-bouns-pc-background-2'),
+      ),   
+    positon : (17.71%, 83.85%)
+);
+
+$member-dailylogin-bouns-amount-backgroundColor: color_memberCenter('dailylogin-bouns-amount-background');
 
 
 
@@ -361,13 +395,23 @@ $btn-config:(
     txtcolor-hover: $button-main-full-text
 
   ),
+  btn-primary:(
+    class: 'primary',
+    txtcolor: $button-main-full-text,
+    bgcolor: $button-full-outline-hover-background,
+    border-color: $button-full-outline-hover-background,
+    bgcolor-hover: darken($button-full-outline-hover-background, 8%),
+    border-color-hover: darken($button-full-outline-hover-background, 8%),
+    txtcolor-hover: $button-main-full-text
+
+  ),
   btn-outline-main:(
     class: 'outline-main',
     txtcolor: $button-full-outline-text,
     bgcolor:  transparent,
     border-color: $button-full-outline-border,
-    bgcolor-hover:  $button-main-full-background,
-    border-color-hover: $button-main-full-background,
+    bgcolor-hover:  $button-full-outline-hover-background,
+    border-color-hover: $button-full-outline-hover-background,
     txtcolor-hover: $button-main-full-text
   ),
   btn-full-sub:(
@@ -375,8 +419,8 @@ $btn-config:(
     txtcolor: $button-sub-full-text,
     bgcolor:  $button-sub-full-background,
     border-color: $button-sub-full-background,
-    bgcolor-hover:  $button-main-full-background,
-    border-color-hover: $button-main-full-background,
+    bgcolor-hover: darken($button-sub-full-background, 9%),
+    border-color-hover: darken($button-sub-full-background, 9%),
     txtcolor-hover: $button-main-full-text
   ),
   btn-transparent:(

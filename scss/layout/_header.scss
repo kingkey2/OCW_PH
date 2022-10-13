@@ -23,7 +23,8 @@
     display: flex;
     align-items: center;
     // justify-content: space-between;
-    border: solid 1px #007fbb;
+    // border: solid 1px #007fbb;
+    border: solid 1px #058ea0;
 
     .text{
         color: rgba(#000, 0.6);
@@ -53,7 +54,8 @@
                 height: 25px !important;
     
                 &:before{                    
-                    background-color: #007fbb;                                
+                    // background-color: #007fbb;                                
+                    background-color: #3a9aa0;                                
                 }
             }
         

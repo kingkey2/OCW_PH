@@ -5,7 +5,8 @@
 @mixin custom-button-variant( $txtcolor, $bgcolor, $border-color,  $border-radius, $bgcolor-hover, $border-color-hover, $txtcolor-hover, $box-shadow-focus: rgba($border-color, 0.5) ) {
 
   color: $txtcolor;     
-  background-color: $bgcolor; 
+  // background-color: $bgcolor; 
+  background: $bgcolor; 
   border-radius: $border-radius;
  
 
@@ -28,11 +29,10 @@
   &:not(:disabled){
 
     @include hover{
-
       color: $txtcolor-hover;
-      background-color: $bgcolor-hover;
-      border-color:  $border-color-hover;
-     
+      // background-color: $bgcolor-hover;
+      background: $bgcolor-hover;
+      border-color:  $border-color-hover;     
     }
 
   }
