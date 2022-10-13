@@ -14,13 +14,9 @@
         align-items: center;
         justify-content: space-between;
 
-
-
-
         .text{
             color: rgba(#000, 0.6);
         }
-
         
         .btn-search{
 
@@ -45,7 +41,8 @@
         
                     &:before{                    
                         // background-color: #007fbb;                                
-                        background-color: #058ea0;                                
+                        // background-color: #058ea0;                                
+                        background-color: $button-fake-mask-icon-background;                                
                     }
                 }
             

@@ -235,12 +235,13 @@ $button-sub-full-background: rgba(color_button('btn-theme-sub-a-2'),1);
 
 //round button
 $button-round-hover-background: rgba(color_main('black'), .3);
-
 // $button-round-focus-background: darken($button-main-full-background, 5%);
-
 $button-round-focus-background:rgba(color_main('black'), .75);
 $button-round-focus-boxshadow: 0 0 5px 1px rgba(color_button('btn-theme-main-a-1'), 1);
 
+//FAKE button
+$button-fake-full-outline-borderColor: rgba(color_button('btn-theme-fake'), 1);
+$button-fake-mask-icon-background: $button-fake-full-outline-borderColor;
 
 //POPUP ==========================*/
 $popup-wrapper-background:rgba(color_main('midtones-a-4'), 1);
@@ -336,6 +337,9 @@ $copyright-fontSize: 12px;
 $login-form-gradient-background:(
   color : ( rgba(color_main('black'), 0.07), rgba(color_main('black'), 0.1))
 );
+
+//LOADER ============================
+$loader-background: color_main('theme-loader-background');
 
 // *******************************************
 //  Gradient list 

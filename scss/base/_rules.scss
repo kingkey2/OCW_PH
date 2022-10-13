@@ -1468,8 +1468,6 @@ hr{
 		.section-content{
 
 		}
-		
-
 	}
 
 }
@@ -1485,9 +1483,11 @@ hr{
 	height: 100vh;
 	overflow: hidden;
 	z-index: 9999;	
-	// background-color: rgba(#00aeff, 1);
-	background-color: rgba(#2fb4c9, 1);
 	text-align: center;
+	// background-color: rgba(#00aeff, 1);
+	// background-color: rgba(#2fb4c9, 1);
+	background-color: $loader-background;
+	
   }
   
   .loader-text {
