@@ -239,7 +239,7 @@ input.month:read-only, input.day:read-only {
 .member-wallet-contnet::after {
   content: "";
   display: inline-block;
-  width: 30%;
+  width: 55%;
   max-width: 160px;
   height: calc(100% + 25px);
   height: 100%;
