@@ -394,6 +394,16 @@ $btn-config:(
     txtcolor-hover: $button-main-full-text
 
   ),
+  btn-primary:(
+    class: 'primary',
+    txtcolor: $button-main-full-text,
+    bgcolor: $button-full-outline-hover-background,
+    border-color: $button-full-outline-hover-background,
+    bgcolor-hover: darken($button-full-outline-hover-background, 8%),
+    border-color-hover: darken($button-full-outline-hover-background, 8%),
+    txtcolor-hover: $button-main-full-text
+
+  ),
   btn-outline-main:(
     class: 'outline-main',
     txtcolor: $button-full-outline-text,
