@@ -219,7 +219,8 @@ $button-full-outline-hover-background: rgba(color_button('btn-theme-main-b-1'), 
 
 $button-more-dorpdown: rgba(color_button('btn-theme-main-a-1'),1);
 
-
+//stress button
+$button-full-stress-background: color_button('btn-theme-full-stress');
 
 //transparent button
 $button-transparent-text: rgba(color_button('btn-theme-main-a-1'), .8);

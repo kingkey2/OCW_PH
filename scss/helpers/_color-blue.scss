@@ -52,10 +52,13 @@ $color_main: (
     
   ); 
 
-  $color_button: (
+  $color_button: (    
     'btn-theme-full-text': #ffffff,
 
     'btn-theme-main-a-1': #3DB6FF,
+    'btn-theme-main-b-1': #079eb2,
+    
+    'btn-theme-full-stress': #e83e8c,
 
     'btn-theme-sub-a-1': #45b6d4,
     'btn-theme-sub-a-2': #45b6d4,
@@ -63,9 +66,7 @@ $color_main: (
     'btn-main-1': #0057FF,
     'btn-main-2': #69C7FF,   
     'btn-sub-1': #E84E8B,
-    'btn-sub-2': #FF9CC3,   
-     
-
+    'btn-sub-2': #FF9CC3, 
 
   );
 

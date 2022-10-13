@@ -734,7 +734,7 @@
                                                         <span class="value lacking language_replace">不可出金</span>
                                                         <span class="value enough language_replace">可出金</span>
                                                         <!-- 出金說明 -->
-                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span></div>                                               
+                                                        <span class="btn btn-Q-mark btn-round btn-sm" onclick="window.parent.API_LoadPage('','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span></div>      
                                                 </div>        
                                                 <div class="limit-amount">
                                                     <span class="title language_replace">出金限制</span>
@@ -789,14 +789,12 @@
                                 </div>
 
                             </div>
-
+                            <%--
                              <!-- 會員簽到進度顯示 -->
                              <div class="activity-dailylogin-wrapper">
                                 <div class="dailylogin-bouns-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
                                     <div class="dailylogin-bouns-inner">
                                         <div class="dailylogin-bouns-content">
-                                            <!-- <h3 class="title">
-                                                <span class="name ">金曜日のプレゼント</span></h3> -->
                                             <div class="sec-title">
                                                 <h3 class="title">
                                                     <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
@@ -832,9 +830,10 @@
                                     </div>
                                 </div>
                             </div>
+                            --%>
                         </section>
                     </section>
-
+                    <%--
                     <!-- 熱門活動 -->
                     <div class="activity-promo-wrapper">
                         <div class="activity-promo-inner">
@@ -887,6 +886,7 @@
                             </div>
                         </div>
                     </div>
+                    --%>
                 </article>
             </div>
         </div>

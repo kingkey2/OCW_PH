@@ -672,7 +672,9 @@ textarea, input, button, select{
 }
 
 .btn-full-stress{
-	background-color: #e83e8c !important;
+	// background-color: #e83e8c !important;
+	// background-color: #E7211A !important;
+	background-color: $button-full-stress-background !important;
 }
 
 .btn-full-stress-2{
