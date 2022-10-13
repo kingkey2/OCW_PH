@@ -337,7 +337,7 @@
                             </div>
                             <div class="form-group col-12 col-smd-4 col-md-auto">
                                 <button type="button" class="btn btn-full-main btn-roundcorner btn-sm" onclick="updateAccountingDetail()">
-                                    <span class="language_replace">検索</span>
+                                    <span class="language_replace">搜尋</span>
                                 </button>
                             </div>
 

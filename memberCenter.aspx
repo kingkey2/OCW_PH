@@ -995,14 +995,14 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md">
-                                        <label class="form-title">姓<span class="form-title-note language_replace">(羅馬字)</span></label>
+                                        <label class="form-title language_replace">姓(羅馬字)</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" id="Name1" name="Name1">
                                             <div class="invalid-feedback language_replace">提示</div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md">
-                                        <label class="form-title">名<span class="form-title-note language_replace">(羅馬字)</span></label>
+                                        <label class="form-title language_replace">名(羅馬字)</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" id="Name2" name="Name2">
                                             <div class="invalid-feedback language_replace">提示</div>

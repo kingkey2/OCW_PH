@@ -3308,15 +3308,14 @@
                         </div>
                     </div>
 
-                    <div class="company-detail">
+<%--                    <div class="company-detail">
                         <div class="company-license">
                             <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
                         </div>
                         <div class="company-address">
-                            <%-- <p class="name">Online Chip World Co. N.V</p>--%>
                             <p class="address language_replace">MAHARAJA由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
                         </div>
-                    </div>
+                    </div>--%>
 
 
                     <div class="footer-copyright">
@@ -3489,8 +3488,8 @@
                             </div>
                             <div class="searchFilter-item input-group keyword">
                                 <input id="alertSearchKeyWord" type="text" class="form-control"
-                                    language_replace="placeholder" placeholder="キーワード" enterkeyhint="">
-                                <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                                    language_replace="placeholder" placeholder="關鍵字" enterkeyhint="">
+                                <label for="" class="form-label"><span class="language_replace">關鍵字</span></label>
                             </div>
                             <div class="wrapper_center action-outter">
                                 <button type="button" class="btn btn btn-outline-main btn-sm btn-reset-popup" onclick="SearchControll.searchGameChangeClear()">
@@ -3498,7 +3497,7 @@
                                 </button>
                                 <button onclick="SearchControll.searchGameList()" type="button"
                                     class="btn btn-full-main btn-sm btn-search-popup">
-                                    <span class="language_replace">検索</span>
+                                    <span class="language_replace">搜尋</span>
                                 </button>
                             </div>
                         </div>
