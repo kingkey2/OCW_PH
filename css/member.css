@@ -239,12 +239,14 @@ input.month:read-only, input.day:read-only {
 .member-wallet-contnet::after {
   content: "";
   display: inline-block;
-  width: 55%;
-  max-width: 160px;
+  width: 60%;
+  max-width: 220px;
   height: calc(100% + 25px);
   height: 100%;
   position: absolute;
   position: relative;
+  top: -25%;
+  right: -5%;
   background: url(../images/icon/ico-dog-w-shadow.svg) center top no-repeat;
   background-size: contain;
 }

@@ -321,18 +321,31 @@ input{
 
         transition: all 0.35s ease-in-out;
 
+        // &::after{
+        //     content: '';
+        //     display: inline-block;
+        //     width: 30%;
+        //     max-width: 160px;
+        //     height: calc(100% + 25px);
+        //     height: 100%;
+        //     position: absolute;
+        //     position: relative;
+        //     // right: 10px;
+        //     // top: -10px;
+        //     background: url(../images/icon/ico-dog-w-shadow.svg) center top no-repeat;
+        //     background-size: contain;
+        // }
         &::after{
-            content: '';
+            content: "";
             display: inline-block;
-            // width: 30%;
-            width: 55%;
-            max-width: 160px;
+            width: 60%;
+            max-width: 220px;
             height: calc(100% + 25px);
             height: 100%;
             position: absolute;
             position: relative;
-            // right: 10px;
-            // top: -10px;
+            top: -25%;
+            right: -5%;
             background: url(../images/icon/ico-dog-w-shadow.svg) center top no-repeat;
             background-size: contain;
         }
