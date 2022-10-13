@@ -9,7 +9,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding: 0 10px 0;
 }
 .tab-game .icon-mask::before {
-  color: #454545;
+  background-color: #7B4D06;
 }
 .tab-game .content {
   max-width: 840px;

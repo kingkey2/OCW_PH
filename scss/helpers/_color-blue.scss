@@ -53,11 +53,20 @@ $color_main: (
   ); 
 
   $color_button: (
+    'btn-theme-full-text': #ffffff,
+
     'btn-theme-main-a-1': #3DB6FF,
+
+    'btn-theme-sub-a-1': #45b6d4,
+    'btn-theme-sub-a-2': #45b6d4,
+
     'btn-main-1': #0057FF,
     'btn-main-2': #69C7FF,   
     'btn-sub-1': #E84E8B,
     'btn-sub-2': #FF9CC3,   
+     
+
+
   );
 
   $color_tab: (
@@ -103,8 +112,27 @@ $color_main: (
   );
 
   $color_memberCenter: (
-    'qrcode-btn-background': #009FE8,        
-    
+    'qrcode-btn-background': #009FE8,  
+     //出金門檻
+    'withdraw-limit-background-1': #E69D00,        
+    'withdraw-limit-background-2': #009ED0,
+    'withdraw-limit-detail-background': #425059, 
+
+     //活動中心
+     'activity-center-background': #45C5FF, 
+     'activity-center-btn-background': #0081BB, 
+     'activity-center-btn-textColor': #ffffff, 
+
+      //獎金中心      
+      'prize-center-background': #E14382, 
+
+      //會員簽到進度顯示
+      'dailylogin-bouns-mobile-background-1': #FFFAC3, 
+      'dailylogin-bouns-mobile-background-2': #FFDFD2, 
+      'dailylogin-bouns-amount-background': #1D63A3, 
+
+      'dailylogin-bouns-pc-background-1': #4288C9, 
+      'dailylogin-bouns-pc-background-2': #1D62A3, 
   );
 
 

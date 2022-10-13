@@ -795,8 +795,14 @@
                                 <div class="dailylogin-bouns-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
                                     <div class="dailylogin-bouns-inner">
                                         <div class="dailylogin-bouns-content">
-                                            <h3 class="title">
-                                                <span class="name ">金曜日のプレゼント</span></h3>
+                                            <!-- <h3 class="title">
+                                                <span class="name ">金曜日のプレゼント</span></h3> -->
+                                            <div class="sec-title">
+                                                <h3 class="title">
+                                                    <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
+                                                    <span class="dailylogin-bouns-QA sec-title-intro-link">
+                                                    <span class="btn btn-QA-dailylogin-bouns btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="language_replace">説明</span></span>
+                                            </div>
                                             <ul class="dailylogin-bouns-list">
                                                 <!-- 已領取 bouns => got-->
                                                 <li class="bouns-item ">
@@ -852,7 +858,7 @@
                                             </div>
                                             <div class="promo-content">
                                                 <h4 class="title language_replace">顧客活用的介紹推廣頁②（柏青哥愛好者）</h4>
-                                                <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl1()">
+                                                <button type="button" class="btn btn-full-sub" onclick="copyActivityUrl1()">
                                                     <i class="icon icon-mask icon-copy"></i><span class="language_replace">複製活動連結</span>
                                                 </button>
                                             </div>
@@ -871,7 +877,7 @@
                                             </div>
                                             <div class="promo-content">
                                                 <h4 class="title language_replace">お客様活用、紹介ランディングページその①（主婦）</h4>
-                                                <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl()"><i class="icon icon-mask icon-copy"></i>
+                                                <button type="button" class="btn btn-full-sub " onclick="copyActivityUrl()"><i class="icon icon-mask icon-copy"></i>
                                                     <span class="language_replace">複製活動連結</span>
                                                 </button>
                                             </div>

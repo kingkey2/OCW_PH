@@ -380,7 +380,10 @@ button {
   padding: 0.65em 2em 0.6em;
   font-size: 1em;
   background-size: 200% auto;
-  background-color: #009FE8;
+  /* background-color: #009FE8; */
+  background-color: #079eb2;
+  border-color: #079eb2;
+  
   border-radius: 30px;
   /*
   background-image: -webkit-gradient(linear, left top, right top, from(#A445B2), color-stop(50%, #FF0066), to(#D41872));
@@ -400,6 +403,8 @@ button {
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
   outline: none;
   background-position: right center;
+  background-color: #0194a7;
+  border-color: #0194a7;
   /* background-image: -webkit-gradient(linear, left top, right top, from(#A445B2), color-stop(50%, #FF0066), to(#D41872));
   background-image: linear-gradient(to right, #A445B2 0%, #FF0066 50%, #D41872 100%);
   -webkit-box-shadow: 0px 4px 24px -4px rgba(0, 110, 255, 0.35);
