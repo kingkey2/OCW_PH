@@ -197,7 +197,7 @@ public class SyncAPI : System.Web.Services.WebService
         Dictionary<int, int> CategoryGameCodeCount = new Dictionary<int, int>();
 
         SettingData = EWinWeb.GetCompanyGameCodeSettingJObj();
-
+        //if (true) {
         if (CheckPassword(Key)) {
             CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
 
