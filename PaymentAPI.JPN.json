@@ -31,6 +31,7 @@
   "LockFailure": "ロックが失敗しました。",
   "InvalidStatus": "注文の状態が誤っています。",
   "JKCAmountInsufficient": "JKC残高不足",
+  "JKCAmountInsufficient2": "JKC残高不足",
   "ClientOrderNumber": "注文はすでに存在します。もう一度申請ください。",
   "WithdrawlTemporaryMaintenance": "出金手続きはメンテナンス中です。",
   "OPFailure": "残高不足"

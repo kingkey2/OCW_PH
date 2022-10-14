@@ -377,8 +377,7 @@
         var idBornYear = document.getElementById("idBornYear1");
         var idBornMonth = document.getElementById("idBornMonth1");
         var idBornDate = document.getElementById("idBornDate");
-        var PhonePrefix = document.getElementById("idPhonePrefix").value;
-        var PhoneNumber = document.getElementById("idPhoneNumber").value;
+        var idEmail = document.getElementById("idEmail").value;
         var Name1 = document.getElementById("Name1").value;
         var Name2 = document.getElementById("Name2").value;
 
@@ -403,11 +402,8 @@
         } else if (Name2 == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入名"));
             return;
-        } else if (PhonePrefix == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
-            return;
-        } else if (PhoneNumber == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入電話"));
+        } else if (idEmail == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入信箱"));
             return;
         }
 
@@ -429,10 +425,9 @@
 
         var data = {
             "OldPassword": "",
-            "ContactPhonePrefix": PhonePrefix,
-            "ContactPhoneNumber": PhoneNumber,
             "RealName": Name1 + Name2,
             "Birthday": year + "/" + month + "/" + date,
+            "EMail": idEmail,
             "ExtraData": strExtraData
         }
 
@@ -984,7 +979,7 @@
                                 <div class="form-group">
                                     <label class="form-title language_replace">信箱</label>
                                     <div class="input-group">
-                                        <input id="idLoginAccount" name="LoginAccount" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
+                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
                                         <div class="invalid-feedback language_replace">請輸入正確信箱</div>
                                     </div>
                                 </div>

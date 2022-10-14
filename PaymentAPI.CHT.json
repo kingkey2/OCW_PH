@@ -31,6 +31,7 @@
   "LockFailure": "鎖定失敗",
   "InvalidStatus": "訂單狀態有誤",
   "JKCAmountInsufficient": "JKC餘額不足",
+  "JKCAmountInsufficient2": "JKC餘額不足",
   "ClientOrderNumber": "訂單已存在,請重新申請訂單",
   "WithdrawlTemporaryMaintenance": "出款程序維護中",
   "OPFailure": "餘額不足"
