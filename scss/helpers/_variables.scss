@@ -44,6 +44,9 @@ $header-nav-default-text: color_main('white');
 $header-nav-link-text: color_main('white');
 $header-nav-link-background: rgba(color_main('black'), .65);
 
+$header-btn-login-backgroundColor: (color : (color_button('btn-main-1'), color_button('btn-main-2')));
+$header-btn-register-backgroundColor: (color : (color_button('btn-sub-1'), color_button('btn-sub-2')));
+
 
 $navbar-dropdown-submenu-background: color_main('theme-sub-a-1');
 $navbar-dropdown-submenu-hover-background: darken(color_main('theme-sub-a-1'), 20%);
@@ -51,7 +54,7 @@ $navbar-dropdown-submenu-borderColor: rgba(color_main('white'), .2);
 $header-round-button-Size: 35px;
 
 // Sidebar Menu 側選單
-$header-navbarMenu-backgroundColor: color_main('theme-main-a-2');
+$header-navbarMenu-backgroundColor: color_header('header-main-bg3');
 $header-navbarMenu-gradient-backgroundColor: (color : (color_header('header-main-bg1'), color_header('header-main-bg2')));
 
 $header-navbarMenu-width: 200px;
@@ -138,15 +141,8 @@ $input-radio-button-label-default-padding-right: 10px;
 
 
 
-
-
-
-
 $input-radio-button-label-default-iconcheck-bg: rgba(color_main('black'), .5);
 $input-radio-button-label-default-iconcheck-bg-bordercolor: rgba(color_main('black'), 0.5);
-
-
-
 
 
 $input-radio-button-label-hover-custom-input-radio-txtcolor: rgba(color_main('white'), 1);
@@ -166,10 +162,6 @@ $input-radio-button-label-checked-custom-input-radio-bordercolor: rgba(color_mai
 $input-radio-button-label-checked-iconcheck-bg: rgba(color_main('white'), 1);
 $input-radio-button-label-checked-iconcheck-bg-bordercolor: rgba(color_main('white'), 1);
 $input-radio-button-label-checked-iconcheck-bgcolor: rgba(color_main('theme-main-a-2'), 1);
-
-
-
-
 
 
 //custom checkbox-- default
@@ -218,37 +210,38 @@ $btn-focus-box-shadow: $input-btn-focus-box-shadow;
 // END OF Bootstrap ---------------------------
 
 $button-main-full-text: rgba(color_main('white'), 1);
-// $button-main-full-background: rgba(color_main('black'), .55);
-$button-main-full-background: color_main('theme-main-a-1');
+$button-main-full-background: color_button('btn-theme-main-a-1');
 
 
-$button-full-outline-border: rgba(color_main('theme-main-a-1'), 1);
-$button-full-outline-text: rgba(color_main('white'), 0.8);
+$button-full-outline-border: rgba(color_button('btn-theme-main-b-1'), 1);
+$button-full-outline-text: rgba(color_button('btn-theme-main-b-1'), 0.8);
+$button-full-outline-hover-background: rgba(color_button('btn-theme-main-b-1'), 1);
 
-$button-more-dorpdown: rgba(color_main('theme-main-a-1'),1);
+$button-more-dorpdown: rgba(color_button('btn-theme-main-a-1'),1);
 
-$button-sub-full-text: rgba(color_main('white'), 1);
-$button-sub-full-background: rgba(color_main('theme-sub-b-3'),1);
+//stress button
+$button-full-stress-background: color_button('btn-theme-full-stress');
 
 //transparent button
-$button-transparent-text: rgba(color_main('theme-main-a-1'), .8);
+$button-transparent-text: rgba(color_button('btn-theme-main-a-1'), .8);
 $button-transparent-background: transparent;
 
-$button-transparent-text: rgba(color_main('theme-main-a-1'), .8);
+$button-transparent-text: rgba(color_button('btn-theme-main-a-1'), .8);
 
 //sub button
-$button-sub-full-text: rgba(color_main('white'), 1);
-$button-sub-full-background: rgba(color_main('theme-sub-b-3'),1);
+$button-sub-full-text: rgba(color_button('btn-theme-full-text'), 1);
+$button-sub-full-background: rgba(color_button('btn-theme-sub-a-2'),1);
 
 
 //round button
 $button-round-hover-background: rgba(color_main('black'), .3);
-
 // $button-round-focus-background: darken($button-main-full-background, 5%);
-
 $button-round-focus-background:rgba(color_main('black'), .75);
-$button-round-focus-boxshadow: 0 0 5px 1px rgba(color_main('theme-main-a-1'), 1);
+$button-round-focus-boxshadow: 0 0 5px 1px rgba(color_button('btn-theme-main-a-1'), 1);
 
+//FAKE button
+$button-fake-full-outline-borderColor: rgba(color_button('btn-theme-fake'), 1);
+$button-fake-mask-icon-background: $button-fake-full-outline-borderColor;
 
 //POPUP ==========================*/
 $popup-wrapper-background:rgba(color_main('midtones-a-4'), 1);
@@ -260,9 +253,81 @@ $popup-btn-confirm-color: rgba(color_main('theme-main-a-1'),1);
 $popup-row-border: $body-row-border;
 
 
-//客制化 表格 MT__tableDiv====================
-$MT-table-thead-th-background: rgba(color_main('theme-main-a-1'), 1);
+//TAB ==========================
+$tab-game-backgroundColor: color_tab('tab-game-bg');
+$tab-game-item-backgroundColor: color_tab('tab-game-default');
+$tab-game-item-active-backgroundColor: color_tab('tab-game-active');
+$tab-game-item-textShadowColor: color_tab('tab-game-text-shadow');
 
+$tab-game-search-backgroundColor: color_tab('tab-game-search-bg');
+$tab-game-search-boxshadowColor: color_tab('tab-game-search-boxshadow');
+
+$tab-primary-backgroundColor: color_tab('tab-primary-bg');
+$tab-primary-item-hover-backgroundColor: color_tab('tab-primary-hover');
+$tab-primary-item-active-backgroundColor: color_tab('tab-primary-active');
+
+
+//Game Slider Style==========================
+$section-randomRem-backgroundColor: (
+    color : (
+      rgba(color_game_custom('game-custom-randomRem-bg-1'),0),
+      color_game_custom('game-custom-randomRem-bg-2'), 
+      rgba(color_game_custom('game-custom-randomRem-bg-3'),0)),   
+    positon : (40.62%, 40.63%, 97.92%) 
+);
+
+$game-forOne-btn-backgroundColor:color_game_custom('game-custom-forone-btn-bg');
+
+//Section Title ==========================
+$sec-title-deco-backgroundColor:color_sec_title('sec-title-deco-bg');
+$sec-link-btn-hover-backgroundColor:color_sec_title('sec-link-btn-bg-hover');
+
+//代理下線會員 ==========================
+$agentDownline-member-mask-icon-backgroundColor:color_agentDownline('member-mask-icon-background');
+$agentDownline-agent-mask-icon-backgroundColor:color_agentDownline('agent-mask-icon-background');
+
+$agentDownline-member-td-stress-backgroundColor:color_agentDownline('member-td-stress-background');
+$agentDownline-agent-td-stress-backgroundColor:color_agentDownline('agent-td-stress-background');
+
+//會員中心 ==========================
+$qrcode-btn-copy-backgroundColor:color_memberCenter('qrcode-btn-background');
+
+ //出金門檻
+$member-withdraw-limit-backgroundColor:(color : (color_memberCenter('withdraw-limit-background-1'), color_memberCenter('withdraw-limit-background-2')));
+
+$member-withdraw-limit-detail-backgroundColor:color_memberCenter('withdraw-limit-detail-background');
+
+ //活動中心
+ $member-activity-center-backgroundColor:color_memberCenter('activity-center-background');
+ $member-activity-center-btn-backgroundColor:color_memberCenter('activity-center-btn-background');
+ $member-activity-center-btn-textColor:color_memberCenter('activity-center-btn-textColor');
+
+ //獎金中心
+ $member-prize-center-backgroundColor:color_memberCenter('prize-center-background');
+
+//會員簽到進度顯示
+$member-dailylogin-bouns-mobile-backgroundColor: (   
+    color : (
+      color_memberCenter('dailylogin-bouns-mobile-background-1'),
+      color_memberCenter('dailylogin-bouns-mobile-background-2'),
+      ),   
+    positon : (0%, 100%) 
+);
+
+$member-dailylogin-bouns-pc-backgroundColor: (   
+    color : (
+      color_memberCenter('dailylogin-bouns-pc-background-1'),
+      color_memberCenter('dailylogin-bouns-pc-background-2'),
+      ),   
+    positon : (17.71%, 83.85%)
+);
+
+$member-dailylogin-bouns-amount-backgroundColor: color_memberCenter('dailylogin-bouns-amount-background');
+
+
+
+//客制化 表格 MT__tableDiv=================
+$MT-table-thead-th-background: rgba(color_MT_table('thead-th-background'), 1);
 
 //copyright*/
 $copyright-text: rgba(color_main('white'),.5);
@@ -272,6 +337,9 @@ $copyright-fontSize: 12px;
 $login-form-gradient-background:(
   color : ( rgba(color_main('black'), 0.07), rgba(color_main('black'), 0.1))
 );
+
+//LOADER ============================
+$loader-background: color_main('theme-loader-background');
 
 // *******************************************
 //  Gradient list 
@@ -326,8 +394,18 @@ $btn-config:(
     txtcolor: $button-main-full-text,
     bgcolor:  $button-main-full-background,
     border-color: $button-main-full-background,
-    bgcolor-hover: darken($button-main-full-background, 10%),
-    border-color-hover: darken($button-main-full-background, 15%),
+    bgcolor-hover: darken($button-main-full-background, 8%),
+    border-color-hover: darken($button-main-full-background, 8%),
+    txtcolor-hover: $button-main-full-text
+
+  ),
+  btn-primary:(
+    class: 'primary',
+    txtcolor: $button-main-full-text,
+    bgcolor: $button-full-outline-hover-background,
+    border-color: $button-full-outline-hover-background,
+    bgcolor-hover: darken($button-full-outline-hover-background, 8%),
+    border-color-hover: darken($button-full-outline-hover-background, 8%),
     txtcolor-hover: $button-main-full-text
 
   ),
@@ -336,8 +414,8 @@ $btn-config:(
     txtcolor: $button-full-outline-text,
     bgcolor:  transparent,
     border-color: $button-full-outline-border,
-    bgcolor-hover:  $button-main-full-background,
-    border-color-hover: $button-main-full-background,
+    bgcolor-hover:  $button-full-outline-hover-background,
+    border-color-hover: $button-full-outline-hover-background,
     txtcolor-hover: $button-main-full-text
   ),
   btn-full-sub:(
@@ -345,8 +423,8 @@ $btn-config:(
     txtcolor: $button-sub-full-text,
     bgcolor:  $button-sub-full-background,
     border-color: $button-sub-full-background,
-    bgcolor-hover:  $button-main-full-background,
-    border-color-hover: $button-main-full-background,
+    bgcolor-hover: darken($button-sub-full-background, 9%),
+    border-color-hover: darken($button-sub-full-background, 9%),
     txtcolor-hover: $button-main-full-text
   ),
   btn-transparent:(

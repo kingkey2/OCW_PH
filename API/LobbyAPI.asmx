@@ -1842,6 +1842,29 @@ public class LobbyAPI : System.Web.Services.WebService {
         return a;
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.FANTA.AgentAccountingResult GetAccountingDetailBySummaryDate(string WebSID, string GUID, string StartDate, string EndDate) {
+        EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
+        EWin.FANTA.AgentAccountingResult callResult = new EWin.FANTA.AgentAccountingResult();
+        EWin.FANTA.AgentAccountingResult R;
+        RedisCache.SessionContext.SIDInfo SI;
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            R = fantaAPI.GetAccountingDetailBySummaryDate(GetToken(), SI.EWinSID, GUID, StartDate, EndDate);
+
+        } else {
+            R = new EWin.FANTA.AgentAccountingResult() {
+                ResultState = EWin.FANTA.enumResultState.ERR,
+                Message = "InvalidWebSID"
+            };
+        }
+
+        return R;
+    }
+
     public class UserTwoMonthSummaryResult : EWin.Lobby.APIResult {
         public List<Payment> PaymentResult { get; set; }
         public List<Game> GameResult { get; set; }

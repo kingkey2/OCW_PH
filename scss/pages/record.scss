@@ -906,19 +906,20 @@
             margin-right: 0.4rem;
         }
         .icon-mask:before {
-            background-color: #00B0FF;
+            // background-color: #00B0FF;
+            background-color: $agentDownline-member-mask-icon-backgroundColor;
         }
 
         .member-item{
             width: 100%;
             display: flex;
             align-items: center;
-            padding: 0.5rem;
-            
+            padding: 0.5rem;            
 
             &.agent{                
                 .icon-mask:before {
-                    background-color: #FF6396;
+                    // background-color: #FF6396;
+                    background-color: $agentDownline-agent-mask-icon-backgroundColor;
                 }
             }
         }
@@ -986,7 +987,8 @@
     }
 
     .icon-mask.icon-people:before {
-        background-color: #00B0FF;
+        // background-color: #00B0FF;
+        background-color: $agentDownline-member-mask-icon-backgroundColor;
     }
 
     .icon-mask:before {
@@ -1005,10 +1007,12 @@
     .record-table-item{
         &.agent{
             .icon-mask.icon-people:before {
-                background-color: #FF6396;
+                // background-color: #FF6396;
+                background-color: $agentDownline-agent-mask-icon-backgroundColor;
             }
             .record-table-cell.td-date{
                 // background-color: #FFEAF1;
+                background-color: $agentDownline-agent-td-stress-backgroundColor;
             }
         }     
 
@@ -1025,7 +1029,8 @@
        
         &.td-date{
             flex: 0 0 60px;
-            background-color: #DFF5FF;
+            // background-color: #DFF5FF;
+            background-color: $agentDownline-member-td-stress-backgroundColor;
             font-weight: 500;
             justify-content: center;
 

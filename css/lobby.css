@@ -2,14 +2,14 @@
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
 .tab-game {
-  background-color: #D9D9D9;
+  background-color: #DAE9F4;
   position: sticky;
   top: 0;
   z-index: 100;
   padding: 0 10px 0;
 }
 .tab-game .icon-mask::before {
-  color: #454545;
+  background-color: #7B4D06;
 }
 .tab-game .content {
   max-width: 840px;
@@ -33,9 +33,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #00afff;
+  background-color: #DD8800;
   color: #fff;
-  text-shadow: 0px 0px 4px #004565;
+  text-shadow: 0px 0px 4px #895500;
   text-align: center;
 }
 .tab-game .tab-scroller {
@@ -65,7 +65,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
           transform: translate3d(0, -50%, 0);
 }
 .tab-game .tab-scroller .tab-item.active .title {
-  background-color: #48c5ff;
+  background-color: #F6B619;
 }
 .tab-inner {
   display: -webkit-box;
@@ -90,10 +90,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 58.6956521739px;
   height: 58.6956521739px;
   border-radius: 50%;
-  background-color: #48C5FF;
+  background-color: #8DD0DA;
   border: solid 2px #fff;
-  -webkit-box-shadow: 0 0 0px 5px #D9D9D9;
-          box-shadow: 0 0 0px 5px #D9D9D9;
+  -webkit-box-shadow: 0 0 0px 5px #3A9AA0;
+          box-shadow: 0 0 0px 5px #3A9AA0;
   padding: 3px;
   position: absolute;
   left: 0;
@@ -355,7 +355,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .category-dailypush-cotentBox .btn-play {
   border-radius: 50px;
-  background-color: #00AFFF;
+  background-color: #F5A919;
   color: #fff;
   -webkit-box-flex: 1;
       -ms-flex: 1;

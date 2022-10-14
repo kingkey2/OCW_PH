@@ -234,7 +234,10 @@ input{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #009FE8;
+
+            // background-color: #009FE8;
+            background-color: $qrcode-btn-copy-backgroundColor;
+
             border-radius: 30px;
             padding: 0.2em 1em;
             font-size: 0.7em;
@@ -318,17 +321,31 @@ input{
 
         transition: all 0.35s ease-in-out;
 
+        // &::after{
+        //     content: '';
+        //     display: inline-block;
+        //     width: 30%;
+        //     max-width: 160px;
+        //     height: calc(100% + 25px);
+        //     height: 100%;
+        //     position: absolute;
+        //     position: relative;
+        //     // right: 10px;
+        //     // top: -10px;
+        //     background: url(../images/icon/ico-dog-w-shadow.svg) center top no-repeat;
+        //     background-size: contain;
+        // }
         &::after{
-            content: '';
+            content: "";
             display: inline-block;
-            width: 30%;
-            max-width: 160px;
+            width: 60%;
+            max-width: 220px;
             height: calc(100% + 25px);
             height: 100%;
             position: absolute;
             position: relative;
-            // right: 10px;
-            // top: -10px;
+            top: -25%;
+            right: -5%;
             background: url(../images/icon/ico-dog-w-shadow.svg) center top no-repeat;
             background-size: contain;
         }
@@ -460,8 +477,11 @@ input{
         }
 
         .btn-activity-in{            
-            background-color: rgba(#0081BB, 1);
-            color: #fff;
+            // background-color: rgba(#0081BB, 1);
+            background-color:  $member-activity-center-btn-backgroundColor;
+
+            // color: #fff;
+            color: $member-activity-center-btn-textColor;
             font-size: font-resize(18px);
             font-weight: bold;
             border-radius: 30px;
@@ -477,7 +497,9 @@ input{
     }
 
     &-inner{
-        background-color: rgba(#45C5FF, 1);
+        // background-color: rgba(#45C5FF, 1);
+        background-color:$member-activity-center-backgroundColor;
+
         background-image: url(../images/theme/bg_dog_white.png), url(../images/member/bg_activity.svg);
         background-position: center center, 100% 120%;
         background-repeat: repeat, no-repeat;
@@ -512,7 +534,8 @@ input{
     }
 
     &-inner{
-        background-color: rgba(#E14382, 1);
+        // background-color: rgba(#E14382, 1);
+        background-color:  $member-prize-center-backgroundColor;
         background-image: url(../images/member/gril-doubt-M.svg);
     
         
@@ -532,37 +555,244 @@ input{
 
 }
 
-//會員簽到進度顯示
-.dailylogin-bouns {
-    &-wrapper{
+//會員簽到進度顯示 - 舊的 ================
+// .dailylogin-bouns {
+//     &-wrapper{
+//         cursor: pointer;
+//     }
+
+//     &-inner {
+//         // background: linear-gradient(180deg, #FFFAC3 0%, #FFDFD2 100%);
+
+//         @include bg-gradient(180deg, $member-dailylogin-bouns-mobile-backgroundColor);
+
+//     }
+
+//     &-content {
+//         position: relative;
+
+
+//         .title {
+
+//             &:before {
+//                 content: '';
+//                 display: inline-flex;
+//                 // width: 140px;
+//                 flex: 1;
+//                 max-width: 140px;
+//                 height: 72px;
+//                 background: url(../images/prize/obj-golden-bag.svg) left center no-repeat;
+//                 background-size: contain;
+//                 position: relative;
+
+//                 z-index: 1;
+//                 left: 0;
+//                 bottom: -10px;
+//             }
+
+//         }
+//     }
+
+//     &-list {
+//         position: relative;
+//         z-index: 2;
+//         display: flex;
+//         flex-flow: row wrap;
+//         justify-content: center;
+
+//         .bouns-item {
+//             display: flex;
+//             flex-flow: column wrap;
+//             align-items: center;
+//             justify-content: center;
+
+//             position: relative;
+//             // width: calc(100% / 4);
+//             width: (100%/7);            
+
+//             &:before {
+//                 content: '';
+//                 display: inline-flex;
+//                 // width: 63px;
+//                 // height: 63px;
+//                 width: 80%;
+//                 height: 0;
+//                 padding-bottom: 80%;
+
+//                 background: url(../images/prize/obj-coin-bouns.svg) left center no-repeat;
+//                 background-size: contain;
+//                 position: relative;
+//                 left: 0;
+//                 right: 0;
+//                 filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
+//                 margin: 0 auto;
+
+//             }
+
+//             &:after {
+//                 content: "";
+//                 position: absolute;
+//                 bottom: 0;
+//                 left: 0;
+//                 right: 0;
+
+//                 display: inline-flex;
+//                 // width: 63px;
+//                 // height: 63px;
+//                 width: 80%;
+//                 height: 0;
+//                 padding-bottom: 80%;
+
+//                 background-color: #dbdbdb;
+//                 mix-blend-mode: color;
+
+
+//                 // 一定要加 -webkit-
+//                 -webkit-mask-position: center center;
+//                 -webkit-mask-repeat: no-repeat;               
+//                 -webkit-mask-size: contain;
+
+//                 mask-position: center center;
+//                 mask-repeat: no-repeat;
+//                 // mask-size: cover;
+//                 mask-size: contain;
+//                 -webkit-mask-image: url(../images/prize/obj-coin-bouns.svg);
+//                 mask-image: url(../images/prize/obj-coin-bouns.svg);
+//                 margin: 0 auto;
+//             }
+
+//             // 已領取 bouns
+//             &.got {
+//                 &:after {
+//                     opacity: 0;
+//                 }
+//             }
+
+//             .day {
+//                 position: relative;
+//                 order: -1;
+
+//                 width: 85%;
+//                 // width: 54px;
+//                 max-width: 54px;
+//                 // max-height: 42px;
+//                 margin: 0 auto;
+//                 font-weight: 700;
+//                 font-size: font-resize(28px);
+
+//                 padding: 3px 0;
+//                 margin-bottom: 6px;
+//             }
+
+//         }
+
+//     }
+
+    
+//     &-amount{
+//         width: 100%;
+//         // background-color: #1D63A3;
+//         background-color: $member-dailylogin-bouns-amount-backgroundColor;
+
+//         color: #fff;
+//         position: absolute;
+//         margin: 0 auto;
+        
+//         bottom: 0;
+//         border-radius: 0 0 20px 20px;
+//         text-align: center;
+//         padding: 10px 0;
+       
+
+//         .bouns-amount{
+//             font-size: font-resize(24px);
+//             font-weight: 700;
+//         }
+//     }
+
+// }
+
+//會員簽到進度顯示 - 新的 ================
+.activity {
+    &-dailylogin-wrapper {
+        position: relative;        
+    }
+}
+
+.dailylogin-bouns{
+
+    &-wrapper {
+        margin-bottom: 25px;
         cursor: pointer;
     }
 
     &-inner {
-        background: linear-gradient(180deg, #FFFAC3 0%, #FFDFD2 100%);
-
+        // border-radius: 20px 20px 0 0;
+        border-radius: 20px ;
+        // padding-top: 15px;        
     }
 
     &-content {
         position: relative;
+        display: flex;
+        flex-flow: row wrap;
+        // height: 100%;
+        // bottom: 10px;
 
+        .sec-title{
+            display: flex;
+            flex-flow: row wrap;
+            position: relative;
+        }
+       
+        .dailylogin-bouns-QA{
+            font-size: 0.75rem;
+            color: #A5A5A5;
+            cursor: pointer;
+            color: #fff;
+            flex: 0 0 60px;
+            margin-left: 4px;
+            transition: all 0.3s ease-in-out;
+
+            &:hover{
+                color: #e83e8c;
+                font-size: 0.85rem;
+            }
+
+            .icon-mask{
+                margin-right: 0;
+                &:before{
+                    background-color: #fff;
+                }
+            }
+            
+        }
+        .btn-QA-dailylogin-bouns{
+            width: 26px;
+            height: 26px;
+            margin-right: 0.3rem;
+        }
 
         .title {
+            position: relative;
+            // bottom: 10px;
+            
+            // display: flex;
+            // align-items: center;
 
             &:before {
                 content: '';
-                display: inline-flex;
-                // width: 140px;
-                flex: 1;
-                max-width: 140px;
-                height: 72px;
-                background: url(../images/prize/obj-golden-bag.svg) left center no-repeat;
-                background-size: contain;
+                display: inline-flex;               
                 position: relative;
-
                 z-index: 1;
-                left: 0;
-                bottom: -10px;
+                
+                // bottom: -10px;
+                // position: absolute;
+            }
+
+            .name {
+                // position: relative;
+                // z-index: 1;
             }
 
         }
@@ -574,66 +804,154 @@ input{
         display: flex;
         flex-flow: row wrap;
         justify-content: center;
+        padding: 0 6px;
+        
+        // width: calc(100% - 150px);
+        
 
         .bouns-item {
             display: flex;
             flex-flow: column wrap;
             align-items: center;
-            justify-content: center;
+            // justify-content: center;
+            justify-content: flex-end;
 
             position: relative;
-            // width: calc(100% / 4);
-            width: (100%/7);            
+            width: calc(100% / 7);
+            z-index: 1;
 
             &:before {
                 content: '';
                 display: inline-flex;
                 // width: 63px;
                 // height: 63px;
-                width: 80%;
+                width: 100%;
+                // height: 90px;
                 height: 0;
-                padding-bottom: 80%;
+                padding-bottom: 110%;
+             
+                background-position: center bottom;
+                background-repeat: no-repeat;
 
-                background: url(../images/prize/obj-coin-bouns.svg) left center no-repeat;
-                background-size: contain;
+                background-size: cover;
                 position: relative;
                 left: 0;
                 right: 0;
-                filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
+                // filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
                 margin: 0 auto;
 
+                // max-width: 45px;
+                // padding-bottom: 45px;
             }
 
             &:after {
                 content: "";
                 position: absolute;
-                bottom: 0;
+                // bottom: 0;
                 left: 0;
                 right: 0;
+                bottom: 0;
 
                 display: inline-flex;
-                // width: 63px;
-                // height: 63px;
-                width: 80%;
+
+                width: 100%;
+                // height: 90px;
+                // height: 100%;
                 height: 0;
-                padding-bottom: 80%;
+                padding-bottom: 110%;
 
                 background-color: #dbdbdb;
                 mix-blend-mode: color;
 
-
-                // 一定要加 -webkit-
-                -webkit-mask-position: center center;
-                -webkit-mask-repeat: no-repeat;               
+                -webkit-mask-position: center bottom;
+                -webkit-mask-repeat: no-repeat;
                 -webkit-mask-size: contain;
-
-                mask-position: center center;
+                mask-position: center bottom;
                 mask-repeat: no-repeat;
-                // mask-size: cover;
-                mask-size: contain;
+                mask-size: cover;
+
                 -webkit-mask-image: url(../images/prize/obj-coin-bouns.svg);
-                mask-image: url(../images/prize/obj-coin-bouns.svg);
+                mask-image: url(.../images/prize/obj-coin-bouns.svg);
                 margin: 0 auto;
+
+                // max-width: 45px;
+                // padding-bottom: 45px;
+            }
+            //禮拜五 - 金
+            &:nth-child(1){
+                &:before {
+                    background-image: url(../images/prize/icon-model-wizard.svg);
+                    padding-bottom: 150%;
+                    top: 1.5px;
+                }
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-wizard.svg);
+                    mask-image: url(../images/prize/icon-model-wizard.svg);
+                    padding-bottom: 150%;
+                    bottom: -1.5px;
+                   
+                }                
+            }
+
+            &:nth-child(2){
+                &:before{
+                    background-image: url(../images/prize/icon-model-warrior.svg); 
+                }
+                
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-warrior.svg);
+                    mask-image: url(../images/prize/icon-model-warrior.svg);
+                }
+            }
+
+            &:nth-child(3){
+                &:before {
+                    background-image: url(../images/prize/icon-model-musician.svg); 
+                }
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-musician.svg); 
+                    mask-image: url(../images/prize/icon-model-musician.svg); 
+                }
+            }
+
+            &:nth-child(4){
+                &:before {
+                    background-image: url(../images/prize/icon-model-archer.svg); 
+                }
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-archer.svg); 
+                    mask-image: url(../images/prize/icon-model-archer.svg);
+                }
+            }
+
+            &:nth-child(5){
+                &:before {
+                    background-image: url(../images/prize/icon-model-mars.svg);
+                }
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-mars.svg); 
+                    mask-image: url(../images/prize/icon-model-mars.svg);
+                }
+            }
+
+            &:nth-child(6){
+                &:before {
+                    background-image: url(../images/prize/icon-model-magician.svg); 
+                }
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-magician.svg); 
+                    mask-image: url(../images/prize/icon-model-magician.svg);
+                }
+            }
+
+            &:nth-child(7){
+                &:before {
+                    background-image: url(../images/prize/icon-model-bomber.svg); 
+                }
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-bomber.svg); ; 
+                    mask-image: url(../images/prize/icon-model-bomber.svg); 
+                }
             }
 
             // 已領取 bouns
@@ -643,6 +961,43 @@ input{
                 }
             }
 
+            //舊的天數====
+            // .day {
+            //     position: relative;
+            //     order: -1;
+
+            //     width: 80%;
+            //     // width: 54px;
+            //     max-width: 54px;
+            //     margin: 0 auto 3px;
+            //     font-weight: 700;
+            //     // font-size: font-resize(28px);
+            //     font-size: 1.1em;
+
+            //     padding: 3px 0;
+            //     // margin-bottom: 6px;
+
+            //     background: url(../images/prize/obj-dialog.svg) center center no-repeat; 
+            //     background-size: contain;
+            //     font-size: font-resize(24px);
+            //     padding: font-resize(8px);
+
+            //     // width: 100%;
+            //     max-width: 65px;
+            //     right: -10px;
+            //     right: 0;
+            //     position: absolute;
+            //     top: 0;
+            //     z-index: 1;
+
+            //     display: inline-flex;
+            //     justify-content: center;
+            //     align-items: center;
+                
+
+            // }
+
+            //新的天數====
             .day {
                 position: relative;
                 order: -1;
@@ -657,16 +1012,71 @@ input{
 
                 padding: 3px 0;
                 margin-bottom: 6px;
+
+
+                background: #FFE9A8;
+                border: 2px solid #E69D00;
+                border-radius: 13px;
+                // padding: 10px ; 
+                margin-bottom: 8px;
+                text-align: center;
+                z-index: 1;
+
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                top: 3px;
+
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    bottom: -11px;
+                    // left: 0;
+                    // right: 0;
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 10px 6px 0 6px;
+                    border-color: #E69D00 transparent transparent transparent;
+                    // transform: translateX(8px);
+                }
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    bottom: -7px;
+                    // left: 0;
+                    // right: 0;
+
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 10px 6px 0 6px;
+                    border-color: #FFE9A8 transparent transparent transparent;
+                    // transform: translateX(-18.5px);
+                }
+
+            }
+
+
+            &.saturday {
+                color: #009FE8;
+            }
+
+            &.sunday {
+                color: #ff0000;
             }
 
         }
 
     }
 
-    
     &-amount{
         width: 100%;
-        background-color: #1D63A3;
+        // background-color: #1D62A3;
+        background-color: $member-dailylogin-bouns-amount-backgroundColor;
+
         color: #fff;
         position: absolute;
         margin: 0 auto;
@@ -684,6 +1094,8 @@ input{
     }
 
 }
+
+
 
 // 出金 - 舊的樣式
 .member-withdraw {
@@ -911,7 +1323,8 @@ input{
         height: 30%; 
         max-height: 70px;
 
-        background-color: #425059;
+        // background-color: #425059;
+        background-color: $member-withdraw-limit-detail-backgroundColor;
         z-index: 1;   
         border-radius: 0 0 10px 10px; 
         
@@ -963,7 +1376,8 @@ input{
         &.lacking {
 
             .member-withdraw-limit-inner{
-                background-image: linear-gradient(0deg, #E69D00 0%, #009ED0 100%);
+                // background-image: linear-gradient(0deg, #E69D00 0%, #009ED0 100%);
+                @include bg-gradient(0deg, $member-withdraw-limit-backgroundColor);
             }
 
             .limit{              
@@ -1060,13 +1474,13 @@ input{
             }
 
             .btn{
-                background-color: #3DB6FF;
+                // background-color: #3DB6FF;
                 color: #fff;
                 width: 100%;
                 margin-top: 1rem;
 
                 &:hover{
-                    background-color: darken( #3DB6FF, 10%);
+                    // background-color: darken( #3DB6FF, 10%);
 
                 }
 
@@ -1580,6 +1994,136 @@ input{
     }
 }
 
+@include media-breakpoint-up(smd){
+
+//會員簽到進度顯示 新的===============
+.dailylogin-bouns {
+    &-inner {
+     //  height: 80px;
+         &::before{
+             content: '';
+             display: block;
+             position: absolute;
+             width: 100%;
+             height: 40%;
+             bottom: 53px;
+             border-radius: 10px 10px 0 0;
+         
+            // background: linear-gradient(180deg, #E8F9FF 0%, #69C9FF 100%);
+            @include bg-gradient(180deg, $member-dailylogin-bouns-pc-backgroundColor);
+           
+         } 
+    }
+
+    &-content {
+     justify-content: space-between;
+     padding-bottom: 50px;
+
+         .title {
+             position: relative;
+             
+             // width: 100%;
+             bottom: -10px;
+             // bottom: 0;
+             width: 30%;
+             height: (120px+10px);
+             width: ((216/147)*(120px+10px));          
+
+
+             &:before {
+                 content: '';
+                 display: inline-flex;
+                 // width: 160px;
+                 // height: 100px;
+                 width: 100%;
+                 height: 100%;
+
+                 background: url(../images/prize/obj-dailylogin-dialog.svg) left bottom no-repeat;
+             
+                 background-size: contain;               
+
+                 z-index: 1;
+                 left: 0;
+                 
+                 // bottom: -10px;
+                 // position: absolute;
+             }
+
+             .name {
+                 position: absolute;
+                 width: 90%;
+                 // right: 0;
+                 left: 0;
+                 width: 5em;
+                 z-index: 2;
+                 font-size: 0.6em;
+                 margin: 0 auto;
+                 top: 25px;                    
+                 // top: -30px;
+                 
+                 font-weight: 900;
+                 z-index: 1;
+                 margin-left: 46%;
+
+                 span{
+                     display: block;
+                 }
+             }
+
+         }
+
+         .dailylogin-bouns-QA{
+             position: absolute;
+             z-index: 1;
+             left: 50%;
+             bottom: 33px;
+             color: inherit;
+         }
+         .btn-QA-dailylogin-bouns{
+             width: 22px;
+             height: 22px;
+         }
+    }
+
+    &-list {
+     //    position: absolute;
+         // width: calc(100% - 150px);
+         flex: 1;
+         max-width: 640px;
+         right: 0;
+         top: 3px;  
+
+        &:after {
+             // content: "";
+             display: inline-flex;
+             width: calc( 100% + 10px);
+             height: 10px;
+             background: #4288C9;
+             
+
+             z-index: 0;
+             border-radius: 5px 0 0 5px;
+
+             position: absolute;
+             bottom: 0;
+             // bottom: 10px;
+             // left: 0;
+             right: 0;
+
+        }
+
+        .bouns-item .day{
+            position: absolute;
+            top: 10px;
+        }
+
+        .bouns-item:nth-child(1):before{
+            // top: 1px;
+        }
+
+    }
+   }
+}
 
 @include media-breakpoint-up(smg) {
 
@@ -1623,107 +2167,107 @@ input{
 
     }
 
-    //會員簽到進度顯示
-    .dailylogin-bouns {
-        &-inner {            
-            // border-radius: 20px 20px 0 0;
-            border-radius: 20px;
-            padding-top: 15px;
-            // border-bottom: solid 15px #4288C9;
-        }
+    //會員簽到進度顯示 舊的 =============
+    // .dailylogin-bouns {
+    //     &-inner {            
+    //         // border-radius: 20px 20px 0 0;
+    //         border-radius: 20px;
+    //         padding-top: 15px;
+    //         // border-bottom: solid 15px #4288C9;
+    //     }
 
-        &-content {
-            display: flex;
-            padding-bottom: 60px;
+    //     &-content {
+    //         display: flex;
+    //         padding-bottom: 60px;
 
-            .title {
-                position: relative;
-                bottom: -10px;
-                min-width: 150px;
+    //         .title {
+    //             position: relative;
+    //             bottom: -10px;
+    //             min-width: 150px;
 
-                &:before {
-                    width: 100%;
-                }
+    //             &:before {
+    //                 width: 100%;
+    //             }
 
-                .name {
-                    position: absolute;
-                    width: 90%;
-                    right: 0;
-                    font-size: 0.8em;
-                    top: -30px;
-                    width: 4em;
-                    font-weight: 900;
-                }
+    //             .name {
+    //                 position: absolute;
+    //                 width: 90%;
+    //                 right: 0;
+    //                 font-size: 0.8em;
+    //                 top: -30px;
+    //                 width: 4em;
+    //                 font-weight: 900;
+    //             }
 
-            }
+    //         }
 
-        }
+    //     }
 
-        &-list {
-            // flex: 1;
-            position: absolute;
-            width: calc(100% - 150px);
-            max-width: 600px;
-            right: 0; 
-            // bottom: -10px;
-            top: -15px;
+    //     &-list {
+    //         // flex: 1;
+    //         position: absolute;
+    //         width: calc(100% - 150px);
+    //         max-width: 600px;
+    //         right: 0; 
+    //         // bottom: -10px;
+    //         top: -15px;
 
-            &:after {
-                content: "";
-                display: inline-flex;
-                width: calc( 100% + 10px);
-                height: 10px;
-                background: #4288C9;
+    //         &:after {
+    //             content: "";
+    //             display: inline-flex;
+    //             width: calc( 100% + 10px);
+    //             height: 10px;
+    //             background: #4288C9;
                 
     
-                z-index: 0;
-                border-radius: 5px 0 0 5px;
+    //             z-index: 0;
+    //             border-radius: 5px 0 0 5px;
     
-                position: absolute;
-                bottom: 0;
-                // bottom: 10px;
-                // left: 0;
-                right: 0;
+    //             position: absolute;
+    //             bottom: 0;
+    //             // bottom: 10px;
+    //             // left: 0;
+    //             right: 0;
     
-            }
+    //         }
 
-            .bouns-item {
-                width: calc(100% / 7);
-                z-index: 1;
+    //         .bouns-item {
+    //             width: calc(100% / 7);
+    //             z-index: 1;
 
-                &:before {
-                    max-width: 45px;
-                    padding-bottom: 45px;
+    //             &:before {
+    //                 max-width: 45px;
+    //                 padding-bottom: 45px;
 
-                }
+    //             }
 
-                &:after {
-                    max-width: 45px;
-                    padding-bottom: 45px;
-                }
+    //             &:after {
+    //                 max-width: 45px;
+    //                 padding-bottom: 45px;
+    //             }
 
-                .title {
-                    &:before {}
+    //             .title {
+    //                 &:before {}
 
-                    &:after {}
+    //                 &:after {}
 
-                }
+    //             }
 
-                .day {
-                    background: url(../images/prize/obj-dialog.svg) center center no-repeat;
-                    background-size: cover;
-                    font-size: font-resize(24px);
-                    padding: font-resize(8px);
+    //             .day {
+    //                 background: url(../images/prize/obj-dialog.svg) center center no-repeat;
+    //                 background-size: cover;
+    //                 font-size: font-resize(24px);
+    //                 padding: font-resize(8px);
 
-                    // width: 100%;
-                    max-width: 65px;
-                    // right: -20px;
-                }
+    //                 // width: 100%;
+    //                 max-width: 65px;
+    //                 // right: -20px;
+    //             }
 
-            }
-        }
+    //         }
+    //     }
 
-    }
+    // }
 
     .activity-record-wrapper{
         display: flex;
@@ -1750,7 +2294,6 @@ input{
 
 
 }
-
 
 
 // @include media-breakpoint-up(md) {
@@ -2068,39 +2611,165 @@ input{
         // order: -1;
     }
 
-    //會員簽到進度顯示
+    //會員簽到進度顯示 舊的 =============
+    // .dailylogin-bouns {
+    //     &-inner {
+    //         padding: 50px 10px 10px;
+    //         border-radius: 20px;
+    //     }
+
+    //     &-content {
+    //         background: #fff;
+    //         padding-top: 10px;
+    //         padding-bottom: 45px;
+
+    //         .title {
+    //             position: absolute;
+    //             width: 100%;
+    //             top: -70px;
+
+    //             color: #fff;
+    //             text-shadow: 0px 0px 5px #000000;
+                
+    //             display: flex;
+    //             align-items: flex-end;
+
+    //             .name {
+    //                 position: relative;
+    //                 z-index: 1;
+    //                 // font-size: 1em;
+    //                 font-size: font-resize(26px);
+                    
+    //             }
+
+    //             &:after {
+    //                 content: '';
+    //                 display: inline-flex;
+    //                 width: 100%;
+    //                 height: 15px;
+    //                 background: #4288C9;
+    //                 position: absolute;
+    //                 bottom: 0;
+    //                 left: 0;
+    //             }
+
+    //         }
+    //     }
+
+    //     &-list {
+    //         .bouns-item {
+    //             // margin-bottom: 15px;
+
+    //             .title {
+
+    //                 &:before {}
+
+    //                 &:after {}
+
+    //             }
+
+    //             .day {
+    //                 background: #FFE9A8;
+    //                 border: 2px solid #E69D00;
+    //                 border-radius: 13px;
+    //                 // padding: 10px ; 
+    //                 margin-bottom: 10px;
+
+
+    //                 &:before {
+    //                     content: "";
+    //                     position: absolute;
+    //                     bottom: -11px;
+    //                     // left: 0;
+    //                     // right: 0;
+    //                     width: 0;
+    //                     height: 0;
+    //                     border-style: solid;
+    //                     border-width: 10px 6px 0 6px;
+    //                     border-color: #E69D00 transparent transparent transparent;
+    //                     transform: translateX(8px);
+    //                 }
+
+    //                 &:after {
+    //                     content: "";
+    //                     position: absolute;
+    //                     bottom: -7px;
+    //                     // left: 0;
+    //                     // right: 0;
+
+    //                     width: 0;
+    //                     height: 0;
+    //                     border-style: solid;
+    //                     border-width: 10px 6px 0 6px;
+    //                     border-color: #FFE9A8 transparent transparent transparent;
+    //                     transform: translateX(-18.5px);
+    //                 }
+
+    //             }
+
+    //         }
+
+
+    //     }
+
+    //     &-amount{
+    //         width: calc(100% + 20px);
+    //         left: -10px;
+    //         bottom: -10px;
+    //         padding: 12px 0;
+    //     }
+
+    // }
+
+}
+
+@media screen and (max-width:breakpoints_BS4(smd) - 1) {
+
+    //會員簽到進度顯示 新的 ===========
     .dailylogin-bouns {
+
         &-inner {
             padding: 50px 10px 10px;
             border-radius: 20px;
+            // background: linear-gradient(180deg, #4288C9 17.71%, #1D62A3 83.85%);
+            @include bg-gradient(180deg, $member-dailylogin-bouns-mobile-backgroundColor);
         }
 
         &-content {
-            background: #fff;
+            background-color: #fff;
+            border-radius: 10px;
             padding-top: 10px;
-            padding-bottom: 45px;
+            padding-bottom: 30px;
 
-            .title {
+            .sec-title{
                 position: absolute;
                 width: 100%;
-                top: -70px;
+                top: -55px;
 
+            }
+
+            .title {                
                 color: #fff;
-                text-shadow: 0px 0px 5px #000000;
-                
-                display: flex;
+                text-shadow: 0px 0px 5px #000000;             
+                display: flex;                
                 align-items: flex-end;
+                align-items: center;
+                // width: 100%;
 
-                .name {
-                    position: relative;
-                    z-index: 1;
-                    // font-size: 1em;
-                    font-size: font-resize(26px);
-                    
+                &:before {                
+                    // width: 60px;
+                    // height: ((73/141)*60px);
+                    height: 60px;
+                    // width: ((141/73)*60px);
+                    width: ((97/56)*60px);
+               
+                    //  background: url(../images/prize/obj-golden-bag.svg) left center no-repeat;
+                     background: url(../images/prize/obj-golden-bag-dog.svg) left center no-repeat;
+                     background-size: contain;
                 }
 
                 &:after {
-                    content: '';
+                    // content: "";                   
                     display: inline-flex;
                     width: 100%;
                     height: 15px;
@@ -2110,70 +2779,41 @@ input{
                     left: 0;
                 }
 
+                .name {
+                    position: relative;
+                    z-index: 1;
+                    padding-left: 0px;
+                    font-size: font-resize(18px);
+                }
+
             }
         }
 
         &-list {
-            .bouns-item {
-                // margin-bottom: 15px;
+            width: 100%;
+            min-height: 100px;
 
-                .title {
+            .bouns-item .day{
+                max-height: 42px;
+                // display: inline-flex;
+                // justify-content: center;
+                // align-items: center;
+                // top: 3px;
 
-                    &:before {}
-
-                    &:after {}
-
+                 //禮拜五 - 金
+                &:nth-child(1){
+                    position: absolute;
+                    top: 0;
                 }
-
-                .day {
-                    background: #FFE9A8;
-                    border: 2px solid #E69D00;
-                    border-radius: 13px;
-                    // padding: 10px ; 
-                    margin-bottom: 10px;
-
-
-                    &:before {
-                        content: "";
-                        position: absolute;
-                        bottom: -11px;
-                        // left: 0;
-                        // right: 0;
-                        width: 0;
-                        height: 0;
-                        border-style: solid;
-                        border-width: 10px 6px 0 6px;
-                        border-color: #E69D00 transparent transparent transparent;
-                        transform: translateX(8px);
-                    }
-
-                    &:after {
-                        content: "";
-                        position: absolute;
-                        bottom: -7px;
-                        // left: 0;
-                        // right: 0;
-
-                        width: 0;
-                        height: 0;
-                        border-style: solid;
-                        border-width: 10px 6px 0 6px;
-                        border-color: #FFE9A8 transparent transparent transparent;
-                        transform: translateX(-18.5px);
-                    }
-
-                }
-
             }
-
-
         }
 
         &-amount{
             width: calc(100% + 20px);
             left: -10px;
             bottom: -10px;
-            padding: 12px 0;
+            padding: 15px 0 5px;
+
         }
 
     }

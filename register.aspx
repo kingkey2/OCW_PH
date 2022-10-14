@@ -74,6 +74,10 @@
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入信箱"));
             cb(false);
             return;
+        } else if (idLoginAccount.value.indexOf('+') > 0) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
+            cb(false);
+            return;
         } else {
             if (!IsEmail(idLoginAccount.value)) {
                 window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
@@ -217,6 +221,7 @@
         form2.reportValidity();
 
         if (form2.checkValidity()) {
+            var LoginAccount = document.getElementById("idLoginAccount").value;
             var LoginPassword = document.getElementById("idLoginPassword").value;
             var ParentPersonCode = $("#PersonCode").val();
             var PhonePrefix = document.getElementById("idPhonePrefix").value;
@@ -229,6 +234,11 @@
 
             if (PhonePrefix.substring(0, 1) == "+") {
                 PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
+            }
+
+            if (LoginAccount.indexOf('+') > 0) {
+                window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
+                return false;
             }
             //full registration
             if ($("#li_register2").hasClass("active")) {
@@ -249,7 +259,7 @@
                 ];
             }
 
-            p.CreateAccount(Math.uuid(), document.getElementById("idLoginAccount").value, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
+            p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
                 if (success) {
                     if (o.Result == 0) {
                         sendThanksMail();
@@ -496,29 +506,45 @@
                 <div id="contentStep1" class="form-content" data-form-group="registerStep1">
                     <form id="registerStep1">
                         <div class="form-group mt-4">
-                            <label class="form-title language_replace">信箱</label>
+                            <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
-                                <input id="idLoginAccount" name="LoginAccount" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
-                                <div class="invalid-feedback language_replace">請輸入正確信箱</div>
+                                <input id="" name="" type="text" class="form-control custom-style" onkeyup="()"
+                                language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內">
                             </div>
                         </div>
-                        <div class="btn-container register" id="divSendValidateCodeBtn">
+                        <div class="form-row">
+                            <div class="form-group col phonePrefix">
+                                <label class="form-title language_replace">國碼</label>
+                                <div class="input-group">
+                                    <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                    <div class="invalid-feedback language_replace">請輸入國碼</div>
+                                </div>
+                            </div>
+                            <div class="form-group col">
+                                <label class="form-title language_replace">手機電話號碼</label>
+                                <div class="input-group">
+                                    <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
+                                    <div class="invalid-feedback language_replace">請輸入正確電話</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-container register my-3" id="divSendValidateCodeBtn">
                             <button type="button" class="btn btn-primary btn-ValidateCode" onclick="onBtnSendValidateCode()" id="btnSendValidateCode">
                                 <span class="language_replace">傳送驗證碼</span>
                             </button>
                         </div>
                         <div class="form-group">
                             <div class="text-s text-indent">
-                                <label class=" language_replace">E-mail驗證相關說明：</label></br>
-                                <label class=" language_replace">1.輸入信箱後點擊『傳送驗證碼』後，驗證碼將會發送到您填寫的E-mail。</label></br>
-                                <label class=" language_replace">2.將驗證碼回填於下方輸入框內。</label></br>
+                                <label class=" language_replace">手機驗證相關說明：</label></br>
+                                <label class=" language_replace">1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。</label></br>
+                                <label class=" language_replace">2.將手機簡訊內的驗證碼回填於下方輸入框內。</label></br>
                             </div>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-title language_replace">驗證碼</label>
                             <div class="input-group">
-                                <input id="idValidateCode" name="ValidateCode" type="text" class="form-control custom-style" onkeyup="CheckValidateCode()">
+                                <input id="idValidateCode" name="ValidateCode" type="text" class="form-control custom-style" onkeyup="CheckValidateCode()" language_replace="placeholder" placeholder="請輸入簡訊驗證碼">
                             </div>
                         </div>
                         <div class="form-group">
@@ -554,36 +580,23 @@
                 <!-- 以下為 完整註冊-進階版 -->
                 <div id="contentStep2" class="form-content is-hide" data-form-group="registerStep2">
                     <form id="registerStep2">
-                        <div class="form-row">
-                            <div class="form-group col phonePrefix">
-                                <label class="form-title language_replace">國碼</label>
-                                <div class="input-group">
-                                    <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
-                                    <div class="invalid-feedback language_replace">請輸入國碼</div>
-                                </div>
-                            </div>
-                            <div class="form-group col">
-                                <label class="form-title language_replace">手機電話號碼</label>
-                                <div class="input-group">
-                                    <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
-                                    <div class="invalid-feedback language_replace">請輸入正確電話</div>
-                                </div>
+                        <div class="form-group mt-4">
+                            <label class="form-title language_replace">信箱</label>
+                            <div class="input-group">
+                                <input id="idLoginAccount" name="LoginAccount" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
+                                <div class="invalid-feedback language_replace">請輸入正確信箱</div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md">
-                                <label class="form-title">
-                                    姓
-                                    <span class="form-title-note language_replace">(羅馬字)</span></label>
+                                <label class="form-title language_replace">姓(羅馬字)</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
                             <div class="form-group col-md">
-                                <label class="form-title">
-                                    名
-                                    <span class="form-title-note language_replace">(羅馬字)</span></label>
+                                <label class="form-title language_replace">名(羅馬字)</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
                                     <div class="invalid-feedback language_replace">提示</div>
@@ -658,7 +671,7 @@
                     <div class="form-group">
                         <div class="LineOfficialQrcode">
                             <p class="QrCode"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6AQAAAACgl2eQAAABrklEQVR4Xu2YXYrDMAyEBT5AjuSr+0g+gEGrmXHYbFna1w5YuMGRvpdBP3Ya+d5GvHpe7ACyA8gOICMwouwaOXtcyTUWXIrZAPVbVzaSbfZVwLX9RkCJohOrZQZfIdwPQJoqWjKdgYHQlVQKvXZAsuSCZUb/+Lcmvxyo7MRdcnvBpZgLINvZgcDZH14ngMWGOaY0SawVgNSkJnD0NoNDAE8vIGcsHCWxdu9jlDWmzAgI+FNRhTTQvIDSFVHJykoW8lXu6AhbAWp8JIvR0lgbOY2AqrcFXaUXTqpGK1kBfC2ZXCSxeci0ARbbBNEJgX+HmAWAxiHWU2JnoPcnYz5AY9VhIMvPw0UZ9AE2gycbH3DaAdhjAvBYUcug5J7HogOwy6wMoa7GSZoRQKWdBGYyxpd6xwsoXXhLtUxCKSR7AY0XRbY/OmhRr/LlA8hQeJRMuCK/Mi2AAVV7CGMj1TgirYDE5Qo5Qu1hdlGmG8A5XEMYehNZ4+ZRk05A5YiftIsHyrPkrICe90VLTi8gUXJIVuJMBxz7XzgnoAoMnvtLUIxU+wDv7ACyA8gOIPsM/AA5dNe87D/VlAAAAABJRU5ErkJggg==" alt=""></p>
-                            <p class="text-note text-gray">* 若有任何問題歡迎資詢マハラジャ官方Line客服</p>
+                            <p class="text-note text-gray language_replace">* 若有任何問題歡迎資詢マハラジャ官方Line客服</p>
                         </div>
                     </div>
 
@@ -708,12 +721,12 @@
                     <div class="registerWay-popup-wrapper popup-tip">
                         <ul class="registerWay-popup-list">
                             <li class="item">
-                            <h3 class="title">簡易註冊與完整註冊</h3>
-                            <p class="desc"><span class="text-bold">簡易註冊</span>可讓玩家填入最低限度的內容，即可進入網站體驗，但<span class="text-bold">完整註冊</span>才能享有<span class="text-bold text-primary">領取獎勵、充值、提款</span>等完整會員才有的特定功能喔!</p>  
+                            <h3 class="title language_replace">簡易註冊與完整註冊</h3>
+                            <p class="desc language_replace">簡易註冊可讓玩家填入最低限度的內容，即可進入網站體驗，但完整註冊才能享有領取獎勵、充值、提款等完整會員才有的特定功能喔!</p>  
                             </li>
                             <li class="item">
-                                <h3 class="title">簡易註冊後如何升級完整會員?</h3>
-                                <p class="desc">於會員中心按下<span class="text-bold">『進行認證』</span>之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
+                                <h3 class="title language_replace">簡易註冊後如何升級完整會員?</h3>
+                                <p class="desc language_replace">於會員中心按下『進行認證』之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
                             </li>
                         </ul>
                     </div>

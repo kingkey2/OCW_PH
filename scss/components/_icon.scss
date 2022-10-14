@@ -580,6 +580,12 @@ $icon-url:"../image/product/icon_menu_";
       mask-image: url(../images/icon/ico-list-time.svg) ;
     }
   }
+  &.icon-news-report{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-news-report.svg) ;
+      mask-image: url(../images/icon/ico-news-report.svg) ;
+    }
+  }
   &.icon-question{
     &::before{
       -webkit-mask-image: url(../images/icon/ico-question.svg) ;

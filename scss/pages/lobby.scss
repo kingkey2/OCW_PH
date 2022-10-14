@@ -3,14 +3,16 @@
 .tab {
     &-game {
         // background: linear-gradient(180deg, rgba(#fff, 1) 0%, #D6D6D6 100%);
-        background-color: #D9D9D9;
+        // background-color: #D9D9D9;
+        background-color: $tab-game-backgroundColor;
         position: sticky;
         top: 0;
         z-index: 100;  
         padding: 0 10px 0;  
         
         .icon-mask::before{
-            color: #454545;
+            // color: #454545;
+            background-color: #7B4D06;
         }
 
         .content {
@@ -39,11 +41,13 @@
             display: inline-flex;
             justify-content: center;
             align-items: center;     
-            // background-color: rgba(#6DBCE1, 1);
-            background-color: rgba(#00AFFF, 1);
+           
+            // background-color: rgba(#00AFFF, 1);
+            background-color: $tab-game-item-backgroundColor;
+
             // background-color: rgba(#000, .25);
             color: #fff;
-            text-shadow: 0px 0px 4px #004565;
+            text-shadow: 0px 0px 4px $tab-game-item-textShadowColor;
             // text-shadow: 0px 0px 4px #369AD6;
             text-align: center;
         }
@@ -77,10 +81,10 @@
                 }
                 
                 &.active{
-                    .title{
-                                              
+                    .title{                                              
                         // background-color: rgba(#50baeb, 1);                     
-                        background-color: rgba(#48C5FF, 1);                     
+                        // background-color: rgba(#48C5FF, 1);                     
+                        background-color: $tab-game-item-active-backgroundColor;                     
                     }    
                 } 
                 
@@ -132,9 +136,11 @@
         height:((54/46)*(45px+10px-5px));
 
         border-radius: 50%;
-        background-color: #48C5FF;
+        // background-color: #48C5FF;
+        background-color: $tab-game-search-backgroundColor;
         border: solid 2px #fff;
-        box-shadow: 0 0 0px 5px #D9D9D9;
+        // box-shadow: 0 0 0px 5px #D9D9D9;
+        box-shadow: 0 0 0px 5px $tab-game-search-boxshadowColor;
         padding: 3px;
 
         position: absolute;
@@ -489,7 +495,8 @@
 
         .btn-play{
             border-radius: 50px;
-            background-color: #00AFFF;
+            // background-color: #00AFFF;
+            background-color: $game-forOne-btn-backgroundColor;
             color: #fff;
             flex: 1;
         }

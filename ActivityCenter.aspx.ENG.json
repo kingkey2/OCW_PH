@@ -3,12 +3,14 @@
   "網路錯誤": "Network Error",
   "提示": "System Message",
   "沒有資料": "There is no any data so far.",
-  "前往領獎中心": "Go to Reward Center",
-  "活動": "Activity",
-  "參加活動": "Participate In An Event",
+  "前往領獎中心": "Reward Center",
+  "活動": "Event",
+  "參加活動": "Join",
   "領取獎勵": "Receive Award",
-  "立即確認": "Confirm Now",
-  "開始洗碼": "Start Your Rolling",
+  "立即確認": "View",
+  "開始洗碼": "Play Now",
   "前往入金": "Deposit Now",
-  "前往遊玩": "Play Now"
+  "前往遊玩": "Play Now",
+  "進行中": "ING",
+  "已結束": "Close"
 }

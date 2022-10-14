@@ -1,0 +1,24 @@
+﻿{
+  "轉出": "Move out",
+  "轉入": "Move in",
+  "提示": "Present",
+  "沒有資料": "no data",
+  "取得資料失敗": "Data acquisition failed",
+  "錢包": "wallet",
+  "轉移紀錄": "transfer record",
+  "日期": "date",
+  "類型": "type",
+  "金額": "amount",
+  "此遊戲紀錄僅列出各遊戲的當日總和，若您需要查詢各遊戲的詳細記錄，請於各遊戲中的遊戲紀錄進行查詢。": "This game record only lists the daily total of each game. If you need to check the detailed records of each game, please check the game records in each game.",
+  "各平台遊戲紀錄查詢方式和路徑不盡相同，此處無法一一列舉說明，請各位玩家見諒。": "The query methods and paths of game records on different platforms are different, and it is impossible to list them all here. Please forgive me.",
+  "各遊戲統計遊戲紀錄之時間有可能不盡相同，可能無法進行即時核對，發現金額計算有所差異，可稍後再試。": "The time of each game's statistics and game records may be different, and it may not be possible to check in real time. If you find that the calculation of the amount is different, you can try again later",
+  "※遊戲紀錄統計時間從1分鐘~隔日統計都是有可能的。": "The game record statistics time is possible from 1 minute to the next day",
+  "已經是最新月份了!": "It's the latest month",
+  "收取對象": "Receiving target",
+  "轉出金額": "Amount of transfer",
+  "轉出時間": "time of transfer",
+  "轉入來源": "Transfer in source",
+  "轉入金額": "Transfer amount",
+  "轉入時間": "Transfer in time"
+
+}

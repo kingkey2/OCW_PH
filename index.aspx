@@ -1,8 +1,7 @@
 <%@ Page Language="C#" %>
 
 <%
-    if (EWinWeb.IsInMaintain())
-    {
+    if (EWinWeb.IsInMaintain()) {
         Response.Redirect("/Maintain.aspx");
     }
 
@@ -19,39 +18,31 @@
     int GoEwinLogin = 0;
     string Version = EWinWeb.Version;
 
-    if (string.IsNullOrEmpty(Request["SID"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["SID"]) == false) {
         SID = Request["SID"];
     }
 
     if (string.IsNullOrEmpty(Request["CT"]) == false)
         CT = Request["CT"];
 
-    if (string.IsNullOrEmpty(Request["GoEwinLogin"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["GoEwinLogin"]) == false) {
         GoEwinLogin = int.Parse(Request["GoEwinLogin"]);
     }
 
-    if (string.IsNullOrEmpty(Request["PCode"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["PCode"]) == false) {
         PCode = Request["PCode"];
     }
 
-     if (string.IsNullOrEmpty(Request["PageType"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["PageType"]) == false) {
         PageType = Request["PageType"];
     }
 
-    if (GoEwinLogin == 1)
-    {
+    if (GoEwinLogin == 1) {
         string EwinCallBackUrl;
 
-        if (CodingControl.GetIsHttps())
-        {
+        if (CodingControl.GetIsHttps()) {
             EwinCallBackUrl = "https://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
-        }
-        else
-        {
+        } else {
             EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
         }
         Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(CT) + "&KeepLogin=0" + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
@@ -65,78 +56,43 @@
 
     RegisterType = CompanySite.RegisterType;
     RegisterParentPersonCode = CompanySite.RegisterParentPersonCode;
-    if (string.IsNullOrEmpty(Request["Lang"]))
-    {
+    if (string.IsNullOrEmpty(Request["Lang"])) {
         string userLang = CodingControl.GetDefaultLanguage();
 
-        if (userLang.ToUpper() == "zh-TW".ToUpper())
-        {
+        if (userLang.ToUpper() == "zh-TW".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-HK".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-HK".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-MO".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-MO".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CHT".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CHT".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CHS".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CHS".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-SG".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-SG".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CN".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CN".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "en-US".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-US".ToUpper()) {
             Lang = "ENG";
-        }
-        else if (userLang.ToUpper() == "en-CA".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-CA".ToUpper()) {
             Lang = "ENG";
-        }
-        else if (userLang.ToUpper() == "en-PH".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-PH".ToUpper()) {
             Lang = "ENG";
-        }
-        else if (userLang.ToUpper() == "en".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en".ToUpper()) {
             Lang = "ENG";
-        }
-        else if (userLang.ToUpper() == "ko-KR".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko-KR".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko-KP".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko-KP".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ja".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ja".ToUpper()) {
             Lang = "JPN";
-        }
-        else { Lang = "JPN"; }
-    }
-    else
-    {
+        } else { Lang = "JPN"; }
+    } else {
         Lang = Request["Lang"];
 
         Lang = Lang.ToUpper();
@@ -203,21 +159,21 @@
             margin: 20px auto;
         }
 
-        .s-btn-more:hover {
-            background-color: #ddd;
-            border: 1px solid #666;
-        }
+            .s-btn-more:hover {
+                background-color: #ddd;
+                border: 1px solid #666;
+            }
 
-        .s-btn-more:active {
-            background-color: #ddd;
-            border: 1px solid #666;
-        }
+            .s-btn-more:active {
+                background-color: #ddd;
+                border: 1px solid #666;
+            }
 
-        .s-btn-more:visited {
-            background-color: #ddd;
-            border: 1px solid #666;
-            color: #777;
-        }
+            .s-btn-more:visited {
+                background-color: #ddd;
+                border: 1px solid #666;
+                color: #777;
+            }
     </style>
 </head>
 
@@ -392,9 +348,9 @@
             var sessionStorageKeys = Object.keys(window.sessionStorage)[i];
             if (sessionStorageKeys != 'OpenGameBeforeLogin') {
                 window.sessionStorage.removeItem(sessionStorageKeys);
-            } 
+            }
         }
-      
+
         delCookie("RecoverToken");
         delCookie("LoginAccount");
         delCookie("CT");
@@ -795,15 +751,15 @@
     }
 
     function showLangProp() {
-        
-        if (EWinWebInfo.Lang=='JPN') {
+
+        if (EWinWebInfo.Lang == 'JPN') {
             $('.lang-popup-list').eq(0).find('input').eq(0).prop("checked", true);
         } else if (EWinWebInfo.Lang == 'ENG') {
             $('.lang-popup-list').eq(0).find('input').eq(1).prop("checked", true);
         } else {
             $('.lang-popup-list').eq(0).find('input').eq(2).prop("checked", true);
         }
-        
+
         $('#ModalLanguage').modal('show');
     }
 
@@ -1515,7 +1471,7 @@
     </div>
 </body>`;
                 }
-            
+
                 $(divMessageBoxContent).html(rulesHtml);
                 modal.toggle();
             } else {
@@ -1697,11 +1653,11 @@
         let w = vh * 16 / 9;
 
         if (w > vw) {
-            w =  vw - 110;
+            w = vw - 110;
         } else if (Math.abs(vw - w) < 110) {
             w = vw - 110;
         }
-   
+
         // class="divGameFrame"
         let tmp = `<div class="divGameFrameWrapper">
             <div class="btn-wrapper">
@@ -1711,7 +1667,7 @@
         </div>`;
         $("#divGameFrame").append(tmp);
     }
-    
+
     function CloseWindowOpenGamePage(e) {
         showMessageOK("", "關閉", function () {
             e.close();
@@ -2215,7 +2171,7 @@
 
         initByArt();
         switchLang(EWinWebInfo.Lang, false);
-        
+
         if (EWinWebInfo.Lang == "JPN") {
             $('#langIcon').addClass('icon-flag-JP');
         } else {
@@ -2287,11 +2243,13 @@
                     } else {
                         API_Casino();
                     }
-                    
+
                 }
             }
 
             SearchControll = new searchControlInit("alertSearch");
+
+            setBulletinBoard();
 
             appendGameFrame();
             //getCompanyGameCode();
@@ -2314,8 +2272,8 @@
                                     } else {
                                         //Check登入前狀態
                                         var openGameBeforeLoginStr = window.sessionStorage.getItem("OpenGameBeforeLogin");
-                                        
-                                        if (openGameBeforeLoginStr) {                                            
+
+                                        if (openGameBeforeLoginStr) {
                                             var openGameBeforeLogin = JSON.parse(openGameBeforeLoginStr);
 
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
@@ -2329,7 +2287,7 @@
                                                 window.sessionStorage.removeItem("SrcPage");
                                                 API_LoadPage("SrcPage", srcPage, true);
                                             }
-                                        }                                        
+                                        }
                                     }
 
                                     notifyWindowEvent("IndexFirstLoad", logined);
@@ -2896,6 +2854,32 @@
 
     //#endregion
 
+    function setBulletinBoard() {
+        var GUID = Math.uuid();
+        lobbyClient.CheckDocumentByTagName(GUID, "N1", function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    var ParentMain2 = document.getElementById("idBulletinBoardContent2");
+                    ParentMain2.innerHTML = "";
+
+                    if (o.DocumentList.length > 0) {
+                        var RecordDom2;
+                        for (var i = 0; i < o.DocumentList.length; i++) {
+                            var record = o.DocumentList[i];
+
+                            RecordDom2 = c.getTemplate("idTempBulletinBoard");
+
+                            c.setClassText(RecordDom2, "BulletinTitle", null, record.DocumentTitle);
+
+                            RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.DocumentTitle + "','" + record.DocNumber + "')");
+                            ParentMain2.appendChild(RecordDom2);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
@@ -2969,7 +2953,7 @@
                                                 <i class="icon icon-mask icon-all"></i>
                                                 <span class="title language_replace">遊戲大廳</span></a>
                                         </li>
-                                   
+
                                     </ul>
                                 </li>
                                 <li class="nav-item navbarMenu__catagory">
@@ -2985,10 +2969,10 @@
                                                 <span class="title language_replace">活動中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">
-    
+
                                             <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
                                                 <!-- 通知小紅點 -->
-                                                <span class="notify-dot PC-notify-dot" style="display:none;"></span>
+                                                <span class="notify-dot PC-notify-dot" style="display: none;"></span>
                                                 <i class="icon icon-mask icon-prize"></i>
                                                 <span class="title language_replace">領獎中心</span></a>
                                         </li>
@@ -2997,11 +2981,16 @@
                                                 <i class="icon icon-mask icon-calendar"></i>
                                                 <span class="title language_replace">履歷記錄</span></a>
                                         </li>
+                                        <li class="nav-item submenu dropdown">
+                                            <a class="nav-link" data-toggle="modal" data-target="#popupBulletinList">
+                                                <i class="icon icon-mask icon-calendar"></i>
+                                                <span class="title language_replace">公告</span></a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
-                                  
+
                                         <li class="nav-item submenu dropdown"
                                             onclick="window.open('https://lin.ee/KD05l9X')">
                                             <a class="nav-link">
@@ -3025,7 +3014,7 @@
                                         </li>
                                         <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','ReportAgent.aspx', true)">
                                             <a class="nav-link">
-                                                <i class="icon icon-mask icon-withdarw"></i>
+                                                <i class="icon icon-mask icon-news-report"></i>
                                                 <span class="title language_replace">報表</span></a>
                                         </li>
                                     </ul>
@@ -3046,7 +3035,7 @@
                                             <i id="langIcon" class="icon icon-mask"></i>
                                             <span class="title language_replace">語言選擇</span></a>
                                     </li>
-                                 
+
                                 </ul>
                             </li>
                         </ul>
@@ -3098,7 +3087,7 @@
                                                         <img src="images/avatar/avater-2.png" alt=""></span>
                                                     <span class="language_replace">登入</span></button>
                                             </li>
-                                            <li class="register" style="display:block !important">
+                                            <li class="register" style="display: block !important">
                                                 <button class="btn-register btn " type="button" onclick="API_LoadPage('Register', 'Register.aspx')"><span class="language_replace">註冊</span></button>
                                             </li>
                                         </ul>
@@ -3138,7 +3127,7 @@
                                     </li>
 
                                     <!-- 語系 -->
-                                    <li class="nav-item lang_wrapper submenu dropdown is-hide" style="display:none;" >
+                                    <li class="nav-item lang_wrapper submenu dropdown is-hide" style="display: none;">
                                         <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage" id="btn_switchlang">
                                             <!-- 語系 轉換 ICON -->
                                             <%--<i class="icon icon-mask icon-flag-JP"></i>
@@ -3186,7 +3175,7 @@
             <div class="footer-inner">
                 <div class="container">
 
-<%--                    <ul class="company-info row">
+                    <%--                    <ul class="company-info row">
                         <li class="info-item col">
                            <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
                         </li>
@@ -3319,15 +3308,14 @@
                         </div>
                     </div>
 
-                    <div class="company-detail">
+<%--                    <div class="company-detail">
                         <div class="company-license">
                             <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
                         </div>
                         <div class="company-address">
-                            <%-- <p class="name">Online Chip World Co. N.V</p>--%>
                             <p class="address language_replace">MAHARAJA由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
                         </div>
-                    </div>
+                    </div>--%>
 
 
                     <div class="footer-copyright">
@@ -3500,8 +3488,8 @@
                             </div>
                             <div class="searchFilter-item input-group keyword">
                                 <input id="alertSearchKeyWord" type="text" class="form-control"
-                                    language_replace="placeholder" placeholder="キーワード" enterkeyhint="">
-                                <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                                    language_replace="placeholder" placeholder="關鍵字" enterkeyhint="">
+                                <label for="" class="form-label"><span class="language_replace">關鍵字</span></label>
                             </div>
                             <div class="wrapper_center action-outter">
                                 <button type="button" class="btn btn btn-outline-main btn-sm btn-reset-popup" onclick="SearchControll.searchGameChangeClear()">
@@ -3509,7 +3497,7 @@
                                 </button>
                                 <button onclick="SearchControll.searchGameList()" type="button"
                                     class="btn btn-full-main btn-sm btn-search-popup">
-                                    <span class="language_replace">検索</span>
+                                    <span class="language_replace">搜尋</span>
                                 </button>
                             </div>
                         </div>
@@ -3852,6 +3840,48 @@
         </div>
     </div>
 
+    <div class="modal fade no-footer popupBulletinList" id="popupBulletinList" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="alert_Title language_replace">最新公告</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="-wrapper">
+                        <ul class="bulletin_list" id="idBulletinBoardContent2">
+                            <li class="item">
+                                <span class="date">2022.8.11</span>
+                                <span class="info">ゲームメンテナンスのお知らせでございます。</span>
+                            </li>
+                            <li class="item">
+                                <span class="date">2022.8.11</span>
+                                <span class="info">ゲームメンテナンスのお知らせでございます。</span>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tmpBulletinBoardModel" style="display: none;">
+        <div id="idTempBulletinBoard" style="display: none;">
+            <!-- <div> -->
+            <li class="item">
+                <span class="date CreateDate"></span>
+                <span class="info BulletinTitle"></span>
+            </li>
+            <!-- </div> -->
+        </div>
+    </div>
 
     <div class="modal fade no-footer popupGameInfo" id="popupMoblieGameInfo" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">

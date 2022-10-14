@@ -688,7 +688,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-right: 0.4rem;
 }
 .agentDownline-member-list .icon-mask:before {
-  background-color: #00B0FF;
+  background-color: #02AFC7;
 }
 .agentDownline-member-list .member-item {
   width: 100%;
@@ -749,7 +749,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-right: 0.4rem;
 }
 .record-agentDownline .icon-mask.icon-people:before {
-  background-color: #00B0FF;
+  background-color: #02AFC7;
 }
 .record-agentDownline .icon-mask:before {
   background-color: #808080;
@@ -766,6 +766,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .record-agentDownline .record-table-item.agent .icon-mask.icon-people:before {
   background-color: #FF6396;
 }
+.record-agentDownline .record-table-item.agent .record-table-cell.td-date {
+  background-color: #FFEAF1;
+}
 .record-agentDownline .record-table-tab {
   padding-left: 0;
 }
@@ -781,7 +784,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-flex: 0;
       -ms-flex: 0 0 60px;
           flex: 0 0 60px;
-  background-color: #DFF5FF;
+  background-color: #d4f5f7;
   font-weight: 500;
   -webkit-box-pack: center;
       -ms-flex-pack: center;

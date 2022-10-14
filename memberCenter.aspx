@@ -734,7 +734,7 @@
                                                         <span class="value lacking language_replace">不可出金</span>
                                                         <span class="value enough language_replace">可出金</span>
                                                         <!-- 出金說明 -->
-                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span></div>                                               
+                                                        <span class="btn btn-Q-mark btn-round btn-sm" onclick="window.parent.API_LoadPage('','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span></div>      
                                                 </div>        
                                                 <div class="limit-amount">
                                                     <span class="title language_replace">出金限制</span>
@@ -789,14 +789,18 @@
                                 </div>
 
                             </div>
-
+                            <%--
                              <!-- 會員簽到進度顯示 -->
                              <div class="activity-dailylogin-wrapper">
                                 <div class="dailylogin-bouns-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
                                     <div class="dailylogin-bouns-inner">
                                         <div class="dailylogin-bouns-content">
-                                            <h3 class="title">
-                                                <span class="name ">金曜日のプレゼント</span></h3>
+                                            <div class="sec-title">
+                                                <h3 class="title">
+                                                    <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
+                                                    <span class="dailylogin-bouns-QA sec-title-intro-link">
+                                                    <span class="btn btn-QA-dailylogin-bouns btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="language_replace">説明</span></span>
+                                            </div>
                                             <ul class="dailylogin-bouns-list">
                                                 <!-- 已領取 bouns => got-->
                                                 <li class="bouns-item ">
@@ -826,9 +830,10 @@
                                     </div>
                                 </div>
                             </div>
+                            --%>
                         </section>
                     </section>
-
+                    <%--
                     <!-- 熱門活動 -->
                     <div class="activity-promo-wrapper">
                         <div class="activity-promo-inner">
@@ -852,7 +857,7 @@
                                             </div>
                                             <div class="promo-content">
                                                 <h4 class="title language_replace">顧客活用的介紹推廣頁②（柏青哥愛好者）</h4>
-                                                <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl1()">
+                                                <button type="button" class="btn btn-full-sub" onclick="copyActivityUrl1()">
                                                     <i class="icon icon-mask icon-copy"></i><span class="language_replace">複製活動連結</span>
                                                 </button>
                                             </div>
@@ -871,7 +876,7 @@
                                             </div>
                                             <div class="promo-content">
                                                 <h4 class="title language_replace">お客様活用、紹介ランディングページその①（主婦）</h4>
-                                                <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl()"><i class="icon icon-mask icon-copy"></i>
+                                                <button type="button" class="btn btn-full-sub " onclick="copyActivityUrl()"><i class="icon icon-mask icon-copy"></i>
                                                     <span class="language_replace">複製活動連結</span>
                                                 </button>
                                             </div>
@@ -881,6 +886,7 @@
                             </div>
                         </div>
                     </div>
+                    --%>
                 </article>
             </div>
         </div>
@@ -995,14 +1001,14 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md">
-                                        <label class="form-title">姓<span class="form-title-note language_replace">(羅馬字)</span></label>
+                                        <label class="form-title language_replace">姓(羅馬字)</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" id="Name1" name="Name1">
                                             <div class="invalid-feedback language_replace">提示</div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md">
-                                        <label class="form-title">名<span class="form-title-note language_replace">(羅馬字)</span></label>
+                                        <label class="form-title language_replace">名(羅馬字)</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" id="Name2" name="Name2">
                                             <div class="invalid-feedback language_replace">提示</div>
@@ -1136,7 +1142,7 @@
                         <ul class="Verify-popup-list">
                             <li class="item">
                                 <h3 class="title language_replace">為何需要認證?</h3>
-                                <p class="desc language_replace">認證需要您填入您實際的姓名，以證明為帳號之所有者，未來於出入金時的證明。因此若為完成認證，則無法使用出入金等部分功能，也無法享有領取獎勵的權益。</p>
+                                <p class="desc language_replace">認證需要您填入您實際的姓名，以證明為帳號之所有者，未來於出入金時的證明。因此若未完成認證，則無法使用出入金等部分功能，也無法享有領取獎勵的權益。</p>
                             </li>
                             <li class="item">
                                 <h3 class="title language_replace">如何進行認證?</h3>
