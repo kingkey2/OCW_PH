@@ -966,7 +966,7 @@
     </div>
 
      <!-- Modal Complete Register -->
-     <div class="modal fade footer-center show" id="ModalRegisterComplete" tabindex="-1" aria-hidden="true" style="display: block;">
+     <div class="modal fade footer-center" id="ModalRegisterComplete" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
