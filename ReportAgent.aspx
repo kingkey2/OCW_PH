@@ -107,7 +107,7 @@
                     }
                 } else {
                     document.getElementById("idNoGameData").style.display = "block";
-                    window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("取得資料失敗"));
+                    //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("取得資料失敗"));
                     window.parent.API_CloseLoading();
                 }
             } else {
