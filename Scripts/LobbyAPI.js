@@ -455,6 +455,31 @@
         });
     };
 
+    this.CheckAccountExistEx = function (GUID, LoginAccount, PhonePrefix, PhoneNumber, EMail, cb) {
+        var url = APIUrl + "/CheckAccountExistEx";
+        var postData;
+
+        postData = {
+            LoginAccount: LoginAccount,
+            PhonePrefix: PhonePrefix,
+            PhoneNumber: PhoneNumber,
+            EMail: EMail,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.CheckAccountExistByContactPhoneNumber = function (GUID, PhonePrefix, PhoneNumber, cb) {
         var url = APIUrl + "/CheckAccountExistByContactPhoneNumber";
         var postData;

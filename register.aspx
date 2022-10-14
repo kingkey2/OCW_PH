@@ -68,50 +68,52 @@
     }
 
     function CheckAccountPhoneExist(cb) {
-        var idLoginAccount = document.getElementById("idLoginAccount");
 
-        if (idLoginAccount.value == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入信箱"));
+        var idPhonePrefix = document.getElementById("idPhonePrefix");
+        var idPhoneNumber = document.getElementById("idPhoneNumber");
+
+        if (idPhonePrefix.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
             cb(false);
             return;
-        } else if (idLoginAccount.value.indexOf('+') > 0) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
+        } else if (idPhoneNumber.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入電話"));
             cb(false);
             return;
         } else {
-            if (!IsEmail(idLoginAccount.value)) {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
+            var phoneValue = idPhonePrefix.value + idPhoneNumber.value;
+            var phoneObj;
+
+            try {
+                phoneObj = PhoneNumberUtil.parse(phoneValue);
+
+                var type = PhoneNumberUtil.getNumberType(phoneObj);
+
+                if (type != libphonenumber.PhoneNumberType.MOBILE && type != libphonenumber.PhoneNumberType.FIXED_LINE_OR_MOBILE) {
+                    window.parent.showMessageOK("", mlp.getLanguageKey("電話格式有誤"));
+                    cb(false);
+                    return;
+                }
+            } catch (e) {
+
+                window.parent.showMessageOK("", mlp.getLanguageKey("電話格式有誤"));
+
                 cb(false);
                 return;
             }
         }
 
-        p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
+        p.CheckAccountExistEx(Math.uuid(), "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
             if (success) {
                 if (o.Result != 0) {
                     cb(true);
                 } else {
                     cb(false);
-                    window.parent.showMessageOK("", mlp.getLanguageKey("信箱已存在"));
+                    window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
                 }
             }
 
         });
-    }
-
-    function CheckUserAccountExist(cb) {
-        var idLoginAccount = document.getElementById("idLoginAccount");
-
-        if (idLoginAccount.value == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入信箱"));
-            return false;
-        } else {
-            if (!IsEmail(idLoginAccount.value)) {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
-                return false;
-            }
-        }
-        return true;
     }
 
     function CheckPassword() {
@@ -136,7 +138,7 @@
             CheckAccountPhoneExist(function (check) {
                 if (check) {
                     window.top.API_ShowLoading();
-                    p.SetUserMail(Math.uuid(), 0, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), "", function (success, o) {
+                    p.SetUserMail(Math.uuid(), 1, 0, "", $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), "", function (success, o) {
                         window.top.API_CloseLoading();
                         if (success) {
                             if (o.Result != 0) {
@@ -167,7 +169,7 @@
         if ($("#idValidateCode").val() == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
         } else {
-            p.CheckValidateCode(Math.uuid(), 0, $("#idLoginAccount").val(), "", "", $("#idValidateCode").val(), function (success, o) {
+            p.CheckValidateCode(Math.uuid(), 1, "", $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), $("#idValidateCode").val(), function (success, o) {
                 if (success) {
                     if (o.Result != 0) {
                         window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確驗證碼"));
@@ -200,21 +202,36 @@
                 form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
             } else if (parseInt(form2.BornYear.value) > nowYear) {
                 form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
-            } else if (form2.PhonePrefix.value == "") {
-                form2.PhonePrefix.setCustomValidity(mlp.getLanguageKey("請輸入國碼"));
-            } else if (form2.PhoneNumber.value == "") {
-                form2.PhoneNumber.setCustomValidity(mlp.getLanguageKey("請輸入正確電話"));
+            }  else if (form2.Email.value == "") {
+                form2.Email.setCustomValidity(mlp.getLanguageKey("請輸入正確信箱"));
+            } else if (!IsEmail(form2.Email.value)) {
+                form2.Email.setCustomValidity(mlp.getLanguageKey("請輸入正確信箱"));
             } 
         }
 
+        if ($("#idPhonePrefix").val() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
+            return;
+        } else if ($("#idPhoneNumber").val() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
+            return;
+        }
 
         if ($("#NickName").val() == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入暱稱20歲"));
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入暱稱"));
             return;
         } 
 
         if (!$("#CheckAge").prop("checked")) {
             window.parent.showMessageOK("", mlp.getLanguageKey("請確認已年滿20歲"));
+            return;
+        }
+
+        if (document.getElementById("idLoginAccount").value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入帳號"));
+            return;
+        } else if (document.getElementById("idLoginAccount").value.length > 20) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("字母和數字的組合在20個字符以內"));
             return;
         }
 
@@ -226,6 +243,7 @@
             var ParentPersonCode = $("#PersonCode").val();
             var PhonePrefix = document.getElementById("idPhonePrefix").value;
             var PhoneNumber = document.getElementById("idPhoneNumber").value;
+            var Email = document.getElementById("idEmail").value;
             var PS;
 
             if (typeof (ParentPersonCode) == "string") {
@@ -236,10 +254,6 @@
                 PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
             }
 
-            if (LoginAccount.indexOf('+') > 0) {
-                window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
-                return false;
-            }
             //full registration
             if ($("#li_register2").hasClass("active")) {
                 PS = [
@@ -248,21 +262,22 @@
                     { Name: "KYCRealName", Value: form2.Name1.value + form2.Name2.value },
                     { Name: "ContactPhonePrefix", Value: PhonePrefix },
                     { Name: "ContactPhoneNumber", Value: PhoneNumber },
-                    { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
+                    { Name: "EMail", Value: Email },
                     { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
                 ];
             } else {
                 PS = [
                     { Name: "IsFullRegistration", Value: 0 },
                     { Name: "RealName", Value: $("#NickName").val() },
-                    { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
+                    { Name: "ContactPhonePrefix", Value: PhonePrefix },
+                    { Name: "ContactPhoneNumber", Value: PhoneNumber }
                 ];
             }
 
             p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
                 if (success) {
                     if (o.Result == 0) {
-                        sendThanksMail();
+                        //sendThanksMail();
                         //sendReceiveRegisterRewardMail();
                         window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
                             document.getElementById("idRegister").classList.add("is-hide");
@@ -293,7 +308,7 @@
     }
 
     function sendThanksMail() {
-        p.SetUserMail(Math.uuid(), 0, 2, $("#idLoginAccount").val(), "", "", "", function (success, o) {
+        p.SetUserMail(Math.uuid(), 0, 2, $("#idEmail").val(), "", "", "", function (success, o) {
             if (success) {
                 if (o.Result != 0) {
 
@@ -306,11 +321,11 @@
 
     function sendReceiveRegisterRewardMail() {
         let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-        let Email = $("#idLoginAccount").val();
+        let Email = $("#idEmail").val();
         if (Email.search(emailRule) != -1) {
             let ReceiveRegisterRewardURL = "<%=EWinWeb.CasinoWorldUrl%>" + "/ReceiveRegisterReward.aspx?LoginAccount=" + LoginAccount;
 
-            p.SetUserMail(Math.uuid(), 0, 3, $("#idLoginAccount").val(), "", "", ReceiveRegisterRewardURL, function (success, o) {
+            p.SetUserMail(Math.uuid(), 0, 3, $("#idEmail").val(), "", "", ReceiveRegisterRewardURL, function (success, o) {
                 if (success) {
                     if (o.Result == 0) {
 
@@ -508,8 +523,7 @@
                         <div class="form-group mt-4">
                             <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
-                                <input id="" name="" type="text" class="form-control custom-style" onkeyup="()"
-                                language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內">
+                                <input id="idLoginAccount" name="" type="text" class="form-control custom-style"  language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -583,7 +597,7 @@
                         <div class="form-group mt-4">
                             <label class="form-title language_replace">信箱</label>
                             <div class="input-group">
-                                <input id="idLoginAccount" name="LoginAccount" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
+                                <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
                                 <div class="invalid-feedback language_replace">請輸入正確信箱</div>
                             </div>
                         </div>
@@ -684,7 +698,7 @@
                     <h1>Welcome</h1>
                 </div>
                 <div class="heading-sub-desc text-wrap">
-                    <h5 class="mb-4 language_replace">歡迎來到 Maharaja！</h5>
+                    <h5 class="mb-4 language_replace">歡迎來到 Fanta！</h5>
                     <p class="language_replace">感謝您註冊我們的新會員，真正非常的感謝您 ！</p>
                     <p>
                         <span class="language_replace">您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。</span>

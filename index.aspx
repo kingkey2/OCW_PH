@@ -1818,7 +1818,7 @@
             idMenuLogin.classList.remove("is-hide");
             idLoginBtn.classList.add("is-hide");
             document.getElementById('idLogoutItem').classList.remove('is-hide');
-            $(".avater-name").text(EWinWebInfo.UserInfo.EMail);
+            $(".avater-name").text(EWinWebInfo.UserInfo.LoginAccount);
 
             //idWalletDiv.insertAdjacentHTML('beforeend', `<div class="currencyDiv">${EWinWebInfo.UserInfo.WalletList[0].CurrencyType}</div><div class="balanceDiv">${EWinWebInfo.UserInfo.WalletList[0].PointValue}</div>`);
         } else {
