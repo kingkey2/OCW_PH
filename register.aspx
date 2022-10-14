@@ -506,64 +506,12 @@
                 <div id="contentStep1" class="form-content" data-form-group="registerStep1">
                     <form id="registerStep1">
                         <div class="form-group mt-4">
-                            <label class="form-title language_replace">信箱</label>
+                            <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
-                                <input id="idLoginAccount" name="LoginAccount" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
-                                <div class="invalid-feedback language_replace">請輸入正確信箱</div>
+                                <input id="" name="" type="text" class="form-control custom-style" onkeyup="()"
+                                language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內">
                             </div>
                         </div>
-                        <div class="btn-container register" id="divSendValidateCodeBtn">
-                            <button type="button" class="btn btn-primary btn-ValidateCode" onclick="onBtnSendValidateCode()" id="btnSendValidateCode">
-                                <span class="language_replace">傳送驗證碼</span>
-                            </button>
-                        </div>
-                        <div class="form-group">
-                            <div class="text-s text-indent">
-                                <label class=" language_replace">E-mail驗證相關說明：</label></br>
-                                <label class=" language_replace">1.輸入信箱後點擊『傳送驗證碼』後，驗證碼將會發送到您填寫的E-mail。</label></br>
-                                <label class=" language_replace">2.將驗證碼回填於下方輸入框內。</label></br>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-title language_replace">驗證碼</label>
-                            <div class="input-group">
-                                <input id="idValidateCode" name="ValidateCode" type="text" class="form-control custom-style" onkeyup="CheckValidateCode()">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-title language_replace">暱稱</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="暱稱請輸入英文與數字，長度12位元以內" inputmode="" id="NickName" name="NickName">
-                                <div class="invalid-feedback language_replace">提示</div>
-                            </div>
-                        </div>                       
-                        <div class="form-group">
-                            <label class="form-title language_replace">密碼</label>
-                            <div class="input-group">
-                                <input id="idLoginPassword" name="LoginPassword" style="letter-spacing:0 !important" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
-                                <div class="invalid-feedback language_replace">請輸入密碼</div>
-                            </div>
-                            <button class="btn btn-icon" type="button" onclick="showPassword('idLoginPassword')">
-                                <i class="icon-eye-off"></i>
-                            </button>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-title language_replace">確認密碼</label>
-                            <div class="input-group">
-                                <input id="idLoginCheckPassword" name="LoginPassword" style="letter-spacing:0 !important" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
-                                <div class="invalid-feedback language_replace">確認密碼</div>
-                            </div>
-                            <button class="btn btn-icon" type="button" onclick="showPassword('idLoginCheckPassword')">
-                                <i class="icon-eye-off"></i>
-                            </button>
-                        </div>                                              
-                    </form>
-                </div>
-
-                <!-- 以下為 完整註冊-進階版 -->
-                <div id="contentStep2" class="form-content is-hide" data-form-group="registerStep2">
-                    <form id="registerStep2">
                         <div class="form-row">
                             <div class="form-group col phonePrefix">
                                 <label class="form-title language_replace">國碼</label>
@@ -578,6 +526,65 @@
                                     <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
                                     <div class="invalid-feedback language_replace">請輸入正確電話</div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="btn-container register my-3" id="divSendValidateCodeBtn">
+                            <button type="button" class="btn btn-primary btn-ValidateCode" onclick="onBtnSendValidateCode()" id="btnSendValidateCode">
+                                <span class="language_replace">傳送驗證碼</span>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <div class="text-s text-indent">
+                                <label class=" language_replace">手機驗證相關說明：</label></br>
+                                <label class=" language_replace">1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。</label></br>
+                                <label class=" language_replace">2.將手機簡訊內的驗證碼回填於下方輸入框內。</label></br>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-title language_replace">驗證碼</label>
+                            <div class="input-group">
+                                <input id="idValidateCode" name="ValidateCode" type="text" class="form-control custom-style" onkeyup="CheckValidateCode()" language_replace="placeholder" placeholder="請輸入簡訊驗證碼">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-title language_replace">暱稱</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="暱稱請輸入英文與數字，長度12位元以內" inputmode="" id="NickName" name="NickName">
+                                <div class="invalid-feedback language_replace">提示</div>
+                            </div>
+                        </div>                       
+                        <div class="form-group">
+                            <label class="form-title language_replace">密碼</label>
+                            <div class="input-group">
+                                <input id="idLoginPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
+                                <div class="invalid-feedback language_replace">請輸入密碼</div>
+                            </div>
+                            <button class="btn btn-icon" type="button" onclick="showPassword('idLoginPassword')">
+                                <i class="icon-eye-off"></i>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-title language_replace">確認密碼</label>
+                            <div class="input-group">
+                                <input id="idLoginCheckPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
+                                <div class="invalid-feedback language_replace">確認密碼</div>
+                            </div>
+                            <button class="btn btn-icon" type="button" onclick="showPassword('idLoginCheckPassword')">
+                                <i class="icon-eye-off"></i>
+                            </button>
+                        </div>                                              
+                    </form>
+                </div>
+
+                <!-- 以下為 完整註冊-進階版 -->
+                <div id="contentStep2" class="form-content is-hide" data-form-group="registerStep2">
+                    <form id="registerStep2">
+                        <div class="form-group mt-4">
+                            <label class="form-title language_replace">信箱</label>
+                            <div class="input-group">
+                                <input id="idLoginAccount" name="LoginAccount" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
+                                <div class="invalid-feedback language_replace">請輸入正確信箱</div>
                             </div>
                         </div>
                         <div class="form-row">

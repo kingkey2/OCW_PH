@@ -383,7 +383,7 @@ button {
   /* background-color: #009FE8; */
   background-color: #079eb2;
   border-color: #079eb2;
-  
+
   border-radius: 30px;
   /*
   background-image: -webkit-gradient(linear, left top, right top, from(#A445B2), color-stop(50%, #FF0066), to(#D41872));
@@ -632,10 +632,21 @@ button {
 .btn-container .btn {
   margin: 0 0.5em;
 }
-.btn-ValidateCode{
+
+.sign-container .form-container .btn-container .btn {
+   width: 100%;
+}
+
+@media only screen and (min-width: 541px) {
+  .sign-container .form-container .btn-container .btn {
+    max-width: 250px;
+  }
+}
+
+/* .btn-ValidateCode{
    width: 100%;
    max-width: 200px;
-}
+} */
 
 [class^=badge] {
   font-size: 0.7em;
@@ -665,11 +676,27 @@ button {
 .custom-style[type=password] {
   letter-spacing: 0.5em;
 }
-.custom-style::-webkit-input-placeholder {
-  color: rgba(44, 45, 58, 0.25);
+
+.custom-style[type=password]::-webkit-input-placeholder {
+  letter-spacing: 0;
 }
-.custom-style::-moz-placeholder {
-  color: rgba(44, 45, 58, 0.25);
+.custom-style[type=password]::-moz-placeholder {
+  letter-spacing: 0;
+}
+.custom-style[type=password]:-ms-input-placeholder {
+  letter-spacing: 0;
+}
+.custom-style[type=password]::-ms-input-placeholder {
+  letter-spacing: 0;
+}
+.custom-style[type=password]::placeholder {
+  letter-spacing: 0;
+}
+.custom-style[type=password]::-webkit-input-placeholder {
+  letter-spacing: 0;
+}
+.custom-style[type=password]::-moz-placeholder {
+  letter-spacing: 0;
 }
 .custom-style:-ms-input-placeholder {
   color: rgba(44, 45, 58, 0.25);
