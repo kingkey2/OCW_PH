@@ -2887,6 +2887,10 @@
         });
     }
 
+    function setFavoPlayeditem(type) {
+
+    }
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
@@ -2960,7 +2964,12 @@
                                                 <i class="icon icon-mask icon-all"></i>
                                                 <span class="title language_replace">遊戲大廳</span></a>
                                         </li>
-
+                                        
+                                        <li class="nav-item submenu dropdown">
+                                            <a class="nav-link" data-toggle="modal" data-target="#alertFavoPlayed">
+                                                <i class="icon icon-mask icon-calendar"></i>
+                                                <span class="title language_replace">我的最愛</span></a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item navbarMenu__catagory">
@@ -3458,7 +3467,47 @@
             </div>
         </div>
     </div>--%>
+    
+    <!-- 我的最愛/遊玩過的遊戲 PoPup-->
+    <div class="modal fade no-footer alertSearchTemp" id="alertFavoPlayed" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-header-container">
+                        <!-- <h5 class="modal-title">我是logo</h5> -->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            id="alertFavoPlayedCloseButton">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="game-search-wrapper">
+                        <div class="search-result-wrapper">
+                            <div class="search-result-inner">
+                                <div class="search-result-list">
+                                    <div class="game-item-group list-row row" id="alertFavoContent">
 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-search-wrapper">
+                        <div class="search-result-wrapper">
+                            <div class="search-result-inner">
+                                <div class="search-result-list">
+                                    <div class="game-item-group list-row row" id="alertPlayedContent">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Search 品牌-LOGO版-->
     <div class="modal fade no-footer alertSearchTemp" id="alertSearch" tabindex="-1" aria-hidden="true">
