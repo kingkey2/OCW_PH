@@ -1912,6 +1912,11 @@
             $('#langIcon').removeClass('icon-flag-JP');
         }
 
+        if ($('#langIcon').hasClass('icon-flag-EN')) {
+            $('#langIcon').removeClass('icon-flag-EN');
+        }
+
+
         if ($('#langIcon').hasClass('icon-flag-ZH')) {
             $('#langIcon').removeClass('icon-flag-ZH');
         }
@@ -2174,8 +2179,10 @@
 
         if (EWinWebInfo.Lang == "JPN") {
             $('#langIcon').addClass('icon-flag-JP');
-        } else {
+        } else if (EWinWebInfo.Lang == "CHT") {
             $('#langIcon').addClass('icon-flag-ZH');
+        } else {
+            $('#langIcon').addClass('icon-flag-EN');
         }
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
