@@ -121,21 +121,7 @@
 
                 <!-- 選擇存款管道  -->
                 <div class="card-container">
-                    <!-- PayPal -->
-                    <div class="card-item sd-08" id="idDepositPaypal">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositPayPal','DepositPayPal.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">電子錢包</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center">
-                                    <img src="images/assets/card-surface/icon-logo-paypal-w.svg">
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-08.svg" class="card-item-bg">
-                        </a>
-                    </div>
+                
                     <!-- 虛擬錢包 -->
                     <div class="card-item sd-02" style="">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositCrypto','DepositCrypto.aspx')">
@@ -167,39 +153,6 @@
                             <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
                         </a>
                     </div>
-                    <!-- EPay -->
-                    <div class="card-item sd-03" id="idDepositEPay">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositEPay','DepositEPay.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">Maharaja</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center text-center"> 
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
-                        </a>
-                    </div>
-
-                    <!-- EPay -->
-                    <div class="card-item tempCard" id="idDepositJKC" <%--onclick="TempAlert()"--%> onclick="window.parent.API_LoadPage('DepositJKCEPay','DepositJKCEPay.aspx')">                   
-                        <a class="card-item-link" style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span>マハラジャ</span> 
-                                </div>
-                                <div class="logo vertical-center">                                   
-                                    <img src="images/assets/card-surface/jkc-font.svg">                                   
-                                </div>
-                            </div>                           
-                            <img src="images/assets/card-surface/card-jkc.svg"  class="card-item-bg">
-                        </a>
-                        <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
-                    </div>
-
                     <!-- EPay -->
                     <div class="card-item sd-03" id="idDepositDiDiPay">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositDiDiPay','DepositDiDiPay.aspx')">
