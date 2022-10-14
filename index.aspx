@@ -2259,6 +2259,7 @@
             setBulletinBoard();
 
             appendGameFrame();
+
             //getCompanyGameCode();
             //getCompanyGameCodeTwo();
             //登入Check
@@ -2887,8 +2888,84 @@
         });
     }
 
-    function setFavoPlayeditem(type) {
+    function showFavoPlayed() {
+        setFavoPlayeditem(0);
+        setFavoPlayeditem(1);
+        $("#alertFavoPlayed").modal("show")
+    }
 
+    function setFavoPlayeditem(type) {
+        
+        var lang = EWinWebInfo.Lang;
+        var alertSearchContent;
+
+        switch (type) {
+            case 0:
+                alertSearchContent = $('#alertFavoContent');
+                break;
+            case 1:
+                alertSearchContent = $('#alertPlayedContent');
+                break;
+            default:
+                alertSearchContent = $('#alertFavoContent');
+                break;
+        }
+
+        alertSearchContent.empty();
+
+        GCB.GetPersonal(type,
+            function (gameItem) {
+
+                var RTP = "--";
+                var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
+                lang_gamename = lang_gamename.replace("'", "");
+                if (gameItem.RTPInfo) {
+                    RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                }
+
+                if (RTP == "0") {
+                    RTP = "--";
+                }
+
+                GI = c.getTemplate("tmpSearchGameItem");
+                let GI1 = $(GI);
+                GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
+
+                var GI_img = GI.querySelector(".gameimg");
+                if (GI_img != null) {
+                    GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                    var el = GI_img;
+                    var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                    observer.observe();
+                }
+
+                var likebtn = GI.querySelector(".btn-like");
+
+                if (EWinWebInfo.DeviceType == 0) {
+                    $(likebtn).addClass("desktop");
+                }
+
+                if (gameItem.FavoTimeStamp) {
+
+                    $(likebtn).addClass("added");
+                } else {
+                    $(likebtn).removeClass("added");
+                }
+
+                likebtn.onclick = new Function("favBtnClick('" + gameItem.GameCode + "')");
+
+                GI1.find(".gameName").text(lang_gamename);
+                GI1.find(".BrandName").text(mlp.getLanguageKey(gameItem.GameBrand));
+                GI1.find(".valueRTP").text(RTP);
+                GI1.find(".valueID").text(gameItem.GameID);
+                GI1.find(".GameCategoryCode").text(mlp.getLanguageKey(gameItem.GameCategoryCode));
+
+                alertSearchContent.append(GI);
+
+            }, function (data) {
+
+            }
+        )
     }
 
     window.onload = init;
@@ -2966,7 +3043,7 @@
                                         </li>
                                         
                                         <li class="nav-item submenu dropdown">
-                                            <a class="nav-link" data-toggle="modal" data-target="#alertFavoPlayed">
+                                            <a class="nav-link" data-toggle="modal" onclick="showFavoPlayed()">
                                                 <i class="icon icon-mask icon-calendar"></i>
                                                 <span class="title language_replace">我的最愛</span></a>
                                         </li>
