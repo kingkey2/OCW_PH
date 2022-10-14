@@ -779,15 +779,13 @@
                                             <div class="btn btn-activity-in"><span class="language_replace">參加</span></div>
                                         </div>
                                     </div>
-                                </div>
-                                
+                                </div>                                
                                 <!-- 獎金中心 -->
                                 <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('','/Guide/prize.html')">
                                     <div class="prize-center-inner">
                                         <div class="title language_replace">禮物盒說明</div>
                                     </div>
                                 </div>
-
                             </div>
                             <%--
                              <!-- 會員簽到進度顯示 -->
@@ -968,7 +966,7 @@
     </div>
 
      <!-- Modal Complete Register -->
-     <div class="modal fade footer-center" id="ModalRegisterComplete" tabindex="-1" aria-hidden="true">
+     <div class="modal fade footer-center show" id="ModalRegisterComplete" tabindex="-1" aria-hidden="true" style="display: block;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -983,6 +981,14 @@
                     <div class="registerComplete-popup-wrapper">
                         <form id="CertificationForm">
                             <div class="registerComplete-popup-inner">
+                                <div class="form-group">
+                                    <label class="form-title language_replace">信箱</label>
+                                    <div class="input-group">
+                                        <input id="idLoginAccount" name="LoginAccount" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
+                                        <div class="invalid-feedback language_replace">請輸入正確信箱</div>
+                                    </div>
+                                </div>
+                                <%--
                                 <div class="form-row">
                                     <div class="form-group col phonePrefix">
                                         <label class="form-title language_replace">國碼</label>
@@ -999,6 +1005,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                --%>
                                 <div class="form-row">
                                     <div class="form-group col-md">
                                         <label class="form-title language_replace">姓(羅馬字)</label>
