@@ -342,10 +342,10 @@ $icon-url:"../image/product/icon_menu_";
       mask-image: url(../images/icon/ico-poker.svg) ;
     }
   }
-  &.icon-real{
+  &.icon-live{
     &::before{
-      -webkit-mask-image: url(../images/icon/ico-real.svg) ;
-      mask-image: url(../images/icon/ico-real.svg) ;
+      -webkit-mask-image: url(../images/icon/ico-live.svg) ;
+      mask-image: url(../images/icon/ico-live.svg) ;
     }
   }
   &.icon-slot{
@@ -360,6 +360,7 @@ $icon-url:"../image/product/icon_menu_";
       mask-image: url(../images/icon/ico-mahjong.svg) ;
     }
   }
+  
   &.icon-sport{
     &::before{
       -webkit-mask-image: url(../images/icon/ico-sport.svg) ;
@@ -470,6 +471,18 @@ $icon-url:"../image/product/icon_menu_";
       mask-image: url(../images/icon/ico-calendar.svg) ;
     }
   }
+  &.icon-favo{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-favo.svg) ;
+      mask-image: url(../images/icon/ico-favo.svg) ;
+    }
+  }
+  &.icon-announce{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-announce.svg) ;
+      mask-image: url(../images/icon/ico-announce.svg) ;
+    }
+  }
   &.icon-prize{
     &::before{
       -webkit-mask-image: url(../images/icon/ico-prize.svg) ;
@@ -499,6 +512,12 @@ $icon-url:"../image/product/icon_menu_";
     &::before{
       -webkit-mask-image: url(../images/icon/ico-hot.svg) ;
       mask-image: url(../images/icon/ico-hot.svg) ;
+    }
+  }
+  &.icon-brand{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-brand.svg) ;
+      mask-image: url(../images/icon/ico-brand.svg) ;
     }
   }
   &.icon-loudspeaker{

@@ -3037,18 +3037,54 @@
                             <ul class="menu_nav_top">
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
+                                        <%--
                                         <li class="nav-item submenu dropdown"
                                             onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-all"></i>
                                                 <span class="title language_replace">遊戲大廳</span></a>
                                         </li>
+                                        --%>
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-slot"></i>
+                                                <span class="title language_replace">老虎機</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-live"></i>
+                                                <span class="title language_replace">真人</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-sport"></i>
+                                                <span class="title language_replace">體育</span></a>
+                                        </li>
                                         
                                         <li class="nav-item submenu dropdown">
                                             <a class="nav-link" data-toggle="modal" onclick="showFavoPlayed()">
-                                                <i class="icon icon-mask icon-calendar"></i>
+                                                <i class="icon icon-mask icon-favo"></i>
                                                 <span class="title language_replace">我的最愛</span></a>
                                         </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item navbarMenu__catagory">
+                                    <ul class="catagory">
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-deposit"></i>
+                                                <span class="title language_replace">存款</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-withdarw"></i>
+                                                <span class="title language_replace">出款</span></a>
+                                        </li>
+                                        
                                     </ul>
                                 </li>
                                 <li class="nav-item navbarMenu__catagory">
@@ -3078,11 +3114,17 @@
                                         </li>
                                         <li class="nav-item submenu dropdown">
                                             <a class="nav-link" data-toggle="modal" data-target="#popupBulletinList">
-                                                <i class="icon icon-mask icon-calendar"></i>
+                                                <i class="icon icon-mask icon-announce"></i>
                                                 <span class="title language_replace">公告</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','ReportAgent.aspx', true)">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-news-report"></i>
+                                                <span class="title language_replace">報表</span></a>
                                         </li>
                                     </ul>
                                 </li>
+                                <%--
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
 
@@ -3094,26 +3136,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="nav-item navbarMenu__catagory">
-                                    <ul class="catagory">
-                                        <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
-                                            <a class="nav-link">
-                                                <i class="icon icon-mask icon-deposit"></i>
-                                                <span class="title language_replace">存款</span></a>
-                                        </li>
-                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
-                                            <a class="nav-link">
-                                                <i class="icon icon-mask icon-withdarw"></i>
-                                                <span class="title language_replace">出款</span></a>
-                                        </li>
-                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','ReportAgent.aspx', true)">
-                                            <a class="nav-link">
-                                                <i class="icon icon-mask icon-news-report"></i>
-                                                <span class="title language_replace">報表</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                --%>
                                 <li class="nav-item submenu dropdown" id="idLogoutItem">
                                     <a class="nav-link" onclick="API_Logout(true)">
                                         <!-- <i class="icon icon2020-ico-login"></i> -->
