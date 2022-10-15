@@ -123,6 +123,7 @@
                                                     url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
                                                     success: function (res) {
                                                         $(RecordDom2).find('.activityPicture').html(res);
+                                                        $(RecordDom2).find('.activityPicture').children().find('img').unwrap();
                                                     }
                                                 });
                                             }
