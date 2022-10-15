@@ -174,6 +174,49 @@
                 border: 1px solid #666;
                 color: #777;
             }
+
+        .bulletin_list .item {
+            margin-bottom: 0.8rem;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+        }
+                .bulletin_list .item:before {
+                    content: "";
+                    display: -webkit-inline-box;
+                    display: -ms-inline-flexbox;
+                    display: inline-flex;
+                    width: 3px;
+                    height: 1rem;
+                    border-radius: 0.5px;
+                    background-color: #008fd1;
+                }
+                .bulletin_list .item .date {
+                    font-weight: 600;
+                    margin-left: 0.5rem;
+                    margin-right: 1rem;
+                    width: 5rem;
+                    display: -webkit-inline-box;
+                    display: -ms-inline-flexbox;
+                    display: inline-flex;
+                }
+                .bulletin_list .item .info {
+                    -webkit-box-flex: 1;
+                    -ms-flex: 1;
+                    flex: 1;
+                    display: -webkit-box;
+                    text-overflow: ellipsis;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    cursor: pointer;
+                }
+        .bulletin_list .item .info:hover {
+            color: #008fd1;
+        }
     </style>
 </head>
 
@@ -738,15 +781,14 @@
 
                 divMessageBoxTitle.innerHTML = title;
                 //divMessageBoTime.innerHTML = time;
-
+                
                 $.ajax({
-                    url: "https://ewin.dev.mts.idv.tw/GetDocument.aspx?DocNumber=" + docNumber,
+                    url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + docNumber,
                     success: function (res) {
                         divMessageBoxContent.innerHTML = res;
                     },
                     error: function (err) { console.log(err) },
                 });
-
             }
         }
     }
@@ -2885,7 +2927,8 @@
 
                             RecordDom2 = c.getTemplate("idTempBulletinBoard");
 
-                            c.setClassText(RecordDom2, "BulletinTitle", null, record.DocumentTitle);
+                            //c.setClassText(RecordDom2, "BulletinTitle", null, record.DocumentTitle);
+                            c.setClassText(RecordDom2, "CreateDate", null, record.DocumentTitle);
 
                             RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.DocumentTitle + "','" + record.DocNumber + "')");
                             ParentMain2.appendChild(RecordDom2);
@@ -3911,7 +3954,7 @@
                                     <section class="section-wrap">
                                         <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告詳情</span></h6>
                                         <div class="section-content">
-                                            <p class="alertContact_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                                            <p class="alertContact_Text language_replace"></p>
                                         </div>
                                     </section>
                                 </div>
@@ -4016,7 +4059,7 @@
     <div class="tmpBulletinBoardModel" style="display: none;">
         <div id="idTempBulletinBoard" style="display: none;">
             <!-- <div> -->
-            <li class="item">
+            <li class="item" style="cursor:pointer">
                 <span class="date CreateDate"></span>
                 <span class="info BulletinTitle"></span>
             </li>
