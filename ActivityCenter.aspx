@@ -62,7 +62,7 @@
         });
     }
 
-    function showPopup(DocNumber) {
+  function showPopup(DocNumber) {
 
         $.ajax({
             url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
@@ -102,60 +102,65 @@
                     ParentMain.innerHTML = "";
 
                     if (o.DocumentList.length > 0) {
-                        var RecordDom2;
+                      
+                        var DocNumber;
+                        var record;
                         for (var i = 0; i < o.DocumentList.length; i++) {
-                            var record = o.DocumentList[i];
-
+                            record = o.DocumentList[i];
+                              var RecordDom2;
                             RecordDom2 = c.getTemplate("tmpActivity");
 
-                            let DocNumber = record.DocNumber;
-                            
-                            LobbyClient.CheckDocumentByTagName(GUID, DocNumber + "_Pic", function (success, o) {
-                                if (success) {
-                                    if (o.Result == 0) {
-                                        if (o.DocumentList.length > 0) {
-                                            for (var i = 0; i < o.DocumentList.length; i++) {
-                                                var record = o.DocumentList[i];
-
-                                                let DocNumber = record.DocNumber;
-
-                                                $.ajax({
-                                                    url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
-                                                    success: function (res) {
-                                                        $(RecordDom2).find('.activityPicture').html(res);
-                                                        $(RecordDom2).find('.activityPicture').children().find('img').unwrap();
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-
-                            LobbyClient.CheckDocumentByTagName(GUID, DocNumber + "_Title", function (success, o) {
-                                if (success) {
-                                    if (o.Result == 0) {
-                                        if (o.DocumentList.length > 0) {
-                                            for (var i = 0; i < o.DocumentList.length; i++) {
-                                                var record = o.DocumentList[i];
-
-                                                let DocNumber = record.DocNumber;
-
-                                                $.ajax({
-                                                    url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
-                                                    success: function (res) {
-                                                        $(RecordDom2).find('.activityTitle').html(res);
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    }
-                                }
-                            });
+                            DocNumber = record.DocNumber;
 
                             RecordDom2.onclick = new Function("showPopup('" + DocNumber + "')");
-
                             ParentMain.appendChild(RecordDom2);
+
+                            LobbyClient.CheckDocumentByTagName(GUID, DocNumber + "_Pic", (function (success, o1) {
+                                var kk = this;
+                                if (success) {
+                                    if (o1.Result == 0) {
+                                        if (o1.DocumentList.length > 0) {
+                                            for (var i = 0; i < o1.DocumentList.length; i++) {
+                                                var k = o1.DocumentList[i];
+
+                                                $.ajax({
+                                                    url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + k.DocNumber,
+                                                    success: (function (res) {
+                                                        var k = this;
+                                                        $(k).find('.activityPicture').html(res);
+                                                        $(k).find('.activityPicture').children().find('img').unwrap();
+
+                                                    }).bind(kk)
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+                            }).bind(RecordDom2));
+
+
+                            LobbyClient.CheckDocumentByTagName(GUID, DocNumber + "_Title", (function (success, o2) {
+                                var kkk = this;
+                                if (success) {
+                                    if (o2.Result == 0) {
+                                        if (o2.DocumentList.length > 0) {
+                                            for (var i = 0; i < o2.DocumentList.length; i++) {
+                                                var k1 = o2.DocumentList[i];
+
+                                                $.ajax({
+                                                    url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + k1.DocNumber,
+                                                    success: (function (res) {
+                                                        var k = this;
+                                                        $(k).find('.activityTitle').html(res);
+
+                                                    }).bind(kkk)
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+                            }).bind(RecordDom2));
+
                         }
                     }
                 }
