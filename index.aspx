@@ -3095,19 +3095,19 @@
                                         </li>
                                         --%>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
+                                            onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Slot', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-slot"></i>
                                                 <span class="title language_replace">老虎機</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
+                                            onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Live', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-live"></i>
                                                 <span class="title language_replace">真人</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
+                                            onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Other', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-sport"></i>
                                                 <span class="title language_replace">體育</span></a>
