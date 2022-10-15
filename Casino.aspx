@@ -957,7 +957,6 @@
                     switch (lobbyGame.Location) {
                         case 'GameList_Hot':
                             $(RecordDom).find('.CategIcon').addClass('icon-hot');
-                            $(RecordDom).addClass('active');
                             break;
                         case 'GameList_Favo':
                             $(RecordDom).find('.CategIcon').addClass('icon-favo');
@@ -976,6 +975,10 @@
                             break;
                         default:
                     }
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+
                     RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
                     idGameItemTitle.appendChild(RecordDom);
                 }
@@ -1008,6 +1011,10 @@
                             break;
                         default:
                     }
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+
                     RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
                     idGameItemTitle.appendChild(RecordDom);
                 }
@@ -1040,6 +1047,11 @@
                             break;
                         default:
                     }
+
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+
                     RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
                     idGameItemTitle.appendChild(RecordDom);
                 }
@@ -1072,6 +1084,11 @@
                             break;
                         default:
                     }
+
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+
                     RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
                     idGameItemTitle.appendChild(RecordDom);
                 }
@@ -1105,6 +1122,11 @@
                             break;
                         default:
                     }
+
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+
                     RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
                     idGameItemTitle.appendChild(RecordDom);
                 }
