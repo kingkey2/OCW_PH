@@ -943,157 +943,170 @@
 
             //熱門
             var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Hot" });
-            if (lobbyGame.Location.includes("GameList")) {
-                RecordDom = c.getTemplate("temCategItem");
-                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
-                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
-                switch (lobbyGame.Location) {
-                    case 'GameList_Hot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-hot');
-                        $(RecordDom).addClass('active');
-                        break;
-                    case 'GameList_Favo':
-                        $(RecordDom).find('.CategIcon').addClass('icon-favo');
-                        break;
-                    case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-live');
-                        break;
-                    case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
-                        break;
-                    case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc');
-                        break;
-                    case 'GameList_Brand':
-                        $(RecordDom).find('.CategIcon').addClass('icon-brand');
-                        break;
-                    default:
+            if (lobbyGame) {
+                if (lobbyGame.Location.includes("GameList")) {
+                    RecordDom = c.getTemplate("temCategItem");
+                    c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                    $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                    switch (lobbyGame.Location) {
+                        case 'GameList_Hot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                            $(RecordDom).addClass('active');
+                            break;
+                        case 'GameList_Favo':
+                            $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                            break;
+                        case 'GameList_Live':
+                            $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                            break;
+                        case 'GameList_Slot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                            break;
+                        case 'GameList_Other':
+                            $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                            break;
+                        case 'GameList_Brand':
+                            $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                            break;
+                        default:
+                    }
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    idGameItemTitle.appendChild(RecordDom);
                 }
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
-                idGameItemTitle.appendChild(RecordDom);
             }
+     
 
             //老虎雞
             var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Slot" });
-            if (lobbyGame.Location.includes("GameList")) {
-                RecordDom = c.getTemplate("temCategItem");
-                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
-                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
-                switch (lobbyGame.Location) {
-                    case 'GameList_Hot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-hot');
-                        break;
-                    case 'GameList_Favo':
-                        $(RecordDom).find('.CategIcon').addClass('icon-favo');
-                        break;
-                    case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-live');
-                        break;
-                    case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
-                        break;
-                    case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc');
-                        break;
-                    case 'GameList_Brand':
-                        $(RecordDom).find('.CategIcon').addClass('icon-brand');
-                        break;
-                    default:
+            if (lobbyGame) {
+                if (lobbyGame.Location.includes("GameList")) {
+                    RecordDom = c.getTemplate("temCategItem");
+                    c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                    $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                    switch (lobbyGame.Location) {
+                        case 'GameList_Hot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                            break;
+                        case 'GameList_Favo':
+                            $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                            break;
+                        case 'GameList_Live':
+                            $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                            break;
+                        case 'GameList_Slot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                            break;
+                        case 'GameList_Other':
+                            $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                            break;
+                        case 'GameList_Brand':
+                            $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                            break;
+                        default:
+                    }
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    idGameItemTitle.appendChild(RecordDom);
                 }
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
-                idGameItemTitle.appendChild(RecordDom);
             }
+         
             //真人
             var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Live" });
-            if (lobbyGame.Location.includes("GameList")) {
-                RecordDom = c.getTemplate("temCategItem");
-                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
-                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
-                switch (lobbyGame.Location) {
-                    case 'GameList_Hot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-hot');
-                        break;
-                    case 'GameList_Favo':
-                        $(RecordDom).find('.CategIcon').addClass('icon-favo');
-                        break;
-                    case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-live');
-                        break;
-                    case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
-                        break;
-                    case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc');
-                        break;
-                    case 'GameList_Brand':
-                        $(RecordDom).find('.CategIcon').addClass('icon-brand');
-                        break;
-                    default:
+            if (lobbyGame) {
+                if (lobbyGame.Location.includes("GameList")) {
+                    RecordDom = c.getTemplate("temCategItem");
+                    c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                    $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                    switch (lobbyGame.Location) {
+                        case 'GameList_Hot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                            break;
+                        case 'GameList_Favo':
+                            $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                            break;
+                        case 'GameList_Live':
+                            $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                            break;
+                        case 'GameList_Slot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                            break;
+                        case 'GameList_Other':
+                            $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                            break;
+                        case 'GameList_Brand':
+                            $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                            break;
+                        default:
+                    }
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    idGameItemTitle.appendChild(RecordDom);
                 }
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
-                idGameItemTitle.appendChild(RecordDom);
             }
+         
             //其他
             var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Other" });
-            if (lobbyGame.Location.includes("GameList")) {
-                RecordDom = c.getTemplate("temCategItem");
-                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
-                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
-                switch (lobbyGame.Location) {
-                    case 'GameList_Hot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-hot');
-                        break;
-                    case 'GameList_Favo':
-                        $(RecordDom).find('.CategIcon').addClass('icon-favo');
-                        break;
-                    case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-live');
-                        break;
-                    case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
-                        break;
-                    case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc');
-                        break;
-                    case 'GameList_Brand':
-                        $(RecordDom).find('.CategIcon').addClass('icon-brand');
-                        break;
-                    default:
+            if (lobbyGame) {
+                if (lobbyGame.Location.includes("GameList")) {
+                    RecordDom = c.getTemplate("temCategItem");
+                    c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                    $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                    switch (lobbyGame.Location) {
+                        case 'GameList_Hot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                            break;
+                        case 'GameList_Favo':
+                            $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                            break;
+                        case 'GameList_Live':
+                            $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                            break;
+                        case 'GameList_Slot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                            break;
+                        case 'GameList_Other':
+                            $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                            break;
+                        case 'GameList_Brand':
+                            $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                            break;
+                        default:
+                    }
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    idGameItemTitle.appendChild(RecordDom);
                 }
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
-                idGameItemTitle.appendChild(RecordDom);
             }
+     
             //廠牌
             var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Brand" });
-            if (lobbyGame.Location.includes("GameList")) {
-                RecordDom = c.getTemplate("temCategItem");
-                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
-                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
-                switch (lobbyGame.Location) {
-                    case 'GameList_Hot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-hot');
-                        break;
-                    case 'GameList_Favo':
-                        $(RecordDom).find('.CategIcon').addClass('icon-favo');
-                        break;
-                    case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-live');
-                        break;
-                    case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
-                        break;
-                    case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc');
-                        break;
-                    case 'GameList_Brand':
-                        $(RecordDom).find('.CategIcon').addClass('icon-brand');
-                        break;
-                    default:
+            if (lobbyGame) {
+                if (lobbyGame.Location.includes("GameList")) {
+                    RecordDom = c.getTemplate("temCategItem");
+                    c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                    $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                    switch (lobbyGame.Location) {
+                        case 'GameList_Hot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                            break;
+                        case 'GameList_Favo':
+                            $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                            break;
+                        case 'GameList_Live':
+                            $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                            break;
+                        case 'GameList_Slot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                            break;
+                        case 'GameList_Other':
+                            $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                            break;
+                        case 'GameList_Brand':
+                            $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                            break;
+                        default:
+                    }
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    idGameItemTitle.appendChild(RecordDom);
                 }
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
-                idGameItemTitle.appendChild(RecordDom);
             }
-
 
             $('#idGameItemTitle').append('<div class="tab-slide"></div>');
         }
@@ -1142,24 +1155,7 @@
 
         lang = window.parent.API_GetLang();
 
-        var heroLobby = new Swiper("#hero-slider-lobby", {
-            loop: true,
-            // slidesPerView: 1,
-            slidesPerView: "auto",
-            centeredSlides: true,
-            // freeMode: true,
-            // spaceBetween: 20,  
-            speed: 1000, //Duration of transition between slides (in ms)
-            // autoplay: {
-            //     delay: 3500,
-            //     disableOnInteraction: false,
-            // },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-
-        });
+        getBanner();
 
         //GCB.InitPromise.then(() => {
             window.parent.API_LoadingEnd();
@@ -1251,6 +1247,67 @@
         }
     }
 
+    function getBanner() {
+        var GUID = Math.uuid();
+        var TagName = "CasinoBanner_P";
+
+        if (WebInfo.DeviceType == 1) {
+            TagName = "CasinoBanner_M";
+        }
+
+        p.CheckDocumentByTagName(GUID, TagName, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    var ParentMain = document.getElementById("divBanner");
+                    ParentMain.innerHTML = "";
+                    
+                    if (o.DocumentList.length > 0) {
+                        var RecordDom2;
+                        for (var i = 0; i < o.DocumentList.length; i++) {
+                            var record = o.DocumentList[i];
+
+                            RecordDom2 = c.getTemplate("tmpBanner");
+
+                            let DocNumber = record.DocNumber;
+
+                            $.ajax({
+                                url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
+                                async: false,
+                                success: function (res) {
+                                    if (WebInfo.DeviceType == 1) {
+                                        $(RecordDom2).find('.Banner_M').html(res);
+                                        $(RecordDom2).find('.Banner_M').children().find('img').removeAttr("width");
+                                        $(RecordDom2).find('.Banner_M').children().find('img').removeAttr("height");
+                                        $(RecordDom2).find('.Banner_M').children().find('img').unwrap();
+                                    } else {
+                                        $(RecordDom2).find('.Banner_P').html(res);
+                                        $(RecordDom2).find('.Banner_P').children().find('img').addClass("bg");
+                                        $(RecordDom2).find('.Banner_P').children().find('img').unwrap();
+                                    }
+                                }
+                            });
+
+                            ParentMain.appendChild(RecordDom2);
+                        }
+
+                        var heroLobby = new Swiper("#hero-slider-lobby", {
+                            loop: true,
+                            slidesPerView: "auto",
+                            centeredSlides: true,
+                            speed: 1000,
+                            pagination: {
+                                el: ".swiper-pagination",
+                                clickable: true,
+                            },
+
+                        });
+
+                    }
+                }
+            }
+        });
+    }
+
     window.onload = init;
 
 
@@ -1260,113 +1317,8 @@
     <main class="innerMain">
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=14')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/event/ne-rt/202210/img/Jp-img-phone.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/event/ne-rt/202210/img/Jp-img-pc.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=13')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/slider-BNG-221003MR-s.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/slider-BNG-221003MR.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=11')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/event/pp202209-1/img/pp-liveJp-s.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/event/pp202209-1/img/pp-liveJp.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=12')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/event/pp202209-2/img/pp-slotJp-s.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/event/pp202209-2/img/pp-slotJp.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','/Article/guide-TripleCrown.html?Page=CasinoPage')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/crown-m.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/crown.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                  <%--  <div class="swiper-slide">
-                        <div class="hero-item">
-                            <!-- <a class="hero-item-link" href="#"></a> -->
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/newopen-m.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/newopen-2.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>--%>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <!-- <a class="hero-item-link" href="#"></a> -->
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/evo-m.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/evo-2.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <!-- <a class="hero-item-link" href="#"></a> -->
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/PNG-m.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/PNG-2.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="swiper-wrapper" id="divBanner">
+                  
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -1967,6 +1919,23 @@
                                         </div>
                                     </div>
                                 </div>
+    </div>
+
+     <%--banner--%>
+    <div id="tmpBanner" class="is-hide">
+        <div class="swiper-slide">
+            <div class="hero-item">
+                <a class="hero-item-link"></a>
+                <div class="hero-item-box mobile Banner_M">
+                    
+                </div>
+                <div class="hero-item-box desktop">
+                    <div class="img-wrap  Banner_P">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script>

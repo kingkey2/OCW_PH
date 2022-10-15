@@ -174,6 +174,49 @@
                 border: 1px solid #666;
                 color: #777;
             }
+
+        .bulletin_list .item {
+            margin-bottom: 0.8rem;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+        }
+                .bulletin_list .item:before {
+                    content: "";
+                    display: -webkit-inline-box;
+                    display: -ms-inline-flexbox;
+                    display: inline-flex;
+                    width: 3px;
+                    height: 1rem;
+                    border-radius: 0.5px;
+                    background-color: #008fd1;
+                }
+                .bulletin_list .item .date {
+                    font-weight: 600;
+                    margin-left: 0.5rem;
+                    margin-right: 1rem;
+                    width: 5rem;
+                    display: -webkit-inline-box;
+                    display: -ms-inline-flexbox;
+                    display: inline-flex;
+                }
+                .bulletin_list .item .info {
+                    -webkit-box-flex: 1;
+                    -ms-flex: 1;
+                    flex: 1;
+                    display: -webkit-box;
+                    text-overflow: ellipsis;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    cursor: pointer;
+                }
+        .bulletin_list .item .info:hover {
+            color: #008fd1;
+        }
     </style>
 </head>
 
@@ -718,6 +761,7 @@
 
     function showBoardMsg(title, docNumber) {
         if ($("#alertBoardMsg").attr("aria-hidden") == 'true') {
+            $("#popupBulletinList").modal("hide");
             var divMessageBox = document.getElementById("alertBoardMsg");
             var divMessageBoxOKButton = divMessageBox.querySelector(".alert_OK");
             var divMessageBoxTitle = divMessageBox.querySelector(".alert_Title");
@@ -737,17 +781,21 @@
 
                 divMessageBoxTitle.innerHTML = title;
                 //divMessageBoTime.innerHTML = time;
-
+                
                 $.ajax({
-                    url: "https://ewin.dev.mts.idv.tw/GetDocument.aspx?DocNumber=" + docNumber,
+                    url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + docNumber,
                     success: function (res) {
                         divMessageBoxContent.innerHTML = res;
                     },
                     error: function (err) { console.log(err) },
                 });
-
             }
         }
+    }
+
+    function alertBoardMsgClose() {
+        $("#alertBoardMsg").modal("hide");
+        $("#popupBulletinList").modal("show");
     }
 
     function showLangProp() {
@@ -2879,7 +2927,8 @@
 
                             RecordDom2 = c.getTemplate("idTempBulletinBoard");
 
-                            c.setClassText(RecordDom2, "BulletinTitle", null, record.DocumentTitle);
+                            //c.setClassText(RecordDom2, "BulletinTitle", null, record.DocumentTitle);
+                            c.setClassText(RecordDom2, "CreateDate", null, record.DocumentTitle);
 
                             RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.DocumentTitle + "','" + record.DocNumber + "')");
                             ParentMain2.appendChild(RecordDom2);
@@ -3928,7 +3977,7 @@
                                     <section class="section-wrap">
                                         <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告詳情</span></h6>
                                         <div class="section-content">
-                                            <p class="alertContact_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                                            <p class="alertContact_Text language_replace"></p>
                                         </div>
                                     </section>
                                 </div>
@@ -3955,16 +4004,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="alert_Title"></div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
-                    </button>
+                    </button>--%>
                 </div>
                 <div class="modal-body">
                     <div class="modal-body-content">
                         <article class="popup-detail-wrapper">
                             <div class="popup-detail-inner">
                                 <div class="popup-detail-content">
-                                    <section class="section-wrap">
+                                    <section class="section-wrap" style="display:none">
                                         <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告時間</span></h6>
                                         <div class="section-content">
                                             <div class="alert_Time"></div>
@@ -3990,8 +4039,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="btn-container">
-                        <button type="button" class="alert_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                    <div class="btn-container"onclick="alertBoardMsgClose()">
+                        <button type="button" class="alert_OK btn btn-primary btn-sm" ><span class="language_replace">確定</span></button>
                     </div>
                 </div>
             </div>
@@ -4033,7 +4082,7 @@
     <div class="tmpBulletinBoardModel" style="display: none;">
         <div id="idTempBulletinBoard" style="display: none;">
             <!-- <div> -->
-            <li class="item">
+            <li class="item" style="cursor:pointer">
                 <span class="date CreateDate"></span>
                 <span class="info BulletinTitle"></span>
             </li>
