@@ -718,6 +718,7 @@
 
     function showBoardMsg(title, docNumber) {
         if ($("#alertBoardMsg").attr("aria-hidden") == 'true') {
+            $("#popupBulletinList").modal("hide");
             var divMessageBox = document.getElementById("alertBoardMsg");
             var divMessageBoxOKButton = divMessageBox.querySelector(".alert_OK");
             var divMessageBoxTitle = divMessageBox.querySelector(".alert_Title");
@@ -748,6 +749,11 @@
 
             }
         }
+    }
+
+    function alertBoardMsgClose() {
+        $("#alertBoardMsg").modal("hide");
+        $("#popupBulletinList").modal("show");
     }
 
     function showLangProp() {
@@ -3932,16 +3938,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="alert_Title"></div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
-                    </button>
+                    </button>--%>
                 </div>
                 <div class="modal-body">
                     <div class="modal-body-content">
                         <article class="popup-detail-wrapper">
                             <div class="popup-detail-inner">
                                 <div class="popup-detail-content">
-                                    <section class="section-wrap">
+                                    <section class="section-wrap" style="display:none">
                                         <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告時間</span></h6>
                                         <div class="section-content">
                                             <div class="alert_Time"></div>
@@ -3967,8 +3973,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="btn-container">
-                        <button type="button" class="alert_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                    <div class="btn-container"onclick="alertBoardMsgClose()">
+                        <button type="button" class="alert_OK btn btn-primary btn-sm" ><span class="language_replace">確定</span></button>
                     </div>
                 </div>
             </div>

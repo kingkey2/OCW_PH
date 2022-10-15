@@ -97,10 +97,7 @@
   "出生年": "Year",
   "月": "MM",
   "日": "DD",
-  "請輸入信箱": "Please enter your email address."
-
-
-
-
-
+  "請輸入信箱": "Please enter your email address.",
+  "信箱": "Email",
+  "請輸入正確信箱": "Please enter the email address."
 }
