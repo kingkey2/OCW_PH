@@ -2940,6 +2940,14 @@
     }
 
     function showFavoPlayed() {
+
+        if (!EWinWebInfo.UserLogined) {
+            showMessageOK(mlp.getLanguageKey("尚未登入"), mlp.getLanguageKey("請先登入"), function () {
+                API_LoadPage("Login", "Login.aspx");
+            });
+            return;
+        }
+
         setFavoPlayeditem(0);
         setFavoPlayeditem(1);
         $("#alertFavoPlayed").modal("show")
