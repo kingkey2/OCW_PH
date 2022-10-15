@@ -63,7 +63,6 @@
     }
 
   function showPopup(DocNumber) {
-
         $.ajax({
             url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
             success: function (res) {
@@ -102,12 +101,12 @@
                     ParentMain.innerHTML = "";
 
                     if (o.DocumentList.length > 0) {
-                      
                         var DocNumber;
                         var record;
+
                         for (var i = 0; i < o.DocumentList.length; i++) {
                             record = o.DocumentList[i];
-                              var RecordDom2;
+                            var RecordDom2;
                             RecordDom2 = c.getTemplate("tmpActivity");
 
                             DocNumber = record.DocNumber;
@@ -137,8 +136,7 @@
                                     }
                                 }
                             }).bind(RecordDom2));
-
-
+                            
                             LobbyClient.CheckDocumentByTagName(GUID, DocNumber + "_Title", (function (success, o2) {
                                 var kkk = this;
                                 if (success) {
