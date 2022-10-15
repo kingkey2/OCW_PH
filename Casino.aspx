@@ -949,23 +949,23 @@
                 $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
                 switch (lobbyGame.Location) {
                     case 'GameList_Hot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot');
                         $(RecordDom).addClass('active');
                         break;
                     case 'GameList_Favo':
-                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo');
                         break;
                     case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-live');
                         break;
                     case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
                         break;
                     case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc');
                         break;
                     case 'GameList_Brand':
-                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand');
                         break;
                     default:
                 }
@@ -981,22 +981,22 @@
                 $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
                 switch (lobbyGame.Location) {
                     case 'GameList_Hot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot');
                         break;
                     case 'GameList_Favo':
-                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo');
                         break;
                     case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-live');
                         break;
                     case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
                         break;
                     case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc');
                         break;
                     case 'GameList_Brand':
-                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand');
                         break;
                     default:
                 }
@@ -1011,22 +1011,22 @@
                 $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
                 switch (lobbyGame.Location) {
                     case 'GameList_Hot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot');
                         break;
                     case 'GameList_Favo':
-                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo');
                         break;
                     case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-live');
                         break;
                     case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
                         break;
                     case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc');
                         break;
                     case 'GameList_Brand':
-                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand');
                         break;
                     default:
                 }
@@ -1041,22 +1041,22 @@
                 $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
                 switch (lobbyGame.Location) {
                     case 'GameList_Hot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot');
                         break;
                     case 'GameList_Favo':
-                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo');
                         break;
                     case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-live');
                         break;
                     case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
                         break;
                     case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc');
                         break;
                     case 'GameList_Brand':
-                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand');
                         break;
                     default:
                 }
@@ -1071,22 +1071,22 @@
                 $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
                 switch (lobbyGame.Location) {
                     case 'GameList_Hot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot');
                         break;
                     case 'GameList_Favo':
-                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo');
                         break;
                     case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-live');
                         break;
                     case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
                         break;
                     case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc');
                         break;
                     case 'GameList_Brand':
-                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand');
                         break;
                     default:
                 }
