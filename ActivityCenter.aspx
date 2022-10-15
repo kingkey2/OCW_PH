@@ -68,7 +68,7 @@
             url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
             success: function (res) {
                 $('#TempModal .activity-popup-detail-inner').html(res);
-            $('#TempModal').modal('show');
+                $('#TempModal').modal('show');
             }
         });
     }
