@@ -3115,7 +3115,7 @@
                                                 <span class="title language_replace">真人</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Other', false)">
+                                            onclick="openGame('BTI', 'Sport', '')">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-sport"></i>
                                                 <span class="title language_replace">體育</span></a>

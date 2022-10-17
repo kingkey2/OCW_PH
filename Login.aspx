@@ -165,7 +165,7 @@
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/libphonenumber.js"></script>
-<script type="text/javascript" src="/Scripts/fingerprint.js"></script>
+<%--<script type="text/javascript" src="/Scripts/fingerprint.js"></script>--%>
 <script type="text/javascript">
     if (self != top) {
         window.parent.API_LoadingStart();
@@ -226,36 +226,48 @@
 
             window.parent.API_Logout(false);
 
-            Fingerprint2.get(function (components) {
-                var values = components.map(function (component) { return component.value });
-                var userAgent = "";
+            //Fingerprint2.get(function (components) {
+            //    var values = components.map(function (component) { return component.value });
+            //    var userAgent = "";
 
-                for (var i = 0; i < components.length; i++) {
-                    if (components[i].key == "userAgent") {
-                        userAgent = components[i].value;
-                        break;
-                    }
+            //    for (var i = 0; i < components.length; i++) {
+            //        if (components[i].key == "userAgent") {
+            //            userAgent = components[i].value;
+            //            break;
+            //        }
+            //    }
+
+            //    visitorId = Fingerprint2.x64hash128(values.join(''), 31);
+
+            //    var form = document.getElementById("idFormUserLogin");
+            //    form.FingerPrint.value = visitorId;
+            //    form.UserAgent.value = userAgent;
+
+            //    window.parent.API_LoadingEnd(1);
+
+            //    if (WebInfo.UserLogined == true) {
+            //        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("您已登入"), function () {
+            //            window.parent.API_Home();
+            //        });
+            //    } else {
+            //        if (typeof (defaultError) != 'undefined') {
+            //            defaultError();
+            //        }
+            //    }
+
+            //})
+
+            window.parent.API_LoadingEnd(1);
+            
+            if (WebInfo.UserLogined == true) {
+                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("您已登入"), function () {
+                    window.parent.API_Home();
+                });
+            } else {
+                if (typeof (defaultError) != 'undefined') {
+                    defaultError();
                 }
-
-                visitorId = Fingerprint2.x64hash128(values.join(''), 31);
-
-                var form = document.getElementById("idFormUserLogin");
-                form.FingerPrint.value = visitorId;
-                form.UserAgent.value = userAgent;
-
-                window.parent.API_LoadingEnd(1);
-
-                if (WebInfo.UserLogined == true) {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("您已登入"), function () {
-                        window.parent.API_Home();
-                    });
-                } else {
-                    if (typeof (defaultError) != 'undefined') {
-                        defaultError();
-                    }
-                }
-
-            })
+            }
 
             $(function () {
                 document.onkeydown = function (e) {
