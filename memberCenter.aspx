@@ -469,7 +469,7 @@
                 <article class="article-member-center">
                     <!-- 個人資料 -->
                     <section class="section-member-profile">
-                        <!-- 會員頭像+會員等級 -->
+                        <!-- 會員頭像 + 會員等級 -->
                         <div class="member-profile-wrapper">
                             <div class="member-profile-avater-wrapper">
                                 <span class="avater">
@@ -484,12 +484,18 @@
                             <div class="member-profile-level-wrapper">
                                 <div class="sec-title-container sec-col-2 sec-title-member ">
                                     <div class="sec-title-wrapper">
-                                        <h1 class="sec-title"><span class="member-level language_replace">青銅</span></h1>
+                                        <div class="member-level ">
+                                            <h1 class="sec-title language_replace">青銅</h1>
+                                            <span class="btn" data-toggle="modal" data-target="#ModalMemberLevel">
+                                                <img src="images/member/btn-member-level-popup.png" alt="">
+                                            </span>
+                                        </div>
+                                        
                                     </div>
                                     <span class="unit">USD</span>
                                 </div>
                                 <!-- 升級條件 -->
-                                <div class="member-level-upgrade-wrapper">                                   
+                                <div class="member-level-upgrade-wrapper"> 
                                     <div class="level-progress progress">
                                         <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                         <div class="member-level">
@@ -498,17 +504,16 @@
                                         </div> 
                                     </div>
                                     <div class="level-rules">
-                                        <div class="deposit">
+                                        <div class="level-item deposit">
                                             <h4 class="title language_replace">累積存款</h4>
                                             <span class="value">900,000,000</span>
                                         </div>
-                                        <div class="rollover">
+                                        <div class="level-item rollover">
                                             <h4 class="title language_replace">累積流水</h4>
                                             <span class="value">
                                                 <span class="current ">25,000,000</span>/
                                                 <span class="level-rule">50,000,000</span>
                                             </span>
-                                           
                                         </div>
                                     </div>
                                 </div>
@@ -522,7 +527,7 @@
                                         <div class="progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>                                       
                                     </div>
                                     <div class="level-rules">
-                                        <div class="rollover">
+                                        <div class="level-item rollover">
                                             <h4 class="title language_replace">每月流水</h4>
                                            <span class="value">
                                                 <span class="current ">25,000,000</span>/
@@ -1185,6 +1190,25 @@
                 <%--<div class="modal-footer">
                 <button type="button" class="btn btn-primary">確定</button>
             </div>--%>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Verify Tip -->
+    <div class="modal fade footer-center" id="ModalMemberLevel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="Verify-popup-wrapper popup-tip">
+                       
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -104,10 +104,18 @@ input.month:read-only, input.day:read-only {
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
+  margin-bottom: 1.5rem;
 }
 .member-profile-avater-wrapper {
   margin: 0rem auto 1rem;
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0 10px;
   position: relative;
 }
 .member-profile-avater-wrapper .avater {
@@ -190,29 +198,79 @@ input.month:read-only, input.day:read-only {
   width: 20px;
   height: 20px;
 }
+
 .member-profile-level-wrapper {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
   width: 100%;
 }
-.member-profile-level-wrapper .progress {
-  background-color: #D6D6D6;
-}
 .member-profile-level-wrapper .title {
   font-size: 0.9375rem;
   color: #8A8A8A;
 }
+.member-profile-level-wrapper .value {
+  font-size: 0.9375rem;
+  color: #474747;
+  font-weight: 500;
+}
+.member-profile-level-wrapper .level-rules .level-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.member-profile-level-wrapper .progress {
+  background-color: #D6D6D6;
+  margin-bottom: 0.5rem;
+}
 
+.member-level-upgrade-wrapper {
+  margin-bottom: 1rem;
+}
 .member-level-upgrade-wrapper .level-progress {
   position: relative;
+}
+.member-level-upgrade-wrapper .level-progress.progress {
+  min-height: 22px;
 }
 .member-level-upgrade-wrapper .level-progress .progress-bar {
   background-color: #F5A919;
 }
 .member-level-upgrade-wrapper .member-level {
   position: absolute;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 10px;
 }
+.member-level-reservation-wrapper .sec-title {
+  font-weight: 500;
+}
+.member-level-reservation-wrapper .sec-title .title {
+  font-weight: 500;
+}
+.member-level-reservation-wrapper .title {
+  color: #404040 !important;
+}
+.member-level-reservation-wrapper .progress {
+  height: 0.625rem;
+  border-radius: 10px;
+}
+.member-level-reservation-wrapper .progress-bar {
+  background-color: #036EB7;
+}
+
 .member-wallet-wrapper {
   background-color: rgba(81, 189, 139, 0.7);
   background-image: url(../images/theme/bg_dog_white.png);
@@ -1394,6 +1452,12 @@ input.month:read-only, input.day:read-only {
   }
   .section-member-wallet-transaction .member-withdraw-wrapper {
     padding-left: 0.4rem;
+  }
+
+  .member-profile-avater-wrapper {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 125px;
+            flex: 0 0 125px;
   }
 
   .activity-record-wrapper {
