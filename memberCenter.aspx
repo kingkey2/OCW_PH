@@ -1195,9 +1195,9 @@
     </div>
 
 
-    <!-- Modal Verify Tip -->
+    <!-- Modal - Member LEVEL -->
     <div class="modal fade footer-center" id="ModalMemberLevel" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
@@ -1205,7 +1205,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="Verify-popup-wrapper popup-tip">
+                    <div class="member-level-popup-wrapper">
                        
                     </div>
                 </div>
