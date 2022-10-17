@@ -1278,6 +1278,8 @@
             TagName = "CasinoBanner_M";
         }
 
+        TagName = TagName+ "_" + WebInfo.Lang;
+
         p.CheckDocumentByTagName(GUID, TagName, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
