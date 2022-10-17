@@ -84,6 +84,7 @@
                 var lang = param;
 
                 mlp.loadLanguage(lang, function () {
+                    getActivity();
                     window.parent.API_LoadingEnd(1);
                 });
                 break;
@@ -92,7 +93,7 @@
 
     function getActivity() {
         var GUID = Math.uuid();
-        var TagName = "Activity";
+        var TagName = "Activity" + "_" + WebInfo.Lang;
 
         LobbyClient.CheckDocumentByTagName(GUID, TagName, function (success, o) {
             if (success) {
