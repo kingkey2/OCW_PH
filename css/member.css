@@ -500,6 +500,13 @@ input.month:read-only, input.day:read-only {
   padding: 10px;
 }
 
+.card_slider .card-item {
+  border-radius: 30px;
+}
+.card_slider .card-item.m-normal {
+  background: linear-gradient(114.06deg, #A0A0A0 49.97%, #666666 97.42%);
+}
+
 .activity-dailylogin-wrapper {
   position: relative;
 }

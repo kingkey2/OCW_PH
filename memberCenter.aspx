@@ -9,7 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maharaja</title>
-
     <%--    <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="Scripts/OutSrc/lib/swiper/css/swiper-bundle.min.css" type="text/css" />
 
@@ -17,8 +16,6 @@
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/member.css" type="text/css" />
     --%>
-
-    
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
@@ -293,6 +290,52 @@
         }
     }
 
+    function initSwiper() {
+        //HERO 
+        var swiper = new Swiper(".thumbSwiper", {
+
+            slidesPerView: "auto",
+            freeMode: true,
+            // enabled: false,
+            allowTouchMove: false,
+            watchSlidesProgress: false,
+        });
+
+        var heroIndex = new Swiper("#slider-card", {
+            loop: true,
+            slidesPerView: 1,
+            // effect: "fade",
+            speed: 1000, //Duration of transition between slides (in ms)
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            },
+            // pagination: {
+            //     el: ".swiper-pagination",
+            //     clickable: true,
+            //     renderBullet: function (index, className) {
+            //         //   return '<span class="' + className + '">' + (index + 1) + "</span>";
+            //         return '<span class="' + className + '">' + '<img src="images/banner/thumb-' + (index + 1) + '.png"></span>';
+            //     },
+            // },
+            thumbs: {
+                swiper: swiper,
+            },
+            breakpoints: {
+                640: {
+                    freeMode: false,
+                    slidesPerView: 3,
+                    // slidesPerGroup: 6, //index:992px
+                },
+               
+            }
+
+        });        
+    }
+
+
+
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
@@ -322,6 +365,7 @@
 
         memberInit();
         //changeAvatar(getCookie("selectAvatar"));
+        
 
         $("#activityURL").attr("href", "https://casino-maharaja.net/lp/01/" + WebInfo.UserInfo.PersonCode);
         $("#activityURL1").attr("href", "https://casino-maharaja.net/lp/02/" + WebInfo.UserInfo.PersonCode);
@@ -329,6 +373,8 @@
         if (!WebInfo.UserInfo.IsWalletPasswordSet) {
             //document.getElementById('idWalletPasswordUnSet').style.display = "block";
         }
+
+        initSwiper();
     }
 
     function copyActivityUrl() {
@@ -499,8 +545,8 @@
                                     <div class="level-progress progress">
                                         <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                         <div class="member-level">
-                                            <span class="level-name current language_replace">青銅</span>
-                                            <span class="level-name next language_replace">白銀</span>
+                                            <span class="level-name current language_replace">一般</span>
+                                            <span class="level-name next language_replace">青銅</span>
                                         </div> 
                                     </div>
                                     <div class="level-rules">
@@ -1196,7 +1242,7 @@
 
 
     <!-- Modal - Member LEVEL -->
-    <div class="modal fade footer-center" id="ModalMemberLevel" tabindex="-1" aria-hidden="true">
+    <div class="modal fade footer-center show" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: block;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1206,6 +1252,75 @@
                 </div>
                 <div class="modal-body">
                     <div class="member-level-popup-wrapper">
+                        <section class="section-wrap hero">
+                            <!-- 縮圖 ====================-->
+                            <div class="thumb-wrapper">
+                                <div class="container">
+                                    <div thumbsslider="" class="thumbSwiper">
+                                        <div class="swiper-wrapper"> 
+                                            <div class="swiper-slide">
+                                                <div class="thumb-inner">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <span class="level">VIP0</span>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="thumb-inner">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <span class="level">VIP0</span>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="thumb-inner">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <span class="level">VIP0</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper card_slider swiper-container round-arrow" id="slider-card">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="slider-item card-item m-normal">
+                                            <a class="card-item-link "></a>
+                                            <div class="card-item-box">
+                                                <h3 class="member-level">VIP0</h3>
+                                                <div class="member-bouns">
+                                                    <div class="item">
+                                                        <h4 class="title language_replace">升級紅利</h4>
+                                                        <span class="value">0</span>
+                                                    </div>
+                                                    <div class="item">
+                                                        <h4 class="title language_replace">月紅包</h4>
+                                                        <span class="value">0</span>
+                                                    </div>
+                                                </div>
+                                                <div class="member-rights">
+                                                    <div class="item">
+                                                        <h4 class="title language_replace">累計存款</h4>
+                                                        <span class="value">0</span>
+                                                    </div>
+                                                    <div class="item">
+                                                        <h4 class="title language_replace">累積流水</h4>
+                                                        <span class="value">0</span>
+                                                    </div>
+                                                    <div class="item">
+                                                        <h4 class="title language_replace">保級流水</h4>
+                                                        <span class="value">0</span>
+                                                    </div>
+                                                </div>                                              
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                 
+                                </div>
+                                <div class="swiper-mask"></div>                               
+                            </div>
+                            
+                        </section>
                        
                     </div>
                 </div>

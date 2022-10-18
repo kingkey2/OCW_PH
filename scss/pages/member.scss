@@ -660,6 +660,24 @@ input{
     }
 
 }
+$card-gradient-position:(49.97%, 97.42%);
+
+$card-bg-normal: (
+  color : ( rgba($color5, 0), rgba($color5, 0)),
+  positon : (49.97%, 97.42%)
+);
+
+//會員等級
+.card_slider{
+    .card-item{
+        border-radius: 30px;
+
+        &.m-normal{
+            background: linear-gradient(114.06deg, #A0A0A0 49.97%, #666666 97.42%);
+        }
+        
+    }
+}
 
 //會員簽到進度顯示 - 舊的 ================
 // .dailylogin-bouns {
