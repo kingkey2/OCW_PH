@@ -93,7 +93,16 @@
 
     function getActivity() {
         var GUID = Math.uuid();
-        var TagName = "Activity" + "_" + WebInfo.Lang;
+
+        //var TagName = "Activity" + "_" + WebInfo.Lang;
+
+        //var TagName = "Activity_P";
+
+        //if (WebInfo.DeviceType == 1) {
+        //    TagName = "Activity_M";
+        //}
+
+        TagName = "Activity_" + WebInfo.Lang;
 
         LobbyClient.CheckDocumentByTagName(GUID, TagName, function (success, o) {
             if (success) {
@@ -108,14 +117,30 @@
                         for (var i = 0; i < o.DocumentList.length; i++) {
                             record = o.DocumentList[i];
                             var RecordDom2;
+                            var InfoTagName;
                             RecordDom2 = c.getTemplate("tmpActivity");
 
                             DocNumber = record.DocNumber;
+                            
+                            $.ajax({
+                                url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
+                                success: (function (res) {
+                                    var k = this;
+                                    $(k).find('.activityPicture').html(res);
+                                    $(k).find('.activityPicture').children().find('img').unwrap();
 
-                            RecordDom2.onclick = new Function("showPopup('" + DocNumber + "')");
+                                }).bind(RecordDom2)
+                            });
+                            
                             ParentMain.appendChild(RecordDom2);
 
-                            LobbyClient.CheckDocumentByTagName(GUID, DocNumber + "_Pic", (function (success, o1) {
+                            InfoTagName = DocNumber + "_Info_P";
+
+                            if (WebInfo.DeviceType == 1) {
+                                 InfoTagName = DocNumber + "_Info_M";
+                            }
+
+                            LobbyClient.CheckDocumentByTagName(GUID, InfoTagName, (function (success, o1) {
                                 var kk = this;
                                 if (success) {
                                     if (o1.Result == 0) {
@@ -123,21 +148,13 @@
                                             for (var i = 0; i < o1.DocumentList.length; i++) {
                                                 var k = o1.DocumentList[i];
 
-                                                $.ajax({
-                                                    url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + k.DocNumber,
-                                                    success: (function (res) {
-                                                        var k = this;
-                                                        $(k).find('.activityPicture').html(res);
-                                                        $(k).find('.activityPicture').children().find('img').unwrap();
-
-                                                    }).bind(kk)
-                                                });
+                                                kk.onclick = new Function("showPopup('" + k.DocNumber + "')");
                                             }
                                         }
                                     }
                                 }
                             }).bind(RecordDom2));
-                            
+
                             LobbyClient.CheckDocumentByTagName(GUID, DocNumber + "_Title", (function (success, o2) {
                                 var kkk = this;
                                 if (success) {

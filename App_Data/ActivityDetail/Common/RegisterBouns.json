@@ -4,12 +4,12 @@
   "StartDate": "2022/02/20 00:00:00",
   "EndDate": "2062/05/31 00:00:00",
   "Self": {
-    "BonusValue": 500,
-    "ThresholdValue": 10000
+    "BonusValue": 20,
+    "ThresholdValue": 300
   },
   "Parent": {
 
   },
-  "Title": "マハラジャ歓迎キャンペーン",
-  "SubTitle": "500 OCOIN"
+  "Title": "註冊就送20元",
+  "SubTitle": "註冊就送20元"
 }
