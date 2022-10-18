@@ -665,6 +665,11 @@ input.month:read-only, input.day:read-only {
           align-items: center;
 }
 
+.MT-table-wrapper {
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+}
+
 .memberlevel-table .Thead .thead__th {
   background-color: #CFCFCF;
   color: inherit;

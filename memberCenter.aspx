@@ -1240,7 +1240,6 @@
         </div>
     </div>
 
-
     <!-- Modal - Member LEVEL -->
     <div class="modal fade footer-center show" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: block;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
@@ -1324,8 +1323,6 @@
                                                 <span class="level language_replace">傳說</span>
                                             </div>
                                         </div>
-                                        
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -1341,25 +1338,25 @@
                                                     <div class="member-bouns">
                                                         <div class="item">
                                                             <h4 class="title language_replace">升級紅利</h4>
-                                                            <span class="value">0</span>
+                                                            <span class="value">N/A</span>
                                                         </div>
                                                         <div class="item">
                                                             <h4 class="title language_replace">月紅包</h4>
-                                                            <span class="value">0</span>
+                                                            <span class="value">N/A</span>
                                                         </div>
                                                     </div>
                                                     <div class="member-rights">
                                                         <div class="item">
                                                             <h4 class="title language_replace">累計存款</h4>
-                                                            <span class="value">0</span>
+                                                            <span class="value">N/A</span>
                                                         </div>
                                                         <div class="item">
                                                             <h4 class="title language_replace">累積流水</h4>
-                                                            <span class="value">0</span>
+                                                            <span class="value">N/A</span>
                                                         </div>
                                                         <div class="item">
                                                             <h4 class="title language_replace">保級流水</h4>
-                                                            <span class="value">0</span>
+                                                            <span class="value">N/A</span>
                                                         </div>
                                                     </div>                                              
                                                 </div>
@@ -1374,35 +1371,34 @@
                                                         </div>
                                                         <div class="tr">
                                                             <div class="td title"><h4 class="language_replace">流水要求</h4></div>
-                                                            <div class="td value">1</div>
+                                                            <div class="td value">N/A</div>
                                                         </div>
                                                         <div class="tr">
                                                             <div class="td title"><h4 class="language_replace">保級流水</h4></div>
-                                                            <div class="td value">1</div>
+                                                            <div class="td value">N/A</div>
                                                         </div>
                                                         <div class="tr">
                                                             <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
-                                                            <div class="td value">1</div>
+                                                            <div class="td value">FALSE</div>
                                                         </div>
                                                         <div class="tr">
                                                             <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
-                                                            <div class="td value">1</div>
+                                                            <div class="td value">N/A</div>
                                                         </div>
                                                         <div class="tr">
                                                             <div class="td title"><h4 class="language_replace">月紅包</h4></div>
-                                                            <div class="td value">1</div>
+                                                            <div class="td value">N/A</div>
                                                         </div>
                                                         <div class="tr">
                                                             <div class="td title"><h4 class="language_replace">生日禮金</h4></div>
-                                                            <div class="td value"></div>
-                                                        </div>
+                                                            <div class="td value">N/A</div>                                                        </div>
                                                         <div class="tr">
                                                             <div class="td title"><h4 class="language_replace">體育返水</h4></div>
-                                                            <div class="td value">1</div>
+                                                            <div class="td value">N/A</div>
                                                         </div>
                                                         <div class="tr">
                                                             <div class="td title"><h4 class="language_replace">真人返水</h4></div>
-                                                            <div class="td value">1</div>
+                                                            <div class="td value">N/A</div>
                                                         </div>
                                                         <div class="tr">
                                                             <div class="td title"><h4 class="language_replace">電子返水</h4></div>
@@ -2233,15 +2229,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                                         
+                                </div>                                                         
                             </div>
-
                             <div class="MT-table-wrapper">
                                 <table class="MT__table memberlevel-table">
                                     <thead class="Thead">
                                         <tr class="thead__tr">
-                                            <td class="thead__th" style="width: 150px;">等級</td>
+                                            <td class="thead__th" style="width: 200px;">等級</td>
                                             <td class="thead__th">VIP0</td>
                                             <td class="thead__th">青銅</td>
                                             <td class="thead__th">白銀</td>
@@ -2398,10 +2392,24 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>  
+
+                            <div class="notice-wrapper">
+                                <div class="sec-title-container mb-0">
+                                    <div class="sec-title-wrapper">
+                                        <h6 class="sec-title title-deco"><span class="language_replace" langkey="曾經遊玩">VIP規則</span></h6>
+                                    </div>
+                                </div>
+                                <ul class="notice-list">
+                                    <li>1.晉升標準：會員的累計存款以及累計投注額在30天內達到相應級別的要求，即可在次日24點前晉級相應VIP等級。</li>
+                                    <li>2.保級要求：會員在達到某VIP等級後，30天內投注需要完成保級要求。如果在此期間完成晉升，保級要求重新按照當前等級計算。</li>
+                                    <li>3.降級標準：如果會員在30天內沒有完成相應的保級要求流水，系統會自動降級1個等級，相應的返水及其它優惠也會隨之調整至降級後的等級。</li>
+                                    <li>4.自升/降級日起算，每30天後會重新計算累計存款以及累計投注額。</li>
+                                    <li>5.30日的計算條件以升降級的當下重新計算(VIP0時是以當日往前30天的總洗碼量計算。若是青銅降回VIP0級，以降級的時間點重新計算30日洗碼量)</li>
+                                    <li>6.網站保留對活動的修改、停止及最終解釋權。</li>
+                                </ul>
                             </div>
-                            
                         </section>
-                       
                     </div>
                 </div>
             </div>
