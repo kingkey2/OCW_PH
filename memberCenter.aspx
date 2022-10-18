@@ -469,15 +469,75 @@
                 <article class="article-member-center">
                     <!-- 個人資料 -->
                     <section class="section-member-profile">
-                        <div class="member-profile-avater-wrapper">
-                            <span class="avater">
-                                <span class="avater-img">
-                                    <img src="images/avatar/avater-2.png" alt="">
+                        <!-- 會員頭像 + 會員等級 -->
+                        <div class="member-profile-wrapper">
+                            <div class="member-profile-avater-wrapper">
+                                <span class="avater">
+                                    <span class="avater-img">
+                                        <img src="images/avatar/avater-1.png" alt="">
+                                    </span>
+                                    <button type="button" class="btn btn-round btn-full-main btn-exchange-avater" data-toggle="modal" data-target="#ModalAvatar">
+                                        <i class="icon icon-mask icon-camera"></i>
+                                    </button>
                                 </span>
-                                <%--<button type="button" class="btn btn-round btn-full-main btn-exchange-avater" data-toggle="modal" data-target="#ModalAvatar">
-                                    <i class="icon icon-mask icon-camera "></i>
-                                </button>--%>
-                            </span>
+                            </div>
+                            <div class="member-profile-level-wrapper">
+                                <div class="sec-title-container sec-col-2 sec-title-member ">
+                                    <div class="sec-title-wrapper">
+                                        <div class="member-level ">
+                                            <h1 class="sec-title language_replace">青銅</h1>
+                                            <span class="btn" data-toggle="modal" data-target="#ModalMemberLevel">
+                                                <img src="images/member/btn-member-level-popup.png" alt="">
+                                            </span>
+                                        </div>
+                                        
+                                    </div>
+                                    <span class="unit">USD</span>
+                                </div>
+                                <!-- 升級條件 -->
+                                <div class="member-level-upgrade-wrapper"> 
+                                    <div class="level-progress progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="member-level">
+                                            <span class="level-name current language_replace">青銅</span>
+                                            <span class="level-name next language_replace">白銀</span>
+                                        </div> 
+                                    </div>
+                                    <div class="level-rules">
+                                        <div class="level-item deposit">
+                                            <h4 class="title language_replace">累積存款</h4>
+                                            <span class="value">900,000,000</span>
+                                        </div>
+                                        <div class="level-item rollover">
+                                            <h4 class="title language_replace">累積流水</h4>
+                                            <span class="value">
+                                                <span class="current ">25,000,000</span>/
+                                                <span class="level-rule">50,000,000</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 保級條件 -->
+                                <div class="member-level-reservation-wrapper">
+                                    <div class="sec-title"><h2 class="title language_replace">保級流水</h2>
+                                        <span class="days">(<span class="current">10</span>/<span class="total">30D</span>)</span>
+                                    </div>
+                                    <div class="level-progress progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>                                       
+                                    </div>
+                                    <div class="level-rules">
+                                        <div class="level-item rollover">
+                                            <h4 class="title language_replace">每月流水</h4>
+                                           <span class="value">
+                                                <span class="current ">25,000,000</span>/
+                                                <span class="level-rule">50,000,000</span>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>    
+                            </div>
                         </div>
                         <div class="member-profile-data-wrapper dataList">
                             <fieldset class="dataFieldset">
@@ -780,9 +840,9 @@
                                     </div>
                                 </div>                                
                                 <!-- 獎金中心 -->
-                                <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('','/Guide/prize.html')">
+                                <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('','ReportAgent.aspx')">
                                     <div class="prize-center-inner">
-                                        <div class="title language_replace">禮物盒說明</div>
+                                        <div class="title language_replace">報表</div>
                                     </div>
                                 </div>
                             </div>
@@ -1130,6 +1190,25 @@
                 <%--<div class="modal-footer">
                 <button type="button" class="btn btn-primary">確定</button>
             </div>--%>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal - Member LEVEL -->
+    <div class="modal fade footer-center" id="ModalMemberLevel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="member-level-popup-wrapper">
+                       
+                    </div>
+                </div>
             </div>
         </div>
     </div>
