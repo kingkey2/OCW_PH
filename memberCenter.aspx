@@ -297,7 +297,7 @@
             slidesPerView: "auto",
             freeMode: true,
             // enabled: false,
-            allowTouchMove: false,
+            // allowTouchMove: false,
             watchSlidesProgress: false,
         });
 
@@ -306,11 +306,11 @@
             slidesPerView: 1,
             // effect: "fade",
             speed: 1000, //Duration of transition between slides (in ms)
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true
-            },
+            // autoplay: {
+            //     delay: 4000,
+            //     disableOnInteraction: false,
+            //     pauseOnMouseEnter: true
+            // },
             // pagination: {
             //     el: ".swiper-pagination",
             //     clickable: true,
@@ -322,8 +322,12 @@
             thumbs: {
                 swiper: swiper,
             },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
             breakpoints: {
-                640: {
+                920: {
                     freeMode: false,
                     slidesPerView: 3,
                     // slidesPerGroup: 6, //index:992px
@@ -1240,82 +1244,1202 @@
         </div>
     </div>
 
-
     <!-- Modal - Member LEVEL -->
-    <div class="modal fade footer-center show" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: block;">
+    <div class="modal fade footer-center show" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: ;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h5 class="modal-title language_replace">VIP 會員級數說明</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="member-level-popup-wrapper">
-                        <section class="section-wrap member-level-">
+                        <section class="section-wrap member-level-popup-inner">
                             <!-- 縮圖 ====================-->
                             <div class="card-thumb-wrapper">
                                 <div thumbsslider="" class="thumbSwiper">
-                                    <div class="swiper-wrapper"> 
+                                    <div class="swiper-wrapper">
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="images/member/card-thumb-normal.svg" alt="">
-                                                <span class="level">VIP0</span>
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
+                                                <span class="level language_replace">VIP0</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="images/member/card-thumb-normal.svg" alt="">
-                                                <span class="level">VIP0</span>
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
+                                                <span class="level language_replace">青銅</span>
                                             </div>
                                         </div>
-                                        
-                                        
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
+                                                <span class="level language_replace">白銀</span>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
+                                                <span class="level language_replace">黃金</span>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
+                                                <span class="level language_replace">白金</span>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
+                                                <span class="level language_replace">鑽石</span>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
+                                                <span class="level language_replace">銀鑽</span>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
+                                                <span class="level language_replace">金鑽</span>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
+                                                <span class="level language_replace">星耀</span>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
+                                                <span class="level language_replace">永恆</span>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
+                                                <span class="level language_replace">傳說</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper card_slider swiper-container round-arrow" id="slider-card">
                                 <div class="swiper-wrapper">
+                                    <!-- vip0 normal -->
                                     <div class="swiper-slide m-normal">
-                                        <div class="slider-item card-item">
-                                            <a class="card-item-link "></a>
-                                            <div class="card-item-box">
-                                                <h3 class="member-level">VIP0</h3>
-                                                <div class="member-bouns">
-                                                    <div class="item">
-                                                        <h4 class="title language_replace">升級紅利</h4>
-                                                        <span class="value">0</span>
+                                        <div class="slider-item">
+                                            <div class="card-item">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-box">
+                                                    <h3 class="member-level">VIP0</h3>
+                                                    <div class="member-bouns">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">升級紅利</h4>
+                                                            <span class="value">N/A</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">月紅包</h4>
+                                                            <span class="value">N/A</span>
+                                                        </div>
                                                     </div>
-                                                    <div class="item">
-                                                        <h4 class="title language_replace">月紅包</h4>
-                                                        <span class="value">0</span>
+                                                    <div class="member-rights">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累計存款</h4>
+                                                            <span class="value">N/A</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累積流水</h4>
+                                                            <span class="value">N/A</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">保級流水</h4>
+                                                            <span class="value">N/A</span>
+                                                        </div>
+                                                    </div>                                              
+                                                </div>
+                                            </div>
+                                            <div class="memberlevel-rules">
+                                                <div class="memberlevel-wrapper">
+                                                    <div class="thead">VIP0</div>
+                                                    <div class="tbody">
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">累計存款</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">流水要求</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">保級流水</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
+                                                            <div class="td value">FALSE</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">月紅包</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">生日禮金</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">體育返水</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">真人返水</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">電子返水</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="member-rights">
-                                                    <div class="item">
-                                                        <h4 class="title language_replace">累計存款</h4>
-                                                        <span class="value">0</span>
-                                                    </div>
-                                                    <div class="item">
-                                                        <h4 class="title language_replace">累積流水</h4>
-                                                        <span class="value">0</span>
-                                                    </div>
-                                                    <div class="item">
-                                                        <h4 class="title language_replace">保級流水</h4>
-                                                        <span class="value">0</span>
-                                                    </div>
-                                                </div>                                              
                                             </div>
                                         </div>
                                     </div>
-                                   
-                                 
-                                </div>
-                                <div class="swiper-mask"></div>                               
+                                    <!-- 青銅 bronze -->
+                                    <div class="swiper-slide m-bronze">
+                                        <div class="slider-item">
+                                            <div class="card-item">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-box">
+                                                    <h3 class="member-level">Bronze</h3>
+                                                    <div class="member-bouns">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">升級紅利</h4>
+                                                            <span class="value">N/A</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">月紅包</h4>
+                                                            <span class="value">N/A</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="member-rights">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累計存款</h4>
+                                                            <span class="value">500</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累積流水</h4>
+                                                            <span class="value">3,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">保級流水</h4>
+                                                            <span class="value">2,000</span>
+                                                        </div>
+                                                    </div>                                              
+                                                </div>
+                                            </div>
+                                            <div class="memberlevel-rules">
+                                                <div class="memberlevel-wrapper">
+                                                    <div class="thead">Bronze</div>
+                                                    <div class="tbody">
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">累計存款</h4></div>
+                                                            <div class="td value">500</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">流水要求</h4></div>
+                                                            <div class="td value">3,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">保級流水</h4></div>
+                                                            <div class="td value">2,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
+                                                            <div class="td value">FALSE</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">月紅包</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">生日禮金</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">體育返水</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">真人返水</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">電子返水</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 白銀 silver -->
+                                    <div class="swiper-slide m-silver">
+                                        <div class="slider-item">
+                                            <div class="card-item">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-box">
+                                                    <h3 class="member-level">Silver</h3>
+                                                    <div class="member-bouns">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">升級紅利</h4>
+                                                            <span class="value">N/A</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">月紅包</h4>
+                                                            <span class="value">N/A</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="member-rights">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累計存款</h4>
+                                                            <span class="value">2,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累積流水</h4>
+                                                            <span class="value">12,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">保級流水</h4>
+                                                            <span class="value">5,000</span>
+                                                        </div>
+                                                    </div>                                              
+                                                </div>
+                                            </div>
+                                            <div class="memberlevel-rules">
+                                                <div class="memberlevel-wrapper">
+                                                    <div class="thead">Silver</div>
+                                                    <div class="tbody">
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">累計存款</h4></div>
+                                                            <div class="td value">2,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">流水要求</h4></div>
+                                                            <div class="td value">12,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">保級流水</h4></div>
+                                                            <div class="td value">5,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
+                                                            <div class="td value">FALSE</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">月紅包</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">生日禮金</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">體育返水</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">真人返水</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">電子返水</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 黃金 gold -->
+                                    <div class="swiper-slide m-gold">
+                                        <div class="slider-item">
+                                            <div class="card-item">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-box">
+                                                    <h3 class="member-level">Gold</h3>
+                                                    <div class="member-bouns">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">升級紅利</h4>
+                                                            <span class="value">500</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">月紅包</h4>
+                                                            <span class="value">N/A</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="member-rights">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累計存款</h4>
+                                                            <span class="value">10,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累積流水</h4>
+                                                            <span class="value">60,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">保級流水</h4>
+                                                            <span class="value">18,000</span>
+                                                        </div>
+                                                    </div>                                              
+                                                </div>
+                                            </div>
+                                            <div class="memberlevel-rules">
+                                                <div class="memberlevel-wrapper">
+                                                    <div class="thead">Gold</div>
+                                                    <div class="tbody">
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">累計存款</h4></div>
+                                                            <div class="td value">10,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">流水要求</h4></div>
+                                                            <div class="td value">60,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">保級流水</h4></div>
+                                                            <div class="td value">18,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
+                                                            <div class="td value">FALSE</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
+                                                            <div class="td value">500</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">月紅包</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">生日禮金</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">體育返水</h4></div>
+                                                            <div class="td value">1.5%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">真人返水</h4></div>
+                                                            <div class="td value">1.5%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">電子返水</h4></div>
+                                                            <div class="td value">N/A</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 白金 platinum -->
+                                    <div class="swiper-slide m-platinum">
+                                        <div class="slider-item">
+                                            <div class="card-item">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-box">
+                                                    <h3 class="member-level">Platinum</h3>
+                                                    <div class="member-bouns">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">升級紅利</h4>
+                                                            <span class="value">1,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">月紅包</h4>
+                                                            <span class="value">500</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="member-rights">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累計存款</h4>
+                                                            <span class="value">50,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累積流水</h4>
+                                                            <span class="value">300,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">保級流水</h4>
+                                                            <span class="value">60,000</span>
+                                                        </div>
+                                                    </div>                                              
+                                                </div>
+                                            </div>
+                                            <div class="memberlevel-rules">
+                                                <div class="memberlevel-wrapper">
+                                                    <div class="thead">Platinum</div>
+                                                    <div class="tbody">
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">累計存款</h4></div>
+                                                            <div class="td value">50,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">流水要求</h4></div>
+                                                            <div class="td value">300,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">保級流水</h4></div>
+                                                            <div class="td value">60,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
+                                                            <div class="td value">FALSE</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
+                                                            <div class="td value">1,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">月紅包</h4></div>
+                                                            <div class="td value">500</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">生日禮金</h4></div>
+                                                            <div class="td value">1,500</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">體育返水</h4></div>
+                                                            <div class="td value">2%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">真人返水</h4></div>
+                                                            <div class="td value">2%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">電子返水</h4></div>
+                                                            <div class="td value">2%</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 鑽石 diamond -->
+                                    <div class="swiper-slide m-diamond">
+                                        <div class="slider-item">
+                                            <div class="card-item">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-box">
+                                                    <h3 class="member-level">Diamond</h3>
+                                                    <div class="member-bouns">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">升級紅利</h4>
+                                                            <span class="value">5,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">月紅包</h4>
+                                                            <span class="value">1,000</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="member-rights">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累計存款</h4>
+                                                            <span class="value">200,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累積流水</h4>
+                                                            <span class="value">1,200,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">保級流水</h4>
+                                                            <span class="value">250,000</span>
+                                                        </div>
+                                                    </div>                                              
+                                                </div>
+                                            </div>
+                                            <div class="memberlevel-rules">
+                                                <div class="memberlevel-wrapper">
+                                                    <div class="thead">Diamond</div>
+                                                    <div class="tbody">
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">累計存款</h4></div>
+                                                            <div class="td value">200,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">流水要求</h4></div>
+                                                            <div class="td value">1,200,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">保級流水</h4></div>
+                                                            <div class="td value">250,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
+                                                            <div class="td value">TRUE</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
+                                                            <div class="td value">5,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">月紅包</h4></div>
+                                                            <div class="td value">1,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">生日禮金</h4></div>
+                                                            <div class="td value">3,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">體育返水</h4></div>
+                                                            <div class="td value">2.5%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">真人返水</h4></div>
+                                                            <div class="td value">2.5%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">電子返水</h4></div>
+                                                            <div class="td value">2.5%</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 銀鑽 silver diamond -->
+                                    <div class="swiper-slide m-S-diamond">
+                                        <div class="slider-item">
+                                            <div class="card-item">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-box">
+                                                    <h3 class="member-level">Silver Diamond</h3>
+                                                    <div class="member-bouns">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">升級紅利</h4>
+                                                            <span class="value">7,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">月紅包</h4>
+                                                            <span class="value">1,500</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="member-rights">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累計存款</h4>
+                                                            <span class="value">500,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累積流水</h4>
+                                                            <span class="value">3,000,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">保級流水</h4>
+                                                            <span class="value">600,000</span>
+                                                        </div>
+                                                    </div>                                              
+                                                </div>
+                                            </div>
+                                            <div class="memberlevel-rules">
+                                                <div class="memberlevel-wrapper">
+                                                    <div class="thead">Silver Diamond</div>
+                                                    <div class="tbody">
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">累計存款</h4></div>
+                                                            <div class="td value">500,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">流水要求</h4></div>
+                                                            <div class="td value">3,000,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">保級流水</h4></div>
+                                                            <div class="td value">600,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
+                                                            <div class="td value">TRUE</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
+                                                            <div class="td value">7,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">月紅包</h4></div>
+                                                            <div class="td value">1,500</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">生日禮金</h4></div>
+                                                            <div class="td value">5,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">體育返水</h4></div>
+                                                            <div class="td value">3%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">真人返水</h4></div>
+                                                            <div class="td value">3%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">電子返水</h4></div>
+                                                            <div class="td value">3%</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 金鑽 Gold Diamond -->
+                                    <div class="swiper-slide m-G-diamond">
+                                        <div class="slider-item">
+                                            <div class="card-item">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-box">
+                                                    <h3 class="member-level">Gold Diamond</h3>
+                                                    <div class="member-bouns">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">升級紅利</h4>
+                                                            <span class="value">10,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">月紅包</h4>
+                                                            <span class="value">2,000</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="member-rights">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累計存款</h4>
+                                                            <span class="value">1,200,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累積流水</h4>
+                                                            <span class="value">7,200,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">保級流水</h4>
+                                                            <span class="value">1,800,000</span>
+                                                        </div>
+                                                    </div>                                              
+                                                </div>
+                                            </div>
+                                            <div class="memberlevel-rules">
+                                                <div class="memberlevel-wrapper">
+                                                    <div class="thead">Gold Diamond</div>
+                                                    <div class="tbody">
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">累計存款</h4></div>
+                                                            <div class="td value">1,200,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">流水要求</h4></div>
+                                                            <div class="td value">7,200,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">保級流水</h4></div>
+                                                            <div class="td value">1,800,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
+                                                            <div class="td value">TRUE</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
+                                                            <div class="td value">10,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">月紅包</h4></div>
+                                                            <div class="td value">2,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">生日禮金</h4></div>
+                                                            <div class="td value">8,888</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">體育返水</h4></div>
+                                                            <div class="td value">3.5%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">真人返水</h4></div>
+                                                            <div class="td value">3.5%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">電子返水</h4></div>
+                                                            <div class="td value">3.5%</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 星耀 Starlight -->
+                                    <div class="swiper-slide m-starlight">
+                                        <div class="slider-item">
+                                            <div class="card-item">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-box">
+                                                    <h3 class="member-level">Starlight</h3>
+                                                    <div class="member-bouns">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">升級紅利</h4>
+                                                            <span class="value">12,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">月紅包</h4>
+                                                            <span class="value">3,000</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="member-rights">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累計存款</h4>
+                                                            <span class="value">3,000,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累積流水</h4>
+                                                            <span class="value">18,000,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">保級流水</h4>
+                                                            <span class="value">6,000,000</span>
+                                                        </div>
+                                                    </div>                                              
+                                                </div>
+                                            </div>
+                                            <div class="memberlevel-rules">
+                                                <div class="memberlevel-wrapper">
+                                                    <div class="thead">Starlight</div>
+                                                    <div class="tbody">
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">累計存款</h4></div>
+                                                            <div class="td value">3,000,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">流水要求</h4></div>
+                                                            <div class="td value">18,000,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">保級流水</h4></div>
+                                                            <div class="td value">6,000,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
+                                                            <div class="td value">TRUE</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
+                                                            <div class="td value">12,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">月紅包</h4></div>
+                                                            <div class="td value">3,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">生日禮金</h4></div>
+                                                            <div class="td value">10,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">體育返水</h4></div>
+                                                            <div class="td value">4%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">真人返水</h4></div>
+                                                            <div class="td value">4%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">電子返水</h4></div>
+                                                            <div class="td value">4%</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 永恆 eternal -->   
+                                    <div class="swiper-slide m-eternal">
+                                        <div class="slider-item">
+                                            <div class="card-item">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-box">
+                                                    <h3 class="member-level">Eternal</h3>
+                                                    <div class="member-bouns">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">升級紅利</h4>
+                                                            <span class="value">50,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">月紅包</h4>
+                                                            <span class="value">10,000</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="member-rights">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累計存款</h4>
+                                                            <span class="value">10,000,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累積流水</h4>
+                                                            <span class="value">60,000,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">保級流水</h4>
+                                                            <span class="value">25,000,000</span>
+                                                        </div>
+                                                    </div>                                              
+                                                </div>
+                                            </div>
+                                            <div class="memberlevel-rules">
+                                                <div class="memberlevel-wrapper">
+                                                    <div class="thead">Eternal</div>
+                                                    <div class="tbody">
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">累計存款</h4></div>
+                                                            <div class="td value">10,000,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">流水要求</h4></div>
+                                                            <div class="td value">60,000,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">保級流水</h4></div>
+                                                            <div class="td value">25,000,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
+                                                            <div class="td value">TRUE</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
+                                                            <div class="td value">50,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">月紅包</h4></div>
+                                                            <div class="td value">10,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">生日禮金</h4></div>
+                                                            <div class="td value">20,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">體育返水</h4></div>
+                                                            <div class="td value">4.5%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">真人返水</h4></div>
+                                                            <div class="td value">4.5%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">電子返水</h4></div>
+                                                            <div class="td value">4.5%</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>        
+                                    <!-- 傳說 legend -->
+                                    <div class="swiper-slide m-legend">
+                                        <div class="slider-item">
+                                            <div class="card-item">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-box">
+                                                    <h3 class="member-level">Legend</h3>
+                                                    <div class="member-bouns">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">升級紅利</h4>
+                                                            <span class="value">100,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">月紅包</h4>
+                                                            <span class="value">20,000</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="member-rights">
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累計存款</h4>
+                                                            <span class="value">30,000,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">累積流水</h4>
+                                                            <span class="value">180,000,000</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <h4 class="title language_replace">保級流水</h4>
+                                                            <span class="value">50,000,000</span>
+                                                        </div>
+                                                    </div>                                              
+                                                </div>
+                                            </div>
+                                            <div class="memberlevel-rules">
+                                                <div class="memberlevel-wrapper">
+                                                    <div class="thead">Legend</div>
+                                                    <div class="tbody">
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">累計存款</h4></div>
+                                                            <div class="td value">30,000,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">流水要求</h4></div>
+                                                            <div class="td value">180,000,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">保級流水</h4></div>
+                                                            <div class="td value">50,000,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
+                                                            <div class="td value">TRUE</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
+                                                            <div class="td value">100,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">月紅包</h4></div>
+                                                            <div class="td value">20,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">生日禮金</h4></div>
+                                                            <div class="td value">50,000</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">體育返水</h4></div>
+                                                            <div class="td value">5%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">真人返水</h4></div>
+                                                            <div class="td value">5%</div>
+                                                        </div>
+                                                        <div class="tr">
+                                                            <div class="td title"><h4 class="language_replace">電子返水</h4></div>
+                                                            <div class="td value">5%</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>                                                       
                             </div>
-                            
+
+                            <div class="MT-table-wrapper">
+                                <table class="MT__table memberlevel-table">
+                                    <thead class="Thead">
+                                        <tr class="thead__tr">
+                                            <td class="thead__th" style="width: 200px;">等級</td>
+                                            <td class="thead__th">VIP0</td>
+                                            <td class="thead__th">青銅</td>
+                                            <td class="thead__th">白銀</td>
+                                            <td class="thead__th">黃金</td>
+                                            <td class="thead__th">白金</td>
+                                            <td class="thead__th">鑽石</td>
+                                            <td class="thead__th">銀鑽</td>
+                                            <td class="thead__th">金鑽</td>
+                                            <td class="thead__th">星耀</td>
+                                            <td class="thead__th">永恆</td>
+                                            <td class="thead__th">傳說</td>
+                                        </tr>
+                                     </thead>
+                                    <tbody class="Tbody">
+                                        <tr class="tbody__tr">
+                                            <td class="tbody__td">累計存款</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">500</td>
+                                            <td class="tbody__td">2000</td>
+                                            <td class="tbody__td">10000</td>
+                                            <td class="tbody__td">50000</td>
+                                            <td class="tbody__td">200000</td>
+                                            <td class="tbody__td">500000</td>
+                                            <td class="tbody__td">1200000</td>
+                                            <td class="tbody__td">3000000</td>
+                                            <td class="tbody__td">10000000</td>
+                                            <td class="tbody__td">30000000</td>
+                                        </tr>
+                                        <tr class="tbody__tr">
+                                            <td class="tbody__td">流水要求</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">3000</td>
+                                            <td class="tbody__td">12000</td>
+                                            <td class="tbody__td">60000</td>
+                                            <td class="tbody__td">300000</td>
+                                            <td class="tbody__td">1200000</td>
+                                            <td class="tbody__td">3000000</td>
+                                            <td class="tbody__td">7200000</td>
+                                            <td class="tbody__td">18000000</td>
+                                            <td class="tbody__td">60000000</td>
+                                            <td class="tbody__td">180000000</td>
+                                        </tr>
+                                        <tr class="tbody__tr">
+                                            <td class="tbody__td">保級流水</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">2000</td>
+                                            <td class="tbody__td">5000</td>
+                                            <td class="tbody__td">18000</td>
+                                            <td class="tbody__td">60000</td>
+                                            <td class="tbody__td">250000</td>
+                                            <td class="tbody__td">600000</td>
+                                            <td class="tbody__td">1800000</td>
+                                            <td class="tbody__td">6000000</td>
+                                            <td class="tbody__td">25000000</td>
+                                            <td class="tbody__td">50000000</td>
+                                        </tr>
+                                        <tr class="tbody__tr">
+                                            <td class="tbody__td">特別服務通道</td>
+                                            <td class="tbody__td">FALSE</td>
+                                            <td class="tbody__td">FALSE</td>
+                                            <td class="tbody__td">FALSE</td>
+                                            <td class="tbody__td">FALSE</td>
+                                            <td class="tbody__td">FALSE</td>
+                                            <td class="tbody__td">TRUE</td>
+                                            <td class="tbody__td">TRUE</td>
+                                            <td class="tbody__td">TRUE</td>
+                                            <td class="tbody__td">TRUE</td>
+                                            <td class="tbody__td">TRUE</td>
+                                            <td class="tbody__td">TRUE</td>
+                                        </tr>
+                                        <tr class="tbody__tr">
+                                            <td class="tbody__td">升級紅利</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">500</td>
+                                            <td class="tbody__td">1000</td>
+                                            <td class="tbody__td">5000</td>
+                                            <td class="tbody__td">7000</td>
+                                            <td class="tbody__td">10000</td>
+                                            <td class="tbody__td">12000</td>
+                                            <td class="tbody__td">50000</td>
+                                            <td class="tbody__td">100000</td>
+                                        </tr>
+                                        <tr class="tbody__tr">
+                                            <td class="tbody__td">月紅包</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">500</td>
+                                            <td class="tbody__td">1000</td>
+                                            <td class="tbody__td">1500</td>
+                                            <td class="tbody__td">2000</td>
+                                            <td class="tbody__td">3000</td>
+                                            <td class="tbody__td">10000</td>
+                                            <td class="tbody__td">20000</td>
+                                        </tr>
+                                        <tr class="tbody__tr">
+                                            <td class="tbody__td">生日禮金</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">1500</td>
+                                            <td class="tbody__td">3000</td>
+                                            <td class="tbody__td">5000</td>
+                                            <td class="tbody__td">8888</td>
+                                            <td class="tbody__td">10000</td>
+                                            <td class="tbody__td">20000</td>
+                                            <td class="tbody__td">50000</td>
+                                        </tr>
+                                        <tr class="tbody__tr">
+                                            <td class="tbody__td">體育返水</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">1.50%</td>
+                                            <td class="tbody__td">2%</td>
+                                            <td class="tbody__td">2.50%</td>
+                                            <td class="tbody__td">3%</td>
+                                            <td class="tbody__td">3.50%</td>
+                                            <td class="tbody__td">4%</td>
+                                            <td class="tbody__td">4.50%</td>
+                                            <td class="tbody__td">5%</td>
+                                        </tr>
+                                        <tr class="tbody__tr">
+                                            <td class="tbody__td">真人返水</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">1.50%</td>
+                                            <td class="tbody__td">2%</td>
+                                            <td class="tbody__td">2.50%</td>
+                                            <td class="tbody__td">3%</td>
+                                            <td class="tbody__td">3.50%</td>
+                                            <td class="tbody__td">4%</td>
+                                            <td class="tbody__td">4.50%</td>
+                                            <td class="tbody__td">5%</td>
+                                        </tr>
+                                        <tr class="tbody__tr">
+                                            <td class="tbody__td">電子返水</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">N/A</td>
+                                            <td class="tbody__td">2%</td>
+                                            <td class="tbody__td">2.50%</td>
+                                            <td class="tbody__td">3%</td>
+                                            <td class="tbody__td">3.50%</td>
+                                            <td class="tbody__td">4%</td>
+                                            <td class="tbody__td">4.50%</td>
+                                            <td class="tbody__td">5%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>  
+
+                            <div class="notice-wrapper">
+                                <div class="sec-title-container mb-0">
+                                    <div class="sec-title-wrapper">
+                                        <h6 class="sec-title title-deco"><span class="language_replace" langkey="曾經遊玩">VIP規則</span></h6>
+                                    </div>
+                                </div>
+                                <ul class="notice-list">
+                                    <li>1.晉升標準：會員的累計存款以及累計投注額在30天內達到相應級別的要求，即可在次日24點前晉級相應VIP等級。</li>
+                                    <li>2.保級要求：會員在達到某VIP等級後，30天內投注需要完成保級要求。如果在此期間完成晉升，保級要求重新按照當前等級計算。</li>
+                                    <li>3.降級標準：如果會員在30天內沒有完成相應的保級要求流水，系統會自動降級1個等級，相應的返水及其它優惠也會隨之調整至降級後的等級。</li>
+                                    <li>4.自升/降級日起算，每30天後會重新計算累計存款以及累計投注額。</li>
+                                    <li>5.30日的計算條件以升降級的當下重新計算(VIP0時是以當日往前30天的總洗碼量計算。若是青銅降回VIP0級，以降級的時間點重新計算30日洗碼量)</li>
+                                    <li>6.網站保留對活動的修改、停止及最終解釋權。</li>
+                                </ul>
+                            </div>
                         </section>
-                       
                     </div>
                 </div>
             </div>

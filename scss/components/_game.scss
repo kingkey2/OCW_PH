@@ -274,6 +274,8 @@
 
     }
 
+  
+
     @include media-breakpoint-up(desc-xl){
         .sec-title-container{          
             .sec-title{
@@ -293,110 +295,6 @@
 }
 
 
-//滑鼠滑過 Button 出現效果 ===============
-.swiper-button-next, .swiper-button-prev{    
-    display: none;
-    width: 5%;
-    min-width: 60px;
-    max-width: 80px;
-    // height: 180px;
-    // height: calc(100% - 60px - 0.7rem);
-    height: calc(100% - 60px); //height + top:50px+10px
-    top: 10px;
-    margin-top: 0; //RESET
-    cursor: pointer;
-
-    //BUTTON MASK
-    &::before{
-        content: "";  
-        position: absolute;      
-        display: inline-flex;
-        width: 99%;
-        max-width: 80px;
-        // height: calc(((100vw - 56px) / 5) - 1.2vw); 
-        height: calc(100%);
-        // background-color: rgba(#fff, 0.5);         
-        
-        background-size: contain;
-        
-        // z-index: -1;       
-        top: 0;
-
-        // opacity: 0;            
-    }
-
-        
-    &::before{
-        // background: linear-gradient(-270deg, rgba(#fff, 1) 0%, rgba(#fff, 0.7) 70%, rgba(#fff, 0) 100%);
-        // left: 0;
-    }
-
-
-   //BUTTON ARROW
-    &::after{
-        position: absolute;
-        top: 38%;
-        // right: 0;
-        // left: 0;
-        margin: 0 auto;
-        width: 40%;
-        height: 45px;
-        font-weight: 500;
-        font-size: 0;
-        background: url(../images/icon/ico-arrow-L.svg) center center no-repeat;
-        background-size: cover;
-    }
-
-    &.swiper-button-disabled{
-        opacity: 0;
-    }
-
-
- }
-
- .swiper-button-next{
-     right: 0;
-    //  background: linear-gradient(270deg, rgba(#008ccc, 1) 0%, rgba(#008ccc, 0.8) 75%, rgba(#008ccc, 0) 100%);
-    //  background: linear-gradient(270deg, rgba(#000, 0.7) 0%, rgba(#000, 0.6) 75%, rgba(#000, 0) 100%);
-
-     //後面白色 mask ============
-     background: linear-gradient(270deg, rgba(#fff, .9) 0%, rgba(#fff, .9) 50%, rgba(#fff, 0) 100%);
-    //  border-radius: 0 15px 15px 0;
-
-     //BUTTON MASK
-    &::before{
-        background: linear-gradient(270deg, rgba(#000, 0.85) 0%, rgba(#000, 0.7) 75%, rgba(#000, 0) 100%);  
-        // border-radius: 0 15px 15px 0;
-    }
-
-     //BUTTON ARROW
-     &::after{
-        right: 22%;      
-     }    
-
- }
-
- .swiper-button-prev{
-     left: 0;
-    //  background: linear-gradient(-270deg, rgba(#008ccc, 1) 0%, rgba(#008ccc, 0.8) 75%, rgba(#008ccc, 0) 100%);
-    // background: linear-gradient(-270deg, rgba(#000, 0.7) 0%, rgba(#000, 0.6) 75%, rgba(#000, 0) 100%);
-
-    //後面白色 mask ============
-    background: linear-gradient(-270deg, rgba(#fff, .9) 0%, rgba(#fff, .9) 50%, rgba(#fff, 0) 100%);
-    // border-radius: 15px 0 0 15px;
-
-     //BUTTON MASK
-     &::before{
-        background: linear-gradient(-270deg, rgba(#000, 0.85) 0%, rgba(#000, 0.7) 75%, rgba(#000, 0) 100%);  
-        // border-radius: 15px 0 0 15px;
-    }
-      //BUTTON ARROW
-      &::after{
-        left: 15%;
-        transform: rotate(-180deg);
-     }
-    
- }
 
 // Slider Prev NEXT BUTTON MASK
 .game_slider{
@@ -433,6 +331,111 @@
 
             // }
 
+    }
+
+      //滑鼠滑過 Button 出現效果 ===============
+      .swiper-button-next, .swiper-button-prev{    
+        display: none;
+        width: 5%;
+        min-width: 60px;
+        max-width: 80px;
+        // height: 180px;
+        // height: calc(100% - 60px - 0.7rem);
+        height: calc(100% - 60px); //height + top:50px+10px
+        top: 10px;
+        margin-top: 0; //RESET
+        cursor: pointer;
+
+        //BUTTON MASK
+        &::before{
+            content: "";  
+            position: absolute;      
+            display: inline-flex;
+            width: 99%;
+            max-width: 80px;
+            // height: calc(((100vw - 56px) / 5) - 1.2vw); 
+            height: calc(100%);
+            // background-color: rgba(#fff, 0.5);         
+            
+            background-size: contain;
+            
+            // z-index: -1;       
+            top: 0;
+
+            // opacity: 0;            
+        }
+
+            
+        &::before{
+            // background: linear-gradient(-270deg, rgba(#fff, 1) 0%, rgba(#fff, 0.7) 70%, rgba(#fff, 0) 100%);
+            // left: 0;
+        }
+
+
+    //BUTTON ARROW
+        &::after{
+            position: absolute;
+            top: 38%;
+            // right: 0;
+            // left: 0;
+            margin: 0 auto;
+            width: 40%;
+            height: 45px;
+            font-weight: 500;
+            font-size: 0;
+            background: url(../images/icon/ico-arrow-L.svg) center center no-repeat;
+            background-size: cover;
+        }
+
+        &.swiper-button-disabled{
+            opacity: 0;
+        }
+
+
+    }
+
+    .swiper-button-next{
+        right: 0;
+        //  background: linear-gradient(270deg, rgba(#008ccc, 1) 0%, rgba(#008ccc, 0.8) 75%, rgba(#008ccc, 0) 100%);
+        //  background: linear-gradient(270deg, rgba(#000, 0.7) 0%, rgba(#000, 0.6) 75%, rgba(#000, 0) 100%);
+
+        //後面白色 mask ============
+        background: linear-gradient(270deg, rgba(#fff, .9) 0%, rgba(#fff, .9) 50%, rgba(#fff, 0) 100%);
+        //  border-radius: 0 15px 15px 0;
+
+        //BUTTON MASK
+        &::before{
+            background: linear-gradient(270deg, rgba(#000, 0.85) 0%, rgba(#000, 0.7) 75%, rgba(#000, 0) 100%);  
+            // border-radius: 0 15px 15px 0;
+        }
+
+        //BUTTON ARROW
+        &::after{
+            right: 22%;      
+        }    
+
+    }
+
+    .swiper-button-prev{
+        left: 0;
+        //  background: linear-gradient(-270deg, rgba(#008ccc, 1) 0%, rgba(#008ccc, 0.8) 75%, rgba(#008ccc, 0) 100%);
+        // background: linear-gradient(-270deg, rgba(#000, 0.7) 0%, rgba(#000, 0.6) 75%, rgba(#000, 0) 100%);
+
+        //後面白色 mask ============
+        background: linear-gradient(-270deg, rgba(#fff, .9) 0%, rgba(#fff, .9) 50%, rgba(#fff, 0) 100%);
+        // border-radius: 15px 0 0 15px;
+
+        //BUTTON MASK
+        &::before{
+            background: linear-gradient(-270deg, rgba(#000, 0.85) 0%, rgba(#000, 0.7) 75%, rgba(#000, 0) 100%);  
+            // border-radius: 15px 0 0 15px;
+        }
+        //BUTTON ARROW
+        &::after{
+            left: 15%;
+            transform: rotate(-180deg);
+        }
+        
     }
    
 
@@ -2300,15 +2303,19 @@
         }
     }
 
-    // Slider Prev NEXT BUTTON 滑鼠移過效果
-    .swiper-button-next, .swiper-button-prev{
+   
+    .game_slider {
+         // Slider Prev NEXT BUTTON 滑鼠移過效果
+        .swiper-button-next, .swiper-button-prev{
 
-        &,&.swiper-button-disabled{
-            display: inline-block;     
-            color: #fff;
-            opacity: 0;
-        }
+            &,&.swiper-button-disabled{
+                display: inline-block;     
+                color: #fff;
+                opacity: 0;
+         }
        
+      }
+
     }
 
 
@@ -2396,6 +2403,13 @@
         .swiper-slide {
             // max-width: 240px;
         }
+
+        //滑鼠滑過 Button 出現效果 ===============
+        .swiper-button-next, .swiper-button-prev{
+            height: calc(100% - 62px); //height + top:52px+10px         
+        }
+
+
     }
 
      // 外部 遊戲資訊   
@@ -2407,10 +2421,7 @@
             } 
         }      
     }
-    //滑鼠滑過 Button 出現效果 ===============
-    .swiper-button-next, .swiper-button-prev{
-        height: calc(100% - 62px); //height + top:52px+10px         
-    }
+    
 
     //圖片倒影效果 ====================
     .game_slider.swiper-cover {

@@ -669,17 +669,302 @@ $card-bg-normal: (
 
 //會員等級
 .card_slider{
-    .card-item{
-        border-radius: 30px;        
+    *{
+        font-size: initial;
     }
+
+    .swiper-slide{
+        padding: 0 0.5rem;
+    }
+
+
+    .card-item{
+        padding: 15px;
+        border-radius: 30px; 
+        position: relative;
+
+        &::before{
+            content: '';
+            display: inline-flex;
+            width: 30%;
+            height: 60px;            
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            z-index: 0;
+            position: absolute;
+            right: 0;
+            top: 15px;
+        }       
+
+        .member-level{
+            color: #A85400;
+            font-size: font-resize(24px);
+            margin-bottom: 1.5rem;
+        }
+
+        .member-bouns{
+            margin-bottom: 0.5rem;
+        }
+
+        .item{
+            display: flex;
+            justify-content: space-between;
+
+            .title{
+                color: #494949;
+                font-size: font-resize(14px);
+            }
+            .value{
+                font-weight: 500;
+            }
+        }
+        
+        
+    }
+    // 青銅 bronze
+    // 白銀 silver
+    // 黃金 gold
+    // 白金 platinum
+    // 鑽石 diamond
+    // 銀鑽 silver diamond
+    // 金鑽 Gold Diamond
+    // 星耀 Starlight
+    // 永恆 eternal
+    // 傳說 legend
 
     .m-normal{
         .card-item{
+            
             background: linear-gradient(114.06deg, #A0A0A0 49.97%, #666666 97.42%);
+           
+            &::before{
+                background-image: url(../images/member/card-label-normal.png);
+            }
+        }       
+    }
+
+    .m-bronze{
+        .card-item{
+            background: linear-gradient(114.06deg, #4BEFD1 49.97%, #E39600 97.42%);
+
+            &::before{
+                background-image: url(../images/member/card-label-bronze.png);
+            }
+        }       
+    } 
+    
+    .m-silver{
+        .card-item{
+            background: linear-gradient(114.06deg, #D7D7D7 49.97%, #969696 97.42%);
+            &::before{
+                background-image: url(../images/member/card-label-silver.png);
+            }
+        }       
+    }
+
+    .m-gold{
+        .card-item{
+            background: linear-gradient(114.06deg, #F3CD1F 49.97%, #E69D00 97.42%);
+
+            &::before{
+                background-image: url(../images/member/card-label-gold.png);
+            }
+        }       
+    }
+
+    .m-platinum{
+        .card-item{
+            background: linear-gradient(114.06deg, #B8D8E7 2.04%, #B7B7B7 97.42%);
+
+
+            &::before{
+                background-image: url(../images/member/card-label-platinum.png);
+            }
+        }       
+    }
+    .m-diamond{
+        .card-item{
+            background: linear-gradient(114.06deg, #B8D8E7 2.04%, #8EE1F0 97.42%);
+
+            &::before{
+                background-image: url(../images/member/card-label-diamond.png);
+            }
+        }       
+    }
+    .m-S-diamond{
+        .card-item{
+            background: linear-gradient(114.06deg, #B8D8E7 49.97%, #637B94 97.42%);
+
+            &::before{
+                background-image: url(../images/member/card-label-Sdiamond.png);
+            }
+        }       
+    }
+    .m-G-diamond{
+        .card-item{
+            background: linear-gradient(114.06deg, #B8D8E7 49.97%, #FCCE2A 97.42%);
+
+            &::before{
+                background-image: url(../images/member/card-label-Gdiamond.png);
+            }
+        }       
+    }
+    .m-starlight{
+        .card-item{
+            background: linear-gradient(114.06deg, #BEE8FF 49.97%, #00ABD3 97.42%);
+            &::before{
+                background-image: url(../images/member/card-label-starlight.png);
+            }
+        }       
+    }
+    .m-eternal{
+        .card-item{
+            background: linear-gradient(114.06deg, #E3BBE4 49.97%, #7B687B 97.42%);
+
+
+            &::before{
+                background-image: url(../images/member/card-label-legend.png);
+            }
+        }       
+    }
+    .m-legend{
+        .card-item{
+            background: linear-gradient(114.06deg, #74CDFF 9.03%, #FFAF9D 49.97%, #E497FF 97.42%);
+
+            &::before{
+                background-image: url(../images/member/card-label-legend.png);
+            }
+        }       
+    }   
+
+    .memberlevel{
+
+        &-rules{            
+            *{
+                font-size: font-resize(14px);
+            }
+            .thead{
+                background-color: #494949;
+                color: #E69D00;
+                text-align: center;
+            }
+            .tbody{
+                padding: 10px;
+            }
+            
+            .tr{
+                display: flex;
+                justify-content: space-between;
+            }
+            .value{
+                color: #C6341D;
+                font-weight: 500;
+            }
+           
+        }
+        &-wrapper{
+            background: #D9D9D9;
+            border-radius: 15px;
         }
        
+        
     }
 }
+.card-thumb-wrapper{
+
+    .swiper-wrapper{
+        display: flex; 
+    }
+
+    .swiper-slide{
+        width: auto;
+        padding: 0 5px;
+    }
+
+    .swiper-slide-thumb-active{
+        .img-crop{
+         
+            &:after{               
+                opacity: 0;
+            }
+        }
+
+    }
+
+    .thumb-item{
+        display: flex;  
+        flex-flow: column wrap;
+        // justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        max-width: 60px;
+
+        .img-crop{
+            position: relative;
+            
+            &:after{
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+             
+                display: inline-flex;
+                width: 100%;
+                height: 0;
+                padding-bottom: 100%;
+                background-color: #dbdbdb;
+                mix-blend-mode: color;
+                
+                -webkit-mask-position: center bottom;
+                -webkit-mask-repeat: no-repeat;
+                -webkit-mask-size: contain;
+                mask-position: center bottom;
+                mask-repeat: no-repeat;
+    
+                -webkit-mask-size: cover;
+                mask-size: cover;
+    
+                -webkit-mask-image: url(../images/member/card-thumb-normal.svg);
+                mask-image: url(../images/member/card-thumb-normal.svg);
+            }
+
+        }
+
+     
+    }
+}
+
+.MT-table-wrapper{
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+}
+
+.memberlevel-table{
+    
+    .Thead .thead__th{
+        background-color: #CFCFCF;
+        color: inherit;
+    }
+    .Tbody{
+        .tbody__tr{
+            .tbody__td{
+                &:first-child{
+                    // background-color: #f1f1f1;
+                    color: #6e0000;
+                }
+            }
+
+            &:nth-child(2n){                
+                // background-color: #E7E7E7;
+                background-color: #f1f1f1;
+            }
+        }
+    }
+
+}
+
 
 //會員簽到進度顯示 - 舊的 ================
 // .dailylogin-bouns {
