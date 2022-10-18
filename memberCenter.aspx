@@ -322,6 +322,10 @@
             thumbs: {
                 swiper: swiper,
             },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
             breakpoints: {
                 920: {
                     freeMode: false,
@@ -2230,8 +2234,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                                                         
+                                </div>  
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>                                                       
                             </div>
+
                             <div class="MT-table-wrapper">
                                 <table class="MT__table memberlevel-table">
                                     <thead class="Thead">
