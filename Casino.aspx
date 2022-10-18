@@ -1258,6 +1258,7 @@
                 lang = param;
 
                 mlp.loadLanguage(lang, function () {
+                    getBanner();
                     window.parent.API_LoadingEnd(1);
                     resetCategory(selectedCategoryCode);
                 });
