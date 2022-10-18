@@ -526,9 +526,11 @@
                                     <span class="avater-img">
                                         <img src="images/avatar/avater-1.png" alt="">
                                     </span>
+                                    <%--
                                     <button type="button" class="btn btn-round btn-full-main btn-exchange-avater" data-toggle="modal" data-target="#ModalAvatar">
                                         <i class="icon icon-mask icon-camera"></i>
                                     </button>
+                                    --%>
                                 </span>
                             </div>
                             <div class="member-profile-level-wrapper">
@@ -1245,7 +1247,7 @@
     </div>
 
     <!-- Modal - Member LEVEL -->
-    <div class="modal fade footer-center" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: ;">
+    <div class="modal fade footer-center show" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: ;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
