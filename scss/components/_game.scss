@@ -274,8 +274,67 @@
 
     }
 
-    //滑鼠滑過 Button 出現效果 ===============
-    .swiper-button-next, .swiper-button-prev{    
+  
+
+    @include media-breakpoint-up(desc-xl){
+        .sec-title-container{          
+            .sec-title{
+                // font-size: font-resize(20px);
+                margin-bottom: font-resize(5px);
+            }    
+        }
+    }
+
+    // 575px以下 =================
+    @media screen and (max-width:breakpoints_BS4(smd)){
+        .sec-title-container{
+            margin-bottom: 0.45rem;
+        }
+        
+    }
+}
+
+
+
+// Slider Prev NEXT BUTTON MASK
+.game_slider{
+    position: relative;
+
+    .swiper-wrapper{
+            // &::before,
+            // &::after{
+            //     content: "";  
+            //     position: absolute;      
+            //     display: inline-flex;
+            //     width:  4%;
+            //     // height: calc(((100vw - 56px) / 5) - 1.2vw); 
+            //     height: calc(100% - 60px - 0.7rem);
+            //     background-color: blue;      
+                
+            //     background-size: contain;
+            //     // border-radius: 0 10px 10px 0;
+            //     z-index: 5;       
+            //     top: 10px;
+        
+            //     // opacity: 0;            
+            // }
+
+                
+            // &::before{
+            //     background: linear-gradient(-270deg, rgba(#fff, 1) 0%, rgba(#fff, 0.7) 70%, rgba(#fff, 0) 100%);
+            //     left: 0;
+
+            // }
+            // &::after{
+            //     // background: linear-gradient(270deg, rgba(#000, 0.7) 0%, rgba(#000, 0.6) 70%, rgba(#000, 0) 100%);
+            //     right: 0; 
+
+            // }
+
+    }
+
+      //滑鼠滑過 Button 出現效果 ===============
+      .swiper-button-next, .swiper-button-prev{    
         display: none;
         width: 5%;
         min-width: 60px;
@@ -377,62 +436,6 @@
             transform: rotate(-180deg);
         }
         
-    }
-
-    @include media-breakpoint-up(desc-xl){
-        .sec-title-container{          
-            .sec-title{
-                // font-size: font-resize(20px);
-                margin-bottom: font-resize(5px);
-            }    
-        }
-    }
-
-    // 575px以下 =================
-    @media screen and (max-width:breakpoints_BS4(smd)){
-        .sec-title-container{
-            margin-bottom: 0.45rem;
-        }
-        
-    }
-}
-
-
-// Slider Prev NEXT BUTTON MASK
-.game_slider{
-    position: relative;
-
-    .swiper-wrapper{
-            // &::before,
-            // &::after{
-            //     content: "";  
-            //     position: absolute;      
-            //     display: inline-flex;
-            //     width:  4%;
-            //     // height: calc(((100vw - 56px) / 5) - 1.2vw); 
-            //     height: calc(100% - 60px - 0.7rem);
-            //     background-color: blue;      
-                
-            //     background-size: contain;
-            //     // border-radius: 0 10px 10px 0;
-            //     z-index: 5;       
-            //     top: 10px;
-        
-            //     // opacity: 0;            
-            // }
-
-                
-            // &::before{
-            //     background: linear-gradient(-270deg, rgba(#fff, 1) 0%, rgba(#fff, 0.7) 70%, rgba(#fff, 0) 100%);
-            //     left: 0;
-
-            // }
-            // &::after{
-            //     // background: linear-gradient(270deg, rgba(#000, 0.7) 0%, rgba(#000, 0.6) 70%, rgba(#000, 0) 100%);
-            //     right: 0; 
-
-            // }
-
     }
    
 
@@ -2301,7 +2304,7 @@
     }
 
    
-    .game_wrapper {
+    .game_slider {
          // Slider Prev NEXT BUTTON 滑鼠移過效果
         .swiper-button-next, .swiper-button-prev{
 
@@ -2309,9 +2312,9 @@
                 display: inline-block;     
                 color: #fff;
                 opacity: 0;
-        }
+         }
        
-    }
+      }
 
     }
 
@@ -2400,6 +2403,13 @@
         .swiper-slide {
             // max-width: 240px;
         }
+
+        //滑鼠滑過 Button 出現效果 ===============
+        .swiper-button-next, .swiper-button-prev{
+            height: calc(100% - 62px); //height + top:52px+10px         
+        }
+
+
     }
 
      // 外部 遊戲資訊   
@@ -2411,10 +2421,7 @@
             } 
         }      
     }
-    //滑鼠滑過 Button 出現效果 ===============
-    .swiper-button-next, .swiper-button-prev{
-        height: calc(100% - 62px); //height + top:52px+10px         
-    }
+    
 
     //圖片倒影效果 ====================
     .game_slider.swiper-cover {

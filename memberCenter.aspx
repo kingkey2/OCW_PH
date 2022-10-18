@@ -1245,7 +1245,7 @@
     </div>
 
     <!-- Modal - Member LEVEL -->
-    <div class="modal fade footer-center show" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: block;">
+    <div class="modal fade footer-center show" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: ;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1260,70 +1260,92 @@
                             <!-- 縮圖 ====================-->
                             <div class="card-thumb-wrapper">
                                 <div thumbsslider="" class="thumbSwiper">
-                                    <div class="swiper-wrapper"> 
+                                    <div class="swiper-wrapper">
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="images/member/card-thumb-normal.svg" alt="">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
                                                 <span class="level language_replace">VIP0</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="images/member/card-thumb-normal.svg" alt="">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
                                                 <span class="level language_replace">青銅</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="images/member/card-thumb-normal.svg" alt="">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
                                                 <span class="level language_replace">白銀</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="images/member/card-thumb-normal.svg" alt="">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
                                                 <span class="level language_replace">黃金</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="images/member/card-thumb-normal.svg" alt="">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
                                                 <span class="level language_replace">白金</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="images/member/card-thumb-normal.svg" alt="">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
                                                 <span class="level language_replace">鑽石</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="images/member/card-thumb-normal.svg" alt="">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
                                                 <span class="level language_replace">銀鑽</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="images/member/card-thumb-normal.svg" alt="">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
                                                 <span class="level language_replace">金鑽</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="images/member/card-thumb-normal.svg" alt="">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
                                                 <span class="level language_replace">星耀</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="images/member/card-thumb-normal.svg" alt="">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
                                                 <span class="level language_replace">永恆</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="images/member/card-thumb-normal.svg" alt="">
+                                                <div class="img-crop">
+                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                </div>
                                                 <span class="level language_replace">傳說</span>
                                             </div>
                                         </div>

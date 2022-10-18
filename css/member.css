@@ -652,6 +652,9 @@ input.month:read-only, input.day:read-only {
   width: auto;
   padding: 0 5px;
 }
+.card-thumb-wrapper .swiper-slide-thumb-active .img-crop:after {
+  opacity: 0;
+}
 .card-thumb-wrapper .thumb-item {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -663,6 +666,35 @@ input.month:read-only, input.day:read-only {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  cursor: pointer;
+  max-width: 60px;
+}
+.card-thumb-wrapper .thumb-item .img-crop {
+  position: relative;
+}
+.card-thumb-wrapper .thumb-item .img-crop:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  background-color: #dbdbdb;
+  mix-blend-mode: color;
+  -webkit-mask-position: center bottom;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-position: center bottom;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  -webkit-mask-image: url(../images/member/card-thumb-normal.svg);
+  mask-image: url(../images/member/card-thumb-normal.svg);
 }
 
 .MT-table-wrapper {
