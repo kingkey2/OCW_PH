@@ -1258,6 +1258,7 @@
                 lang = param;
 
                 mlp.loadLanguage(lang, function () {
+                    getBanner();
                     window.parent.API_LoadingEnd(1);
                     resetCategory(selectedCategoryCode);
                 });
@@ -1277,6 +1278,8 @@
         if (WebInfo.DeviceType == 1) {
             TagName = "CasinoBanner_M";
         }
+
+        TagName = TagName+ "_" + WebInfo.Lang;
 
         p.CheckDocumentByTagName(GUID, TagName, function (success, o) {
             if (success) {
