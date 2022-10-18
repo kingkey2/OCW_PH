@@ -19,6 +19,8 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
+    <link rel="stylesheet" href="css/basic.min.css">
+    <link rel="stylesheet" href="css/main.css">
     <script type="text/javascript" src="/Scripts/LobbyAPI.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
@@ -70,11 +72,15 @@
     window.onload = init;
 </script>
 <body>
-    <div style="height: 80vh; width: 100%;">
-        <iframe style="height: 100%; width: 100%; background-color: black" id="GameIFramePage"></iframe>
-    </div>
-    <div style="height: 20vh; width: 100%; background-color: red">
-        <button style="width:30%;height:100%" onclick="GoBack()">首頁</button>
-    </div>
+    <div class="divGameWrapperMobile">
+        <div class="divGameFrameMobile"> 
+            <iframe style="height: 100%; width: 100%; background-color: black" id="GameIFramePage"></iframe>
+        </div>
+        <div class="menu-bar">
+            <button class="btn btn-game-close" onclick="GoBack()">
+                <i class="icon icon-mask icon-error"></i>
+            </button>
+        </div>
+    </div>   
 </body>
 </html>

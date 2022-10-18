@@ -109,6 +109,56 @@
     background-color: #09f;
 }
 
+// 手機版遊戲介面
+.divGameWrapperMobile{
+    display: flex;
+   
+    height: 100%;
+
+    .menu-bar{
+        background-color: #000;
+        flex: 0 0 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .btn{
+            width: 50px;
+            height: 50px;
+            background: #079eb2;
+            border-color: #079eb2;
+        }
+        .icon{
+            width: 50px;
+            height: 50px;         
+        }
+        
+        .icon-mask{
+           
+            &:before{
+                background-color: #ffffff;
+            }
+        }
+    }
+}
+.divGameFrameMobile{
+    flex: 1;
+}
+@media screen and (orientation: portrait){
+    .divGameWrapperMobile{
+        flex-flow: column wrap;
+    }
+
+}
+@media screen and (orientation: landscape){
+    .divGameWrapperMobile{
+        flex-flow: row wrap;
+    }
+
+}
+
+
+
 .categoryPage{
     overflow: hidden;
     // padding-bottom: 0px;
