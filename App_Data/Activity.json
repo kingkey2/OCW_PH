@@ -2,55 +2,25 @@
   "BasicPath": "/App_Data/ActivityDetail/",
   "Deposit": [
     {
-      "Name": "Act002",
-      "Path": "2022_6/Act002.json",
-      "MethodName": "OpenIntroBonus",
-      "InfoMethodName": "OpenIntroBonus"
+      "Name": "FirstDepositBonus",
+      "Path": "Common/FirstDepositBonus.json",
+      "MethodName": "FirstDepositBonus",
+      "InfoMethodName": "FirstDepositBonus"
     },
     {
-      "Name": "Act006",
-      "Path": "2022_6/Act006.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
-    },
-    {
-      "Name": "Act008",
-      "Path": "2022_9/Act008.json",
-      "MethodName": "OpenBonusDeposit_Loop",
-      "InfoMethodName": "OpenBonusDeposit_Loop"
-    },
-    {
-      "Name": "Act009",
-      "Path": "2022_9/Act009.json",
-      "MethodName": "OpenBonusDeposit_Loop",
-      "InfoMethodName": "OpenBonusDeposit_Loop"
-    },
-    {
-      "Name": "Act010",
-      "Path": "2022_10/Act010.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
-    },
-    {
-      "Name": "Act011",
-      "Path": "2022_10/Act011.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
-    },
-    {
-      "Name": "Act012",
-      "Path": "2022_10/Act012.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
+      "Name": "Act001",
+      "Path": "2022_10/Act001.json",
+      "MethodName": "OpenBonusDeposit_UserNotFirstDeposit",
+      "InfoMethodName": "OpenBonusDeposit_UserNotFirstDeposit"
     }
   ],
   "ParentBonusAfterDeposit": [
-    {
-      "Name": "Act005",
-      "Path": "2022_6/Act005.json",
-      "MethodName": "OpenIntroBonusToParent",
-      "InfoMethodName": "OpenIntroBonusToParent"
-    }
+    //{
+    //  "Name": "Act005",
+    //  "Path": "2022_6/Act005.json",
+    //  "MethodName": "OpenIntroBonusToParent",
+    //  "InfoMethodName": "OpenIntroBonusToParent"
+    //}
   ],
   "Register": [
     {
@@ -62,76 +32,22 @@
   ],
   "Keep": [
     {
-      "Name": "Act002",
-      "Path": "2022_6/Act002.json",
-      "MethodName": "OpenIntroBonusToParent",
-      "InfoMethodName": "OpenIntroBonusToParent"
-    },
-    {
       "Name": "RegisterBouns",
       "Path": "Common/RegisterBouns.json",
       "MethodName": "RegisterBouns",
       "InfoMethodName": "RegisterBouns"
     },
     {
-      "Name": "BS001",
-      "Path": "BackendSend/BS001.json"
+      "Name": "FirstDepositBonus",
+      "Path": "Common/FirstDepositBonus.json",
+      "MethodName": "FirstDepositBonus",
+      "InfoMethodName": "FirstDepositBonus"
     },
     {
-      "Name": "BS002",
-      "Path": "BackendSend/BS002.json"
-    },
-    {
-      "Name": "BS003",
-      "Path": "BackendSend/BS003.json"
-    },
-    {
-      "Name": "BS004",
-      "Path": "BackendSend/BS004.json"
-    },
-    {
-      "Name": "Act003",
-      "Path": "2022_6/Act003.json"
-    },
-    {
-      "Name": "Act005",
-      "Path": "2022_6/Act005.json",
-      "MethodName": "OpenIntroBonusToParent",
-      "InfoMethodName": "OpenIntroBonusToParent"
-    },
-    {
-      "Name": "Act006",
-      "Path": "2022_6/Act006.json"
-    },
-    {
-      "Name": "Act008",
-      "Path": "2022_9/Act008.json",
-      "MethodName": "OpenBonusDeposit_Loop",
-      "InfoMethodName": "OpenBonusDeposit_Loop"
-    },
-    {
-      "Name": "Act009",
-      "Path": "2022_9/Act009.json",
-      "MethodName": "OpenBonusDeposit_Loop",
-      "InfoMethodName": "OpenBonusDeposit_Loop"
-    },
-    {
-      "Name": "Act010",
-      "Path": "2022_10/Act010.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
-    },
-    {
-      "Name": "Act011",
-      "Path": "2022_10/Act011.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
-    },
-    {
-      "Name": "Act012",
-      "Path": "2022_10/Act012.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
+      "Name": "Act001",
+      "Path": "2022_10/Act001.json",
+      "MethodName": "OpenIntroBonus",
+      "InfoMethodName": "OpenIntroBonus"
     }
   ]
 }
