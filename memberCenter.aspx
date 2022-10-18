@@ -1242,7 +1242,7 @@
 
 
     <!-- Modal - Member LEVEL -->
-    <div class="modal fade footer-center show" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: ;">
+    <div class="modal fade footer-center show" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: block;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1252,38 +1252,32 @@
                 </div>
                 <div class="modal-body">
                     <div class="member-level-popup-wrapper">
-                        <section class="section-wrap hero">
+                        <section class="section-wrap member-level-">
                             <!-- 縮圖 ====================-->
-                            <div class="thumb-wrapper">
-                                <div class="container">
-                                    <div thumbsslider="" class="thumbSwiper">
-                                        <div class="swiper-wrapper"> 
-                                            <div class="swiper-slide">
-                                                <div class="thumb-inner">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
-                                                    <span class="level">VIP0</span>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="thumb-inner">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
-                                                    <span class="level">VIP0</span>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="thumb-inner">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
-                                                    <span class="level">VIP0</span>
-                                                </div>
+                            <div class="card-thumb-wrapper">
+                                <div thumbsslider="" class="thumbSwiper">
+                                    <div class="swiper-wrapper"> 
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <img src="images/member/card-thumb-normal.svg" alt="">
+                                                <span class="level">VIP0</span>
                                             </div>
                                         </div>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <img src="images/member/card-thumb-normal.svg" alt="">
+                                                <span class="level">VIP0</span>
+                                            </div>
+                                        </div>
+                                        
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper card_slider swiper-container round-arrow" id="slider-card">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="slider-item card-item m-normal">
+                                    <div class="swiper-slide m-normal">
+                                        <div class="slider-item card-item">
                                             <a class="card-item-link "></a>
                                             <div class="card-item-box">
                                                 <h3 class="member-level">VIP0</h3>

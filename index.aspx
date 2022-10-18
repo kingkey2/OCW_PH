@@ -3642,6 +3642,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="game-search-wrapper">
+                        <div class="sec-title-container mb-0">
+                            <div class="sec-title-wrapper">
+                                <h6 class="sec-title title-deco"><span class="language_replace">我的最愛</span></h6>
+                            </div>
+                        </div>
                         <div class="search-result-wrapper">
                             <div class="search-result-inner">
                                 <div class="search-result-list">
@@ -3652,7 +3657,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="game-search-wrapper">
+
+                    <div class="game-search-wrapper mt-4">
+                        <div class="sec-title-container mb-0">
+                            <div class="sec-title-wrapper">
+                                <h6 class="sec-title title-deco"><span class="language_replace" >曾經遊玩</span></h6>
+                            </div>
+                        </div>
                         <div class="search-result-wrapper">
                             <div class="search-result-inner">
                                 <div class="search-result-list">

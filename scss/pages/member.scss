@@ -670,12 +670,14 @@ $card-bg-normal: (
 //會員等級
 .card_slider{
     .card-item{
-        border-radius: 30px;
+        border-radius: 30px;        
+    }
 
-        &.m-normal{
+    .m-normal{
+        .card-item{
             background: linear-gradient(114.06deg, #A0A0A0 49.97%, #666666 97.42%);
         }
-        
+       
     }
 }
 
