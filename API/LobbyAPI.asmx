@@ -1872,6 +1872,41 @@ public class LobbyAPI : System.Web.Services.WebService {
         return R;
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.FANTA.ChildUserResult GetChildUserBySID(string WebSID, string GUID) {
+        EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
+        EWin.FANTA.ChildUserResult callResult = new EWin.FANTA.ChildUserResult();
+        EWin.FANTA.ChildUserResult R = new EWin.FANTA.ChildUserResult() {
+            ResultState =  EWin.FANTA.enumResultState.ERR
+        };
+        RedisCache.SessionContext.SIDInfo SI;
+        string strUserAccountChild = string.Empty;
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+
+            strUserAccountChild = RedisCache.UserAccountChild.GetUserAccountChildByLoginAccount(SI.LoginAccount);
+
+            if (string.IsNullOrEmpty(strUserAccountChild)) {
+                R = fantaAPI.GetChildUserBySID(GetToken(), SI.EWinSID, GUID);
+                RedisCache.UserAccountChild.UpdateUserAccountChild(R.ChildUserList, SI.LoginAccount);
+            } else {
+                R.ResultState = EWin.FANTA.enumResultState.OK;
+                R.ChildUserList = strUserAccountChild;
+            }
+            
+        } else {
+            R = new EWin.FANTA.ChildUserResult() {
+                ResultState = EWin.FANTA.enumResultState.ERR,
+                Message = "InvalidWebSID"
+            };
+        }
+
+        return R;
+    }
+
     public class UserTwoMonthSummaryResult : EWin.Lobby.APIResult {
         public List<Payment> PaymentResult { get; set; }
         public List<Game> GameResult { get; set; }
