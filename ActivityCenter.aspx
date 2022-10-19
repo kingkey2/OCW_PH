@@ -36,6 +36,7 @@
     var lang;
     var WebInfo;
     var LobbyClient;
+    var PaymentClient;
     var v = "<%:Version%>";
     var t = "<%:type%>";
 
@@ -46,6 +47,7 @@
 
         WebInfo = window.parent.API_GetWebInfo();
         LobbyClient = window.parent.API_GetLobbyAPI();
+        PaymentClient = window.parent.API_GetPaymentAPI();
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
 
@@ -53,7 +55,7 @@
             window.parent.API_LoadingEnd();
 
             if (LobbyClient != null) {
-                getActivity();
+                getAllActivityFromJson();
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -84,7 +86,7 @@
                 var lang = param;
 
                 mlp.loadLanguage(lang, function () {
-                    getActivity();
+                    getAllActivityFromJson();
                     window.parent.API_LoadingEnd(1);
                 });
                 break;
@@ -184,6 +186,133 @@
         });
     }
 
+    function getAllActivityFromJson() {
+        var GUID = Math.uuid();
+        window.parent.API_LoadingStart();
+
+        PaymentClient.GetAllActivityInfo(GUID, (function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    var ParentMain = document.getElementById("divProcessing");
+                    ParentMain.innerHTML = "";
+                    var ParentMain2 = document.getElementById("divFinish");
+                    ParentMain2.innerHTML = "";
+
+                    for (var i = 0; i < o.Data.length; i++) {
+                        let ActivityName = o.Data[i].ActivityName;
+                        let State = o.Data[i].State;
+                        let PageShowState = o.Data[i].PageShowState;
+
+                        if (PageShowState == 0) {
+                            createActivityItem(ActivityName, State);
+                        }
+                    }
+                }
+            }
+        }));
+        window.parent.API_LoadingEnd(1);
+    }
+
+    function createActivityItem(activityName, state) {
+        var ParentMain;
+        var RecordDom2;
+        var TagName_Pic;
+        var TagName_Title;
+        var TagName_Info;
+        var GUID = Math.uuid();
+
+        if (state == 0) {
+            ParentMain = document.getElementById("divProcessing");
+        } else {
+            ParentMain = document.getElementById("divFinish");
+        }
+
+        RecordDom2 = c.getTemplate("tmpActivity");
+
+        TagName_Pic = activityName + "_Pic_" + WebInfo.Lang;
+        TagName_Title = activityName + "_Title_" + WebInfo.Lang;
+        TagName_Info = activityName + "_Info_" + WebInfo.Lang;
+        if (WebInfo.DeviceType == 1) {
+            TagName_Info = TagName_Info + "_M";
+        } else {
+            TagName_Info = TagName_Info + "_P";
+        }
+        ParentMain.appendChild(RecordDom2);
+
+        LobbyClient.CheckDocumentByTagName(GUID, TagName_Info, (function (success, o1) {
+            var kk = this;
+            if (success) {
+                if (o1.Result == 0) {
+                    if (o1.DocumentList.length > 0) {
+                        for (var i = 0; i < o1.DocumentList.length; i++) {
+                            var k = o1.DocumentList[i];
+
+                            kk.onclick = new Function("showPopup('" + k.DocNumber + "')");
+                        }
+                    }
+                }
+            }
+        }).bind(RecordDom2));
+
+        LobbyClient.CheckDocumentByTagName(GUID, TagName_Title, (function (success, o2) {
+            var kkk = this;
+            if (success) {
+                if (o2.Result == 0) {
+                    if (o2.DocumentList.length > 0) {
+                        for (var i = 0; i < o2.DocumentList.length; i++) {
+                            var k1 = o2.DocumentList[i];
+
+                            $.ajax({
+                                url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + k1.DocNumber,
+                                success: (function (res) {
+                                    var k = this;
+                                    $(k).find('.activityTitle').html(res);
+
+                                }).bind(kkk)
+                            });
+                        }
+                    }
+                }
+            }
+        }).bind(RecordDom2));
+
+        LobbyClient.CheckDocumentByTagName(GUID, TagName_Pic, (function (success, o2) {
+            var kkk = this;
+            if (success) {
+                if (o2.Result == 0) {
+                    if (o2.DocumentList.length > 0) {
+                        for (var i = 0; i < o2.DocumentList.length; i++) {
+                            var k1 = o2.DocumentList[i];
+
+                            $.ajax({
+                                url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + k1.DocNumber,
+                                success: (function (res) {
+                                    var k = this;
+                                    $(k).find('.activityPicture').html(res);
+
+                                }).bind(kkk)
+                            });
+                        }
+                    }
+                }
+            }
+        }).bind(RecordDom2));
+
+    }
+
+    function ChangeActivity(type) {
+        $(".tab-scroller__content").find(".tab-item").removeClass("active");
+        $("#li_activity" + type).addClass("active");
+
+        if (type == 0) {
+            $("#divProcessing").show();
+            $("#divFinish").hide();
+        } else {
+            $("#divFinish").show();
+            $("#divProcessing").hide();
+        }
+    }
+
     window.onload = init;
 </script>
 <body class="innerBody">
@@ -199,8 +328,30 @@
                         <h1 class="sec-title title-deco"><span class="language_replace">活動</span></h1>
                     </div>
                 </div>
+                <nav class="tab-activity">
+                    <div class="tab-scroller tab-2">
+                        <div class="tab-scroller__area">
+                            <ul class="tab-scroller__content" id="idTabActivityList">
+                                <li class="tab-item act-running active" id="li_activity0" onclick="ChangeActivity(0)">
+                                    <span class="tab-item-link">
+                                        <span class="title language_replace">進行中</span>
+                                    </span>
+                                </li>
+                                <li class="tab-item act-finish" id="li_activity1" onclick="ChangeActivity(1)">
+                                    <span class="tab-item-link">
+                                        <span class="title language_replace">已結束</span>
+                                    </span>
+                                </li>
+                                <div class="tab-slide"></div>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group" id="divProcessing">
+        
+                    </div>
+                    <div class="activity-item-group" id="divFinish" style="display:none">
         
                     </div>
                 </section>

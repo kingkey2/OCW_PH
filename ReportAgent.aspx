@@ -116,6 +116,49 @@
         });
     }
 
+    function getChildUserInfo() {
+        var ParentMain = document.getElementById("divChildUser");
+        ParentMain.innerHTML = "";
+        LobbyClient.GetChildUserBySID(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.ResultState == 0) {
+
+                    var ChildUserList = JSON.parse(o.ChildUserList);
+
+                    if (ChildUserList.length > 0) {
+                        $("#childCount").text(ChildUserList.length);
+                        for (var i = 0; i < ChildUserList.length; i++) {
+                            var k = ChildUserList[i];
+                            var RecordDom;
+                            var UserAccountType = k.UserAccountType;
+
+                            if (UserAccountType == 0) {
+                                RecordDom = c.getTemplate("tmpChild");
+                            } else {
+                                RecordDom = c.getTemplate("tmpChild_Agent");
+                            }
+                            c.setClassText(RecordDom, "member-account", null, k.LoginAccount);
+
+                            ParentMain.prepend(RecordDom);
+                        }
+
+                        window.parent.API_CloseLoading();
+
+                    } else {
+                        document.getElementById("idNoGameData").style.display = "block";
+                        //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
+                        window.parent.API_CloseLoading();
+                    }
+
+                } else {
+
+                }
+            } else {
+                window.parent.API_CloseLoading();
+            }
+        });
+    }
+
     function copyText(tag) {
         if (event) {
             event.stopPropagation();
@@ -151,7 +194,7 @@
     }
 
     function updateBaseInfo() {
-
+        getChildUserInfo();
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -251,62 +294,15 @@
                         <div class="sec_link sec-number">
                             <span class="title language_replace">推廣人數</span>
                             <span class="data">
-                                <span class="number">2021</span>
+                                <span class="number" id="childCount">0</span>
                                 <span class="unit language_replace">位</span>
                             </span>
                         </div>
                     </div>
                     <div class="agentDownline-member-wrapper">
-                        <ul class="agentDownline-member-list">
-                            <!-- 若member為 agent => class=>agent -->
-                            <li class="member-item agent">
-                                <span class="member-inner">
-                                    <i class="icon icon-mask icon-people"></i>
-                                    <span class="member-account">eddie1234@kingkey.com.tw</span>
-                                </span>
-                            </li>
-                            <li class="member-item">
-                                <span class="member-inner">
-                                    <i class="icon icon-mask icon-people"></i>
-                                    <span class="member-account">eddie1234@kingkey.com.tw</span>
-                                </span>
-                            </li>
-                            <li class="member-item">
-                                <span class="member-inner">
-                                    <i class="icon icon-mask icon-people"></i>
-                                    <span class="member-account">eddie1234@kingkey.com.tw</span>
-                                </span>
-                            </li>
-                            <li class="member-item">
-                                <span class="member-inner">
-                                    <i class="icon icon-mask icon-people"></i>
-                                    <span class="member-account">eddie1234@kingkey.com.tw</span>
-                                </span>
-                            </li>
-                            <li class="member-item">
-                                <span class="member-inner">
-                                    <i class="icon icon-mask icon-people"></i>
-                                    <span class="member-account">eddie1234@kingkey.com.tw</span>
-                                </span>
-                            </li>
-                            <li class="member-item">
-                                <span class="member-inner">
-                                    <i class="icon icon-mask icon-people"></i>
-                                    <span class="member-account">eddie1234@kingkey.com.tw</span>
-                                </span>
-                            </li>
-                            <li class="member-item">
-                                <span class="member-inner">
-                                    <i class="icon icon-mask icon-people"></i>
-                                    <span class="member-account">eddie1234@kingkey.com.tw</span>
-                                </span>
-                            </li>
-                            <li class="member-item">
-                                <span class="member-inner">
-                                    <i class="icon icon-mask icon-people"></i>
-                                    <span class="member-account">eddie1234@kingkey.com.tw</span>
-                                </span>
-                            </li>
+                        <ul class="agentDownline-member-list" id="divChildUser">
+   
+
 
                         </ul>
                     </div>
@@ -356,8 +352,6 @@
                         </div>
                         <!-- tbody -->
                         <div class="Tbody" id="divAgentReport_P">
-
-                            
                         </div>
                     </div>
 
@@ -367,7 +361,6 @@
 
                             <!-- 若 member為 agent => class=>agent -->
                             <div id="divAgentReport_M">
-
                             </div>
 
                             <div class="no-Data" id="idNoGameData" style="display: none;">
@@ -499,5 +492,22 @@
         </div>
     </div>
 
+    <div id="tmpChild" style="display: none">
+        <li class="member-item">
+            <span class="member-inner">
+                <i class="icon icon-mask icon-people"></i>
+                <span class="member-account"></span>
+            </span>
+        </li>
+    </div>
+
+    <div id="tmpChild_Agent" style="display: none">
+        <li class="member-item agent">
+            <span class="member-inner">
+                <i class="icon icon-mask icon-people"></i>
+                <span class="member-account"></span>
+            </span>
+        </li>
+    </div>
 </body>
 </html>
