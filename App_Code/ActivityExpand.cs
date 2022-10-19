@@ -495,6 +495,7 @@ public static class ActivityExpand {
                     bool IsPaymentCodeSupport = false;
                     decimal BonusRate = 0;
                     decimal ThresholdRate = 0;
+                    decimal DepositMinValue = 0;
                     decimal ReceiveValueMaxLimit = 0;
 
                     if ((int)ActivityDetail["State"] == 0) {
@@ -505,10 +506,15 @@ public static class ActivityExpand {
                                         IsPaymentCodeSupport = true;
                                         BonusRate = (decimal)item["BonusRate"];
                                         ThresholdRate = (decimal)item["ThresholdRate"];
+                                        DepositMinValue = (decimal)item["DepositMinValue"];
                                         ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
 
                                         break;
                                     }
+                                }
+
+                                if (Amount > DepositMinValue) {
+                                    IsPaymentCodeSupport = false;
                                 }
 
                                 if (IsPaymentCodeSupport) {
@@ -537,10 +543,15 @@ public static class ActivityExpand {
                                         IsPaymentCodeSupport = true;
                                         BonusRate = (decimal)item["BonusRate"];
                                         ThresholdRate = (decimal)item["ThresholdRate"];
+                                        DepositMinValue = (decimal)item["DepositMinValue"];
                                         ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
 
                                         break;
                                     }
+                                }
+
+                                if (Amount > DepositMinValue) {
+                                    IsPaymentCodeSupport = false;
                                 }
 
                                 if (IsPaymentCodeSupport) {
@@ -569,10 +580,15 @@ public static class ActivityExpand {
                                         IsPaymentCodeSupport = true;
                                         BonusRate = (decimal)item["BonusRate"];
                                         ThresholdRate = (decimal)item["ThresholdRate"];
+                                        DepositMinValue = (decimal)item["DepositMinValue"];
                                         ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
 
                                         break;
                                     }
+                                }
+
+                                if (Amount > DepositMinValue) {
+                                    IsPaymentCodeSupport = false;
                                 }
 
                                 if (IsPaymentCodeSupport) {
@@ -632,10 +648,12 @@ public static class ActivityExpand {
                     decimal BonusRate = 0;
                     decimal ThresholdRate = 0;
                     decimal DepositMinValue = 0;
+                    decimal ReceiveValueMaxLimit = 0;
 
                     BonusRate = (decimal)ActivityDetail["BonusRate"];
                     ThresholdRate = (decimal)ActivityDetail["ThresholdRate"];
                     DepositMinValue = (decimal)ActivityDetail["DepositMinValue"];
+                    ReceiveValueMaxLimit = (decimal)ActivityDetail["ReceiveValueMaxLimit"];
 
                     if ((int)ActivityDetail["State"] == 0) {
                         if (Amount >= DepositMinValue) {
@@ -646,6 +664,10 @@ public static class ActivityExpand {
                                 R.Data.PaymentCode = PaymentCode;
                                 R.Data.BonusRate = BonusRate;
                                 R.Data.BonusValue = Amount * BonusRate;
+                                
+                                if (R.Data.BonusValue > ReceiveValueMaxLimit) {
+                                    R.Data.BonusValue = ReceiveValueMaxLimit;
+                                }
 
                                 R.Data.ThresholdRate = ThresholdRate;
                                 R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;

@@ -224,6 +224,16 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public ActivityCore.ActResult<List<ActivityCore.DepositActivity>> GetAllActivityInfo(string GUID) {
+        ActivityCore.ActResult<List<ActivityCore.DepositActivity>> R = new ActivityCore.ActResult<List<ActivityCore.DepositActivity>>() { GUID = GUID, Result = ActivityCore.enumActResult.ERR };
+
+        R = ActivityCore.GetActivityAllResult();
+
+        return R;
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public PaymentCommonResult CreateCryptoDeposit(string WebSID, string GUID, decimal Amount, int PaymentMethodID)
     {
         PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
@@ -1111,8 +1121,8 @@ public class PaymentAPI : System.Web.Services.WebService
                 {
                     ServiceType = "PHP01";
                 }
-                else if(tagInfoData.PaymentCode=="YuHong"){ 
-                     ServiceType = "PHP02";
+                else if(tagInfoData.PaymentCode=="YuHong"){
+                    ServiceType = "PHP02";
                 }
 
                 if (PaymentType == "EPayJKC")

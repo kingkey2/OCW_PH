@@ -170,6 +170,31 @@ public static class ActivityCore {
         return R;
     }
 
+    public static ActResult<List<DepositActivity>> GetActivityAllResult() {
+        ActResult<List<DepositActivity>> R = new ActResult<List<DepositActivity>>() {
+            Data = new List<DepositActivity>()
+        };
+        JObject InProgressActivity;
+
+        InProgressActivity = GetInProgressActivity();
+
+        foreach (var item in InProgressActivity["All"]) {
+            ActResult<ActivityCore.DepositActivity> DataReslut = new ActResult<DepositActivity>();
+            DataReslut.Data = new DepositActivity();
+
+            DataReslut.Data.ActivityName = item["Name"].ToString();
+            DataReslut.Data.State = int.Parse(item["State"].ToString());
+            DataReslut.Data.PageShowState = int.Parse(item["PageShowState"].ToString());
+            
+            R.Data.Add(DataReslut.Data);
+        }
+
+        R.Result = enumActResult.OK;
+        R.Message = "";
+
+        return R;
+    }
+
     //上線獎勵(下線儲值完成，強制參加)
     //初期先LoginAccount(可能會有該LoginAccount貢獻等等)，高機率上下線資訊都需要，再以LoginAccount去撈取
     public static ActResult<List<IntroActivity>> GetAllParentBonusAfterDepositResult(string LoginAccount) {
@@ -291,6 +316,8 @@ public static class ActivityCore {
 
     public class Activity {
         public string ActivityName { get; set; }
+        public int State { get; set; }
+        public int PageShowState { get; set; }
         public decimal BonusRate { get; set; }
         public decimal BonusValue { get; set; }
         public decimal ThresholdRate { get; set; }

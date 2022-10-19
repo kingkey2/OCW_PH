@@ -49,5 +49,22 @@
       "MethodName": "OpenIntroBonus",
       "InfoMethodName": "OpenIntroBonus"
     }
+  ],
+  "All": [
+    {
+      "Name": "RegisterBouns",
+      "State": 0,
+      "PageShowState": 1
+    },
+    {
+      "Name": "FirstDepositBonus",
+      "State": 0,
+      "PageShowState": 0
+    },
+    {
+      "Name": "Act001",
+      "State": 0,
+      "PageShowState": 0
+    }
   ]
 }
