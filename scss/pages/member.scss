@@ -146,7 +146,7 @@ input{
         width: 100%;
         display: flex;
         flex-flow: row wrap;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2.5rem;
     }
 
     // 會員頭像
@@ -330,6 +330,7 @@ input{
         .btn{
             padding-top: 0px;
             padding-bottom: 0px;
+            flex: auto;
         }
     }
 

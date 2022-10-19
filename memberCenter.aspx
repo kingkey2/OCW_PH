@@ -536,7 +536,7 @@
                                 </span>
                             </div>
                             <div class="member-profile-level-wrapper">
-                                <div class="sec-title-container sec-title-member mb-0 align-items-end">
+                                <div class="sec-title-container sec-title-member mb-0 align-items-end sec-col-2">
                                     <div class="sec-title-wrapper align-items-end">
                                         <div class="member-level ">
                                             <h1 class="sec-title language_replace">青銅</h1>
