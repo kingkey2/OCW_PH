@@ -668,7 +668,66 @@ $card-bg-normal: (
 );
 
 //會員等級
-.card_slider{
+.card-slider{
+    
+    .swiper-wrapper{
+        // padding-left: 2rem;
+        // padding-right: 2rem;
+    }
+    &-wrapper{
+        // max-width: 85%;
+        padding-left: 2rem;
+        padding-right: 2rem;        
+        margin: 0 auto;
+
+        position: relative;
+
+        .swiper-button-next,
+        .swiper-button-prev{
+            top: 45%;
+            width: 30px;
+            height: 50px;
+
+            &:after{
+                // width: 50px;
+                // height: 50px;
+                width: 100%;
+                height: 100%;
+                
+                content: '';
+                -webkit-mask-position: center center;
+                -webkit-mask-repeat: no-repeat;
+                -webkit-mask-size: contain;
+                mask-position: center center;
+                mask-repeat: no-repeat;
+    
+                -webkit-mask-size: cover;
+                mask-size: cover;
+
+                background-color: #804F21;
+            }
+        }       
+       
+        .swiper-button-prev{
+            transform:scaleX(-1);
+            left: 0; 
+            &:after{
+                -webkit-mask-image: url(../images/icon/ico-arrow-L.svg);
+                mask-image: url(../images/icon/ico-arrow-L.svg);
+                
+           
+            }           
+        }
+        .swiper-button-next{
+            right: 0;
+            &:after{                
+                // background: url(../images/icon/ico-arrow-L.svg) center center no-repeat;
+                -webkit-mask-image: url(../images/icon/ico-arrow-L.svg);
+                mask-image: url(../images/icon/ico-arrow-L.svg);
+            }
+        }
+    }
+
     *{
         font-size: initial;
     }
@@ -679,9 +738,12 @@ $card-bg-normal: (
 
 
     .card-item{
-        padding: 15px;
-        border-radius: 30px; 
+     
         position: relative;
+        padding: 15px;
+        border-radius: 20px;
+        margin-bottom: 1.5rem;
+       
 
         &::before{
             content: '';
@@ -863,18 +925,42 @@ $card-bg-normal: (
             }
            
         }
+
         &-wrapper{
             background: #D9D9D9;
             border-radius: 15px;
         }
-       
+
+        @include media-breakpoint-up(lg){
+            &-rules{
+                display: none;
+            }           
+        }      
         
     }
 }
+
 .card-thumb-wrapper{
+    overflow-x: hidden;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(360deg, #C1C1C1 -2.99%, rgba(#fff, 1) 100%);
+    margin-left: -1rem;
+    margin-right: -1rem;
+   
+    padding: 10px 8px;
+
+    position: sticky;
+    top: -1rem;
+    z-index: 99;
+
+
 
     .swiper-wrapper{
-        display: flex; 
+        display: flex;
+        // justify-content: center; 
+        margin: 0 auto;
+        width: 100%;
+        max-width: 720px;
     }
 
     .swiper-slide{
@@ -937,10 +1023,18 @@ $card-bg-normal: (
 }
 
 .MT-table-wrapper{
-    margin-bottom: 1.5rem;
+    
     overflow-x: auto;
+
+    display: none;
+
+    @include media-breakpoint-up(lg){
+        display: block;
+
+    }
 }
 
+//
 .memberlevel-table{
     
     .Thead .thead__th{
@@ -964,6 +1058,12 @@ $card-bg-normal: (
     }
 
 }
+
+.notice-wrapper{
+    margin-top: 2rem;
+    font-weight: 300;
+}
+
 
 
 //會員簽到進度顯示 - 舊的 ================

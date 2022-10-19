@@ -500,18 +500,61 @@ input.month:read-only, input.day:read-only {
   padding: 10px;
 }
 
-.card_slider * {
-  font-size: initial;
-}
-.card_slider .swiper-slide {
-  padding: 0 0.5rem;
-}
-.card_slider .card-item {
-  padding: 15px;
-  border-radius: 30px;
+.card-slider-wrapper {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin: 0 auto;
   position: relative;
 }
-.card_slider .card-item::before {
+.card-slider-wrapper .swiper-button-next,
+.card-slider-wrapper .swiper-button-prev {
+  top: 45%;
+  width: 30px;
+  height: 50px;
+}
+.card-slider-wrapper .swiper-button-next:after,
+.card-slider-wrapper .swiper-button-prev:after {
+  width: 100%;
+  height: 100%;
+  content: "";
+  -webkit-mask-position: center center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-position: center center;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  background-color: #804F21;
+}
+.card-slider-wrapper .swiper-button-prev {
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+  left: 0;
+}
+.card-slider-wrapper .swiper-button-prev:after {
+  -webkit-mask-image: url(../images/icon/ico-arrow-L.svg);
+  mask-image: url(../images/icon/ico-arrow-L.svg);
+}
+.card-slider-wrapper .swiper-button-next {
+  right: 0;
+}
+.card-slider-wrapper .swiper-button-next:after {
+  -webkit-mask-image: url(../images/icon/ico-arrow-L.svg);
+  mask-image: url(../images/icon/ico-arrow-L.svg);
+}
+.card-slider * {
+  font-size: initial;
+}
+.card-slider .swiper-slide {
+  padding: 0 0.5rem;
+}
+.card-slider .card-item {
+  position: relative;
+  padding: 15px;
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
+}
+.card-slider .card-item::before {
   content: "";
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -526,15 +569,15 @@ input.month:read-only, input.day:read-only {
   right: 0;
   top: 15px;
 }
-.card_slider .card-item .member-level {
+.card-slider .card-item .member-level {
   color: #A85400;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
 }
-.card_slider .card-item .member-bouns {
+.card-slider .card-item .member-bouns {
   margin-bottom: 0.5rem;
 }
-.card_slider .card-item .item {
+.card-slider .card-item .item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -542,91 +585,91 @@ input.month:read-only, input.day:read-only {
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
-.card_slider .card-item .item .title {
+.card-slider .card-item .item .title {
   color: #494949;
   font-size: 0.875rem;
 }
-.card_slider .card-item .item .value {
+.card-slider .card-item .item .value {
   font-weight: 500;
 }
-.card_slider .m-normal .card-item {
+.card-slider .m-normal .card-item {
   background: linear-gradient(114.06deg, #A0A0A0 49.97%, #666666 97.42%);
 }
-.card_slider .m-normal .card-item::before {
+.card-slider .m-normal .card-item::before {
   background-image: url(../images/member/card-label-normal.png);
 }
-.card_slider .m-bronze .card-item {
+.card-slider .m-bronze .card-item {
   background: linear-gradient(114.06deg, #4BEFD1 49.97%, #E39600 97.42%);
 }
-.card_slider .m-bronze .card-item::before {
+.card-slider .m-bronze .card-item::before {
   background-image: url(../images/member/card-label-bronze.png);
 }
-.card_slider .m-silver .card-item {
+.card-slider .m-silver .card-item {
   background: linear-gradient(114.06deg, #D7D7D7 49.97%, #969696 97.42%);
 }
-.card_slider .m-silver .card-item::before {
+.card-slider .m-silver .card-item::before {
   background-image: url(../images/member/card-label-silver.png);
 }
-.card_slider .m-gold .card-item {
+.card-slider .m-gold .card-item {
   background: linear-gradient(114.06deg, #F3CD1F 49.97%, #E69D00 97.42%);
 }
-.card_slider .m-gold .card-item::before {
+.card-slider .m-gold .card-item::before {
   background-image: url(../images/member/card-label-gold.png);
 }
-.card_slider .m-platinum .card-item {
+.card-slider .m-platinum .card-item {
   background: linear-gradient(114.06deg, #B8D8E7 2.04%, #B7B7B7 97.42%);
 }
-.card_slider .m-platinum .card-item::before {
+.card-slider .m-platinum .card-item::before {
   background-image: url(../images/member/card-label-platinum.png);
 }
-.card_slider .m-diamond .card-item {
+.card-slider .m-diamond .card-item {
   background: linear-gradient(114.06deg, #B8D8E7 2.04%, #8EE1F0 97.42%);
 }
-.card_slider .m-diamond .card-item::before {
+.card-slider .m-diamond .card-item::before {
   background-image: url(../images/member/card-label-diamond.png);
 }
-.card_slider .m-S-diamond .card-item {
+.card-slider .m-S-diamond .card-item {
   background: linear-gradient(114.06deg, #B8D8E7 49.97%, #637B94 97.42%);
 }
-.card_slider .m-S-diamond .card-item::before {
+.card-slider .m-S-diamond .card-item::before {
   background-image: url(../images/member/card-label-Sdiamond.png);
 }
-.card_slider .m-G-diamond .card-item {
+.card-slider .m-G-diamond .card-item {
   background: linear-gradient(114.06deg, #B8D8E7 49.97%, #FCCE2A 97.42%);
 }
-.card_slider .m-G-diamond .card-item::before {
+.card-slider .m-G-diamond .card-item::before {
   background-image: url(../images/member/card-label-Gdiamond.png);
 }
-.card_slider .m-starlight .card-item {
+.card-slider .m-starlight .card-item {
   background: linear-gradient(114.06deg, #BEE8FF 49.97%, #00ABD3 97.42%);
 }
-.card_slider .m-starlight .card-item::before {
+.card-slider .m-starlight .card-item::before {
   background-image: url(../images/member/card-label-starlight.png);
 }
-.card_slider .m-eternal .card-item {
+.card-slider .m-eternal .card-item {
   background: linear-gradient(114.06deg, #E3BBE4 49.97%, #7B687B 97.42%);
 }
-.card_slider .m-eternal .card-item::before {
+.card-slider .m-eternal .card-item::before {
   background-image: url(../images/member/card-label-legend.png);
 }
-.card_slider .m-legend .card-item {
+.card-slider .m-legend .card-item {
   background: linear-gradient(114.06deg, #74CDFF 9.03%, #FFAF9D 49.97%, #E497FF 97.42%);
 }
-.card_slider .m-legend .card-item::before {
+.card-slider .m-legend .card-item::before {
   background-image: url(../images/member/card-label-legend.png);
 }
-.card_slider .memberlevel-rules * {
+.card-slider .memberlevel-rules * {
   font-size: 0.875rem;
 }
-.card_slider .memberlevel-rules .thead {
+.card-slider .memberlevel-rules .thead {
   background-color: #494949;
   color: #E69D00;
   text-align: center;
 }
-.card_slider .memberlevel-rules .tbody {
+.card-slider .memberlevel-rules .tbody {
   padding: 10px;
 }
-.card_slider .memberlevel-rules .tr {
+.card-slider .memberlevel-rules .tr {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -634,19 +677,39 @@ input.month:read-only, input.day:read-only {
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
-.card_slider .memberlevel-rules .value {
+.card-slider .memberlevel-rules .value {
   color: #C6341D;
   font-weight: 500;
 }
-.card_slider .memberlevel-wrapper {
+.card-slider .memberlevel-wrapper {
   background: #D9D9D9;
   border-radius: 15px;
 }
+@media (min-width: 992px) {
+  .card-slider .memberlevel-rules {
+    display: none;
+  }
+}
 
+.card-thumb-wrapper {
+  overflow-x: hidden;
+  margin-bottom: 1.5rem;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(-2.99%, #C1C1C1), to(white));
+  background: linear-gradient(360deg, #C1C1C1 -2.99%, white 100%);
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding: 10px 8px;
+  position: sticky;
+  top: -1rem;
+  z-index: 99;
+}
 .card-thumb-wrapper .swiper-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 720px;
 }
 .card-thumb-wrapper .swiper-slide {
   width: auto;
@@ -698,8 +761,13 @@ input.month:read-only, input.day:read-only {
 }
 
 .MT-table-wrapper {
-  margin-bottom: 1.5rem;
   overflow-x: auto;
+  display: none;
+}
+@media (min-width: 992px) {
+  .MT-table-wrapper {
+    display: block;
+  }
 }
 
 .memberlevel-table .Thead .thead__th {
@@ -711,6 +779,11 @@ input.month:read-only, input.day:read-only {
 }
 .memberlevel-table .Tbody .tbody__tr:nth-child(2n) {
   background-color: #f1f1f1;
+}
+
+.notice-wrapper {
+  margin-top: 2rem;
+  font-weight: 300;
 }
 
 .activity-dailylogin-wrapper {
