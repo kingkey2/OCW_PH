@@ -1248,7 +1248,7 @@
     </div>
 
     <!-- Modal - Member LEVEL -->
-    <div class="modal fade footer-center show modalMemberLevel" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: ;">
+    <div class="modal fade footer-center show modalMemberLevel" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: block;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1267,7 +1267,7 @@
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
                                                 <div class="img-crop">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <img src="images/member/card-thumb-normal.png" alt="">
                                                 </div>
                                                 <span class="level language_replace">VIP0</span>
                                             </div>
@@ -1275,7 +1275,7 @@
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
                                                 <div class="img-crop">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <img src="images/member/card-thumb-bronze.png" alt="">
                                                 </div>
                                                 <span class="level language_replace">青銅</span>
                                             </div>
@@ -1283,7 +1283,7 @@
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
                                                 <div class="img-crop">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <img src="images/member/card-thumb-silver.png" alt="">
                                                 </div>
                                                 <span class="level language_replace">白銀</span>
                                             </div>
@@ -1291,7 +1291,7 @@
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
                                                 <div class="img-crop">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <img src="images/member/card-thumb-gold.png" alt="">
                                                 </div>
                                                 <span class="level language_replace">黃金</span>
                                             </div>
@@ -1299,7 +1299,7 @@
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
                                                 <div class="img-crop">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <img src="images/member/card-thumb-platinum.png" alt="">
                                                 </div>
                                                 <span class="level language_replace">白金</span>
                                             </div>
@@ -1307,7 +1307,7 @@
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
                                                 <div class="img-crop">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <img src="images/member/card-thumb-diamond.png" alt="">
                                                 </div>
                                                 <span class="level language_replace">鑽石</span>
                                             </div>
@@ -1315,7 +1315,7 @@
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
                                                 <div class="img-crop">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <img src="images/member/card-thumb-S.diamond.png" alt="">
                                                 </div>
                                                 <span class="level language_replace">銀鑽</span>
                                             </div>
@@ -1323,7 +1323,7 @@
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
                                                 <div class="img-crop">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <img src="images/member/card-thumb-G.diamond.png" alt="">
                                                 </div>
                                                 <span class="level language_replace">金鑽</span>
                                             </div>
@@ -1331,7 +1331,7 @@
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
                                                 <div class="img-crop">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <img src="images/member/card-thumb-Star.png" alt="">
                                                 </div>
                                                 <span class="level language_replace">星耀</span>
                                             </div>
@@ -1339,7 +1339,7 @@
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
                                                 <div class="img-crop">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <img src="images/member/card-thumb-eternal.png" alt="">
                                                 </div>
                                                 <span class="level language_replace">永恆</span>
                                             </div>
@@ -1347,7 +1347,7 @@
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
                                                 <div class="img-crop">
-                                                    <img src="images/member/card-thumb-normal.svg" alt="">
+                                                    <img src="images/member/card-thumb-legend.png" alt="">
                                                 </div>
                                                 <span class="level language_replace">傳說</span>
                                             </div>
