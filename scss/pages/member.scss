@@ -157,17 +157,24 @@ input{
         width: 100%;
         display: flex;
         justify-content: center;
-        padding: 0 10px;
+        // padding: 0 10px;
+        padding: 0 40px 0 10px;
 
 
         position: relative;
 
         .avater {
             display: inline-flex;
-            position: relative;
+            position: relative;           
 
             &-img {
                 width: 100%;
+                background: #F5A919;
+                height: 0;
+                padding-bottom: calc(100% - 10px);
+                // aspect-ratio: 1 / 1;
+                border-radius: 50%;
+                border: 5px solid #CC8211;
 
                 img {
                     width: 100%;
@@ -177,7 +184,8 @@ input{
             .btn {
                 position: absolute;
                 right: -20px;
-                bottom: 10px;
+                // bottom: 10px;
+                top: 70px;
             }
 
             .icon-mask {
@@ -313,6 +321,16 @@ input{
     .progress{
         background-color: #D6D6D6;
         margin-bottom: 0.5rem;
+    }
+
+    .member-level{
+        display: flex;
+        align-items: flex-end;
+
+        .btn{
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
     }
 
 }
@@ -785,7 +803,7 @@ $card-bg-normal: (
             width: 80%;
 
             .title{
-                color: #494949;
+                color: #707070;
                 font-size: font-resize(14px);
                 width: 55%;
             }
@@ -853,7 +871,8 @@ $card-bg-normal: (
 
     .m-normal{
         .card-item{            
-            background: linear-gradient(114.06deg, #A0A0A0 49.97%, #666666 97.42%);
+            
+            background: linear-gradient(114.06deg, #D3D3D3 2.04%, #939393 97.42%);
            
             &::before{
                 background-image: url(../images/member/card-label-normal.png);
@@ -864,6 +883,7 @@ $card-bg-normal: (
     .m-bronze{
         .card-item{
             background: linear-gradient(114.06deg, #4BEFD1 49.97%, #E39600 97.42%);
+
 
             &::before{
                 background-image: url(../images/member/card-label-bronze.png);
@@ -1005,8 +1025,7 @@ $card-bg-normal: (
         // justify-content: center;
         align-items: center;
         cursor: pointer;
-        width: 100%;
-        
+        width: 100%;        
 
         .img-crop{
             position: relative;
@@ -1038,6 +1057,12 @@ $card-bg-normal: (
                 mask-image: url(../images/member/card-thumb-normal.svg);
             }
 
+        }
+
+        .level{
+            font-size: font-resize(14px);
+            color: #8A8A8A;
+            margin-top: 0.5rem; 
         }
 
      
@@ -2706,7 +2731,7 @@ $card-bg-normal: (
     .member-profile {
          // 會員頭像
         &-avater-wrapper {
-            flex: 0 0 125px;
+            flex: 0 0 185px;
         }
     }
 
@@ -2957,6 +2982,8 @@ $card-bg-normal: (
     .card-thumb-wrapper{
         margin-left: -$modalMemberLevel-body-padding-left-lg;
         margin-right: -$modalMemberLevel-body-padding-right-lg;
+        padding-left: $modalMemberLevel-body-padding-left-lg;
+        padding-right: $modalMemberLevel-body-padding-right-lg;
 
         .swiper-wrapper{
             justify-content: center;
@@ -2965,7 +2992,8 @@ $card-bg-normal: (
 
         .swiper-slide{
             // width: auto;
-            max-width: (100% / 11);           
+            width: (100% / 11);
+            max-width:none;           
         }
     }
 
@@ -2983,10 +3011,10 @@ $card-bg-normal: (
             }
 
             .swiper-button-prev{               
-                left: -$modalMemberLevel-body-padding-left-xl + 0.2rem; 
+                left: -$modalMemberLevel-body-padding-left-xl + 0.8rem; 
             }
             .swiper-button-next{               
-                right: -$modalMemberLevel-body-padding-right-xl + 0.2rem; 
+                right: -$modalMemberLevel-body-padding-right-xl + 0.8rem; 
             }
         }
     }
@@ -3003,16 +3031,8 @@ $card-bg-normal: (
     .card-thumb-wrapper{
         margin-left: -$modalMemberLevel-body-padding-left-xl;
         margin-right: -$modalMemberLevel-body-padding-right-xl;
-
-        .swiper-wrapper{
-            justify-content: center;
-            
-        }
-
-        .swiper-slide{
-            // width: auto;
-            max-width: (100% / 11);           
-        }
+        padding-left: $modalMemberLevel-body-padding-left-xl;
+        padding-right: $modalMemberLevel-body-padding-right-xl;       
     }
 
     .data-item {
@@ -3057,20 +3077,21 @@ $card-bg-normal: (
         flex-flow: row wrap;
     }
 
-    .section-member-profile,
-    // ,.section-member-activity
+     // ,.section-member-activity
     // ,.section-member-wallet-transaction
-    .section-member-setting
-     {
+    //  {
+    //     width: 50%;
+    //  }
+
+    .section-member-profile{
+        width: 50%;       
+    }   
+    .section-member-setting{
         width: 50%;
-     }
+    }
 
     .section-member-setting{
 
-    }
-
-    .section-member-profile {
-        padding-right: 1rem;
     }
 
     .section-member-activity{
@@ -3155,13 +3176,15 @@ $card-bg-normal: (
     .section-member-profile {
         display: flex;
         flex-flow: row wrap;
+
+        padding-right: 36px;
     }
 
     .member-profile {
 
         &-avater-wrapper {
-            flex: 0 0 150px;
-            padding-right: 2rem;
+            flex: 0 0 175px;
+            padding-right: 3rem;
 
         }
 

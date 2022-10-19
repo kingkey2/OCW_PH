@@ -115,7 +115,7 @@ input.month:read-only, input.day:read-only {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: 0 10px;
+  padding: 0 40px 0 10px;
   position: relative;
 }
 .member-profile-avater-wrapper .avater {
@@ -126,6 +126,11 @@ input.month:read-only, input.day:read-only {
 }
 .member-profile-avater-wrapper .avater-img {
   width: 100%;
+  background: #F5A919;
+  height: 0;
+  padding-bottom: calc(100% - 10px);
+  border-radius: 50%;
+  border: 5px solid #CC8211;
 }
 .member-profile-avater-wrapper .avater-img img {
   width: 100%;
@@ -133,7 +138,7 @@ input.month:read-only, input.day:read-only {
 .member-profile-avater-wrapper .avater .btn {
   position: absolute;
   right: -20px;
-  bottom: 10px;
+  top: 70px;
 }
 .member-profile-avater-wrapper .avater .icon-mask {
   width: 35px;
@@ -225,6 +230,18 @@ input.month:read-only, input.day:read-only {
 .member-profile-level-wrapper .progress {
   background-color: #D6D6D6;
   margin-bottom: 0.5rem;
+}
+.member-profile-level-wrapper .member-level {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+.member-profile-level-wrapper .member-level .btn {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .member-level-upgrade-wrapper {
@@ -590,7 +607,7 @@ input.month:read-only, input.day:read-only {
   width: 80%;
 }
 .card-slider .card-item .item .title {
-  color: #494949;
+  color: #707070;
   font-size: 0.875rem;
   width: 55%;
 }
@@ -636,7 +653,7 @@ input.month:read-only, input.day:read-only {
   }
 }
 .card-slider .m-normal .card-item {
-  background: linear-gradient(114.06deg, #A0A0A0 49.97%, #666666 97.42%);
+  background: linear-gradient(114.06deg, #D3D3D3 2.04%, #939393 97.42%);
 }
 .card-slider .m-normal .card-item::before {
   background-image: url(../images/member/card-label-normal.png);
@@ -769,6 +786,11 @@ input.month:read-only, input.day:read-only {
   mask-size: cover;
   -webkit-mask-image: url(../images/member/card-thumb-normal.svg);
   mask-image: url(../images/member/card-thumb-normal.svg);
+}
+.card-thumb-wrapper .thumb-item .level {
+  font-size: 0.875rem;
+  color: #8A8A8A;
+  margin-top: 0.5rem;
 }
 
 .MT-table-wrapper {
@@ -1758,8 +1780,8 @@ input.month:read-only, input.day:read-only {
 
   .member-profile-avater-wrapper {
     -webkit-box-flex: 0;
-        -ms-flex: 0 0 125px;
-            flex: 0 0 125px;
+        -ms-flex: 0 0 185px;
+            flex: 0 0 185px;
   }
 
   .activity-record-wrapper {
@@ -1865,6 +1887,8 @@ input.month:read-only, input.day:read-only {
   .card-thumb-wrapper {
     margin-left: -2.5rem;
     margin-right: -2.5rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
   }
   .card-thumb-wrapper .swiper-wrapper {
     -webkit-box-pack: center;
@@ -1872,7 +1896,8 @@ input.month:read-only, input.day:read-only {
             justify-content: center;
   }
   .card-thumb-wrapper .swiper-slide {
-    max-width: 9.0909090909%;
+    width: 9.0909090909%;
+    max-width: none;
   }
 }
 @media (min-width: 1384px) {
@@ -1883,10 +1908,10 @@ input.month:read-only, input.day:read-only {
     height: 60px;
   }
   .card-slider-wrapper .swiper-button-prev {
-    left: -4.3rem;
+    left: -3.7rem;
   }
   .card-slider-wrapper .swiper-button-next {
-    right: -4.3rem;
+    right: -3.7rem;
   }
 
   .modalMemberLevel .modal-body {
@@ -1897,14 +1922,8 @@ input.month:read-only, input.day:read-only {
   .card-thumb-wrapper {
     margin-left: -4.5rem;
     margin-right: -4.5rem;
-  }
-  .card-thumb-wrapper .swiper-wrapper {
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
-  .card-thumb-wrapper .swiper-slide {
-    max-width: 9.0909090909%;
+    padding-left: 4.5rem;
+    padding-right: 4.5rem;
   }
 
   .data-item.name {
@@ -1944,13 +1963,12 @@ input.month:read-only, input.day:read-only {
             flex-flow: row wrap;
   }
 
-  .section-member-profile,
-.section-member-setting {
+  .section-member-profile {
     width: 50%;
   }
 
-  .section-member-profile {
-    padding-right: 1rem;
+  .section-member-setting {
+    width: 50%;
   }
 
   .section-member-profile {
@@ -1961,13 +1979,14 @@ input.month:read-only, input.day:read-only {
     -webkit-box-direction: normal;
         -ms-flex-flow: row wrap;
             flex-flow: row wrap;
+    padding-right: 36px;
   }
 
   .member-profile-avater-wrapper {
     -webkit-box-flex: 0;
-        -ms-flex: 0 0 150px;
-            flex: 0 0 150px;
-    padding-right: 2rem;
+        -ms-flex: 0 0 175px;
+            flex: 0 0 175px;
+    padding-right: 3rem;
   }
   .member-profile-data-wrapper {
     -webkit-box-flex: 1;
