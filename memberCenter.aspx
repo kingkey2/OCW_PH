@@ -302,7 +302,7 @@
         });
 
         var heroIndex = new Swiper("#slider-card", {
-            loop: true,
+            // loop: true,
             slidesPerView: 1,
             // effect: "fade",
             speed: 1000, //Duration of transition between slides (in ms)
@@ -327,9 +327,11 @@
                 prevEl: ".swiper-button-prev",
             },
             breakpoints: {
-                991: {
+                992: {
                     freeMode: false,
                     slidesPerView: 3,
+                    centeredSlides: true,
+                    loop: true,
                     // slidesPerGroup: 6, //index:992px
                 },
                
@@ -1247,7 +1249,7 @@
     </div>
 
     <!-- Modal - Member LEVEL -->
-    <div class="modal fade footer-center show" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: ;">
+    <div class="modal fade footer-center show modalMemberLevel" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: block;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1446,7 +1448,7 @@
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level">Bronze</h3>
+                                                        <h3 class="member-level">青銅</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -1475,7 +1477,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">Bronze</div>
+                                                        <div class="thead">青銅</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累計存款</h4></div>
@@ -1528,7 +1530,7 @@
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level">Silver</h3>
+                                                        <h3 class="member-level">白銀</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -1557,7 +1559,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">Silver</div>
+                                                        <div class="thead">白銀</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累計存款</h4></div>
@@ -1610,7 +1612,7 @@
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level">Gold</h3>
+                                                        <h3 class="member-level">黃金</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -1639,7 +1641,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">Gold</div>
+                                                        <div class="thead">黃金</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累計存款</h4></div>
@@ -1692,7 +1694,7 @@
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level">Platinum</h3>
+                                                        <h3 class="member-level">白金</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -1721,7 +1723,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">Platinum</div>
+                                                        <div class="thead">白金</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累計存款</h4></div>
@@ -1774,7 +1776,7 @@
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level">Diamond</h3>
+                                                        <h3 class="member-level">鑽石</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -1803,7 +1805,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">Diamond</div>
+                                                        <div class="thead">鑽石</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累計存款</h4></div>
@@ -1856,7 +1858,7 @@
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level">Silver Diamond</h3>
+                                                        <h3 class="member-level">銀鑽</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -1885,7 +1887,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">Silver Diamond</div>
+                                                        <div class="thead">銀鑽</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累計存款</h4></div>
@@ -1938,7 +1940,7 @@
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level">Gold Diamond</h3>
+                                                        <h3 class="member-level">金鑽</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -1967,7 +1969,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">Gold Diamond</div>
+                                                        <div class="thead">金鑽</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累計存款</h4></div>
@@ -2014,13 +2016,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- 星耀 Starlight -->
+                                        <!-- Starlight 星耀 -->
                                         <div class="swiper-slide m-starlight">
                                             <div class="slider-item">
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level">Starlight</h3>
+                                                        <h3 class="member-level">星耀</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -2049,7 +2051,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">Starlight</div>
+                                                        <div class="thead">星耀</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累計存款</h4></div>
@@ -2102,7 +2104,7 @@
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level">Eternal</h3>
+                                                        <h3 class="member-level">永恆</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -2131,7 +2133,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">Eternal</div>
+                                                        <div class="thead">永恆</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累計存款</h4></div>
@@ -2184,7 +2186,7 @@
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level">Legend</h3>
+                                                        <h3 class="member-level">傳說</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -2213,7 +2215,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">Legend</div>
+                                                        <div class="thead">傳說</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累計存款</h4></div>
