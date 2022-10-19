@@ -6,6 +6,9 @@ $modalMemberLevel-body-padding-right: 1.5rem;
 $modalMemberLevel-body-padding-left-lg: 2.5rem;
 $modalMemberLevel-body-padding-right-lg: 2.5rem;
 
+$modalMemberLevel-body-padding-left-xl: 4.5rem;
+$modalMemberLevel-body-padding-right-xl: 4.5rem;
+
 .article-member-center {
     // display: flex;
     // flex-flow: row wrap;
@@ -672,9 +675,8 @@ $card-bg-normal: (
   positon : (49.97%, 97.42%)
 );
 
-//會員等級 Slider
-.card-slider{
-    
+//Modal - Member LEVEL - 會員等級 Slider
+.card-slider{    
     
     .swiper-wrapper{
         // padding-left: 2rem;
@@ -740,19 +742,10 @@ $card-bg-normal: (
     }
 
     .swiper-slide{
-        padding: 0 0.5rem;
-        opacity: 0.5;
-        transition: transform 0.35s ease-in-out;
-
-        &.swiper-slide-active{
-            opacity: 1;
-            transform: scale(1.2, 1.2);
-            z-index: 2;
-        }
+        padding: 0 0.5rem;        
     }
 
-    .card-item{
-     
+    .card-item{     
         position: relative;
         padding: 15px;
         border-radius: 20px;
@@ -965,6 +958,7 @@ $card-bg-normal: (
    
 }
 
+// Modal - Member LEVEL - 會員等級 Slider 縮圖
 .card-thumb-wrapper{
     overflow-x: hidden;
     margin-bottom: 1.5rem;
@@ -986,11 +980,12 @@ $card-bg-normal: (
         // justify-content: center; 
         margin: 0 auto;
         width: 100%;
-        max-width: 720px;
+        // max-width: 720px;
     }
 
     .swiper-slide{
         width: auto;
+        max-width: 50px;
         padding: 0 5px;
     }
 
@@ -1010,7 +1005,8 @@ $card-bg-normal: (
         // justify-content: center;
         align-items: center;
         cursor: pointer;
-        max-width: 50px;
+        width: 100%;
+        
 
         .img-crop{
             position: relative;
@@ -2922,12 +2918,21 @@ $card-bg-normal: (
         }
     }
 
-    //會員等級 Slider
+    //Modal - Member LEVEL - 會員等級 Slider
     .card-slider{
         padding: 50px 0;
 
         .swiper-slide{
             padding: 0;
+
+            opacity: 0.5;
+            transition: transform 0.35s ease-in-out;
+
+            &.swiper-slide-active{
+                opacity: 1;
+                transform: scale(1.2, 1.2);
+                z-index: 2;
+            }
         }  
         
         &-wrapper{
@@ -2936,8 +2941,7 @@ $card-bg-normal: (
                 top: 45%;
                 width: 15px;
                 height: 30px;                
-            }  
-
+            }
         }
     }
 
@@ -2949,18 +2953,67 @@ $card-bg-normal: (
         }
     }
 
+    // Modal - Member LEVEL - 會員等級 Slider 縮圖
     .card-thumb-wrapper{
         margin-left: -$modalMemberLevel-body-padding-left-lg;
         margin-right: -$modalMemberLevel-body-padding-right-lg;
+
+        .swiper-wrapper{
+            justify-content: center;
+            
+        }
+
+        .swiper-slide{
+            // width: auto;
+            max-width: (100% / 11);           
+        }
     }
-
-
-
 
 }
 
 @include media-breakpoint-up(desc-xl) {
 
+    .card-slider{
+        &-wrapper{
+            .swiper-button-next,
+            .swiper-button-prev{
+                top: 45%;
+                width: 35px;
+                height: 60px;                
+            }
+
+            .swiper-button-prev{               
+                left: -$modalMemberLevel-body-padding-left-xl + 0.2rem; 
+            }
+            .swiper-button-next{               
+                right: -$modalMemberLevel-body-padding-right-xl + 0.2rem; 
+            }
+        }
+    }
+
+    // Modal - Member LEVEL
+    .modalMemberLevel{
+        .modal-body{
+            padding-left: $modalMemberLevel-body-padding-left-xl;
+            padding-right: $modalMemberLevel-body-padding-right-xl;  
+        }
+    }
+
+    // Modal - Member LEVEL - 會員等級 Slider 縮圖
+    .card-thumb-wrapper{
+        margin-left: -$modalMemberLevel-body-padding-left-xl;
+        margin-right: -$modalMemberLevel-body-padding-right-xl;
+
+        .swiper-wrapper{
+            justify-content: center;
+            
+        }
+
+        .swiper-slide{
+            // width: auto;
+            max-width: (100% / 11);           
+        }
+    }
 
     .data-item {
 
@@ -3003,7 +3056,6 @@ $card-bg-normal: (
         display: flex;
         flex-flow: row wrap;
     }
-    
 
     .section-member-profile,
     // ,.section-member-activity
@@ -3011,7 +3063,7 @@ $card-bg-normal: (
     .section-member-setting
      {
         width: 50%;
-    }
+     }
 
     .section-member-setting{
 
