@@ -1316,9 +1316,7 @@
   padding-left: 0;
  
 
-  .custom-input{    
-    
-
+  .custom-input{
     &::before,
     &::after{
       content: none;
@@ -1326,12 +1324,10 @@
   }
 
 
-  .checkbox {
-    
+  .checkbox {    
     display: flex;
     flex-flow: column wrap;
     width: 100%;
-    
 
     //文字 ==================
     .radioText{
@@ -1349,14 +1345,16 @@
     }
 
   }
-
   
   
   .custom-control-input-hidden:checked ~ .checkbox
   {    
 
-    box-shadow: 0px 0px 5px 3px rgba(rgb(0, 110, 255), 0.55); 
-    border-color: #009FE8;
+    // box-shadow: 0px 0px 5px 3px rgba(rgb(0, 110, 255), 0.55); 
+    // border-color: #009FE8;
+
+    box-shadow: 0px 0px 5px 3px rgb(43 182 201);
+    border-color: #079eb2;
 
     .logo-wrap { 
       // box-shadow: 0px 0px 10px 3px rgba(rgb(0, 110, 255), 0.55); 
@@ -1368,25 +1366,30 @@
     &:checked ~ .custom-control-label::before {
       // background-color: $custom-control-indicator-checked-disabled-bg;
     }
+  } 
+
+  @media (hover: hover) {
+      &:hover{ 
+
+        .custom-label{
+          cursor: pointer; 
+        }
+
+        .logo-wrap { 
+          // box-shadow: 0px 0px 10px rgba(rgb(0, 110, 255), 0.55);
+        }
+        
+        .checkbox{
+          box-shadow: 0px 0px 5px 1px #58b9c7, inset 0 0 4px 0px #58b9c7;
+          border-color: #2fcbe0;
+        }
+    }
+      
   }
-
-
-  &:hover{
-
-      .custom-label{
-        cursor: pointer; 
-      }
-
-      .logo-wrap { 
-        // box-shadow: 0px 0px 10px rgba(rgb(0, 110, 255), 0.55);
-      }
-
-
-  }
-
-
 
 }
+
+
 
 
 

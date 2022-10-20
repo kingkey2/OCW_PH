@@ -353,7 +353,6 @@ $min-width-column: 60px;
 }
 
 
-
 .MT__table {
 
     //斷點：橫式 or 577px 以上 =================
@@ -459,8 +458,6 @@ $min-width-column: 60px;
     }
 }
 
-
-
 //年月日
 .date-period{
 
@@ -491,6 +488,7 @@ $min-width-column: 60px;
 
 }
 
+
 //存取款 label
 .label-status{
     display: inline-flex;
@@ -512,7 +510,6 @@ $min-width-column: 60px;
     //     background-color: #369AD6;
     // }
 }
-
 
 .monthSwitch {
 
@@ -547,7 +544,6 @@ $min-width-column: 60px;
     }
 
 }
-
 
 //斷點：922px 以上 =================
 @include media-breakpoint-up(lg) {

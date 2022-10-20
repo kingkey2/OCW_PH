@@ -1355,7 +1355,6 @@ hr{
 
 //遊戲設定 FAKE DROPDOWN=============
 .gameNameSettingWrapper{
-
 	
 }
 
@@ -1389,7 +1388,8 @@ hr{
 	&:hover{
 		// color: rgba(#e3c38d, .95);
 		// border-color: rgba(#e3c38d, 0.5);
-		box-shadow: inset 0 0 0 1px rgba(#3db6ff, 0.7);
+		// box-shadow: inset 0 0 0 1px rgba(#3db6ff, 0.7);
+		box-shadow: $input-form-control-focus-boxshadow;
 
 	}
 
