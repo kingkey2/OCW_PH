@@ -1593,12 +1593,13 @@
                 CloseWindowOpenGamePage(gameWindow);
             } else {
                 if (EWinWebInfo.DeviceType == 1) {
+                    gameLogoutPram.GameCode = gameCode;
 
-<%--                    gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
-                    CloseWindowOpenGamePage(gameWindow);--%>
+                  gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
+                    CloseWindowOpenGamePage(gameWindow);
 
-                    window.location.href = "/OpenGame_M.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode
- + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";
+                    <%--  window.location.href = "/OpenGame_M.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode
+ + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";--%>
 
                 } else {
                     gameLogoutPram.GameCode = gameBrand + "." + gameName;
@@ -1698,6 +1699,7 @@
 
     function CloseWindowOpenGamePage(e) {
         showMessageOK("", "關閉", function () {
+            game_userlogout();
             e.close();
         })
     }
@@ -1858,7 +1860,11 @@
             if (wallet.CurrencyType == EWinWebInfo.BonusCurrencyType) {
                 $("#liWithdrawal").hide();
             } else {
-                $("#liWithdrawal").show();
+                if (wallet.PointValue > 0) {
+                    $("#liWithdrawal").show();
+                } else {
+                    $("#liWithdrawal").hide();
+                }
             }
 
             // 已登入
