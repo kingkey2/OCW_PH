@@ -1,0 +1,213 @@
+$color_main: ('brand': #93ba77,
+
+  'theme-blue-1': #132d44,
+
+
+  'black': #000000,
+  'white': white,
+  'text': #000000,
+
+  'gray-1': #cccccc,
+  'gray-2': #989898,
+  'gray-7': #444,
+  'gray-8': #333,
+  'gray-9': #222,
+
+  'midtones-a-1': #323647,
+  'midtones-a-2': #3e4359,
+  'midtones-a-3': #333849,
+  'midtones-a-4': #2d3040,
+
+  'theme-main-a-1': #25bbce,
+  'theme-main-a-2': #45C5FF,
+
+
+  'theme-sub-a-1': #6777bd,
+  'theme-sub-a-2': #262936,
+  'theme-sub-a-3': #7b97fe,
+
+  'theme-sub-b-1': #4EEBE9,
+  'theme-sub-b-2': #2ec7e6,
+  'theme-sub-b-3': #45b6d4,
+  'theme-sub-b-4': #2ee6d7,
+  'theme-sub-b-5': #66a8ba,
+
+  'theme-warn-1': #ff6060,
+
+  'theme-loader-background': #2fb4c9,
+
+  );
+
+
+
+$color_body: (
+  'body-bg1': #ffffff,
+  'body-bg2': #ffffff
+  );
+
+$color_header: (
+  'header-main-bg1': #ffffff,
+  'header-main-bg2': #ffffff,
+  // 'header-main-bg3': #3A9AA0, //FIGMA
+  // 'header-main-bg3': #02AFC7, 
+  'header-main-bg3': #079eb2, 
+  'header-toggler': #ffffff
+  );
+
+$color_button: (
+  'btn-theme-full-text': #ffffff,
+
+  'btn-theme-main-a-1': #F5A919,
+  'btn-theme-main-b-1': #079eb2,
+
+  'btn-theme-full-stress': #E7211A,
+  'btn-theme-fake': #058ea0,
+
+  'btn-theme-sub-a-1': #45b6d4,
+  'btn-theme-sub-a-2': #45b6d4,
+
+  'btn-main-1': #FFAA47,
+  'btn-main-2': #D66D26,
+  'btn-sub-1': #FF7761,
+  'btn-sub-2': #ff836f,
+);
+
+$color_tab: (
+  'tab-theme-main-a-1': #00AFFF,
+  'tab-theme-main-a-2': #48C5FF,
+
+  'tab-game-default': #DD8800,
+  'tab-game-active': #F6B619,
+  'tab-game-bg': #DAE9F4,
+  'tab-game-text-shadow': #895500,
+
+  'tab-game-search-bg': #8DD0DA,
+  'tab-game-search-boxshadow': #3A9AA0,
+
+  'tab-primary-hover': #287579,
+  'tab-primary-active': #3A9AA0,
+  'tab-primary-bg': #858585, 
+  
+);
+
+$color_game_custom: (
+    'game-custom-randomRem-bg-1': #ffffff,
+    'game-custom-randomRem-bg-2': #414042,
+    'game-custom-randomRem-bg-3': #ffffff, 
+    
+    'game-custom-forone-btn-bg': #F5A919, 
+);
+
+$color_sec_title: (
+  // 'sec-title-deco-bg': #3A9AA0,     
+  'sec-title-deco-bg': #419ea3,     
+  'sec-link-btn-bg-hover': #287579, 
+);
+
+$color_MT_table: (
+    // 'thead-th-background': #3A9AA0,        
+    'thead-th-background': #419ea3,        
+);
+
+$color_agentDownline: (
+  'member-mask-icon-background': #02AFC7,        
+  'agent-mask-icon-background': #FF6396,  
+  'member-td-stress-background': #d4f5f7,        
+  'agent-td-stress-background': #FFEAF1,        
+);
+
+$color_memberCenter: (
+    'qrcode-btn-background': #3A9AA0,  
+     //出金門檻
+    'withdraw-limit-background-1': #074B57,        
+    'withdraw-limit-background-2': #009ED0, 
+    'withdraw-limit-detail-background': rgba(#272625, 0.8),       
+    
+    //活動中心
+    'activity-center-background': #F5A919, 
+    'activity-center-btn-background': #ffffff, 
+    'activity-center-btn-textColor': #E7211A, 
+
+    //獎金中心
+    'prize-center-background': #D8BF8F, 
+     
+    //會員簽到進度顯示
+     'dailylogin-bouns-mobile-background-1': #A79C8E, 
+     'dailylogin-bouns-mobile-background-2': #A79C8E, 
+     'dailylogin-bouns-amount-background': #A79C8E, 
+
+     'dailylogin-bouns-pc-background-1': #fff6e4, 
+     'dailylogin-bouns-pc-background-2': #d8bf8f
+ );
+
+ $color_memberLevel: (
+  
+ );
+
+
+$color_social: (
+  'youtube': #cd201f,
+  'facebook': #3b5998,
+  'line': #00c300,
+  'twitter': #1da1f2,
+  'linkin': #0077b5,
+  'gplus': #dd4b39,
+  );
+
+
+  @function tintOrShade($color) {
+    @if (lightness($color) > 50) {
+      @return saturate(darken( $color, 30% ), 50%);
+    } @else {
+      @return desaturate(lighten( $color, 20% ), 50%);
+    }
+  }
+  
+  @function color_main($color_name){
+    @return map-get($color_main, $color_name);
+  }
+  
+  @function color_body($color_name){
+    @return map-get($color_body, $color_name);
+  }
+
+  @function color_header($color_name){
+    @return map-get($color_header, $color_name);
+  }
+
+  @function color_button($color_name){
+    @return map-get($color_button, $color_name);
+  }
+
+  @function color_tab($color_name){
+    @return map-get($color_tab, $color_name);
+  }
+
+  @function color_game_custom($color_name){
+    @return map-get($color_game_custom, $color_name);
+  }
+
+  @function color_sec_title($color_name){
+    @return map-get($color_sec_title, $color_name);
+  }
+
+  @function color_MT_table($color_name){
+    @return map-get($color_MT_table, $color_name);
+  }
+
+  @function color_agentDownline($color_name){
+    @return map-get($color_agentDownline, $color_name);
+  }
+  
+  @function color_memberCenter($color_name){
+    @return map-get($color_memberCenter, $color_name);
+  }
+
+
+  @function color_social($color_name){
+    @return map-get($color_social, $color_name);
+  }
+  
+  @function color_slider($color_name){
+    @return map-get($color_slider, $color_name);
+  }
