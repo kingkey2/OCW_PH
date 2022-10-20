@@ -767,7 +767,7 @@ $card-bg-normal: (
         position: relative;
         padding: 15px;
         border-radius: 20px;
-        margin-bottom: 1.5rem;       
+        margin-bottom: 2.5rem;       
 
         &::before{
             content: '';
@@ -779,10 +779,10 @@ $card-bg-normal: (
             background-size: contain;
             z-index: 0;
             position: absolute;
-            right: 10px;
-            top: 8px;
+            right: 30px;
+            top: 5px;
             // top: 10px;
-            transform: rotate(-30deg);
+            // transform: rotate(-30deg);
             transform-origin: center center;
         }       
 
@@ -804,12 +804,12 @@ $card-bg-normal: (
 
             .title{
                 color: #707070;
-                font-size: font-resize(14px);
+                font-size: font-resize(13px);
                 width: 70%;
             }
             .value{
                 font-weight: 500;
-                font-size: font-resize(14px);
+                font-size: font-resize(13.5px);
             }
         }        
         

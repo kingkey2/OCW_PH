@@ -567,7 +567,7 @@ input.month:read-only, input.day:read-only {
   position: relative;
   padding: 15px;
   border-radius: 20px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 .card-slider .card-item::before {
   content: "";
@@ -581,10 +581,8 @@ input.month:read-only, input.day:read-only {
   background-size: contain;
   z-index: 0;
   position: absolute;
-  right: 10px;
-  top: 8px;
-  -webkit-transform: rotate(-30deg);
-          transform: rotate(-30deg);
+  right: 30px;
+  top: 5px;
   -webkit-transform-origin: center center;
           transform-origin: center center;
 }
@@ -608,12 +606,12 @@ input.month:read-only, input.day:read-only {
 }
 .card-slider .card-item .item .title {
   color: #707070;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   width: 70%;
 }
 .card-slider .card-item .item .value {
   font-weight: 500;
-  font-size: 0.875rem;
+  font-size: 0.84375rem;
 }
 .card-slider .memberlevel-rules * {
   font-size: 0.875rem;

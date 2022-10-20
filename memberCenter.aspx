@@ -569,7 +569,7 @@
                                     <div class="level-progress progress">
                                         <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                         <div class="member-level">
-                                            <span class="level-name current language_replace">一般</span>
+                                            <span class="level-name current language_replace">VIP0</span>
                                             <span class="level-name next language_replace">青銅</span>
                                         </div> 
                                     </div>
