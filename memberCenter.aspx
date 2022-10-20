@@ -2452,7 +2452,7 @@
                             <div class="notice-wrapper">
                                 <div class="sec-title-container">
                                     <div class="sec-title-wrapper">
-                                        <h6 class="sec-title title-deco"><span class="language_replace" langkey="曾經遊玩">VIP規則</span></h6>
+                                        <h6 class="sec-title title-deco"><span class="language_replace">VIP規則</span></h6>
                                     </div>
                                 </div>
                                 <ul class="notice-list">
