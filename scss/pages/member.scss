@@ -1009,8 +1009,9 @@ $card-bg-normal: (
 
     .swiper-slide{
         width: auto;
-        max-width: 60px;
-        padding: 0 5px;
+        max-width: 65px;
+        // padding: 0 5px;
+        padding: 8px;
     }   
 
     .thumb-item{
@@ -1022,16 +1023,20 @@ $card-bg-normal: (
         width: 100%;        
 
         .img-crop{
-            position: relative;            
+            position: relative;
+            // padding: 3px;            
             
             &:after{
                 content: "";
                 position: absolute;
                 left: 0;
                 right: 0;
+                top: 0;
                 bottom: 0;             
                 display: inline-flex;
                 width: 100%;
+                // width: calc(100% - 6px);
+                // margin: 0 auto;
                 height: 0;
                 padding-bottom: 102%;
                 // background-color: #dbdbdb;
@@ -1050,6 +1055,7 @@ $card-bg-normal: (
                 // mask-image: url(../images/member/card-thumb-normal.svg);
                 background: url(../images/member/card-thumb-default.png) center center no-repeat;
                 background-size: contain;
+                // background-size: 100% auto;
             }
 
         }
@@ -1060,6 +1066,7 @@ $card-bg-normal: (
             margin-top: 0.5rem; 
             text-align: center;
             font-weight: 400;
+            line-height: 1.2;
         }
 
      
@@ -1067,8 +1074,14 @@ $card-bg-normal: (
      
     //Thumb ACTIVE STATE===========
     .swiper-slide-thumb-active{
-        .img-crop{   
-            filter: drop-shadow(0 0 3px rgba(#3a3a3a, 1));      
+        .img-crop{
+         
+            // -webkit-filter: drop-shadow(0 0 3px rgba(#3a3a3a, 1));      
+            //     filter: drop-shadow(0 0 3px rgba(#3a3a3a, 1));       
+            img{
+                        
+            }
+
             &:after{               
                 opacity: 0;
             }
