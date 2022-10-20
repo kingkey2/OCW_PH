@@ -159,6 +159,29 @@ public class LobbyAPI : System.Web.Services.WebService {
     }
 
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.GameCodeOnlineListResult GetUserAccountGameCodeOnlineList(string WebSID, string GUID) {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+        EWin.Lobby.GameCodeOnlineListResult Result;
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            Result= lobbyAPI.GetUserAccountGameCodeOnlineList(GetToken(),SI.EWinSID,GUID);
+            Result.Message = SI.EWinSID;
+            return Result;
+        } else {
+            var R = new EWin.Lobby.GameCodeOnlineListResult() {
+                Result = EWin.Lobby.enumResult.ERR,
+                Message = "InvalidWebSID",
+                GUID = GUID
+            };
+
+            return R;
+        }
+    }
+
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -405,7 +428,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
                     CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 
-                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
+                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
@@ -439,7 +462,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
                                 CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 
-                                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
+                                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
@@ -1511,7 +1534,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 var Collect = PromotionCollectResult.CollectList.Where(x => x.CollectID == CollectID).FirstOrDefault();
                 var UserInfoResult = lobbyAPI.GetUserInfo(Token, SI.EWinSID, GUID);
                 if (UserInfoResult.Result == EWin.Lobby.enumResult.OK) {
-                    var Wallet = UserInfoResult.WalletList[0];
+                    var Wallet = UserInfoResult.WalletList.Where(x => x.CurrencyType == EWinWeb.MainCurrencyType).FirstOrDefault();
 
                     decimal OldThresholdValue = 0.0M;
                     if (UserInfoResult.ThresholdInfo.Length > 0) {

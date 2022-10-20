@@ -49,6 +49,28 @@
         });
     };
 
+    this.GetUserAccountGameCodeOnlineList = function (WebSID, GUID, cb) {
+        var url = APIUrl + "/GetUserAccountGameCodeOnlineList";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.ConfirmUserAccountTransfer = function (WebSID, GUID, TransferGUID, cb) {
         var url = APIUrl + "/ConfirmUserAccountTransfer";
         var postData;
