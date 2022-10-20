@@ -68,6 +68,10 @@
       "Path": "2022_10/Act001.json",
       "MethodName": "OpenIntroBonus",
       "InfoMethodName": "OpenIntroBonus"
+    },
+    {
+      "Name": "BS001",
+      "Path": "Common/BS001.json"
     }
   ],
   "All": [
@@ -95,6 +99,11 @@
       "Name": "Act001",
       "State": 0,
       "PageShowState": 0
+    },
+    {
+      "Name": "BS001",
+      "State": 0,
+      "PageShowState": 1
     }
   ]
 }
