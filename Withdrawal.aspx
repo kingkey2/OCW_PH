@@ -230,9 +230,9 @@
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace"></span>
-                                    <!-- <span>Electronic Wallet</span>  -->
+                                    <!-- <span>Electronic Wallet</span> -->
                                 </div>
-                                <div class="logo vertical-center text-center">
+                                <div class="logo vertical-center text-center mt-3">
                                     <!-- <span class="text language_replace">銀行振込</span> -->
                                     <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
                                 </div>
