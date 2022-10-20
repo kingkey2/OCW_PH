@@ -767,7 +767,7 @@ $card-bg-normal: (
         position: relative;
         padding: 15px;
         border-radius: 20px;
-        margin-bottom: 1.5rem;       
+        margin-bottom: 2.5rem;       
 
         &::before{
             content: '';
@@ -779,10 +779,10 @@ $card-bg-normal: (
             background-size: contain;
             z-index: 0;
             position: absolute;
-            right: 10px;
-            top: 8px;
+            right: 30px;
+            top: 5px;
             // top: 10px;
-            transform: rotate(-30deg);
+            // transform: rotate(-30deg);
             transform-origin: center center;
         }       
 
@@ -800,16 +800,16 @@ $card-bg-normal: (
         .item{
             display: flex;
             justify-content: space-between;
-            width: 80%;
+            width: 90%;
 
             .title{
                 color: #707070;
-                font-size: font-resize(14px);
-                width: 55%;
+                font-size: font-resize(13px);
+                width: 70%;
             }
             .value{
                 font-weight: 500;
-                font-size: font-resize(14px);
+                font-size: font-resize(13.5px);
             }
         }        
         
@@ -987,7 +987,7 @@ $card-bg-normal: (
     overflow-x: hidden;
     margin-bottom: 1.5rem;
     // background: linear-gradient(360deg, #C1C1C1 -2.99%, rgba(#fff, 1) 100%);
-    background: linear-gradient(360deg, white 0%, white 50%,#C1C1C1 50%, #C1C1C1 51%, white 100%);
+    background: linear-gradient(360deg, white 0%, white 60%,#C1C1C1 60%, #C1C1C1 61%, white 100%);
 
     margin-left: -$modalMemberLevel-body-padding-left;
     margin-right: -$modalMemberLevel-body-padding-right;
@@ -1022,7 +1022,7 @@ $card-bg-normal: (
         width: 100%;        
 
         .img-crop{
-            position: relative;
+            position: relative;            
             
             &:after{
                 content: "";
@@ -1055,9 +1055,11 @@ $card-bg-normal: (
         }
 
         .level{
-            font-size: font-resize(14px);
+            font-size: font-resize(13px);
             color: #8A8A8A;
             margin-top: 0.5rem; 
+            text-align: center;
+            font-weight: 400;
         }
 
      
@@ -1065,14 +1067,17 @@ $card-bg-normal: (
      
     //Thumb ACTIVE STATE===========
     .swiper-slide-thumb-active{
-        .img-crop{         
+        .img-crop{   
+            filter: drop-shadow(0 0 3px rgba(#3a3a3a, 1));      
             &:after{               
                 opacity: 0;
             }
         }
         .thumb-item{
             .level{
-                color: #666666;            
+                font-size: font-resize(14px);
+                color: #666666; 
+                font-weight: 500;           
             }
         }        
      }
@@ -1131,6 +1136,14 @@ $card-bg-normal: (
 .notice-wrapper{
     margin-top: 2rem;
     font-weight: 300;
+
+    .notice-list{
+        .item{
+            text-indent: -1rem;
+            margin-bottom: 1rem;
+            margin-left: 1rem;
+        }
+    }
 }
 
 

@@ -106,36 +106,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-    <title>マハラジャ - 一番人気なオンラインカジノアミューズメント</title>
-    <%--<title>Maharaja，The most popular online casino amusement.</title>--%>
-
-    <meta name='keywords' content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
-    <meta name='description' content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
+    <title>Lucky Fanta</title>
+    <%--<title>Maharaja，The most popular online casino amusement.</title>--%>   
     <%--<meta name='keywords' content="Casino、Slot、Amusement、Game" />
     <meta name='description' content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />--%>
-
-    <meta property="og:site_name" content="マハラジャ" />
     <%--<meta property="og:site_name" content="Maharaja" />--%>
-
-    <meta property="og:title" content="一番人気なオンラインカジノアミューズメント - マハラジャ" />
-    <meta property="og:Keyword" content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
-    <meta property="og:description" content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
     <%--<meta property="og:title" content="The most popular online casino amusement." />
     <meta property="og:Keyword" content="Casino、Slot、Amusement、Game" />
     <meta property="og:description" content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />--%>
 
-    <meta property="og:url" content="https://casino-maharaja.com/" />
-    <!--日文圖片-->
-    <meta property="og:image" content="https://casino-maharaja.com/images/share_pic.png" />
+    <%--<meta property="og:url" content="https://casino-maharaja.com/" />--%>
     <!--英文圖片-->
     <%--<meta property="og:image" content="https://casino-maharaja.com/images/share_pic_en.png" />--%>
-    <meta property="og:type" content="website" />
-    <!-- Share image -->
-    <!--日文圖片-->
-    <link rel="image_src" href="https://casino-maharaja.com/images/share_pic.png">
+    <%--<meta property="og:type" content="website" />--%>
+
+    <!-- Share image --> 
     <!--英文圖片-->
     <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
-    <link rel="shortcut icon" href="images/share_pic.png">
+    <%--<link rel="shortcut icon" href="images/share_pic.png">--%>
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css?3">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
@@ -146,78 +134,7 @@
     <link rel="alternate" hreflang="zh-tw" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
     <link rel="alternate" hreflang="zh" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
     <link rel="alternate" hreflang="zh-hk" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
-    <style>
-        .s-btn-more {
-            border-radius: 20px;
-            border: 1px solid #c0c0c0;
-            padding: 10px 50px;
-            width: fit-content;
-            font-size: 14px;
-            color: #666;
-            text-decoration: none;
-            cursor: pointer;
-            margin: 20px auto;
-        }
-
-            .s-btn-more:hover {
-                background-color: #ddd;
-                border: 1px solid #666;
-            }
-
-            .s-btn-more:active {
-                background-color: #ddd;
-                border: 1px solid #666;
-            }
-
-            .s-btn-more:visited {
-                background-color: #ddd;
-                border: 1px solid #666;
-                color: #777;
-            }
-
-        .bulletin_list .item {
-            margin-bottom: 0.8rem;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-        }
-                .bulletin_list .item:before {
-                    content: "";
-                    display: -webkit-inline-box;
-                    display: -ms-inline-flexbox;
-                    display: inline-flex;
-                    width: 3px;
-                    height: 1rem;
-                    border-radius: 0.5px;
-                    background-color: #008fd1;
-                }
-                .bulletin_list .item .date {
-                    font-weight: 600;
-                    margin-left: 0.5rem;
-                    margin-right: 1rem;
-                    width: 5rem;
-                    display: -webkit-inline-box;
-                    display: -ms-inline-flexbox;
-                    display: inline-flex;
-                }
-                .bulletin_list .item .info {
-                    -webkit-box-flex: 1;
-                    -ms-flex: 1;
-                    flex: 1;
-                    display: -webkit-box;
-                    text-overflow: ellipsis;
-                    -webkit-line-clamp: 1;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    cursor: pointer;
-                }
-        .bulletin_list .item .info:hover {
-            color: #008fd1;
-        }
-    </style>
+   
 </head>
 
 <script
