@@ -699,7 +699,7 @@
                                                     onclick="CoinBtn_Click()">
                                                     <span class="coinType gameCoin">
                                                         <%-- <span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                        <span class="coinType-title">Ocoin</span>
+                                                        <span class="coinType-title">PHP</span>
                                                         <span class="coinType-amount OcoinAmount">10,000</span>
                                                     </span>
                                                 </label>
@@ -709,7 +709,7 @@
                                                 <label class="btn btn-outline-primary" for="amount2" data-val="50000"
                                                     onclick="CoinBtn_Click()">
                                                     <span class="coinType gameCoin">
-                                                        <span class="coinType-name">Ocoin</span>
+                                                        <span class="coinType-name">PHP</span>
                                                         <span class="coinType-amount OcoinAmount">50,000</span>
                                                     </span>
                                                 </label>
@@ -720,7 +720,7 @@
                                                     onclick="CoinBtn_Click()">
                                                     <span class="coinType gameCoin">
                                                         <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                        <span class="coinType-name">Ocoin</span>
+                                                        <span class="coinType-name">PHP</span>
                                                         <span class="coinType-amount OcoinAmount">100,000</span>
                                                     </span>
                                                 </label>
@@ -733,7 +733,7 @@
                                         <div class="input-group">
                                             <input type="text" class="form-control custom-style" id="amount"
                                                 language_replace="placeholder" placeholder="請輸入金額" onkeyup="setAmount()" />
-                                            <div class="form-notice-aside unit" id="OrderCurrencyType">Ocoin</div>
+                                            <div class="form-notice-aside unit" id="OrderCurrencyType">PHP</div>
                                             <div class="invalid-feedback language_replace">提示</div>
                                         </div>
                                     </div>
@@ -808,7 +808,7 @@
                                             <h5 class="name language_replace">存入金額</h5>
                                         </div>
                                         <div class="data">
-                                            <span class="name PaymentCode">OCoin</span>
+                                            <span class="name PaymentCode">PHP</span>
                                             <span class="count Amount"></span>
                                         </div>
                                     </div>
@@ -817,7 +817,7 @@
                                             <h5 class="name language_replace">活動獎勵</h5>
                                         </div>
                                         <div class="data">
-                                            <span class="name">OCoin</span>
+                                            <span class="name">PHP</span>
                                             <span class="count" id="idBonusValue">0</span>
                                         </div>
                                     </div>
@@ -826,7 +826,7 @@
                                             <h5 class="name language_replace">可得總額</h5>
                                         </div>
                                         <div class="data">
-                                            <span class="name">OCoin</span>
+                                            <span class="name">PHP</span>
                                             <span class="count TotalAmount" id="idTotalReceiveValue"></span>
                                         </div>
                                     </div>

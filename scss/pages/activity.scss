@@ -151,19 +151,32 @@
 
 //活動中心
 .tab-activity{
+    
+    border-bottom: solid 1px #c5c5c5;
+    // padding: 0 20px;
+    width: 98%;
+    margin: 0 auto 15px;
     margin-bottom: 15px;
 
-    .tab-scroller .tab-item{
-        color: rgba(#000, 0.65);
-        font-size: font-resize(17px);
+    .tab-scroller {
+       
 
-        &.active{
-            color: #009FE8;
+        .tab-item{
+            color: rgba(#000, 0.65);
+            font-size: font-resize(17px);
+    
+            &.active{
+                // color: #009FE8;
+                color: #079eb2;
+            }
         }
     }
 
+   
+
     .tab-slide{
-        background-color: #009FE8;
+        // background-color: #009FE8;
+        background-color: #079eb2;
     }
 }
 
