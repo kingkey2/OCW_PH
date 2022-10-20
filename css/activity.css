@@ -94,6 +94,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .tab-activity {
+  border-bottom: solid 1px #c5c5c5;
+  width: 98%;
+  margin: 0 auto 15px;
   margin-bottom: 15px;
 }
 .tab-activity .tab-scroller .tab-item {
@@ -101,10 +104,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-size: 1.0625rem;
 }
 .tab-activity .tab-scroller .tab-item.active {
-  color: #009FE8;
+  color: #079eb2;
 }
 .tab-activity .tab-slide {
-  background-color: #009FE8;
+  background-color: #079eb2;
 }
 
 .prize-item {
