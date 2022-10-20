@@ -58,6 +58,12 @@
       "InfoMethodName": "FirstDepositBonus"
     },
     {
+      "Name": "DepositBounsToParent",
+      "Path": "Common/DepositBounsToParent.json",
+      "MethodName": "OpenIntroBonusToParent",
+      "InfoMethodName": "OpenIntroBonusToParent"
+    },
+    {
       "Name": "Act001",
       "Path": "2022_10/Act001.json",
       "MethodName": "OpenIntroBonus",
@@ -71,9 +77,19 @@
       "PageShowState": 0
     },
     {
+      "Name": "RegisterBounsToParent",
+      "State": 0,
+      "PageShowState": 1
+    },
+    {
       "Name": "FirstDepositBonus",
       "State": 0,
       "PageShowState": 0
+    },
+    {
+      "Name": "DepositBounsToParent",
+      "State": 0,
+      "PageShowState": 1
     },
     {
       "Name": "Act001",

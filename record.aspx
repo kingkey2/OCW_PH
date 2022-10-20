@@ -221,9 +221,9 @@
 
                                 if (GameBrand == "EWin") {
                                     c.setClassText(RecordDom, "gameName", null, "EWinゲーミング");
-                                    GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/EWinGaming.png";
+                                    GI_img.src = WebInfo.EWinUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/EWinGaming.png";
                                 } else {
-                                    GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/" + GameName + ".png";
+                                    GI_img.src = WebInfo.EWinUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/" + GameName + ".png";
                                 }
 
                                 panel.appendChild(RecordDom);
