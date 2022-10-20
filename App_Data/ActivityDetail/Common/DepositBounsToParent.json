@@ -1,0 +1,16 @@
+{
+  "Name": "DepositBounsToParent",
+  "State": 0,
+  "StartDate": "2022/06/01 00:00:00",
+  "EndDate": "2099/07/01 00:00:00",
+  "Self": {
+
+  },
+  "Parent": {
+    "BonusValue": 10,
+    "ThresholdValue": 30
+  },
+  "CollectAreaType": "2",
+  "Title": "推薦好友加入註冊，被推薦者入金達100以上，推薦者可獲得獎金10。",
+  "SubTitle": "推薦好友加入註冊，被推薦者入金達100以上，推薦者可獲得獎金10。"
+}

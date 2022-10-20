@@ -1273,13 +1273,13 @@
 
     function getBanner() {
         var GUID = Math.uuid();
-        var TagName = "CasinoBanner_P";
+        var TagName = "CasinoBanner"+ "_" + WebInfo.Lang;
 
         if (WebInfo.DeviceType == 1) {
-            TagName = "CasinoBanner_M";
+            TagName = TagName + "_M";
+        } else {
+            TagName = TagName + "_P";
         }
-
-        TagName = TagName+ "_" + WebInfo.Lang;
 
         p.CheckDocumentByTagName(GUID, TagName, function (success, o) {
             if (success) {

@@ -58,7 +58,33 @@
           <s:element minOccurs="1" maxOccurs="1" name="UserCommissionProfit" type="s:decimal" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetChildUserBySID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetChildUserBySIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetChildUserBySIDResult" type="tns:ChildUserResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ChildUserResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ChildUserList" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:element name="AgentAccountingResult" nillable="true" type="tns:AgentAccountingResult" />
+      <s:element name="ChildUserResult" nillable="true" type="tns:ChildUserResult" />
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetAccountingDetailBySummaryDateSoapIn">
@@ -66,6 +92,12 @@
   </wsdl:message>
   <wsdl:message name="GetAccountingDetailBySummaryDateSoapOut">
     <wsdl:part name="parameters" element="tns:GetAccountingDetailBySummaryDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserBySIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetChildUserBySID" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserBySIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetChildUserBySIDResponse" />
   </wsdl:message>
   <wsdl:message name="GetAccountingDetailBySummaryDateHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
@@ -77,6 +109,14 @@
   <wsdl:message name="GetAccountingDetailBySummaryDateHttpGetOut">
     <wsdl:part name="Body" element="tns:AgentAccountingResult" />
   </wsdl:message>
+  <wsdl:message name="GetChildUserBySIDHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserBySIDHttpGetOut">
+    <wsdl:part name="Body" element="tns:ChildUserResult" />
+  </wsdl:message>
   <wsdl:message name="GetAccountingDetailBySummaryDateHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -87,10 +127,22 @@
   <wsdl:message name="GetAccountingDetailBySummaryDateHttpPostOut">
     <wsdl:part name="Body" element="tns:AgentAccountingResult" />
   </wsdl:message>
+  <wsdl:message name="GetChildUserBySIDHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserBySIDHttpPostOut">
+    <wsdl:part name="Body" element="tns:ChildUserResult" />
+  </wsdl:message>
   <wsdl:portType name="FANTASoap">
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
       <wsdl:input message="tns:GetAccountingDetailBySummaryDateSoapIn" />
       <wsdl:output message="tns:GetAccountingDetailBySummaryDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserBySID">
+      <wsdl:input message="tns:GetChildUserBySIDSoapIn" />
+      <wsdl:output message="tns:GetChildUserBySIDSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="FANTAHttpGet">
@@ -98,17 +150,34 @@
       <wsdl:input message="tns:GetAccountingDetailBySummaryDateHttpGetIn" />
       <wsdl:output message="tns:GetAccountingDetailBySummaryDateHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetChildUserBySID">
+      <wsdl:input message="tns:GetChildUserBySIDHttpGetIn" />
+      <wsdl:output message="tns:GetChildUserBySIDHttpGetOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="FANTAHttpPost">
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
       <wsdl:input message="tns:GetAccountingDetailBySummaryDateHttpPostIn" />
       <wsdl:output message="tns:GetAccountingDetailBySummaryDateHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetChildUserBySID">
+      <wsdl:input message="tns:GetChildUserBySIDHttpPostIn" />
+      <wsdl:output message="tns:GetChildUserBySIDHttpPostOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="FANTASoap" type="tns:FANTASoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
       <soap:operation soapAction="http://tempuri.org/GetAccountingDetailBySummaryDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserBySID">
+      <soap:operation soapAction="http://tempuri.org/GetChildUserBySID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -128,6 +197,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetChildUserBySID">
+      <soap12:operation soapAction="http://tempuri.org/GetChildUserBySID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="FANTAHttpGet" type="tns:FANTAHttpGet">
     <http:binding verb="GET" />
@@ -140,11 +218,29 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetChildUserBySID">
+      <http:operation location="/GetChildUserBySID" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="FANTAHttpPost" type="tns:FANTAHttpPost">
     <http:binding verb="POST" />
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
       <http:operation location="/GetAccountingDetailBySummaryDate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserBySID">
+      <http:operation location="/GetChildUserBySID" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

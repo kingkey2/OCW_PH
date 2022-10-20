@@ -831,8 +831,6 @@ public static class RedisCache {
         }
     }
 
-    
-
     public static class AppLogin {
         private static string XMLPath = "AppLogin";
         private static int DBIndex = 1;
@@ -1840,6 +1838,35 @@ public static class RedisCache {
         PaymentMethod.UpdatePaymentMethodByCategory("Crypto");
     }
 
+    public static class UserAccountChild {
+        private static string XMLPath = "UserAccountChild";
+        private static int DBIndex = 0;
+
+        public static string GetUserAccountChildByLoginAccount(string LoginAccount) {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":LoginAccount:" + LoginAccount;
+            if (KeyExists(DBIndex, Key) == true) {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdateUserAccountChild(string JsonData, string LoginAccount) {
+            string Key;
+
+            Key = XMLPath + ":LoginAccount:" + LoginAccount;
+            for (int I = 0; I <= 3; I++) {
+                try {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, 86400);
+                    break;
+                } catch (Exception ex) {
+                }
+            }
+        }
+    }
  
     public static void DTWriteToRedis(int DBIndex, System.Data.DataTable DT, string Key, int ExpireTimeoutSeconds = 0) {
         string XMLContent;

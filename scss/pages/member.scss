@@ -1,5 +1,14 @@
 @import "../base/base";
 
+$modalMemberLevel-body-padding-left: 1.5rem;
+$modalMemberLevel-body-padding-right: 1.5rem;
+
+$modalMemberLevel-body-padding-left-lg: 2.5rem;
+$modalMemberLevel-body-padding-right-lg: 2.5rem;
+
+$modalMemberLevel-body-padding-left-xl: 4.5rem;
+$modalMemberLevel-body-padding-right-xl: 4.5rem;
+
 .article-member-center {
     // display: flex;
     // flex-flow: row wrap;
@@ -137,7 +146,7 @@ input{
         width: 100%;
         display: flex;
         flex-flow: row wrap;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2.5rem;
     }
 
     // 會員頭像
@@ -148,17 +157,24 @@ input{
         width: 100%;
         display: flex;
         justify-content: center;
-        padding: 0 10px;
+        // padding: 0 10px;
+        padding: 0 40px 0 10px;
 
 
         position: relative;
 
         .avater {
             display: inline-flex;
-            position: relative;
+            position: relative;           
 
             &-img {
                 width: 100%;
+                background: #F5A919;
+                height: 0;
+                padding-bottom: calc(100% - 10px);
+                // aspect-ratio: 1 / 1;
+                border-radius: 50%;
+                border: 5px solid #CC8211;
 
                 img {
                     width: 100%;
@@ -168,7 +184,8 @@ input{
             .btn {
                 position: absolute;
                 right: -20px;
-                bottom: 10px;
+                // bottom: 10px;
+                top: 70px;
             }
 
             .icon-mask {
@@ -306,6 +323,17 @@ input{
         margin-bottom: 0.5rem;
     }
 
+    .member-level{
+        display: flex;
+        align-items: flex-end;
+
+        .btn{
+            padding-top: 0px;
+            padding-bottom: 0px;
+            flex: auto;
+        }
+    }
+
 }
 
 .member-level{
@@ -357,7 +385,6 @@ input{
         
     }
 }
-
 
 
 .member-wallet {
@@ -667,40 +694,104 @@ $card-bg-normal: (
   positon : (49.97%, 97.42%)
 );
 
-//會員等級
-.card_slider{
+//Modal - Member LEVEL - 會員等級 Slider
+.card-slider{    
+    
+    .swiper-wrapper{
+        // padding-left: 2rem;
+        // padding-right: 2rem;
+    }
+    
+    &-wrapper{
+        position: relative;
+        // max-width: 85%;
+        // padding-left: 1.5rem;
+        // padding-right: 1.5rem;        
+        margin: 0 auto;
+
+        .swiper-button-next,
+        .swiper-button-prev{
+            top: 20%;
+            width: 15px;
+            height: 30px;
+
+            &:after{
+                // width: 50px;
+                // height: 50px;
+                width: 100%;
+                height: 100%;
+                
+                content: '';
+                -webkit-mask-position: center center;
+                -webkit-mask-repeat: no-repeat;
+                -webkit-mask-size: contain;
+                mask-position: center center;
+                mask-repeat: no-repeat;
+    
+                -webkit-mask-size: cover;
+                mask-size: cover;
+
+                background-color: #804F21;
+            }
+        }       
+       
+        .swiper-button-prev{
+            transform:scaleX(-1);
+            // left: 0; 
+            left: -$modalMemberLevel-body-padding-left + 0.2rem; 
+
+            &:after{
+                -webkit-mask-image: url(../images/icon/ico-arrow-L.svg);
+                mask-image: url(../images/icon/ico-arrow-L.svg);
+            }           
+        }
+        .swiper-button-next{
+            // right: 0;
+            right: -$modalMemberLevel-body-padding-right + 0.2rem; 
+            &:after{                
+                // background: url(../images/icon/ico-arrow-L.svg) center center no-repeat;
+                -webkit-mask-image: url(../images/icon/ico-arrow-L.svg);
+                mask-image: url(../images/icon/ico-arrow-L.svg);
+            }
+        }
+    }
+
     *{
         font-size: initial;
     }
 
     .swiper-slide{
-        padding: 0 0.5rem;
+        padding: 0 0.5rem;        
     }
 
-
-    .card-item{
-        padding: 15px;
-        border-radius: 30px; 
+    .card-item{     
         position: relative;
+        padding: 15px;
+        border-radius: 20px;
+        margin-bottom: 1.5rem;       
 
         &::before{
             content: '';
             display: inline-flex;
-            width: 30%;
+            width: 18%;
             height: 60px;            
             background-position: center center;
             background-repeat: no-repeat;
             background-size: contain;
             z-index: 0;
             position: absolute;
-            right: 0;
-            top: 15px;
+            right: 10px;
+            top: 8px;
+            // top: 10px;
+            transform: rotate(-30deg);
+            transform-origin: center center;
         }       
 
         .member-level{
             color: #A85400;
             font-size: font-resize(24px);
             margin-bottom: 1.5rem;
+            font-weight: 600;
         }
 
         .member-bouns{
@@ -710,17 +801,71 @@ $card-bg-normal: (
         .item{
             display: flex;
             justify-content: space-between;
+            width: 80%;
 
             .title{
-                color: #494949;
+                color: #707070;
                 font-size: font-resize(14px);
+                width: 55%;
             }
             .value{
                 font-weight: 500;
+                font-size: font-resize(14px);
             }
+        }        
+        
+    }
+
+    .memberlevel{
+
+        &-rules{            
+            *{
+                font-size: font-resize(14px);
+            }
+            .thead{
+                background-color: #494949;
+                color: #E69D00;
+                text-align: center;
+                padding: 5px 0;
+                font-weight: 500;
+                font-size: font-resize(15px);
+            }
+            .tbody{
+                padding: 10px;
+            }
+            
+            .tr{
+                display: flex;
+                justify-content: space-between;
+                padding: 4px 0;
+            }
+            .value{
+                color: #C6341D;
+                font-weight: 600;
+            }
+           
         }
+
+        &-wrapper{
+            background: #D9D9D9;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        @include media-breakpoint-up(lg){
+            &-rules{
+                display: none;
+            }           
+        }      
         
-        
+    }
+
+    .swiper-slide{
+        &.swiper-slide-active{
+            .card-item{
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            }        
+        }
     }
     // 青銅 bronze
     // 白銀 silver
@@ -734,26 +879,25 @@ $card-bg-normal: (
     // 傳說 legend
 
     .m-normal{
-        .card-item{
+        .card-item{            
             
-            background: linear-gradient(114.06deg, #A0A0A0 49.97%, #666666 97.42%);
+            background: linear-gradient(114.06deg, #D3D3D3 2.04%, #939393 97.42%);
            
             &::before{
                 background-image: url(../images/member/card-label-normal.png);
             }
         }       
     }
-
     .m-bronze{
         .card-item{
             background: linear-gradient(114.06deg, #4BEFD1 49.97%, #E39600 97.42%);
+
 
             &::before{
                 background-image: url(../images/member/card-label-bronze.png);
             }
         }       
-    } 
-    
+    }     
     .m-silver{
         .card-item{
             background: linear-gradient(114.06deg, #D7D7D7 49.97%, #969696 97.42%);
@@ -762,7 +906,6 @@ $card-bg-normal: (
             }
         }       
     }
-
     .m-gold{
         .card-item{
             background: linear-gradient(114.06deg, #F3CD1F 49.97%, #E69D00 97.42%);
@@ -772,7 +915,6 @@ $card-bg-normal: (
             }
         }       
     }
-
     .m-platinum{
         .card-item{
             background: linear-gradient(114.06deg, #B8D8E7 2.04%, #B7B7B7 97.42%);
@@ -824,7 +966,7 @@ $card-bg-normal: (
 
 
             &::before{
-                background-image: url(../images/member/card-label-legend.png);
+                background-image: url(../images/member/card-label-eternal.png);
             }
         }       
     }
@@ -838,58 +980,131 @@ $card-bg-normal: (
         }       
     }   
 
-    .memberlevel{
-
-        &-rules{            
-            *{
-                font-size: font-resize(14px);
-            }
-            .thead{
-                background-color: #494949;
-                color: #E69D00;
-                text-align: center;
-            }
-            .tbody{
-                padding: 10px;
-            }
-            
-            .tr{
-                display: flex;
-                justify-content: space-between;
-            }
-            .value{
-                color: #C6341D;
-                font-weight: 500;
-            }
-           
-        }
-        &-wrapper{
-            background: #D9D9D9;
-            border-radius: 15px;
-        }
-       
-        
-    }
+   
 }
+
+// Modal - Member LEVEL - 會員等級 Slider 縮圖
 .card-thumb-wrapper{
+    overflow-x: hidden;
+    margin-bottom: 1.5rem;
+    // background: linear-gradient(360deg, #C1C1C1 -2.99%, rgba(#fff, 1) 100%);
+    background: linear-gradient(360deg, white 0%, white 50%,#C1C1C1 50%, #C1C1C1 51%, white 100%);
+
+    margin-left: -$modalMemberLevel-body-padding-left;
+    margin-right: -$modalMemberLevel-body-padding-right;
+
+   
+    padding: 10px 10px;
+
+    position: sticky;
+    top: -1rem;
+    z-index: 99;
 
     .swiper-wrapper{
-        display: flex; 
+        display: flex;
+        // justify-content: center; 
+        margin: 0 auto;
+        width: 100%;
+        // max-width: 720px;
     }
 
     .swiper-slide{
         width: auto;
+        max-width: 50px;
         padding: 0 5px;
     }
+
+   
 
     .thumb-item{
         display: flex;  
         flex-flow: column wrap;
         // justify-content: center;
         align-items: center;
+        cursor: pointer;
+        width: 100%;        
+
+        .img-crop{
+            position: relative;
+            
+            &:after{
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;             
+                display: inline-flex;
+                width: 100%;
+                height: 0;
+                padding-bottom: 102%;
+                background-color: #dbdbdb;
+                mix-blend-mode: color;
+                
+                -webkit-mask-position: center bottom;
+                -webkit-mask-repeat: no-repeat;
+                -webkit-mask-size: contain;
+                mask-position: center bottom;
+                mask-repeat: no-repeat;
+    
+                -webkit-mask-size: cover;
+                mask-size: cover;
+    
+                -webkit-mask-image: url(../images/member/card-thumb-normal.svg);
+                mask-image: url(../images/member/card-thumb-normal.svg);
+            }
+
+        }
+
+        .level{
+            font-size: font-resize(14px);
+            color: #8A8A8A;
+            margin-top: 0.5rem; 
+        }
+
+     
+    }
+     
+    //Thumb ACTIVE STATE===========
+    .swiper-slide-thumb-active{
+        .img-crop{         
+            &:after{               
+                opacity: 0;
+            }
+        }
+        .thumb-item{
+            .level{
+                color: #666666;            
+            }
+        }        
+     }
+
+    @media (hover: hover) {
+
+            .thumb-item:hover{
+                .img-crop{         
+                    &:after{               
+                        opacity: 0;
+                    }
+                }
+                .level{
+                    color: #666666;            
+                }
+            }
     }
 }
 
+.MT-table-wrapper{
+    
+    overflow-x: auto;
+    display: none;
+
+    @include media-breakpoint-up(lg){
+        display: block;
+
+    }
+}
+
+//
 .memberlevel-table{
     
     .Thead .thead__th{
@@ -913,6 +1128,12 @@ $card-bg-normal: (
     }
 
 }
+
+.notice-wrapper{
+    margin-top: 2rem;
+    font-weight: 300;
+}
+
 
 
 //會員簽到進度顯示 - 舊的 ================
@@ -2264,12 +2485,6 @@ $card-bg-normal: (
 
         }
 
-
-
-
-
-
-
     }
 
     .verify_resultTitle {
@@ -2300,6 +2515,15 @@ $card-bg-normal: (
 
 
 }
+
+// Modal - Member LEVEL
+.modalMemberLevel{
+    .modal-body{
+         padding-left: $modalMemberLevel-body-padding-left;
+         padding-right: $modalMemberLevel-body-padding-right;  
+    }
+}
+
 
 
 @keyframes dothabottomcheck {
@@ -2530,7 +2754,7 @@ $card-bg-normal: (
     .member-profile {
          // 會員頭像
         &-avater-wrapper {
-            flex: 0 0 125px;
+            flex: 0 0 185px;
         }
     }
 
@@ -2662,7 +2886,6 @@ $card-bg-normal: (
 
 }
 
-
 // @include media-breakpoint-up(md) {
 @include media-breakpoint-up(desc-md) {
 
@@ -2733,6 +2956,7 @@ $card-bg-normal: (
 }
 
 @include media-breakpoint-up(desc-lg) {
+    
     //熱門活動
     .activity-promo{
         &-list{
@@ -2742,10 +2966,97 @@ $card-bg-normal: (
         }
     }
 
+    //Modal - Member LEVEL - 會員等級 Slider
+    .card-slider{
+        padding: 50px 0;
+
+        .swiper-slide{
+            padding: 0;
+
+            opacity: 0.5;
+            transition: transform 0.35s ease-in-out;
+
+            &.swiper-slide-active{
+                opacity: 1;
+                transform: scale(1.2, 1.2);
+                z-index: 2;
+            }
+        }  
+        
+        &-wrapper{
+            .swiper-button-next,
+            .swiper-button-prev{
+                top: 45%;
+                width: 15px;
+                height: 30px;                
+            }
+        }
+    }
+
+    // Modal - Member LEVEL
+    .modalMemberLevel{
+        .modal-body{
+            padding-left: $modalMemberLevel-body-padding-left-lg;
+            padding-right: $modalMemberLevel-body-padding-right-lg;  
+        }
+    }
+
+    // Modal - Member LEVEL - 會員等級 Slider 縮圖
+    .card-thumb-wrapper{
+        margin-left: -$modalMemberLevel-body-padding-left-lg;
+        margin-right: -$modalMemberLevel-body-padding-right-lg;
+        padding-left: $modalMemberLevel-body-padding-left-lg;
+        padding-right: $modalMemberLevel-body-padding-right-lg;
+
+        .swiper-wrapper{
+            justify-content: center;
+            
+        }
+
+        .swiper-slide{
+            // width: auto;
+            width: (100% / 11);
+            max-width:none;           
+        }
+    }
+
 }
 
 @include media-breakpoint-up(desc-xl) {
 
+    .card-slider{
+        &-wrapper{
+            .swiper-button-next,
+            .swiper-button-prev{
+                top: 45%;
+                width: 35px;
+                height: 60px;                
+            }
+
+            .swiper-button-prev{               
+                left: -$modalMemberLevel-body-padding-left-xl + 0.8rem; 
+            }
+            .swiper-button-next{               
+                right: -$modalMemberLevel-body-padding-right-xl + 0.8rem; 
+            }
+        }
+    }
+
+    // Modal - Member LEVEL
+    .modalMemberLevel{
+        .modal-body{
+            padding-left: $modalMemberLevel-body-padding-left-xl;
+            padding-right: $modalMemberLevel-body-padding-right-xl;  
+        }
+    }
+
+    // Modal - Member LEVEL - 會員等級 Slider 縮圖
+    .card-thumb-wrapper{
+        margin-left: -$modalMemberLevel-body-padding-left-xl;
+        margin-right: -$modalMemberLevel-body-padding-right-xl;
+        padding-left: $modalMemberLevel-body-padding-left-xl;
+        padding-right: $modalMemberLevel-body-padding-right-xl;       
+    }
 
     .data-item {
 
@@ -2788,22 +3099,22 @@ $card-bg-normal: (
         display: flex;
         flex-flow: row wrap;
     }
-    
 
-    .section-member-profile,
-    // ,.section-member-activity
+     // ,.section-member-activity
     // ,.section-member-wallet-transaction
-    .section-member-setting
-     {
+    //  {
+    //     width: 50%;
+    //  }
+
+    .section-member-profile{
+        width: 50%;       
+    }   
+    .section-member-setting{
         width: 50%;
     }
 
     .section-member-setting{
 
-    }
-
-    .section-member-profile {
-        padding-right: 1rem;
     }
 
     .section-member-activity{
@@ -2888,13 +3199,15 @@ $card-bg-normal: (
     .section-member-profile {
         display: flex;
         flex-flow: row wrap;
+
+        padding-right: 36px;
     }
 
     .member-profile {
 
         &-avater-wrapper {
-            flex: 0 0 150px;
-            padding-right: 2rem;
+            flex: 0 0 175px;
+            padding-right: 3rem;
 
         }
 

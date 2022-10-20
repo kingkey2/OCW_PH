@@ -1,0 +1,13 @@
+{
+  "Name": "FirstDepositBonus",
+  "State": 0,
+  "StartDate": "2022/02/20 00:00:00",
+  "EndDate": "2062/05/31 00:00:00",
+  "ThresholdRate": 13,
+  "BonusRate": 0.5,
+  "DepositMinValue": 500,
+  "ReceiveValueMaxLimit": 10000,
+  "Title": "首次入金贈送50%",
+  "SubTitle": "首次入金贈送50%",
+  "CollectAreaType": 2
+}

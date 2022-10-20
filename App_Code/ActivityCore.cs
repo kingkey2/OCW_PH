@@ -170,6 +170,31 @@ public static class ActivityCore {
         return R;
     }
 
+    public static ActResult<List<DepositActivity>> GetActivityAllResult() {
+        ActResult<List<DepositActivity>> R = new ActResult<List<DepositActivity>>() {
+            Data = new List<DepositActivity>()
+        };
+        JObject InProgressActivity;
+
+        InProgressActivity = GetInProgressActivity();
+
+        foreach (var item in InProgressActivity["All"]) {
+            ActResult<ActivityCore.DepositActivity> DataReslut = new ActResult<DepositActivity>();
+            DataReslut.Data = new DepositActivity();
+
+            DataReslut.Data.ActivityName = item["Name"].ToString();
+            DataReslut.Data.State = int.Parse(item["State"].ToString());
+            DataReslut.Data.PageShowState = int.Parse(item["PageShowState"].ToString());
+            
+            R.Data.Add(DataReslut.Data);
+        }
+
+        R.Result = enumActResult.OK;
+        R.Message = "";
+
+        return R;
+    }
+
     //上線獎勵(下線儲值完成，強制參加)
     //初期先LoginAccount(可能會有該LoginAccount貢獻等等)，高機率上下線資訊都需要，再以LoginAccount去撈取
     public static ActResult<List<IntroActivity>> GetAllParentBonusAfterDepositResult(string LoginAccount) {
@@ -217,6 +242,36 @@ public static class ActivityCore {
             ActiviyName = item["Name"].ToString();
 
             var DR = (ActResult<Activity>)(typeof(ActivityExpand.Register).GetMethod(MethodName).Invoke(null, new object[] { DetailPath, LoginAccount }));
+
+            if (DR.Result == enumActResult.OK) {
+
+                R.Data.Add(DR.Data);
+            }
+        }
+
+
+        R.Result = enumActResult.OK;
+        R.Message = "";
+
+        return R;
+    }
+
+    public static ActResult<List<Activity>> GetRegisterToParentResult() {
+        ActResult<List<Activity>> R = new ActResult<List<Activity>>() { Result = enumActResult.ERR, Data = new List<Activity>() };
+        JObject InProgressActivity;
+
+        string DetailPath = null;
+        string MethodName = null;
+        string ActiviyName = null;
+
+        InProgressActivity = GetInProgressActivity();
+
+        foreach (var item in InProgressActivity["RegisterBounsToParent"]) {
+            DetailPath = InProgressActivity["BasicPath"] + item["Path"].ToString();
+            MethodName = item["MethodName"].ToString();
+            ActiviyName = item["Name"].ToString();
+
+            var DR = (ActResult<Activity>)(typeof(ActivityExpand.Register).GetMethod(MethodName).Invoke(null, new object[] { DetailPath }));
 
             if (DR.Result == enumActResult.OK) {
 
@@ -291,28 +346,35 @@ public static class ActivityCore {
 
     public class Activity {
         public string ActivityName { get; set; }
+        public int State { get; set; }
+        public int PageShowState { get; set; }
         public decimal BonusRate { get; set; }
         public decimal BonusValue { get; set; }
         public decimal ThresholdRate { get; set; }
         public decimal ThresholdValue { get; set; }
+        public decimal ParentBonusRate { get; set; }
+        public decimal ParentBonusValue { get; set; }
+        public decimal ParentThresholdRate { get; set; }
+        public decimal ParentThresholdValue { get; set; }
         public string Title { get; set; }
         public string SubTitle { get; set; }
+        public string ParentTitle { get; set; }
+        public string ParentSubTitle { get; set; }
         public string JoinActivityCycle { get; set; }
         public int JoinCount { get; set; }
         public string CollectType { get; set; }
+        public string CollectAreaType { get; set; }
     }
 
 
     public class DepositActivity : Activity {
         public string PaymentCode { get; set; }
         public decimal Amount { get; set; }
-        public string CollectAreaType { get; set; }
     }
 
     public class IntroActivity : Activity {
         public string ParentLoginAccount { get; set; }
         public string LoginAccount { get; set; }
-        public string CollectAreaType { get; set; }
     }
     #endregion
 

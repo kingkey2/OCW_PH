@@ -1,0 +1,284 @@
+{
+  "Name": "Act001",
+  "State": 0,
+  "StartDate": "2022/10/01 11:00:00",
+  "EndDate": "2099/11/01 11:00:00",
+  "IntroPath": "",
+  "Title": "每次入金贈送10%",
+  "SubTitle": "每次入金贈送10%",
+  "Rate1Title": "每次入金贈送10%",
+  "Rate1SubTitle": "",
+  "Rate2Title": "每次入金贈送10%",
+  "Rate2SubTitle": "",
+  "CollectAreaType": "2",
+  "Rate1": [
+     {
+      "PaymentCode": "HLN",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "XRP",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "ETH",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "Paypal",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "USDT",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "USDC",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "BTC",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "USDC_TRC",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "USDT_TRC",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "DiDiPay",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "YuHong",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    }
+  ],
+  "Rate2": [
+    {
+      "PaymentCode": "HLN",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "XRP",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "ETH",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "Paypal",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "USDT",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "USDC",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "BTC",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "USDC_TRC",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "USDT_TRC",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "DiDiPay",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "YuHong",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    }
+  ],
+  "Rate3": [
+      {
+      "PaymentCode": "HLN",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "XRP",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "ETH",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "Paypal",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "USDT",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "USDC",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "BTC",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "USDC_TRC",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "USDT_TRC",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "DiDiPay",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "YuHong",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    }
+  ]
+}
