@@ -1839,7 +1839,7 @@
                                                             </div>
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
-                                                                <div class="td value">○</div>
+                                                                <div class="td value">〇</div>
                                                             </div>
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
@@ -1921,7 +1921,7 @@
                                                             </div>
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
-                                                                <div class="td value">○</div>
+                                                                <div class="td value">〇</div>
                                                             </div>
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
@@ -2003,7 +2003,7 @@
                                                             </div>
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
-                                                                <div class="td value">○</div>
+                                                                <div class="td value">〇</div>
                                                             </div>
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
@@ -2085,7 +2085,7 @@
                                                             </div>
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
-                                                                <div class="td value">○</div>
+                                                                <div class="td value">〇</div>
                                                             </div>
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
@@ -2167,7 +2167,7 @@
                                                             </div>
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
-                                                                <div class="td value">○</div>
+                                                                <div class="td value">〇</div>
                                                             </div>
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
@@ -2249,7 +2249,7 @@
                                                             </div>
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">特別服務通道</h4></div>
-                                                                <div class="td value">○</div>
+                                                                <div class="td value">〇</div>
                                                             </div>
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">升級紅利</h4></div>
@@ -2354,12 +2354,12 @@
                                             <td class="tbody__td">✕</td>
                                             <td class="tbody__td">✕</td>
                                             <td class="tbody__td">✕</td>
-                                            <td class="tbody__td">○</td>
-                                            <td class="tbody__td">○</td>
-                                            <td class="tbody__td">○</td>
-                                            <td class="tbody__td">○</td>
-                                            <td class="tbody__td">○</td>
-                                            <td class="tbody__td">○</td>
+                                            <td class="tbody__td">〇</td>
+                                            <td class="tbody__td">〇</td>
+                                            <td class="tbody__td">〇</td>
+                                            <td class="tbody__td">〇</td>
+                                            <td class="tbody__td">〇</td>
+                                            <td class="tbody__td">〇</td>
                                         </tr>
                                         <tr class="tbody__tr">
                                             <td class="tbody__td language_replace">升級紅利</td>
