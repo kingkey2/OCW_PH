@@ -2431,7 +2431,7 @@
                             </div>  
 
                             <div class="notice-wrapper">
-                                <div class="sec-title-container mb-0">
+                                <div class="sec-title-container">
                                     <div class="sec-title-wrapper">
                                         <h6 class="sec-title title-deco"><span class="language_replace" langkey="曾經遊玩">VIP規則</span></h6>
                                     </div>
