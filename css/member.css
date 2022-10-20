@@ -1351,6 +1351,9 @@ input.month:read-only, input.day:read-only {
   width: 16px;
   height: 16px;
 }
+.btn-Q-mark:hover {
+  background-color: #747274;
+}
 
 .verify-result {
   display: -webkit-box;

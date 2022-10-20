@@ -2151,6 +2151,10 @@ $card-bg-normal: (
 
     }
 
+    &:hover{
+        background-color: darken(#8D8C8D, 10%);
+    }
+
 }
 
 .verify-result{
