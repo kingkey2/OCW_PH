@@ -43,6 +43,7 @@
     var BackCardInfo = null;
     var v = "<%:Version%>";
     var swiper;
+    var initSwiperEnd = false;
 
     function copyText(tag) {
         var copyText = document.getElementById(tag);
@@ -389,7 +390,7 @@
             //document.getElementById('idWalletPasswordUnSet').style.display = "block";
         }
 
-        initSwiper();
+        //initSwiper();
     }
 
     function copyActivityUrl() {
@@ -521,6 +522,14 @@
         $("#btn_PupLangClose1").click();
     }
 
+    $(document).on('shown.bs.modal', '#ModalMemberLevel', function () {
+        if (!initSwiperEnd) {
+            initSwiper();
+            initSwiperEnd = true;
+        }
+        
+    })
+
     window.onload = init;
 </script>
 <body class="innerBody">
@@ -531,7 +540,7 @@
                     <!-- 個人資料 -->
                     <section class="section-member-profile">
                         <!-- 會員頭像 + 會員等級 -->
-                        <div class="member-profile-wrapper" style="display:none">
+                        <div class="member-profile-wrapper" style="display:">
                             <div class="member-profile-avater-wrapper">
                                 <span class="avater">
                                     <span class="avater-img">
@@ -688,7 +697,7 @@
                                             </label>
                                         </div>
                                         <div class="data-item-content">
-                                            <div class="verify-item mt-2">
+                                            <div class="verify-item">
                                                 <!-- 尚未認證 -->
                                                 <span class="verify-result fail" id="IsFullRegistration0" style="display:none">
                                                     <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
@@ -1257,7 +1266,7 @@
     </div>
 
     <!-- Modal - Member LEVEL -->
-    <div class="modal fade footer-center show modalMemberLevel" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal fade footer-center show modalMemberLevel" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: ;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">

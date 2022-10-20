@@ -439,7 +439,7 @@
                             <div class="card-item-link">
                                 <div class="card-item-inner">
                                     <div class="title">
-                                        <span class="language_replace">Maharaja</span>
+                                        <span class="language_replace">YuHongPay</span>
                                         <!-- <span>Electronic Wallet</span>  -->
                                     </div>                                   
                                     <div class="logo vertical-center text-center">

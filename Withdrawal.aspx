@@ -229,7 +229,22 @@
                         <a class="card-item-link ">
                             <div class="card-item-inner">
                                 <div class="title">
-                                    <span class="language_replace">Maharaja</span>
+                                    <span class="language_replace"></span>
+                                    <!-- <span>Electronic Wallet</span> -->
+                                </div>
+                                <div class="logo vertical-center text-center mt-3">
+                                    <!-- <span class="text language_replace">銀行振込</span> -->
+                                    <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
+                                </div>
+                            </div>
+                        </a>
+                           <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
+                    </div>
+                       <div class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalGCASH','WithdrawalGCASH.aspx')">
+                        <a class="card-item-link ">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span class="language_replace">GCASH</span>
                                     <!-- <span>Electronic Wallet</span>  -->
                                 </div>
                                 <div class="logo vertical-center text-center">

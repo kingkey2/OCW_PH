@@ -20,7 +20,7 @@ public class Payment {
     public static class EPay
     {
         public static string SettingFile = "EPaySetting.json";
-        public static APIResult CreateEPayWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName,string BankBranchCode)
+        public static APIResult CreateEPayWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName,string BankBranchCode,string PhoneNumber)
         {
             APIResult R = new APIResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject sendData = new JObject();
@@ -71,13 +71,22 @@ public class Payment {
 
             Sign = GetEPayWithdrawSign(OrderID, OrderAmount, OrderDateTime, CurrencyType, CompanyCode, CompanyKey);
 
+            if (BankName.ToUpper() == "GCASH")
+            {
+                sendData.Add("BankCard", PhoneNumber);
+                sendData.Add("BankCardName", "BankCardName");
+                sendData.Add("BankComponentName", "BankBranchCode");
+            }
+            else {
+                sendData.Add("BankCardName", BankCardName);
+                sendData.Add("BankComponentName", "BankBranchCode");
+                sendData.Add("BankCard", BankCard);
+            }
             sendData.Add("ManageCode", CompanyCode);
             sendData.Add("Currency", CurrencyType);
             sendData.Add("OrderAmount", OrderAmount);
-            sendData.Add("BankCard", BankCard);
-            sendData.Add("BankCardName", BankCardName);
             sendData.Add("BankName", BankName);
-            sendData.Add("BankComponentName", BankBranchCode);
+
             sendData.Add("OwnProvince", "OwnProvince");
             sendData.Add("OwnCity", "OwnCity");
             sendData.Add("OrderID", OrderID);
