@@ -255,6 +255,7 @@
         EWinUrl: "<%=EWinWeb.EWinUrl %>",
         EWinGameUrl: "<%=EWinWeb.EWinGameUrl %>",
         MainCurrencyType: "<%=EWinWeb.MainCurrencyType %>",
+        BonusCurrencyType: "<%=EWinWeb.BonusCurrencyType %>",
         RegisterCurrencyType: "<%=EWinWeb.RegisterCurrencyType %>",
         SID: "<%=SID%>",
         CT: "<%=CT%>",
@@ -682,6 +683,23 @@
 
     function API_OpenGame(GameBrand, GameName, LangName) {
         openGame(GameBrand, GameName, LangName);
+    }
+
+    function API_GetUserTotalSummary(cb) {
+        lobbyClient.GetTotalSummaryBySID(EWinWebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (cb != null) {
+                    cb(o.Datas);
+                }
+            } else {
+                if (o == "Timeout") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                }
+            }
+        });
+
     }
     //#endregion
 
@@ -1848,8 +1866,16 @@
         //var idUserNameTitle = document.getElementById("idUserNameTitle");
         var idWalletDiv = idMenuLogin.querySelector(".amount")
         if (EWinWebInfo.UserLogined) {
-            var wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.MainCurrencyType);
+            //若bonus錢包金額大於0則顯示bonus錢包金額
+            var wallet;
+            wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.BonusCurrencyType.toLocaleUpperCase() );
 
+            if (wallet.PointValue > 0) {
+
+            } else {
+                wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.MainCurrencyType.toLocaleUpperCase() );
+            }
+            
             //Check Balance Change
             if (selectedWallet != null) {
                 if (wallet.PointValue != selectedWallet.PointValue) {

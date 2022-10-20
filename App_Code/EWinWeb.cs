@@ -21,6 +21,7 @@ public static class EWinWeb {
     public static string EWinUrl = System.Configuration.ConfigurationManager.AppSettings["EWinUrl"];
     public static string EWinAgentUrl = System.Configuration.ConfigurationManager.AppSettings["EWinAgentUrl"];
     public static string MainCurrencyType = System.Configuration.ConfigurationManager.AppSettings["MainCurrencyType"];
+    public static string BonusCurrencyType = System.Configuration.ConfigurationManager.AppSettings["BonusCurrencyType"];
     public static string ConvertCurrencyType = System.Configuration.ConfigurationManager.AppSettings["ConvertCurrencyType"];
     public static string RegisterCurrencyType = System.Configuration.ConfigurationManager.AppSettings["RegisterCurrencyType"];
     public static string EWinGameUrl = System.Configuration.ConfigurationManager.AppSettings["EWinGameUrl"];

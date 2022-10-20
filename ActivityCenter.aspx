@@ -93,99 +93,6 @@
         }
     }
 
-    function getActivity() {
-        var GUID = Math.uuid();
-
-        //var TagName = "Activity" + "_" + WebInfo.Lang;
-
-        //var TagName = "Activity_P";
-
-        //if (WebInfo.DeviceType == 1) {
-        //    TagName = "Activity_M";
-        //}
-
-        TagName = "Activity_" + WebInfo.Lang;
-
-        LobbyClient.CheckDocumentByTagName(GUID, TagName, function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    var ParentMain = document.getElementById("divProcessing");
-                    ParentMain.innerHTML = "";
-
-                    if (o.DocumentList.length > 0) {
-                        var DocNumber;
-                        var record;
-
-                        for (var i = 0; i < o.DocumentList.length; i++) {
-                            record = o.DocumentList[i];
-                            var RecordDom2;
-                            var InfoTagName;
-                            RecordDom2 = c.getTemplate("tmpActivity");
-
-                            DocNumber = record.DocNumber;
-                            
-                            $.ajax({
-                                url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
-                                success: (function (res) {
-                                    var k = this;
-                                    $(k).find('.activityPicture').html(res);
-                                    $(k).find('.activityPicture').children().find('img').unwrap();
-
-                                }).bind(RecordDom2)
-                            });
-                            
-                            ParentMain.appendChild(RecordDom2);
-
-                            InfoTagName = DocNumber + "_Info_P";
-
-                            if (WebInfo.DeviceType == 1) {
-                                 InfoTagName = DocNumber + "_Info_M";
-                            }
-
-                            LobbyClient.CheckDocumentByTagName(GUID, InfoTagName, (function (success, o1) {
-                                var kk = this;
-                                if (success) {
-                                    if (o1.Result == 0) {
-                                        if (o1.DocumentList.length > 0) {
-                                            for (var i = 0; i < o1.DocumentList.length; i++) {
-                                                var k = o1.DocumentList[i];
-
-                                                kk.onclick = new Function("showPopup('" + k.DocNumber + "')");
-                                            }
-                                        }
-                                    }
-                                }
-                            }).bind(RecordDom2));
-
-                            LobbyClient.CheckDocumentByTagName(GUID, DocNumber + "_Title", (function (success, o2) {
-                                var kkk = this;
-                                if (success) {
-                                    if (o2.Result == 0) {
-                                        if (o2.DocumentList.length > 0) {
-                                            for (var i = 0; i < o2.DocumentList.length; i++) {
-                                                var k1 = o2.DocumentList[i];
-
-                                                $.ajax({
-                                                    url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + k1.DocNumber,
-                                                    success: (function (res) {
-                                                        var k = this;
-                                                        $(k).find('.activityTitle').html(res);
-
-                                                    }).bind(kkk)
-                                                });
-                                            }
-                                        }
-                                    }
-                                }
-                            }).bind(RecordDom2));
-
-                        }
-                    }
-                }
-            }
-        });
-    }
-
     function getAllActivityFromJson() {
         var GUID = Math.uuid();
         window.parent.API_LoadingStart();
@@ -229,9 +136,9 @@
 
         RecordDom2 = c.getTemplate("tmpActivity");
 
-        TagName_Pic = activityName + "_Pic_" + WebInfo.Lang;
-        TagName_Title = activityName + "_Title_" + WebInfo.Lang;
-        TagName_Info = activityName + "_Info_" + WebInfo.Lang;
+        TagName_Pic = activityName + "_Pic";
+        TagName_Title = activityName + "_Title";
+        TagName_Info = activityName + "_Info";
         if (WebInfo.DeviceType == 1) {
             TagName_Info = TagName_Info + "_M";
         } else {

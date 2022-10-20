@@ -1273,7 +1273,7 @@
 
     function getBanner() {
         var GUID = Math.uuid();
-        var TagName = "CasinoBanner"+ "_" + WebInfo.Lang;
+        var TagName = "CasinoBanner";
 
         if (WebInfo.DeviceType == 1) {
             TagName = TagName + "_M";

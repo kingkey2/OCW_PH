@@ -553,22 +553,22 @@ public class MgmtAPI : System.Web.Services.WebService {
 
     }
 
-    //[WebMethod]
-    //public void AddUserAccountPromotionCollect(string password, string LoginAccount, string ThresholdValue, string BonusValue, string ActivityName, int CollectAreaType) {
+    [WebMethod]
+    public void AddUserAccountPromotionCollect(string password, string LoginAccount, string ThresholdValue, string BonusValue, string ActivityName, int CollectAreaType) {
 
-    //    if (CheckPassword(password)) {
-    //        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-    //        List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
-    //        string description = ActivityName;
-    //        string GUID = System.Guid.NewGuid().ToString();
+        //if (CheckPassword(password)) {
+            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+            List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+            string description = ActivityName;
+            string GUID = System.Guid.NewGuid().ToString();
 
-    //        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
-    //        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
+            PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
+            PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
 
-    //        lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, CollectAreaType, 90, description, PropertySets.ToArray());
-    //        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, 1, decimal.Parse(ThresholdValue), decimal.Parse(BonusValue));
-    //    }
-    //}
+            lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, CollectAreaType, 90, description, PropertySets.ToArray());
+            //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, 1, decimal.Parse(ThresholdValue), decimal.Parse(BonusValue));
+        //}
+    }
 
     public string GetToken() {
         string Token;

@@ -82,7 +82,7 @@
         $("#RealName").val(WebInfo.UserInfo.RealName);
         $("#Email").val(WebInfo.UserInfo.EMail == undefined ? "" : WebInfo.UserInfo.EMail);
         $("#PhoneNumber").val(WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber);
-        let IsFullRegistration = 0; 
+        let IsFullRegistration = 0;
 
         if (WebInfo.UserInfo.ExtraData) {
             var ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
@@ -114,7 +114,16 @@
         $("#Address").val(WebInfo.UserInfo.ContactAddress == undefined ? "" : WebInfo.UserInfo.ContactAddress);
         //$("#idAmount").text(new BigNumber(WebInfo.UserInfo.WalletList.find(x => x.CurrencyType == window.parent.API_GetCurrency()).PointValue).toFormat());
 
-        let wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
+        //若bonus錢包金額大於0則顯示bonus錢包金額
+        var wallet;
+        wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.BonusCurrencyType.toLocaleUpperCase());
+
+        if (wallet.PointValue > 0) {
+
+        } else {
+            wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType.toLocaleUpperCase());
+        }
+        
         $("#idAmount").text(new BigNumber(parseInt(wallet.PointValue)).toFormat());
         $("#PersonCode").text(WebInfo.UserInfo.PersonCode);
         $("#idCopyPersonCode").text(WebInfo.UserInfo.PersonCode);
