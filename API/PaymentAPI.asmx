@@ -2024,11 +2024,11 @@ public class PaymentAPI : System.Web.Services.WebService
                                                             ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
                                                             ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
 
-                                                           
+
                                                             HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
                                                             HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
                                                             ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
-                                                           
+
 
                                                             ReceiveTotalAmount = CodingControl.FormatDecimal(ReceiveTotalAmount, 0);
                                                             CryptoDetail Dcd = new CryptoDetail()
@@ -2144,7 +2144,7 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public APIResult ConfirmEPayWithdrawal(string WebSID, string GUID, string OrderNumber, string BankCard, string BankCardName, string BankName,string BankBranchCode)
+    public APIResult ConfirmEPayWithdrawal(string WebSID, string GUID, string OrderNumber, string BankCard, string BankCardName, string BankName,string BankBranchCode,string PhoneNumber)
     {
         APIResult R = new APIResult() { GUID = GUID, Result = enumResult.ERR };
         //APIResult CreateEPayWithdrawalReturn = new APIResult() { GUID = GUID, Result = enumResult.ERR };
@@ -2159,17 +2159,29 @@ public class PaymentAPI : System.Web.Services.WebService
         decimal ProviderHandingFeeRate;
         int ProviderHandingFeeAmount;
 
-        if (string.IsNullOrEmpty(BankCard))
+        if (BankName.ToUpper() == "GCASH")
         {
-            R.Message = "BankCard Empty";
-            return R;
+            if (string.IsNullOrEmpty(PhoneNumber))
+            {
+                R.Message = "PhoneNumber Empty";
+                return R;
+            }
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(BankCard))
+            {
+                R.Message = "BankCard Empty";
+                return R;
+            }
+
+            if (string.IsNullOrEmpty(BankCardName))
+            {
+                R.Message = "BankCardName Empty";
+                return R;
+            }
         }
 
-        if (string.IsNullOrEmpty(BankCardName))
-        {
-            R.Message = "BankCardName Empty";
-            return R;
-        }
 
         if (string.IsNullOrEmpty(BankName))
         {
@@ -2177,11 +2189,7 @@ public class PaymentAPI : System.Web.Services.WebService
             return R;
         }
 
-        if (string.IsNullOrEmpty(BankBranchCode))
-        {
-            R.Message = "BankBranchCode Empty";
-            return R;
-        }
+
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
@@ -2194,6 +2202,7 @@ public class PaymentAPI : System.Web.Services.WebService
 
                     if (TempCryptoData != null)
                     {
+           
                         PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(TempCryptoData.PaymentMethodID);
                         if (!(PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0))
                         {
@@ -2250,7 +2259,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                     paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,paymentDetailWallet.TaxFeeValue ,Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
-                                        var CreateEPayWithdrawalReturn= Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial,TempCryptoData.ReceiveTotalAmount,paymentResult.CreateDate,BankCard,BankCardName,BankName,BankBranchCode);
+                                        var CreateEPayWithdrawalReturn= Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial,TempCryptoData.ReceiveTotalAmount,paymentResult.CreateDate,BankCard,BankCardName,BankName,BankBranchCode,PhoneNumber);
                                         if (CreateEPayWithdrawalReturn.ResultState == Payment.APIResult.enumResultCode.OK)
                                         {
                                             int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, BankDatas.ToString(), paymentResult.PaymentSerial, PointValue, "");
