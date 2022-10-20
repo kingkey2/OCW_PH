@@ -159,6 +159,29 @@ public class LobbyAPI : System.Web.Services.WebService {
     }
 
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.GameCodeOnlineListResult GetUserAccountGameCodeOnlineList(string WebSID, string GUID) {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+        EWin.Lobby.GameCodeOnlineListResult Result;
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            Result= lobbyAPI.GetUserAccountGameCodeOnlineList(GetToken(),SI.EWinSID,GUID);
+            Result.Message = SI.EWinSID;
+            return Result;
+        } else {
+            var R = new EWin.Lobby.GameCodeOnlineListResult() {
+                Result = EWin.Lobby.enumResult.ERR,
+                Message = "InvalidWebSID",
+                GUID = GUID
+            };
+
+            return R;
+        }
+    }
+
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
