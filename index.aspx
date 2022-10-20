@@ -1845,12 +1845,12 @@
             if (selectedWallet != null) {
                 if (wallet.PointValue != selectedWallet.PointValue) {
                     //idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
-                    idWalletDiv.innerText = new BigNumber(parseInt(wallet.PointValue)).toFormat();
+                    idWalletDiv.innerText = new BigNumber(parseFloat(wallet.PointValue).toFixed(1)).toFormat();
                     notifyWindowEvent("BalanceChange", wallet.PointValue);
                 }
             } else {
                 //idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
-                idWalletDiv.innerText = new BigNumber(parseInt(wallet.PointValue)).toFormat();
+                idWalletDiv.innerText = new BigNumber(parseFloat(wallet.PointValue).toFixed(1)).toFormat();
             }
 
             selectedWallet = wallet;
