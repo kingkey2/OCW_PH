@@ -43,6 +43,7 @@
     var BackCardInfo = null;
     var v = "<%:Version%>";
     var swiper;
+    var initSwiperEnd = false;
 
     function copyText(tag) {
         var copyText = document.getElementById(tag);
@@ -380,7 +381,7 @@
             //document.getElementById('idWalletPasswordUnSet').style.display = "block";
         }
 
-        initSwiper();
+        //initSwiper();
     }
 
     function copyActivityUrl() {
@@ -511,6 +512,14 @@
         updateBaseInfo();
         $("#btn_PupLangClose1").click();
     }
+
+    $(document).on('shown.bs.modal', '#ModalMemberLevel', function () {
+        if (!initSwiperEnd) {
+            initSwiper();
+            initSwiperEnd = true;
+        }
+        
+    })
 
     window.onload = init;
 </script>
