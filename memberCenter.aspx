@@ -1431,7 +1431,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">VIP0</div>
+                                                        <div class="thead language_replace">VIP0</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -1513,7 +1513,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">青銅</div>
+                                                        <div class="thead language_replace">青銅</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -1595,7 +1595,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">白銀</div>
+                                                        <div class="thead language_replace">白銀</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -1677,7 +1677,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">黃金</div>
+                                                        <div class="thead language_replace">黃金</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -1759,7 +1759,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">白金</div>
+                                                        <div class="thead language_replace">白金</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -1841,7 +1841,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">鑽石</div>
+                                                        <div class="thead language_replace">鑽石</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -1923,7 +1923,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">銀鑽</div>
+                                                        <div class="thead language_replace">銀鑽</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -2005,7 +2005,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">金鑽</div>
+                                                        <div class="thead language_replace">金鑽</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -2087,7 +2087,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">星耀</div>
+                                                        <div class="thead language_replace">星耀</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -2169,7 +2169,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">永恆</div>
+                                                        <div class="thead language_replace">永恆</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -2251,7 +2251,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead">傳說</div>
+                                                        <div class="thead language_replace">傳說</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
