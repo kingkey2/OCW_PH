@@ -522,7 +522,7 @@
                     <!-- 個人資料 -->
                     <section class="section-member-profile">
                         <!-- 會員頭像 + 會員等級 -->
-                        <div class="member-profile-wrapper" style="display:none">
+                        <div class="member-profile-wrapper" style="display:">
                             <div class="member-profile-avater-wrapper">
                                 <span class="avater">
                                     <span class="avater-img">
@@ -1248,7 +1248,7 @@
     </div>
 
     <!-- Modal - Member LEVEL -->
-    <div class="modal fade footer-center show modalMemberLevel" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal fade footer-center show modalMemberLevel" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: ;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
