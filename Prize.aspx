@@ -393,9 +393,9 @@
                     <div class="sec-title-wrapper">
                         <h1 class="sec-title title-deco"><span class="language_replace">領獎中心</span></h1>
                         <!-- 使用說明LINK -->
-                        <span class="sec-title-intro-link" onclick="window.parent.API_LoadPage('Prize','/Guide/prize.html', true)">
+                      <%--  <span class="sec-title-intro-link" onclick="window.parent.API_LoadPage('Prize','/Guide/prize.html', true)">
                             <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="title language_replace">領獎中心使用說明</span>
-                        </span>                       
+                        </span>        --%>               
                     </div>
                      <!-- 獎金/禮金 TAB -->
                      <div class="tab-prize tab-scroller tab-2 tab-primary">

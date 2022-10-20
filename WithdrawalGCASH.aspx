@@ -645,10 +645,10 @@
                     <div class="main-panel cryptopanel" data-deposite="step2">
                        
                         <div class="box-item-container">                           
-                               <div class="card-item-intro">
+                           <%--    <div class="card-item-intro">
                                    <div class="img-crop"><img src="/images/CASHCARD.png"></div>
                                   
-                              </div>
+                              </div>--%>
                                <!-- 溫馨提醒 -->
                             <div class="notice-container mt-4 mt-md-5 mb-2">
                                 <div class="notice-item">

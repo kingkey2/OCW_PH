@@ -265,14 +265,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="notice-container mt-5">
+            <%--    <div class="notice-container mt-5">
                     <div class="notice-item">
                         <i class="icon-info_circle_outline"></i>
                         <div class="text-wrap">
                             <p class="title language_replace text-link" onclick="window.parent.API_LoadPage('record','Article/guide_withdrawMoney_jp.html', true)">各出金方法の手順説明</p>
                         </div>
                     </div>
-                </div>
+                </div>--%>
                 <!-- 溫馨提醒 -->
                 <div class="notice-container mt-5">
                     <div class="notice-item">
