@@ -1287,9 +1287,6 @@ input.month:read-only, input.day:read-only {
   height: 26px;
 }
 
-.data-item-group {
-  min-height: 250px;
-}
 .data-item-group .wrapper_center {
   width: 100%;
 }
