@@ -58,7 +58,6 @@
                                         addThresholdResult = lobbyAPI.AddThreshold(Token, GUID, transactionCode, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, tagInfoData.ThresholdValue, description, CheckResetThreshold(BodyObj.LoginAccount));
 
                                         if (addThresholdResult.Result == EWin.Lobby.enumResult.OK || addThresholdResult.Message == "-2") {
-                                            string TotalErrorMsg = string.Empty;
 
                                             if (tagInfoData.IsJoinDepositActivity) {
                                                 //有參加入金活動
@@ -76,57 +75,43 @@
                                                     lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                                                     EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
                                                 }
-                                            } else {
-                                                TotalErrorMsg = string.Empty;
                                             }
 
-                                            if (string.IsNullOrEmpty(TotalErrorMsg)) {
-                                                var allParentBonusAfterDepositResult = ActivityCore.GetAllParentBonusAfterDepositResult(BodyObj.LoginAccount);
-                                                TotalErrorMsg = string.Empty;
+                                            var allParentBonusAfterDepositResult = ActivityCore.GetAllParentBonusAfterDepositResult(BodyObj.LoginAccount);
 
-                                                if (allParentBonusAfterDepositResult.Result == ActivityCore.enumActResult.OK) {
-                                                    EWin.OCW.OCW ocwApi = new EWin.OCW.OCW();
+                                            if (allParentBonusAfterDepositResult.Result == ActivityCore.enumActResult.OK) {
+                                                EWin.OCW.OCW ocwApi = new EWin.OCW.OCW();
 
 
-                                                    foreach (var activityData in allParentBonusAfterDepositResult.Data) {
-                                                        List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
-                                                        description = activityData.ActivityName;
-                                                        PromotionCollectKey = description + "_" + BodyObj.ClientOrderNumber;
-                                                        JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
-                                                        CollectAreaType = activityData.CollectAreaType == null ? "1" : activityData.CollectAreaType;
+                                                foreach (var activityData in allParentBonusAfterDepositResult.Data) {
+                                                    List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+                                                    description = activityData.ActivityName;
+                                                    PromotionCollectKey = description + "_" + BodyObj.ClientOrderNumber;
+                                                    JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
+                                                    CollectAreaType = activityData.CollectAreaType == null ? "1" : activityData.CollectAreaType;
 
-                                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
-                                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
-                                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
+                                                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
+                                                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
+                                                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                                                        lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, activityData.ParentLoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
-                                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, 0, 0);
-                                                    }
-
-                                                    if (string.IsNullOrEmpty(TotalErrorMsg)) {
-                                                        int FinishPaymentRet;
-
-                                                        FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Success, BodyObj.PaymentSerial);
-
-                                                        if (FinishPaymentRet == 0) {
-                                                            R.Result = 0;
-                                                            RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
-                                                            ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
-                                                            RedisCache.UserAccountTotalSummary.UpdateUserAccountTotalSummaryByLoginAccount(BodyObj.LoginAccount);
-                                                            RedisCache.UserAccountSummary.UpdateUserAccountSummary(BodyObj.LoginAccount, DateTime.Now.Date);
-                                                        } else {
-                                                            SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
-                                                        }
-                                                    } else {
-                                                        SetResultException(R, TotalErrorMsg.Substring(0, TotalErrorMsg.Length - 1));
-                                                    }
-                                                } else {
-                                                    SetResultException(R, "AllParentBonusAfterDepositResultError,Msg=" + allParentBonusAfterDepositResult.Message);
+                                                    lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, activityData.ParentLoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                                    EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, 0, 0);
                                                 }
+                                                int FinishPaymentRet;
 
+                                                FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Success, BodyObj.PaymentSerial);
 
+                                                if (FinishPaymentRet == 0) {
+                                                    R.Result = 0;
+                                                    RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
+                                                    ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
+                                                    RedisCache.UserAccountTotalSummary.UpdateUserAccountTotalSummaryByLoginAccount(BodyObj.LoginAccount);
+                                                    RedisCache.UserAccountSummary.UpdateUserAccountSummary(BodyObj.LoginAccount, DateTime.Now.Date);
+                                                } else {
+                                                    SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
+                                                }
                                             } else {
-                                                SetResultException(R, TotalErrorMsg.Substring(0, TotalErrorMsg.Length - 1));
+                                                SetResultException(R, "AllParentBonusAfterDepositResultError,Msg=" + allParentBonusAfterDepositResult.Message);
                                             }
                                         } else {
                                             SetResultException(R, "AddThresholdError,Msg=" + addThresholdResult.Message);

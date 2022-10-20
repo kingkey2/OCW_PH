@@ -864,6 +864,7 @@ public static class ActivityExpand {
                             R.Data.BonusValue = (decimal)ActivityDetail["Self"]["BonusValue"];
                             R.Data.ThresholdRate = 1;
                             R.Data.ThresholdValue = (decimal)ActivityDetail["Self"]["ThresholdValue"];
+                            R.Data.CollectAreaType = ActivityDetail["CollectAreaType"].ToString();
                             R.Result = ActivityCore.enumActResult.OK;
                         }
 
@@ -902,6 +903,7 @@ public static class ActivityExpand {
                         R.Data.BonusValue = (decimal)ActivityDetail["Parent"]["BonusValue"];
                         R.Data.ThresholdRate = 1;
                         R.Data.ThresholdValue = (decimal)ActivityDetail["Parent"]["ThresholdValue"];
+                        R.Data.CollectAreaType = ActivityDetail["CollectAreaType"].ToString();
                         R.Result = ActivityCore.enumActResult.OK;
 
                     } else {

@@ -363,19 +363,18 @@ public static class ActivityCore {
         public string JoinActivityCycle { get; set; }
         public int JoinCount { get; set; }
         public string CollectType { get; set; }
+        public string CollectAreaType { get; set; }
     }
 
 
     public class DepositActivity : Activity {
         public string PaymentCode { get; set; }
         public decimal Amount { get; set; }
-        public string CollectAreaType { get; set; }
     }
 
     public class IntroActivity : Activity {
         public string ParentLoginAccount { get; set; }
         public string LoginAccount { get; set; }
-        public string CollectAreaType { get; set; }
     }
     #endregion
 
