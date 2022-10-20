@@ -428,7 +428,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
                     CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 
-                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
+                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
@@ -462,7 +462,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
                                 CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 
-                                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
+                                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
