@@ -3739,15 +3739,12 @@
                                             onclick="SearchControll.searchGameChangeClear()">
                                             <span class="language_replace">重新設定</span>
                                         </button>--%>
-                                        <button class="btn btn-full-main btn-brand-confirm" type="button"
+                                        <button class="btn btn-primary btn-brand-confirm" type="button"
                                             onclick="SearchControll.searchGameChangeConfirm()">
                                             <span class="language_replace">確認</span>
                                         </button>
                                     </div>
-
                                 </div>
-
-
                             </div>
                         </div>
                     </div>

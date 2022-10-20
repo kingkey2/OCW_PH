@@ -283,13 +283,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   overflow-y: auto;
   height: 12.25rem;
   /* scroll 樣式 -- IE，Edge不適用   */
-  scrollbar-face-color: rgba(61, 182, 255, 0.8);
+  scrollbar-face-color: rgba(78, 188, 193, 0.8);
   scrollbar-arrow-color: #444;
   scrollbar-track-color: #ececec;
-  scrollbar-shadow-color: rgba(61, 182, 255, 0.8);
-  scrollbar-highlight-color: rgba(61, 182, 255, 0.8);
-  scrollbar-3dlight-color: rgba(61, 182, 255, 0.8);
-  scrollbar-darkshadow-Color: rgba(61, 182, 255, 0.8);
+  scrollbar-shadow-color: rgba(78, 188, 193, 0.8);
+  scrollbar-highlight-color: rgba(78, 188, 193, 0.8);
+  scrollbar-3dlight-color: rgba(78, 188, 193, 0.8);
+  scrollbar-darkshadow-Color: rgba(78, 188, 193, 0.8);
   /* scroll 樣式 -- Firefox Scrollbar  */
   scrollbar-width: none;
   scrollbar-color: rgba(173, 181, 189, 0.8) transparent;
@@ -321,11 +321,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   border-radius: 5px;
 }
 .section_publicize .publicize_bottom_inner .bulletin_list::-webkit-scrollbar-thumb {
-  background-color: rgba(61, 182, 255, 0.8);
+  background-color: rgba(78, 188, 193, 0.8);
   border-radius: 5px;
 }
 .section_publicize .publicize_bottom_inner .bulletin_list::-webkit-scrollbar-thumb:active, .section_publicize .publicize_bottom_inner .bulletin_list::-webkit-scrollbar-thumb:hover {
-  background: #3DB6FF;
+  background: #4ebcc1;
 }
 .section_publicize .bulletin-login {
   -webkit-box-flex: 0;

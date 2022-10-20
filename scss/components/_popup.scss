@@ -33,8 +33,9 @@
     }
 
     .modal-body{
-        @include scrollbar(rgba(#adb5bd, .8),#3DB6FF, 12px);
-        // @include scrollbar(rgba(#3DB6FF, .8),#3DB6FF, 12px);
+        // @include scrollbar(rgba(#adb5bd, .8),#4ebcc1, 12px);       
+        // @include scrollbar(12px);       
+        @include scrollbar();       
     }
    
 
@@ -179,7 +180,8 @@
         overflow-wrap:anywhere;
         word-wrap: break-all;
 
-        @include scrollbar(rgba(#adb5bd, .8),#c1a678, 5px);
+        @include scrollbar(rgba(#adb5bd, .8),#4ebcc1, 5px);
+      
         //Firefox Custom Scrollbar =================
          //scrollbar-width: thin;
          scrollbar-width: thin;
@@ -451,8 +453,9 @@
             padding: 10px;
 
             &:hover{
-                border-color: #009FE8;                
-                box-shadow: 0px 4px 10px rgba(#009FE8, 0.45);
+                border-color: #4acbd2;                
+                // box-shadow: 0px 4px 10px rgba(#009FE8, 0.45);
+                box-shadow: 0px 4px 10px rgba(#4acbd2, 0.45);
                 cursor: pointer;
             }
 

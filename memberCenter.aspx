@@ -679,7 +679,7 @@
                                             </label>
                                         </div>
                                         <div class="data-item-content">
-                                            <div class="verify-item">
+                                            <div class="verify-item mt-2">
                                                 <!-- 尚未認證 -->
                                                 <span class="verify-result fail" id="IsFullRegistration0" style="display:none">
                                                     <span class="label fail"><i class="icon icon-mask icon-error"></i></span>

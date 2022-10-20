@@ -261,7 +261,7 @@
 //Scrollbar
 //=======================================================
 
-@mixin scrollbar($scrollbarColors, $scrollbarHoverColors:#adb5bd, $scrollbarWidth:6px, $scrollbar-track-color:#ececec) {
+@mixin scrollbar($scrollbarColors:#adb5bd, $scrollbarHoverColors:#4ebcc1, $scrollbarWidth:6px, $scrollbar-track-color:#ececec) {
  
 
    /* scroll 樣式 -- IE，Edge不適用   */ 
