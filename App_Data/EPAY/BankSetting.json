@@ -9,10 +9,6 @@
       "ProviderBankCode": "Unibank"
     },
     {
-      "BankName": "Gcash",
-      "ProviderBankCode": "gcash"
-    },
-    {
       "BankName": "Metropolitan Bank and Trust Co ",
       "ProviderBankCode": "mbt"
     },

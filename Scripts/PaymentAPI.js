@@ -433,7 +433,7 @@
         });
     };
 
-    this.ConfirmEPayWithdrawal = function (WebSID, GUID, OrderNumber, bankCard, bankCardName, bankName, bankBranchCode, cb) {
+    this.ConfirmEPayWithdrawal = function (WebSID, GUID, OrderNumber, bankCard, bankCardName, bankName, bankBranchCode, phoneNumber, cb) {
         var url = APIUrl + "/ConfirmEPayWithdrawal";
         var postData;
 
@@ -444,7 +444,8 @@
             BankCard: bankCard,
             BankCardName: bankCardName,
             BankName: bankName,
-            BankBranchCode: bankBranchCode
+            BankBranchCode: bankBranchCode,
+            PhoneNumber: phoneNumber
         };
 
         callService(url, postData, 10000, function (success, text) {

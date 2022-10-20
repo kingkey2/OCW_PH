@@ -156,7 +156,7 @@
     }
 
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByPaymentCode(WebInfo.SID, Math.uuid(), "EPay", 1,"Bank", function (success, o) {
+        PaymentClient.GetPaymentMethodByPaymentCode(WebInfo.SID, Math.uuid(), "EPay", 1,"Gcash", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
@@ -212,6 +212,27 @@
         })
     }
 
+    function setRealExchange() {
+        if (PaymentMethod.length > 0 && NomicsExchangeRate.length > 0) {
+            let price;
+            for (var i = 0; i < PaymentMethod.length; i++) {
+                PaymentMethod[i]["RealExchange"] = 0;
+
+                if (PaymentMethod[i]["MultiCurrencyInfo"]) {
+                    if (!PaymentMethod[i]["MultiCurrencys"]) {
+                        PaymentMethod[i]["MultiCurrencys"] = JSON.parse(PaymentMethod[i]["MultiCurrencyInfo"]);
+                    }
+
+                    PaymentMethod[i]["MultiCurrencys"].forEach(function (mc) {
+                        mc["RealExchange"] = GetRealExchange(mc["ShowCurrency"]);
+                    });
+                } else {
+                    PaymentMethod[i]["RealExchange"] = GetRealExchange(mc["CurrencyType"]);
+                }
+            }
+        }
+    }
+
     function CoinBtn_Click() {
         let amount = parseInt($(event.currentTarget).data("val"))
         $("#amount").val(amount);
@@ -227,6 +248,12 @@
     function bankcardCheck() {
         var baankCard = $("#bankCard").val().replace(/[^\-?\d.]/g, '')
         $("#bankCard").val(baankCard);
+
+    }
+
+    function bankBranchCodeCheck() {
+        var bankBranchCode = $("#bankBranchCode").val().replace(/[^\-?\d.]/g, '')
+        $("#bankBranchCode").val(bankBranchCode);
 
     }
 
@@ -257,40 +284,17 @@
 
     //建立訂單
     function CreateEPayWithdrawal() {
-        var bankCard = $("#bankCard").val().trim();
-        var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
-        var bankName = $("#SearchBank").val();
+        var phoneNumber = $('#phoneNumber').val().trim();
+        var bankName = 'Gcash';
+
         if ($("#amount").val().trim() == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"), function () { });
             window.parent.API_LoadingEnd(1);
             return false;
         }
 
-        if (bankCard == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入卡號"), function () { });
-            window.parent.API_LoadingEnd(1);
-            return false;
-        }
-
-        if (bankCard.length != 7) {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("卡號只能輸入7位數"), function () { });
-            $("#bankCard").focus();
-            $("#bankCard").css('border-color', 'red');
-            window.parent.API_LoadingEnd(1);
-            return false;
-        } else {
-            $("#bankCard").css('border-color', '');
-        }
-
-        if (bankCardNameFirst == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入姓名"), function () { });
-            window.parent.API_LoadingEnd(1);
-            return false;
-        }
-
-
-        if (bankName== '-1') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇銀行"), function () { });
+        if (phoneNumber == '') {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入電話"), function () { });
             window.parent.API_LoadingEnd(1);
             return false;
         }
@@ -301,7 +305,6 @@
             return false;
         }
 
-        var bankCardName = bankCardNameFirst;
         var amount = parseFloat($("#amount").val().trim());
     
         var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
@@ -333,10 +336,9 @@
                                         //$("#depositdetail .OrderNumber").text(data.OrderNumber);
                                         $("#depositdetail .PaymentMethodName").text(mlp.getLanguageKey(data.PaymentMethodName));
                                         $("#depositdetail .EWinCryptoWalletType").text("PHP");
-                                        $("#depositdetail .bankCardName").text(bankCardName);
-                                        $("#depositdetail .bankCard").text(bankCard);
-                                        $("#depositdetail .bankName").text(bankName);
-                                    
+                                        $("#depositdetail .phoneNumber").text(phoneNumber);
+                                        $("#depositdetail .bankName").text('Gcash');
+                                        
                                         if (data.PaymentCryptoDetailList != null) {
                                             var depositdetail = document.getElementsByClassName("Collectionitem")[0];
                                             for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
@@ -398,18 +400,11 @@
         $('.progress-step:nth-child(3)').addClass('cur');
     }
 
-    function goBankPage() {
-        window.open('https://www.jp-bank.japanpost.jp/kojin/sokin/furikomi/kouza/kj_sk_fm_kz_1.html');
-    }
     //完成訂單
     function ConfirmEPayWithdrawal() {
-        var bankCard = $("#bankCard").val().trim();
-        var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
-        var bankCardName=bankCardNameFirst;
-        var bankName = $("#SearchBank").val();
-    
-
-        PaymentClient.ConfirmEPayWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, bankCard, bankCardName, bankName, '','' ,function (success, o) {
+        var bankName = 'Gcash';
+        var phoneNumber = $('#phoneNumber').val().trim();
+        PaymentClient.ConfirmEPayWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, '', '', bankName, '',phoneNumber ,function (success, o) {
             if (success) {
                 window.parent.API_LoadingEnd(1);
                 if (o.Result == 0) {
@@ -615,36 +610,13 @@
                                     </div>
                                 </div>
                                  <div class="form-group mb-3">
-                                    <label class="form-title language_replace">輸入卡號</label>
+                                    <label class="form-title language_replace">輸入手機號</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="bankCard" language_replace="placeholder" placeholder="請輸入卡號" onkeyup="bankcardCheck()" />
+                                        <input type="text" class="form-control custom-style" id="phoneNumber" language_replace="placeholder" placeholder="輸入手機號" onkeyup="" />
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
-                                 
                                 </div>
-                                <div class="form-group depositLastName mb-2">
-                                    <label class="form-title language_replace">輸入持卡人姓名</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="bankCardNameFirst" language_replace="placeholder" placeholder="輸入持卡人姓名" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group mt-4 mb-0">
-                                    <label class="form-title language_replace" >選擇銀行</label>
-                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
-                                    <select class="custom-select mb-4" id="SearchBank" style=""></select> 
-                                </div>
-                                
-                                <!-- 舊的 測試無誤時刪除-->
-                                <%--
-                                <div class="language_replace mt-4 mb-0" >
-                                    <label class="language_replace" style="font-size: 1rem;">選擇銀行</label>
-                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
-                                 </div>
-                                 <select class="custom-select mb-4" id="SearchBank" style=""></select>                                   
-                               </select>
-                               --%>
-                     
+                        
                             <div class="form-group award-take-check">
                                 <div class="form-check">
                                     <label for="CheckAward">
@@ -762,18 +734,13 @@
                                         <span class="data PaymentMethodName"></span>
                                     </li>
                                     <li class="item">
-                                        <h6 class="title language_replace">持卡人姓名</h6>
-                                        <span class="data bankCardName"></span>
-                                    </li>
-                                    <li class="item">
-                                        <h6 class="title language_replace">卡號</h6>
-                                        <span class="data bankCard"></span>
+                                        <h6 class="title language_replace">手機電話號碼</h6>
+                                        <span class="data phoneNumber"></span>
                                     </li>
                                      <li class="item">
                                         <h6 class="title language_replace">銀行</h6>
                                         <span class="data bankName"></span>
-                                    </li>  
-                              
+                                    </li>   
                                 </ul>
                             </div>
                         </div>
