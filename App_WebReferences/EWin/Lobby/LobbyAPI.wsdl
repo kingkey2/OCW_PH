@@ -30,6 +30,135 @@
           <s:enumeration value="ERR" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="ListPromotionJoin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListPromotionJoinResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListPromotionJoinResult" type="tns:PromotionJoinListResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PromotionJoinListResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="List" type="tns:ArrayOfUserAccountPromotionJoin" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfUserAccountPromotionJoin">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserAccountPromotionJoin" nillable="true" type="tns:UserAccountPromotionJoin" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserAccountPromotionJoin">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PromotionJoinID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PromotionCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PromotionCategoryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="JoinPromotion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PromotionCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ExpireDays" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="JoinPromotionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="JoinPromotionResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExpireJoinPromotion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PromotionJoinID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExpireJoinPromotionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExpireJoinPromotionResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FinishedJoinPromotion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PromotionJoinID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FinishedJoinPromotionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FinishedJoinPromotionResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountGameCodeOnlineList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountGameCodeOnlineListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountGameCodeOnlineListResult" type="tns:GameCodeOnlineListResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GameCodeOnlineListResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="OnlineList" type="tns:ArrayOfGameCodeOnline" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfGameCodeOnline">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GameCodeOnline" nillable="true" type="tns:GameCodeOnline" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GameCodeOnline">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GameBrand" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GameCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OnlineDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastDate" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetAccountingList">
         <s:complexType>
           <s:sequence>
@@ -1838,6 +1967,8 @@
         </s:sequence>
       </s:complexType>
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
+      <s:element name="PromotionJoinListResult" nillable="true" type="tns:PromotionJoinListResult" />
+      <s:element name="GameCodeOnlineListResult" nillable="true" type="tns:GameCodeOnlineListResult" />
       <s:element name="AccountingList" nillable="true" type="tns:AccountingList" />
       <s:element name="AccountingUserRebateList" nillable="true" type="tns:AccountingUserRebateList" />
       <s:element name="PromotionCollectResult" nillable="true" type="tns:PromotionCollectResult" />
@@ -1868,6 +1999,36 @@
   </wsdl:message>
   <wsdl:message name="HeartBeatSoapOut">
     <wsdl:part name="parameters" element="tns:HeartBeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListPromotionJoinSoapIn">
+    <wsdl:part name="parameters" element="tns:ListPromotionJoin" />
+  </wsdl:message>
+  <wsdl:message name="ListPromotionJoinSoapOut">
+    <wsdl:part name="parameters" element="tns:ListPromotionJoinResponse" />
+  </wsdl:message>
+  <wsdl:message name="JoinPromotionSoapIn">
+    <wsdl:part name="parameters" element="tns:JoinPromotion" />
+  </wsdl:message>
+  <wsdl:message name="JoinPromotionSoapOut">
+    <wsdl:part name="parameters" element="tns:JoinPromotionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExpireJoinPromotionSoapIn">
+    <wsdl:part name="parameters" element="tns:ExpireJoinPromotion" />
+  </wsdl:message>
+  <wsdl:message name="ExpireJoinPromotionSoapOut">
+    <wsdl:part name="parameters" element="tns:ExpireJoinPromotionResponse" />
+  </wsdl:message>
+  <wsdl:message name="FinishedJoinPromotionSoapIn">
+    <wsdl:part name="parameters" element="tns:FinishedJoinPromotion" />
+  </wsdl:message>
+  <wsdl:message name="FinishedJoinPromotionSoapOut">
+    <wsdl:part name="parameters" element="tns:FinishedJoinPromotionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountGameCodeOnlineListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAccountGameCodeOnlineList" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountGameCodeOnlineListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAccountGameCodeOnlineListResponse" />
   </wsdl:message>
   <wsdl:message name="GetAccountingListSoapIn">
     <wsdl:part name="parameters" element="tns:GetAccountingList" />
@@ -2229,6 +2390,50 @@
   </wsdl:message>
   <wsdl:message name="HeartBeatHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="ListPromotionJoinHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListPromotionJoinHttpGetOut">
+    <wsdl:part name="Body" element="tns:PromotionJoinListResult" />
+  </wsdl:message>
+  <wsdl:message name="JoinPromotionHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PromotionCode" type="s:string" />
+    <wsdl:part name="ExpireDays" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="JoinPromotionHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="ExpireJoinPromotionHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PromotionJoinID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ExpireJoinPromotionHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="FinishedJoinPromotionHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PromotionJoinID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FinishedJoinPromotionHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountGameCodeOnlineListHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountGameCodeOnlineListHttpGetOut">
+    <wsdl:part name="Body" element="tns:GameCodeOnlineListResult" />
   </wsdl:message>
   <wsdl:message name="GetAccountingListHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
@@ -2769,6 +2974,50 @@
   <wsdl:message name="HeartBeatHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="ListPromotionJoinHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListPromotionJoinHttpPostOut">
+    <wsdl:part name="Body" element="tns:PromotionJoinListResult" />
+  </wsdl:message>
+  <wsdl:message name="JoinPromotionHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PromotionCode" type="s:string" />
+    <wsdl:part name="ExpireDays" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="JoinPromotionHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="ExpireJoinPromotionHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PromotionJoinID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ExpireJoinPromotionHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="FinishedJoinPromotionHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PromotionJoinID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FinishedJoinPromotionHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountGameCodeOnlineListHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountGameCodeOnlineListHttpPostOut">
+    <wsdl:part name="Body" element="tns:GameCodeOnlineListResult" />
+  </wsdl:message>
   <wsdl:message name="GetAccountingListHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -3306,6 +3555,26 @@
       <wsdl:input message="tns:HeartBeatSoapIn" />
       <wsdl:output message="tns:HeartBeatSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ListPromotionJoin">
+      <wsdl:input message="tns:ListPromotionJoinSoapIn" />
+      <wsdl:output message="tns:ListPromotionJoinSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="JoinPromotion">
+      <wsdl:input message="tns:JoinPromotionSoapIn" />
+      <wsdl:output message="tns:JoinPromotionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExpireJoinPromotion">
+      <wsdl:input message="tns:ExpireJoinPromotionSoapIn" />
+      <wsdl:output message="tns:ExpireJoinPromotionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FinishedJoinPromotion">
+      <wsdl:input message="tns:FinishedJoinPromotionSoapIn" />
+      <wsdl:output message="tns:FinishedJoinPromotionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountGameCodeOnlineList">
+      <wsdl:input message="tns:GetUserAccountGameCodeOnlineListSoapIn" />
+      <wsdl:output message="tns:GetUserAccountGameCodeOnlineListSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAccountingList">
       <wsdl:input message="tns:GetAccountingListSoapIn" />
       <wsdl:output message="tns:GetAccountingListSoapOut" />
@@ -3548,6 +3817,26 @@
       <wsdl:input message="tns:HeartBeatHttpGetIn" />
       <wsdl:output message="tns:HeartBeatHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="ListPromotionJoin">
+      <wsdl:input message="tns:ListPromotionJoinHttpGetIn" />
+      <wsdl:output message="tns:ListPromotionJoinHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="JoinPromotion">
+      <wsdl:input message="tns:JoinPromotionHttpGetIn" />
+      <wsdl:output message="tns:JoinPromotionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExpireJoinPromotion">
+      <wsdl:input message="tns:ExpireJoinPromotionHttpGetIn" />
+      <wsdl:output message="tns:ExpireJoinPromotionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FinishedJoinPromotion">
+      <wsdl:input message="tns:FinishedJoinPromotionHttpGetIn" />
+      <wsdl:output message="tns:FinishedJoinPromotionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountGameCodeOnlineList">
+      <wsdl:input message="tns:GetUserAccountGameCodeOnlineListHttpGetIn" />
+      <wsdl:output message="tns:GetUserAccountGameCodeOnlineListHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAccountingList">
       <wsdl:input message="tns:GetAccountingListHttpGetIn" />
       <wsdl:output message="tns:GetAccountingListHttpGetOut" />
@@ -3774,6 +4063,26 @@
       <wsdl:input message="tns:HeartBeatHttpPostIn" />
       <wsdl:output message="tns:HeartBeatHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="ListPromotionJoin">
+      <wsdl:input message="tns:ListPromotionJoinHttpPostIn" />
+      <wsdl:output message="tns:ListPromotionJoinHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="JoinPromotion">
+      <wsdl:input message="tns:JoinPromotionHttpPostIn" />
+      <wsdl:output message="tns:JoinPromotionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExpireJoinPromotion">
+      <wsdl:input message="tns:ExpireJoinPromotionHttpPostIn" />
+      <wsdl:output message="tns:ExpireJoinPromotionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FinishedJoinPromotion">
+      <wsdl:input message="tns:FinishedJoinPromotionHttpPostIn" />
+      <wsdl:output message="tns:FinishedJoinPromotionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountGameCodeOnlineList">
+      <wsdl:input message="tns:GetUserAccountGameCodeOnlineListHttpPostIn" />
+      <wsdl:output message="tns:GetUserAccountGameCodeOnlineListHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAccountingList">
       <wsdl:input message="tns:GetAccountingListHttpPostIn" />
       <wsdl:output message="tns:GetAccountingListHttpPostOut" />
@@ -3999,6 +4308,51 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="HeartBeat">
       <soap:operation soapAction="http://tempuri.org/HeartBeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPromotionJoin">
+      <soap:operation soapAction="http://tempuri.org/ListPromotionJoin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JoinPromotion">
+      <soap:operation soapAction="http://tempuri.org/JoinPromotion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExpireJoinPromotion">
+      <soap:operation soapAction="http://tempuri.org/ExpireJoinPromotion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishedJoinPromotion">
+      <soap:operation soapAction="http://tempuri.org/FinishedJoinPromotion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountGameCodeOnlineList">
+      <soap:operation soapAction="http://tempuri.org/GetUserAccountGameCodeOnlineList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4549,6 +4903,51 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ListPromotionJoin">
+      <soap12:operation soapAction="http://tempuri.org/ListPromotionJoin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JoinPromotion">
+      <soap12:operation soapAction="http://tempuri.org/JoinPromotion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExpireJoinPromotion">
+      <soap12:operation soapAction="http://tempuri.org/ExpireJoinPromotion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishedJoinPromotion">
+      <soap12:operation soapAction="http://tempuri.org/FinishedJoinPromotion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountGameCodeOnlineList">
+      <soap12:operation soapAction="http://tempuri.org/GetUserAccountGameCodeOnlineList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAccountingList">
       <soap12:operation soapAction="http://tempuri.org/GetAccountingList" style="document" />
       <wsdl:input>
@@ -5092,6 +5491,51 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ListPromotionJoin">
+      <http:operation location="/ListPromotionJoin" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JoinPromotion">
+      <http:operation location="/JoinPromotion" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExpireJoinPromotion">
+      <http:operation location="/ExpireJoinPromotion" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishedJoinPromotion">
+      <http:operation location="/FinishedJoinPromotion" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountGameCodeOnlineList">
+      <http:operation location="/GetUserAccountGameCodeOnlineList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAccountingList">
       <http:operation location="/GetAccountingList" />
       <wsdl:input>
@@ -5592,6 +6036,51 @@
     <http:binding verb="POST" />
     <wsdl:operation name="HeartBeat">
       <http:operation location="/HeartBeat" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPromotionJoin">
+      <http:operation location="/ListPromotionJoin" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JoinPromotion">
+      <http:operation location="/JoinPromotion" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExpireJoinPromotion">
+      <http:operation location="/ExpireJoinPromotion" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishedJoinPromotion">
+      <http:operation location="/FinishedJoinPromotion" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountGameCodeOnlineList">
+      <http:operation location="/GetUserAccountGameCodeOnlineList" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
