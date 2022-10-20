@@ -282,6 +282,11 @@
     var SearchControll;
     var PCode = "<%=PCode%>";
     var PageType = "<%=PageType%>";
+    var gameLogoutPram = {
+        GameCode: "",
+        LoginAccount: "",
+        CompanyCode:""
+    }
     //#region TOP API
     function API_GetGCB() {
         return GCB;
@@ -1627,6 +1632,7 @@
         var alertSearch = $("#alertSearch");
         var alertSearchCloseButton = $("#alertSearchCloseButton");
         var popupMoblieGameInfo = $('#popupMoblieGameInfo');
+        var gameCode;
         //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
             gameWindow.close();
@@ -1661,10 +1667,12 @@
                 }
             });
 
+            gameCode = gameBrand + "." + gameName;
             $('.headerGameName').text(gameLangName);
 
             if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
-                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
+                gameLogoutPram.GameCode = gameCode;
+                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode  + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
                 CloseWindowOpenGamePage(gameWindow);
             } else {
                 if (EWinWebInfo.DeviceType == 1) {
@@ -1672,10 +1680,12 @@
 <%--                    gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
                     CloseWindowOpenGamePage(gameWindow);--%>
 
-                    window.location.href = "/OpenGame_M.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";
+                    window.location.href = "/OpenGame_M.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode
+ + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";
 
                 } else {
-                    GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
+                    gameLogoutPram.GameCode = gameBrand + "." + gameName;
+                    GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode  + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
                 }
             }
         }
@@ -1710,7 +1720,40 @@
         //滿版遊戲介面
         $('#divGameFrame').css('display', 'none');
         //滿版遊戲介面 end
+        game_userlogout();
         appendGameFrame();
+    }
+
+    function game_userlogout() {
+        if (gameLogoutPram.GameCode!="") {
+            var guid = Math.uuid();
+            lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
+                if (success == true) {
+                    if (o.Result == 0) {
+                        if (o.OnlineList && o.OnlineList.length > 0) {
+                            var promiseAll = [];
+                            for (var i = 0; i < o.OnlineList.length; i++) {
+                                var url = EWinWebInfo.EWinUrl + "/API/GamePlatformAPI2/" + gameLogoutPram.GameCode.split(".")[0] + "/UserLogout.aspx?LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode + "&SID=" + o.Message;
+                                var promise = new Promise((resolve, reject) => {
+                                    $.get(url, function (result) {
+                                        resolve();
+                                    });
+                                });
+
+                                promiseAll.push(promise);
+                            }
+                        }
+
+                        Promise.all(promiseAll).then(values => {
+                        
+                        });
+                    } else {
+                
+                    }
+                }
+            });
+        }
+       
     }
 
     function appendGameFrame() {
@@ -1870,7 +1913,7 @@
             var wallet;
             wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.BonusCurrencyType.toLocaleUpperCase() );
 
-            if (wallet.PointValue > 0) {
+            if (wallet&&wallet.PointValue > 0) {
 
             } else {
                 wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.MainCurrencyType.toLocaleUpperCase() );
