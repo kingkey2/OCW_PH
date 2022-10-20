@@ -742,8 +742,8 @@ input.month:read-only, input.day:read-only {
 }
 .card-thumb-wrapper .swiper-slide {
   width: auto;
-  max-width: 60px;
-  padding: 0 5px;
+  max-width: 65px;
+  padding: 8px;
 }
 .card-thumb-wrapper .thumb-item {
   display: -webkit-box;
@@ -767,6 +767,7 @@ input.month:read-only, input.day:read-only {
   position: absolute;
   left: 0;
   right: 0;
+  top: 0;
   bottom: 0;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -783,10 +784,7 @@ input.month:read-only, input.day:read-only {
   margin-top: 0.5rem;
   text-align: center;
   font-weight: 400;
-}
-.card-thumb-wrapper .swiper-slide-thumb-active .img-crop {
-  -webkit-filter: drop-shadow(0 0 3px #3a3a3a);
-          filter: drop-shadow(0 0 3px #3a3a3a);
+  line-height: 1.2;
 }
 .card-thumb-wrapper .swiper-slide-thumb-active .img-crop:after {
   opacity: 0;
