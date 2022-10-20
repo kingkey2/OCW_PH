@@ -1511,7 +1511,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 var Collect = PromotionCollectResult.CollectList.Where(x => x.CollectID == CollectID).FirstOrDefault();
                 var UserInfoResult = lobbyAPI.GetUserInfo(Token, SI.EWinSID, GUID);
                 if (UserInfoResult.Result == EWin.Lobby.enumResult.OK) {
-                    var Wallet = UserInfoResult.WalletList[0];
+                    var Wallet = UserInfoResult.WalletList.Where(x => x.CurrencyType == EWinWeb.MainCurrencyType).FirstOrDefault();
 
                     decimal OldThresholdValue = 0.0M;
                     if (UserInfoResult.ThresholdInfo.Length > 0) {

@@ -119,8 +119,12 @@
         var wallet;
         wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.BonusCurrencyType.toLocaleUpperCase());
 
-        if (wallet.PointValue > 0) {
+        if (wallet) {
+            if (wallet.PointValue > 0) {
 
+            } else {
+                wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType.toLocaleUpperCase());
+            }
         } else {
             wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType.toLocaleUpperCase());
         }
@@ -132,7 +136,21 @@
 
         var ThresholdInfos = WebInfo.UserInfo.ThresholdInfo;
         if (ThresholdInfos && ThresholdInfos.length > 0) {
-            let thresholdInfo = ThresholdInfos.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
+            let thresholdInfo;
+
+             thresholdInfo = ThresholdInfos.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.BonusCurrencyType.toLocaleUpperCase() );
+
+            if (thresholdInfo) {
+                if (thresholdInfo.ThresholdValue > 0) {
+
+                } else {
+                    thresholdInfo = ThresholdInfos.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType.toLocaleUpperCase());
+                }
+            } else {
+                 thresholdInfo = ThresholdInfos.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType.toLocaleUpperCase() );
+            }
+
+
             if (thresholdInfo) {
 
                 if (new BigNumber(thresholdInfo.ThresholdValue).toFormat() == "0") {

@@ -1787,10 +1787,15 @@
             var wallet;
             wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.BonusCurrencyType.toLocaleUpperCase() );
 
-            if (wallet.PointValue > 0) {
+            if (wallet) {
 
+                if (wallet.PointValue > 0) {
+
+                } else {
+                    wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.MainCurrencyType.toLocaleUpperCase());
+                }
             } else {
-                wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.MainCurrencyType.toLocaleUpperCase() );
+                wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.MainCurrencyType.toLocaleUpperCase());
             }
             
             //Check Balance Change
