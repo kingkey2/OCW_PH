@@ -705,6 +705,78 @@
       }
 }
 
+//最新公告
+.s-btn-more {
+border-radius: 20px;
+border: 1px solid #c0c0c0;
+padding: 10px 50px;
+width: fit-content;
+font-size: 14px;
+color: #666;
+text-decoration: none;
+cursor: pointer;
+margin: 20px auto;
+}
+
+.s-btn-more:hover {
+background-color: #ddd;
+border: 1px solid #666;
+}
+
+.s-btn-more:active {
+background-color: #ddd;
+border: 1px solid #666;
+}
+
+.s-btn-more:visited {
+background-color: #ddd;
+border: 1px solid #666;
+color: #777;
+}
+
+.bulletin_list .item {
+margin-bottom: 0.8rem;
+-webkit-box-align: center;
+-ms-flex-align: center;
+align-items: center;
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+}
+.bulletin_list .item:before {
+    content: "";
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 3px;
+    height: 1rem;
+    border-radius: 0.5px;
+    background-color: #419ea3;
+}
+.bulletin_list .item .date {
+    font-weight: 600;
+    margin-left: 0.5rem;
+    margin-right: 1rem;
+    width: 5rem;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+}
+.bulletin_list .item .info {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    cursor: pointer;
+}
+.bulletin_list .item .info:hover {
+color: #008fd1;
+}
+
 
 @include media-breakpoint-up(smg){
     .brand-popup-list{

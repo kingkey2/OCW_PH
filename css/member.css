@@ -604,12 +604,12 @@ input.month:read-only, input.day:read-only {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 80%;
+  width: 90%;
 }
 .card-slider .card-item .item .title {
   color: #707070;
   font-size: 0.875rem;
-  width: 55%;
+  width: 70%;
 }
 .card-slider .card-item .item .value {
   font-weight: 500;
@@ -726,8 +726,8 @@ input.month:read-only, input.day:read-only {
 .card-thumb-wrapper {
   overflow-x: hidden;
   margin-bottom: 1.5rem;
-  background: -webkit-gradient(linear, left bottom, left top, from(white), color-stop(50%, white), color-stop(50%, #C1C1C1), color-stop(51%, #C1C1C1), to(white));
-  background: linear-gradient(360deg, white 0%, white 50%, #C1C1C1 50%, #C1C1C1 51%, white 100%);
+  background: -webkit-gradient(linear, left bottom, left top, from(white), color-stop(60%, white), color-stop(60%, #C1C1C1), color-stop(61%, #C1C1C1), to(white));
+  background: linear-gradient(360deg, white 0%, white 60%, #C1C1C1 60%, #C1C1C1 61%, white 100%);
   margin-left: -1.5rem;
   margin-right: -1.5rem;
   padding: 10px 10px;
@@ -780,15 +780,23 @@ input.month:read-only, input.day:read-only {
   background-size: contain;
 }
 .card-thumb-wrapper .thumb-item .level {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: #8A8A8A;
   margin-top: 0.5rem;
+  text-align: center;
+  font-weight: 400;
+}
+.card-thumb-wrapper .swiper-slide-thumb-active .img-crop {
+  -webkit-filter: drop-shadow(0 0 3px #3a3a3a);
+          filter: drop-shadow(0 0 3px #3a3a3a);
 }
 .card-thumb-wrapper .swiper-slide-thumb-active .img-crop:after {
   opacity: 0;
 }
 .card-thumb-wrapper .swiper-slide-thumb-active .thumb-item .level {
+  font-size: 0.875rem;
   color: #666666;
+  font-weight: 500;
 }
 @media (hover: hover) {
   .card-thumb-wrapper .thumb-item:hover .img-crop:after {
@@ -823,6 +831,11 @@ input.month:read-only, input.day:read-only {
 .notice-wrapper {
   margin-top: 2rem;
   font-weight: 300;
+}
+.notice-wrapper .notice-list .item {
+  text-indent: -1rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
 }
 
 .activity-dailylogin-wrapper {
