@@ -256,6 +256,36 @@ public static class ActivityCore {
         return R;
     }
 
+    public static ActResult<List<Activity>> GetRegisterToParentResult() {
+        ActResult<List<Activity>> R = new ActResult<List<Activity>>() { Result = enumActResult.ERR, Data = new List<Activity>() };
+        JObject InProgressActivity;
+
+        string DetailPath = null;
+        string MethodName = null;
+        string ActiviyName = null;
+
+        InProgressActivity = GetInProgressActivity();
+
+        foreach (var item in InProgressActivity["RegisterBounsToParent"]) {
+            DetailPath = InProgressActivity["BasicPath"] + item["Path"].ToString();
+            MethodName = item["MethodName"].ToString();
+            ActiviyName = item["Name"].ToString();
+
+            var DR = (ActResult<Activity>)(typeof(ActivityExpand.Register).GetMethod(MethodName).Invoke(null, new object[] { DetailPath }));
+
+            if (DR.Result == enumActResult.OK) {
+
+                R.Data.Add(DR.Data);
+            }
+        }
+
+
+        R.Result = enumActResult.OK;
+        R.Message = "";
+
+        return R;
+    }
+
     private static JObject GetInProgressActivity() {
         JObject o = null;
         string Filename;
@@ -322,8 +352,14 @@ public static class ActivityCore {
         public decimal BonusValue { get; set; }
         public decimal ThresholdRate { get; set; }
         public decimal ThresholdValue { get; set; }
+        public decimal ParentBonusRate { get; set; }
+        public decimal ParentBonusValue { get; set; }
+        public decimal ParentThresholdRate { get; set; }
+        public decimal ParentThresholdValue { get; set; }
         public string Title { get; set; }
         public string SubTitle { get; set; }
+        public string ParentTitle { get; set; }
+        public string ParentSubTitle { get; set; }
         public string JoinActivityCycle { get; set; }
         public int JoinCount { get; set; }
         public string CollectType { get; set; }
