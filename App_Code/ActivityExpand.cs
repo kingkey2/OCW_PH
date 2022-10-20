@@ -513,7 +513,7 @@ public static class ActivityExpand {
                                     }
                                 }
 
-                                if (Amount > DepositMinValue) {
+                                if (Amount < DepositMinValue) {
                                     IsPaymentCodeSupport = false;
                                 }
 
@@ -550,7 +550,7 @@ public static class ActivityExpand {
                                     }
                                 }
 
-                                if (Amount > DepositMinValue) {
+                                if (Amount < DepositMinValue) {
                                     IsPaymentCodeSupport = false;
                                 }
 
@@ -587,7 +587,7 @@ public static class ActivityExpand {
                                     }
                                 }
 
-                                if (Amount > DepositMinValue) {
+                                if (Amount < DepositMinValue) {
                                     IsPaymentCodeSupport = false;
                                 }
 
