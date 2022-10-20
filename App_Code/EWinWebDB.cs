@@ -1020,5 +1020,23 @@ public static class EWinWebDB {
 
             return DT;
         }
+
+        public static System.Data.DataTable GetUserTotalPaymentValueByLoginAccount(string LoginAccount) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT ISNULL(Sum(DepositAmount),0) DepositAmount, " +
+                     "                ISNULL(Sum(WithdrawalAmount),0) WithdrawalAmount " +
+                     " FROM   UserAccountSummary " +
+                     " WHERE  LoginAccount = @LoginAccount ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
     }
 }

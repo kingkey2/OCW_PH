@@ -15,12 +15,12 @@
     }
   ],
   "ParentBonusAfterDeposit": [
-    //{
-    //  "Name": "Act005",
-    //  "Path": "2022_6/Act005.json",
-    //  "MethodName": "OpenIntroBonusToParent",
-    //  "InfoMethodName": "OpenIntroBonusToParent"
-    //}
+    {
+      "Name": "DepositBounsToParent",
+      "Path": "Common/DepositBounsToParent.json",
+      "MethodName": "OpenIntroBonusToParent",
+      "InfoMethodName": "OpenIntroBonusToParent"
+    }
   ],
   "Register": [
     {
@@ -30,12 +30,26 @@
       "InfoMethodName": "RegisterBouns"
     }
   ],
+  "RegisterBounsToParent": [
+    {
+      "Name": "RegisterBounsToParent",
+      "Path": "Common/RegisterBounsToParent.json",
+      "MethodName": "RegisterBounsToParent",
+      "InfoMethodName": "RegisterBounsToParent"
+    }
+  ],
   "Keep": [
     {
       "Name": "RegisterBouns",
       "Path": "Common/RegisterBouns.json",
       "MethodName": "RegisterBouns",
       "InfoMethodName": "RegisterBouns"
+    },
+    {
+      "Name": "RegisterBounsToParent",
+      "Path": "Common/RegisterBounsToParent.json",
+      "MethodName": "RegisterBounsToParent",
+      "InfoMethodName": "RegisterBounsToParent"
     },
     {
       "Name": "FirstDepositBonus",
@@ -54,7 +68,7 @@
     {
       "Name": "RegisterBouns",
       "State": 0,
-      "PageShowState": 1
+      "PageShowState": 0
     },
     {
       "Name": "FirstDepositBonus",

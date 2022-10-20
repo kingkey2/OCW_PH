@@ -2024,18 +2024,11 @@ public class PaymentAPI : System.Web.Services.WebService
                                                             ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
                                                             ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
 
-                                                            //Nissin Pay活動
-                                                            if (Amount >= 100000)
-                                                            {
-                                                                HandingFeeRate = 0;
-                                                                HandingFeeAmount = 0;
-                                                                ReceiveTotalAmount =Amount;
-                                                            }
-                                                            else {
-                                                                HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
-                                                                HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
-                                                                ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
-                                                            }
+                                                           
+                                                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
+                                                            HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
+                                                            ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
+                                                           
 
                                                             ReceiveTotalAmount = CodingControl.FormatDecimal(ReceiveTotalAmount, 0);
                                                             CryptoDetail Dcd = new CryptoDetail()

@@ -1,0 +1,16 @@
+{
+  "Name": "RegisterBounsToParent",
+  "State": 0,
+  "StartDate": "2022/02/20 00:00:00",
+  "EndDate": "2062/05/31 00:00:00",
+  "Self": {
+
+  },
+  "Parent": {
+    "BonusValue": 0.5,
+    "ThresholdValue": 1.5
+  },
+  "Title": "推薦好友加入註冊送0.5元",
+  "SubTitle": "推薦好友加入註冊送0.5元",
+  "CollectAreaType": 2
+}
