@@ -1854,6 +1854,12 @@
             }
 
             selectedWallet = wallet;
+            
+            if (wallet.CurrencyType == EWinWebInfo.BonusCurrencyType) {
+                $("#liWithdrawal").hide();
+            } else {
+                $("#liWithdrawal").show();
+            }
 
             // 已登入
             idMenuLogin.classList.remove("is-hide");
@@ -3127,7 +3133,7 @@
                                                 <i class="icon icon-mask icon-deposit"></i>
                                                 <span class="title language_replace">存款</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
+                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)" id="liWithdrawal"style="display:none">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-withdarw"></i>
                                                 <span class="title language_replace">出款</span></a>
