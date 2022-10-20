@@ -80,23 +80,36 @@
                                             var allParentBonusAfterDepositResult = ActivityCore.GetAllParentBonusAfterDepositResult(BodyObj.LoginAccount);
 
                                             if (allParentBonusAfterDepositResult.Result == ActivityCore.enumActResult.OK) {
-                                                EWin.OCW.OCW ocwApi = new EWin.OCW.OCW();
-
+                                                System.Data.DataTable ParentPaymentDT = null;
+                                                decimal ParentDepositAmount = 0;
 
                                                 foreach (var activityData in allParentBonusAfterDepositResult.Data) {
-                                                    List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
-                                                    description = activityData.ActivityName;
-                                                    PromotionCollectKey = description + "_" + BodyObj.ClientOrderNumber;
-                                                    JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
-                                                    CollectAreaType = activityData.CollectAreaType == null ? "1" : activityData.CollectAreaType;
 
-                                                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
-                                                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
-                                                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
+                                                    if (ParentPaymentDT == null) {
+                                                        ParentPaymentDT = EWinWebDB.UserAccountSummary.GetUserTotalPaymentValueByLoginAccount(activityData.ParentLoginAccount);
+                                                        if (ParentPaymentDT != null) {
+                                                            if (ParentPaymentDT.Rows.Count > 0) {
+                                                                ParentDepositAmount = (decimal)ParentPaymentDT.Rows[0]["DepositAmount"];
+                                                            }
+                                                        }
+                                                    }
 
-                                                    lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, activityData.ParentLoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
-                                                    EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, 0, 0);
+                                                    if (ParentDepositAmount > 500) {
+                                                        List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+                                                        description = activityData.ActivityName;
+                                                        PromotionCollectKey = description + "_" + BodyObj.ClientOrderNumber;
+                                                        JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
+                                                        CollectAreaType = activityData.CollectAreaType == null ? "1" : activityData.CollectAreaType;
+
+                                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
+                                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
+                                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
+
+                                                        lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, activityData.ParentLoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, 0, 0);
+                                                    }
                                                 }
+                                                
                                                 int FinishPaymentRet;
 
                                                 FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Success, BodyObj.PaymentSerial);

@@ -309,7 +309,7 @@
                                 <div class="rate">
                                     <p class="crypto RateOutCurrency"><span class="amount">1</span><span class="unit">USDT</span></p>
                                     <span class="sym">=</span>
-                                    <p class="currency ExchangeRateOut"><span class="amount">100</span><span class="unit">Ocoin</span></p>
+                                    <p class="currency ExchangeRateOut"><span class="amount">100</span><span class="unit">PHP</span></p>
                                 </div>
                                 <div class="refresh">
                                     <p class="period"><span class="date"></span><span class="time">15:30:02</span></p>
@@ -337,7 +337,7 @@
                                             <h5 class="name language_replace">存入金額</h5>
                                         </div>
                                         <div class="data">
-                                            <span class="name">Ocoin</span>
+                                            <span class="name">PHP</span>
                                             <span class="count Amount"></span>
                                         </div>
                                     </div>
@@ -346,7 +346,7 @@
                                             <h5 class="name language_replace">活動獎勵</h5>
                                         </div>
                                         <div class="data">
-                                            <span class="name">Ocoin</span>
+                                            <span class="name">PHP</span>
                                             <span class="count BonusValue"></span>
                                         </div>
                                     </div>
@@ -355,7 +355,7 @@
                                             <h5 class="name language_replace">可得總額</h5>
                                         </div>
                                         <div class="data">
-                                            <span class="name">Ocoin</span>
+                                            <span class="name">PHP</span>
                                             <span class="count TotalAmount"></span>
                                         </div>
                                     </div>

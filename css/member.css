@@ -367,9 +367,6 @@ input.month:read-only, input.day:read-only {
 .member-wallet-contnet:hover {
   background-color: rgba(0, 0, 0, 0.45);
 }
-.member-wallet-contnet:hover .btn {
-  background-color: #d91a72 !important;
-}
 .member-wallet-detail {
   width: 70%;
 }
@@ -1353,6 +1350,9 @@ input.month:read-only, input.day:read-only {
 .btn-Q-mark.btn-sm .icon-mask {
   width: 16px;
   height: 16px;
+}
+.btn-Q-mark:hover {
+  background-color: #747274;
 }
 
 .verify-result {

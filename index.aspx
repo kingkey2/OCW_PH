@@ -960,7 +960,7 @@
         likebtn.onclick = new Function("favBtnClick('" + brandName + "." + gameName + "')");
 
         if (GI_img != null) {
-            GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brandName + "/PC/" + EWinWebInfo.Lang + "/" + gameName + ".png";
+            GI_img.src = EWinWebInfo.EWinUrl + "/Files/GamePlatformPic/" + brandName + "/PC/" + EWinWebInfo.Lang + "/" + gameName + ".png";
             //var el = GI_img;
             //var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
             //observer.observe();
@@ -1602,7 +1602,7 @@
     function setDefaultIcon(brand, name) {
         var img = event.currentTarget;
         img.onerror = null;
-        img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brand + "/PC/" + EWinWebInfo.Lang + "/" + name + ".png";
+        img.src = EWinWebInfo.EWinUrl + "/Files/GamePlatformPic/" + brand + "/PC/" + EWinWebInfo.Lang + "/" + name + ".png";
     }
 
     function openGame(gameBrand, gameName, gameLangName) {
@@ -2652,7 +2652,7 @@
                         gameItemCount++;
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
-                            GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                            GI_img.src = EWinWebInfo.EWinUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
                             var el = GI_img;
                             var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                             observer.observe();
@@ -2992,7 +2992,7 @@
 
                 var GI_img = GI.querySelector(".gameimg");
                 if (GI_img != null) {
-                    GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                    GI_img.src = EWinWebInfo.EWinUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
                     var el = GI_img;
                     var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                     observer.observe();
@@ -3739,15 +3739,12 @@
                                             onclick="SearchControll.searchGameChangeClear()">
                                             <span class="language_replace">重新設定</span>
                                         </button>--%>
-                                        <button class="btn btn-full-main btn-brand-confirm" type="button"
+                                        <button class="btn btn-primary btn-brand-confirm" type="button"
                                             onclick="SearchControll.searchGameChangeConfirm()">
                                             <span class="language_replace">確認</span>
                                         </button>
                                     </div>
-
                                 </div>
-
-
                             </div>
                         </div>
                     </div>

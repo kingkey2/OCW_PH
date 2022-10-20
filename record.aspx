@@ -221,9 +221,9 @@
 
                                 if (GameBrand == "EWin") {
                                     c.setClassText(RecordDom, "gameName", null, "EWinゲーミング");
-                                    GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/EWinGaming.png";
+                                    GI_img.src = WebInfo.EWinUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/EWinGaming.png";
                                 } else {
-                                    GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/" + GameName + ".png";
+                                    GI_img.src = WebInfo.EWinUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/" + GameName + ".png";
                                 }
 
                                 panel.appendChild(RecordDom);
@@ -778,11 +778,11 @@
                                             <div class="thead__tr">
                                                 <div class="thead__th">
                                                     <span class="title language_replace">上個月</span>
-                                                    <span class="unit">OCoin</span>
+                                                    <span class="unit">PHP</span>
                                                 </div>
                                                 <div class="thead__th">
                                                     <span class="title language_replace">這個月</span>
-                                                    <span class="unit">OCoin</span>
+                                                    <span class="unit">PHP</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -852,11 +852,11 @@
                                             <div class="thead__tr">
                                                 <div class="thead__th">
                                                     <span class="title language_replace">上個月</span>
-                                                    <span class="unit">OCoin</span>
+                                                    <span class="unit">PHP</span>
                                                 </div>
                                                 <div class="thead__th">
                                                     <span class="title language_replace">這個月</span>
-                                                    <span class="unit">OCoin</span>
+                                                    <span class="unit">PHP</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -965,7 +965,7 @@
                                         <span class="language_replace">日期</span>
                                         <%--<span class="arrow arrow-down"></span>--%>
                                     </div>
-                                    <div class="thead__th"><span class="language_replace">OCOIN</span><%--<span class="arrow arrow-up"></span>--%></div>
+                                    <div class="thead__th"><span class="language_replace">PHP</span><%--<span class="arrow arrow-up"></span>--%></div>
                                     <div class="thead__th"><span class="language_replace">支付方式</span><%--<span class="arrow arrow-up"></span>--%></div>
                                     <div class="thead__th"><span class="language_replace">編號</span></div>
                                     <div class="thead__th"><span class="language_replace">狀態</span></div>

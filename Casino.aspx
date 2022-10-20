@@ -701,7 +701,7 @@
 
          
 
-            imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
+            imgsrc = WebInfo.EWinUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
            /*  三冠王 ===========================
             等級：crownLevel-1/
             類別：crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4) 
@@ -1226,7 +1226,7 @@
     function setDefaultIcon(brand, name) {
         var img = event.currentTarget;
         img.onerror = null;
-        img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brand + "/PC/" + WebInfo.Lang + "/" + name + ".png";
+        img.src = WebInfo.EWinUrl + "/Files/GamePlatformPic/" + brand + "/PC/" + WebInfo.Lang + "/" + name + ".png";
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {

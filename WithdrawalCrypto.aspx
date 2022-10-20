@@ -816,7 +816,7 @@
                                             <label class="btn btn-outline-primary" for="amount1" data-val="10000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
                                                     <%-- <span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                    <span class="coinType-title">Ocoin</span>
+                                                    <span class="coinType-title">PHP</span>
                                                     <span class="coinType-amount OcoinAmount">10,000</span>
                                                 </span>
                                             </label>
@@ -826,7 +826,7 @@
                                             <input type="radio" name="amount" id="amount2" />
                                             <label class="btn btn-outline-primary" for="amount2" data-val="50000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
-                                                    <span class="coinType-name">Ocoin</span>
+                                                    <span class="coinType-name">PHP</span>
                                                     <span class="coinType-amount OcoinAmount">50,000</span>
                                                 </span>
                                             </label>
@@ -837,7 +837,7 @@
                                             <label class="btn btn-outline-primary" for="amount3" data-val="100000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
                                                     <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                    <span class="coinType-name">Ocoin</span>
+                                                    <span class="coinType-name">PHP</span>
                                                     <span class="coinType-amount OcoinAmount">100,000</span>
                                                 </span>
                                             </label>
@@ -850,7 +850,7 @@
                                     <label class="form-title language_replace">輸入金額</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control custom-style" id="amount" language_replace="placeholder" placeholder="請輸入金額" onkeyup="setAmount()" />
-                                        <div class="form-notice-aside unit" id="OrderCurrencyType">Ocoin</div>
+                                        <div class="form-notice-aside unit" id="OrderCurrencyType">PHP</div>
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>
@@ -882,7 +882,7 @@
                                 <%--<span class="inputlike-box "><span ></span></span>--%>
                                 <%--                                        <span class="inputlike-box-append">
                                             <span class="inputlike-box-append-title" id="ExchangeVal"></span>
-                                            <span class="inputlike-box-append-unit">Ocoin</span>
+                                            <span class="inputlike-box-append-unit">PHP</span>
                                         </span>
                                     </div>
                                 </div>--%>
@@ -962,7 +962,7 @@
                                             <h5 class="name language_replace">出金金額</h5>
                                         </div>
                                         <div class="data">
-                                            <span class="name PaymentCode">OCoin</span>
+                                            <span class="name PaymentCode">PHP</span>
                                             <span class="count Amount"></span>
                                         </div>
                                     </div>
@@ -1080,7 +1080,7 @@
                                     <div class="rate">
                                         <p class="crypto RateOutCurrency"><span class="amount">1</span><span class="unit">USDT</span></p>
                                         <span class="sym">=</span>
-                                        <p class="currency ExchangeRateOut"><span class="amount">100</span><span class="unit">Ocoin</span></p>
+                                        <p class="currency ExchangeRateOut"><span class="amount">100</span><span class="unit">PHP</span></p>
                                     </div>
                                     <div class="refresh" style="display: none;">
                                         <p class="period"><span class="date"></span><span class="time" style="display: none">15:30:02</span></p>

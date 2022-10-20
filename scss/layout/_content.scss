@@ -55,7 +55,8 @@
 
 html{
 
-	@include scrollbar(rgba(#adb5bd, .8),#3DB6FF, 12px);
+	// @include scrollbar(rgba(#adb5bd, .8),#3DB6FF, 12px);
+	@include scrollbar(rgba(#adb5bd, .8),#4ebcc1, 12px);
 	// background-size: cover; //重要!! 必加
 	background-repeat:no-repeat; //重要!! 必加
 	background-attachment: fixed; //重要!! 必加
