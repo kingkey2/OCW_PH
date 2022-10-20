@@ -169,6 +169,10 @@
         if ($("#idValidateCode").val() == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
         } else {
+            if (!CheckPassword()) {
+                return;
+            }
+
             p.CheckValidateCode(Math.uuid(), 1, "", $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), $("#idValidateCode").val(), function (success, o) {
                 if (success) {
                     if (o.Result != 0) {

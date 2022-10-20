@@ -86,7 +86,7 @@
                                                 foreach (var activityData in allParentBonusAfterDepositResult.Data) {
 
                                                     if (ParentPaymentDT == null) {
-                                                        ParentPaymentDT = EWinWebDB.UserAccountSummary.GetUserTotalPaymentValueByLoginAccount(activityData.ParentLoginAccount);
+                                                        ParentPaymentDT =  RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(activityData.ParentLoginAccount);
                                                         if (ParentPaymentDT != null) {
                                                             if (ParentPaymentDT.Rows.Count > 0) {
                                                                 ParentDepositAmount = (decimal)ParentPaymentDT.Rows[0]["DepositAmount"];

@@ -83,7 +83,7 @@
         $("#RealName").val(WebInfo.UserInfo.RealName);
         $("#Email").val(WebInfo.UserInfo.EMail == undefined ? "" : WebInfo.UserInfo.EMail);
         $("#PhoneNumber").val(WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber);
-        let IsFullRegistration = 0; 
+        let IsFullRegistration = 0;
 
         if (WebInfo.UserInfo.ExtraData) {
             var ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
@@ -115,7 +115,16 @@
         $("#Address").val(WebInfo.UserInfo.ContactAddress == undefined ? "" : WebInfo.UserInfo.ContactAddress);
         //$("#idAmount").text(new BigNumber(WebInfo.UserInfo.WalletList.find(x => x.CurrencyType == window.parent.API_GetCurrency()).PointValue).toFormat());
 
-        let wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
+        //若bonus錢包金額大於0則顯示bonus錢包金額
+        var wallet;
+        wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.BonusCurrencyType.toLocaleUpperCase());
+
+        if (wallet.PointValue > 0) {
+
+        } else {
+            wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType.toLocaleUpperCase());
+        }
+        
         $("#idAmount").text(new BigNumber(parseInt(wallet.PointValue)).toFormat());
         $("#PersonCode").text(WebInfo.UserInfo.PersonCode);
         $("#idCopyPersonCode").text(WebInfo.UserInfo.PersonCode);
@@ -518,8 +527,7 @@
             initSwiper();
             initSwiperEnd = true;
         }
-        
-    })
+    });
 
     window.onload = init;
 </script>
@@ -855,7 +863,9 @@
                                                         <span class="value lacking language_replace">不可出金</span>
                                                         <span class="value enough language_replace">可出金</span>
                                                         <!-- 出金說明 -->
-                                                        <span class="btn btn-Q-mark btn-round btn-sm" onclick="window.parent.API_LoadPage('','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span></div>      
+                                                     <%--   <span class="btn btn-Q-mark btn-round btn-sm" onclick="window.parent.API_LoadPage('','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span>--%>
+
+                                                    </div>      
                                                 </div>        
                                                 <div class="limit-amount">
                                                     <span class="title language_replace">出金限制</span>
