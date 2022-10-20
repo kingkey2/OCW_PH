@@ -409,7 +409,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                    lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount, LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                    lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount, LoginAccount, EWinWeb.BonusCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                     EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
                 }
             }
@@ -425,7 +425,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     ParentLoginAccount = Parent.ParentLoginAccount;
                 }
 
-                DT = EWinWebDB.UserAccountSummary.GetUserTotalPaymentValueByLoginAccount(ParentLoginAccount);
+                DT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(ParentLoginAccount);
 
                 if (DT != null) {
                     if (DT.Rows.Count > 0) {
@@ -1947,6 +1947,52 @@ public class LobbyAPI : System.Web.Services.WebService {
         return R;
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public UserAccountTotalSummaryResult GetTotalSummaryBySID(string WebSID, string GUID) {
+        UserAccountTotalSummaryResult R = new UserAccountTotalSummaryResult() { Datas = new List<UserAccountTotalSummary>(), Result = EWin.Lobby.enumResult.ERR , GUID = GUID };
+        System.Data.DataTable DT;
+        RedisCache.SessionContext.SIDInfo SI;
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+
+            DT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(SI.LoginAccount);
+
+            if (DT != null && DT.Rows.Count > 0) {
+                for (int i = 0; i < DT.Rows.Count; i++) {
+                    var data = new UserAccountTotalSummary();
+
+                    data.LoginAccount = (string)DT.Rows[i]["LoginAccount"];
+                    data.DepositCount = (int)DT.Rows[i]["DepositCount"];
+                    data.DepositRealAmount = (decimal)DT.Rows[i]["DepositRealAmount"];
+                    data.DepositAmount = (decimal)DT.Rows[i]["DepositAmount"];
+                    data.WithdrawalCount = (int)DT.Rows[i]["WithdrawalCount"];
+                    data.WithdrawalRealAmount = (decimal)DT.Rows[i]["WithdrawalRealAmount"];
+                    data.WithdrawalAmount = (decimal)DT.Rows[i]["WithdrawalAmount"];
+                    data.LastDepositDate = (DateTime)DT.Rows[i]["LastDepositDate"];
+                    data.LastWithdrawalDate = (DateTime)DT.Rows[i]["LastWithdrawalDate"];
+                    data.FingerPrints = (string)DT.Rows[i]["FingerPrints"];
+                    R.Datas.Add(data);
+
+                }
+            }
+
+            if (R.Datas.Count > 0) {
+                R.Result = (int)EWin.Lobby.enumResult.OK;
+            } else {
+                R.Result = EWin.Lobby.enumResult.ERR;
+                R.Message = "NoData";
+            }
+        } else {
+            R.Result = EWin.Lobby.enumResult.ERR;
+            R.Message = "InvalidWebSID";
+        }
+
+        return R;
+    }
+
     public class UserTwoMonthSummaryResult : EWin.Lobby.APIResult {
         public List<Payment> PaymentResult { get; set; }
         public List<Game> GameResult { get; set; }
@@ -2146,5 +2192,22 @@ public class LobbyAPI : System.Web.Services.WebService {
         public string Date { get; set; }
         public decimal TotalValidBetValue { get; set; }
         public int Status { get; set; }
+    }
+
+    public class UserAccountTotalSummaryResult : EWin.Lobby.APIResult {
+        public List<UserAccountTotalSummary> Datas { get; set; }
+    }
+
+    public class UserAccountTotalSummary {
+        public string LoginAccount { get; set; }
+        public int DepositCount { get; set; }
+        public decimal DepositRealAmount { get; set; }
+        public decimal DepositAmount { get; set; }
+        public int WithdrawalCount { get; set; }
+        public decimal WithdrawalRealAmount { get; set; }
+        public decimal WithdrawalAmount { get; set; }
+        public DateTime LastDepositDate { get; set; }
+        public DateTime LastWithdrawalDate { get; set; }
+        public string FingerPrints { get; set; }
     }
 }
