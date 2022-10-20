@@ -143,7 +143,6 @@ ul {
 }
 
 
-
 // 無資料 =========================
 .no-Data{
     position: relative;
@@ -675,6 +674,10 @@ textarea, input, button, select{
 	// background-color: #e83e8c !important;
 	// background-color: #E7211A !important;
 	background-color: $button-full-stress-background !important;
+
+	&:hover{
+		background-color: darken($button-full-stress-background, 10%)!important;
+	}
 }
 
 .btn-full-stress-2{

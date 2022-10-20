@@ -236,7 +236,7 @@ $min-width-column: 60px;
         -webkit-overflow-scrolling: touch;
         font-size: font-resize(15px);
 
-        @include scrollbar(rgba(#adb5bd, .7), #c1a678);
+        @include scrollbar(rgba(#adb5bd, .7), #4ebcc1);
     }
 
     .tbody {
@@ -325,7 +325,7 @@ $min-width-column: 60px;
 .MT__tableDiv {
 
     width: 100%;
-    @include scrollbar(rgba(#adb5bd, .7), #c1a678);
+    @include scrollbar(rgba(#adb5bd, .7), #4ebcc1);
 
     overflow-y: hidden;
     margin-bottom: font-resize(15px);

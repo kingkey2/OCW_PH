@@ -367,9 +367,6 @@ input.month:read-only, input.day:read-only {
 .member-wallet-contnet:hover {
   background-color: rgba(0, 0, 0, 0.45);
 }
-.member-wallet-contnet:hover .btn {
-  background-color: #d91a72 !important;
-}
 .member-wallet-detail {
   width: 70%;
 }
