@@ -1663,7 +1663,7 @@
                         }
 
                         Promise.all(promiseAll).then(values => {
-                        
+                            updateBaseInfo();
                         });
                     } else {
                 
