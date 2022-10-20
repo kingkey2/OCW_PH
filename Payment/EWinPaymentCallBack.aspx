@@ -23,6 +23,8 @@
             if (BodyObj != null) {
 
                 EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
+                EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
+                EWin.OCW.OCW ocwAPI = new EWin.OCW.OCW();
 
                 EWin.Payment.PaymentResult paymentResult = paymentAPI.GetPaymentByClientOrderNumber(Token, GUID, BodyObj.ClientOrderNumber);
                 //回去EWin確認該筆訂單存在
@@ -109,12 +111,45 @@
                                                         EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, 0, 0);
                                                     }
                                                 }
-                                                
+
                                                 int FinishPaymentRet;
 
                                                 FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Success, BodyObj.PaymentSerial);
 
                                                 if (FinishPaymentRet == 0) {
+
+                                                    //若該用戶為首儲需清除PHP_Bonus錢包的餘額及門檻，若PHP_Bonus錢包餘額大於等於200發給該會員200的禮物
+                                                    System.Data.DataTable UserPaymentDT = null;
+                                                    int UserDepositCount = 0;
+                                                    UserPaymentDT =  RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(BodyObj.LoginAccount);
+                                                    if (UserPaymentDT != null) {
+                                                        if (UserPaymentDT.Rows.Count > 0) {
+                                                            UserDepositCount = (int)UserPaymentDT.Rows[0]["DepositCount"];
+                                                        }
+                                                    }
+
+                                                    if (UserDepositCount == 1) {
+                                                        EWin.OCW.APIResult PointValueRet = ocwAPI.GetUserPointValue(GetToken(), System.Guid.NewGuid().ToString(), BodyObj.LoginAccount, EWinWeb.BonusCurrencyType);
+
+                                                        if (PointValueRet.ResultState == EWin.OCW.enumResultState.OK) {
+                                                            decimal UserPointVal = decimal.Parse(PointValueRet.Message);
+
+                                                            if (UserPointVal >= 200) {
+                                                                List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+                                                                description = "BS001";
+                                                                PromotionCollectKey = description + "_" + BodyObj.LoginAccount;
+
+                                                                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = "0" });
+                                                                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = "200" });
+                                                                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = "1" });
+
+                                                                lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
+                                                            }
+                                                        }
+
+                                                        fantaAPI.ResetUserPointValueAndThresholdValueByCurrencyType(GetToken(), BodyObj.LoginAccount, System.Guid.NewGuid().ToString(), EWinWeb.BonusCurrencyType, "FirstDepositRestBonusWallet");
+                                                    }
+
                                                     R.Result = 0;
                                                     RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
                                                     ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
