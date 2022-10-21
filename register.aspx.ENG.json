@@ -93,6 +93,9 @@
   "簡易註冊可讓玩家填入最低限度的內容，即可進入網站體驗，但完整註冊才能享有領取獎勵、充值、提款等完整會員才有的特定功能喔!": "Easy SignUp just needs to fill in a little information to become our member. However, Full Signup provides specific functions such as reward collection, deposit, and withdrawal and so on.",
   "簡易註冊後如何升級完整會員?": "How to upgrade to full membership?",
   "於會員中心按下『進行認證』之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。": "Click [Verify Now] in the member center to conduct member verification.",
-  "歡迎來到 Fanta！": "Welcome to Fanta！"
-
+  "歡迎來到 Fanta！": "Welcome to Fanta！",
+  "帳號": "帳號",
+  "手機驗證相關說明：": "手機驗證相關說明",
+  "1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。": "1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。",
+  "2.將手機簡訊內的驗證碼回填於下方輸入框內。": "2.將手機簡訊內的驗證碼回填於下方輸入框內。"
 }

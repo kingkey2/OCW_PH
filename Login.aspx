@@ -175,7 +175,7 @@
     var mlp;
     var lang;
     var WebInfo;
-    var LoginType = 1; //0=信箱登入，1=電話登入
+    var LoginType = 0; //0=信箱登入，1=電話登入
     var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
     var v = "<%:Version%>";
     var visitorId;
@@ -479,20 +479,20 @@
                 <div class="heading-title">
                     <h3 class="language_replace">會員登入</h3>
                 </div>
-                <div class="identity_login slideButton-menu-container">
+                <%--<div class="identity_login slideButton-menu-container">
                     <div class="slideButton-menu-wraper">
                         <button onclick="setLoginType(1)" class="btn menu-item active" id="btnPhone"><span class="language_replace">電話登入</span></button>
                         <button onclick="setLoginType(0)" class="btn menu-item " id="btnMail"><span class="language_replace">信箱登入</span></button>
                         <div class="tracking-bar"></div>
                     </div>
-                </div>
+                </div>--%>
                 <div class="form-content">
                     <form method="post" id="idFormUserLogin">
                         <input type="hidden" name="FingerPrint" value="" />
                         <input type="hidden" name="UserAgent" value="" />
                         <input type="hidden" name="LoginGUID" value="" />
-                        <input id="idLoginType" type="hidden" name="LoginType" value="1" />
-                        <div id="idMailLoginGroup" class="form-group is-hide">
+                        <input id="idLoginType" type="hidden" name="LoginType" value="0" />
+                        <div id="idMailLoginGroup" class="form-group">
                             <label class="form-title language_replace">信箱</label>
                             <div class="input-group">
                                 <input type="text" class="form-control custom-style" placeholder="abc@email.com" inputmode="email" name="LoginAccount">
@@ -500,7 +500,7 @@
                             </div>
                         </div>
 
-                        <div id="idPhoneLoginGroup" class="form-row">
+                        <div id="idPhoneLoginGroup" class="form-row is-hide">
                             <div class="form-group col-3">
                                 <label class="form-title language_replace">國碼</label>
                                 <div class="input-group">
