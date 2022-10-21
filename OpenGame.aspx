@@ -15,7 +15,7 @@
     if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
         if (GameCode == "EWin.EWinGaming") {
             if (DemoPlay == "0") {
-                Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(SI.EWinCT) + "&Lang=" + Lang);
+                Response.Redirect(EWinWeb.EWinUrl2 + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(SI.EWinCT) + "&Lang=" + Lang);
             } else {
                 Response.Write("NotSupportDemo");
                 Response.Flush();
