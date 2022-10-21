@@ -3515,7 +3515,7 @@
 
 
                     <div class="footer-copyright">
-                        <p class="language_replace">Lucky Fanta</p>
+                        <p class="language_replace">Copyright © 2022 Lucky Fanta. All Rights Reserved.</p>
                     </div>
                 </div>
             </div>
