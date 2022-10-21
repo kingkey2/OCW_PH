@@ -901,8 +901,7 @@
         likebtn.onclick = new Function("favBtnClick('" + brandName + "." + gameName + "')");
 
         if (GI_img != null) {
-            //GI_img.src = `${EWinWebInfo.ImageUrl}/${brandName}/${EWinWebInfo.Lang}/${gameName}.png`;
-            GI_img.src = `${EWinWebInfo.ImageUrl}/${brandName}/ENG/${gameName}.png`;
+            GI_img.src = `${EWinWebInfo.ImageUrl}/${brandName}/${EWinWebInfo.Lang}/${gameName}.png`;
              
             //var el = GI_img;
             //var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
