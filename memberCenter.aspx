@@ -525,18 +525,19 @@
             window.parent.API_LoadingEnd(1);
             if (success) {
                 if (o.Result == 0) {
-                    updateBaseInfo();
-                    $("#CertificationFail").hide();
+                    $("#IsFullRegistration0").hide();
+                    $("#CertificationForm").hide();
                     $("#CertificationSucc").show();
+                    $("#IsFullRegistration1").show();
                 } else {
-                    $("#CertificationSucc").hide();
+                    $("#CertificationForm").hide();
                     $("#CertificationFail").show();
                 }
             } else {
                 if (o == "Timeout") {
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
                 } else {
-                    $("#CertificationSucc").hide();
+                    $("#CertificationForm").hide();
                     $("#CertificationFail").show();
                 }
             }
