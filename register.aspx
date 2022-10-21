@@ -118,6 +118,8 @@
 
     function CheckPassword() {
         var idLoginPassword = document.getElementById("idLoginPassword");
+        var idLoginCheckPassword = document.getElementById("idLoginCheckPassword");
+        
         var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')
         if (idLoginPassword.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
@@ -127,6 +129,9 @@
             return false;
         } else if (!rules.test(idLoginPassword.value)) {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
+            return false;
+        } else if (idLoginPassword.value.trim() != idLoginCheckPassword.value.trim()) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("確認密碼與登入密碼不符"));
             return false;
         }
 

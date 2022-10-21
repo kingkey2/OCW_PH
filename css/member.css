@@ -774,8 +774,8 @@ input.month:read-only, input.day:read-only {
   display: inline-flex;
   width: 100%;
   height: 0;
-  padding-bottom: 102%;
-  background: url(../images/member/card-thumb-default.png) center center no-repeat;
+  padding-bottom: 101%;
+  background: url(../images/member/card-thumb-default.png) center top no-repeat;
   background-size: contain;
 }
 .card-thumb-wrapper .thumb-item .level {

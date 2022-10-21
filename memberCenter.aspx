@@ -707,7 +707,7 @@
 
                                    <div class="data-item verify">
                                         <div class="data-item-title">
-                                            <label class="title">
+                                            <label class="title mb-3">
                                                 <i class="icon icon-mask icon-verify"></i>
                                                 <span class="title-name language_replace">認證狀態</span>
                                                 <span class="btn btn-Q-mark btn-round btn-sm" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
