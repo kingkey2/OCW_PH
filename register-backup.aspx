@@ -90,8 +90,8 @@
             cb(false);
             return;
         }
-        //else if (idPhonePrefix.value != "+81") {
-        //    window.parent.showMessageOK("", mlp.getLanguageKey("國碼只能為+81"));
+        //else if (idPhonePrefix.value != "+63") {
+        //    window.parent.showMessageOK("", mlp.getLanguageKey("國碼只能為+63"));
         //    cb(false);
         //    return;
         //}
@@ -548,7 +548,7 @@
                             <div class="form-group col phonePrefix">
                                 <label class="form-title language_replace">國碼</label>
                                 <div class="input-group">
-                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+63" inputmode="decimal" value="+63" onchange="onChangePhonePrefix()">
                                     <div class="invalid-feedback language_replace">請輸入國碼</div>
                                 </div>
                             </div>

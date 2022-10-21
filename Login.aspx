@@ -149,7 +149,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maharaja</title>
+    <title>Lucky Fanta</title>
 
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
@@ -504,7 +504,7 @@
                             <div class="form-group col-3">
                                 <label class="form-title language_replace">國碼</label>
                                 <div class="input-group">
-                                    <input name="PhonePrefix" id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                    <input name="PhonePrefix" id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+63" inputmode="decimal" value="+63" onchange="onChangePhonePrefix()">
                                     <div class="invalid-feedback language_replace">請輸入國碼</div>
                                 </div>
                             </div>

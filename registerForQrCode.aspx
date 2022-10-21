@@ -74,7 +74,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maharaja</title>
+    <title>Lucky Fanta</title>
 
     <meta name='keywords' content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
     <meta name='description' content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
@@ -713,7 +713,7 @@
                             <div class="form-group col-3">
                                 <label class="form-title language_replace">國碼</label>
                                 <div class="input-group">
-                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+63" inputmode="decimal" value="+63" onchange="onChangePhonePrefix()">
                                     <div class="invalid-feedback language_replace">請輸入國碼</div>
                                 </div>
                             </div>
@@ -762,7 +762,7 @@
                 
                                 <label class=" language_replace">5.您需要填寫您的姓名、暱稱、出生日期等。</label></br>
             
-                                <label class=" language_replace">6.開戶後，您將通過一封簡短的電子郵件收到有關 Club Maharaja 的信息。</label></br>
+                                <label class=" language_replace">6.開戶後，您將通過一封簡短的電子郵件收到有關 Lucky Fanta 的信息。</label></br>
                            
                                 <label class=" language_replace">※為了能夠接收活動及獎金，請填寫正確的E-mail。</label></br>
 
@@ -1167,7 +1167,7 @@
                     <h1>Welcome</h1>
                 </div>
                 <div class="heading-sub-desc text-wrap">
-                    <h5 class="mb-4 language_replace">歡迎來到 Maharaja！</h5>
+                    <h5 class="mb-4 language_replace">歡迎來到 Lucky Fanta！</h5>
                     <p class="language_replace">感謝您註冊我們的新會員，真正非常的感謝您 ！</p>
                     <p>
                         <span class="language_replace">您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。</span>

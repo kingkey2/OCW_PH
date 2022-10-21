@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maharaja</title>
+    <title>Lucky Fanta</title>
 
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
@@ -553,7 +553,7 @@
                             <div class="form-group col">
                                 <label class="form-title language_replace">手機電話號碼</label>
                                 <div class="input-group">
-                                    <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
+                                    <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-000-0000" inputmode="decimal">
                                     <div class="invalid-feedback language_replace">請輸入正確電話</div>
                                 </div>
                             </div>
@@ -684,7 +684,7 @@
                         </div>
                     </div>
                     <div class="form-group rules-privacy text-small">
-                        <p class="language_replace text-s">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。</p>
+                        <p class="language_replace text-s">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在Lucky Fanta不能持有複數的帳號這個條件。</p>
                     </div>
                     <div class="btn-container pb-4">
                         <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep1()">
@@ -708,7 +708,7 @@
                     <h1>Welcome</h1>
                 </div>
                 <div class="heading-sub-desc text-wrap">
-                    <h5 class="mb-4 language_replace">歡迎來到 Fanta！</h5>
+                    <h5 class="mb-4 language_replace">歡迎來到 Lucky Fanta！</h5>
                     <p class="language_replace">感謝您註冊我們的新會員，真正非常的感謝您 ！</p>
                     <p>
                         <span class="language_replace">您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。</span>

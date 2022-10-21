@@ -448,7 +448,7 @@
                 <div class="loginForm__right">
                     <div class="form-group">
                         <div class="form-control-underline form-input-icon">
-                            <input type="text" class="form-control" name="PhonePrefix" value="+81" required>
+                            <input type="text" class="form-control" name="PhonePrefix" value="+63" required>
                             <label for="area" class="form-label ico-before-member"><span class="language_replace">國碼</span></label>
                         </div>
                     </div>

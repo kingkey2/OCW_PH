@@ -19,7 +19,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maharaja</title>
+    <title>Lucky Fanta</title>
 
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
@@ -207,6 +207,7 @@
 
             let ValidCode = document.getElementById("idValidCode");
             let Password = document.getElementById("idNewPassword");
+            var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$');
 
             if (ValidCode.value == "") {
                 ValidCode.setCustomValidity(mlp.getLanguageKey("錯誤, 請輸入認證碼"));
@@ -215,6 +216,16 @@
                 return;
             } else if (Password.value == "") {
                 Password.setCustomValidity(mlp.getLanguageKey("錯誤, 請輸入新密碼"));
+                Password.reportValidity();
+
+                return
+            } else if (Password.value.length < 6) {
+                Password.setCustomValidity(mlp.getLanguageKey("登入密碼需大於6位"));
+                Password.reportValidity();
+
+                return
+            } else if (!rules.test(Password.value)) {
+                Password.setCustomValidity(mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
                 Password.reportValidity();
 
                 return
@@ -300,6 +311,15 @@
         }
     }
 
+    function onChangePhonePrefix() {
+        var value = event.currentTarget.value;
+        if (value && typeof (value) == "string" && value.length > 0) {
+            if (value[0] != "+") {
+                event.currentTarget.value = "+" + value;
+            }
+        }
+    }
+
     function EWinEventNotify(eventName, isDisplay, param) {
         switch (eventName) {
             case "LoginState":
@@ -352,14 +372,14 @@
                         <div class="form-group col-3">
                             <label class="form-title language_replace">國碼</label>
                             <div class="input-group">
-                                <input name="PhonePrefix" id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                <input name="PhonePrefix" id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+63" inputmode="decimal" value="+63" onchange="onChangePhonePrefix()">
                                 <div class="invalid-feedback language_replace">請輸入國碼</div>
                             </div>
                         </div>
                         <div class="form-group col-9">
                             <label class="form-title language_replace">手機電話號碼</label>
                             <div class="input-group">
-                                <input name="PhoneNumber" id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
+                                <input name="PhoneNumber" id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-000-0000" inputmode="decimal">
                                 <div class="invalid-feedback language_replace">請輸入正確電話</div>
                             </div>
                         </div>
