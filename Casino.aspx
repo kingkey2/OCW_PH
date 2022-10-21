@@ -1176,16 +1176,15 @@
 
         lang = window.parent.API_GetLang();
 
-        getBanner();
-
         //GCB.InitPromise.then(() => {
-            window.parent.API_LoadingEnd();
         //});
 
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             if (p != null) {
+                getBanner();
                 getCompanyGameCode();
+                window.parent.API_LoadingEnd();
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -1283,48 +1282,55 @@
                 if (o.Result == 0) {
                     var ParentMain = document.getElementById("divBanner");
                     ParentMain.innerHTML = "";
-                    
+
                     if (o.DocumentList.length > 0) {
                         var RecordDom2;
+                        var promiseAll = [];
                         for (var i = 0; i < o.DocumentList.length; i++) {
                             var record = o.DocumentList[i];
 
                             RecordDom2 = c.getTemplate("tmpBanner");
 
                             let DocNumber = record.DocNumber;
+                            ParentMain.appendChild(RecordDom2);
 
-                            $.ajax({
-                                url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
-                                async: false,
-                                success: function (res) {
-                                    if (WebInfo.DeviceType == 1) {
-                                        $(RecordDom2).find('.Banner_M').html(res);
-                                        $(RecordDom2).find('.Banner_M').children().find('img').removeAttr("width");
-                                        $(RecordDom2).find('.Banner_M').children().find('img').removeAttr("height");
-                                        $(RecordDom2).find('.Banner_M').children().find('img').unwrap();
-                                    } else {
-                                        $(RecordDom2).find('.Banner_P').html(res);
-                                        $(RecordDom2).find('.Banner_P').children().find('img').addClass("bg");
-                                        $(RecordDom2).find('.Banner_P').children().find('img').unwrap();
-                                    }
-                                }
+                            var promise = new Promise((resolve, reject) => {
+                                $.ajax({
+                                    url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
+                                    success: (function (res) {
+                                        var k = this;
+                                        if (WebInfo.DeviceType == 1) {
+                                            $(k).find('.Banner_M').html(res);
+                                            $(k).find('.Banner_M').children().find('img').removeAttr("width");
+                                            $(k).find('.Banner_M').children().find('img').removeAttr("height");
+                                            $(k).find('.Banner_M').children().find('img').unwrap();
+                                        } else {
+                                            $(k).find('.Banner_P').html(res);
+                                            $(k).find('.Banner_P').children().find('img').addClass("bg");
+                                            $(k).find('.Banner_P').children().find('img').unwrap();
+                                        }
+                                        resolve();
+                                    }).bind(RecordDom2)
+                                });
                             });
 
-                            ParentMain.appendChild(RecordDom2);
+                            promiseAll.push(promise);
+
                         }
 
-                        var heroLobby = new Swiper("#hero-slider-lobby", {
-                            loop: true,
-                            slidesPerView: "auto",
-                            centeredSlides: true,
-                            speed: 1000,
-                            pagination: {
-                                el: ".swiper-pagination",
-                                clickable: true,
-                            },
+                        Promise.all(promiseAll).then(values => {
+                            var heroLobby = new Swiper("#hero-slider-lobby", {
+                                loop: true,
+                                slidesPerView: "auto",
+                                centeredSlides: true,
+                                speed: 1000,
+                                pagination: {
+                                    el: ".swiper-pagination",
+                                    clickable: true,
+                                },
 
+                            });
                         });
-
                     }
                 }
             }
@@ -1332,8 +1338,6 @@
     }
 
     window.onload = init;
-
-
 </script>
 
 <body class="innerBody">
