@@ -868,7 +868,9 @@ $card-bg-normal: (
     }
     // 青銅 bronze
     // 白銀 silver
-    // 黃金 gold
+    // 黃金 gold  /  勇士  Warrior
+
+
     // 白金 platinum
     // 鑽石 diamond
     // 銀鑽 silver diamond
@@ -905,7 +907,9 @@ $card-bg-normal: (
             }
         }       
     }
-    .m-gold{
+
+    .m-gold,
+    .m-warrior{
         .card-item{
             background: linear-gradient(114.06deg, #F3CD1F 49.97%, #E69D00 97.42%);
 
@@ -933,6 +937,7 @@ $card-bg-normal: (
             }
         }       
     }
+    .m-elite,
     .m-S-diamond{
         .card-item{
             background: linear-gradient(114.06deg, #B8D8E7 49.97%, #637B94 97.42%);
@@ -951,6 +956,8 @@ $card-bg-normal: (
             }
         }       
     }
+
+    .m-master,
     .m-starlight{
         .card-item{
             background: linear-gradient(114.06deg, #BEE8FF 49.97%, #00ABD3 97.42%);
@@ -959,6 +966,8 @@ $card-bg-normal: (
             }
         }       
     }
+
+    .m-grandmaster,
     .m-eternal{
         .card-item{
             background: linear-gradient(114.06deg, #E3BBE4 49.97%, #7B687B 97.42%);
@@ -969,6 +978,8 @@ $card-bg-normal: (
             }
         }       
     }
+
+    .m-epic,
     .m-legend{
         .card-item{
             background: linear-gradient(114.06deg, #74CDFF 9.03%, #FFAF9D 49.97%, #E497FF 97.42%);
@@ -978,9 +989,9 @@ $card-bg-normal: (
             }
         }       
     }   
-
-   
 }
+
+
 
 // Modal - Member LEVEL - 會員等級 Slider 縮圖
 .card-thumb-wrapper{
@@ -1009,7 +1020,7 @@ $card-bg-normal: (
 
     .swiper-slide{
         width: auto;
-        max-width: 65px;
+        max-width: 85px;
         // padding: 0 5px;
         padding: 8px;
     }   
