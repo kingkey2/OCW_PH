@@ -487,13 +487,21 @@
             return;
         }
 
-        let ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
+        let ExtraData = [];
 
-        if (WebInfo.UserInfo.ExtraData.indexOf("IsFullRegistration") > 0) {
-            for (var i = 0; i < ExtraData.length; i++) {
-                if (ExtraData[i].Name == "IsFullRegistration") {
-                    ExtraData[i].Value = 1;
+        if (WebInfo.UserInfo.ExtraData) {
+            ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
+
+            if (WebInfo.UserInfo.ExtraData.indexOf("IsFullRegistration") > 0) {
+                for (var i = 0; i < ExtraData.length; i++) {
+                    if (ExtraData[i].Name == "IsFullRegistration") {
+                        ExtraData[i].Value = 1;
+                    }
                 }
+            } else {
+                ExtraData.push({
+                    Name: 'IsFullRegistration', Value: 1
+                });
             }
         } else {
             ExtraData.push({
@@ -518,17 +526,17 @@
             if (success) {
                 if (o.Result == 0) {
                     updateBaseInfo();
-                    $("#CertificationForm").hide();
+                    $("#CertificationFail").hide();
                     $("#CertificationSucc").show();
                 } else {
-                    $("#CertificationForm").hide();
+                    $("#CertificationSucc").hide();
                     $("#CertificationFail").show();
                 }
             } else {
                 if (o == "Timeout") {
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
                 } else {
-                    $("#CertificationForm").hide();
+                    $("#CertificationSucc").hide();
                     $("#CertificationFail").show();
                 }
             }
