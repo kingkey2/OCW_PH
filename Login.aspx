@@ -495,7 +495,7 @@
                         <div id="idMailLoginGroup" class="form-group">
                             <label class="form-title language_replace">信箱</label>
                             <div class="input-group">
-                                <input type="text" class="form-control custom-style" placeholder="abc@email.com" inputmode="email" name="LoginAccount">
+                                <input type="text" class="form-control custom-style" inputmode="email" name="LoginAccount">
                                 <div class="invalid-feedback language_replace">請輸入信箱</div>
                             </div>
                         </div>
