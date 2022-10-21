@@ -1038,7 +1038,7 @@ $card-bg-normal: (
                 // width: calc(100% - 6px);
                 // margin: 0 auto;
                 height: 0;
-                padding-bottom: 102%;
+                padding-bottom: 101%;
                 // background-color: #dbdbdb;
                 // mix-blend-mode: color;
                 
@@ -1053,7 +1053,7 @@ $card-bg-normal: (
     
                 // -webkit-mask-image: url(../images/member/card-thumb-normal.svg);
                 // mask-image: url(../images/member/card-thumb-normal.svg);
-                background: url(../images/member/card-thumb-default.png) center center no-repeat;
+                background: url(../images/member/card-thumb-default.png) center top no-repeat;
                 background-size: contain;
                 // background-size: 100% auto;
             }
