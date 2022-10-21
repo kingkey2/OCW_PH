@@ -163,7 +163,7 @@
                                 </div>
                                 <div class="logo vertical-center text-center"> 
                                     <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
+                                    <img src="images/assets/card-surface/icon-logo-bankcard.png">
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
@@ -179,7 +179,8 @@
                                 </div>
                                 <div class="logo vertical-center text-center"> 
                                     <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
+                                    <!-- <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg"> -->
+                                    <img src="images/assets/card-surface/icon-logo-bankcard.png">
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
@@ -209,7 +210,7 @@
                         <i class="icon-info_circle_outline"></i>
                         <div class="text-wrap">
                             <p class="title language_replace">溫馨提醒</p>
-                            <p class="language_replace">1.OCOIN是客人在マハラジャ遊玩的幣別總稱</p>
+                            <!-- <p class="language_replace">1.OCOIN是客人在マハラジャ遊玩的幣別總稱</p>
                             <p class="language_replace">2.不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。</p>
                             <p class="language_replace">3.關於出金門檻倍率</p>
                             <p class="language_replace">PayPal・主要加密貨幣＝入金額の1.5倍</p>
@@ -218,7 +219,16 @@
                             <p class="language_replace">PayPal　10,000+獎金10,000的情況</p>
                             <p class="language_replace">10,000×1.5倍+10,000×20倍=215,000​</p>
                             <p class="language_replace">關於出金門檻的詳細說明於</p>
-                            <p class="language_replace">4.持有的OCoin在100以下時入金，或是領取領獎中心的OCoin即可解除原有的出金門檻。</p>
+                            <p class="language_replace">4.持有的OCoin在100以下時入金，或是領取領獎中心的OCoin即可解除原有的出金門檻。</p> -->
+
+                            <p class="language_replace" style="text-indent: -1rem; margin-left: 1rem;">1. Using Lucky Fanta's fully automated recharge and withdrawal channels, you'll enjoy the best gaming experience, and your recharge and withdrawal will arrive within seconds!</p>
+
+                            <p class="language_replace" style="text-indent: -1rem; margin-left: 1rem;">2. With regard to withdrawal valid bet requirements<br><br>
+GCASH · Main deposit channels = 1 times the deposit amount<br>
+Paymaya · Main recharge channel = 1 times the deposit amount<br>
+Online Banking · Main recharge channel = 1 times the deposit amount<br>
+Grabpay · Main recharge channel = 1 times the deposit amount<br><br>
+※The withdrawal requirements rate will be increased when receiving/applying for bonuses/events</p>
                         </div>
                     </div>
                 </div>

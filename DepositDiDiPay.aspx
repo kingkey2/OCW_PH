@@ -444,7 +444,7 @@
                                     </div>                                   
                                     <div class="logo vertical-center text-center">
                                         <!-- <span class="text language_replace">銀行振込</span>   -->
-                                        <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">                                     
+                                          <img src="images/assets/card-surface/icon-logo-bankcard.png">                                 
                                     </div>
                                 </div>
                                 <img src="images/assets/card-surface/card-03.svg" class="card-item-bg" />
