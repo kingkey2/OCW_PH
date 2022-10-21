@@ -1184,7 +1184,6 @@
             if (p != null) {
                 getBanner();
                 getCompanyGameCode();
-                window.parent.API_LoadingEnd();
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -1330,6 +1329,7 @@
                                 },
 
                             });
+                            window.parent.API_LoadingEnd();
                         });
                     }
                 }
