@@ -232,9 +232,9 @@
                                     <span class="language_replace"></span>
                                     <!-- <span>Electronic Wallet</span> -->
                                 </div>
-                                <div class="logo vertical-center text-center mt-3">
+                                <div class="logo vertical-center text-center mt-4">
                                     <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
+                                    <img src="images/assets/card-surface/icon-logo-bankcard.png">
                                 </div>
                             </div>
                         </a>
@@ -249,7 +249,7 @@
                                 </div>
                                 <div class="logo vertical-center text-center">
                                     <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
+                                    <img src="images/assets/card-surface/icon-logo-bankcard.png">
                                 </div>
                             </div>
                         </a>

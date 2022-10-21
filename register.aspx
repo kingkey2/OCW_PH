@@ -679,13 +679,13 @@
                     <div class="form-group rules-privacy text-small">
                         <p class="language_replace text-s">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。</p>
                     </div>
-                    <div class="btn-container">
+                    <div class="btn-container pb-4">
                         <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep1()">
                             <span class="language_replace">註冊</span>
                         </button>
                     </div>
 
-                    <div class="get-start-header">
+                    <div class="get-start-header mt-0 mb-5">
                         <div class="language_replace">已有帳號了?</div>
                         <button type="button" class="btn btn-outline-primary btn-sm" onclick="window.parent.API_LoadPage('Login', 'Login.aspx')">
                             <span class="language_replace">前往登入</span>
