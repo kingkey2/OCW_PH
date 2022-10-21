@@ -2882,6 +2882,10 @@
                                 $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_" + GBL.GameBrand);
 
                                 if (GBL.GameBrandState == 0) {
+                                    if (GBL.GameBrand.includes('2')) {
+                                        GBL.GameBrand = GBL.GameBrand.replace('2', '');
+                                    }
+
                                     GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
                                 }
 
@@ -3129,6 +3133,7 @@
                                                 <span class="title language_replace">真人</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown"
+                                            style="display:none;"
                                             onclick="openGame('BTI', 'Sport', '')">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-sport"></i>
@@ -3508,7 +3513,7 @@
 
 
                     <div class="footer-copyright">
-                        <p class="language_replace">Copyright © 2022 マハラジャ. All Rights Reserved.</p>
+                        <p class="language_replace">Lucky Fanta</p>
                     </div>
                 </div>
             </div>
