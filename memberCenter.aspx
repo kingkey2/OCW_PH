@@ -1285,7 +1285,7 @@
     </div>
 
     <!-- Modal - Member LEVEL -->
-    <div class="modal fade footer-center show modalMemberLevel" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: ;">
+    <div class="modal fade footer-center show modalMemberLevel show" id="ModalMemberLevel" tabindex="-1" aria-hidden="true" style="display: ;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1330,7 +1330,7 @@
                                                 <div class="img-crop">
                                                     <img src="images/member/card-thumb-gold.png" alt="">
                                                 </div>
-                                                <span class="level language_replace">黃金</span>
+                                                <span class="level language_replace">勇士</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
@@ -1354,7 +1354,7 @@
                                                 <div class="img-crop">
                                                     <img src="images/member/card-thumb-S.diamond.png" alt="">
                                                 </div>
-                                                <span class="level language_replace">銀鑽</span>
+                                                <span class="level language_replace">精英</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
@@ -1370,7 +1370,7 @@
                                                 <div class="img-crop">
                                                     <img src="images/member/card-thumb-Star.png" alt="">
                                                 </div>
-                                                <span class="level language_replace">星耀</span>
+                                                <span class="level language_replace">大師</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
@@ -1378,7 +1378,7 @@
                                                 <div class="img-crop">
                                                     <img src="images/member/card-thumb-eternal.png" alt="">
                                                 </div>
-                                                <span class="level language_replace">永恆</span>
+                                                <span class="level language_replace">宗師</span>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
@@ -1386,7 +1386,7 @@
                                                 <div class="img-crop">
                                                     <img src="images/member/card-thumb-legend.png" alt="">
                                                 </div>
-                                                <span class="level language_replace">傳說</span>
+                                                <span class="level language_replace">史詩</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1642,13 +1642,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- 黃金 gold -->
-                                        <div class="swiper-slide m-gold">
+                                        
+                                        <!--  勇士  Warrior/  黃金 gold-->
+                                        <div class="swiper-slide m-warrior">
                                             <div class="slider-item">
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level language_replace">黃金</h3>
+                                                        <h3 class="member-level language_replace">勇士</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -1677,7 +1678,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead language_replace">黃金</div>
+                                                        <div class="thead language_replace">勇士</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -1888,13 +1889,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- 銀鑽 silver diamond -->
-                                        <div class="swiper-slide m-S-diamond">
+                                        <!-- 精英  Elite / 銀鑽 silver diamond -->
+                                        <div class="swiper-slide m-elite">
                                             <div class="slider-item">
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level language_replace">銀鑽</h3>
+                                                        <h3 class="member-level language_replace">精英</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -1923,7 +1924,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead language_replace">銀鑽</div>
+                                                        <div class="thead language_replace">精英</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -2052,13 +2053,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Starlight 星耀 -->
-                                        <div class="swiper-slide m-starlight">
+
+                                        <!-- 大師 Master/ 星耀 Starlight  -->
+                                        <div class="swiper-slide m-master">
                                             <div class="slider-item">
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level language_replace">星耀</h3>
+                                                        <h3 class="member-level language_replace">大師</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -2087,7 +2089,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead language_replace">星耀</div>
+                                                        <div class="thead language_replace">大師</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -2134,13 +2136,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- 永恆 eternal -->   
-                                        <div class="swiper-slide m-eternal">
+
+                                        <!-- 宗師 Grandmaster / 永恆 eternal -->   
+                                        <div class="swiper-slide m-grandmaster">
                                             <div class="slider-item">
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level language_replace">永恆</h3>
+                                                        <h3 class="member-level language_replace">宗師</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -2169,7 +2172,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead language_replace">永恆</div>
+                                                        <div class="thead language_replace">宗師</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -2215,14 +2218,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>        
-                                        <!-- 傳說 legend -->
-                                        <div class="swiper-slide m-legend">
+                                        </div>  
+
+                                        <!-- 史詩 Epic/ 傳說 legend -->
+                                        <div class="swiper-slide m-epic">
                                             <div class="slider-item">
                                                 <div class="card-item">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-box">
-                                                        <h3 class="member-level language_replace">傳說</h3>
+                                                        <h3 class="member-level language_replace">史詩</h3>
                                                         <div class="member-bouns">
                                                             <div class="item">
                                                                 <h4 class="title language_replace">升級紅利</h4>
@@ -2251,7 +2255,7 @@
                                                 </div>
                                                 <div class="memberlevel-rules">
                                                     <div class="memberlevel-wrapper">
-                                                        <div class="thead language_replace">傳說</div>
+                                                        <div class="thead language_replace">史詩</div>
                                                         <div class="tbody">
                                                             <div class="tr">
                                                                 <div class="td title"><h4 class="language_replace">累積存款</h4></div>
@@ -2312,14 +2316,14 @@
                                             <td class="thead__th language_replace">VIP0</td>
                                             <td class="thead__th language_replace">青銅</td>
                                             <td class="thead__th language_replace">白銀</td>
-                                            <td class="thead__th language_replace">黃金</td>
+                                            <td class="thead__th language_replace">勇士</td>
                                             <td class="thead__th language_replace">白金</td>
                                             <td class="thead__th language_replace">鑽石</td>
-                                            <td class="thead__th language_replace">銀鑽</td>
+                                            <td class="thead__th language_replace">精英</td>
                                             <td class="thead__th language_replace">金鑽</td>
-                                            <td class="thead__th language_replace">星耀</td>
-                                            <td class="thead__th language_replace">永恆</td>
-                                            <td class="thead__th language_replace">傳說</td>
+                                            <td class="thead__th language_replace">大師</td>
+                                            <td class="thead__th language_replace">宗師</td>
+                                            <td class="thead__th language_replace">史詩</td>
                                         </tr>
                                      </thead>
                                     <tbody class="Tbody">

@@ -672,10 +672,12 @@ input.month:read-only, input.day:read-only {
 .card-slider .m-silver .card-item::before {
   background-image: url(../images/member/card-label-silver.png);
 }
-.card-slider .m-gold .card-item {
+.card-slider .m-gold .card-item,
+.card-slider .m-warrior .card-item {
   background: linear-gradient(114.06deg, #F3CD1F 49.97%, #E69D00 97.42%);
 }
-.card-slider .m-gold .card-item::before {
+.card-slider .m-gold .card-item::before,
+.card-slider .m-warrior .card-item::before {
   background-image: url(../images/member/card-label-gold.png);
 }
 .card-slider .m-platinum .card-item {
@@ -690,9 +692,11 @@ input.month:read-only, input.day:read-only {
 .card-slider .m-diamond .card-item::before {
   background-image: url(../images/member/card-label-diamond.png);
 }
+.card-slider .m-elite .card-item,
 .card-slider .m-S-diamond .card-item {
   background: linear-gradient(114.06deg, #B8D8E7 49.97%, #637B94 97.42%);
 }
+.card-slider .m-elite .card-item::before,
 .card-slider .m-S-diamond .card-item::before {
   background-image: url(../images/member/card-label-Sdiamond.png);
 }
@@ -702,21 +706,27 @@ input.month:read-only, input.day:read-only {
 .card-slider .m-G-diamond .card-item::before {
   background-image: url(../images/member/card-label-Gdiamond.png);
 }
+.card-slider .m-master .card-item,
 .card-slider .m-starlight .card-item {
   background: linear-gradient(114.06deg, #BEE8FF 49.97%, #00ABD3 97.42%);
 }
+.card-slider .m-master .card-item::before,
 .card-slider .m-starlight .card-item::before {
   background-image: url(../images/member/card-label-starlight.png);
 }
+.card-slider .m-grandmaster .card-item,
 .card-slider .m-eternal .card-item {
   background: linear-gradient(114.06deg, #E3BBE4 49.97%, #7B687B 97.42%);
 }
+.card-slider .m-grandmaster .card-item::before,
 .card-slider .m-eternal .card-item::before {
   background-image: url(../images/member/card-label-eternal.png);
 }
+.card-slider .m-epic .card-item,
 .card-slider .m-legend .card-item {
   background: linear-gradient(114.06deg, #74CDFF 9.03%, #FFAF9D 49.97%, #E497FF 97.42%);
 }
+.card-slider .m-epic .card-item::before,
 .card-slider .m-legend .card-item::before {
   background-image: url(../images/member/card-label-legend.png);
 }
@@ -742,7 +752,7 @@ input.month:read-only, input.day:read-only {
 }
 .card-thumb-wrapper .swiper-slide {
   width: auto;
-  max-width: 65px;
+  max-width: 85px;
   padding: 8px;
 }
 .card-thumb-wrapper .thumb-item {
