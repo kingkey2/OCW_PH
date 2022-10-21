@@ -2363,8 +2363,9 @@
                                         if (openGameBeforeLoginStr) {
                                             var openGameBeforeLogin = JSON.parse(openGameBeforeLoginStr);
 
+                                          
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
-                                            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("開始遊戲"), function () {
+                                            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("即將開啟") + ":"+openGameBeforeLogin.GameName , function () {
                                                 openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
                                             });
                                         } else {
