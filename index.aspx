@@ -1703,6 +1703,16 @@
             game_userlogout();
             e.close();
         })
+
+        var winLoop = setInterval(function () {
+            if (e.closed) {
+                clearInterval(winLoop);
+                game_userlogout();
+            } else {
+
+            }
+        }, 1000);
+
     }
     //#endregion
 
