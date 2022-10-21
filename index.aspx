@@ -901,7 +901,9 @@
         likebtn.onclick = new Function("favBtnClick('" + brandName + "." + gameName + "')");
 
         if (GI_img != null) {
-            GI_img.src = EWinWebInfo.EWinUrl + "/Files/GamePlatformPic/" + brandName + "/PC/" + EWinWebInfo.Lang + "/" + gameName + ".png";
+            //GI_img.src = `${EWinWebInfo.ImageUrl}/${brandName}/${EWinWebInfo.Lang}/${gameName}.png`;
+            GI_img.src = `${EWinWebInfo.ImageUrl}/${brandName}/ENG/${gameName}.png`;
+             
             //var el = GI_img;
             //var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
             //observer.observe();
@@ -1540,10 +1542,9 @@
         }
     }
 
-    function setDefaultIcon(brand, name) {
-        var img = event.currentTarget;
-        img.onerror = null;
-        img.src = EWinWebInfo.EWinUrl + "/Files/GamePlatformPic/" + brand + "/PC/" + EWinWebInfo.Lang + "/" + name + ".png";
+    function setDefaultIcon(e) {
+        e.onerror = null;
+        e.src = "images/icon/GameDefault.png";
     }
 
     function openGame(gameBrand, gameName, gameLangName) {
@@ -2665,8 +2666,9 @@
                         GI1.addClass("group" + parseInt(gameItemCount / 60));
                         gameItemCount++;
                         var GI_img = GI.querySelector(".gameimg");
-                        if (GI_img != null) {
-                            GI_img.src = EWinWebInfo.EWinUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                        if (GI_img != null) { 
+                            //GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/${lang}/${gameItem.GameName}.png`;
+                            GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
                             var el = GI_img;
                             var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                             observer.observe();
@@ -3006,7 +3008,8 @@
 
                 var GI_img = GI.querySelector(".gameimg");
                 if (GI_img != null) {
-                    GI_img.src = EWinWebInfo.EWinUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                    //GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/${lang}/${gameItem.GameName}.png`; 
+                    GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`; 
                     var el = GI_img;
                     var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                     observer.observe();
@@ -3273,7 +3276,7 @@
                                             <li class="login">
                                                 <button class="btn-login btn" type="button" onclick="onBtnLoginShow()">
                                                     <span class="avater">
-                                                        <img src="images/avatar/avater-2.png" alt=""></span>
+                                                        <img src="images/avatar/avater-2.png" alt="" onerror="setDefaultIcon(this)"></span>
                                                     <span class="language_replace">登入</span></button>
                                             </li>
                                             <li class="register" style="display: block !important">
@@ -3799,7 +3802,7 @@
                         <div class="game-intro-box">
                             <div class="game-img">
                                 <div class="img-wrap">
-                                    <img class="GameImg" src="" alt="">
+                                    <img class="GameImg" src="" alt=""  onerror="setDefaultIcon(this)">
                                 </div>
                             </div>
                             <div class="game-info">
@@ -4137,7 +4140,7 @@
                                     <div class="game-item-img">
                                         <span class="game-item-link"></span>
                                         <div class="img-wrap">
-                                            <img class="imgsrc" src="">
+                                            <img class="imgsrc" src=""  onerror="setDefaultIcon(this)">
                                         </div>
                                     </div>
                                     <div class="game-item-info-detail open">
@@ -4260,7 +4263,7 @@
                 <div class="game-item-img">
                     <span class="game-item-link"></span>
                     <div class="img-wrap">
-                        <img class="gameimg" src="">
+                        <img class="gameimg" src=""  onerror="setDefaultIcon(this)">
                     </div>
                 </div>
                 <div class="game-item-info">

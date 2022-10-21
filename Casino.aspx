@@ -698,10 +698,9 @@
                 gameitemlink = `<span class="game-item-link" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')" onmouseover="appendGameProp('${gameItem.GameBrand}','${gameName}','${RTP}','${gameItem.GameID}','${gameItem.GameCode}',${showType},'${gameItem.GameCategoryCode}','${gameItem.GameName}')"></span>`;
 
             }
-
-         
-
-            imgsrc = WebInfo.EWinUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
+            
+            //imgsrc =  `${WebInfo.ImageUrl}/${gameItem.GameBrand}/${WebInfo.Lang}/${gameItem.GameName}.png`;
+            imgsrc =  `${WebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
            /*  三冠王 ===========================
             等級：crownLevel-1/
             類別：crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4) 
@@ -718,7 +717,7 @@
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}">
+                                        <img class="gameimg lozad" src="${imgsrc}" onerror="setDefaultIcon(this)">
                                     </div>
                              </div>
                              <div class="game-item-info">
@@ -735,7 +734,7 @@
                                 <div class="game-item-img">
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}">
+                                        <img class="gameimg lozad" src="${imgsrc}" onerror="setDefaultIcon(this)">
                                     </div>
                                 </div>
  
@@ -1204,29 +1203,28 @@
                         LobbyGameList = o.LobbyGameList;
                         updateGameCode();
                     } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                            window.parent.location.href = "index.aspx";
-                        });
+                        //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
+                        //    window.parent.location.href = "index.aspx";
+                        //});
                     }
                 } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                        window.parent.location.href = "index.aspx";
-                    });
+                    //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
+                    //    window.parent.location.href = "index.aspx";
+                    //});
                 }
             }
             else {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                    window.parent.location.href = "index.aspx";
-                });
+                //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
+                //    window.parent.location.href = "index.aspx";
+                //});
             }
 
         });
     }
 
-    function setDefaultIcon(brand, name) {
-        var img = event.currentTarget;
-        img.onerror = null;
-        img.src = WebInfo.EWinUrl + "/Files/GamePlatformPic/" + brand + "/PC/" + WebInfo.Lang + "/" + name + ".png";
+    function setDefaultIcon(e) {
+        e.onerror = null;
+        e.src = "images/icon/GameDefault.png";
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -1352,7 +1350,7 @@
         <div class="tab-game">
             <div class="tab-inner">
                 <div class="tab-search" onclick="showSearchGameModel()">
-                    <img src="images/icon/ico-search-dog-tt.svg" alt=""><span class="title language_replace">找遊戲</span>
+                    <img src="images/icon/ico-search-dog-tt.svg" alt="" onerror="setDefaultIcon(this)"><span class="title language_replace">找遊戲</span>
                 </div>
                 <div class="tab-scroller tab-6">
                     <div class="tab-scroller__area">
@@ -1623,7 +1621,7 @@
                                                 <div class="game-item-img">
                                                     <span class="game-item-link"></span>
                                                     <div class="img-wrap">
-                                                        <img src="" />
+                                                        <img src=""  onerror="setDefaultIcon(this)"/>
                                                     </div>
                                                 </div>
                                                 <div class="game-item-info-detail open">
@@ -1853,7 +1851,7 @@
                 <div class="game-item-inner">
                     <span class="game-item-link"></span>
                     <div class="img-wrap">
-                        <img class="gameimg lozad" src="">
+                        <img class="gameimg lozad" src="" onerror="setDefaultIcon(this)">
                     </div>
                 </div>
                 <div class="game-item-info">
@@ -1891,7 +1889,7 @@
                                                 <div class="game-item-img">
                                                     <span class="game-item-link"></span>
                                                     <div class="img-wrap">
-                                                        <img src="">
+                                                        <img src="" onerror="setDefaultIcon(this)">
                                                     </div>
                                                 </div>
                                                 <div class="game-item-info-detail">
