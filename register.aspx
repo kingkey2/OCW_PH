@@ -546,7 +546,7 @@
                             <div class="form-group col phonePrefix">
                                 <label class="form-title language_replace">國碼</label>
                                 <div class="input-group">
-                                    <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                    <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+63" inputmode="decimal" value="+63" onchange="onChangePhonePrefix()">
                                     <div class="invalid-feedback language_replace">請輸入國碼</div>
                                 </div>
                             </div>
@@ -587,7 +587,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">密碼</label>
                             <div class="input-group">
-                                <input id="idLoginPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
+                                <input id="idLoginPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合需大於6個字符" inputmode="email">
                                 <div class="invalid-feedback language_replace">請輸入密碼</div>
                             </div>
                             <button class="btn btn-icon" type="button" onclick="showPassword('idLoginPassword')">
@@ -597,7 +597,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">確認密碼</label>
                             <div class="input-group">
-                                <input id="idLoginCheckPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
+                                <input id="idLoginCheckPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合需大於6個字符" inputmode="email">
                                 <div class="invalid-feedback language_replace">確認密碼</div>
                             </div>
                             <button class="btn btn-icon" type="button" onclick="showPassword('idLoginCheckPassword')">

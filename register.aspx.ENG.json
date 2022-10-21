@@ -73,6 +73,7 @@
   "已發送驗證碼，短時間內請勿重複發送": "The verification code has been sent, please do not press send in a short time.",
   "請先取得驗證碼": "Please get the verification code first.",
   "字母和數字的組合在20個字符以內": "4~20 characters.",
+  "字母和數字的組合需大於6個字符": "The combination of letters and numbers must be more than 6 characters.",
   "請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字": "Please enter half-shaped characters& number and contain at least one uppercase character, at least one lowercase character and at least one number.",
   "請確認已年滿20歲": "Please confirm that you are over 20 years old.",
   "E-mail將用於發送確認碼，請填寫正確的E-mail。": "E-mail will be used to send the confirmation code, please enter the correct e-mail.",
@@ -97,5 +98,6 @@
   "帳號": "User Account",
   "手機驗證相關說明：": "Mobile phone verification instructions：",
   "1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。": "1.After entering the mobile number, click Mobile \"Verification\", and the verification code will be sent to your SMS.",
-  "2.將手機簡訊內的驗證碼回填於下方輸入框內。": "2.Backfill the code of the SMS in the attachment input box"
+  "2.將手機簡訊內的驗證碼回填於下方輸入框內。": "2.Backfill the code of the SMS in the attachment input box",
+  "請輸入簡訊驗證碼": "Please enter SMS verification code"
 }
