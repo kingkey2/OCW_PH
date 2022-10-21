@@ -1707,7 +1707,7 @@
     }
 
     function CloseWindowOpenGamePage(e) {
-        showMessageOK("", "關閉", function () {
+        showMessageOK("", mlp.getLanguageKey("確認回到大廳"), function () {
             game_userlogout();
             e.close();
         })
