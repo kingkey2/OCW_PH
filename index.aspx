@@ -190,6 +190,7 @@
     var isFirstLogined = false;
     var noSleep;
     var selectedWallet = null;
+    var initpopupMoblieGameInfo = false;
     var v = "<%=Version%>";
     var GCB;
     var GameInfoModal;
@@ -242,6 +243,13 @@
 
         return selectedCurrency;
     }
+
+    $(document).on('shown.bs.modal', '#popupMoblieGameInfo', function () {
+        if (!initpopupMoblieGameInfo) {
+            $('#popupMoblieGameInfo').css('display', 'block');
+            initpopupMoblieGameInfo = true;
+        }
+    });
 
     function getOS() {
         var os = function () {
@@ -1994,11 +2002,13 @@
                 LangText = "繁體中文";
                 $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-ZH"></i>`);
                 $('#langIcon').addClass('icon-flag-ZH');
+                setCookie("SelectedLang", Lang, 365);
                 break;
             case "ENG":
                 LangText = "English";
                 $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-EN"></i>`);
                 $('#langIcon').addClass('icon-flag-EN');
+                setCookie("SelectedLang", Lang, 365);
                 break;
             case "CHS":
                 LangText = "簡體中文";
@@ -2238,7 +2248,12 @@
         //    EWinWebInfo.Lang = window.localStorage.getItem("Lang");
         //}
 
+        if (getCookie('SelectedLang') != '') {
+            EWinWebInfo.Lang = getCookie("SelectedLang");
+        }
+
         initByArt();
+
         switchLang(EWinWebInfo.Lang, false);
 
         if (EWinWebInfo.Lang == "JPN") {
@@ -4128,7 +4143,7 @@
         </div>
     </div>
 
-    <div class="modal fade no-footer popupGameInfo" id="popupMoblieGameInfo" tabindex="-1" aria-hidden="true">
+    <div class="modal fade no-footer popupGameInfo" style="display:none;" id="popupMoblieGameInfo" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">

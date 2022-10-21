@@ -522,13 +522,13 @@
                               
 
                             </form>
-                             <div class="form-group text-wrap desc mt-2 mt-md-4">
+                          <%--   <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
                                 <p class="text-s language_replace">※存款金額為2,000ocoin至500,000ocoin。</p>
                                 <p class="text-s language_replace">※OCoin必須在款項到帳後才會反映，如果過了1個銀行營業日也沒反映請聯絡客服。</p>
                                 <p class="text-s language_replace">※此處填寫的全名必須與銀行的匯款人名稱（片假名）完全相同，敬請見諒。</p>
                                 <p class="text-s language_replace">※訂單申請後請於20分鐘內匯款，若超過20分鐘未進行交易，請另提交易申請，以利交易順利進行。</p>
-                            </div>
+                            </div>--%>
                         </div>
                     </div>
                     <!-- 虛擬錢包 step4 -->
@@ -639,10 +639,10 @@
 
                 </div>
                 <!-- 溫馨提醒 -->
-                <div class="notice-container" data-deposite="step3" style="margin-bottom:10px">
+              <%--  <div class="notice-container" data-deposite="step3" style="margin-bottom:10px">
                     <div class="notice-item">
                         <i class="icon-info_circle_outline"></i>
-                        <div class="text-wrap">
+                       <div class="text-wrap">
                             <p class="title language_replace">注意事項</p>
                             <ul class="list-style-decimal">
                                 <li><span class="language_replace">點擊 下一步，會顯示收款人信息。</span></li>
@@ -653,7 +653,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div>--%>
 
                 <div class="btn-container">
                     <button class="btn btn-primary" data-deposite="step2">

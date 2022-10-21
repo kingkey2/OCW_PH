@@ -22,11 +22,11 @@
                 Response.End();
             }
         } else {
-            Response.Redirect(EWinWeb.EWinUrl + "/API/GamePlatformAPI2/UserLogin.aspx?SID=" + SI.EWinSID + "&Language=" + Lang + "&CurrencyType=" + CurrencyType + "&GameCode=" + GameCode + "&HomeUrl=" + HomeUrl + "&DemoPlay=" + DemoPlay);
+            Response.Redirect(EWinWeb.EWinGameUrl + "/API/GamePlatformAPI2/UserLogin.aspx?SID=" + SI.EWinSID + "&Language=" + Lang + "&CurrencyType=" + CurrencyType + "&GameCode=" + GameCode + "&HomeUrl=" + HomeUrl + "&DemoPlay=" + DemoPlay);
         }
     } else {
         if (DemoPlay == "1") {
-            Response.Redirect(EWinWeb.EWinUrl + "/API/GamePlatformAPI2/UserLogin.aspx?Language=" + Lang + "&CurrencyType=" + CurrencyType + "&GameCode=" + GameCode + "&HomeUrl=" + HomeUrl + "&DemoPlay=" + DemoPlay);
+            Response.Redirect(EWinWeb.EWinGameUrl + "/API/GamePlatformAPI2/UserLogin.aspx?Language=" + Lang + "&CurrencyType=" + CurrencyType + "&GameCode=" + GameCode + "&HomeUrl=" + HomeUrl + "&DemoPlay=" + DemoPlay);
         } else {
             Response.Write("LoginStateExpire");
             Response.Flush();
