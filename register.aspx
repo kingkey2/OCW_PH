@@ -202,19 +202,26 @@
         //完整註冊
         if ($("#li_register2").hasClass("active")) {
             if (form2.Name1.value == "") {
-                form2.Name1.setCustomValidity(mlp.getLanguageKey("請輸入姓"));
+                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入姓"));
+                return;
             } else if (form2.Name2.value == "") {
-                form2.Name2.setCustomValidity(mlp.getLanguageKey("請輸入名"));
+                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入名"));
+                return;
             } else if (form2.BornYear.value.length != 4) {
-                form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
+                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+                return;
             } else if (parseInt(form2.BornYear.value) < 1900) {
-                form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
+                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+                return;
             } else if (parseInt(form2.BornYear.value) > nowYear) {
-                form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
+                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+                return;
             }  else if (form2.Email.value == "") {
-                form2.Email.setCustomValidity(mlp.getLanguageKey("請輸入正確信箱"));
+                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
+                return;
             } else if (!IsEmail(form2.Email.value)) {
-                form2.Email.setCustomValidity(mlp.getLanguageKey("請輸入正確信箱"));
+                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
+                return;
             } 
         }
 

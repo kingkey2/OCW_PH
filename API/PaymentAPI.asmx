@@ -1313,12 +1313,12 @@ public class PaymentAPI : System.Web.Services.WebService
                                     }
                                     else
                                     {
-                                        SetResultException(R, "UpdateFailure1");
+                                        SetResultException(R, "UpdateFailure");
                                     }
                                 }
                                 else
                                 {
-                                    SetResultException(R, "UpdateFailure2");
+                                    SetResultException(R, "UpdateFailure");
                                 }
                             }
                             else
