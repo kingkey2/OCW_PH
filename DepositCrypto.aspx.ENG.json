@@ -76,5 +76,10 @@
   "DailyCountGreaterThanMaxlimit": "DailyCountGreaterThanMaxlimit",
   "存款金額": "Deposit amount",
   "出金條件": "Withdrawal Conditions",
-  "業界最高! Play Open Bouns! 最大100% &10萬送給您!首次 USDT 入金回饋100%": "The best in the market! Play Open Bonus! Up to 100% & 100,000 Bonus!　100% of first USDT deposit refunded."
+  "業界最高! Play Open Bouns! 最大100% &10萬送給您!首次 USDT 入金回饋100%": "The best in the market! Play Open Bonus! Up to 100% & 100,000 Bonus!　100% of first USDT deposit refunded.",
+  "入金部份": "Deposit part",
+  "獎金部份": "Bonus part",
+  "禮金部份": "Gift part",
+  "*獎金和禮金的出金門檻在BOUNS箱領取後才會追加": "The withdrawal threshold of bonus and gift money will be added after the BOUNS box is claimed.",
+  "燃料費由存款者負擔。": "Fuel costs are borne by depositors"
 }

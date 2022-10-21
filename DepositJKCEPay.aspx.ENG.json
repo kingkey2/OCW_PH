@@ -20,7 +20,7 @@
   "請輸入購買金額": "Enter the amount you want to buy",
   "訂單建立失敗": "order failed",
   "貨幣未設定匯率": "Currency has no exchange rate set",
-  "服務器異常:server" "error,",
+  "服務器異常":"server error",
   "取得可參加活動失敗": "Failed to attend the event",
   "熱門活動": "Popular event",
   "錯誤": "error",

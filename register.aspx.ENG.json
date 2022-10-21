@@ -94,8 +94,8 @@
   "簡易註冊後如何升級完整會員?": "How to upgrade to full membership?",
   "於會員中心按下『進行認證』之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。": "Click [Verify Now] in the member center to conduct member verification.",
   "歡迎來到 Fanta！": "Welcome to Fanta！",
-  "帳號": "帳號",
-  "手機驗證相關說明：": "手機驗證相關說明",
-  "1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。": "1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。",
-  "2.將手機簡訊內的驗證碼回填於下方輸入框內。": "2.將手機簡訊內的驗證碼回填於下方輸入框內。"
+  "帳號": "User Account",
+  "手機驗證相關說明：": "Mobile phone verification instructions：",
+  "1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。": "1.After entering the mobile number, click Mobile \"Verification\", and the verification code will be sent to your SMS.",
+  "2.將手機簡訊內的驗證碼回填於下方輸入框內。": "2.Backfill the code of the SMS in the attachment input box"
 }

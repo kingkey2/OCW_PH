@@ -39,5 +39,9 @@
   "存款成功 !": "Successful deposit",
   "您可進入遊戲確認您本次的入金，以及對應的 Bouns 獎勵。": "You can enter the game to confirm your deposit and the corresponding Bouns reward.",
   "溫馨提醒": "remind",
-  "不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。": "Different deposit method may affect when the deposit amount reaches the player's wallet. One business day at the latest is a reasonable range."
+  "不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。": "Different deposit method may affect when the deposit amount reaches the player's wallet. One business day at the latest is a reasonable range.",
+  "入金部份": "Deposit part",
+  "獎金部份": "Bonus part",
+  "禮金部份": "Gift part",
+  "*獎金和禮金的出金門檻在BOUNS箱領取後才會追加": "The withdrawal threshold of bonus and gift money will be added after the BOUNS box is claimed."
 }
