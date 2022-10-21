@@ -23,7 +23,7 @@
   "首頁": "homepage",
   "加密貨幣": "cryptocurrency",
   "貨幣未設定匯率": "Currency has no exchange rate set",
-  "服務器異常:Server" "error,",
+  "服務器異常:Server" :"error,",
   "選擇使用的加密貨幣": "Choose the cryptocurrency to use",
   "使用": "use",
   "入款": "deposit",

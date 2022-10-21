@@ -565,9 +565,9 @@
                         </div>
                         <div class="form-group">
                             <div class="text-s text-indent">
-                                <label class=" language_replace">手機驗證相關說明：</label></br>
-                                <label class=" language_replace">1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。</label></br>
-                                <label class=" language_replace">2.將手機簡訊內的驗證碼回填於下方輸入框內。</label></br>
+                                <label class="language_replace">手機驗證相關說明：</label></br>
+                                <label class="language_replace">1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。</label></br>
+                                <label class="language_replace">2.將手機簡訊內的驗證碼回填於下方輸入框內。</label></br>
                             </div>
                         </div>
                         

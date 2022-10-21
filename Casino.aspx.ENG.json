@@ -1,5 +1,5 @@
 ﻿{
-   "錯誤": "System Message",
+  "錯誤": "System Message",
   "請先登入": "Please log in.",
   "Baccarat": "Baccarat",
   "All": "All",
@@ -66,5 +66,6 @@
   "本日優選推薦": "Today's Best",
   "進入遊戲": "Play",
   "熱門遊戲": "Best Games",
-  "關於我們": "About US"
+  "關於我們": "About US",
+  "廠牌": "brand"
 }
