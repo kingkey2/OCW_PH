@@ -3538,7 +3538,7 @@
                 <div class="modal-body">
                     <div class="lang-popup-wrapper">
                         <ul class="lang-popup-list">
-                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('JPN', true)">
+                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('JPN', true)" style="display:none">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden"
                                         checked>
