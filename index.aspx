@@ -1557,6 +1557,8 @@
     function openGame(gameBrand, gameName, gameLangName) {
         var alertSearch = $("#alertSearch");
         var alertSearchCloseButton = $("#alertSearchCloseButton");
+        var alertFavoPlayed = $("#alertFavoPlayed"); 
+        var alertFavoPlayedCloseButton = $("#alertFavoPlayedCloseButton");
         var popupMoblieGameInfo = $('#popupMoblieGameInfo');
         var gameCode;
         //先關閉Game彈出視窗(如果存在)
@@ -1567,6 +1569,10 @@
 
         if (alertSearch.css("display") == "block") {
             alertSearchCloseButton.click();
+        }
+
+        if (alertFavoPlayed.css("display") == "block") {
+            alertFavoPlayedCloseButton.click();
         }
 
         if (!EWinWebInfo.UserLogined) {
