@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Maharaja</title>
+    <title>Lucky Fanta</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/basic.min.css">    
@@ -676,6 +676,11 @@
 
         updatePaymentHistory(beginDate, endDate);
         GetUserTwoMonthSummaryData();
+    }
+
+    function setDefaultIcon(e) {
+        e.onerror = null;
+        e.src = "images/icon/GameDefault.png";
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -1422,7 +1427,7 @@
             <div class="record-drop-item-inner">
                 <div class="record-drop-item-img record-item">
                     <div class="img-wrap">
-                        <img class="gameimg" src="https://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/CHT/126.png">
+                        <img class="gameimg" src="https://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/CHT/126.png" onerror="setDefaultIcon(this)">
                     </div>
                 </div>
                 <div class="record-drop-item-rewardValue record-item">
@@ -1451,7 +1456,7 @@
             <div class="record-drop-item-inner">
                 <div class="record-drop-item-img record-item">
                     <div class="img-wrap">
-                        <img class="gameimg" src="https://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/CHT/126.png">
+                        <img class="gameimg" src="https://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/CHT/126.png" onerror="setDefaultIcon(this)">
                     </div>
                 </div>
                 <div class="record-drop-item-rewardValue record-item">

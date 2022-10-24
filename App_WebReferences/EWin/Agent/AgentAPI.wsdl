@@ -97,6 +97,8 @@
             <s:element minOccurs="0" maxOccurs="1" name="BranchName" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="BankNumber" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BankProvince" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BankCity" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
           </s:sequence>
         </s:complexType>
@@ -136,6 +138,8 @@
             <s:element minOccurs="0" maxOccurs="1" name="BranchName" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="BankNumber" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BankProvince" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BankCity" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
           </s:sequence>
         </s:complexType>
@@ -186,6 +190,8 @@
           <s:element minOccurs="0" maxOccurs="1" name="BranchName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="BankNumber" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BankProvince" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BankCity" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
         </s:sequence>
       </s:complexType>
@@ -1145,6 +1151,8 @@
     <wsdl:part name="BranchName" type="s:string" />
     <wsdl:part name="BankNumber" type="s:string" />
     <wsdl:part name="AccountName" type="s:string" />
+    <wsdl:part name="BankProvince" type="s:string" />
+    <wsdl:part name="BankCity" type="s:string" />
     <wsdl:part name="Description" type="s:string" />
   </wsdl:message>
   <wsdl:message name="AddUserBankCardHttpGetOut">
@@ -1168,6 +1176,8 @@
     <wsdl:part name="BranchName" type="s:string" />
     <wsdl:part name="BankNumber" type="s:string" />
     <wsdl:part name="AccountName" type="s:string" />
+    <wsdl:part name="BankProvince" type="s:string" />
+    <wsdl:part name="BankCity" type="s:string" />
     <wsdl:part name="Description" type="s:string" />
   </wsdl:message>
   <wsdl:message name="UpdateUserBankCardHttpGetOut">
@@ -1388,6 +1398,8 @@
     <wsdl:part name="BranchName" type="s:string" />
     <wsdl:part name="BankNumber" type="s:string" />
     <wsdl:part name="AccountName" type="s:string" />
+    <wsdl:part name="BankProvince" type="s:string" />
+    <wsdl:part name="BankCity" type="s:string" />
     <wsdl:part name="Description" type="s:string" />
   </wsdl:message>
   <wsdl:message name="AddUserBankCardHttpPostOut">
@@ -1411,6 +1423,8 @@
     <wsdl:part name="BranchName" type="s:string" />
     <wsdl:part name="BankNumber" type="s:string" />
     <wsdl:part name="AccountName" type="s:string" />
+    <wsdl:part name="BankProvince" type="s:string" />
+    <wsdl:part name="BankCity" type="s:string" />
     <wsdl:part name="Description" type="s:string" />
   </wsdl:message>
   <wsdl:message name="UpdateUserBankCardHttpPostOut">

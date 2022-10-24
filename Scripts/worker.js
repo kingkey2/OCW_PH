@@ -12,7 +12,7 @@ self.addEventListener('message', function (e) {
     //Params => data參數
     if (e.data) {
         if (e.data.Cmd == "Init") {
-            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 11);
+            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 12);
 
             //dataExist,true => indexedDB已經有資料，可不等同步直接使用
             wokerControl.OnInitSyncStart = function (dataExist) {
@@ -130,13 +130,13 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
 
         db.createObjectStore("RealSearchKey", { keyPath: "RealSearchKey", autoIncrement: false });
 
-        if (workerSelf.EWinGameItem) {
-            store.put(workerSelf.EWinGameItem);
-            categoryStore.put({
-                GameBrand: workerSelf.EWinGameItem.GameBrand,
-                GameCategoryCode: workerSelf.EWinGameItem.GameCategoryCode,
-            });
-        }
+        //if (workerSelf.EWinGameItem) {
+        //    store.put(workerSelf.EWinGameItem);
+        //    categoryStore.put({
+        //        GameBrand: workerSelf.EWinGameItem.GameBrand,
+        //        GameCategoryCode: workerSelf.EWinGameItem.GameCategoryCode,
+        //    });
+        //}
     }
 
     var ClearDBSchema = function (cb) {

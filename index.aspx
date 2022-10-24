@@ -1557,6 +1557,8 @@
     function openGame(gameBrand, gameName, gameLangName) {
         var alertSearch = $("#alertSearch");
         var alertSearchCloseButton = $("#alertSearchCloseButton");
+        var alertFavoPlayed = $("#alertFavoPlayed"); 
+        var alertFavoPlayedCloseButton = $("#alertFavoPlayedCloseButton");
         var popupMoblieGameInfo = $('#popupMoblieGameInfo');
         var gameCode;
         //先關閉Game彈出視窗(如果存在)
@@ -1567,6 +1569,10 @@
 
         if (alertSearch.css("display") == "block") {
             alertSearchCloseButton.click();
+        }
+
+        if (alertFavoPlayed.css("display") == "block") {
+            alertFavoPlayedCloseButton.click();
         }
 
         if (!EWinWebInfo.UserLogined) {
@@ -1711,10 +1717,10 @@
     }
 
     function CloseWindowOpenGamePage(e) {
-        showMessageOK("", "關閉", function () {
-            game_userlogout();
-            e.close();
-        })
+        //showMessageOK("", mlp.getLanguageKey("確認回到大廳"), function () {
+        //    game_userlogout();
+        //    e.close();
+        //})
 
         var winLoop = setInterval(function () {
             if (e.closed) {
@@ -2218,7 +2224,7 @@
             {
                 GameCode: "EWin.EWinGaming",
                 GameBrand: "EWin",
-                GameStatus: 0,
+                GameStatus: 1,
                 GameID: 0,
                 GameName: "EWinGaming",
                 GameCategoryCode: "Live",
@@ -2367,8 +2373,9 @@
                                         if (openGameBeforeLoginStr) {
                                             var openGameBeforeLogin = JSON.parse(openGameBeforeLoginStr);
 
+                                          
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
-                                            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("開始遊戲"), function () {
+                                            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("即將開啟") + ":"+openGameBeforeLogin.GameName , function () {
                                                 openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
                                             });
                                         } else {
@@ -2887,11 +2894,12 @@
                         let GBLDom;
                         let GBL_img;
 
-                        GBLDom = c.getTemplate("tmpSearchGameBrand");
-                        GBL_img = GBLDom.querySelector(".brandImg");
-                        $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_EWin");
-                        GBL_img.src = `images/logo/default/logo-eWIN.svg`;
-                        ParentMain.append(GBLDom);
+                        //EWin Game Item
+                        //GBLDom = c.getTemplate("tmpSearchGameBrand");
+                        //GBL_img = GBLDom.querySelector(".brandImg");
+                        //$(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_EWin");
+                        //GBL_img.src = `images/logo/default/logo-eWIN.svg`;
+                        //ParentMain.append(GBLDom);
 
                         for (var i = 0; i < o.GameBrandList.length; i++) {
                             let GBL = o.GameBrandList[i];

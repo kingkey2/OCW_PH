@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="pragma" content="no-cache" />
-    <title>Maharaja</title>
+    <title>Lucky Fanta</title>
 
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
@@ -444,7 +444,7 @@
                             <div class="card-item-link">
                                 <div class="card-item-inner">
                                     <div class="title">
-                                        <span class="language_replace">Maharaja</span>
+                                        <span class="language_replace">Lucky Fanta</span>
                                         <!-- <span>Electronic Wallet</span>  -->
                                     </div>                                   
                                     <div class="logo vertical-center text-center">

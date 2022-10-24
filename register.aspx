@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maharaja</title>
+    <title>Lucky Fanta</title>
 
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
@@ -546,14 +546,14 @@
                             <div class="form-group col phonePrefix">
                                 <label class="form-title language_replace">國碼</label>
                                 <div class="input-group">
-                                    <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                    <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+63" inputmode="decimal" value="+63" onchange="onChangePhonePrefix()">
                                     <div class="invalid-feedback language_replace">請輸入國碼</div>
                                 </div>
                             </div>
                             <div class="form-group col">
                                 <label class="form-title language_replace">手機電話號碼</label>
                                 <div class="input-group">
-                                    <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
+                                    <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-000-0000" inputmode="decimal">
                                     <div class="invalid-feedback language_replace">請輸入正確電話</div>
                                 </div>
                             </div>
@@ -565,9 +565,9 @@
                         </div>
                         <div class="form-group">
                             <div class="text-s text-indent">
-                                <label class=" language_replace">手機驗證相關說明：</label></br>
-                                <label class=" language_replace">1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。</label></br>
-                                <label class=" language_replace">2.將手機簡訊內的驗證碼回填於下方輸入框內。</label></br>
+                                <label class="language_replace">手機驗證相關說明：</label></br>
+                                <label class="language_replace">1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。</label></br>
+                                <label class="language_replace">2.將手機簡訊內的驗證碼回填於下方輸入框內。</label></br>
                             </div>
                         </div>
                         
@@ -587,7 +587,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">密碼</label>
                             <div class="input-group">
-                                <input id="idLoginPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
+                                <input id="idLoginPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合需大於6個字符" inputmode="email">
                                 <div class="invalid-feedback language_replace">請輸入密碼</div>
                             </div>
                             <button class="btn btn-icon" type="button" onclick="showPassword('idLoginPassword')">
@@ -597,7 +597,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">確認密碼</label>
                             <div class="input-group">
-                                <input id="idLoginCheckPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
+                                <input id="idLoginCheckPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合需大於6個字符" inputmode="email">
                                 <div class="invalid-feedback language_replace">確認密碼</div>
                             </div>
                             <button class="btn btn-icon" type="button" onclick="showPassword('idLoginCheckPassword')">
@@ -684,7 +684,7 @@
                         </div>
                     </div>
                     <div class="form-group rules-privacy text-small">
-                        <p class="language_replace text-s">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。</p>
+                        <p class="language_replace text-s">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在Lucky Fanta不能持有複數的帳號這個條件。</p>
                     </div>
                     <div class="btn-container pb-4">
                         <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep1()">
@@ -708,7 +708,7 @@
                     <h1>Welcome</h1>
                 </div>
                 <div class="heading-sub-desc text-wrap">
-                    <h5 class="mb-4 language_replace">歡迎來到 Fanta！</h5>
+                    <h5 class="mb-4 language_replace">歡迎來到 Lucky Fanta！</h5>
                     <p class="language_replace">感謝您註冊我們的新會員，真正非常的感謝您 ！</p>
                     <p>
                         <span class="language_replace">您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。</span>

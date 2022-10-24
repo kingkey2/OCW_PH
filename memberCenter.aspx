@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maharaja</title>
+    <title>Lucky Fanta</title>
     <%--    <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="Scripts/OutSrc/lib/swiper/css/swiper-bundle.min.css" type="text/css" />
 
@@ -487,13 +487,21 @@
             return;
         }
 
-        let ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
+        let ExtraData = [];
 
-        if (WebInfo.UserInfo.ExtraData.indexOf("IsFullRegistration") > 0) {
-            for (var i = 0; i < ExtraData.length; i++) {
-                if (ExtraData[i].Name == "IsFullRegistration") {
-                    ExtraData[i].Value = 1;
+        if (WebInfo.UserInfo.ExtraData) {
+            ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
+
+            if (WebInfo.UserInfo.ExtraData.indexOf("IsFullRegistration") > 0) {
+                for (var i = 0; i < ExtraData.length; i++) {
+                    if (ExtraData[i].Name == "IsFullRegistration") {
+                        ExtraData[i].Value = 1;
+                    }
                 }
+            } else {
+                ExtraData.push({
+                    Name: 'IsFullRegistration', Value: 1
+                });
             }
         } else {
             ExtraData.push({
@@ -517,9 +525,10 @@
             window.parent.API_LoadingEnd(1);
             if (success) {
                 if (o.Result == 0) {
-                    updateBaseInfo();
+                    $("#IsFullRegistration0").hide();
                     $("#CertificationForm").hide();
                     $("#CertificationSucc").show();
+                    $("#IsFullRegistration1").show();
                 } else {
                     $("#CertificationForm").hide();
                     $("#CertificationFail").show();
@@ -1142,7 +1151,7 @@
                                     <div class="form-group col phonePrefix">
                                         <label class="form-title language_replace">國碼</label>
                                         <div class="input-group">
-                                            <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                            <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+63" inputmode="decimal" value="+63" onchange="onChangePhonePrefix()">
                                             <div class="invalid-feedback language_replace">請輸入國碼</div>
                                         </div>
                                     </div>
