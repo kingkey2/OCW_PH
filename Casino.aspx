@@ -1331,8 +1331,14 @@
                             });
                             window.parent.API_LoadingEnd();
                         });
+                    } else {
+                        window.parent.API_LoadingEnd();
                     }
+                } else {
+                    window.parent.API_LoadingEnd();
                 }
+            } else {
+                window.parent.API_LoadingEnd();
             }
         });
     }
