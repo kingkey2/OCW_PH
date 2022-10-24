@@ -70,6 +70,8 @@
               <s:element minOccurs="0" maxOccurs="1" name="BranchName" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="BankNumber" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BankProvince" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BankCity" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="AmountMax" type="s:decimal" />
               <s:element minOccurs="1" maxOccurs="1" name="CashAmount" type="s:decimal" />
               <s:element minOccurs="0" maxOccurs="1" name="BankCardGUID" type="s:string" />

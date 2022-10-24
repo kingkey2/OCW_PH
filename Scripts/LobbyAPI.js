@@ -165,7 +165,7 @@
         });
     };
 
-    this.AddUserBankCard = function (WebSID, GUID, CurrencyType, PaymentMethod, BankName, BranchName, BankNumber, AccountName, Description, cb) {
+    this.AddUserBankCard = function (WebSID, GUID, CurrencyType, PaymentMethod, BankName, BranchName, BankNumber, AccountName, BankProvince, BankCity, Description, cb) {
         var url = APIUrl + "/AddUserBankCard";
         var postData;
 
@@ -178,6 +178,8 @@
             BranchName: BranchName,
             BankNumber: BankNumber,
             AccountName: AccountName,
+            BankProvince: BankProvince,
+            BankCity: BankCity,
             Description: Description
         };
 
@@ -241,7 +243,7 @@
         });
     };
 
-    this.UpdateUserBankCard = function (WebSID, GUID, BankCardGUID, CurrencyType, PaymentMethod, BankName, BranchName, BankNumber, AccountName, Description, cb) {
+    this.UpdateUserBankCard = function (WebSID, GUID, BankCardGUID, CurrencyType, PaymentMethod, BankName, BranchName, BankNumber, AccountName, BankProvince, BankCity, Description, cb) {
         var url = APIUrl + "/UpdateUserBankCard";
         var postData;
 
@@ -255,6 +257,8 @@
             BranchName: BranchName,
             BankNumber: BankNumber,
             AccountName: AccountName,
+            BankProvince: BankProvince,
+            BankCity: BankCity,
             Description: Description
         };
 
