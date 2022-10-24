@@ -2925,9 +2925,9 @@
                                         GBL.GameBrand = GBL.GameBrand.replace('2', '');
                                     }
 
-                                    GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
+                                    //GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
                                     
-                                    //GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/LOGO_${GBL.GameBrand}.png`;
+                                    GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png`;
                                 }
 
                                 ParentMain.append(GBLDom);
