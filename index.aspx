@@ -481,7 +481,15 @@
     function API_SetFavoToIndexDB(cb) {
         //Game
         GCB.InitPromise.then(() => {
-            setFavoToIndexDB(cb);
+            checkUserLogin(EWinWebInfo.SID, function () {
+
+                if (cb) {
+                    setFavoToIndexDB(cb);
+                } else {
+                    setFavoToIndexDB();
+                }
+
+            });
         });
     }
 
@@ -2497,7 +2505,11 @@
                                 });
                             }
 
-                            setFavoToDB(cb);
+                            if (cb) {
+                                setFavoToDB(cb);
+                            } else {
+                                setFavoToDB();
+                            }
                         }
                     }
                 }
@@ -2515,7 +2527,9 @@
                 lobbyClient.SetUserAccountProperty(EWinWebInfo.SID, Math.uuid(), "Favo", JSON.stringify(Favos), function (success, o) {
                     if (success) {
                         if (o.Result == 0) {
-                            cb();
+                            if (cb) {
+                                cb();
+                            }
                         }
                     }
                 });
