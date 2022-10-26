@@ -1989,11 +1989,20 @@ input.month:read-only, input.day:read-only {
   }
 
   .section-member-profile {
-    width: 50%;
+    width: 100%;
   }
 
   .section-member-setting {
-    width: 50%;
+    width: 100%;
+  }
+
+  .member-profile-wrapper {
+    width: 36%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column wrap;
+            flex-flow: column wrap;
+    padding-right: 20px;
   }
 
   .section-member-profile {
@@ -2031,6 +2040,11 @@ input.month:read-only, input.day:read-only {
   }
   .activity-promo-list .promo-item {
     width: 25%;
+  }
+}
+@media (min-width: 1384px) {
+  .tab-member {
+    display: none;
   }
 }
 @media screen and (max-width: 639px) {
