@@ -24,5 +24,7 @@
   "電話格式有誤": "The phone format is incorrect, please check.",
   "測試": "Test",
   "測試驗證碼": "verification code testing",
-  "請輸入正確電話": "Please enter correct phone number."
+  "請輸入正確電話": "Please enter correct phone number.",
+  "帳號": "Account",
+  "請輸入帳號": "Please enter the account."
 }
