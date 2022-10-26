@@ -16,13 +16,13 @@
     <title>Maharaja</title>
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css" type="text/css" />
-    <link rel="stylesheet" href="css/global.css" type="text/css" />  
+    <link rel="stylesheet" href="css/global.css" type="text/css" />
     <!--日文圖片-->
     <meta property="og:image" content="https://casino-maharaja.com/images/share_pic.png" />
 </head>
 <body>
-        <div class="page-container">
-           <!-- 系統錯誤 -->
+    <div class="page-container">
+        <!-- 系統錯誤 -->
         <div id="system-msg" class="">
             <div class="layout-full-screen system-msg-container">
                 <div class="main-panel">
@@ -36,17 +36,18 @@
                         </div>
                         <div class="text-wrap text-center">
                             <p>
-                                <span class="language_replace">サイト点検中</span><br>　
-                                <span class="language_replace">しばらく待ってから、お戻りください。</span><br><br>
-                                <span class="language_replace"><%:MaintainMessage%></span>                                
-                            </p> 
+                                <span class="language_replace">Lucky Fanta in currently down for maintenance</span><br>
+                                <span class="language_replace">Please wait a moment, we will be right back!</span><br>
+                                <br>
+                                <span class="language_replace"><%:MaintainMessage%></span>
+                            </p>
                             <!-- <p><span class="language_replace">您點選的頁面沒有反應，請回到首頁。</span></p> -->
                         </div>
                         <div class="btn-container">
                             <a href="index.aspx" class="square-link outline">
                                 <i class="icon-home"></i>
                                 <!-- <span class="language_replace">首頁</span> -->
-                                <span class="language_replace">ホームページ</span>
+                                <span class="language_replace">Home</span>
                             </a>
                         </div>
                     </section>
@@ -56,53 +57,8 @@
 
         </div>
 
-        </div>
-
-   
-        <!--<script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
-        <script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>    
-         <script src="Scripts/OutSrc/js/wallet.js"></script> 
-        <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
-        <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>-->
-        <script type="text/javascript">
-        
-            //var lang = "JPN";
-            //var mlp;
-
-            //function init() {           
-            //    //if (self==top) {
-            //    //    window.parent.location.href = "index.aspx";
-            //    //}
-            
-            //    mlp = new multiLanguage();            
-            //    //lang = window.parent.API_GetLang();
-            //    mlp.loadLanguage(lang, function () {
-            //        //window.parent.API_LoadingEnd();
-            //        changePic(lang);
-            //    });
-            //}
-
-            //function EWinEventNotify(eventName, isDisplay, param) {
-            //    switch (eventName) {
-            //        case "LoginState":
-            //            //updateBaseInfo();
-
-            //            break;
-            //        case "BalanceChange":
-            //            break;
-            //        case "SetLanguage":
-            //            lang = param;
-            //            //mlp.loadLanguage(lang);
-            //            changePic(lang);
-            //            break;
-            //    }
-            //}
-        
-            //window.onload = init;
-        
-        </script>
-        
-
-   
+    </div>
+    <script type="text/javascript">
+</script>
 </body>
 </html>

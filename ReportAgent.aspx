@@ -250,6 +250,9 @@
                     $("#divAgentReport").show();
                 }
 
+                $("#startDate").val(Date.today().moveToFirstDayOfMonth().toString("yyyy-MM-dd"));
+                $("#endDate").val(Date.today().toString("yyyy-MM-dd"));
+
                 updateBaseInfo();
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {

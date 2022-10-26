@@ -973,11 +973,20 @@
                             break;
                         default:
                     }
-                    if (selectedCategoryCode == lobbyGame.Location) {
-                        $(RecordDom).addClass('active');
-                    }
+                    
+                    if (WebInfo.DeviceType == 1) {
+                        RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                        if (selectedCategoryCode == lobbyGame.Location) {
+                            $(RecordDom).addClass('active');
+                        }
+                    } else {
+                        RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                        if (selectedCategoryCode == lobbyGame.Location) {
+                            $(RecordDom).addClass('active');
+                        }
+                    }
                     idGameItemTitle.appendChild(RecordDom);
                 }
             }
@@ -1009,11 +1018,20 @@
                             break;
                         default:
                     }
-                    if (selectedCategoryCode == lobbyGame.Location) {
-                        $(RecordDom).addClass('active');
-                    }
+                    
+                    if (WebInfo.DeviceType == 1) {
+                        RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                        if (selectedCategoryCode == lobbyGame.Location) {
+                            $(RecordDom).addClass('active');
+                        }
+                    } else {
+                        RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                        if (selectedCategoryCode == lobbyGame.Location) {
+                            $(RecordDom).addClass('active');
+                        }
+                    }
                     idGameItemTitle.appendChild(RecordDom);
                 }
             }
@@ -1049,8 +1067,20 @@
                     if (selectedCategoryCode == lobbyGame.Location) {
                         $(RecordDom).addClass('active');
                     }
+                    
+                    if (WebInfo.DeviceType == 1) {
+                        RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                        if (selectedCategoryCode == lobbyGame.Location) {
+                            $(RecordDom).addClass('active');
+                        }
+                    } else {
+                        RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                        if (selectedCategoryCode == lobbyGame.Location) {
+                            $(RecordDom).addClass('active');
+                        }
+                    }
                     idGameItemTitle.appendChild(RecordDom);
                 }
             }
@@ -1082,12 +1112,20 @@
                             break;
                         default:
                     }
+                    
+                    if (WebInfo.DeviceType == 1) {
+                        RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                    if (selectedCategoryCode == lobbyGame.Location) {
-                        $(RecordDom).addClass('active');
+                        if (selectedCategoryCode == lobbyGame.Location) {
+                            $(RecordDom).addClass('active');
+                        }
+                    } else {
+                        RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                        if (selectedCategoryCode == lobbyGame.Location) {
+                            $(RecordDom).addClass('active');
+                        }
                     }
-
-                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
                     idGameItemTitle.appendChild(RecordDom);
                 }
             }
@@ -1120,12 +1158,20 @@
                             break;
                         default:
                     }
+                    
+                    if (WebInfo.DeviceType == 1) {
+                        RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                    if (selectedCategoryCode == lobbyGame.Location) {
-                        $(RecordDom).addClass('active');
+                        if (selectedCategoryCode == lobbyGame.Location) {
+                            $(RecordDom).addClass('active');
+                        }
+                    } else {
+                        RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                        if (selectedCategoryCode == lobbyGame.Location) {
+                            $(RecordDom).addClass('active');
+                        }
                     }
-
-                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
                     idGameItemTitle.appendChild(RecordDom);
                 }
             }
@@ -1199,21 +1245,26 @@
                     if (o.LobbyGameList.length > 0) {
                         LobbyGameList = o.LobbyGameList;
                         updateGameCode();
+
+                        window.parent.API_SetFavoToIndexDB();
                     } else {
                         //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                         //    window.parent.location.href = "index.aspx";
                         //});
+                        window.parent.API_SetFavoToIndexDB();
                     }
                 } else {
                     //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     //    window.parent.location.href = "index.aspx";
                     //});
+                    window.parent.API_SetFavoToIndexDB();
                 }
             }
             else {
                 //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                 //    window.parent.location.href = "index.aspx";
                 //});
+                    window.parent.API_SetFavoToIndexDB();
             }
 
         });

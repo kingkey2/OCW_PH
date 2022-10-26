@@ -1176,7 +1176,7 @@
                     </div>--%>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=1')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b2-m.jpg?1" alt="">
                             </div>
@@ -1189,7 +1189,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')"></a>
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=2')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b1-m.jpg" alt="">
                             </div>
@@ -1202,7 +1202,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')"></a>
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=3')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b3-m.jpg" alt="">
                             </div>
@@ -1284,7 +1284,7 @@
                 <div class="entrance_Game_inner">
                     <!-- 遊戲大廳入口 -->
                     <section class="section-lobbyEntrance section-wrap">
-                        <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('','Casino.aspx')">
+                        <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('Casino','Casino.aspx')">
                             <img src="images/index/lobby-entrance.jpg" alt="">
                         </div>
                     </section>

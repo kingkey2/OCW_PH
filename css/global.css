@@ -2640,7 +2640,7 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   position: absolute;
   top: 1.5em;
   left: 1.5em;
-  width: 44px;
+  width: 170px;
   height: 44px;
   cursor: pointer;
   -webkit-transition: all 0.25s ease-in-out;
@@ -2824,7 +2824,7 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   left: unset !important;
   margin: 0 auto 72px;
 }
-.system-msg-container .logo:after {
+/* .system-msg-container .logo:after {
   position: absolute;
   bottom: -2em;
   left: 50%;
@@ -2835,7 +2835,7 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   font-weight: bolder;
   font-size: 1.125rem;
   color: #009FE8;
-}
+} */
 .system-msg-container .img-wrap {
   position: relative;
   margin: 4em auto 2.5em;

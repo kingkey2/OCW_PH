@@ -493,10 +493,10 @@
                         <input type="hidden" name="LoginGUID" value="" />
                         <input id="idLoginType" type="hidden" name="LoginType" value="0" />
                         <div id="idMailLoginGroup" class="form-group">
-                            <label class="form-title language_replace">信箱</label>
+                            <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
                                 <input type="text" class="form-control custom-style" inputmode="email" name="LoginAccount">
-                                <div class="invalid-feedback language_replace">請輸入信箱</div>
+                                <div class="invalid-feedback language_replace">請輸入帳號</div>
                             </div>
                         </div>
 
