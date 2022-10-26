@@ -99,7 +99,6 @@
   "確認密碼與登入密碼不符": "The confirmation password does not match the login password",
   "帳號": "Account",
   "手機驗證相關說明：": "Mobile Phone Verification Instructions:",
-  "1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。": " Click Send",
-  "Verification" "Code after entering the phone number and the verification code will be sent to your phone via SMS.",
+  "1.輸入手機號碼後點擊『傳送驗證碼』後，驗證碼將會發送到您的手機簡訊。": " Click Send \"Verification\" Code after entering the phone number and the verification code will be sent to your phone via SMS.",
   "2.將手機簡訊內的驗證碼回填於下方輸入框內。": "Enter the verification code."
 }
