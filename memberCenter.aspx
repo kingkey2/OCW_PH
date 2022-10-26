@@ -930,7 +930,7 @@
                              <!-- 活動中心 + 獎金中心 -->
                             <div class="activity-record-wrapper">
                                 <!-- 活動中心 -->
-                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                                     <div class="activity-center-inner">
                                         <div class="activity-center-content">
                                             <div class="title language_replace">活動中心</div>

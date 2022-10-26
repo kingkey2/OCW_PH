@@ -387,7 +387,7 @@
             <div class="container">
                 <div class="sec-title-container sec-title-prize">
                     <!-- 活動中心 link-->
-                    <a class="btn btn-link btn-activity" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx')">
+                    <a class="btn btn-link btn-activity" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                         <span class="title language_replace">前往活動中心</span><i class="icon icon-mask icon-arrow-right-dot"></i>
                     </a>
                     <div class="sec-title-wrapper">

@@ -460,7 +460,7 @@
                 //IFramePage.style.height = "0px";
 
                 IFramePage.src = url;
-                IFramePage.onload = null;
+                IFramePage.onload = addOrUpdateQueryInWindow("page", title);
 
 
                 //IFramePage.
@@ -3087,6 +3087,41 @@
         )
     }
 
+    //#region URL
+    function getQueryInURL(param = '') {
+        let result;
+        try {
+            result = new URL(window.location.href).searchParams.get(param)
+            return result
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    
+    function addOrUpdateQueryInWindow(key, value, type = 'pushState') {
+        let url = location.href;
+
+        if (!url.includes('?')) {
+            url = `${url}?${key}=${value}`;
+        } else {
+            if (!url.includes(key)) {
+                url = `${url}&${key}=${value}`;
+            } else {
+                let re = `(\\?|&|\#)${key}([^&|^#]*)(&|$|#)`;
+                url = url.replace(new RegExp(re), '$1' + key + '=' + value + '$3');
+            }
+        }
+
+        if (type === 'location') {
+            location.href = url;
+        }
+
+        if (type === 'pushState') {
+            history.pushState({}, 0, url);
+        }
+    }
+    //#endregion
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
@@ -3214,13 +3249,13 @@
                                                 <span class="title language_replace">會員中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">
-                                            <a class="nav-link" onclick="API_LoadPage('','ActivityCenter.aspx')">
+                                            <a class="nav-link" onclick="API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                                                 <i class="icon icon-mask icon-loudspeaker"></i>
                                                 <span class="title language_replace">活動中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">
 
-                                            <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
+                                            <a class="nav-link" onclick="API_LoadPage('Prize','Prize.aspx', true)">
                                                 <!-- 通知小紅點 -->
                                                 <span class="notify-dot PC-notify-dot" style="display: none;"></span>
                                                 <i class="icon icon-mask icon-prize"></i>
