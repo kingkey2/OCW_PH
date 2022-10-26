@@ -1687,7 +1687,11 @@
                         }
 
                         Promise.all(promiseAll).then(values => {
-                            updateBaseInfo();
+                            checkUserLogin(EWinWebInfo.SID, function (logined) {
+                                if (logined) {
+                                    updateBaseInfo();
+                                }
+                            });
                         });
                     } else {
 
