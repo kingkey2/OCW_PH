@@ -415,9 +415,9 @@ public class SyncAPI : System.Web.Services.WebService
                                     GameCode=data.GameCode;
                                     SettingData["UpdateTimestamp"] = UpdateTimestamp;
                                     SettingData["GameID"] = GameID;
-
-                                    EWinWebDB.CompanyGameCode.InsertCompanyGameCode(GameCode,GameID,data.GameName,data.GameCategoryCode,data.GameCategorySubCode,data.AllowDemoPlay,data.RTPInfo,data.IsHot,data.IsNew,Newtonsoft.Json.JsonConvert.SerializeObject(data.Tag),data.SortIndex,data.BrandCode,Newtonsoft.Json.JsonConvert.SerializeObject(data.Language),data.UpdateTimestamp,data.CompanyCategoryTag,data.GameAccountingCode,Newtonsoft.Json.JsonConvert.SerializeObject(data.GameCodeCategory),(int)companyGameCodeResult.GameCodeList[i].GameStatus);
-
+                                 
+                                    EWinWebDB.CompanyGameCode.InsertCompanyGameCode(GameCode, GameID, data.GameName, data.GameCategoryCode, data.GameCategorySubCode, data.AllowDemoPlay, data.RTPInfo, data.IsHot, data.IsNew, data.Tag==null?"":Newtonsoft.Json.JsonConvert.SerializeObject(data.Tag), data.SortIndex, data.BrandCode, Newtonsoft.Json.JsonConvert.SerializeObject(data.Language), data.UpdateTimestamp, data.CompanyCategoryTag, data.GameAccountingCode, Newtonsoft.Json.JsonConvert.SerializeObject(data.GameCodeCategory), (int)companyGameCodeResult.GameCodeList[i].GameStatus);
+                                 
                                     if (companyGameCodeResult.GameCodeList[i].GameStatus == EWin.Lobby.enumGameCodeStatus.GameOpen)
                                     {
                                         EWinWebDB.CompanyCategoryGameCode.DeleteCompanyCategoryGameCodeByGameCodeByCategoryType0(GameCode);
