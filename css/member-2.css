@@ -2065,10 +2065,16 @@ input.month:read-only, input.day:read-only {
     -webkit-box-direction: normal;
         -ms-flex-flow: column wrap;
             flex-flow: column wrap;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 300px;
+            flex: 0 0 300px;
   }
 
-  .cashflowCard-slider-wrapper {
-    color: red;
+  .section-cashflow-card {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    overflow: hidden;
   }
 }
 @media screen and (max-width: 639px) {

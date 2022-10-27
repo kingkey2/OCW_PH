@@ -43,7 +43,7 @@
     var BackCardInfo = null;
     var v = "<%:Version%>";
     var swiper;
-    var initSwiperEnd = false;
+    var initPopUpSwiperEnd = false;
     
 
     function copyText(tag) {
@@ -319,7 +319,7 @@
         }
     }
 
-    function initSwiper() {
+    function initPopUpSwiper() {
         //HERO 
         var swiperThumb = new Swiper(".thumbSwiper", {
 
@@ -360,6 +360,9 @@
 
         });   
         
+    }
+
+    function initSwiper() {
         var sliderCardCashFlow = new Swiper("#slider-CardCashFlow", {
             // loop: true,
             slidesPerView: 3,
@@ -435,6 +438,7 @@
         }
 
         initSwiper();
+
     }
 
     function copyActivityUrl() {
@@ -576,9 +580,9 @@
     }
 
     $(document).on('shown.bs.modal', '#ModalMemberLevel', function () {
-        if (!initSwiperEnd) {
-            initSwiper();
-            initSwiperEnd = true;
+        if (!initPopUpSwiperEnd) {
+            initPopUpSwiper();
+            initPopUpSwiperEnd = true;
         }
     });
 
@@ -975,22 +979,20 @@
                         </section>
                         <section class="section-cashflow-card">
                             <div class="cashflowCard-slider-wrapper">
-                                <div class="swiper card-slider swiper-container round-arrow" id="slider-CardCashFlow">
+                                <div class="swiper card-slider swiper-container" id="slider-CardCashFlow">
                                     <div class="swiper-wrapper">
-                                        <div class="swiper-slide">Slide 1</div>
-                                        <div class="swiper-slide">Slide 2</div>
-                                        <div class="swiper-slide">Slide 3</div>
-                                        <div class="swiper-slide">Slide 4</div>
-                                        <div class="swiper-slide">Slide 5</div>
-                                        <div class="swiper-slide">Slide 6</div>
-                                        <div class="swiper-slide">Slide 7</div>
-                                        <div class="swiper-slide">Slide 8</div>
-                                        <div class="swiper-slide">Slide 9</div>
+                                        <div class="swiper-slide">
+                                           <span class=""></span>
+
+                                        </div>
+                                       
+                                              
                                     </div>
                                     <div class="swiper-pagination"></div>
                                     <div class="swiper-button-next"></div>
                                     <div class="swiper-button-prev"></div> 
-                            </div>
+                              </div>
+                          </div>
 
                         </section>    
 
