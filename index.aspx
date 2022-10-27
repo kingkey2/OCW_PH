@@ -33,6 +33,10 @@
         PCode = Request["PCode"];
     }
 
+    if (string.IsNullOrEmpty(Request["p"]) == false) {
+        PCode = Request["p"];
+    }
+
     if (string.IsNullOrEmpty(Request["PageType"]) == false) {
         PageType = Request["PageType"];
     }
@@ -442,7 +446,7 @@
 
         if (url == "Register.aspx") {
             if (PCode != "") {
-                window.open("<%=EWinWeb.CasinoWorldUrl%>/registerForQrCode.aspx?P=" + PCode + "&IsFromIndex=1");
+                url = 'Register.aspx?PCode=' + PCode;
             }
         }
 
