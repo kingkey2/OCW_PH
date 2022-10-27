@@ -14,12 +14,12 @@
 
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
-    <link rel="stylesheet" href="css/member.css" type="text/css" />
+    <link rel="stylesheet" href="css/member-2.css" type="text/css" />
     --%>
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
-    <link href="css/member.css" rel="stylesheet" />
+    <link href="css/member-2.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
 
 </head>
@@ -44,6 +44,7 @@
     var v = "<%:Version%>";
     var swiper;
     var initSwiperEnd = false;
+    
 
     function copyText(tag) {
         var copyText = document.getElementById(tag);
@@ -320,7 +321,7 @@
 
     function initSwiper() {
         //HERO 
-        var swiper = new Swiper(".thumbSwiper", {
+        var swiperThumb = new Swiper(".thumbSwiper", {
 
             slidesPerView: "auto",
             freeMode: true,
@@ -338,17 +339,9 @@
             //     delay: 4000,
             //     disableOnInteraction: false,
             //     pauseOnMouseEnter: true
-            // },
-            // pagination: {
-            //     el: ".swiper-pagination",
-            //     clickable: true,
-            //     renderBullet: function (index, className) {
-            //         //   return '<span class="' + className + '">' + (index + 1) + "</span>";
-            //         return '<span class="' + className + '">' + '<img src="images/banner/thumb-' + (index + 1) + '.png"></span>';
-            //     },
-            // },
+            // },           
             thumbs: {
-                swiper: swiper,
+                swiper: swiperThumb,
             },
             navigation: {
                 nextEl: ".swiper-button-next",
@@ -365,9 +358,42 @@
                
             }
 
-        });        
-    }
+        });   
+        
+        var sliderCardCashFlow = new Swiper("#slider-CardCashFlow", {
+            // loop: true,
+            slidesPerView: 3,
+            // effect: "fade",
+            speed: 1000, //Duration of transition between slides (in ms)
+            // autoplay: {
+            //     delay: 4000,
+            //     disableOnInteraction: false,
+            //     pauseOnMouseEnter: true
+            // },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                renderBullet: function (index, className) {
+                return '<span class="' + className + '">' + (index + 1) + "</span>";
+                },
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            breakpoints: {
+                992: {
+                    freeMode: false,
+                    slidesPerView: 3,
+                    // centeredSlides: true,
+                    loop: true,
+                    // slidesPerGroup: 6, //index:992px
+                },
+               
+            }
 
+        });
+    }
 
 
     function init() {
@@ -408,7 +434,7 @@
             //document.getElementById('idWalletPasswordUnSet').style.display = "block";
         }
 
-        //initSwiper();
+        // initSwiper();
     }
 
     function copyActivityUrl() {
@@ -563,8 +589,26 @@
         <div class="page-content">
             <div class="container">
                 <article class="article-member-center">
+
+                    <!-- TAB -->
+                    <div class="tab-member tab-scroller tab-2 tab-primary">
+                        <div class="tab-scroller__area">
+                            <ul class="tab-scroller__content">
+                                <li class="tab-item payment active" onclick="" id="tabRecordPayment">
+                                    <span class="tab-item-link"><span class="title"><span class="language_replace">個人資訊</span></span>
+                                    </span>
+                                </li>
+                                <li class="tab-item game" onclick="" id="tabRecordGame">
+                                    <span class="tab-item-link"><span class="title"><span class="language_replace">個人錢包</span></span>
+                                    </span>
+                                </li>
+                                <div class="tab-slide"></div>
+                            </ul>
+                        </div>
+                    </div>
+
                     <!-- 個人資料 -->
-                    <section class="section-member-profile">
+                    <section class="section-member-profile" style="display: ;">
                         <!-- 會員頭像 + 會員等級 -->
                         <div class="member-profile-wrapper" style="display:">
                             <div class="member-profile-avater-wrapper">
@@ -572,6 +616,9 @@
                                     <span class="avater-img">
                                         <img src="images/avatar/avater-1.png" alt="">
                                     </span>
+                                    <button type="button" class="btn btn-round btn-primary btn-exchange-avater" data-toggle="modal" data-target="#ModalAvatar">
+                                        <i class="icon icon-mask icon-camera"></i>
+                                    </button>
                                    <%--
                                     <button type="button" class="btn btn-round btn-primary btn-exchange-avater" data-toggle="modal" data-target="#ModalAvatar">
                                         <i class="icon icon-mask icon-camera"></i>
@@ -640,7 +687,7 @@
                             <fieldset class="dataFieldset">
                                 <legend class="sec-title-container sec-col-2 sec-title-member ">
                                     <div class="sec-title-wrapper">
-                                        <h1 class="sec-title title-deco"><span class="language_replace">會員中心</span></h1>
+                                        <h1 class="sec-title title-deco"><span class="language_replace">個人資訊</span></h1>
                                     </div>
                                     <!-- 資料更新 Button-->
                                     <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
@@ -844,7 +891,9 @@
                             </fieldset>
                         </div>
                     </section>
+                    
                     <section class="section-member-setting">
+
                         <!-- 會員錢包中心 - 入金 + 履歷紀錄 / 出金 -->
                         <section class="section-member-wallet-transaction">
                             <div class="member-wallet-deposit-wrapper">
@@ -924,13 +973,34 @@
                             </div>
 
                         </section>
+                        <section class="section-cashflow-card">
+                            <div class="cashflowCard-slider-wrapper">
+                                <div class="swiper card-slider swiper-container round-arrow" id="slider-CardCashFlow">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">Slide 1</div>
+                                        <div class="swiper-slide">Slide 2</div>
+                                        <div class="swiper-slide">Slide 3</div>
+                                        <div class="swiper-slide">Slide 4</div>
+                                        <div class="swiper-slide">Slide 5</div>
+                                        <div class="swiper-slide">Slide 6</div>
+                                        <div class="swiper-slide">Slide 7</div>
+                                        <div class="swiper-slide">Slide 8</div>
+                                        <div class="swiper-slide">Slide 9</div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-button-prev"></div> 
+                            </div>
 
+                        </section>    
+
+                        <%--
                         <!-- 會員簽到進度顯示 + 活動中心 + 獎金中心 -->
                         <section class="section-member-activity">
                              <!-- 活動中心 + 獎金中心 -->
                             <div class="activity-record-wrapper">
                                 <!-- 活動中心 -->
-                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                                     <div class="activity-center-inner">
                                         <div class="activity-center-content">
                                             <div class="title language_replace">活動中心</div>
@@ -945,7 +1015,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <%--
+                           
                              <!-- 會員簽到進度顯示 -->
                              <div class="activity-dailylogin-wrapper">
                                 <div class="dailylogin-bouns-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
@@ -986,9 +1056,12 @@
                                     </div>
                                 </div>
                             </div>
-                            --%>
+                           
                         </section>
+                        --%>
                     </section>
+
+
                     <%--
                     <!-- 熱門活動 -->
                     <div class="activity-promo-wrapper">

@@ -3253,6 +3253,11 @@
                                                 <span class="title language_replace">會員中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">
+                                            <a class="nav-link" onclick="API_LoadPage('MemberCenter2', 'memberCenter-ADDCART.aspx', true)">
+                                                <i class="icon icon-mask icon-people"></i>
+                                                <span class="title language_replace">會員中心</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown">
                                             <a class="nav-link" onclick="API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                                                 <i class="icon icon-mask icon-loudspeaker"></i>
                                                 <span class="title language_replace">活動中心</span></a>

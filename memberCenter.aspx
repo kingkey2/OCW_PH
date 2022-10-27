@@ -563,26 +563,8 @@
         <div class="page-content">
             <div class="container">
                 <article class="article-member-center">
-
-                    <!-- TAB -->
-                    <div class="tab-member tab-scroller tab-2 tab-primary">
-                        <div class="tab-scroller__area">
-                            <ul class="tab-scroller__content">
-                                <li class="tab-item payment active" onclick="" id="tabRecordPayment">
-                                    <span class="tab-item-link"><span class="title"><span class="language_replace">個人資訊</span></span>
-                                    </span>
-                                </li>
-                                <li class="tab-item game" onclick="" id="tabRecordGame">
-                                    <span class="tab-item-link"><span class="title"><span class="language_replace">個人錢包</span></span>
-                                    </span>
-                                </li>
-                                <div class="tab-slide"></div>
-                            </ul>
-                        </div>
-                    </div>
-
                     <!-- 個人資料 -->
-                    <section class="section-member-profile" style="display: none;">
+                    <section class="section-member-profile">
                         <!-- 會員頭像 + 會員等級 -->
                         <div class="member-profile-wrapper" style="display:">
                             <div class="member-profile-avater-wrapper">
@@ -590,9 +572,6 @@
                                     <span class="avater-img">
                                         <img src="images/avatar/avater-1.png" alt="">
                                     </span>
-                                    <button type="button" class="btn btn-round btn-primary btn-exchange-avater" data-toggle="modal" data-target="#ModalAvatar">
-                                        <i class="icon icon-mask icon-camera"></i>
-                                    </button>
                                    <%--
                                     <button type="button" class="btn btn-round btn-primary btn-exchange-avater" data-toggle="modal" data-target="#ModalAvatar">
                                         <i class="icon icon-mask icon-camera"></i>
@@ -661,7 +640,7 @@
                             <fieldset class="dataFieldset">
                                 <legend class="sec-title-container sec-col-2 sec-title-member ">
                                     <div class="sec-title-wrapper">
-                                        <h1 class="sec-title title-deco"><span class="language_replace">個人資訊</span></h1>
+                                        <h1 class="sec-title title-deco"><span class="language_replace">會員中心</span></h1>
                                     </div>
                                     <!-- 資料更新 Button-->
                                     <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
@@ -865,9 +844,7 @@
                             </fieldset>
                         </div>
                     </section>
-                    
                     <section class="section-member-setting">
-
                         <!-- 會員錢包中心 - 入金 + 履歷紀錄 / 出金 -->
                         <section class="section-member-wallet-transaction">
                             <div class="member-wallet-deposit-wrapper">
@@ -947,17 +924,13 @@
                             </div>
 
                         </section>
-                        <section class="section-member-card">
-                            
-                        </section>    
 
-                        <%--
                         <!-- 會員簽到進度顯示 + 活動中心 + 獎金中心 -->
                         <section class="section-member-activity">
                              <!-- 活動中心 + 獎金中心 -->
                             <div class="activity-record-wrapper">
                                 <!-- 活動中心 -->
-                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
+                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
                                     <div class="activity-center-inner">
                                         <div class="activity-center-content">
                                             <div class="title language_replace">活動中心</div>
@@ -972,7 +945,7 @@
                                     </div>
                                 </div>
                             </div>
-                           
+                            <%--
                              <!-- 會員簽到進度顯示 -->
                              <div class="activity-dailylogin-wrapper">
                                 <div class="dailylogin-bouns-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
@@ -1013,12 +986,9 @@
                                     </div>
                                 </div>
                             </div>
-                           
+                            --%>
                         </section>
-                        --%>
                     </section>
-
-
                     <%--
                     <!-- 熱門活動 -->
                     <div class="activity-promo-wrapper">
