@@ -1,0 +1,3585 @@
+@import "../base/base";
+
+$modalMemberLevel-body-padding-left: 1.5rem;
+$modalMemberLevel-body-padding-right: 1.5rem;
+
+$modalMemberLevel-body-padding-left-lg: 2.5rem;
+$modalMemberLevel-body-padding-right-lg: 2.5rem;
+
+$modalMemberLevel-body-padding-left-xl: 4.5rem;
+$modalMemberLevel-body-padding-right-xl: 4.5rem;
+
+.article-member-center {
+    // display: flex;
+    // flex-flow: row wrap;
+    position: relative;
+}
+
+.section-member-profile,
+.section-member-activity,
+.section-member-wallet-transaction {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+
+.icon-mask {
+    &:before {
+        background-color: #fff;
+    }
+}
+
+.data-item {
+    width: 100%;
+    padding: 0.5rem;
+    // &.name,
+    // &.password,
+    // &.birth,
+    // &.currency{
+    //     width: 50%;
+    // }
+
+    &.name {
+        width: 70%;
+        order: -4;
+    }
+
+    &.password {
+        // width: 70%;
+        // order: -2;
+    }
+
+    &.birth {
+        width: 30%;
+        order: -3;
+    }
+
+    &.currency {
+        width: 30%;
+        order: -1;
+    }
+}
+
+input{
+
+    &.year
+    {
+        // width: font-resize(16px*5) !important;
+        width: 33% !important;
+        &:read-only{
+            // width: 31.5% !important;
+            width: 32% !important;
+            // padding: 0;
+        }
+
+    }
+
+    &.month,
+    &.day
+    {
+        width: 22% !important;
+        text-align: center;
+
+        &:read-only{
+            // width: 20% !important;
+            width: 21% !important;
+            // padding: 0;
+        }
+
+        
+    }
+}
+
+.sec-col-2{
+    .btn{
+        flex: 0 0 37px;
+    }
+
+    .sec-title-wrapper{        
+        flex: 0 0 calc(100% - 37px);
+    }
+}
+
+
+
+.password-real{
+    .data-item-form-group{
+        align-items: center;
+    }
+}
+
+.labels {
+
+    .label {
+        color: #fff;
+        border-radius: 10px;
+        padding: 0.2rem 0.5rem;
+    }
+
+    .update {
+        background-color: #7ACEA6;
+
+    }
+
+    .validated {
+        background-color: #009FE8;
+
+    }
+
+    .unvalidated {
+        background-color: #EB4900;
+
+    }
+
+}
+
+// 個人資料
+.section-member-profile{
+    .title{
+        font-weight: 300;
+    }
+}
+
+// 會員頭像 + 會員等級
+.member-profile {
+
+    &-wrapper{
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+        margin-bottom: 2.5rem;
+    }
+
+    // 會員頭像
+    &-avater-wrapper {
+
+        // max-width: 125px;
+        margin: 0rem auto 1rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        // padding: 0 10px;
+        padding: 0 40px 0 10px;
+
+
+        position: relative;
+
+        .avater {
+            display: inline-flex;
+            position: relative;           
+
+            &-img {
+                width: 100%;
+                background: #F5A919;
+                height: 0;
+                padding-bottom: calc(100% - 10px);
+                // aspect-ratio: 1 / 1;
+                border-radius: 50%;
+                border: 5px solid #CC8211;
+
+                img {
+                    width: 100%;
+                }
+            }
+
+            .btn {
+                position: absolute;
+                right: -20px;
+                // bottom: 10px;
+                top: 70px;
+            }
+
+            .icon-mask {
+                width: 35px;
+                height: 35px;
+            }
+
+        }
+    }
+
+    &-data-wrapper {
+        .btn-edit {
+            padding: 5px;
+
+            .icon {
+                width: 25px;
+                height: 25px;
+
+            }
+        }
+
+        input.custom-input-edit {
+            width: 100%;
+
+            &:read-only {
+                border: none;
+            }
+
+        }
+
+
+        .data-item {
+
+            .title-name {
+                color: rgba(#767676, 1);
+
+                +.btn{
+                    margin-left: 4px;
+                }
+            }
+
+            &-title {
+
+                .icon-mask {
+                    width: 20px;
+                    height: 20px;
+
+                    &:before {
+                        background-color: rgba(#767676, 1);
+                    }
+                }
+
+            }
+
+            &-content {
+                font-size: font-resize(18px);
+
+            }
+
+        }
+
+
+    }
+
+    &-QRcode {
+        max-width: 200px;
+        margin: 0 auto;
+        color: #fff;
+
+        .qrcode-img {
+
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .qrcode-number {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            // background-color: #009FE8;
+            background-color: $qrcode-btn-copy-backgroundColor;
+
+            border-radius: 30px;
+            padding: 0.2em 1em;
+            font-size: 0.7em;
+
+            .icon {
+                width: 20px;
+                height: 20px;
+            }
+
+        }
+
+
+    }
+    
+}
+
+//會員等級 =============
+.section-member-profile{
+
+}
+.member-profile-level-wrapper{
+    flex: 1;
+    width: 100%;
+
+    .sec-title{
+        // font-size: font-resize(24px);
+    }
+   
+    .title{
+        // font-size: inherit;
+        font-size: font-resize(15px);
+        color: #8A8A8A;
+    }
+    .value{
+        // font-size: inherit;
+        font-size: font-resize(15px);
+        color: #474747;
+        font-weight: 500;
+    }
+
+    .level-rules{       
+        .level-item{
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .progress{
+        background-color: #D6D6D6;
+        margin-bottom: 0.5rem;
+    }
+
+    .member-level{
+        display: flex;
+        align-items: flex-end;
+
+        .btn{
+            padding-top: 0px;
+            padding-bottom: 0px;
+            flex: auto;
+        }
+    }
+
+}
+
+.member-level{
+    // 升級條件
+    &-upgrade-wrapper{
+        margin-bottom: 1rem;
+        .level-progress{
+            position: relative;
+
+            &.progress{
+                min-height: 22px;               
+            }
+           
+            .progress-bar{
+                background-color: #F5A919;
+            }
+        }
+        .member-level{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+        }
+        
+    }
+
+    // 保級條件
+    &-reservation-wrapper{
+        .sec-title{    
+            font-weight: 500;        
+            .title{
+                font-weight: 500;
+            }
+        }
+        .title{
+            // font-size: font-resize(15px);
+            color: #404040 !important;
+        }
+        .progress{
+            height: font-resize(10px);
+            border-radius: 10px;
+        }
+        .progress-bar{
+            background-color: #036EB7;
+        }
+        
+    }
+}
+
+
+.member-wallet {
+
+    &-wrapper {
+        background-color: rgba(#51BD8B, .7);
+        // background-image: url(../images/theme/bg_dog_white.png), url(../images/icon/ico-dog-w-shadow.svg);
+        background-image: url(../images/theme/bg_dog_white.png);
+        background-position: center center, center top;
+        background-repeat: repeat, no-repeat;
+        background-size: auto, cover;
+
+        min-height: 185px;
+        height: 100%;
+        border-radius: 10px;
+        // overflow: hidden;
+        position: relative;
+
+        margin-bottom: 1rem;
+        display: flex;
+    }
+
+    &-inner {
+        // position: absolute;
+        width: 100%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        bottom: 0;
+        background: rgba(#51BD8B, 0.8);
+        color: #fff;
+
+        display: inline-flex;
+        // flex-flow: row wrap;
+        // align-items: center;
+        // align-content: space-between;
+        // justify-content: center;
+        // text-align: center;
+        border-radius: 10px;      
+
+        flex-flow: column wrap;
+        justify-content: space-between;
+
+
+        >* {
+            width: 100%;
+        }
+
+    }
+
+    &-title {
+        margin-bottom: 10px;
+
+    }
+
+    &-contnet {
+        padding: 10px;
+        position: relative;
+        
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 10px 10px 0 0;
+
+        flex: 0 0 70%;
+        height: 70%;
+
+        transition: all 0.35s ease-in-out;
+
+        // &::after{
+        //     content: '';
+        //     display: inline-block;
+        //     width: 30%;
+        //     max-width: 160px;
+        //     height: calc(100% + 25px);
+        //     height: 100%;
+        //     position: absolute;
+        //     position: relative;
+        //     // right: 10px;
+        //     // top: -10px;
+        //     background: url(../images/icon/ico-dog-w-shadow.svg) center top no-repeat;
+        //     background-size: contain;
+        // }
+        &::after{
+            content: "";
+            display: inline-block;
+            width: 60%;
+            max-width: 220px;
+            height: calc(100% + 25px);
+            height: 100%;
+            position: absolute;
+            position: relative;
+            top: -25%;
+            right: -5%;
+            background: url(../images/icon/ico-dog-w-shadow.svg) center top no-repeat;
+            background-size: contain;
+        }
+
+        &:hover{
+            background-color: rgba(#000, 0.45);
+            
+            .btn{
+                // background-color: darken(#e83e8c, 10%) !important;
+            }
+        }
+    }
+
+    &-detail{
+        width: 70%;
+    }
+
+    &-amount {
+        display: flex;
+        flex-flow: row wrap;
+        width: 65%;
+        padding-right:8px;
+        align-items: center;
+        justify-content: space-between;
+
+
+        .unit {
+            // width: 100%;
+            font-size: font-resize(18px);
+        }
+
+        .amount {
+            font-size: font-resize(22px);
+            font-weight: 500;
+        }
+
+        .member-deposit {
+            // width: 100%;
+            display: flex;
+            align-items: center;
+            // justify-content: center;
+        }
+
+        .btn-deposit {
+            width: 36px;
+            height: 36px;
+            margin-left: 0.5em;
+
+        }
+
+    }
+
+}
+
+// 履歷紀錄
+.member-record {
+
+    &-wrapper {
+        background: #44956E;
+        padding: 0 10px;
+        border-radius: 0 0 10px 10px;
+        // overflow: hidden;
+        text-align: center;
+
+        flex: 0 0 30%;
+        height: 30%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .btn{
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+
+    &-title {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        // padding: 0.5rem 0;
+
+        .icon {
+            width: 45px;
+            height: 45px;
+
+            &:before {
+                background-color: #fff;
+            }
+        }
+
+
+        .title {
+            font-size: font-resize(20px);
+        }
+
+    }
+
+
+}
+
+// 會員簽到進度顯示 + 活動中心
+.activity {
+
+    &-dailylogin-wrapper {
+        margin-bottom: 1rem;
+        text-align: center;
+        position: relative;
+    } 
+}
+
+
+// 活動中心
+.activity-center{
+     
+     &-wrapper{       
+
+        .title {
+            font-size: font-resize(26px);
+            color: #fff;
+            text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+            font-weight: bold;
+        }
+
+        .btn-activity-in{            
+            // background-color: rgba(#0081BB, 1);
+            background-color:  $member-activity-center-btn-backgroundColor;
+
+            // color: #fff;
+            color: $member-activity-center-btn-textColor;
+            font-size: font-resize(18px);
+            font-weight: bold;
+            border-radius: 30px;
+            width: 100%;
+        }
+
+    }
+
+    &-content{
+        position: absolute;
+        bottom: 10px;
+       
+    }
+
+    &-inner{
+        // background-color: rgba(#45C5FF, 1);
+        background-color:$member-activity-center-backgroundColor;
+
+        background-image: url(../images/theme/bg_dog_white.png), url(../images/member/bg_activity.svg);
+        background-position: center center, 100% 120%;
+        background-repeat: repeat, no-repeat;
+        background-size: auto, auto 100px;
+        cursor: pointer;
+
+        min-height: 120px;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+
+        margin-bottom: 1rem;
+        padding: 10px;
+    }
+
+}
+
+// 獎金中心
+.prize-center{
+
+    &-wrapper{
+        .title {
+            font-size: font-resize(22px);
+            color: #fff;
+            position: absolute;
+            bottom: 20px;
+            text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+            font-weight: bold;
+            max-width: (font-resize(22px)*4);
+        }
+
+    }
+
+    &-inner{
+        // background-color: rgba(#E14382, 1);
+        background-color:  $member-prize-center-backgroundColor;
+        background-image: url(../images/member/gril-doubt-M.svg);
+    
+        
+        background-position: calc(100% + 30px) calc(50% + 10px);
+        background-repeat: no-repeat;
+        background-size: auto 160%;
+    
+        cursor: pointer;
+    
+        min-height: 120px;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;    
+        margin-bottom: 1rem;
+        padding: 10px;
+    }
+
+}
+$card-gradient-position:(49.97%, 97.42%);
+
+$card-bg-normal: (
+  color : ( rgba($color5, 0), rgba($color5, 0)),
+  positon : (49.97%, 97.42%)
+);
+
+//Modal - Member LEVEL - 會員等級 Slider
+.card-slider{    
+    
+    .swiper-wrapper{
+        // padding-left: 2rem;
+        // padding-right: 2rem;
+    }
+    
+    &-wrapper{
+        position: relative;
+        // max-width: 85%;
+        // padding-left: 1.5rem;
+        // padding-right: 1.5rem;        
+        margin: 0 auto;
+
+        .swiper-button-next,
+        .swiper-button-prev{
+            top: 20%;
+            width: 15px;
+            height: 30px;
+
+            &:after{
+                // width: 50px;
+                // height: 50px;
+                width: 100%;
+                height: 100%;
+                
+                content: '';
+                -webkit-mask-position: center center;
+                -webkit-mask-repeat: no-repeat;
+                -webkit-mask-size: contain;
+                mask-position: center center;
+                mask-repeat: no-repeat;
+    
+                -webkit-mask-size: cover;
+                mask-size: cover;
+
+                background-color: #804F21;
+            }
+        }       
+       
+        .swiper-button-prev{
+            transform:scaleX(-1);
+            // left: 0; 
+            left: -$modalMemberLevel-body-padding-left + 0.2rem; 
+
+            &:after{
+                -webkit-mask-image: url(../images/icon/ico-arrow-L.svg);
+                mask-image: url(../images/icon/ico-arrow-L.svg);
+            }           
+        }
+        .swiper-button-next{
+            // right: 0;
+            right: -$modalMemberLevel-body-padding-right + 0.2rem; 
+            &:after{                
+                // background: url(../images/icon/ico-arrow-L.svg) center center no-repeat;
+                -webkit-mask-image: url(../images/icon/ico-arrow-L.svg);
+                mask-image: url(../images/icon/ico-arrow-L.svg);
+            }
+        }
+    }
+
+    *{
+        font-size: initial;
+    }
+
+    .swiper-slide{
+        padding: 0 0.5rem;        
+    }
+
+    .card-item{     
+        position: relative;
+        padding: 15px;
+        border-radius: 20px;
+        margin-bottom: 2.5rem;       
+
+        &::before{
+            content: '';
+            display: inline-flex;
+            width: 18%;
+            height: 60px;            
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            z-index: 0;
+            position: absolute;
+            right: 30px;
+            top: 5px;
+            // top: 10px;
+            // transform: rotate(-30deg);
+            transform-origin: center center;
+        }       
+
+        .member-level{
+            color: #A85400;
+            font-size: font-resize(24px);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .member-bouns{
+            margin-bottom: 0.5rem;
+        }
+
+        .item{
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+
+            .title{
+                color: #707070;
+                font-size: font-resize(13px);
+                width: 70%;
+            }
+            .value{
+                font-weight: 500;
+                font-size: font-resize(13.5px);
+            }
+        }        
+        
+    }
+
+    .memberlevel{
+
+        &-rules{            
+            *{
+                font-size: font-resize(14px);
+            }
+            .thead{
+                background-color: #494949;
+                color: #E69D00;
+                text-align: center;
+                padding: 5px 0;
+                font-weight: 500;
+                font-size: font-resize(15px);
+            }
+            .tbody{
+                padding: 10px;
+            }
+            
+            .tr{
+                display: flex;
+                justify-content: space-between;
+                padding: 4px 0;
+            }
+            .value{
+                color: #C6341D;
+                font-weight: 600;
+            }
+           
+        }
+
+        &-wrapper{
+            background: #D9D9D9;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        @include media-breakpoint-up(lg){
+            &-rules{
+                display: none;
+            }           
+        }      
+        
+    }
+
+    .swiper-slide{
+        &.swiper-slide-active{
+            .card-item{
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            }        
+        }
+    }
+    // 青銅 bronze
+    // 白銀 silver
+    // 黃金 gold  /  勇士  Warrior
+
+
+    // 白金 platinum
+    // 鑽石 diamond
+    // 銀鑽 silver diamond
+    // 金鑽 Gold Diamond
+    // 星耀 Starlight
+    // 永恆 eternal
+    // 傳說 legend
+
+    .m-normal{
+        .card-item{            
+            
+            background: linear-gradient(114.06deg, #D3D3D3 2.04%, #939393 97.42%);
+           
+            &::before{
+                background-image: url(../images/member/card-label-normal.png);
+            }
+        }       
+    }
+    .m-bronze{
+        .card-item{
+            background: linear-gradient(114.06deg, #4BEFD1 49.97%, #E39600 97.42%);
+
+
+            &::before{
+                background-image: url(../images/member/card-label-bronze.png);
+            }
+        }       
+    }     
+    .m-silver{
+        .card-item{
+            background: linear-gradient(114.06deg, #D7D7D7 49.97%, #969696 97.42%);
+            &::before{
+                background-image: url(../images/member/card-label-silver.png);
+            }
+        }       
+    }
+
+    .m-gold,
+    .m-warrior{
+        .card-item{
+            background: linear-gradient(114.06deg, #F3CD1F 49.97%, #E69D00 97.42%);
+
+            &::before{
+                background-image: url(../images/member/card-label-gold.png);
+            }
+        }       
+    }
+    .m-platinum{
+        .card-item{
+            background: linear-gradient(114.06deg, #B8D8E7 2.04%, #B7B7B7 97.42%);
+
+
+            &::before{
+                background-image: url(../images/member/card-label-platinum.png);
+            }
+        }       
+    }
+    .m-diamond{
+        .card-item{
+            background: linear-gradient(114.06deg, #B8D8E7 2.04%, #8EE1F0 97.42%);
+
+            &::before{
+                background-image: url(../images/member/card-label-diamond.png);
+            }
+        }       
+    }
+    .m-elite,
+    .m-S-diamond{
+        .card-item{
+            background: linear-gradient(114.06deg, #B8D8E7 49.97%, #637B94 97.42%);
+
+            &::before{
+                background-image: url(../images/member/card-label-Sdiamond.png);
+            }
+        }       
+    }
+    .m-G-diamond{
+        .card-item{
+            background: linear-gradient(114.06deg, #B8D8E7 49.97%, #FCCE2A 97.42%);
+
+            &::before{
+                background-image: url(../images/member/card-label-Gdiamond.png);
+            }
+        }       
+    }
+
+    .m-master,
+    .m-starlight{
+        .card-item{
+            background: linear-gradient(114.06deg, #BEE8FF 49.97%, #00ABD3 97.42%);
+            &::before{
+                background-image: url(../images/member/card-label-starlight.png);
+            }
+        }       
+    }
+
+    .m-grandmaster,
+    .m-eternal{
+        .card-item{
+            background: linear-gradient(114.06deg, #E3BBE4 49.97%, #7B687B 97.42%);
+
+
+            &::before{
+                background-image: url(../images/member/card-label-eternal.png);
+            }
+        }       
+    }
+
+    .m-epic,
+    .m-legend{
+        .card-item{
+            background: linear-gradient(114.06deg, #74CDFF 9.03%, #FFAF9D 49.97%, #E497FF 97.42%);
+
+            &::before{
+                background-image: url(../images/member/card-label-legend.png);
+            }
+        }       
+    }   
+}
+
+
+
+// Modal - Member LEVEL - 會員等級 Slider 縮圖
+.card-thumb-wrapper{
+    overflow-x: hidden;
+    margin-bottom: 1.5rem;
+    // background: linear-gradient(360deg, #C1C1C1 -2.99%, rgba(#fff, 1) 100%);
+    background: linear-gradient(360deg, white 0%, white 60%,#C1C1C1 60%, #C1C1C1 61%, white 100%);
+
+    margin-left: -$modalMemberLevel-body-padding-left;
+    margin-right: -$modalMemberLevel-body-padding-right;
+
+   
+    padding: 10px 10px;
+
+    position: sticky;
+    top: -1rem;
+    z-index: 99;
+
+    .swiper-wrapper{
+        display: flex;
+        // justify-content: center; 
+        margin: 0 auto;
+        width: 100%;
+        // max-width: 720px;
+    }
+
+    .swiper-slide{
+        width: auto;
+        max-width: 85px;
+        // padding: 0 5px;
+        padding: 8px;
+    }   
+
+    .thumb-item{
+        display: flex;  
+        flex-flow: column wrap;
+        // justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        width: 100%;        
+
+        .img-crop{
+            position: relative;
+            // padding: 3px;            
+            
+            &:after{
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;             
+                display: inline-flex;
+                width: 100%;
+                // width: calc(100% - 6px);
+                // margin: 0 auto;
+                height: 0;
+                padding-bottom: 101%;
+                // background-color: #dbdbdb;
+                // mix-blend-mode: color;
+                
+                // -webkit-mask-position: center bottom;
+                // -webkit-mask-repeat: no-repeat;
+                // -webkit-mask-size: contain;
+                // mask-position: center bottom;
+                // mask-repeat: no-repeat;
+    
+                // -webkit-mask-size: cover;
+                // mask-size: cover;
+    
+                // -webkit-mask-image: url(../images/member/card-thumb-normal.svg);
+                // mask-image: url(../images/member/card-thumb-normal.svg);
+                background: url(../images/member/card-thumb-default.png) center top no-repeat;
+                background-size: contain;
+                // background-size: 100% auto;
+            }
+
+        }
+
+        .level{
+            font-size: font-resize(13px);
+            color: #8A8A8A;
+            margin-top: 0.5rem; 
+            text-align: center;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+     
+    }
+     
+    //Thumb ACTIVE STATE===========
+    .swiper-slide-thumb-active{
+        .img-crop{
+         
+            // -webkit-filter: drop-shadow(0 0 3px rgba(#3a3a3a, 1));      
+            //     filter: drop-shadow(0 0 3px rgba(#3a3a3a, 1));       
+            img{
+                        
+            }
+
+            &:after{               
+                opacity: 0;
+            }
+        }
+        .thumb-item{
+            .level{
+                font-size: font-resize(14px);
+                color: #666666; 
+                font-weight: 500;           
+            }
+        }        
+     }
+
+    @media (hover: hover) {
+
+            .thumb-item:hover{
+                .img-crop{         
+                    &:after{               
+                        opacity: 0;
+                    }
+                }
+                .level{
+                    color: #666666;            
+                }
+            }
+    }
+}
+
+.MT-table-wrapper{
+    
+    overflow-x: auto;
+    display: none;
+
+    @include media-breakpoint-up(lg){
+        display: block;
+
+    }
+}
+
+//
+.memberlevel-table{
+    
+    .Thead .thead__th{
+        background-color: #CFCFCF;
+        color: inherit;
+    }
+    .Tbody{
+        .tbody__tr{
+            .tbody__td{
+                &:first-child{
+                    // background-color: #f1f1f1;
+                    color: #6e0000;
+                }
+            }
+
+            &:nth-child(2n){                
+                // background-color: #E7E7E7;
+                background-color: #f1f1f1;
+            }
+        }
+    }
+
+}
+
+.notice-wrapper{
+    margin-top: 2rem;
+    font-weight: 300;
+
+    .notice-list{
+        .item{
+            text-indent: -1rem;
+            margin-bottom: 1rem;
+            margin-left: 1rem;
+        }
+    }
+}
+
+
+
+//會員簽到進度顯示 - 舊的 ================
+// .dailylogin-bouns {
+//     &-wrapper{
+//         cursor: pointer;
+//     }
+
+//     &-inner {
+//         // background: linear-gradient(180deg, #FFFAC3 0%, #FFDFD2 100%);
+
+//         @include bg-gradient(180deg, $member-dailylogin-bouns-mobile-backgroundColor);
+
+//     }
+
+//     &-content {
+//         position: relative;
+
+
+//         .title {
+
+//             &:before {
+//                 content: '';
+//                 display: inline-flex;
+//                 // width: 140px;
+//                 flex: 1;
+//                 max-width: 140px;
+//                 height: 72px;
+//                 background: url(../images/prize/obj-golden-bag.svg) left center no-repeat;
+//                 background-size: contain;
+//                 position: relative;
+
+//                 z-index: 1;
+//                 left: 0;
+//                 bottom: -10px;
+//             }
+
+//         }
+//     }
+
+//     &-list {
+//         position: relative;
+//         z-index: 2;
+//         display: flex;
+//         flex-flow: row wrap;
+//         justify-content: center;
+
+//         .bouns-item {
+//             display: flex;
+//             flex-flow: column wrap;
+//             align-items: center;
+//             justify-content: center;
+
+//             position: relative;
+//             // width: calc(100% / 4);
+//             width: (100%/7);            
+
+//             &:before {
+//                 content: '';
+//                 display: inline-flex;
+//                 // width: 63px;
+//                 // height: 63px;
+//                 width: 80%;
+//                 height: 0;
+//                 padding-bottom: 80%;
+
+//                 background: url(../images/prize/obj-coin-bouns.svg) left center no-repeat;
+//                 background-size: contain;
+//                 position: relative;
+//                 left: 0;
+//                 right: 0;
+//                 filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
+//                 margin: 0 auto;
+
+//             }
+
+//             &:after {
+//                 content: "";
+//                 position: absolute;
+//                 bottom: 0;
+//                 left: 0;
+//                 right: 0;
+
+//                 display: inline-flex;
+//                 // width: 63px;
+//                 // height: 63px;
+//                 width: 80%;
+//                 height: 0;
+//                 padding-bottom: 80%;
+
+//                 background-color: #dbdbdb;
+//                 mix-blend-mode: color;
+
+
+//                 // 一定要加 -webkit-
+//                 -webkit-mask-position: center center;
+//                 -webkit-mask-repeat: no-repeat;               
+//                 -webkit-mask-size: contain;
+
+//                 mask-position: center center;
+//                 mask-repeat: no-repeat;
+//                 // mask-size: cover;
+//                 mask-size: contain;
+//                 -webkit-mask-image: url(../images/prize/obj-coin-bouns.svg);
+//                 mask-image: url(../images/prize/obj-coin-bouns.svg);
+//                 margin: 0 auto;
+//             }
+
+//             // 已領取 bouns
+//             &.got {
+//                 &:after {
+//                     opacity: 0;
+//                 }
+//             }
+
+//             .day {
+//                 position: relative;
+//                 order: -1;
+
+//                 width: 85%;
+//                 // width: 54px;
+//                 max-width: 54px;
+//                 // max-height: 42px;
+//                 margin: 0 auto;
+//                 font-weight: 700;
+//                 font-size: font-resize(28px);
+
+//                 padding: 3px 0;
+//                 margin-bottom: 6px;
+//             }
+
+//         }
+
+//     }
+
+    
+//     &-amount{
+//         width: 100%;
+//         // background-color: #1D63A3;
+//         background-color: $member-dailylogin-bouns-amount-backgroundColor;
+
+//         color: #fff;
+//         position: absolute;
+//         margin: 0 auto;
+        
+//         bottom: 0;
+//         border-radius: 0 0 20px 20px;
+//         text-align: center;
+//         padding: 10px 0;
+       
+
+//         .bouns-amount{
+//             font-size: font-resize(24px);
+//             font-weight: 700;
+//         }
+//     }
+
+// }
+
+//會員簽到進度顯示 - 新的 ================
+.activity {
+    &-dailylogin-wrapper {
+        position: relative;        
+    }
+}
+
+.dailylogin-bouns{
+
+    &-wrapper {
+        margin-bottom: 25px;
+        cursor: pointer;
+    }
+
+    &-inner {
+        // border-radius: 20px 20px 0 0;
+        border-radius: 20px ;
+        // padding-top: 15px;        
+    }
+
+    &-content {
+        position: relative;
+        display: flex;
+        flex-flow: row wrap;
+        // height: 100%;
+        // bottom: 10px;
+
+        .sec-title{
+            display: flex;
+            flex-flow: row wrap;
+            position: relative;
+        }
+       
+        .dailylogin-bouns-QA{
+            font-size: 0.75rem;
+            color: #A5A5A5;
+            cursor: pointer;
+            color: #fff;
+            flex: 0 0 60px;
+            margin-left: 4px;
+            transition: all 0.3s ease-in-out;
+
+            &:hover{
+                color: #e83e8c;
+                font-size: 0.85rem;
+            }
+
+            .icon-mask{
+                margin-right: 0;
+                &:before{
+                    background-color: #fff;
+                }
+            }
+            
+        }
+        .btn-QA-dailylogin-bouns{
+            width: 26px;
+            height: 26px;
+            margin-right: 0.3rem;
+        }
+
+        .title {
+            position: relative;
+            // bottom: 10px;
+            
+            // display: flex;
+            // align-items: center;
+
+            &:before {
+                content: '';
+                display: inline-flex;               
+                position: relative;
+                z-index: 1;
+                
+                // bottom: -10px;
+                // position: absolute;
+            }
+
+            .name {
+                // position: relative;
+                // z-index: 1;
+            }
+
+        }
+    }
+
+    &-list {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        padding: 0 6px;
+        
+        // width: calc(100% - 150px);
+        
+
+        .bouns-item {
+            display: flex;
+            flex-flow: column wrap;
+            align-items: center;
+            // justify-content: center;
+            justify-content: flex-end;
+
+            position: relative;
+            width: calc(100% / 7);
+            z-index: 1;
+
+            &:before {
+                content: '';
+                display: inline-flex;
+                // width: 63px;
+                // height: 63px;
+                width: 100%;
+                // height: 90px;
+                height: 0;
+                padding-bottom: 110%;
+             
+                background-position: center bottom;
+                background-repeat: no-repeat;
+
+                background-size: cover;
+                position: relative;
+                left: 0;
+                right: 0;
+                // filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
+                margin: 0 auto;
+
+                // max-width: 45px;
+                // padding-bottom: 45px;
+            }
+
+            &:after {
+                content: "";
+                position: absolute;
+                // bottom: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+                display: inline-flex;
+
+                width: 100%;
+                // height: 90px;
+                // height: 100%;
+                height: 0;
+                padding-bottom: 110%;
+
+                background-color: #dbdbdb;
+                mix-blend-mode: color;
+
+                -webkit-mask-position: center bottom;
+                -webkit-mask-repeat: no-repeat;
+                -webkit-mask-size: contain;
+                mask-position: center bottom;
+                mask-repeat: no-repeat;
+                mask-size: cover;
+
+                -webkit-mask-image: url(../images/prize/obj-coin-bouns.svg);
+                mask-image: url(.../images/prize/obj-coin-bouns.svg);
+                margin: 0 auto;
+
+                // max-width: 45px;
+                // padding-bottom: 45px;
+            }
+            //禮拜五 - 金
+            &:nth-child(1){
+                &:before {
+                    background-image: url(../images/prize/icon-model-wizard.svg);
+                    padding-bottom: 150%;
+                    top: 1.5px;
+                }
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-wizard.svg);
+                    mask-image: url(../images/prize/icon-model-wizard.svg);
+                    padding-bottom: 150%;
+                    bottom: -1.5px;
+                   
+                }                
+            }
+
+            &:nth-child(2){
+                &:before{
+                    background-image: url(../images/prize/icon-model-warrior.svg); 
+                }
+                
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-warrior.svg);
+                    mask-image: url(../images/prize/icon-model-warrior.svg);
+                }
+            }
+
+            &:nth-child(3){
+                &:before {
+                    background-image: url(../images/prize/icon-model-musician.svg); 
+                }
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-musician.svg); 
+                    mask-image: url(../images/prize/icon-model-musician.svg); 
+                }
+            }
+
+            &:nth-child(4){
+                &:before {
+                    background-image: url(../images/prize/icon-model-archer.svg); 
+                }
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-archer.svg); 
+                    mask-image: url(../images/prize/icon-model-archer.svg);
+                }
+            }
+
+            &:nth-child(5){
+                &:before {
+                    background-image: url(../images/prize/icon-model-mars.svg);
+                }
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-mars.svg); 
+                    mask-image: url(../images/prize/icon-model-mars.svg);
+                }
+            }
+
+            &:nth-child(6){
+                &:before {
+                    background-image: url(../images/prize/icon-model-magician.svg); 
+                }
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-magician.svg); 
+                    mask-image: url(../images/prize/icon-model-magician.svg);
+                }
+            }
+
+            &:nth-child(7){
+                &:before {
+                    background-image: url(../images/prize/icon-model-bomber.svg); 
+                }
+                &:after{
+                    -webkit-mask-image: url(../images/prize/icon-model-bomber.svg); ; 
+                    mask-image: url(../images/prize/icon-model-bomber.svg); 
+                }
+            }
+
+            // 已領取 bouns
+            &.got {
+                &:after {
+                    opacity: 0;
+                }
+            }
+
+            //舊的天數====
+            // .day {
+            //     position: relative;
+            //     order: -1;
+
+            //     width: 80%;
+            //     // width: 54px;
+            //     max-width: 54px;
+            //     margin: 0 auto 3px;
+            //     font-weight: 700;
+            //     // font-size: font-resize(28px);
+            //     font-size: 1.1em;
+
+            //     padding: 3px 0;
+            //     // margin-bottom: 6px;
+
+            //     background: url(../images/prize/obj-dialog.svg) center center no-repeat; 
+            //     background-size: contain;
+            //     font-size: font-resize(24px);
+            //     padding: font-resize(8px);
+
+            //     // width: 100%;
+            //     max-width: 65px;
+            //     right: -10px;
+            //     right: 0;
+            //     position: absolute;
+            //     top: 0;
+            //     z-index: 1;
+
+            //     display: inline-flex;
+            //     justify-content: center;
+            //     align-items: center;
+                
+
+            // }
+
+            //新的天數====
+            .day {
+                position: relative;
+                order: -1;
+
+                width: 85%;
+                // width: 54px;
+                max-width: 54px;
+                // max-height: 42px;
+                margin: 0 auto;
+                font-weight: 700;
+                font-size: font-resize(28px);
+
+                padding: 3px 0;
+                margin-bottom: 6px;
+
+
+                background: #FFE9A8;
+                border: 2px solid #E69D00;
+                border-radius: 13px;
+                // padding: 10px ; 
+                margin-bottom: 8px;
+                text-align: center;
+                z-index: 1;
+
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                top: 3px;
+
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    bottom: -11px;
+                    // left: 0;
+                    // right: 0;
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 10px 6px 0 6px;
+                    border-color: #E69D00 transparent transparent transparent;
+                    // transform: translateX(8px);
+                }
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    bottom: -7px;
+                    // left: 0;
+                    // right: 0;
+
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 10px 6px 0 6px;
+                    border-color: #FFE9A8 transparent transparent transparent;
+                    // transform: translateX(-18.5px);
+                }
+
+            }
+
+
+            &.saturday {
+                color: #009FE8;
+            }
+
+            &.sunday {
+                color: #ff0000;
+            }
+
+        }
+
+    }
+
+    &-amount{
+        width: 100%;
+        // background-color: #1D62A3;
+        background-color: $member-dailylogin-bouns-amount-backgroundColor;
+
+        color: #fff;
+        position: absolute;
+        margin: 0 auto;
+        
+        bottom: 0;
+        border-radius: 0 0 20px 20px;
+        text-align: center;
+        padding: 10px 0;
+       
+
+        .bouns-amount{
+            font-size: font-resize(24px);
+            font-weight: 700;
+        }
+    }
+
+}
+
+
+
+// 出金 - 舊的樣式
+.member-withdraw {
+
+    // &-wrapper {
+
+
+    //     &.lacking {
+
+    //         .member-withdraw-limit-wrapper {
+    //             background: linear-gradient(180deg, #6F6F6F 0%, #848484 69.79%, #6F6F6F 74.48%);
+
+    //             &::after{
+    //                 background-image: url(../images/member/dog-dance-lacking.png) ;
+    //             }
+
+    //         }
+
+    //         .icon-lock {
+
+    //             &:before {
+    //                 -webkit-mask-image: url(../images/icon/ico-lock-closed.svg);
+    //                 mask-image: url(../images/icon/ico-lock-closed.svg);
+    //             }
+    //         }
+
+    //         .title {
+    //             &.enough {
+    //                 display: none;
+    //             }
+    //         }
+
+    //     }
+
+    //     &.enough {
+    //         .member-withdraw-limit-wrapper {
+    //             background: linear-gradient(180deg, #FF9900 0%, #F4D9BD 69.79%, #E58A4C 74.48%);
+
+    //             &::after{
+    //                 background-image: url(../images/member/dog-dance-enough.png) ;
+    //             }
+    //         }
+
+    //         .icon-lock {
+    //             &:before {
+    //                 -webkit-mask-image: url(../images/icon/ico-lock-open.svg);
+    //                 mask-image: url(../images/icon/ico-lock-open.svg);
+    //             }
+    //         }
+
+    //         .title {
+    //             &.lacking {
+    //                 display: none;
+    //             }
+    //         }
+
+    //         .limit-amount {
+    //             display: none;
+    //         }
+    //     }
+
+    // }
+
+    // &-limit-wrapper {
+    //     // min-height: 350px;
+    //     height: 100%;
+
+    //     position: relative;
+    //     border-radius: 10px;
+    //     margin-bottom: 1rem;
+    //     padding: 1rem 0;
+    //     color: #fff;
+    //     overflow: hidden;
+
+    //     &:before {
+    //         content: '';
+    //         position: absolute;
+    //         bottom: 0;
+    //         width: 100%;
+    //         height: 100%;
+    //         background: url(../images/member/bg-spot-mobile.png) center center no-repeat;
+    //         mix-blend-mode: screen;
+    //         background-size: contain;
+    //         // opacity: 0.3;
+    //     }
+
+
+    //     &:after {
+    //         content: '';
+    //         position: absolute;
+    //         bottom: 0;
+    //         left: 0;
+    //         right: 0;
+    //         margin: 0 auto;
+    //         width: 70%;
+    //         height: 70%;
+            
+    //         background-position: center bottom ;
+    //         background-repeat: no-repeat;
+    //         background-size: contain;
+
+    //     }
+
+    // }
+
+    // &-limit-inner {
+    //     position: relative;
+    //     z-index: 2;
+
+    //     display: flex;
+    //     flex-flow: row wrap;
+    //     justify-content: space-between;
+    //     padding: 10px 10%;
+    //     width: 100%;
+    //     margin: 0 auto;
+
+
+    //     .icon-lock {
+    //         width: 5rem;
+    //         height: 5rem;
+    //     }
+
+
+
+    // }
+
+    // &-limit-content {
+
+    //     flex: 1;
+    //     display: flex;
+    //     flex-flow: row wrap;
+
+    //     .title {
+    //         font-size: font-resize(18px);
+    //     }
+
+    //     .limit-amount {
+    //         font-size: font-resize(36px);
+    //         flex: 0 0 100%;
+    //     }
+
+    //     .btn-QA-transaction {
+    //         width: 26px;
+    //         height: 26px;
+    //         padding: 5px;
+    //         margin-left: 0.5rem;
+
+    //     }
+
+
+
+
+    // }
+
+}
+
+// 出金 - 新的樣式
+.member-withdraw{    
+
+    &-limit-inner{
+        min-height: 185px;
+        height: 100%;
+        border-radius: 10px;
+        position: relative;
+        // margin-bottom: 1rem;
+        color: #fff;
+        
+        // background: ;
+        // background-image: url(../images/theme/bg_dog_white.png), linear-gradient(0deg, #E69D00 0%, #009ED0 100%);
+        
+        background-position: center top; 
+      
+
+        &:before{
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(../images/theme/bg_dog_white.png);
+            background-position: center center; 
+            opacity: 0.3;
+        }        
+    }
+
+    &-limit-content{
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: space-between;
+    }
+
+    &-limit-hint{
+        flex: 0 0 70%;
+        height: 70%;
+
+        &:before{
+            content: '';
+            display: block;
+            // position: absolute;
+            position: relative;
+            top: -15px;
+            width: 80%;
+            max-width: 220px;
+            margin: 0 auto;
+            transform: translateX(30px);
+           
+            height: 100%;
+            min-height: 130px;
+
+           
+            // background-position: 73% center; 
+            background-position: center center; 
+            background-repeat: no-repeat;
+            background-size: contain;            
+            // background-size: cover;            
+        } 
+
+    }
+
+    &-limit-detail{
+        position: relative;
+        flex: 0 0 30%;
+        height: 30%; 
+        max-height: 70px;
+
+        // background-color: #425059;
+        background-color: $member-withdraw-limit-detail-backgroundColor;
+        z-index: 1;   
+        border-radius: 0 0 10px 10px; 
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;  
+        padding: 10px;      
+        
+    }
+
+    &-wrapper{
+
+        .limit{
+
+            &-wrapper{
+                width: 90%;
+                max-width: 300px;
+            }
+
+            &-status,
+            &-amount{
+                display: flex;
+                justify-content: space-between;
+                font-size: font-resize(12px);
+            }
+
+            &-status{
+                margin-bottom: 0.1rem;
+                
+                .value{
+                    color: #FAC823;
+                    display: none;
+                }
+
+            }
+
+            &-amount{                
+                .value{                
+                    font-size: font-resize(17px);
+                    font-weight: 700;
+                }
+
+            }
+
+            
+
+        }
+
+        &.lacking {
+
+            .member-withdraw-limit-inner{
+                // background-image: linear-gradient(0deg, #E69D00 0%, #009ED0 100%);
+                @include bg-gradient(0deg, $member-withdraw-limit-backgroundColor);
+            }
+
+            .limit{              
+    
+                &-status{
+                    .value{
+                        &.lacking{
+                            display: initial;
+                        }
+                    }    
+                }
+    
+            }
+
+            .member-withdraw-limit-hint{
+                &:before{
+                    background-image: url(../images/member/dog-sad.svg);
+                }
+            }
+
+        }
+
+        &.enough {
+
+            .member-withdraw-limit-inner{
+                background-image: linear-gradient(0deg, #E69D00 0%, #E69D00 100%);
+            }
+
+            .limit{              
+    
+                &-status{
+                    .value{
+                        &.enough{
+                            display: initial;
+                        }
+                    }    
+                }
+    
+            }
+
+            .member-withdraw-limit-hint{
+                &:before{
+                    background-image: url(../images/member/dog-happy.svg);
+                }
+            }
+
+        }
+    }
+    
+}
+
+//熱門活動
+.activity-promo{   
+
+    &-wrapper{
+        margin-top: 2rem;
+    }
+
+    &-list{
+        display: flex;   
+        margin-left: -10px;
+        margin-right: -10px;
+
+        .promo-item{
+            padding: 0 10px;
+            width: (100%/2);
+        }
+
+        .promo-inner{
+            height: 100%;
+            display: flex;
+            flex-flow: column wrap;
+                  
+        }
+        .promo-img{
+            background-color: #333;
+            &:hover{
+                img{
+                    opacity: 0.5;
+                }
+            }
+        }
+
+        .promo-content{
+            padding: 10px;
+
+            flex: 1;
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: space-between;
+
+            .title{
+                font-size: font-resize(15px);
+            }
+
+            .btn{
+                // background-color: #3DB6FF;
+                color: #fff;
+                width: 100%;
+                margin-top: 1rem;
+
+                &:hover{
+                    // background-color: darken( #3DB6FF, 10%);
+
+                }
+
+                .icon{
+                    width: 26px;
+                    height: 26px;
+                }
+
+            }
+            
+        }
+
+    }
+
+}
+
+.data-item-group {
+    // min-height: 250px;
+
+    .wrapper_center {
+        width: 100%;
+
+
+        .btn {
+            max-width: 300px;
+            // margin: 0 auto;
+            border-radius: 30px;
+
+        }
+    }
+}
+
+.form-title {
+    position: absolute;
+    top: -0.75em;
+    left: 0.9em;
+    z-index: 10;
+    margin: 0;
+    padding: 0 0.4em;
+    font-size: 0.8125em;
+    color: #2C2D3A;
+    background-color: #fff;
+}
+
+.custom-style {
+    
+    // padding: 0.9em 0.9em 0.7em;
+    // border: 1px solid rgba(44, 45, 58, 0.25);
+    // -webkit-box-sizing: border-box;
+    // box-sizing: border-box;
+    // background: #fff;
+    height: 50px;
+   
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+
+// 認證狀態 ================
+.btn-Q-mark {
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    padding: 7px;
+    white-space: normal;
+    font-weight: bold;
+    text-align: center;
+    border-color: transparent;
+    user-select: none;
+    text-decoration: none;
+    background-repeat: no-repeat; 
+    justify-content: center;  
+    align-items: center;
+    background-color: #8D8C8D;
+    color: #fff;
+
+    .icon-mask:before {
+        background-color: #fff !important;
+    }
+
+    &.btn-sm{
+        width: 20px;
+        height: 20px;
+
+        .icon-mask{
+            width: 16px;
+            height: 16px;
+        }
+
+    }
+
+    &:hover{
+        background-color: darken(#8D8C8D, 10%);
+    }
+
+}
+
+.verify-result{
+    display: flex;
+    align-items: center;
+
+    .label{
+        width: 26px;
+        height: 26px;
+    }
+
+    &.fail{
+        color: #C30D23;
+    }
+
+    .icon-mask{
+        width: 24px;
+        height: 24px;
+    }
+}
+.verify-desc{
+    margin: 0 6px;
+   
+}
+
+.btn-verify{
+    background-color: #C30D23;
+    border-radius: 30px;
+    color: #fff; 
+    font-weight: 300;   
+    font-size: font-resize(12px);  
+    padding: 2px 10px; 
+    
+    .icon{
+        margin-left: 4px;
+        padding-left: 4px;
+        border-left: solid 1px rgba(#fff, 0.3);
+    }
+    .icon-mask{
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}
+
+.registerComplete-popup-wrapper{
+    margin: 20px 0;
+
+    .form-group {
+        position: relative;
+        margin: 0 auto 24px;
+    }
+
+    .wrapper_center{
+        margin: 20px 0 30px;
+    }
+
+    .btn{
+        max-width: 300px;
+    }    
+}
+
+//認證結果 ==================
+.verifyResult-wrapper {
+
+    font-size: 16px;
+    $color_success: #2ff3ab;
+    $bg_circle_success: #46ded4;
+    $color_fail: #f23030;
+    text-align: center;
+   
+
+    .icon-symbol {
+        width: 40px;
+        height: 40px;
+
+        margin: 0 auto;
+        position: relative;
+        // top: 30px;
+        z-index: 2;
+
+
+        &::before,
+        &::after {
+            position: relative;
+        }
+
+
+    }
+
+
+    .success {
+
+        .verify {
+
+            &_resultDisplay {
+                background: rgb(70, 222, 212);
+                background: linear-gradient(37deg, rgba(#daffe2 , 1) 0%, rgba(#daffe2 , 1) 100%);
+
+                &:after {
+                    background: rgb(70, 222, 212);
+                    background: linear-gradient(35deg, rgba(#5bcf76, 1) 0%, rgba(#5bcf76, 1) 100%);
+                }
+
+            }
+
+            &_resultTitle {
+                // color: #45e7b8;
+                color: #28a745;
+
+            }
+
+            &_resultDesc {
+                color: #28a745;
+            }
+        }
+
+        .icon-symbol {
+
+            &::before,
+            &::after {
+                content: " ";
+                position: absolute;
+                box-sizing: border-box;
+
+                height: 0;
+                width: 7px;
+
+                background-color: rgba(#ffffff, 1);
+
+                display: inline-block;
+                transform-origin: left top;
+                border-radius: 10px;
+
+
+                // transition: opacity ease 0.5;
+            }
+
+
+            &::before {
+                // height: 10px;
+                // animation: dothabottomcheck 0.25s ease-in-out 0s forwards;
+            }
+
+            &::before {
+
+                top: 20px;
+                // right: 20px;
+                left: 0;
+                transform: rotate(-45deg);
+            }
+
+            &::after {
+                // height: 20px;
+                // animation: dothatopcheck 0.5s ease 0s forwards;
+            }
+
+            &::after {
+                right: 17px;
+                top: 33px;
+                transform: rotate(-135deg);
+            }
+
+        }
+    }
+
+    .fail {
+
+        .verify {
+
+            &_resultDisplay {
+                background: rgb(244, 59, 59);
+                background: linear-gradient(37deg, rgba(239, 38, 38, 0) 0%, rgba(244, 59, 59, 0.3) 100%);
+
+                &:after {
+                    background: rgb(70, 222, 212);
+                    background: linear-gradient(35deg, rgba(#dc3545, 1) 0%, rgba(#dc3545, 0.8) 93%);
+                }
+
+            }
+
+            &_resultTitle {
+                color: #dc3545;
+            }
+
+            &_resultDesc {
+                color: #dc3545;
+            }
+
+            
+        }
+
+
+        .icon-symbol {
+
+            width: 40px;
+            height: 40px;
+
+            margin: 0 auto;
+            position: relative;
+
+
+
+            animation: symboRotation 0.5s ease 0s forwards;
+
+
+            &::before,
+            &::after {
+
+
+                background-color: #fff;
+
+                box-sizing: border-box;
+                position: absolute;
+                height: 40px;
+                width: 8px;
+
+                display: inline-block;
+
+
+                border-radius: 10px;
+                content: " ";
+                transition: opacity ease 0.5;
+
+                // transform-origin: left top;
+                transform-origin: center center;
+                // opacity: 0;
+            }
+
+
+            &::before {
+                // height: 40px;
+                // animation: crossLeft 0.5s ease 0s forwards;
+            }
+
+            &::before {
+                top: 1px;
+                right: 15px;
+                transform: rotate(-45deg);
+            }
+
+            &::after {
+                // height: 40px;
+                // animation: crossRight 0.5s ease 0.2s forwards;
+            }
+
+            &::after {
+
+                top: 1px;
+                left: 15px;
+                transform: rotate(45deg);
+            }
+
+        }
+
+    }
+
+    //動畫效果
+    .resultShow {
+
+        &.success {
+
+            .icon-symbol {
+
+                &::before {
+                    // height: 10px;
+                    animation: dothabottomcheck 0.25s ease-in-out 0.5s forwards;
+                }
+
+                &::after {
+                    // height: 20px;
+                    animation: dothatopcheck 0.5s ease 0.55s forwards;
+                }
+            }
+        }
+
+        &.fail {
+
+            .icon-symbol {
+
+                &::before {
+                    height: 40px;
+                    animation: crossLeft 0.5s ease 0s forwards;
+                }
+
+
+
+                &::after {
+                    height: 40px;
+                    animation: crossRight 0.5s ease 0.2s forwards;
+                }
+
+
+
+            }
+
+        }
+
+    }
+
+    .verify_resultDisplay {
+
+        width: 110px;
+        height: 110px;
+
+        margin: 0 auto;
+        position: relative;
+
+        border-radius: 50%;
+        margin-top: 15px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+
+        &:after {
+            content: " ";
+            position: absolute;
+
+            width: 90px;
+            height: 90px;
+            margin: 0 auto;
+
+            left: 0;
+            right: 0;
+
+            // top: calc( (100px - 120px) / 2);
+            // left: calc( (100px - 120px) / 2);
+
+            border-radius: 50%;
+
+        }
+
+    }
+
+    .verify_resultTitle {
+        // font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 1rem;
+        font-size: font-resize(23px);
+
+    }   
+
+    .verify_detail {
+
+        width: 90%;
+        max-width: 360px;
+        margin: 0 auto 0;
+        font-size: font-resize(15px);
+        border-top: solid 1px rgba(#000, .1);
+
+        .item-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 6px 0;
+        }
+
+    }  
+
+
+}
+
+// Modal - Member LEVEL
+.modalMemberLevel{
+    .modal-body{
+         padding-left: $modalMemberLevel-body-padding-left;
+         padding-right: $modalMemberLevel-body-padding-right;  
+    }
+}
+
+
+
+@keyframes dothabottomcheck {
+    0% {
+        height: 0;
+    }
+
+    100% {
+        height: 20px;
+    }
+}
+
+@keyframes dothatopcheck {
+    0% {
+        height: 0;
+    }
+
+    50% {
+        height: 0;
+    }
+
+    100% {
+        height: 40px;
+    }
+}
+
+@keyframes crossLeft{
+    0% {
+        // height: 0;
+        transform: scale(0, 0) rotate(-45deg);
+        opacity: 0;
+    }
+
+    100% {
+        // height: 40px;
+        transform: scale(1, 1) rotate(-45deg);
+        opacity: 1;
+    }
+}
+
+@keyframes crossRight{
+    0% {
+        // height: 0;
+        transform: scale(0, 0) rotate(45deg);
+        opacity: 0;
+    }
+
+    100% {
+        // height: 40px;
+        transform: scale(1, 1) rotate(45deg);
+        opacity: 1;
+    }
+}
+
+@include media-breakpoint-up(smd){
+
+//會員簽到進度顯示 新的===============
+.dailylogin-bouns {
+    &-inner {
+     //  height: 80px;
+         &::before{
+             content: '';
+             display: block;
+             position: absolute;
+             width: 100%;
+             height: 40%;
+             bottom: 53px;
+             border-radius: 10px 10px 0 0;
+         
+            // background: linear-gradient(180deg, #E8F9FF 0%, #69C9FF 100%);
+            @include bg-gradient(180deg, $member-dailylogin-bouns-pc-backgroundColor);
+           
+         } 
+    }
+
+    &-content {
+     justify-content: space-between;
+     padding-bottom: 50px;
+
+         .title {
+             position: relative;
+             
+             // width: 100%;
+             bottom: -10px;
+             // bottom: 0;
+             width: 30%;
+             height: (120px+10px);
+             width: ((216/147)*(120px+10px));          
+
+
+             &:before {
+                 content: '';
+                 display: inline-flex;
+                 // width: 160px;
+                 // height: 100px;
+                 width: 100%;
+                 height: 100%;
+
+                 background: url(../images/prize/obj-dailylogin-dialog.svg) left bottom no-repeat;
+             
+                 background-size: contain;               
+
+                 z-index: 1;
+                 left: 0;
+                 
+                 // bottom: -10px;
+                 // position: absolute;
+             }
+
+             .name {
+                 position: absolute;
+                 width: 90%;
+                 // right: 0;
+                 left: 0;
+                 width: 5em;
+                 z-index: 2;
+                 font-size: 0.6em;
+                 margin: 0 auto;
+                 top: 25px;                    
+                 // top: -30px;
+                 
+                 font-weight: 900;
+                 z-index: 1;
+                 margin-left: 46%;
+
+                 span{
+                     display: block;
+                 }
+             }
+
+         }
+
+         .dailylogin-bouns-QA{
+             position: absolute;
+             z-index: 1;
+             left: 50%;
+             bottom: 33px;
+             color: inherit;
+         }
+         .btn-QA-dailylogin-bouns{
+             width: 22px;
+             height: 22px;
+         }
+    }
+
+    &-list {
+     //    position: absolute;
+         // width: calc(100% - 150px);
+         flex: 1;
+         max-width: 640px;
+         right: 0;
+         top: 3px;  
+
+        &:after {
+             // content: "";
+             display: inline-flex;
+             width: calc( 100% + 10px);
+             height: 10px;
+             background: #4288C9;
+             
+
+             z-index: 0;
+             border-radius: 5px 0 0 5px;
+
+             position: absolute;
+             bottom: 0;
+             // bottom: 10px;
+             // left: 0;
+             right: 0;
+
+        }
+
+        .bouns-item .day{
+            position: absolute;
+            top: 10px;
+        }
+
+        .bouns-item:nth-child(1):before{
+            // top: 1px;
+        }
+
+    }
+   }
+}
+
+@include media-breakpoint-up(smg) {
+
+    .data-item {
+
+        &.mobile,
+        &.home,
+        &.news {
+            // width: 55%;
+        }
+
+        &.email {
+            // width: 45%;
+        }
+
+    }
+
+    // 活動中心
+    .activity{
+
+    }
+
+    // 會員錢包中心
+    .section-member-wallet-transaction {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+
+        .member-wallet-deposit-wrapper,
+        .member-withdraw-wrapper {
+            flex: 1;
+        }
+
+        .member-wallet-deposit-wrapper {
+            padding-right: 0.4rem;
+        }
+
+        .member-withdraw-wrapper {
+            padding-left: 0.4rem;
+        }
+
+    }
+
+    .member-profile {
+         // 會員頭像
+        &-avater-wrapper {
+            flex: 0 0 185px;
+        }
+    }
+
+    //會員簽到進度顯示 舊的 =============
+    // .dailylogin-bouns {
+    //     &-inner {            
+    //         // border-radius: 20px 20px 0 0;
+    //         border-radius: 20px;
+    //         padding-top: 15px;
+    //         // border-bottom: solid 15px #4288C9;
+    //     }
+
+    //     &-content {
+    //         display: flex;
+    //         padding-bottom: 60px;
+
+    //         .title {
+    //             position: relative;
+    //             bottom: -10px;
+    //             min-width: 150px;
+
+    //             &:before {
+    //                 width: 100%;
+    //             }
+
+    //             .name {
+    //                 position: absolute;
+    //                 width: 90%;
+    //                 right: 0;
+    //                 font-size: 0.8em;
+    //                 top: -30px;
+    //                 width: 4em;
+    //                 font-weight: 900;
+    //             }
+
+    //         }
+
+    //     }
+
+    //     &-list {
+    //         // flex: 1;
+    //         position: absolute;
+    //         width: calc(100% - 150px);
+    //         max-width: 600px;
+    //         right: 0; 
+    //         // bottom: -10px;
+    //         top: -15px;
+
+    //         &:after {
+    //             content: "";
+    //             display: inline-flex;
+    //             width: calc( 100% + 10px);
+    //             height: 10px;
+    //             background: #4288C9;
+                
+    
+    //             z-index: 0;
+    //             border-radius: 5px 0 0 5px;
+    
+    //             position: absolute;
+    //             bottom: 0;
+    //             // bottom: 10px;
+    //             // left: 0;
+    //             right: 0;
+    
+    //         }
+
+    //         .bouns-item {
+    //             width: calc(100% / 7);
+    //             z-index: 1;
+
+    //             &:before {
+    //                 max-width: 45px;
+    //                 padding-bottom: 45px;
+
+    //             }
+
+    //             &:after {
+    //                 max-width: 45px;
+    //                 padding-bottom: 45px;
+    //             }
+
+    //             .title {
+    //                 &:before {}
+
+    //                 &:after {}
+
+    //             }
+
+    //             .day {
+    //                 background: url(../images/prize/obj-dialog.svg) center center no-repeat;
+    //                 background-size: cover;
+    //                 font-size: font-resize(24px);
+    //                 padding: font-resize(8px);
+
+    //                 // width: 100%;
+    //                 max-width: 65px;
+    //                 // right: -20px;
+    //             }
+
+    //         }
+    //     }
+
+    // }
+
+    .activity-record-wrapper{
+        display: flex;
+    } 
+
+    .activity-center-wrapper{
+        flex: 1;
+        padding-right: 5px;
+        
+    }
+    .prize-center-wrapper{
+        flex: 1;
+        padding-left: 5px;
+    }
+
+     //熱門活動
+     .activity-promo{
+        &-list{
+            .promo-item{
+                width: (100% / 3);
+            }
+        }
+      }
+
+
+}
+
+// @include media-breakpoint-up(md) {
+@include media-breakpoint-up(desc-md) {
+
+    .data-item {
+
+        &.name {
+            width: calc(55% / 2);
+            order: initial;
+        }
+
+        &.password {
+            // width: calc(55% / 2);
+            // order: initial;
+        }
+
+        &.birth {
+            width: calc(45% / 2);
+            order: initial;
+        }
+
+        &.currency {
+            width: calc(45% / 2);
+            order: initial;
+        }
+
+        &.email {
+            width: 45%;
+        }
+
+
+        &.mobile,
+        &.home,
+        &.news {
+            width: 100%;
+        }
+
+        &.qrcode {
+            width: 100%;
+            // position: absolute;
+            right: 0;
+            // top: 0;       
+        }
+
+
+
+    }
+
+    .activity-center-wrapper{
+        // flex: 1;
+    }
+
+    .prize-center{        
+
+        &-wrapper{
+            flex: 0 0 40%;
+        }
+
+        &-inner{
+            background-image: url(../images/member/gril-doubt-L.svg);  
+            background-position: center center;
+            background-position: calc(100% + 30px) calc(50% - 10px); 
+            background-size: auto 180%;         
+        }
+       
+    }
+
+
+}
+
+@include media-breakpoint-up(desc-lg) {
+    
+    //熱門活動
+    .activity-promo{
+        &-list{
+            .promo-item{
+                width: (100% / 4);
+            }
+        }
+    }
+
+    //Modal - Member LEVEL - 會員等級 Slider
+    .card-slider{
+        padding: 50px 0;
+
+        .swiper-slide{
+            padding: 0;
+
+            opacity: 0.5;
+            transition: transform 0.35s ease-in-out;
+
+            &.swiper-slide-active{
+                opacity: 1;
+                transform: scale(1.2, 1.2);
+                z-index: 2;
+            }
+        }  
+        
+        &-wrapper{
+            .swiper-button-next,
+            .swiper-button-prev{
+                top: 45%;
+                width: 15px;
+                height: 30px;                
+            }
+        }
+    }
+
+    // Modal - Member LEVEL
+    .modalMemberLevel{
+        .modal-body{
+            padding-left: $modalMemberLevel-body-padding-left-lg;
+            padding-right: $modalMemberLevel-body-padding-right-lg;  
+        }
+    }
+
+    // Modal - Member LEVEL - 會員等級 Slider 縮圖
+    .card-thumb-wrapper{
+        margin-left: -$modalMemberLevel-body-padding-left-lg;
+        margin-right: -$modalMemberLevel-body-padding-right-lg;
+        padding-left: $modalMemberLevel-body-padding-left-lg;
+        padding-right: $modalMemberLevel-body-padding-right-lg;
+
+        .swiper-wrapper{
+            justify-content: center;
+            
+        }
+
+        .swiper-slide{
+            // width: auto;
+            width: (100% / 11);
+            max-width:none;           
+        }
+    }
+
+}
+
+@include media-breakpoint-up(desc-xl) {
+
+    .card-slider{
+        &-wrapper{
+            .swiper-button-next,
+            .swiper-button-prev{
+                top: 45%;
+                width: 35px;
+                height: 60px;                
+            }
+
+            .swiper-button-prev{               
+                left: -$modalMemberLevel-body-padding-left-xl + 0.8rem; 
+            }
+            .swiper-button-next{               
+                right: -$modalMemberLevel-body-padding-right-xl + 0.8rem; 
+            }
+        }
+    }
+
+    // Modal - Member LEVEL
+    .modalMemberLevel{
+        .modal-body{
+            padding-left: $modalMemberLevel-body-padding-left-xl;
+            padding-right: $modalMemberLevel-body-padding-right-xl;  
+        }
+    }
+
+    // Modal - Member LEVEL - 會員等級 Slider 縮圖
+    .card-thumb-wrapper{
+        margin-left: -$modalMemberLevel-body-padding-left-xl;
+        margin-right: -$modalMemberLevel-body-padding-right-xl;
+        padding-left: $modalMemberLevel-body-padding-left-xl;
+        padding-right: $modalMemberLevel-body-padding-right-xl;       
+    }
+
+    .data-item {
+
+        &.name {
+            width: 60%;
+            order: -4;
+        }
+
+        &.password {
+            // width: 60%;
+            // order: -2;
+        }
+
+        &.birth {
+            width: 40%;
+            order: -3;
+        }
+
+        &.currency {
+            width: 40%;
+            order: -1;
+        }
+
+        &.mobile,
+        &.home,
+        &.news {
+            width: 100%;
+        }
+
+        &.qrcode {
+            width: 100%;
+            position: relative;
+            right: 0;
+            // top: 0;       
+        }
+
+    }
+
+    .article-member-center {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+     // ,.section-member-activity
+    // ,.section-member-wallet-transaction
+    //  {
+    //     width: 50%;
+    //  }
+
+    .section-member-profile{
+        width: 100%;       
+    }   
+    .section-member-setting{
+        width: 100%;
+    }
+
+    // 會員頭像 + 會員等級
+    .member-profile {
+        &-wrapper{
+            width: 36%;  
+            // display: flex;
+            flex-flow: column wrap;
+            padding-right: 20px;         
+        }
+    }
+
+  
+
+    .section-member-activity{
+        // min-height: 950px;
+    }
+
+
+    // 出金 - 舊的樣式 開始 ==========================
+    .section-member-wallet-transaction {
+        // position: absolute;
+        // right: 0;
+        // top: 260px;
+       
+
+        // .member-wallet-deposit-wrapper,
+        // .member-withdraw-wrapper {
+        //     flex: 0 0 100%;
+        //     padding: 0;
+        // }
+
+        // .member-wallet-deposit-wrapper{
+        //     margin-bottom: 1rem;
+        // }        
+    }
+
+    
+    .member-wallet{
+        // &-wrapper{
+        //     background-size: auto 125%;
+        //     background-position: -30px center;
+        //     min-height: 300px;
+        // }
+        // &-contnet{
+        //     width: 50%;
+        // }
+
+        // &-inner {
+        //     background: linear-gradient(180deg, rgba(89, 181, 135, 0.9) 0%, rgba(22, 181, 114, 0.9) 100%);
+            
+        //     padding: 10px;
+        //     justify-content: space-around;
+    
+        // }
+        
+    }
+
+    .member-record-wrapper {       
+        // width: 30%;  
+    }
+
+    .member-withdraw{
+                // &-wrapper {
+                // }
+        
+                // &-limit-wrapper {
+        
+                //     display: flex;
+        
+                //     &:before {
+                //         background-image: url(../images/member/bg-spot-desk.png);                
+                //     }
+                //     &:after{
+                //         // position: relative;
+                //         width: 40%;
+                //         left: auto;
+                //         bottom: 20px;
+                //     }
+        
+                // }
+        
+                // &-limit-inner {
+                //     width: 60%;
+                //     align-items: center;
+                //     margin-left: 20px;
+        
+                // }
+        
+        }
+
+    // 出金 - 舊的樣式 結束 ==========================
+
+    .section-member-profile {
+        display: flex;
+        flex-flow: row wrap;
+
+        padding-right: 36px;
+    }
+
+    .member-profile {
+
+        &-avater-wrapper {
+            flex: 0 0 175px;
+            padding-right: 3rem;
+
+        }
+
+        &-data-wrapper {
+            flex: 1;
+        }
+    }
+
+   .member-withdraw-limit{
+
+       &-wrapper {
+        min-height: 300px;
+       } 
+
+       &-content {
+           .limit-amount{
+               width: 100%;
+           }
+
+       }
+   }
+
+    //熱門活動
+    .activity-promo{
+
+        &-wrapper{
+            padding-left: 150px;
+        }
+
+        &-list{
+            .promo-item{           
+                width: (100% / 4);
+            }
+        }
+    }
+
+   
+}
+
+@include media-breakpoint-up(xl){
+    .tab-member{
+        display: none;
+    }
+
+    .section-member-setting{
+        display: flex;
+        flex-flow: row wrap;
+    }    
+
+     // 會員錢包中心
+     .section-member-wallet-transaction {
+        display: flex;
+        flex-flow: column wrap;
+        // width: 300px;
+        flex: 0 0 300px;
+     }
+
+     .section-cashflow-card{
+        flex: 1;
+        overflow: hidden;
+     }
+
+     .cashflowCard-slider-wrapper{
+        // color: red;
+        
+     }
+}
+
+
+@media screen and (max-width:breakpoints_BS4(smg) - 1) {
+
+    
+    .data-item-group {
+
+        .wrapper_center {
+            margin-bottom: 2.5rem;
+        }
+    }
+    
+    .coming-soon{
+        &:after {
+            background-size: 65%;
+    
+        }
+    
+    }
+    
+    .data-item {
+        &.name {
+            width: 70%;
+            order: -4;
+        }
+
+        &.password {
+            // width: 70%;
+            // order: -2;
+        }
+
+        &.birth {
+            width: 30%;
+            order: -3;
+        }
+
+        &.currency {
+            width: 30%;
+            order: -1;
+        }
+
+    }
+
+    .member-profile-wrapper{
+        
+    }
+
+    .section-member-activity {
+        // order: -1;
+    }
+
+
+
+    //會員簽到進度顯示 舊的 =============
+    // .dailylogin-bouns {
+    //     &-inner {
+    //         padding: 50px 10px 10px;
+    //         border-radius: 20px;
+    //     }
+
+    //     &-content {
+    //         background: #fff;
+    //         padding-top: 10px;
+    //         padding-bottom: 45px;
+
+    //         .title {
+    //             position: absolute;
+    //             width: 100%;
+    //             top: -70px;
+
+    //             color: #fff;
+    //             text-shadow: 0px 0px 5px #000000;
+                
+    //             display: flex;
+    //             align-items: flex-end;
+
+    //             .name {
+    //                 position: relative;
+    //                 z-index: 1;
+    //                 // font-size: 1em;
+    //                 font-size: font-resize(26px);
+                    
+    //             }
+
+    //             &:after {
+    //                 content: '';
+    //                 display: inline-flex;
+    //                 width: 100%;
+    //                 height: 15px;
+    //                 background: #4288C9;
+    //                 position: absolute;
+    //                 bottom: 0;
+    //                 left: 0;
+    //             }
+
+    //         }
+    //     }
+
+    //     &-list {
+    //         .bouns-item {
+    //             // margin-bottom: 15px;
+
+    //             .title {
+
+    //                 &:before {}
+
+    //                 &:after {}
+
+    //             }
+
+    //             .day {
+    //                 background: #FFE9A8;
+    //                 border: 2px solid #E69D00;
+    //                 border-radius: 13px;
+    //                 // padding: 10px ; 
+    //                 margin-bottom: 10px;
+
+
+    //                 &:before {
+    //                     content: "";
+    //                     position: absolute;
+    //                     bottom: -11px;
+    //                     // left: 0;
+    //                     // right: 0;
+    //                     width: 0;
+    //                     height: 0;
+    //                     border-style: solid;
+    //                     border-width: 10px 6px 0 6px;
+    //                     border-color: #E69D00 transparent transparent transparent;
+    //                     transform: translateX(8px);
+    //                 }
+
+    //                 &:after {
+    //                     content: "";
+    //                     position: absolute;
+    //                     bottom: -7px;
+    //                     // left: 0;
+    //                     // right: 0;
+
+    //                     width: 0;
+    //                     height: 0;
+    //                     border-style: solid;
+    //                     border-width: 10px 6px 0 6px;
+    //                     border-color: #FFE9A8 transparent transparent transparent;
+    //                     transform: translateX(-18.5px);
+    //                 }
+
+    //             }
+
+    //         }
+
+
+    //     }
+
+    //     &-amount{
+    //         width: calc(100% + 20px);
+    //         left: -10px;
+    //         bottom: -10px;
+    //         padding: 12px 0;
+    //     }
+
+    // }
+
+}
+
+@media screen and (max-width:breakpoints_BS4(smd) - 1) {
+
+    //會員簽到進度顯示 新的 ===========
+    .dailylogin-bouns {
+
+        &-inner {
+            padding: 50px 10px 10px;
+            border-radius: 20px;
+            // background: linear-gradient(180deg, #4288C9 17.71%, #1D62A3 83.85%);
+            @include bg-gradient(180deg, $member-dailylogin-bouns-mobile-backgroundColor);
+        }
+
+        &-content {
+            background-color: #fff;
+            border-radius: 10px;
+            padding-top: 10px;
+            padding-bottom: 30px;
+
+            .sec-title{
+                position: absolute;
+                width: 100%;
+                top: -55px;
+
+            }
+
+            .title {                
+                color: #fff;
+                text-shadow: 0px 0px 5px #000000;             
+                display: flex;                
+                align-items: flex-end;
+                align-items: center;
+                // width: 100%;
+
+                &:before {                
+                    // width: 60px;
+                    // height: ((73/141)*60px);
+                    height: 60px;
+                    // width: ((141/73)*60px);
+                    width: ((97/56)*60px);
+               
+                    //  background: url(../images/prize/obj-golden-bag.svg) left center no-repeat;
+                     background: url(../images/prize/obj-golden-bag-dog.svg) left center no-repeat;
+                     background-size: contain;
+                }
+
+                &:after {
+                    // content: "";                   
+                    display: inline-flex;
+                    width: 100%;
+                    height: 15px;
+                    background: #4288C9;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                }
+
+                .name {
+                    position: relative;
+                    z-index: 1;
+                    padding-left: 0px;
+                    font-size: font-resize(18px);
+                }
+
+            }
+        }
+
+        &-list {
+            width: 100%;
+            min-height: 100px;
+
+            .bouns-item .day{
+                max-height: 42px;
+                // display: inline-flex;
+                // justify-content: center;
+                // align-items: center;
+                // top: 3px;
+
+                 //禮拜五 - 金
+                &:nth-child(1){
+                    position: absolute;
+                    top: 0;
+                }
+            }
+        }
+
+        &-amount{
+            width: calc(100% + 20px);
+            left: -10px;
+            bottom: -10px;
+            padding: 15px 0 5px;
+
+        }
+
+    }
+
+}
