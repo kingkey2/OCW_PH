@@ -364,6 +364,10 @@
 
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
+            if (pCode) {
+                $("input[name=PersonCode]").val(pCode);
+                $("input[name=PersonCode]").prop('disabled', true);
+            }
             window.parent.API_LoadingEnd(1);
         });
 
