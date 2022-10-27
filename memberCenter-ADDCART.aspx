@@ -434,7 +434,7 @@
             //document.getElementById('idWalletPasswordUnSet').style.display = "block";
         }
 
-        // initSwiper();
+        initSwiper();
     }
 
     function copyActivityUrl() {
