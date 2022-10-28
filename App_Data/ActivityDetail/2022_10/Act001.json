@@ -4,7 +4,7 @@
   "StartDate": "2022/10/01 11:00:00",
   "EndDate": "2099/11/01 11:00:00",
   "IntroPath": "",
-  "Title": "每次入金贈送10%",
+  "Title": "Deposit Special Bonus",
   "SubTitle": "每次入金贈送10%",
   "Rate1Title": "每次入金贈送10%",
   "Rate1SubTitle": "",
@@ -12,7 +12,7 @@
   "Rate2SubTitle": "",
   "CollectAreaType": "2",
   "Rate1": [
-     {
+    {
       "PaymentCode": "HLN",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
@@ -192,7 +192,7 @@
     }
   ],
   "Rate3": [
-      {
+    {
       "PaymentCode": "HLN",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,

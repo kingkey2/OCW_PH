@@ -117,7 +117,7 @@
     }
 
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByPaymentCode(WebInfo.SID, Math.uuid(), "EPAY", 0,"DiDiPay" ,function (success, o) {
+        PaymentClient.GetPaymentMethodByPaymentCode(WebInfo.SID, Math.uuid(), "EPAY", 0,"Gcash" ,function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {

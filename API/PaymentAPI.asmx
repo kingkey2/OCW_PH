@@ -1117,12 +1117,12 @@ public class PaymentAPI : System.Web.Services.WebService
                 PointValue = TempCommonData.Amount;
                 ReceiveCurrencyType = TempCommonData.ReceiveCurrencyType;
 
-                if (tagInfoData.PaymentCode=="DiDiPay")
+                if (tagInfoData.PaymentCode=="GcashQRcode")
                 {
-                    ServiceType = "PHP01";
+                    ServiceType = "PHP04";
                 }
-                else if(tagInfoData.PaymentCode=="YuHong"){
-                    ServiceType = "PHP02";
+                else if(tagInfoData.PaymentCode=="Gcash"){
+                    ServiceType = "PHP01";
                 }
 
                 if (PaymentType == "EPayJKC")

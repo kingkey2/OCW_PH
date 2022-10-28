@@ -89,5 +89,13 @@
   "業界最高! Play Open Bouns! 最大100% &10萬送給您!首次 USDT 入金回饋100%": "The best in the market! Play Open Bonus! Up to 100% & 100,000 Bonus!　100% of first USDT deposit refunded.",
   "請輸入電話": "Please enter the phone number.",
   "PhoneNumber Empty": "Please enter the phone number.",
-  "手機電話號碼": "Phone Number"
+  "手機電話號碼": "Phone Number",
+  "輸入手機號": "Enter phone number",
+  "請輸入手機號": "Please enter phone number",
+  "出金時，領取中心的獎勵將失效。": "When withdrawing, the rewards from the claim center are invalid.",
+  "尚未設定銀行列表": "Bank list not yet set",
+  "尚未輸入金額": "Amount has not been entered",
+  "請勾選確認出金注意事項": "Please tick to confirm withdrawal notices",
+  "餘額不足": "Insufficient balance",
+  "只能有一筆進行中之訂單": "There can only be one order in progress"
 }

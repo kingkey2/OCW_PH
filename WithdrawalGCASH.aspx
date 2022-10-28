@@ -612,7 +612,7 @@
                                  <div class="form-group mb-3">
                                     <label class="form-title language_replace">輸入手機號</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="phoneNumber" language_replace="placeholder" placeholder="輸入手機號" onkeyup="" />
+                                        <input type="text" class="form-control custom-style" id="phoneNumber" language_replace="placeholder" placeholder="請輸入手機號" onkeyup="" />
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>

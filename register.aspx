@@ -42,7 +42,7 @@
     var LoginAccount;
 
     function BackHome() {
-        window.parent.API_Home();
+        window.parent.API_Casino();
     }
 
     function startCountDown(duration) {

@@ -7,7 +7,7 @@
   "請輸入密碼": "Please enter the password.",
   "請輸入驗證碼": "Please enter the verification code.",
   "會員登入": "LOGIN",
-  "信箱": "Account",
+  "信箱": "UserName",
   "密碼": "Password",
   "忘記密碼？": "Forgot Password",
   "輸入驗證碼": "Enter the verification code.",
@@ -25,6 +25,6 @@
   "測試": "Test",
   "測試驗證碼": "verification code testing",
   "請輸入正確電話": "Please enter correct phone number.",
-  "帳號": "Account",
-  "請輸入帳號": "Please enter the account."
+  "帳號": "UserName",
+  "請輸入帳號": "Please enter the UserName."
 }
