@@ -57,15 +57,9 @@ input.month:read-only, input.day:read-only {
 
 .sec-col-2 .btn {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 37px;
-          flex: 0 0 37px;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
 }
-.sec-col-2 .sec-title-wrapper {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 calc(100% - 37px);
-          flex: 0 0 calc(100% - 37px);
-}
-
 .password-real .data-item-form-group {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -404,8 +398,18 @@ input.month:read-only, input.day:read-only {
   margin-left: 0.5em;
 }
 
+.section-cashflow-card .btn-addcard {
+  color: initial !important;
+  font-weight: 300;
+}
+
 .cashflowCard-slider {
   padding-bottom: 45px;
+}
+.cashflowCard-slider-wrapper {
+  background-color: #F3F3F3;
+  border-radius: 30px;
+  padding: 50px 20px;
 }
 .cashflowCard-slider .swiper-slide {
   padding: 0 10px;
@@ -417,11 +421,16 @@ input.month:read-only, input.day:read-only {
 .cashflowCard-slider .gcash .card-item {
   background: linear-gradient(107.89deg, #1265BD -0.39%, #197CE3 101.21%);
 }
+.cashflowCard-slider .custom-control,
+.cashflowCard-slider .custom-label {
+  height: 100%;
+}
 .cashflowCard-slider .card-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 100%;
+  width: 100%;
   border-radius: 20px;
   color: #fff;
   padding: 20px 15px;
@@ -473,12 +482,16 @@ input.month:read-only, input.day:read-only {
   position: absolute;
   right: 10px;
   bottom: 10px;
+  border-radius: 50%;
   width: 50px;
   height: 50px;
 }
 .cashflowCard-slider .btn-delete .icon-mask {
   width: 100%;
   height: 100%;
+}
+.cashflowCard-slider .btn-delete:hover {
+  background-color: rgba(0, 0, 0, 0.45);
 }
 .cashflowCard-slider .card-info .item {
   display: -webkit-box;

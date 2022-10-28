@@ -4417,7 +4417,7 @@
     </script>
 
     <div id="tmpSearchGameBrand" style="display: none">
-        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+        <li class="brand-item custom-control custom-input-noCheck">
             <label class="custom-label">
                 <input type="checkbox" name="button-brandExchange" id="" class="custom-control-input-hidden searchGameBrandcheckbox" onchange="SearchControll.searchGameChange()">
                 <div class="custom-input checkbox">
