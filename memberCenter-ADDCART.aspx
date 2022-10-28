@@ -897,8 +897,20 @@
                     </section>
                     
                     <section class="section-member-setting">
+                        <legend class="sec-title-container sec-col-2 sec-title-member ">
+                            <div class="sec-title-wrapper">
+                                <h1 class="sec-title title-deco"><span class="language_replace">個人錢包</span></h1>
+                            </div>
+                        </legend>
+
                         <!-- 會員錢包中心 - 入金 + 履歷紀錄 / 出金 -->
                         <section class="section-member-wallet-transaction">
+                            <div class="sec-title-container sec-col-2 sec-title-member ">
+                                <div class="sec-title-wrapper">
+                                    <h1 class="sec-title">
+                                        <i class="icon icon-mask icon-wallet"></i><span class="language_replace">錢包管理</span></h1>
+                                </div>                               
+                            </div>
                             <div class="member-wallet-deposit-wrapper">
                                 <!-- 錢包中心 -->
                                 <div class="member-wallet-wrapper">
