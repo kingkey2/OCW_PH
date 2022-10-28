@@ -1124,6 +1124,12 @@ public class PaymentAPI : System.Web.Services.WebService
                 else if(tagInfoData.PaymentCode=="Gcash"){
                     ServiceType = "PHP01";
                 }
+                else if(tagInfoData.PaymentCode=="Paymaya"){
+                    ServiceType = "PHP03";
+                }
+                else if(tagInfoData.PaymentCode=="Grabpay"){
+                    ServiceType = "PHP02";
+                }
 
                 if (PaymentType == "EPayJKC")
                 {
