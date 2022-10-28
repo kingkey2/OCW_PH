@@ -985,118 +985,152 @@
                                     <i class="icon icon-mask icon-card"></i>
                                     <h1 class="sec-title"><span class="language_replace">卡片管理</span></h1>
                                 </div>
-                                <button class="btn btn-addcard btn-full-stress btn-round" type="button" data-toggle="modal" data-target="#ModalAddCard">
-                                    <span class="icon icon-add"></span>
-                                    <span class="name"></span>
+                                <button type="button" class="btn btn-addcard btn-transparent" data-toggle="modal" data-target="#ModalAddCard">
+                                    <span class="btn-full-stress btn-round">
+                                        <span class="icon icon-add"></span>
+                                    </span>
+                                    <span class="name">加入卡片</span>
                                 </button>
+                               
                             </div>
                             <div class="cashflowCard-slider-wrapper">
                                 <div class="swiper cashflowCard-slider swiper-container" id="slider-CardCashFlow">
                                     <div class="swiper-wrapper">
+
                                         <!-- BANKCARD -->
-                                        <div class="swiper-slide bankcard">
-                                           <div class="card-item" data-card-num="1">
-                                                <a class="card-item-link"></a>
-                                                <div class="card-item-inner">
-                                                    <div class="card-type">
-                                                        <div class="type">
-                                                            <i class="icon icon-mask icon-bank"></i>
+                                        <div class="swiper-slide bankcard">  
+                                            <div class="custom-control custom-input-noCheck">
+                                                <label class="custom-label">
+                                                    <input type="checkbox" name="chkcard" class="custom-control-input-hidden">
+                                                    <div class="custom-input">
+                                                        <div class="card-item"  data-card-num="1">      
+                                                            <div class="card-item-inner">
+                                                                <div class="card-type">
+                                                                    <div class="type">
+                                                                        <i class="icon icon-mask icon-bank"></i>
+                                                                    </div>
+                                                                    <span class="card-status language_replace">正常</span>             
+                                                                </div>
+                                                                <div class="card-account">
+                                                                    <h4 class="account-num">1234123412341234</h4>
+                                                                </div>
+                                                                <div class="card-bank">
+                                                                    <div class="bank">
+                                                                        <h4 class="head">RCBC</h4>
+                                                                        <h5 class="branch">Branch</h5>
+                                                                    </div>
+                                                                    <div class="account-name">
+                                                                        <h4 class="name">Eddie Lucky</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
+                                                            </div>
                                                         </div>
-                                                        <span class="card-status language_replace">正常</span>             
                                                     </div>
-                                                    <div class="card-account">
-                                                        <h4 class="account-num">1234123412341234</h4>
-                                                    </div>
-                                                    <div class="card-bank">
-                                                        <div class="bank">
-                                                            <h4 class="head">RCBC</h4>
-                                                            <h5 class="branch">Branch</h5>
-                                                        </div>
-                                                        <div class="account-name">
-                                                            <h4 class="name">Eddie Lucky</h4>
-                                                        </div>
-                                                    </div>
-                                                    <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
-                                                </div>
-                                           </div>
+                                                </label>
+
+                                            </div>                                           
                                         </div>
                                         <!-- GCASH -->
-                                        <div class="swiper-slide gcash">
-                                           <div class="card-item" data-card-num="2">
-                                                <a class="card-item-link"></a>
-                                                <div class="card-item-inner">
-                                                    <div class="card-type">
-                                                        <div class="type">
-                                                            <i class="icon icon-mask icon-GCash"></i>
-                                                        </div>
-                                                        <span class="card-status language_replace">正常</span>             
+                                        <div class="swiper-slide gcash">  
+                                            <div class="custom-control custom-input-noCheck">
+                                                <label class="custom-label">
+                                                    <input type="checkbox" name="chkcard" class="custom-control-input-hidden">
+                                                    <div class="custom-input">
+                                                        <div class="card-item" data-card-num="2">
+                                                            <a class="card-item-link"></a>
+                                                            <div class="card-item-inner">
+                                                                <div class="card-type">
+                                                                    <div class="type">
+                                                                        <i class="icon icon-mask icon-GCash"></i>
+                                                                    </div>
+                                                                    <span class="card-status language_replace">正常</span>             
+                                                                </div>
+                                                                <div class="card-info">
+                                                                    <div class="item telphone">
+                                                                        <i class="icon icon-mask icon-mobile"></i>
+                                                                        <h4 class="phone">0959111222</h4>
+                                                                    </div>
+                                                                    <div class="item account">
+                                                                        <i class="icon icon-mask icon-mail"></i>
+                                                                        <h4 class="mail">eddie@kingkey.com.tw</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
+                                                            </div>
+                                                       </div>
                                                     </div>
-                                                    <div class="card-info">
-                                                        <div class="item telphone">
-                                                            <i class="icon icon-mask icon-mobile"></i>
-                                                            <h4 class="phone">0959111222</h4>
-                                                        </div>
-                                                        <div class="item account">
-                                                            <i class="icon icon-mask icon-mail"></i>
-                                                            <h4 class="mail">eddie@kingkey.com.tw</h4>
-                                                        </div>
-                                                    </div>
-                                                    <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
-                                                </div>
-                                           </div>
+                                                </label>
+                                            </div>
                                         </div>
                                         <!-- BANKCARD -->
-                                        <div class="swiper-slide bankcard">
-                                           <div class="card-item" data-card-num="1">
-                                                <a class="card-item-link"></a>
-                                                <div class="card-item-inner">
-                                                    <div class="card-type">
-                                                        <div class="type">
-                                                            <i class="icon icon-mask icon-bank"></i>
+                                        <div class="swiper-slide bankcard">  
+                                            <div class="custom-control custom-input-noCheck">
+                                                <label class="custom-label">
+                                                    <input type="checkbox" name="chkcard" class="custom-control-input-hidden">
+                                                    <div class="custom-input">
+                                                        <div class="card-item"  data-card-num="3">      
+                                                            <div class="card-item-inner">
+                                                                <div class="card-type">
+                                                                    <div class="type">
+                                                                        <i class="icon icon-mask icon-bank"></i>
+                                                                    </div>
+                                                                    <span class="card-status language_replace">正常</span>             
+                                                                </div>
+                                                                <div class="card-account">
+                                                                    <h4 class="account-num">1234123412341234</h4>
+                                                                </div>
+                                                                <div class="card-bank">
+                                                                    <div class="bank">
+                                                                        <h4 class="head">RCBC</h4>
+                                                                        <h5 class="branch">Branch</h5>
+                                                                    </div>
+                                                                    <div class="account-name">
+                                                                        <h4 class="name">Eddie Lucky</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
+                                                            </div>
                                                         </div>
-                                                        <span class="card-status language_replace">正常</span>             
                                                     </div>
-                                                    <div class="card-account">
-                                                        <h4 class="account-num">1234123412341234</h4>
-                                                    </div>
-                                                    <div class="card-bank">
-                                                        <div class="bank">
-                                                            <h4 class="head">RCBC</h4>
-                                                            <h5 class="branch">Branch</h5>
-                                                        </div>
-                                                        <div class="account-name">
-                                                            <h4 class="name">Eddie Lucky</h4>
-                                                        </div>
-                                                    </div>
-                                                    <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
-                                                </div>
-                                           </div>
-                                        </div>
-                                         <!-- GCASH -->
-                                         <div class="swiper-slide gcash">
-                                            <div class="card-item" data-card-num="2">
-                                                 <a class="card-item-link"></a>
-                                                 <div class="card-item-inner">
-                                                     <div class="card-type">
-                                                         <div class="type">
-                                                             <i class="icon icon-mask icon-GCash"></i>
-                                                         </div>
-                                                         <span class="card-status language_replace">正常</span>             
-                                                     </div>
-                                                     <div class="card-info">
-                                                         <div class="item telphone">
-                                                             <i class="icon icon-mask icon-mobile"></i>
-                                                             <h4 class="phone">0959111222</h4>
-                                                         </div>
-                                                         <div class="item account">
-                                                             <i class="icon icon-mask icon-mail"></i>
-                                                             <h4 class="mail">eddie@kingkey.com.tw</h4>
-                                                         </div>
-                                                     </div>
-                                                     <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
-                                                 </div>
+                                                </label>
                                             </div>
-                                         </div>                                             
+                                        </div>
+                                        <!-- GCASH -->
+                                        <div class="swiper-slide gcash">  
+                                            <div class="custom-control custom-input-noCheck">
+                                                <label class="custom-label">
+                                                    <input type="checkbox" name="chkcard" class="custom-control-input-hidden">
+                                                    <div class="custom-input">
+                                                        <div class="card-item" data-card-num="4">
+                                                            <a class="card-item-link"></a>
+                                                            <div class="card-item-inner">
+                                                                <div class="card-type">
+                                                                    <div class="type">
+                                                                        <i class="icon icon-mask icon-GCash"></i>
+                                                                    </div>
+                                                                    <span class="card-status language_replace">正常</span>             
+                                                                </div>
+                                                                <div class="card-info">
+                                                                    <div class="item telphone">
+                                                                        <i class="icon icon-mask icon-mobile"></i>
+                                                                        <h4 class="phone">0959111222</h4>
+                                                                    </div>
+                                                                    <div class="item account">
+                                                                        <i class="icon icon-mask icon-mail"></i>
+                                                                        <h4 class="mail">eddie@kingkey.com.tw</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
+                                                            </div>
+                                                       </div>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                       
+                                      
+                                                                               
                                     </div>
                                     <div class="swiper-pagination"></div>
                                   
@@ -2719,34 +2753,42 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title language_replace">選擇卡片型式</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="Verify-popup-wrapper popup-tip">
-                        <ul class="brand-popup-list" id="ulSearchGameBrand"><li class="brand-item custom-control custom-checkboxValue-noCheck">
-                            <label class="custom-label">
-                                <input type="radio" name="button-Exchange" class="custom-control-input-hidden" disabled>
-                                <div class="custom-input checkbox">
-                                    <span class="logo-wrap">
-                                        <span class="img-wrap">
-                                            <img class="brandImg" src="https://img.ewin888.com/LOGO/BNG/logo-BNG.png" alt=""></span>
-                                    </span>
-                                </div>
-                            </label>
-                        </li><li class="brand-item custom-control custom-checkboxValue-noCheck">
-                            <label class="custom-label">
-                                <input type="radio" name="button-Exchange" class="custom-control-input-hidden" disabled>
-                                <div class="custom-input checkbox">
-                                    <span class="logo-wrap">
-                                        <span class="img-wrap">
-                                            <img class="brandImg" src="https://img.ewin888.com/LOGO/BTI/logo-BTI.png" alt=""></span>
-                                    </span>
-                                </div>
-                            </label>
-                        </li></ul>
-                        
+                    <div class="addCard-popup-wrapper popup-tip">
+                        <ul class="addCard-popup-list">
+                            <li class="card-item custom-control custom-input-noCheck">
+                                <label class="custom-label card-inner">
+                                    <input type="radio" name="button-Exchange" class="custom-control-input-hidden">
+                                    <div class="custom-input card-content">
+                                        <i class="icon icon-mask icon-bank"></i>
+                                        <span class="card-status language_replace">銀行卡</span>
+                                    </div>
+                                </label>
+                            </li>
+                            <li class="card-item custom-control custom-input-noCheck">
+                                <label class="custom-label card-inner">
+                                    <input type="radio" name="button-Exchange" class="custom-control-input-hidden">
+                                    <div class="custom-input card-content">
+                                        <i class="icon icon-mask icon-GCash"></i>
+                                        <span class="card-status language_replace">GCash</span>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="wrapper_center action-outter">
+                        <button type="button" class="btn btn-outline-main btn-sm btn-roundcorner" data-dismiss="modal" aria-label="Close">
+                            <span class="language_replace">取消</span>
+                        </button>
+                        <button onclick="" type="button" class="btn btn-primary btn-sm btn-roundcorner">
+                            <span class="language_replace">確定</span>
+                        </button>
                     </div>
                 </div>
             </div>

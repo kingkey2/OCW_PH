@@ -705,6 +705,38 @@
       }
 }
 
+.addCard-popup{
+    &-wrapper{
+        max-width: 300px;
+        margin: 0 auto;        
+    }
+
+    &-list{
+        .card-item{
+            margin-bottom: 0.5rem;
+           
+        }
+
+        .card-content{
+            width: 100%;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+
+            padding: 20px 0;
+        }
+
+        .card-inner{
+            width: 100%;
+        }
+        
+    }
+
+}
+
+
+
+
 //最新公告
 .s-btn-more {
 border-radius: 20px;
@@ -794,9 +826,7 @@ color: #008fd1;
         .brand-item{
             width: calc(100% / 5);
         }
-    }
-
-    
+    }    
 }
 
 @include media-breakpoint-up(desc-lg){
