@@ -504,7 +504,9 @@
         p.UpdateUserAccount(WebInfo.SID, Math.uuid(), data, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx', true);
+                    window.top.API_RefreshUserInfo(function () {
+                        window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx', true);
+                    });
                 } else {
                     $("#CertificationForm").hide();
                     $("#CertificationFail").show();
