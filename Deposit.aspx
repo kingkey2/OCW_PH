@@ -154,11 +154,11 @@
                         </a>
                     </div>
                     <!-- EPay -->
-                    <div class="card-item sd-03" id="idDepositDiDiPay">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositDiDiPay','DepositDiDiPay.aspx')">
+                    <div class="card-item sd-03" id="idDepositGCash">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGCash','DepositGCash.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
-                                    <span class="language_replace">DiDiPay</span>
+                                    <span class="language_replace">GCash</span>
                                     <!-- <span>Electronic Wallet</span>  -->
                                 </div>
                                 <div class="logo vertical-center text-center"> 
@@ -170,11 +170,11 @@
                         </a>
                     </div>
                      <!-- EPay -->
-                    <div class="card-item sd-03" id="idDepositYuHongPay">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositYuHongPay','DepositYuHongPay.aspx')">
+                    <div class="card-item sd-03" id="idDepositGcashQRcode">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGcashQRcode','DepositGcashQRcode.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
-                                    <span class="language_replace">YuHongPay</span>
+                                    <span class="language_replace">GcashQRcode</span>
                                     <!-- <span>Electronic Wallet</span>  -->
                                 </div>
                                 <div class="logo vertical-center text-center"> 
