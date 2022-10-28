@@ -1811,6 +1811,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="SMSTypeCode" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="RecvUserAccountID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Sender" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="ContactNumber" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="SendContent" type="s:string" />
           </s:sequence>
@@ -2944,6 +2945,7 @@
     <wsdl:part name="GUID" type="s:string" />
     <wsdl:part name="SMSTypeCode" type="s:string" />
     <wsdl:part name="RecvUserAccountID" type="s:string" />
+    <wsdl:part name="Sender" type="s:string" />
     <wsdl:part name="ContactNumber" type="s:string" />
     <wsdl:part name="SendContent" type="s:string" />
   </wsdl:message>
@@ -3531,6 +3533,7 @@
     <wsdl:part name="GUID" type="s:string" />
     <wsdl:part name="SMSTypeCode" type="s:string" />
     <wsdl:part name="RecvUserAccountID" type="s:string" />
+    <wsdl:part name="Sender" type="s:string" />
     <wsdl:part name="ContactNumber" type="s:string" />
     <wsdl:part name="SendContent" type="s:string" />
   </wsdl:message>

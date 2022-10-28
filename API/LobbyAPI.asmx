@@ -1407,7 +1407,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { GUID = GUID, Result = EWin.Lobby.enumResult.ERR };
         string ValidateCode = string.Empty;
 
-        R = lobbyAPI.SendSMS(GetToken(), GUID, SMSTypeCode, RecvUserAccountID, ContactNumber, SendContent);
+        R = lobbyAPI.SendSMS(GetToken(), GUID, SMSTypeCode, RecvUserAccountID,"LuckyFanta" ,ContactNumber, SendContent);
 
         return R;
     }
