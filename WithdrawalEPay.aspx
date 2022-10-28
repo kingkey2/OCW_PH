@@ -272,15 +272,15 @@
             return false;
         }
 
-        if (bankCard.length != 7) {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("卡號只能輸入7位數"), function () { });
-            $("#bankCard").focus();
-            $("#bankCard").css('border-color', 'red');
-            window.parent.API_LoadingEnd(1);
-            return false;
-        } else {
-            $("#bankCard").css('border-color', '');
-        }
+        //if (bankCard.length != 7) {
+        //    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("卡號只能輸入7位數"), function () { });
+        //    $("#bankCard").focus();
+        //    $("#bankCard").css('border-color', 'red');
+        //    window.parent.API_LoadingEnd(1);
+        //    return false;
+        //} else {
+        //    $("#bankCard").css('border-color', '');
+        //}
 
         if (bankCardNameFirst == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入姓名"), function () { });
