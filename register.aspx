@@ -124,16 +124,17 @@
         if (idLoginPassword.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
             return false;
-        } else if (idLoginPassword.value.length < 6) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("登入密碼需大於6位"));
-            return false;
-        } else if (!rules.test(idLoginPassword.value)) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
-            return false;
         } else if (idLoginPassword.value.trim() != idLoginCheckPassword.value.trim()) {
             window.parent.showMessageOK("", mlp.getLanguageKey("確認密碼與登入密碼不符"));
             return false;
         }
+        //else if (idLoginPassword.value.length < 6) {
+        //    window.parent.showMessageOK("", mlp.getLanguageKey("登入密碼需大於6位"));
+        //    return false;
+        //} else if (!rules.test(idLoginPassword.value)) {
+        //    window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
+        //    return false;
+        //} 
 
         return true;
     }
@@ -591,7 +592,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">密碼</label>
                             <div class="input-group">
-                                <input id="idLoginPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合需大於6個字符" inputmode="email">
+                                <input id="idLoginPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="請輸入登入密碼" inputmode="email">
                                 <div class="invalid-feedback language_replace">請輸入密碼</div>
                             </div>
                             <button class="btn btn-icon" type="button" onclick="showPassword('idLoginPassword')">
@@ -601,7 +602,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">確認密碼</label>
                             <div class="input-group">
-                                <input id="idLoginCheckPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合需大於6個字符" inputmode="email">
+                                <input id="idLoginCheckPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="請輸入登入密碼" inputmode="email">
                                 <div class="invalid-feedback language_replace">確認密碼</div>
                             </div>
                             <button class="btn btn-icon" type="button" onclick="showPassword('idLoginCheckPassword')">

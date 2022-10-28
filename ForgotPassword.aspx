@@ -219,16 +219,6 @@
                 Password.reportValidity();
 
                 return
-            } else if (Password.value.length < 6) {
-                Password.setCustomValidity(mlp.getLanguageKey("登入密碼需大於6位"));
-                Password.reportValidity();
-
-                return
-            } else if (!rules.test(Password.value)) {
-                Password.setCustomValidity(mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
-                Password.reportValidity();
-
-                return
             } else {
                 ValidCode.setCustomValidity("");
                 Password.setCustomValidity("");

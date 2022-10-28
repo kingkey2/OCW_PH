@@ -224,39 +224,19 @@
         if (idOldPassword == "") {
             $('#OldPasswordErrorMessage').text(mlp.getLanguageKey("尚未輸入舊密碼"));
             $('#OldPasswordErrorMessage').removeClass('is-hide');
-            //$('#idOldPasswordSuccessIcon').addClass('is-hide');
-            //$('#idOldPasswordErrorIcon').removeClass('is-hide');
             return false;
         } else {
             $('#OldPasswordErrorMessage').text('');
             $('#OldPasswordErrorMessage').addClass('is-hide');
-            //$('#idOldPasswordSuccessIcon').removeClass('is-hide');
-            //$('#idOldPasswordErrorIcon').addClass('is-hide');
         }
 
         if (idNewPassword == "") {
             $('#NewPasswordErrorMessage').text(mlp.getLanguageKey("尚未輸入新密碼"));
             $('#NewPasswordErrorMessage').removeClass('is-hide');
-            //$('#idNewPasswordSuccessIcon').addClass('is-hide');
-            //$('#idNewPasswordErrorIcon').removeClass('is-hide');
-            return false;
-        } else if (idNewPassword.length < 6) {
-            $('#NewPasswordErrorMessage').text(mlp.getLanguageKey("新密碼需大於6位"));
-            $('#NewPasswordErrorMessage').removeClass('is-hide');
-            //$('#idNewPasswordSuccessIcon').addClass('is-hide');
-            //$('#idNewPasswordErrorIcon').removeClass('is-hide');
-            return false;
-        } else if (!rules.test(idNewPassword)) {
-            $('#NewPasswordErrorMessage').text(mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
-            $('#NewPasswordErrorMessage').removeClass('is-hide');
-            //$('#idNewPasswordSuccessIcon').addClass('is-hide');
-            //$('#idNewPasswordErrorIcon').removeClass('is-hide');
             return false;
         } else {
             $('#NewPasswordErrorMessage').text('');
             $('#NewPasswordErrorMessage').addClass('is-hide');
-            //$('#idNewPasswordSuccessIcon').removeClass('is-hide');
-            //$('#idNewPasswordErrorIcon').addClass('is-hide');
         }
 
         p.SetUserPassword(WebInfo.SID, Math.uuid(), idOldPassword, idNewPassword, function (success, o) {
