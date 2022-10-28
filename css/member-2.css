@@ -12,10 +12,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-bottom: 1.5rem;
 }
 
-.icon-mask:before {
-  background-color: #fff;
-}
-
 .data-item {
   width: 100%;
   padding: 0.5rem;
@@ -408,6 +404,94 @@ input.month:read-only, input.day:read-only {
   margin-left: 0.5em;
 }
 
+.cashflowCard-slider {
+  padding-bottom: 45px;
+}
+.cashflowCard-slider .swiper-slide {
+  padding: 0 10px;
+  height: auto;
+}
+.cashflowCard-slider .bankcard .card-item {
+  background: linear-gradient(107.89deg, #0180A2 1.19%, #0185A7 25.54%, #0098C8 101.21%);
+}
+.cashflowCard-slider .gcash .card-item {
+  background: linear-gradient(107.89deg, #1265BD -0.39%, #197CE3 101.21%);
+}
+.cashflowCard-slider .card-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  border-radius: 20px;
+  color: #fff;
+  padding: 20px 15px;
+  position: relative;
+}
+.cashflowCard-slider .card-item * {
+  font-weight: 300;
+  font-size: inherit;
+}
+.cashflowCard-slider .card-type {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 15px;
+  border-bottom: solid 1px rgba(255, 255, 255, 0.2);
+}
+.cashflowCard-slider .card-type .type {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.cashflowCard-slider .card-type .icon {
+  width: 30px;
+  height: 30px;
+}
+.cashflowCard-slider .card-status {
+  font-size: 0.75rem;
+}
+.cashflowCard-slider .card-name {
+  font-size: 1.125rem;
+}
+.cashflowCard-slider .card-account {
+  margin: 15px 0;
+  font-size: 1.25rem;
+}
+.cashflowCard-slider .card-bank .bank {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.cashflowCard-slider .card-bank .account-name {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+.cashflowCard-slider .btn-delete {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 50px;
+  height: 50px;
+}
+.cashflowCard-slider .btn-delete .icon-mask {
+  width: 100%;
+  height: 100%;
+}
+.cashflowCard-slider .card-info .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.cashflowCard-slider .icon-mask:before {
+  background-color: #fff;
+}
+.cashflowCard-slider .swiper-pagination {
+  bottom: 0;
+}
+
 .member-record-wrapper {
   background: #44956E;
   padding: 0 10px;
@@ -517,18 +601,18 @@ input.month:read-only, input.day:read-only {
   padding: 10px;
 }
 
-.card-slider-wrapper {
+.memberLevelCard-slider-wrapper {
   position: relative;
   margin: 0 auto;
 }
-.card-slider-wrapper .swiper-button-next,
-.card-slider-wrapper .swiper-button-prev {
+.memberLevelCard-slider-wrapper .swiper-button-next,
+.memberLevelCard-slider-wrapper .swiper-button-prev {
   top: 20%;
   width: 15px;
   height: 30px;
 }
-.card-slider-wrapper .swiper-button-next:after,
-.card-slider-wrapper .swiper-button-prev:after {
+.memberLevelCard-slider-wrapper .swiper-button-next:after,
+.memberLevelCard-slider-wrapper .swiper-button-prev:after {
   width: 100%;
   height: 100%;
   content: "";
@@ -541,35 +625,35 @@ input.month:read-only, input.day:read-only {
   mask-size: cover;
   background-color: #804F21;
 }
-.card-slider-wrapper .swiper-button-prev {
+.memberLevelCard-slider-wrapper .swiper-button-prev {
   -webkit-transform: scaleX(-1);
           transform: scaleX(-1);
   left: -1.3rem;
 }
-.card-slider-wrapper .swiper-button-prev:after {
+.memberLevelCard-slider-wrapper .swiper-button-prev:after {
   -webkit-mask-image: url(../images/icon/ico-arrow-L.svg);
   mask-image: url(../images/icon/ico-arrow-L.svg);
 }
-.card-slider-wrapper .swiper-button-next {
+.memberLevelCard-slider-wrapper .swiper-button-next {
   right: -1.3rem;
 }
-.card-slider-wrapper .swiper-button-next:after {
+.memberLevelCard-slider-wrapper .swiper-button-next:after {
   -webkit-mask-image: url(../images/icon/ico-arrow-L.svg);
   mask-image: url(../images/icon/ico-arrow-L.svg);
 }
-.card-slider * {
+.memberLevelCard-slider * {
   font-size: initial;
 }
-.card-slider .swiper-slide {
+.memberLevelCard-slider .swiper-slide {
   padding: 0 0.5rem;
 }
-.card-slider .card-item {
+.memberLevelCard-slider .card-item {
   position: relative;
   padding: 15px;
   border-radius: 20px;
   margin-bottom: 2.5rem;
 }
-.card-slider .card-item::before {
+.memberLevelCard-slider .card-item::before {
   content: "";
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -586,16 +670,16 @@ input.month:read-only, input.day:read-only {
   -webkit-transform-origin: center center;
           transform-origin: center center;
 }
-.card-slider .card-item .member-level {
+.memberLevelCard-slider .card-item .member-level {
   color: #A85400;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
 }
-.card-slider .card-item .member-bouns {
+.memberLevelCard-slider .card-item .member-bouns {
   margin-bottom: 0.5rem;
 }
-.card-slider .card-item .item {
+.memberLevelCard-slider .card-item .item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -604,19 +688,19 @@ input.month:read-only, input.day:read-only {
           justify-content: space-between;
   width: 90%;
 }
-.card-slider .card-item .item .title {
+.memberLevelCard-slider .card-item .item .title {
   color: #707070;
   font-size: 0.8125rem;
   width: 70%;
 }
-.card-slider .card-item .item .value {
+.memberLevelCard-slider .card-item .item .value {
   font-weight: 500;
   font-size: 0.84375rem;
 }
-.card-slider .memberlevel-rules * {
+.memberLevelCard-slider .memberlevel-rules * {
   font-size: 0.875rem;
 }
-.card-slider .memberlevel-rules .thead {
+.memberLevelCard-slider .memberlevel-rules .thead {
   background-color: #494949;
   color: #E69D00;
   text-align: center;
@@ -624,10 +708,10 @@ input.month:read-only, input.day:read-only {
   font-weight: 500;
   font-size: 0.9375rem;
 }
-.card-slider .memberlevel-rules .tbody {
+.memberLevelCard-slider .memberlevel-rules .tbody {
   padding: 10px;
 }
-.card-slider .memberlevel-rules .tr {
+.memberLevelCard-slider .memberlevel-rules .tr {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -636,98 +720,98 @@ input.month:read-only, input.day:read-only {
           justify-content: space-between;
   padding: 4px 0;
 }
-.card-slider .memberlevel-rules .value {
+.memberLevelCard-slider .memberlevel-rules .value {
   color: #C6341D;
   font-weight: 600;
 }
-.card-slider .memberlevel-wrapper {
+.memberLevelCard-slider .memberlevel-wrapper {
   background: #D9D9D9;
   border-radius: 15px;
   overflow: hidden;
 }
 @media (min-width: 992px) {
-  .card-slider .memberlevel-rules {
+  .memberLevelCard-slider .memberlevel-rules {
     display: none;
   }
 }
-.card-slider .swiper-slide.swiper-slide-active .card-item {
+.memberLevelCard-slider .swiper-slide.swiper-slide-active .card-item {
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.card-slider .m-normal .card-item {
+.memberLevelCard-slider .m-normal .card-item {
   background: linear-gradient(114.06deg, #D3D3D3 2.04%, #939393 97.42%);
 }
-.card-slider .m-normal .card-item::before {
+.memberLevelCard-slider .m-normal .card-item::before {
   background-image: url(../images/member/card-label-normal.png);
 }
-.card-slider .m-bronze .card-item {
+.memberLevelCard-slider .m-bronze .card-item {
   background: linear-gradient(114.06deg, #4BEFD1 49.97%, #E39600 97.42%);
 }
-.card-slider .m-bronze .card-item::before {
+.memberLevelCard-slider .m-bronze .card-item::before {
   background-image: url(../images/member/card-label-bronze.png);
 }
-.card-slider .m-silver .card-item {
+.memberLevelCard-slider .m-silver .card-item {
   background: linear-gradient(114.06deg, #D7D7D7 49.97%, #969696 97.42%);
 }
-.card-slider .m-silver .card-item::before {
+.memberLevelCard-slider .m-silver .card-item::before {
   background-image: url(../images/member/card-label-silver.png);
 }
-.card-slider .m-gold .card-item,
-.card-slider .m-warrior .card-item {
+.memberLevelCard-slider .m-gold .card-item,
+.memberLevelCard-slider .m-warrior .card-item {
   background: linear-gradient(114.06deg, #F3CD1F 49.97%, #E69D00 97.42%);
 }
-.card-slider .m-gold .card-item::before,
-.card-slider .m-warrior .card-item::before {
+.memberLevelCard-slider .m-gold .card-item::before,
+.memberLevelCard-slider .m-warrior .card-item::before {
   background-image: url(../images/member/card-label-gold.png);
 }
-.card-slider .m-platinum .card-item {
+.memberLevelCard-slider .m-platinum .card-item {
   background: linear-gradient(114.06deg, #B8D8E7 2.04%, #B7B7B7 97.42%);
 }
-.card-slider .m-platinum .card-item::before {
+.memberLevelCard-slider .m-platinum .card-item::before {
   background-image: url(../images/member/card-label-platinum.png);
 }
-.card-slider .m-diamond .card-item {
+.memberLevelCard-slider .m-diamond .card-item {
   background: linear-gradient(114.06deg, #B8D8E7 2.04%, #8EE1F0 97.42%);
 }
-.card-slider .m-diamond .card-item::before {
+.memberLevelCard-slider .m-diamond .card-item::before {
   background-image: url(../images/member/card-label-diamond.png);
 }
-.card-slider .m-elite .card-item,
-.card-slider .m-S-diamond .card-item {
+.memberLevelCard-slider .m-elite .card-item,
+.memberLevelCard-slider .m-S-diamond .card-item {
   background: linear-gradient(114.06deg, #B8D8E7 49.97%, #637B94 97.42%);
 }
-.card-slider .m-elite .card-item::before,
-.card-slider .m-S-diamond .card-item::before {
+.memberLevelCard-slider .m-elite .card-item::before,
+.memberLevelCard-slider .m-S-diamond .card-item::before {
   background-image: url(../images/member/card-label-Sdiamond.png);
 }
-.card-slider .m-G-diamond .card-item {
+.memberLevelCard-slider .m-G-diamond .card-item {
   background: linear-gradient(114.06deg, #B8D8E7 49.97%, #FCCE2A 97.42%);
 }
-.card-slider .m-G-diamond .card-item::before {
+.memberLevelCard-slider .m-G-diamond .card-item::before {
   background-image: url(../images/member/card-label-Gdiamond.png);
 }
-.card-slider .m-master .card-item,
-.card-slider .m-starlight .card-item {
+.memberLevelCard-slider .m-master .card-item,
+.memberLevelCard-slider .m-starlight .card-item {
   background: linear-gradient(114.06deg, #BEE8FF 49.97%, #00ABD3 97.42%);
 }
-.card-slider .m-master .card-item::before,
-.card-slider .m-starlight .card-item::before {
+.memberLevelCard-slider .m-master .card-item::before,
+.memberLevelCard-slider .m-starlight .card-item::before {
   background-image: url(../images/member/card-label-starlight.png);
 }
-.card-slider .m-grandmaster .card-item,
-.card-slider .m-eternal .card-item {
+.memberLevelCard-slider .m-grandmaster .card-item,
+.memberLevelCard-slider .m-eternal .card-item {
   background: linear-gradient(114.06deg, #E3BBE4 49.97%, #7B687B 97.42%);
 }
-.card-slider .m-grandmaster .card-item::before,
-.card-slider .m-eternal .card-item::before {
+.memberLevelCard-slider .m-grandmaster .card-item::before,
+.memberLevelCard-slider .m-eternal .card-item::before {
   background-image: url(../images/member/card-label-eternal.png);
 }
-.card-slider .m-epic .card-item,
-.card-slider .m-legend .card-item {
+.memberLevelCard-slider .m-epic .card-item,
+.memberLevelCard-slider .m-legend .card-item {
   background: linear-gradient(114.06deg, #74CDFF 9.03%, #FFAF9D 49.97%, #E497FF 97.42%);
 }
-.card-slider .m-epic .card-item::before,
-.card-slider .m-legend .card-item::before {
+.memberLevelCard-slider .m-epic .card-item::before,
+.memberLevelCard-slider .m-legend .card-item::before {
   background-image: url(../images/member/card-label-legend.png);
 }
 
@@ -1880,10 +1964,10 @@ input.month:read-only, input.day:read-only {
     width: 25%;
   }
 
-  .card-slider {
+  .memberLevelCard-slider {
     padding: 50px 0;
   }
-  .card-slider .swiper-slide {
+  .memberLevelCard-slider .swiper-slide {
     padding: 0;
     opacity: 0.5;
     -webkit-transition: -webkit-transform 0.35s ease-in-out;
@@ -1891,14 +1975,14 @@ input.month:read-only, input.day:read-only {
     transition: transform 0.35s ease-in-out;
     transition: transform 0.35s ease-in-out, -webkit-transform 0.35s ease-in-out;
   }
-  .card-slider .swiper-slide.swiper-slide-active {
+  .memberLevelCard-slider .swiper-slide.swiper-slide-active {
     opacity: 1;
     -webkit-transform: scale(1.2, 1.2);
             transform: scale(1.2, 1.2);
     z-index: 2;
   }
-  .card-slider-wrapper .swiper-button-next,
-.card-slider-wrapper .swiper-button-prev {
+  .memberLevelCard-slider-wrapper .swiper-button-next,
+.memberLevelCard-slider-wrapper .swiper-button-prev {
     top: 45%;
     width: 15px;
     height: 30px;
@@ -1926,16 +2010,16 @@ input.month:read-only, input.day:read-only {
   }
 }
 @media (min-width: 1384px) {
-  .card-slider-wrapper .swiper-button-next,
-.card-slider-wrapper .swiper-button-prev {
+  .memberLevelCard-slider-wrapper .swiper-button-next,
+.memberLevelCard-slider-wrapper .swiper-button-prev {
     top: 45%;
     width: 35px;
     height: 60px;
   }
-  .card-slider-wrapper .swiper-button-prev {
+  .memberLevelCard-slider-wrapper .swiper-button-prev {
     left: -3.7rem;
   }
-  .card-slider-wrapper .swiper-button-next {
+  .memberLevelCard-slider-wrapper .swiper-button-next {
     right: -3.7rem;
   }
 

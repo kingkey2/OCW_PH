@@ -389,7 +389,7 @@
                     freeMode: false,
                     slidesPerView: 3,
                     // centeredSlides: true,
-                    loop: true,
+                    // loop: true,
                     // slidesPerGroup: 6, //index:992px
                 },
                
@@ -612,7 +612,7 @@
                     </div>
 
                     <!-- 個人資料 -->
-                    <section class="section-member-profile" style="display: ;">
+                    <section class="section-member-profile" style="display: none;">
                         <!-- 會員頭像 + 會員等級 -->
                         <div class="member-profile-wrapper" style="display:">
                             <div class="member-profile-avater-wrapper">
@@ -977,20 +977,129 @@
                             </div>
 
                         </section>
-                        <section class="section-cashflow-card">
-                            <div class="cashflowCard-slider-wrapper">
-                                <div class="swiper card-slider swiper-container" id="slider-CardCashFlow">
-                                    <div class="swiper-wrapper">
-                                        <div class="swiper-slide">
-                                           <span class=""></span>
+                        <!-- 出入金卡片管理 -->
 
+                        <section class="section-cashflow-card">
+                            <div class="sec-title-container sec-col-2 sec-title-member ">
+                                <div class="sec-title-wrapper">
+                                    <i class="icon icon-mask icon-card"></i>
+                                    <h1 class="sec-title"><span class="language_replace">卡片管理</span></h1>
+                                </div>
+                                <button class="btn btn-addcard btn-full-stress btn-round" type="button" data-toggle="modal" data-target="#ModalAddCard">
+                                    <span class="icon icon-add"></span>
+                                    <span class="name"></span>
+                                </button>
+                            </div>
+                            <div class="cashflowCard-slider-wrapper">
+                                <div class="swiper cashflowCard-slider swiper-container" id="slider-CardCashFlow">
+                                    <div class="swiper-wrapper">
+                                        <!-- BANKCARD -->
+                                        <div class="swiper-slide bankcard">
+                                           <div class="card-item" data-card-num="1">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-inner">
+                                                    <div class="card-type">
+                                                        <div class="type">
+                                                            <i class="icon icon-mask icon-bank"></i>
+                                                        </div>
+                                                        <span class="card-status language_replace">正常</span>             
+                                                    </div>
+                                                    <div class="card-account">
+                                                        <h4 class="account-num">1234123412341234</h4>
+                                                    </div>
+                                                    <div class="card-bank">
+                                                        <div class="bank">
+                                                            <h4 class="head">RCBC</h4>
+                                                            <h5 class="branch">Branch</h5>
+                                                        </div>
+                                                        <div class="account-name">
+                                                            <h4 class="name">Eddie Lucky</h4>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
+                                                </div>
+                                           </div>
                                         </div>
-                                       
-                                              
+                                        <!-- GCASH -->
+                                        <div class="swiper-slide gcash">
+                                           <div class="card-item" data-card-num="2">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-inner">
+                                                    <div class="card-type">
+                                                        <div class="type">
+                                                            <i class="icon icon-mask icon-GCash"></i>
+                                                        </div>
+                                                        <span class="card-status language_replace">正常</span>             
+                                                    </div>
+                                                    <div class="card-info">
+                                                        <div class="item telphone">
+                                                            <i class="icon icon-mask icon-mobile"></i>
+                                                            <h4 class="phone">0959111222</h4>
+                                                        </div>
+                                                        <div class="item account">
+                                                            <i class="icon icon-mask icon-mail"></i>
+                                                            <h4 class="mail">eddie@kingkey.com.tw</h4>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
+                                                </div>
+                                           </div>
+                                        </div>
+                                        <!-- BANKCARD -->
+                                        <div class="swiper-slide bankcard">
+                                           <div class="card-item" data-card-num="1">
+                                                <a class="card-item-link"></a>
+                                                <div class="card-item-inner">
+                                                    <div class="card-type">
+                                                        <div class="type">
+                                                            <i class="icon icon-mask icon-bank"></i>
+                                                        </div>
+                                                        <span class="card-status language_replace">正常</span>             
+                                                    </div>
+                                                    <div class="card-account">
+                                                        <h4 class="account-num">1234123412341234</h4>
+                                                    </div>
+                                                    <div class="card-bank">
+                                                        <div class="bank">
+                                                            <h4 class="head">RCBC</h4>
+                                                            <h5 class="branch">Branch</h5>
+                                                        </div>
+                                                        <div class="account-name">
+                                                            <h4 class="name">Eddie Lucky</h4>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
+                                                </div>
+                                           </div>
+                                        </div>
+                                         <!-- GCASH -->
+                                         <div class="swiper-slide gcash">
+                                            <div class="card-item" data-card-num="2">
+                                                 <a class="card-item-link"></a>
+                                                 <div class="card-item-inner">
+                                                     <div class="card-type">
+                                                         <div class="type">
+                                                             <i class="icon icon-mask icon-GCash"></i>
+                                                         </div>
+                                                         <span class="card-status language_replace">正常</span>             
+                                                     </div>
+                                                     <div class="card-info">
+                                                         <div class="item telphone">
+                                                             <i class="icon icon-mask icon-mobile"></i>
+                                                             <h4 class="phone">0959111222</h4>
+                                                         </div>
+                                                         <div class="item account">
+                                                             <i class="icon icon-mask icon-mail"></i>
+                                                             <h4 class="mail">eddie@kingkey.com.tw</h4>
+                                                         </div>
+                                                     </div>
+                                                     <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
+                                                 </div>
+                                            </div>
+                                         </div>                                             
                                     </div>
                                     <div class="swiper-pagination"></div>
-                                    <div class="swiper-button-next"></div>
-                                    <div class="swiper-button-prev"></div> 
+                                  
                               </div>
                           </div>
 
@@ -1478,7 +1587,7 @@
                             </div>
 
                             <div class="card-slider-wrapper">
-                                <div class="swiper card-slider swiper-container round-arrow" id="slider-card">
+                                <div class="swiper memberLevelCard-slider swiper-container round-arrow" id="slider-card">
                                     <div class="swiper-wrapper">
                                         <!-- vip0 normal -->
                                         <div class="swiper-slide m-normal">
@@ -2598,6 +2707,46 @@
                                 <p class="desc language_replace">於會員中心按下<span class="text-bold">『進行認證』</span>之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
                             </li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Verify Tip -->
+    <div class="modal fade footer-center" id="ModalAddCard" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title language_replace">選擇卡片型式</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="Verify-popup-wrapper popup-tip">
+                        <ul class="brand-popup-list" id="ulSearchGameBrand"><li class="brand-item custom-control custom-checkboxValue-noCheck">
+                            <label class="custom-label">
+                                <input type="radio" name="button-Exchange" class="custom-control-input-hidden" disabled>
+                                <div class="custom-input checkbox">
+                                    <span class="logo-wrap">
+                                        <span class="img-wrap">
+                                            <img class="brandImg" src="https://img.ewin888.com/LOGO/BNG/logo-BNG.png" alt=""></span>
+                                    </span>
+                                </div>
+                            </label>
+                        </li><li class="brand-item custom-control custom-checkboxValue-noCheck">
+                            <label class="custom-label">
+                                <input type="radio" name="button-Exchange" class="custom-control-input-hidden" disabled>
+                                <div class="custom-input checkbox">
+                                    <span class="logo-wrap">
+                                        <span class="img-wrap">
+                                            <img class="brandImg" src="https://img.ewin888.com/LOGO/BTI/logo-BTI.png" alt=""></span>
+                                    </span>
+                                </div>
+                            </label>
+                        </li></ul>
+                        
                     </div>
                 </div>
             </div>

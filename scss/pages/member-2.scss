@@ -25,7 +25,7 @@ $modalMemberLevel-body-padding-right-xl: 4.5rem;
 
 .icon-mask {
     &:before {
-        background-color: #fff;
+        // background-color: #fff;
     }
 }
 
@@ -99,8 +99,6 @@ input{
         flex: 0 0 calc(100% - 37px);
     }
 }
-
-
 
 .password-real{
     .data-item-form-group{
@@ -387,7 +385,6 @@ input{
     }
 }
 
-
 .member-wallet {
 
     &-wrapper {
@@ -533,6 +530,122 @@ input{
     }
 
 }
+
+// 出入金卡片管理
+.section-cashflow-card{
+
+}
+
+.cashflowCard-slider{
+    padding-bottom: 45px;
+
+    .swiper-slide{
+        padding: 0 10px;
+        height: auto; //!IMPORANT
+    }
+
+    .bankcard{
+        .card-item{
+            background: linear-gradient(107.89deg, #0180A2 1.19%, #0185A7 25.54%, #0098C8 101.21%);
+        }
+    }
+    .gcash{
+        .card-item{
+            background: linear-gradient(107.89deg, #1265BD -0.39%, #197CE3 101.21%);
+
+        }
+    }
+
+    .card-item{
+        display: flex; //!IMPORANT
+        height: 100%;//!IMPORANT
+       
+        border-radius: 20px;
+        color: #fff;
+        padding: 20px 15px;
+        position: relative;
+        
+        *{
+            font-weight: 300;
+            font-size: inherit;
+        }
+    }
+
+    .card-type{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+
+        .type{
+            display: flex;            
+        }
+
+        .icon{
+            width: 30px;
+            height: 30px;
+        }
+
+        border-bottom: solid 1px rgba(#fff, 0.2);
+    }
+
+    .card-status{
+        font-size: font-resize(12px);
+    }
+
+    //user自行建立卡片名稱
+    .card-name{
+        font-size: font-resize(18px);
+    }
+    .card-account{
+        margin: 15px 0;
+        font-size: font-resize(20px);
+    }
+
+    .card-bank{
+        
+        .bank{
+            display: flex;
+        }
+        .account-name{
+            font-size: font-resize(12px);
+            color: rgba(#fff, 0.75);
+        }
+    }
+
+    .btn-delete{
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+
+        width: 50px;
+        height: 50px;
+
+        .icon-mask {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .card-info{
+        .item{
+            display: flex;
+        }
+    }
+
+    .icon-mask {
+        &:before {
+            background-color: #fff;
+        }
+    }
+    
+
+    .swiper-pagination{
+        bottom: 0;
+    }
+}
+
+
+
 
 // 履歷紀錄
 .member-record {
@@ -693,7 +806,7 @@ $card-bg-normal: (
 );
 
 //Modal - Member LEVEL - 會員等級 Slider
-.card-slider{    
+.memberLevelCard-slider{    
     
     .swiper-wrapper{
         // padding-left: 2rem;
@@ -991,7 +1104,6 @@ $card-bg-normal: (
 }
 
 
-
 // Modal - Member LEVEL - 會員等級 Slider 縮圖
 .card-thumb-wrapper{
     overflow-x: hidden;
@@ -1172,7 +1284,7 @@ $card-bg-normal: (
 
 
 //會員簽到進度顯示 - 舊的 ================
-// .dailylogin-bouns {
+ .dailylogin-bouns {
 //     &-wrapper{
 //         cursor: pointer;
 //     }
@@ -1326,7 +1438,7 @@ $card-bg-normal: (
 //         }
 //     }
 
-// }
+ }
 
 //會員簽到進度顯示 - 新的 ================
 .activity {
@@ -1713,7 +1825,7 @@ $card-bg-normal: (
 
 
 
-// 出金 - 舊的樣式
+// 出金 - 舊的樣式 ================
 .member-withdraw {
 
     // &-wrapper {
@@ -1868,7 +1980,7 @@ $card-bg-normal: (
 
 }
 
-// 出金 - 新的樣式
+// 出金 - 新的樣式 ================
 .member-withdraw{    
 
     &-limit-inner{
@@ -2619,8 +2731,8 @@ $card-bg-normal: (
 
 @include media-breakpoint-up(smd){
 
-//會員簽到進度顯示 新的===============
-.dailylogin-bouns {
+   //會員簽到進度顯示 新的===============
+   .dailylogin-bouns {
     &-inner {
      //  height: 80px;
          &::before{
@@ -2991,7 +3103,6 @@ $card-bg-normal: (
        
     }
 
-
 }
 
 @include media-breakpoint-up(desc-lg) {
@@ -3006,7 +3117,7 @@ $card-bg-normal: (
     }
 
     //Modal - Member LEVEL - 會員等級 Slider
-    .card-slider{
+    .memberLevelCard-slider{
         padding: 50px 0;
 
         .swiper-slide{
@@ -3063,7 +3174,8 @@ $card-bg-normal: (
 
 @include media-breakpoint-up(desc-xl) {
 
-    .card-slider{
+    //Modal - Member LEVEL - 會員等級 Slider
+    .memberLevelCard-slider{
         &-wrapper{
             .swiper-button-next,
             .swiper-button-prev{
@@ -3289,12 +3401,11 @@ $card-bg-normal: (
                 width: (100% / 4);
             }
         }
-    }
-
-   
+    }   
 }
 
 @include media-breakpoint-up(xl){
+    
     .tab-member{
         display: none;
     }
@@ -3312,6 +3423,7 @@ $card-bg-normal: (
         flex: 0 0 300px;
      }
 
+     // 出入金卡片管理
      .section-cashflow-card{
         flex: 1;
         overflow: hidden;
@@ -3373,10 +3485,8 @@ $card-bg-normal: (
         // order: -1;
     }
 
-
-
     //會員簽到進度顯示 舊的 =============
-    // .dailylogin-bouns {
+     .dailylogin-bouns {
     //     &-inner {
     //         padding: 50px 10px 10px;
     //         border-radius: 20px;
@@ -3483,7 +3593,7 @@ $card-bg-normal: (
     //         padding: 12px 0;
     //     }
 
-    // }
+     }
 
 }
 

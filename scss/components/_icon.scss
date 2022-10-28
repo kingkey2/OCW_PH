@@ -564,6 +564,48 @@ $icon-url:"../image/product/icon_menu_";
       
     }
   }
+  &.icon-trash{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-trashcan.png);
+      mask-image: url(../images/icon/ico-trashcan.png)
+      
+    }
+  }
+  &.icon-bank{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-bank.png);
+      mask-image: url(../images/icon/ico-bank.png)
+      
+    }
+  }
+  &.icon-GCash{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-logo-GCash.png);
+      mask-image: url(../images/icon/ico-logo-GCash.png)
+      
+    }
+  }
+  &.icon-card{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-card.svg);
+      mask-image: url(../images/icon/ico-card.svg)
+      
+    }
+  }
+  &.icon-wallet2{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-wallet-2.svg);
+      mask-image: url(../images/icon/ico-wallet-2.svg);
+      
+    }
+  }
+  &.icon-wallet2{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-logo-GCash.png);
+      mask-image: url(../images/icon/ico-logo-GCash.png)
+      
+    }
+  }
 
   &.icon-flag-JP{
     &::before{
