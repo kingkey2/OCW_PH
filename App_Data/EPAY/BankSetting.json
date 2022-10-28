@@ -1,252 +1,319 @@
 ﻿{
   "BankCodeSettings": [
     {
+      "FeibaoPay": "BPI",
       "BankName": "BPI Bank",
-      "ProviderBankCode": "bpi"
+      "DiDiPay": "bpi"
     },
     {
+      "FeibaoPay": -1,
       "BankName": "BDO Unibank",
-      "ProviderBankCode": "Unibank"
+      "DiDiPay": "Unibank"
     },
     {
+      "FeibaoPay": "GXCHP",
+      "BankName": "Gcash",
+      "DiDiPay": "gcash"
+    },
+    {
+      "FeibaoPay": -1,
       "BankName": "Metropolitan Bank and Trust Co ",
-      "ProviderBankCode": "mbt"
+      "DiDiPay": "mbt"
     },
     {
+      "FeibaoPay": "TLBPP",
       "BankName": "LANDBANK / OFBank",
-      "ProviderBankCode": "LBOB"
+      "DiDiPay": "LBOB"
     },
     {
+      "FeibaoPay": "SETCP",
       "BankName": "Security Bank Corporation",
-      "ProviderBankCode": "SBC"
+      "DiDiPay": "SBC"
     },
     {
+      "FeibaoPay": "UBP",
       "BankName": "Union Bank of the Philippines",
-      "ProviderBankCode": "UBP"
+      "DiDiPay": "UBP"
     },
     {
+      "FeibaoPay": "PNBMP",
       "BankName": "Philippine National Bank",
-      "ProviderBankCode": "PNB"
+      "DiDiPay": "PNB"
     },
     {
+      "FeibaoPay": "CHBKP",
       "BankName": "China Banking Corporation",
-      "ProviderBankCode": "CBC"
+      "DiDiPay": "CBC"
     },
     {
+      "FeibaoPay": "EWBCP",
       "BankName": "East West Banking Corporation",
-      "ProviderBankCode": "EWBC"
+      "DiDiPay": "EWBC"
     },
     {
+      "FeibaoPay": "RCBC",
       "BankName": "RCBC/DiskarTech",
-      "ProviderBankCode": "RCBC"
+      "DiDiPay": "RCBC"
     },
     {
+      "FeibaoPay": "UCPBP",
       "BankName": "United Coconut Planters Bank (UCPB) ",
-      "ProviderBankCode": "UCPB"
+      "DiDiPay": "UCPB"
     },
     {
+      "FeibaoPay": "PHSBP",
       "BankName": "Philippine Savings Bank",
-      "ProviderBankCode": "PSB"
+      "DiDiPay": "PSB"
     },
     {
+      "FeibaoPay": "AUBKP",
       "BankName": "Asia United Bank Corporation",
-      "ProviderBankCode": "AUB"
+      "DiDiPay": "AUB"
     },
     {
+      "FeibaoPay": "CPHIP",
       "BankName": "Philippine Bank of Communications",
-      "ProviderBankCode": "PBC"
+      "DiDiPay": "PBC"
     },
     {
+      "FeibaoPay": "DBPHP",
       "BankName": "Development Bank of the Philippines",
-      "ProviderBankCode": "DBP"
+      "DiDiPay": "DBP"
     },
     {
+      "FeibaoPay": "ALKBP",
       "BankName": "ALLBANK(A Thirft Bank)",
-      "ProviderBankCode": "AB"
+      "DiDiPay": "AB"
     },
     {
+      "FeibaoPay": -1,
       "BankName": "Asenso",
-      "ProviderBankCode": "Asenso"
+      "DiDiPay": "Asenso"
     },
     {
+      "FeibaoPay": -1,
       "BankName": "Bangko Mabuhay",
-      "ProviderBankCode": "BM"
+      "DiDiPay": "BM"
     },
     {
+      "FeibaoPay": "PABIP",
       "BankName": "Bank of Commerce",
-      "ProviderBankCode": "BC"
+      "DiDiPay": "BC"
     },
     {
+      "FeibaoPay": "DUMTP",
       "BankName": "Dungganon Bank",
-      "ProviderBankCode": "DB"
+      "DiDiPay": "DB"
     },
     {
+      "FeibaoPay": "EQSNP",
       "BankName": "Equicom Savings Bank",
-      "ProviderBankCode": "ESB"
+      "DiDiPay": "ESB"
     },
     {
+      "FeibaoPay": "GRABP",
       "BankName": "GrabPay",
-      "ProviderBankCode": "GP"
+      "DiDiPay": "GP"
     },
     {
+      "FeibaoPay": "INGBP",
       "BankName": "ING Bank N.V.",
-      "ProviderBankCode": "IB"
+      "DiDiPay": "IB"
     },
     {
+      "FeibaoPay": "BPI",
       "BankName": "ISLA Bank",
-      "ProviderBankCode": "ISLA"
+      "DiDiPay": "ISLA"
     },
     {
+      "FeibaoPay": "JUCAP",
       "BankName": "JuanCash",
-      "ProviderBankCode": "JC"
+      "DiDiPay": "JC"
     },
     {
+      "FeibaoPay": -1,
       "BankName": "Komo / EastWest Rural Bank",
-      "ProviderBankCode": "Komo"
+      "DiDiPay": "Komo"
     },
     {
+      "FeibaoPay": -1,
       "BankName": "Legazpi Saving Bank",
-      "ProviderBankCode": "LSB"
+      "DiDiPay": "LSB"
     },
     {
+      "FeibaoPay": "MAARP",
       "BankName": "Malayan Bank Saving and Mortage Bank",
-      "ProviderBankCode": "MBS"
+      "DiDiPay": "MBS"
     },
     {
+      "FeibaoPay": "MBBEP",
       "BankName": "Maybank Philippnies",
-      "ProviderBankCode": "MBP"
+      "DiDiPay": "MBP"
     },
     {
+      "FeibaoPay": "MIOCP",
       "BankName": "Mindanao Consolidated CoopBank",
-      "ProviderBankCode": "MCCB"
+      "DiDiPay": "MCCB"
     },
     {
+      "FeibaoPay": -1,
       "BankName": "Netbank",
-      "ProviderBankCode": "NB"
+      "DiDiPay": "NB"
     },
     {
+      "FeibaoPay": "OMNIP",
       "BankName": "OmniPay",
-      "ProviderBankCode": "OP"
+      "DiDiPay": "OP"
     },
     {
+      "FeibaoPay": "PRTOP",
       "BankName": "Partner Rural Bank",
-      "ProviderBankCode": "PRB"
+      "DiDiPay": "PRB"
     },
     {
+      "FeibaoPay": "PAYMP",
       "BankName": "PayMaya Philippines",
-      "ProviderBankCode": "PMP"
+      "DiDiPay": "PMP"
     },
     {
+      "FeibaoPay": "PPBUP",
       "BankName": "Philippine Business Bank",
-      "ProviderBankCode": "PBB"
+      "DiDiPay": "PBB"
     },
     {
+      "FeibaoPay": "PHTBP",
       "BankName": "Philippine Trust Company",
-      "ProviderBankCode": "PTC"
+      "DiDiPay": "PTC"
     },
     {
+      "FeibaoPay": "PSCOP",
       "BankName": "Producers Bank",
-      "ProviderBankCode": "PDB"
+      "DiDiPay": "PDB"
     },
     {
+      "FeibaoPay": "QCDFP",
       "BankName": "Queenbank",
-      "ProviderBankCode": "QB"
+      "DiDiPay": "QB"
     },
     {
+      "FeibaoPay": "QCRIP",
       "BankName": "Quezon Capital Rural Bank",
-      "ProviderBankCode": "QCRB"
+      "DiDiPay": "QCRB"
     },
     {
+      "FeibaoPay": "RCSAP",
       "BankName": "RCBC Saving Bank",
-      "ProviderBankCode": "RSB"
+      "DiDiPay": "RSB"
     },
     {
+      "FeibaoPay": "ROBPP",
       "BankName": "Robinsons Bank Corporation",
-      "ProviderBankCode": "RBB"
+      "DiDiPay": "RBB"
     },
     {
+      "FeibaoPay": -1,
       "BankName": "Seabank",
-      "ProviderBankCode": "SB"
+      "DiDiPay": "SB"
     },
     {
+      "FeibaoPay": "SHOPP",
       "BankName": "ShopeePay",
-      "ProviderBankCode": "SP"
+      "DiDiPay": "SP"
     },
     {
+      "FeibaoPay": "SCBLP",
       "BankName": "Standard Chartered Bank",
-      "ProviderBankCode": "SCB"
+      "DiDiPay": "SCB"
     },
     {
+      "FeibaoPay": "STARP",
       "BankName": "Starpay",
-      "ProviderBankCode": "STP"
+      "DiDiPay": "STP"
     },
     {
+      "FeibaoPay": "STLAP",
       "BankName": "Sterling Bank of Asia",
-      "ProviderBankCode": "SLB"
+      "DiDiPay": "SLB"
     },
     {
+      "FeibaoPay": -1,
       "BankName": "Sun Savings Bank",
-      "ProviderBankCode": "SSB"
+      "DiDiPay": "SSB"
     },
     {
+      "FeibaoPay": -1,
       "BankName": "TayoCash",
-      "ProviderBankCode": "TC"
+      "DiDiPay": "TC"
     },
     {
+      "FeibaoPay": "UCPB",
       "BankName": "UCPB Savings Bank",
-      "ProviderBankCode": "USB"
+      "DiDiPay": "USB"
     },
     {
+      "FeibaoPay": -1,
       "BankName": "BanKo,A Subsidiary of BPI",
-      "ProviderBankCode": "BK"
+      "DiDiPay": "BK"
     },
     {
+      "FeibaoPay": -1,
       "BankName": "Bayad",
-      "ProviderBankCode": "Bayad"
+      "DiDiPay": "Bayad"
     },
     {
+      "FeibaoPay": "BDONP",
       "BankName": "BDO NeTwork Bank",
-      "ProviderBankCode": "BNB"
+      "DiDiPay": "BNB"
     },
     {
+      "FeibaoPay": "RUCAP",
       "BankName": "Camalig Bank",
-      "ProviderBankCode": "CB"
+      "DiDiPay": "CB"
     },
     {
+      "FeibaoPay": "",
       "BankName": "CARD Bank",
-      "ProviderBankCode": "CARD Bank"
+      "DiDiPay": "CARD Bank"
     },
     {
+      "FeibaoPay": "CELRP",
       "BankName": "Cebuana Lhuillier Bank / Cebuana Xpress",
-      "ProviderBankCode": "CLB"
+      "DiDiPay": "CLB"
     },
     {
+      "FeibaoPay": "CHSVP",
       "BankName": "China Bank Savings",
-      "ProviderBankCode": "CBS"
+      "DiDiPay": "CBS"
     },
     {
+      "FeibaoPay": "COINP",
       "BankName": "Coins.ph (DCPay)",
-      "ProviderBankCode": "Coins"
+      "DiDiPay": "Coins"
     },
     {
+      "FeibaoPay": "CTCBP",
       "BankName": "CTBC Bank (Philippines) Corporation",
-      "ProviderBankCode": "CTBC"
+      "DiDiPay": "CTBC"
     },
     {
+      "FeibaoPay": "DCDEP",
       "BankName": "Dumaguete City Development Bank",
-      "ProviderBankCode": "DCDB"
+      "DiDiPay": "DCDB"
     },
     {
+      "FeibaoPay": "USSCP",
       "BankName": "USSC Monet Services",
-      "ProviderBankCode": "USSC"
+      "DiDiPay": "USSC"
     },
     {
+      "FeibaoPay": "PHVBP",
       "BankName": "Veterans Bank",
-      "ProviderBankCode": "VB"
+      "DiDiPay": "VB"
     },
     {
+      "FeibaoPay": "WEDVP",
       "BankName": "Wealth Development Bank",
-      "ProviderBankCode": "WDB"
+      "DiDiPay": "WDB"
     }
 
   ]
