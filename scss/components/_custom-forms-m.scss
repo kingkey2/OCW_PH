@@ -1340,29 +1340,33 @@
 
   }
 
-  .custom-control-input-hidden{
-    // ~ .checkbox{
-    ~ .custom-input{
-      border: solid 1px rgba( #C2C2C2, 1);
-      border-radius: 10px;     
+  &.default{
+    .custom-control-input-hidden{
+      // ~ .checkbox{
+      ~ .custom-input{
+        border: solid 1px rgba( #C2C2C2, 1);
+        border-radius: 10px; 
+      }  
+    }
 
+    .custom-control-input-hidden:checked
+    {    
+      // ~ .checkbox{
+      ~ .custom-input{
+          // box-shadow: 0px 0px 5px 3px rgba(rgb(0, 110, 255), 0.55); 
+        // border-color: #009FE8;
+  
+        box-shadow: 0px 0px 5px 3px rgb(43 182 201);
+        border-color: #079eb2;      
+      }    
     }
 
   }
-  
-  
-  .custom-control-input-hidden:checked
-  {    
-    // ~ .checkbox{
-    ~ .custom-input{
-        // box-shadow: 0px 0px 5px 3px rgba(rgb(0, 110, 255), 0.55); 
-      // border-color: #009FE8;
+ 
 
-      box-shadow: 0px 0px 5px 3px rgb(43 182 201);
-      border-color: #079eb2;      
-    }
-    
-  }
+  
+  
+  
 
   .custom-control-input-hidden:disabled {
     &:checked ~ .custom-control-label::before {
@@ -1379,12 +1383,16 @@
         .logo-wrap { 
           // box-shadow: 0px 0px 10px rgba(rgb(0, 110, 255), 0.55);
         }
-        
-        // .checkbox{
-        .custom-input{
-          box-shadow: 0px 0px 5px 1px #58b9c7, inset 0 0 4px 0px #58b9c7;
-          border-color: #2fcbe0;
+
+        &.default{
+           // .checkbox{
+          .custom-input{
+            box-shadow: 0px 0px 5px 1px #58b9c7, inset 0 0 4px 0px #58b9c7;
+            border-color: #2fcbe0;
+          }
         }
+        
+        
     }
       
   }

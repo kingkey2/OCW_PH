@@ -82,7 +82,8 @@ select:-webkit-autofill:focus {
     }
 
     &::placeholder {
-        color: transparent;
+        // color: transparent;
+        color: rgba(44, 45, 58, 0.25);
     }
 
     ~ .form-label {
@@ -680,7 +681,8 @@ select:-webkit-autofill:focus {
         border: none;
       
         &::placeholder {
-            color: transparent;
+            // color: transparent;
+            color: rgba(44, 45, 58, 0.25);
         }
 
         &,
