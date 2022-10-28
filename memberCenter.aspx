@@ -502,13 +502,9 @@
         window.parent.API_LoadingStart();
 
         p.UpdateUserAccount(WebInfo.SID, Math.uuid(), data, function (success, o) {
-            window.parent.API_LoadingEnd(1);
             if (success) {
                 if (o.Result == 0) {
-                    $("#IsFullRegistration0").hide();
-                    $("#CertificationForm").hide();
-                    $("#CertificationSucc").show();
-                    $("#IsFullRegistration1").show();
+                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx', true);
                 } else {
                     $("#CertificationForm").hide();
                     $("#CertificationFail").show();
