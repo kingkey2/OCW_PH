@@ -1129,6 +1129,26 @@ color: #008fd1;
 
 }
 
+.ModalAddCard{
+    .icon-mask {
+        width: 30px;
+        height: 30px;
+        margin-right: 0.25rem;
+
+        &:before {
+            background-color: rgba(#207A80, 1);
+        }
+    }
+    .custom-input{
+        font-size: font-resze(20px);
+        font-weight: 500;
+    }
+
+    .custom-input-noCheck.default .custom-control-input-hidden:checked ~.custom-input{
+        background-color: #F1FDFF;
+    }
+}
+
 
 @include media-breakpoint-up(smg){
     .brand-popup-list{
