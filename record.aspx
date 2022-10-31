@@ -223,8 +223,10 @@
                                     c.setClassText(RecordDom, "gameName", null, "EWinゲーミング");
                                     GI_img.src = WebInfo.ImageUrl + "/" + GameBrand + "/" + WebInfo.Lang + "/EWinGaming.png";
                                 } else {
-                                    GI_img.src = WebInfo.ImageUrl +"/" + GameBrand + "/" + WebInfo.Lang + "/" + GameName + ".png";
+                                    GI_img.src = WebInfo.ImageUrl + "/" + GameBrand + "/" + WebInfo.Lang + "/" + GameName + ".png";
                                 }
+
+                                GI_img.onerror = new Function("showDefauktGameIcon('" + GameBrand + "', '" + GameName + "')");
 
                                 panel.appendChild(RecordDom);
                             }).bind(record))
@@ -682,6 +684,19 @@
         e.onerror = null;
         e.src = "images/icon/GameDefault.png";
     }
+
+    function showDefauktGameIcon(GameBrand, GameName) {
+        var el = event.target;
+        el.onerror = showDefauktGameIcon2;
+        el.src = WebInfo.ImageUrl + "/" + GameBrand + "/ENG/" + GameName + ".png";
+    }
+
+    function showDefauktGameIcon2() {
+        var el = event.target;
+        el.onerror = null;
+        el.src = WebInfo.ImageUrl + "/default.png";
+    }
+
 
     function EWinEventNotify(eventName, isDisplay, param) {
         switch (eventName) {
