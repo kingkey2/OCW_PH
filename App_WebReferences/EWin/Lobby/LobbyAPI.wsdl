@@ -30,6 +30,105 @@
           <s:enumeration value="ERR" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="RemoveUserAccountAddRate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="AddRateType" type="tns:enumAddRateType" />
+            <s:element minOccurs="0" maxOccurs="1" name="MatchContent" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="enumAddRateType">
+        <s:restriction base="s:string">
+          <s:enumeration value="GameAccountingCode" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="RemoveUserAccountAddRateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RemoveUserAccountAddRateResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClearUserAccountAddRate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="AddRateType" type="tns:enumAddRateType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClearUserAccountAddRateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ClearUserAccountAddRateResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListUserAccountAddRate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="AddRateType" type="tns:enumAddRateType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListUserAccountAddRateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListUserAccountAddRateResult" type="tns:UserAccountAddRateList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserAccountAddRateList">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="List" type="tns:ArrayOfUserAccountAddRate" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfUserAccountAddRate">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserAccountAddRate" nillable="true" type="tns:UserAccountAddRate" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserAccountAddRate">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AddRateType" type="tns:enumAddRateType" />
+          <s:element minOccurs="0" maxOccurs="1" name="MatchContent" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipAddRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ThresholdAddRate" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SetUserAccountAddRate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="AddRateType" type="tns:enumAddRateType" />
+            <s:element minOccurs="0" maxOccurs="1" name="MatchContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="BuyChipAddRate" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="ThresholdAddRate" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserAccountAddRateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetUserAccountAddRateResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ListPromotionJoin">
         <s:complexType>
           <s:sequence>
@@ -1976,6 +2075,7 @@
         </s:sequence>
       </s:complexType>
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
+      <s:element name="UserAccountAddRateList" nillable="true" type="tns:UserAccountAddRateList" />
       <s:element name="PromotionJoinListResult" nillable="true" type="tns:PromotionJoinListResult" />
       <s:element name="GameCodeOnlineListResult" nillable="true" type="tns:GameCodeOnlineListResult" />
       <s:element name="AccountingList" nillable="true" type="tns:AccountingList" />
@@ -2008,6 +2108,30 @@
   </wsdl:message>
   <wsdl:message name="HeartBeatSoapOut">
     <wsdl:part name="parameters" element="tns:HeartBeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="RemoveUserAccountAddRateSoapIn">
+    <wsdl:part name="parameters" element="tns:RemoveUserAccountAddRate" />
+  </wsdl:message>
+  <wsdl:message name="RemoveUserAccountAddRateSoapOut">
+    <wsdl:part name="parameters" element="tns:RemoveUserAccountAddRateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ClearUserAccountAddRateSoapIn">
+    <wsdl:part name="parameters" element="tns:ClearUserAccountAddRate" />
+  </wsdl:message>
+  <wsdl:message name="ClearUserAccountAddRateSoapOut">
+    <wsdl:part name="parameters" element="tns:ClearUserAccountAddRateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListUserAccountAddRateSoapIn">
+    <wsdl:part name="parameters" element="tns:ListUserAccountAddRate" />
+  </wsdl:message>
+  <wsdl:message name="ListUserAccountAddRateSoapOut">
+    <wsdl:part name="parameters" element="tns:ListUserAccountAddRateResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountAddRateSoapIn">
+    <wsdl:part name="parameters" element="tns:SetUserAccountAddRate" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountAddRateSoapOut">
+    <wsdl:part name="parameters" element="tns:SetUserAccountAddRateResponse" />
   </wsdl:message>
   <wsdl:message name="ListPromotionJoinSoapIn">
     <wsdl:part name="parameters" element="tns:ListPromotionJoin" />
@@ -2398,6 +2522,46 @@
     <wsdl:part name="Echo" type="s:string" />
   </wsdl:message>
   <wsdl:message name="HeartBeatHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="RemoveUserAccountAddRateHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="AddRateType" type="s:string" />
+    <wsdl:part name="MatchContent" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RemoveUserAccountAddRateHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="ClearUserAccountAddRateHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="AddRateType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ClearUserAccountAddRateHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="ListUserAccountAddRateHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="AddRateType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListUserAccountAddRateHttpGetOut">
+    <wsdl:part name="Body" element="tns:UserAccountAddRateList" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountAddRateHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="AddRateType" type="s:string" />
+    <wsdl:part name="MatchContent" type="s:string" />
+    <wsdl:part name="BuyChipAddRate" type="s:string" />
+    <wsdl:part name="ThresholdAddRate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountAddRateHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="ListPromotionJoinHttpGetIn">
@@ -2988,6 +3152,46 @@
   <wsdl:message name="HeartBeatHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="RemoveUserAccountAddRateHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="AddRateType" type="s:string" />
+    <wsdl:part name="MatchContent" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RemoveUserAccountAddRateHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="ClearUserAccountAddRateHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="AddRateType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ClearUserAccountAddRateHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="ListUserAccountAddRateHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="AddRateType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListUserAccountAddRateHttpPostOut">
+    <wsdl:part name="Body" element="tns:UserAccountAddRateList" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountAddRateHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="AddRateType" type="s:string" />
+    <wsdl:part name="MatchContent" type="s:string" />
+    <wsdl:part name="BuyChipAddRate" type="s:string" />
+    <wsdl:part name="ThresholdAddRate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountAddRateHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="ListPromotionJoinHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -3574,6 +3778,22 @@
       <wsdl:input message="tns:HeartBeatSoapIn" />
       <wsdl:output message="tns:HeartBeatSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountAddRate">
+      <wsdl:input message="tns:RemoveUserAccountAddRateSoapIn" />
+      <wsdl:output message="tns:RemoveUserAccountAddRateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClearUserAccountAddRate">
+      <wsdl:input message="tns:ClearUserAccountAddRateSoapIn" />
+      <wsdl:output message="tns:ClearUserAccountAddRateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListUserAccountAddRate">
+      <wsdl:input message="tns:ListUserAccountAddRateSoapIn" />
+      <wsdl:output message="tns:ListUserAccountAddRateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountAddRate">
+      <wsdl:input message="tns:SetUserAccountAddRateSoapIn" />
+      <wsdl:output message="tns:SetUserAccountAddRateSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ListPromotionJoin">
       <wsdl:input message="tns:ListPromotionJoinSoapIn" />
       <wsdl:output message="tns:ListPromotionJoinSoapOut" />
@@ -3836,6 +4056,22 @@
       <wsdl:input message="tns:HeartBeatHttpGetIn" />
       <wsdl:output message="tns:HeartBeatHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountAddRate">
+      <wsdl:input message="tns:RemoveUserAccountAddRateHttpGetIn" />
+      <wsdl:output message="tns:RemoveUserAccountAddRateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClearUserAccountAddRate">
+      <wsdl:input message="tns:ClearUserAccountAddRateHttpGetIn" />
+      <wsdl:output message="tns:ClearUserAccountAddRateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListUserAccountAddRate">
+      <wsdl:input message="tns:ListUserAccountAddRateHttpGetIn" />
+      <wsdl:output message="tns:ListUserAccountAddRateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountAddRate">
+      <wsdl:input message="tns:SetUserAccountAddRateHttpGetIn" />
+      <wsdl:output message="tns:SetUserAccountAddRateHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="ListPromotionJoin">
       <wsdl:input message="tns:ListPromotionJoinHttpGetIn" />
       <wsdl:output message="tns:ListPromotionJoinHttpGetOut" />
@@ -4082,6 +4318,22 @@
       <wsdl:input message="tns:HeartBeatHttpPostIn" />
       <wsdl:output message="tns:HeartBeatHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountAddRate">
+      <wsdl:input message="tns:RemoveUserAccountAddRateHttpPostIn" />
+      <wsdl:output message="tns:RemoveUserAccountAddRateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClearUserAccountAddRate">
+      <wsdl:input message="tns:ClearUserAccountAddRateHttpPostIn" />
+      <wsdl:output message="tns:ClearUserAccountAddRateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListUserAccountAddRate">
+      <wsdl:input message="tns:ListUserAccountAddRateHttpPostIn" />
+      <wsdl:output message="tns:ListUserAccountAddRateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountAddRate">
+      <wsdl:input message="tns:SetUserAccountAddRateHttpPostIn" />
+      <wsdl:output message="tns:SetUserAccountAddRateHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="ListPromotionJoin">
       <wsdl:input message="tns:ListPromotionJoinHttpPostIn" />
       <wsdl:output message="tns:ListPromotionJoinHttpPostOut" />
@@ -4327,6 +4579,42 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="HeartBeat">
       <soap:operation soapAction="http://tempuri.org/HeartBeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountAddRate">
+      <soap:operation soapAction="http://tempuri.org/RemoveUserAccountAddRate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearUserAccountAddRate">
+      <soap:operation soapAction="http://tempuri.org/ClearUserAccountAddRate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListUserAccountAddRate">
+      <soap:operation soapAction="http://tempuri.org/ListUserAccountAddRate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountAddRate">
+      <soap:operation soapAction="http://tempuri.org/SetUserAccountAddRate" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4922,6 +5210,42 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountAddRate">
+      <soap12:operation soapAction="http://tempuri.org/RemoveUserAccountAddRate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearUserAccountAddRate">
+      <soap12:operation soapAction="http://tempuri.org/ClearUserAccountAddRate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListUserAccountAddRate">
+      <soap12:operation soapAction="http://tempuri.org/ListUserAccountAddRate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountAddRate">
+      <soap12:operation soapAction="http://tempuri.org/SetUserAccountAddRate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ListPromotionJoin">
       <soap12:operation soapAction="http://tempuri.org/ListPromotionJoin" style="document" />
       <wsdl:input>
@@ -5510,6 +5834,42 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountAddRate">
+      <http:operation location="/RemoveUserAccountAddRate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearUserAccountAddRate">
+      <http:operation location="/ClearUserAccountAddRate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListUserAccountAddRate">
+      <http:operation location="/ListUserAccountAddRate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountAddRate">
+      <http:operation location="/SetUserAccountAddRate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ListPromotionJoin">
       <http:operation location="/ListPromotionJoin" />
       <wsdl:input>
@@ -6055,6 +6415,42 @@
     <http:binding verb="POST" />
     <wsdl:operation name="HeartBeat">
       <http:operation location="/HeartBeat" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountAddRate">
+      <http:operation location="/RemoveUserAccountAddRate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearUserAccountAddRate">
+      <http:operation location="/ClearUserAccountAddRate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListUserAccountAddRate">
+      <http:operation location="/ListUserAccountAddRate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountAddRate">
+      <http:operation location="/SetUserAccountAddRate" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
