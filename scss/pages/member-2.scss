@@ -3266,7 +3266,8 @@ $card-bg-normal: (
         overflow: hidden;
 
         .swiper-pagination{
-            top: 0;        
+            top: 0;
+            bottom: auto;        
         }
      }
 

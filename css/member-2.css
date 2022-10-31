@@ -2109,6 +2109,7 @@ input.month:read-only, input.day:read-only {
   }
   .section-cashflow-card .swiper-pagination {
     top: 0;
+    bottom: auto;
   }
 
   .cashflowCard-slider-wrapper {
