@@ -768,14 +768,18 @@
                                             <div class="password-real">
                                                 <div id="idOldPasswordGroup" class="data-item-form-group is-hide">
                                                     <input type="password" class="form-control" id="idOldPassword" value="" language_replace="placeholder" placeholder="請輸入舊密碼" >
+                                                    <%--
                                                     <label for="" class="form-label"><span class="language_replace">請輸入舊密碼</span></label>
+                                                    --%>
                                                     <span id="idOldPasswordSuccessIcon" class="label success is-hide"><i class="icon icon-mask icon-check"></i></span>
                                                     <span id="idOldPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
                                                     <p class="notice is-hide" id="OldPasswordErrorMessage"></p>
                                                 </div>
                                                 <div id="idNewPasswordGroup" class="data-item-form-group is-hide">
                                                     <input type="password" class="form-control" id="idNewPassword" value="" language_replace="placeholder" placeholder="請輸入新密碼">
+                                                    <%--
                                                     <label for="" class="form-label"><span class="language_replace">請輸入新密碼</span></label>
+                                                    --%>
                                                     <span id="idNewPasswordSuccessIcon" class="label success is-hide"><i class="icon icon-mask icon-check"></i></span>
                                                     <span id="idNewPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
                                                     <p class="notice is-hide" id="NewPasswordErrorMessage"></p>                                                 

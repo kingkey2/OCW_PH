@@ -699,7 +699,7 @@
 
             }
             
-            imgsrc =  `${WebInfo.ImageUrl}/${gameItem.GameBrand}/${WebInfo.Lang}/${gameItem.GameName}.png`;
+            imgsrc = `${WebInfo.ImageUrl}/${gameItem.GameBrand}/${WebInfo.Lang}/${gameItem.GameName}.png`;
            /*  三冠王 ===========================
             等級：crownLevel-1/
             類別：crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4) 
@@ -716,7 +716,7 @@
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}" onerror="setDefaultIcon(this)">
+                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon('${gameItem.GameBrand}', '${gameItem.GameName}')">
                                     </div>
                              </div>
                              <div class="game-item-info">
@@ -733,7 +733,7 @@
                                 <div class="game-item-img">
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}" onerror="setDefaultIcon(this)">
+                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon('${gameItem.GameBrand}', '${gameItem.GameName}')">
                                     </div>
                                 </div>
  
@@ -1273,6 +1273,20 @@
     function setDefaultIcon(e) {
         e.onerror = null;
         e.src = "images/icon/GameDefault.png";
+    }
+
+    function showDefauktGameIcon(GameBrand, GameName) {
+        var el = event.target;
+        el.onerror = showDefauktGameIcon2;
+        el.src = WebInfo.ImageUrl+"/" + GameBrand + "/ENG/" + GameName + ".png";
+    }
+
+    function showDefauktGameIcon2() {
+  
+        var el = event.target;
+        console.log(el.src);
+        el.onerror = null;
+        el.src = WebInfo.ImageUrl+"/default.png";
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
