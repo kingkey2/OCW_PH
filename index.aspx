@@ -923,13 +923,25 @@
 
         if (GI_img != null) {
             GI_img.src = `${EWinWebInfo.ImageUrl}/${brandName}/${EWinWebInfo.Lang}/${gameName}.png`;
-
+            GI_img.onerror = new Function("showDefauktGameIcon('" + brandName + "', '" + gameName + "')");
             //var el = GI_img;
             //var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
             //observer.observe();
         }
 
         popupMoblieGameInfo.modal('show');
+    }
+
+    function showDefauktGameIcon(GameBrand, GameName) {
+        var el = event.target;
+        el.onerror = showDefauktGameIcon2;
+        el.src = EWinWebInfo.ImageUrl + "/" + GameBrand + "/ENG/" + GameName + ".png";
+    }
+
+    function showDefauktGameIcon2() {
+        var el = event.target;
+        el.onerror = null;
+        el.src = EWinWebInfo.ImageUrl + "/default.png";
     }
 
     function showPartialHtml(title, pathName, isNeedLang, cbOK) {
@@ -2712,7 +2724,8 @@
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
                             //GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/${lang}/${gameItem.GameName}.png`;
-                            GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
+                            GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/${EWinWebInfo.Lang}/${gameItem.GameName}.png`;
+                            GI_img.onerror = new Function("showDefauktGameIcon('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
                             var el = GI_img;
                             var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                             observer.observe();
@@ -3060,7 +3073,8 @@
                 var GI_img = GI.querySelector(".gameimg");
                 if (GI_img != null) {
                     //GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/${lang}/${gameItem.GameName}.png`; 
-                    GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
+                    GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/${EWinWebInfo.Lang}/${gameItem.GameName}.png`;
+                    GI_img.onerror = new Function("showDefauktGameIcon('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
                     var el = GI_img;
                     var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                     observer.observe();
@@ -4233,7 +4247,7 @@
                                     <div class="game-item-img">
                                         <span class="game-item-link"></span>
                                         <div class="img-wrap">
-                                            <img class="imgsrc" src="" onerror="setDefaultIcon(this)">
+                                            <img class="imgsrc" src="">
                                         </div>
                                     </div>
                                     <div class="game-item-info-detail open">
