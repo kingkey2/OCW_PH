@@ -3002,24 +3002,22 @@
                                         <label class="form-title language_replace">戶名</label>
                                         <div class="input-group">
                                             <input id="idEmail" name="Email" type="text" language_replace="placeholder"
-                                                class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
+                                                class="form-control custom-style" placeholder="請填寫帳戶名稱" inputmode="email">
                                             <div class="invalid-feedback language_replace">提示</div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-title language_replace">國際碼</label>
+                                        <label class="form-title language_replace">國碼</label>
                                         <div class="input-group">
-                                            <input id="idEmail" name="Email" type="text" language_replace="placeholder"
-                                                class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
-                                            <div class="invalid-feedback language_replace">提示</div>
+                                            <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+63" inputmode="decimal" value="+63" onchange="()">
+                                            <div class="invalid-feedback language_replace">請輸入國碼</div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-title language_replace">電話</label>
+                                        <label class="form-title language_replace">手機電話號碼</label>
                                         <div class="input-group">
-                                            <input id="idEmail" name="Email" type="text" language_replace="placeholder"
-                                                class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
-                                            <div class="invalid-feedback language_replace">提示</div>
+                                            <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-000-0000" inputmode="decimal">
+                                            <div class="invalid-feedback language_replace">請輸入正確電話</div>
                                         </div>
                                     </div>
                                 </div>
