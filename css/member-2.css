@@ -443,9 +443,6 @@ input.month:read-only, input.day:read-only {
 .cashflowCard-slider {
   padding-bottom: 75px;
 }
-.cashflowCard-slider.swiper-container {
-  overflow: visible;
-}
 .cashflowCard-slider .swiper-slide {
   padding: 0 10px;
   height: auto;
