@@ -364,8 +364,9 @@
 
     function initSwiper() {
         var sliderCardCashFlow = new Swiper("#slider-CardCashFlow", {
-            // loop: true,           
-            slidesPerView: 3,
+            loop: true,           
+            // slidesPerView: 3,
+            slidesPerView: "auto",
             centeredSlides: true,
             // effect: "fade",
             speed: 1000, //Duration of transition between slides (in ms)
@@ -387,8 +388,8 @@
             },
             breakpoints: {                
                 768: {
-                    slidesPerView: 3,
-                    centeredSlides: true,
+                    // slidesPerView: 3,
+                    // centeredSlides: true,
                     // slidesPerGroup: 6, //index:992px
                 },
                
@@ -396,7 +397,7 @@
 
         });
     }
-
+  
     function TabSwitch(type) {
         $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_Tab" + type).addClass("active");
