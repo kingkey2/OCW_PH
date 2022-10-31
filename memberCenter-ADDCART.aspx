@@ -364,9 +364,9 @@
 
     function initSwiper() {
         var sliderCardCashFlow = new Swiper("#slider-CardCashFlow", {
-            loop: true,           
-            slidesPerView: 1,
-            // centeredSlides: true,
+            // loop: true,           
+            slidesPerView: 3,
+            centeredSlides: true,
             // effect: "fade",
             speed: 1000, //Duration of transition between slides (in ms)
             // autoplay: {
@@ -385,16 +385,10 @@
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
             },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    centeredSlides: true,
-                    // loop: true,
-                    // slidesPerGroup: 6, //index:992px
-                },
+            breakpoints: {                
                 768: {
                     slidesPerView: 3,
-                    // centeredSlides: true,
+                    centeredSlides: true,
                     // slidesPerGroup: 6, //index:992px
                 },
                
@@ -406,13 +400,15 @@
     function TabSwitch(type) {
         $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_Tab" + type).addClass("active");
+        
 
         if (type == 0) {
             $("#divMemberProfile").show();
             $("#divMemberWallet").hide();
         } else {
-            $("#divMemberWallet").show();
+            $("#divMemberWallet").show();            
             $("#divMemberProfile").hide();
+            initSwiper();
         }
     }
 
@@ -455,7 +451,7 @@
             //document.getElementById('idWalletPasswordUnSet').style.display = "block";
         }
 
-        initSwiper();
+        // initSwiper();
 
     }
 
