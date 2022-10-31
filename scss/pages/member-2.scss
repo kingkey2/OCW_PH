@@ -592,12 +592,50 @@ input{
         .card-item{
             background: linear-gradient(107.89deg, #0180A2 1.19%, #0185A7 25.54%, #0098C8 101.21%);
         }
+        .branch{
+            display: inline-flex;
+            align-items: center;
+            &::before{
+                content: '';
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: #9ADDE7;
+                display: inline-flex;
+                margin: 0 0.45rem;
+            }
+        }
+        .btn-delete{
+            .icon-mask {               
+                &:before {
+                    // background-color: rgba(#000, 0.55);
+                }
+            }
+
+        }
+
+       
     }
     .gcash{
         .card-item{
             background: linear-gradient(107.89deg, #1265BD -0.39%, #197CE3 101.21%);
+        }
+
+        .card-info{
+            .icon-mask {
+                width: font-resize(24px);
+                height: font-resize(24px);
+                margin-right: 4px;
+    
+                &:before {
+                    background-color: rgba(#FFD19B, .75);
+                }       
+            }
 
         }
+
+        
+
     }
     .custom-control,
     .custom-label{
@@ -613,13 +651,15 @@ input{
         color: #fff;
         padding: 20px 15px;
         position: relative;
+        overflow: hidden;
+        
         
         *{
             font-weight: 300;
             font-size: inherit;
         }
 
-        &:after{
+        &::after{
             content: attr(data-card-num);
             position: absolute;
             background-color: rgba(#000, 0.21);
@@ -629,12 +669,34 @@ input{
             border-radius: 0 0 30px 30px;
             
         }
+
+        &::before{
+            content: '';
+                width: 120%;
+                height: 0;
+                padding-bottom: 120%;
+                border-radius: 50%;
+                background-color: rgba(#fff, 0.08);
+                display: inline-flex;
+                
+                position: absolute;
+                right: -25%;
+                bottom: -165%;
+
+
+        }
+
+        &-inner{
+            width: calc(100% - 50px);
+        }
     }
 
     .card-type{
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-bottom: 15px;
+        padding-bottom: 5px;
 
         .type{
             display: flex;            
@@ -650,6 +712,7 @@ input{
 
     .card-status{
         font-size: font-resize(12px);
+        color: #FFD19B;
     }
 
     //user自行建立卡片名稱
@@ -665,6 +728,8 @@ input{
         
         .bank{
             display: flex;
+            margin-bottom: 1rem;
+            color: #F2F0F0;
         }
         .account-name{
             font-size: font-resize(12px);
@@ -683,17 +748,28 @@ input{
 
         .icon-mask {
             width: 100%;
-            height: 100%;
+            height: 100%;   
+            &:before {
+                background-color: rgba(#000, 0.55);
+            }       
         }
+
         &:hover{
             background-color: rgba(#000, 0.45);
-            
+            .icon-mask {
+               
+                &:before {
+                    background-color: rgba(#fff, 0.95);            }       
+            }
+
         }
     }
 
     .card-info{
         .item{
             display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
         }
     }
 
@@ -3247,8 +3323,8 @@ $card-bg-normal: (
         display: flex;
         flex-flow: column wrap;
         // width: 300px;
-        flex: 0 0 300px;
-        padding-right: 20px;
+        flex: 0 0 500px;
+        padding-right: 60px;
         margin-bottom: 0;
        
         .member-wallet-deposit-wrapper{
