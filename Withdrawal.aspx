@@ -240,7 +240,7 @@
                         </a>
                            <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
-                       <div class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalGCASH','WithdrawalGCASH.aspx')">
+                       <div class="card-item sd-09 tempCard" onclick="window.parent.API_LoadPage('WithdrawalGCASH','WithdrawalGCASH.aspx')">
                         <a class="card-item-link ">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -249,7 +249,7 @@
                                 </div>
                                 <div class="logo vertical-center text-center">
                                     <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-bankcard.png">
+                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
                                 </div>
                             </div>
                         </a>
