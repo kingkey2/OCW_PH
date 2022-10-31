@@ -849,6 +849,12 @@ textarea, input, button, select{
         &.processing{
             background-color: #FFB103;
         }
+	
+		.icon-mask {
+			&:before {
+				background-color: #fff;
+			}
+		}
 
 }
 
@@ -937,6 +943,7 @@ hr{
 		align-items: center;
 		// margin-bottom: 1rem;
 		margin-bottom: .5rem;
+		width: 100%;
 
 		.text-link {
 			font-size: font-resize(13px);

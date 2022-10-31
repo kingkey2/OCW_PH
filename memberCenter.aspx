@@ -504,7 +504,9 @@
         p.UpdateUserAccount(WebInfo.SID, Math.uuid(), data, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx', true);
+                    window.top.API_RefreshUserInfo(function () {
+                        window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx', true);
+                    });
                 } else {
                     $("#CertificationForm").hide();
                     $("#CertificationFail").show();
@@ -1118,7 +1120,7 @@
                                 <div class="form-group">
                                     <label class="form-title language_replace">信箱</label>
                                     <div class="input-group">
-                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
+                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請輸入正確信箱" inputmode="email">
                                         <div class="invalid-feedback language_replace">請輸入正確信箱</div>
                                     </div>
                                 </div>

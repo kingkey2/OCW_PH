@@ -364,8 +364,9 @@
 
     function initSwiper() {
         var sliderCardCashFlow = new Swiper("#slider-CardCashFlow", {
-            // loop: true,
+            // loop: true,           
             slidesPerView: 3,
+            centeredSlides: true,
             // effect: "fade",
             speed: 1000, //Duration of transition between slides (in ms)
             // autoplay: {
@@ -384,18 +385,31 @@
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
             },
-            breakpoints: {
-                992: {
-                    freeMode: false,
+            breakpoints: {                
+                768: {
                     slidesPerView: 3,
-                    // centeredSlides: true,
-                    // loop: true,
+                    centeredSlides: true,
                     // slidesPerGroup: 6, //index:992px
                 },
                
             }
 
         });
+    }
+
+    function TabSwitch(type) {
+        $(".tab-scroller__content").find(".tab-item").removeClass("active");
+        $("#li_Tab" + type).addClass("active");
+        
+
+        if (type == 0) {
+            $("#divMemberProfile").show();
+            $("#divMemberWallet").hide();
+        } else {
+            $("#divMemberWallet").show();            
+            $("#divMemberProfile").hide();
+            initSwiper();
+        }
     }
 
 
@@ -579,6 +593,8 @@
         $("#btn_PupLangClose1").click();
     }
 
+    
+
     $(document).on('shown.bs.modal', '#ModalMemberLevel', function () {
         if (!initPopUpSwiperEnd) {
             initPopUpSwiper();
@@ -597,22 +613,25 @@
                     <!-- TAB -->
                     <div class="tab-member tab-scroller tab-2 tab-primary">
                         <div class="tab-scroller__area">
-                            <ul class="tab-scroller__content">
-                                <li class="tab-item payment active" onclick="" id="tabRecordPayment">
-                                    <span class="tab-item-link"><span class="title"><span class="language_replace">個人資訊</span></span>
+                            <ul class="tab-scroller__content" id="">
+                                <li class="tab-item act-running active" id="li_Tab0" onclick="TabSwitch(0)">
+                                    <span class="tab-item-link">
+                                        <span class="title language_replace">個人資訊</span>
                                     </span>
                                 </li>
-                                <li class="tab-item game" onclick="" id="tabRecordGame">
-                                    <span class="tab-item-link"><span class="title"><span class="language_replace">個人錢包</span></span>
+                                <li class="tab-item act-finish" id="li_Tab1" onclick="TabSwitch(1)">
+                                    <span class="tab-item-link">
+                                        <span class="title language_replace">個人錢包</span>
                                     </span>
                                 </li>
                                 <div class="tab-slide"></div>
                             </ul>
                         </div>
                     </div>
+                   
 
                     <!-- 個人資料 -->
-                    <section class="section-member-profile" style="display: ;">
+                    <section id="divMemberProfile" class="section-member-profile" style="display: ;">
                         <!-- 會員頭像 + 會員等級 -->
                         <div class="member-profile-wrapper" style="display:">
                             <div class="member-profile-avater-wrapper">
@@ -699,7 +718,7 @@
 
                                 <!-- 當點擊 資料更新 Button時 text input可編輯的項目 會移除 readonly-->
                                 <div class="dataFieldset-content row no-gutters">
-                                    <div class="data-item name" style="width: 50%">
+                                    <div class="data-item name">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-people"></i>
@@ -710,7 +729,7 @@
                                             <input type="text" class="custom-input-edit" id="RealName" value="" readonly>
                                         </div>
                                     </div>
-                                    <div class="data-item birth" style="width: 50%">
+                                    <div class="data-item birth">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-gift"></i>
@@ -749,14 +768,18 @@
                                             <div class="password-real">
                                                 <div id="idOldPasswordGroup" class="data-item-form-group is-hide">
                                                     <input type="password" class="form-control" id="idOldPassword" value="" language_replace="placeholder" placeholder="請輸入舊密碼" >
+                                                    <%--
                                                     <label for="" class="form-label"><span class="language_replace">請輸入舊密碼</span></label>
+                                                    --%>
                                                     <span id="idOldPasswordSuccessIcon" class="label success is-hide"><i class="icon icon-mask icon-check"></i></span>
                                                     <span id="idOldPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
                                                     <p class="notice is-hide" id="OldPasswordErrorMessage"></p>
                                                 </div>
                                                 <div id="idNewPasswordGroup" class="data-item-form-group is-hide">
                                                     <input type="password" class="form-control" id="idNewPassword" value="" language_replace="placeholder" placeholder="請輸入新密碼">
+                                                    <%--
                                                     <label for="" class="form-label"><span class="language_replace">請輸入新密碼</span></label>
+                                                    --%>
                                                     <span id="idNewPasswordSuccessIcon" class="label success is-hide"><i class="icon icon-mask icon-check"></i></span>
                                                     <span id="idNewPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
                                                     <p class="notice is-hide" id="NewPasswordErrorMessage"></p>                                                 
@@ -764,62 +787,98 @@
                                             </div>
                                         </div>                                        
                                     </div>
-
-                                   <div class="data-item verify">
-                                        <div class="data-item-title">
-                                            <label class="title mb-3">
-                                                <i class="icon icon-mask icon-verify"></i>
-                                                <span class="title-name language_replace">認證狀態</span>
-                                                <span class="btn btn-Q-mark btn-round btn-sm" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
-                                            </label>
-                                        </div>
-                                        <div class="data-item-content">
-                                            <div class="verify-item">
-                                                <!-- 尚未認證 -->
-                                                <span class="verify-result fail" id="IsFullRegistration0" style="display:none">
-                                                    <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
-                                                    <span class="verify-desc language_replace">尚未認證</span>  
-                                                    <button type="button" class="btn btn-verify" data-toggle="modal" data-target="#ModalRegisterComplete">
-                                                        <span class="title language_replace">進行認證</span>
-                                                        <i class="icon icon-mask icon-pencile"></i>
-                                                    </button>
-                                                </span>
-
-                                                <!-- 認證完成 -->
-                                                <span class="verify-result success" id="IsFullRegistration1" style="display:none">
-                                                    <span class="label success"><i class="icon icon-mask icon-check"></i></span>
-                                                    <span class="verify-desc language_replace">認證完成</span>
-                                                </span>
-                                               
+                                    <div class="data-item-group">
+                                        <div class="data-item verify">
+                                            <div class="data-item-title">
+                                                <label class="title mb-3">
+                                                    <i class="icon icon-mask icon-verify"></i>
+                                                    <span class="title-name language_replace">認證狀態</span>
+                                                    <span class="btn btn-Q-mark btn-round btn-sm" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
+                                                </label>
                                             </div>
-                                        </div>                                        
+                                            <div class="data-item-content">
+                                                <div class="verify-item">
+                                                    <!-- 尚未認證 -->
+                                                    <span class="verify-result fail" id="IsFullRegistration0" style="display:none">
+                                                        <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
+                                                        <span class="verify-desc language_replace">尚未認證</span>  
+                                                        <button type="button" class="btn btn-verify" data-toggle="modal" data-target="#ModalRegisterComplete">
+                                                            <span class="title language_replace">進行認證</span>
+                                                            <i class="icon icon-mask icon-pencile"></i>
+                                                        </button>
+                                                    </span>
+    
+                                                    <!-- 認證完成 -->
+                                                    <span class="verify-result success" id="IsFullRegistration1" style="display:none">
+                                                        <span class="label success"><i class="icon icon-mask icon-check"></i></span>
+                                                        <span class="verify-desc language_replace">認證完成</span>
+                                                    </span>
+                                                   
+                                                </div>
+                                            </div>                                        
+                                        </div>
+                                      
+                                        <div class="data-item mobile">
+                                            <div class="data-item-title">
+                                                <label class="title">
+                                                    <i class="icon icon-mask icon-mobile"></i>
+                                                    <span class="title-name language_replace">手機號碼</span>
+                                                </label>
+                                                <%--<div class="labels labels-status">
+                                                    <span class="label language_replace update">更新</span>
+                                                    <span class="label language_replace validated">認証</span>
+                                                    <span class="label language_replace unvalidated">認証済み</span>
+                                                </div>--%>
+                                            </div>
+                                            <div class="data-item-content">
+                                                <input type="text" class="custom-input-edit" id="PhoneNumber" value="" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="data-item email">
+                                            <div class="data-item-title">
+                                                <label class="title">
+                                                    <i class="icon icon-mask icon-mail"></i>
+                                                    <span class="title-name language_replace">E-mail</span>
+                                                </label>
+                                            </div>
+                                            <div class="data-item-content">
+                                                <input type="text" class="custom-input-edit" id="Email" value="" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="wrapper_center">
+                                            <button id="updateUserAccountCancelBtn" onclick="updateUserAccountReadOnly()" type="button" class="btn btn-confirm btn-gray is-hide"><span class="language_replace">取消</span></button>
+                                            <button id="updateUserAccountBtn" onclick="updateUserAccount()" type="button" class="btn btn-confirm btn-full-main is-hide"><span class="language_replace">確認</span></button>
+                                        </div>
                                     </div>
-                                  
-                                    <div class="data-item mobile">
+                                    <div class="data-item qrcode">
                                         <div class="data-item-title">
                                             <label class="title">
-                                                <i class="icon icon-mask icon-mobile"></i>
-                                                <span class="title-name language_replace">手機號碼</span>
-                                            </label>
-                                            <%--<div class="labels labels-status">
-                                                <span class="label language_replace update">更新</span>
-                                                <span class="label language_replace validated">認証</span>
-                                                <span class="label language_replace unvalidated">認証済み</span>
-                                            </div>--%>
-                                        </div>
-                                        <div class="data-item-content">
-                                            <input type="text" class="custom-input-edit" id="PhoneNumber" value="" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="data-item email" style="width: 100%">
-                                        <div class="data-item-title">
-                                            <label class="title">
-                                                <i class="icon icon-mask icon-mail"></i>
-                                                <span class="title-name language_replace">E-mail</span>
+                                                <i class="icon icon-mask icon-qrocde"></i>
+                                                <span class="title-name language_replace">推廣碼</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
-                                            <input type="text" class="custom-input-edit" id="Email" value="" readonly>
+                                            <div class="member-profile-QRcode">
+                                                <div class="qrcode-img">
+                                                    <span class="img">
+                                                        <img id="QRCodeimg" src="" alt="">
+                                                    </span>
+                                                </div>
+                                                <div class="qrcode-number">
+                                                    <span class="number" id="PersonCode"></span>
+                                                    <input id="idCopyPersonCode" class="is-hide">
+
+                                                    <button type="button" class="btn btn-transparent btn-exchange-avater">
+                                                        <i class="icon icon-mask icon-copy" onclick="copyText('idCopyPersonCode')"></i>
+
+                                                    </button>
+
+                                                </div>
+
+                                            </div>
+
+
                                         </div>
                                     </div>
                                    
@@ -855,48 +914,13 @@
                                         </div>
                                         --%>
 
-                                        <div class="wrapper_center">
-                                            <button id="updateUserAccountCancelBtn" onclick="updateUserAccountReadOnly()" type="button" class="btn btn-confirm btn-gray is-hide"><span class="language_replace">取消</span></button>
-                                            <button id="updateUserAccountBtn" onclick="updateUserAccount()" type="button" class="btn btn-confirm btn-full-main is-hide"><span class="language_replace">確認</span></button>
-                                        </div>
-                                        <div class="data-item qrcode">
-                                            <div class="data-item-title">
-                                                <label class="title">
-                                                    <i class="icon icon-mask icon-qrocde"></i>
-                                                    <span class="title-name language_replace">推廣碼</span>
-                                                </label>
-                                            </div>
-                                            <div class="data-item-content">
-                                                <div class="member-profile-QRcode">
-                                                    <div class="qrcode-img">
-                                                        <span class="img">
-                                                            <img id="QRCodeimg" src="" alt="">
-                                                        </span>
-                                                    </div>
-                                                    <div class="qrcode-number">
-                                                        <span class="number" id="PersonCode"></span>
-                                                        <input id="idCopyPersonCode" class="is-hide">
-
-                                                        <button type="button" class="btn btn-transparent btn-exchange-avater">
-                                                            <i class="icon icon-mask icon-copy" onclick="copyText('idCopyPersonCode')"></i>
-
-                                                        </button>
-
-                                                    </div>
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
                             </fieldset>
                         </div>
                     </section>
                     
-                    <section class="section-member-setting">
+                    <section class="section-member-wallet" id="divMemberWallet">
                         <legend class="sec-title-container sec-col-2 sec-title-member ">
                             <div class="sec-title-wrapper">
                                 <h1 class="sec-title title-deco"><span class="language_replace">個人錢包</span></h1>
@@ -996,7 +1020,7 @@
                                     <h1 class="sec-title">
                                         <i class="icon icon-mask icon-card"></i><span class="language_replace">卡片管理</span></h1>
                                 </div>
-                                <button type="button" class="btn btn-addcard btn-transparent" data-toggle="modal" data-target="#ModalAddCard">
+                                <button type="button" class="btn btn-addcard btn-transparent" data-toggle="modal" data-target="#ModalSelectCardWays">
                                     <span class="btn-full-stress btn-round">
                                         <span class="icon icon-add"></span>
                                     </span>
@@ -1005,9 +1029,9 @@
                             </div>
                             <div class="cashflowCard-wrapper">
                              <!-- 無卡片時 -->
-                                <section class="cashflowCard-noCard">
+                                <section class="cashflowCard-noCard" style="display:none">
                                     <div class="card-item">
-                                        <button type="button" class="btn btn-addcard btn-transparent" data-toggle="modal" data-target="#ModalAddCard">
+                                        <button type="button" class="btn btn-addcard btn-transparent" data-toggle="modal" data-target="#ModalSelectCardWays">
                                             <span class="btn-full-stress btn-round">
                                                 <span class="icon icon-add"></span>
                                             </span>
@@ -1018,7 +1042,7 @@
                                 </section>
                                 <!-- BANKCARD/GCash -->
                                 <section class="cashflowCard-slider-wrapper">
-                                    <div class="swiper cashflowCard-slider swiper-container" id="slider-CardCashFlow" style="display: ;">
+                                    <div class="swiper cashflowCard-slider swiper-container" id="slider-CardCashFlow">
                                         <div class="swiper-wrapper">
 
                                             <!-- BANKCARD -->
@@ -1188,8 +1212,7 @@
                                 </div>
                                 </section>
                             </div>                             
-                        </section>    
-
+                        </section> 
                         
                         <!-- 會員簽到進度顯示 + 活動中心 + 獎金中心 -->
                         <section class="section-member-activity">
@@ -1412,7 +1435,7 @@
                                 <div class="form-group">
                                     <label class="form-title language_replace">信箱</label>
                                     <div class="input-group">
-                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
+                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請輸入正確信箱" inputmode="email">
                                         <div class="invalid-feedback language_replace">請輸入正確信箱</div>
                                     </div>
                                 </div>
@@ -2799,7 +2822,7 @@
     </div>
 
     <!-- Modal ADD CARD -->
-    <div class="modal fade footer-center" id="ModalAddCard" tabindex="-1" aria-hidden="true">
+    <div class="modal fade footer-center ModalSelectCardWays" id="ModalSelectCardWays" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable cashCard">
             <div class="modal-content">
                 <div class="modal-header">
@@ -2847,7 +2870,7 @@
         </div>
     </div>
 
-    <!-- Modal BankCard -->
+    <!-- Modal AddCard -->
     <div class="modal fade footer-center" id="ModalBankCard" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable cashCard">
             <div class="modal-content">
@@ -2861,51 +2884,101 @@
                 </div>
                 <div class="modal-body">
                     <div class="BankCard-popup-wrapper popup-wrapper">
+                      
                         <form id="">
-                            <div class="BankCard-popup-inner">
-                                <div class="form-group">
-                                    <label class="form-title language_replace">持卡人姓名</label>
-                                    <div class="input-group">
-                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫姓名" inputmode="email">
-                                        <div class="invalid-feedback language_replace">提示</div>
+                            <!-- Step 1 欄位填寫-->
+                            <div class="data-wrapper">
+                                <div class="BankCard-popup-inner">
+                                    <div class="form-group">
+                                        <label class="form-title language_replace">持卡人姓名</label>
+                                        <div class="input-group">
+                                            <input id="idEmail" name="Email" type="text" language_replace="placeholder"
+                                                class="form-control custom-style" placeholder="請填寫姓名" inputmode="email">
+                                            <div class="invalid-feedback language_replace">提示</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-title language_replace">選擇銀行</label>
+                                        <div class="input-group">
+                                            <select id="" class="form-control custom-style" name="" onchange="">
+                                                <option value="1" selected>RCBC</option>
+                                                <option value="2">PP</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-title language_replace">卡號</label>
+                                        <div class="input-group">
+                                            <input id="idEmail" name="Email" type="text" language_replace="placeholder"
+                                                class="form-control custom-style" placeholder="請填寫卡號" inputmode="email">
+                                            <div class="invalid-feedback language_replace">提示</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-title language_replace">分行代碼</label>
+                                        <div class="input-group">
+                                            <input id="idEmail" name="Email" type="text" language_replace="placeholder"
+                                                class="form-control custom-style" placeholder="請填寫分行代碼" inputmode="email">
+                                            <div class="invalid-feedback language_replace">提示</div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-title language_replace">選擇銀行</label>
-                                    <div class="input-group">
-                                        <select id="" class="form-control custom-style" name="" onchange="">
-                                            <option value="1" selected>RCBC</option>
-                                            <option value="2">PP</option>
-                                        </select>
-                                    </div>
+                                <div class="wrapper_center">
+                                    <button class="btn btn-primary btn-roundcorner" type="button" onclick="">
+                                        <span class="language_replace">新增</span>
+                                    </button>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-title language_replace">卡號</label>
-                                    <div class="input-group">
-                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫卡號" inputmode="email">
-                                        <div class="invalid-feedback language_replace">提示</div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-title language_replace">分行代碼</label>
-                                    <div class="input-group">
-                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫分行代碼" inputmode="email">
-                                        <div class="invalid-feedback language_replace">提示</div>
-                                    </div>
-                                </div>
+                
                             </div>
-                            <div class="wrapper_center">
-                                <button class="btn btn-primary btn-roundcorner" type="button" onclick="" data-toggle="modal" data-target="#ModalVerifyResult">
-                                    <span class="language_replace">新增</span>
-                                </button>
-                            </div>            
+                
+                
+                            <!-- Step 2 新增結果-->
+                            <div class="verifyResult-wrapper">
+                                <!-- 成功 -->
+                                <div class="resultShow success" id="">
+                                    <div class="verifyResult-inner">
+                                        <div class="verify_resultShow">
+                                            <div class="verify_resultDisplay">
+                                                <div class="icon-symbol"></div>
+                                            </div>
+                                            <!-- 新增卡片文字 -->
+                                            <p class="verify_resultTitle"><span class="language_replace">新增成功</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="wrapper_center">
+                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeCertification()">
+                                            <span class="language_replace">確認</span>
+                                        </button>
+                                    </div>
+                                </div>
+                
+                                <!-- 失敗 -->
+                                <div class="resultShow fail" id="">
+                                    <div class="verifyResult-inner">
+                                        <div class="verify_resultShow">
+                                            <div class="verify_resultDisplay">
+                                                <div class="icon-symbol"></div>
+                                            </div>
+                                            <!-- 新增卡片文字 -->
+                                            <p class="verify_resultTitle"><span class="language_replace">新增失敗</span></p>
+                                        </div>
+                                    </div>
+                
+                                    <div class="wrapper_center">
+                                        <!-- 返回新增卡片popup -->
+                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeCertification()">
+                                            <span class="language_replace">返回</span>
+                                        </button>
+                                    </div>
+                                </div>
+                
+                            </div>
                         </form>
                     </div>
-                </div>                
-            </div>
-        </div>
+                </div>
+                </div>
+                </div>
     </div>
-
    
     <!-- Modal GCash -->
     <div class="modal fade footer-center" id="ModalGCash" tabindex="-1" aria-hidden="true">
@@ -2920,43 +2993,113 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="GCash-popup-wrapper popup-wrapper">                        
+                    <div class="GCash-popup-wrapper popup-wrapper">
                         <form id="">
-                            <div class="GCash-popup-inner">
+                            <!-- Step 1 欄位填寫-->
+                            <div class="data-wrapper">
+                                <div class="GCash-popup-inner">
+                                    <div class="form-group">
+                                        <label class="form-title language_replace">戶名</label>
+                                        <div class="input-group">
+                                            <input id="idEmail" name="Email" type="text" language_replace="placeholder"
+                                                class="form-control custom-style" placeholder="請填寫帳戶名稱" inputmode="email">
+                                            <div class="invalid-feedback language_replace">提示</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-title language_replace">國碼</label>
+                                        <div class="input-group">
+                                            <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+63" inputmode="decimal" value="+63" onchange="()">
+                                            <div class="invalid-feedback language_replace">請輸入國碼</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-title language_replace">手機電話號碼</label>
+                                        <div class="input-group">
+                                            <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-000-0000" inputmode="decimal">
+                                            <div class="invalid-feedback language_replace">請輸入正確電話</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wrapper_center">
+                                    <button class="btn btn-primary btn-roundcorner" type="button" onclick="">
+                                        <span class="language_replace">新增</span>
+                                    </button>
+                                </div>
+                    
+                            </div>
+                    
+                            <!-- Step 2 收取驗證碼-->
+                            <div class="VerificationCode-wrapper">
+                                <p class="text">請至<span class="member-email ">xxxx@xxx.com</span>收取驗證碼</p>
                                 <div class="form-group">
-                                    <label class="form-title language_replace">戶名</label>
+                                    <label class="form-title language_replace">驗證碼</label>
                                     <div class="input-group">
-                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
+                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder"
+                                            class="form-control custom-style" placeholder="請輸入驗證碼
+                                                            " inputmode="email">
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-title language_replace">國際碼</label>
-                                    <div class="input-group">
-                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
-                                        <div class="invalid-feedback language_replace">提示</div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-title language_replace">電話</label>
-                                    <div class="input-group">
-                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
-                                        <div class="invalid-feedback language_replace">提示</div>
-                                    </div>
+                                <div class="wrapper_center">
+                                    <button class="btn btn-primary btn-roundcorner" type="button" onclick="">
+                                        <span class="language_replace">確認</span>
+                                    </button>
                                 </div>
                             </div>
-                            <div class="wrapper_center">
-                                <button class="btn btn-primary btn-roundcorner" type="button" onclick="" data-toggle="modal" data-target="#ModalVerificationCode">
-                                    <span class="language_replace">新增</span>
-                                </button>
-                            </div>            
-                        </form>                      
+                    
+                            <!-- Step 3 新增結果-->
+                            <div class="verifyResult-wrapper">
+                                <!-- 成功 -->
+                                <div class="resultShow success" id="">
+                                    <div class="verifyResult-inner">
+                                        <div class="verify_resultShow">
+                                            <div class="verify_resultDisplay">
+                                                <div class="icon-symbol"></div>
+                                            </div>
+                                            <!-- 新增卡片文字 -->
+                                            <p class="verify_resultTitle"><span class="language_replace">新增成功</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="wrapper_center">
+                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeCertification()">
+                                            <span class="language_replace">確認</span>
+                                        </button>
+                                    </div>
+                                </div>
+                    
+                                <!-- 失敗 -->
+                                <div class="resultShow fail" id="">
+                                    <div class="verifyResult-inner">
+                                        <div class="verify_resultShow">
+                                            <div class="verify_resultDisplay">
+                                                <div class="icon-symbol"></div>
+                                            </div>
+                                            <!-- 新增卡片文字 -->
+                                            <p class="verify_resultTitle"><span class="language_replace">新增失敗</span></p>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="wrapper_center">
+                                        <!-- 返回新增卡片popup -->
+                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeCertification()">
+                                            <span class="language_replace">返回</span>
+                                        </button>
+                                    </div>
+                                </div>
+                    
+                            </div>
+                    
+                    
+                    
+                        </form>
                     </div>
                 </div>                
             </div>
         </div>
     </div>
 
+    <%--
     <!-- Modal 收取驗證碼-通用版 -->
     <div class="modal fade footer-center" id="ModalVerificationCode" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable cashCard">
@@ -2972,31 +3115,14 @@
                 <div class="modal-body">
                     <div class="VerificationCode-popup-wrapper popup-wrapper">
                         <form id="">
-                            <div class="VerificationCode-popup-inner">
-                                <p class="text">請至<span class="member-email ">xxxx@xxx.com</span>收取驗證碼</p>
-                                <div class="form-group">
-                                    <label class="form-title language_replace">驗證碼</label>
-                                    <div class="input-group">
-                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請輸入驗證碼
-                                        " inputmode="email">
-                                        <div class="invalid-feedback language_replace">提示</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="wrapper_center">
-                                <button class="btn btn-primary btn-roundcorner" type="button" onclick="" data-toggle="modal" data-target="#ModalVerifyResult">
-                                    <span class="language_replace">確認</span>
-                                </button>
-                            </div>            
                         </form>
-
-                      
                     </div>
                 </div>                
             </div>
         </div>
     </div>
-
+    --%>
+    <%--
     <!-- Modal 認證結果-通用版 -->
     <div class="modal fade footer-center" id="ModalVerifyResult" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable cashCard">
@@ -3004,61 +3130,16 @@
                 <div class="modal-header">
                     <div class="sec-title-container">
                         <h5 class="modal-title language_replace"></h5>
-                    </div>
-                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="">
-                        <span aria-hidden="true">&times;</span>
-                    </button> -->
+                    </div>                   
                 </div>
                 <div class="modal-body">
                     <div class="verifyResult-popup-wrapper popup-wrapper">
-                        <div class="verifyResult-wrapper">
-
-                            <!-- 成功 -->
-                            <div class="resultShow success" id="" style="display:">
-                                <div class="verifyResult-inner">
-                                    <div class="verify_resultShow">
-                                        <div class="verify_resultDisplay">
-                                            <div class="icon-symbol"></div>
-                                        </div>
-                                        <!-- 新增卡片文字 -->
-                                        <p class="verify_resultTitle"><span class="language_replace">新增成功</span></p>
-                                    </div>
-                                </div>                                
-                                <div class="wrapper_center">
-                                    <button class="btn btn-full-main btn-roundcorner" type="button"
-                                        onclick="closeCertification()">
-                                        <span class="language_replace">確認</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- 失敗 -->
-                            <div class="resultShow fail" id="" style="display:">
-                                <div class="verifyResult-inner">
-                                    <div class="verify_resultShow">
-                                        <div class="verify_resultDisplay">
-                                            <div class="icon-symbol"></div>
-                                        </div>
-                                        <!-- 新增卡片文字 -->
-                                        <p class="verify_resultTitle"><span class="language_replace">新增失敗</span></p>
-                                    </div>
-                                </div>
-                              
-                                <div class="wrapper_center">
-                                    <!-- 返回新增卡片popup -->
-                                    <button class="btn btn-full-main btn-roundcorner" type="button"
-                                        onclick="closeCertification()">
-                                        <span class="language_replace">返回</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
+                       
                     </div>
                 </div>
          </div>
      </div>
     </div>
-
+    --%>
 </body>
 </html>

@@ -22,12 +22,16 @@ $modalMemberLevel-body-padding-right-xl: 4.5rem;
     margin-bottom: 1.5rem;
 }
 
-
-.icon-mask {
-    &:before {
-        // background-color: #fff;
+.btn{
+    .icon-mask {
+        &:before {
+            background-color: #fff;
+        }
     }
+
 }
+
+
 
 .data-item {
     width: 100%;
@@ -40,7 +44,7 @@ $modalMemberLevel-body-padding-right-xl: 4.5rem;
     // }
 
     &.name {
-        width: 70%;
+        width: 50%;
         order: -4;
     }
 
@@ -50,7 +54,7 @@ $modalMemberLevel-body-padding-right-xl: 4.5rem;
     }
 
     &.birth {
-        width: 30%;
+        width: 50%;
         order: -3;
     }
 
@@ -256,10 +260,11 @@ input{
         color: #fff;
 
         .qrcode-img {
-
+            margin: 0 auto;
+            max-width: 150px;
 
             img {
-                width: 100%;
+                width: 100%;                
             }
         }
 
@@ -543,7 +548,8 @@ input{
 .cashflowCard-wrapper{
     background-color: #F3F3F3;
     border-radius: 30px;
-    padding: 50px 20px;
+    padding: 40px 20px 40px;
+    height: 100%;
 }   
 
 // 無卡片時
@@ -571,9 +577,12 @@ input{
 
 // BANKCARD/GCash
 .cashflowCard-slider{
-    padding-bottom: 45px;
-    
-   
+    padding-bottom: 75px;    
+
+    &.swiper-container{
+        // overflow: visible;
+    }
+
     .swiper-slide{
         padding: 0 10px;
         height: auto; //!IMPORANT
@@ -697,6 +706,27 @@ input{
 
     .swiper-pagination{
         bottom: 0;
+
+        &-bullet{
+            display: inline-flex;
+            width: 30px;
+            height: 30px;
+            border-radius: 10px;
+            color: #666666;
+            background: #F7F7F7;
+            border: 1px solid rgba(#8192A4, 0.8);
+            opacity: 1;
+            justify-content: center;
+            align-items: center;
+
+            &-active{
+                background: linear-gradient(130.55deg, #31AAB1 0%, #1F9299 100%), #3A9AA0;
+border: 1px solid #308D93;
+color: #ffffff;
+
+
+            }
+        }
     }
 }
 
@@ -761,6 +791,36 @@ input{
     } 
 }
 
+.btn-addcard{
+    .btn-round{
+        width: 30px;
+        height: 30px;
+        align-items: center;
+        padding: 0;
+    }
+}
+
+.sec-title-container{
+    .btn-addcard{
+        .btn-round{
+            margin-right: 0.35rem;
+        }
+    }
+}
+
+.sec-title{
+    .icon-mask{
+        width: 30px;
+        height: 30px;
+        &:before{
+            background-color: #207A80;
+        }
+    }
+}
+
+.tab-member{
+    margin-bottom: 1.6rem;
+}
 
 // 活動中心
 .activity-center{
@@ -1875,8 +1935,6 @@ $card-bg-normal: (
 
 }
 
-
-
 // 出金 - 舊的樣式 ================
 .member-withdraw {
 
@@ -2660,7 +2718,7 @@ $card-bg-normal: (
     }
 
     //會員簽到進度顯示 舊的 =============
-    // .dailylogin-bouns {
+     .dailylogin-bouns {
     //     &-inner {            
     //         // border-radius: 20px 20px 0 0;
     //         border-radius: 20px;
@@ -2759,7 +2817,7 @@ $card-bg-normal: (
     //         }
     //     }
 
-    // }
+     }
 
     .activity-record-wrapper{
         display: flex;
@@ -2793,17 +2851,20 @@ $card-bg-normal: (
     .data-item {
 
         &.name {
-            width: calc(55% / 2);
+            // width: calc(55% / 2);
+            // width: (100%/3);
             order: initial;
         }
 
         &.password {
             // width: calc(55% / 2);
             // order: initial;
+            // width: (100%/3);
         }
 
         &.birth {
-            width: calc(45% / 2);
+            // width: calc(45% / 2);
+            // width: (100%/3);
             order: initial;
         }
 
@@ -2816,8 +2877,12 @@ $card-bg-normal: (
             width: 45%;
         }
 
-
-        &.mobile,
+        &.verify{
+            width: 50%;
+        }
+        &.mobile{
+            width: 50%;
+        }
         &.home,
         &.news {
             width: 100%;
@@ -2962,17 +3027,20 @@ $card-bg-normal: (
     .data-item {
 
         &.name {
-            width: 60%;
+            // width: 60%;
+            width: (100%/3);
             order: -4;
         }
 
         &.password {
             // width: 60%;
             // order: -2;
+            width: (100%/3);
         }
 
         &.birth {
-            width: 40%;
+            // width: 40%;
+            width: (100%/3);
             order: -3;
         }
 
@@ -2981,18 +3049,26 @@ $card-bg-normal: (
             order: -1;
         }
 
-        &.mobile,
+        // &.mobile,
         &.home,
         &.news {
             width: 100%;
         }
 
         &.qrcode {
-            width: 100%;
+            width: 30%;
             position: relative;
             right: 0;
             // top: 0;       
         }
+
+    }
+    .data-item-group{
+        width: 70%;
+    }
+    
+    .member-profile-QRcode .qrcode-img{
+       
 
     }
 
@@ -3010,7 +3086,7 @@ $card-bg-normal: (
     .section-member-profile{
         width: 100%;       
     }   
-    .section-member-setting{
+    .section-member-wallet{
         width: 100%;
     }
 
@@ -3020,7 +3096,7 @@ $card-bg-normal: (
             width: 36%;  
             // display: flex;
             flex-flow: column wrap;
-            padding-right: 20px;         
+            padding-right: 50px;         
         }
     }
 
@@ -3101,7 +3177,7 @@ $card-bg-normal: (
         
                 // }
         
-        }
+    }
 
     // 出金 - 舊的樣式 結束 ==========================
 
@@ -3160,7 +3236,8 @@ $card-bg-normal: (
         display: none;
     }
 
-    .section-member-setting{
+
+    .section-member-wallet{
         display: flex;
         flex-flow: row wrap;
     }    
@@ -3171,23 +3248,55 @@ $card-bg-normal: (
         flex-flow: column wrap;
         // width: 300px;
         flex: 0 0 300px;
+        padding-right: 20px;
+        margin-bottom: 0;
+       
+        .member-wallet-deposit-wrapper{
+            padding-right: 0;
+        }
+        .member-withdraw-wrapper{
+            padding-left: 0;
+            margin-top: 20px;
+        }
      }
 
      // 出入金卡片管理
      .section-cashflow-card{
         flex: 1;
         overflow: hidden;
+
+        .swiper-pagination{
+            top: 0;
+            bottom: auto;        
+        }
      }
 
      .cashflowCard-slider-wrapper{
         // color: red;
+        height: 100%;
         
      }
+     .cashflowCard-slider{
+        display: flex;
+        align-items: center;
+        height: 100%;
+        
+        .swiper-wrapper{
+            max-height: 180px;
+        }
+     }
+
+    
 }
 
+@media screen and (max-width:breakpoints_BS4(xl) - 1){
+    .section-member-wallet{
+        display: none;
+    }
 
+}
 @media screen and (max-width:breakpoints_BS4(smg) - 1) {
-
+    
     
     .data-item-group {
 
@@ -3206,7 +3315,7 @@ $card-bg-normal: (
     
     .data-item {
         &.name {
-            width: 70%;
+            // width: 70%;
             order: -4;
         }
 
@@ -3348,6 +3457,19 @@ $card-bg-normal: (
 }
 
 @media screen and (max-width:breakpoints_BS4(smd) - 1) {
+    .section-cashflow-card{
+        background-color: #F3F3F3;
+        border-radius: 30px;
+        padding: 10px 15px;
+
+        .sec-title-container{
+            border-bottom: solid 1px rgba(#000, 0.2);
+
+            .name{
+                display: none;
+            }
+        }
+    }
 
     //會員簽到進度顯示 新的 ===========
     .dailylogin-bouns {
