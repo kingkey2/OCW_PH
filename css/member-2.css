@@ -734,10 +734,6 @@ input.month:read-only, input.day:read-only {
   padding: 0;
 }
 
-.tab-member {
-  margin-bottom: 1.6rem;
-}
-
 .activity-center-wrapper .title {
   font-size: 1.625rem;
   color: #fff;
@@ -2104,7 +2100,7 @@ input.month:read-only, input.day:read-only {
     padding-right: 50px;
   }
 
-  .tab-member {
+  .tab-member-wrapper {
     display: none;
   }
 
@@ -2151,7 +2147,7 @@ input.month:read-only, input.day:read-only {
     overflow: hidden;
   }
   .section-cashflow-card .swiper-pagination {
-    top: 2rem;
+    top: 0;
     bottom: auto;
   }
   .section-cashflow-card .swiper-pagination-bullet {
