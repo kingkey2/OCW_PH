@@ -294,10 +294,11 @@ input{
     
 }
 
-//會員等級 =============
+//個人資訊 =============
 .section-member-profile{
 
 }
+//會員等級 =============
 .member-profile-level-wrapper{
     flex: 1;
     width: 100%;
@@ -2591,58 +2592,6 @@ $card-bg-normal: (
 
 
 
-@keyframes dothabottomcheck {
-    0% {
-        height: 0;
-    }
-
-    100% {
-        height: 20px;
-    }
-}
-
-@keyframes dothatopcheck {
-    0% {
-        height: 0;
-    }
-
-    50% {
-        height: 0;
-    }
-
-    100% {
-        height: 40px;
-    }
-}
-
-@keyframes crossLeft{
-    0% {
-        // height: 0;
-        transform: scale(0, 0) rotate(-45deg);
-        opacity: 0;
-    }
-
-    100% {
-        // height: 40px;
-        transform: scale(1, 1) rotate(-45deg);
-        opacity: 1;
-    }
-}
-
-@keyframes crossRight{
-    0% {
-        // height: 0;
-        transform: scale(0, 0) rotate(45deg);
-        opacity: 0;
-    }
-
-    100% {
-        // height: 40px;
-        transform: scale(1, 1) rotate(45deg);
-        opacity: 1;
-    }
-}
-
 @include media-breakpoint-up(smd){
    // 出入金卡片管理
    .cashflowCard-wrapper {   
@@ -2781,7 +2730,7 @@ $card-bg-normal: (
 }
 
 @include media-breakpoint-up(smg) {
-
+     // 個人資訊
     .data-item {
 
         &.mobile,
@@ -2960,7 +2909,7 @@ $card-bg-normal: (
 
 // @include media-breakpoint-up(md) {
 @include media-breakpoint-up(desc-md) {
-
+   // 個人資訊
     .data-item {
 
         &.name {
@@ -3100,8 +3049,43 @@ $card-bg-normal: (
 
 }
 
+@include media-breakpoint-up(lg) {
+       // 個人資訊
+       .data-item {
+
+        &.name {
+            // width: 60%;
+            width: (100%/3);
+            order: -4;
+        }
+
+        &.password {
+            // width: 60%;
+            // order: -2;
+            width: (100%/3);
+        }
+
+        &.birth {
+            // width: 40%;
+            width: (100%/3);
+            order: -3;
+        }
+
+        &.verify {
+            width: (100%/3);
+        }
+        &.mobile {
+            width: (100%/3);
+        }
+        &.email {
+            width: (100%/3);
+        }
+    }
+}
+
 @include media-breakpoint-up(gx) {
-     // 會員頭像 + 會員等級
+     
+    // 個人資訊
      .section-member-profile{
         width: 100%;   
         display: flex;
@@ -3121,10 +3105,10 @@ $card-bg-normal: (
         }
 
         &-wrapper{
-            width: 36%;  
             // display: flex;
+            width: 33%;
             flex-flow: column wrap;
-            padding-right: 50px;         
+            padding-right: 20px;         
         }
     }
 
@@ -3160,19 +3144,18 @@ $card-bg-normal: (
         }
 
         &.qrcode {
-            // width: 30%;
-            width: (100%/3);
-            position: relative;
-            right: 0;
-            margin-bottom: 0;
-            // top: 0;       
+            // // width: 30%;
+            // width: (100%/3);
+            // position: relative;
+            // right: 0;
+            // margin-bottom: 0;
         }
-
     }
     .data-item-group{
-        // width: 70%;
-        width: (100%/3*2);
+        // // width: 70%;
+        // width: (100%/3*2);
     }
+   
 
 }
 
@@ -3310,7 +3293,6 @@ $card-bg-normal: (
 
     // 出金 - 舊的樣式 結束 ==========================
    
-   
 
    .member-withdraw-limit{
 
@@ -3342,6 +3324,36 @@ $card-bg-normal: (
 }
 
 @include media-breakpoint-up(xl){
+    // 個人資訊
+    .data-item {
+        &.verify {
+            width: (100%/2);
+        }
+        &.mobile {
+            width: (100%/2);
+        }
+        &.email {
+            width: 100%;
+        }
+        &.qrcode {
+            // width: 30%;
+            width: (100%/3);
+            position: relative;
+            right: 0;
+            margin-bottom: 0;
+        }
+    }
+    .data-item-group{
+        // width: 70%;
+        width: (100%/3*2);
+    }
+    .member-profile {
+        &-wrapper{
+            width: 36%; 
+            padding-right: 50px;         
+        }
+    }
+
     
     .tab-member{
         display: none;
@@ -3409,7 +3421,7 @@ $card-bg-normal: (
 
 @media screen and (max-width:breakpoints_BS4(xl) - 1){
     .section-member-wallet{
-        // display: none;
+        display: none;
     }
     .sec-title-member-wallet{
         display: none;
@@ -3446,7 +3458,7 @@ $card-bg-normal: (
         }
 
         &.birth {
-            width: 30%;
+            // width: 30%;
             order: -3;
         }
 
@@ -3686,4 +3698,56 @@ $card-bg-normal: (
 
     }
 
+}
+
+@keyframes dothabottomcheck {
+    0% {
+        height: 0;
+    }
+
+    100% {
+        height: 20px;
+    }
+}
+
+@keyframes dothatopcheck {
+    0% {
+        height: 0;
+    }
+
+    50% {
+        height: 0;
+    }
+
+    100% {
+        height: 40px;
+    }
+}
+
+@keyframes crossLeft{
+    0% {
+        // height: 0;
+        transform: scale(0, 0) rotate(-45deg);
+        opacity: 0;
+    }
+
+    100% {
+        // height: 40px;
+        transform: scale(1, 1) rotate(-45deg);
+        opacity: 1;
+    }
+}
+
+@keyframes crossRight{
+    0% {
+        // height: 0;
+        transform: scale(0, 0) rotate(45deg);
+        opacity: 0;
+    }
+
+    100% {
+        // height: 40px;
+        transform: scale(1, 1) rotate(45deg);
+        opacity: 1;
+    }
 }

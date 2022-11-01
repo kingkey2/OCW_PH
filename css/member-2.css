@@ -1701,93 +1701,6 @@ input.month:read-only, input.day:read-only {
   padding-right: 1.5rem;
 }
 
-@-webkit-keyframes dothabottomcheck {
-  0% {
-    height: 0;
-  }
-  100% {
-    height: 20px;
-  }
-}
-
-@keyframes dothabottomcheck {
-  0% {
-    height: 0;
-  }
-  100% {
-    height: 20px;
-  }
-}
-@-webkit-keyframes dothatopcheck {
-  0% {
-    height: 0;
-  }
-  50% {
-    height: 0;
-  }
-  100% {
-    height: 40px;
-  }
-}
-@keyframes dothatopcheck {
-  0% {
-    height: 0;
-  }
-  50% {
-    height: 0;
-  }
-  100% {
-    height: 40px;
-  }
-}
-@-webkit-keyframes crossLeft {
-  0% {
-    -webkit-transform: scale(0, 0) rotate(-45deg);
-            transform: scale(0, 0) rotate(-45deg);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: scale(1, 1) rotate(-45deg);
-            transform: scale(1, 1) rotate(-45deg);
-    opacity: 1;
-  }
-}
-@keyframes crossLeft {
-  0% {
-    -webkit-transform: scale(0, 0) rotate(-45deg);
-            transform: scale(0, 0) rotate(-45deg);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: scale(1, 1) rotate(-45deg);
-            transform: scale(1, 1) rotate(-45deg);
-    opacity: 1;
-  }
-}
-@-webkit-keyframes crossRight {
-  0% {
-    -webkit-transform: scale(0, 0) rotate(45deg);
-            transform: scale(0, 0) rotate(45deg);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: scale(1, 1) rotate(45deg);
-            transform: scale(1, 1) rotate(45deg);
-    opacity: 1;
-  }
-}
-@keyframes crossRight {
-  0% {
-    -webkit-transform: scale(0, 0) rotate(45deg);
-            transform: scale(0, 0) rotate(45deg);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: scale(1, 1) rotate(45deg);
-            transform: scale(1, 1) rotate(45deg);
-    opacity: 1;
-  }
-}
 @media (min-width: 576px) {
   .cashflowCard-wrapper {
     padding-top: 60px;
@@ -2037,6 +1950,32 @@ input.month:read-only, input.day:read-only {
     max-width: none;
   }
 }
+@media (min-width: 992px) {
+  .data-item.name {
+    width: 33.3333333333%;
+    -webkit-box-ordinal-group: -3;
+        -ms-flex-order: -4;
+            order: -4;
+  }
+  .data-item.password {
+    width: 33.3333333333%;
+  }
+  .data-item.birth {
+    width: 33.3333333333%;
+    -webkit-box-ordinal-group: -2;
+        -ms-flex-order: -3;
+            order: -3;
+  }
+  .data-item.verify {
+    width: 33.3333333333%;
+  }
+  .data-item.mobile {
+    width: 33.3333333333%;
+  }
+  .data-item.email {
+    width: 33.3333333333%;
+  }
+}
 @media (min-width: 1200px) {
   .section-member-profile {
     width: 100%;
@@ -2061,12 +2000,12 @@ input.month:read-only, input.day:read-only {
             flex: 1;
   }
   .member-profile-wrapper {
-    width: 36%;
+    width: 33%;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-flow: column wrap;
             flex-flow: column wrap;
-    padding-right: 50px;
+    padding-right: 20px;
   }
 
   .data-item.name {
@@ -2092,16 +2031,6 @@ input.month:read-only, input.day:read-only {
   }
   .data-item.home, .data-item.news {
     width: 100%;
-  }
-  .data-item.qrcode {
-    width: 33.3333333333%;
-    position: relative;
-    right: 0;
-    margin-bottom: 0;
-  }
-
-  .data-item-group {
-    width: 66.6666666667%;
   }
 }
 @media (min-width: 1384px) {
@@ -2159,6 +2088,31 @@ input.month:read-only, input.day:read-only {
   }
 }
 @media (min-width: 1440px) {
+  .data-item.verify {
+    width: 50%;
+  }
+  .data-item.mobile {
+    width: 50%;
+  }
+  .data-item.email {
+    width: 100%;
+  }
+  .data-item.qrcode {
+    width: 33.3333333333%;
+    position: relative;
+    right: 0;
+    margin-bottom: 0;
+  }
+
+  .data-item-group {
+    width: 66.6666666667%;
+  }
+
+  .member-profile-wrapper {
+    width: 36%;
+    padding-right: 50px;
+  }
+
   .tab-member {
     display: none;
   }
@@ -2230,6 +2184,10 @@ input.month:read-only, input.day:read-only {
   }
 }
 @media screen and (max-width: 1439px) {
+  .section-member-wallet {
+    display: none;
+  }
+
   .sec-title-member-wallet {
     display: none;
   }
@@ -2249,7 +2207,6 @@ input.month:read-only, input.day:read-only {
             order: -4;
   }
   .data-item.birth {
-    width: 30%;
     -webkit-box-ordinal-group: -2;
         -ms-flex-order: -3;
             order: -3;
@@ -2345,5 +2302,91 @@ input.month:read-only, input.day:read-only {
     left: -10px;
     bottom: -10px;
     padding: 15px 0 5px;
+  }
+}
+@-webkit-keyframes dothabottomcheck {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 20px;
+  }
+}
+@keyframes dothabottomcheck {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 20px;
+  }
+}
+@-webkit-keyframes dothatopcheck {
+  0% {
+    height: 0;
+  }
+  50% {
+    height: 0;
+  }
+  100% {
+    height: 40px;
+  }
+}
+@keyframes dothatopcheck {
+  0% {
+    height: 0;
+  }
+  50% {
+    height: 0;
+  }
+  100% {
+    height: 40px;
+  }
+}
+@-webkit-keyframes crossLeft {
+  0% {
+    -webkit-transform: scale(0, 0) rotate(-45deg);
+            transform: scale(0, 0) rotate(-45deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale(1, 1) rotate(-45deg);
+            transform: scale(1, 1) rotate(-45deg);
+    opacity: 1;
+  }
+}
+@keyframes crossLeft {
+  0% {
+    -webkit-transform: scale(0, 0) rotate(-45deg);
+            transform: scale(0, 0) rotate(-45deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale(1, 1) rotate(-45deg);
+            transform: scale(1, 1) rotate(-45deg);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes crossRight {
+  0% {
+    -webkit-transform: scale(0, 0) rotate(45deg);
+            transform: scale(0, 0) rotate(45deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale(1, 1) rotate(45deg);
+            transform: scale(1, 1) rotate(45deg);
+    opacity: 1;
+  }
+}
+@keyframes crossRight {
+  0% {
+    -webkit-transform: scale(0, 0) rotate(45deg);
+            transform: scale(0, 0) rotate(45deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale(1, 1) rotate(45deg);
+            transform: scale(1, 1) rotate(45deg);
+    opacity: 1;
   }
 }
