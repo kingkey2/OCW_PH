@@ -791,6 +791,54 @@ public static class EWinWebDB {
             return RetValue;
         }
 
+        public static int UpdateValidBetValue(decimal ValidBetValue, string LoginAccount) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " UPDATE UserAccountTotalSummary WITH (ROWLOCK) SET ValidBetValue=@ValidBetValue " +
+                      " WHERE LoginAccount=@LoginAccount";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@ValidBetValue", System.Data.SqlDbType.Decimal).Value = ValidBetValue;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
+
+        public static int InsertValidBetValue(decimal ValidBetValue, string LoginAccount) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " INSERT INTO UserAccountTotalSummary (LoginAccount, ValidBetValue) " +
+                      " VALUES (@LoginAccount, @ValidBetValue) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@ValidBetValue", System.Data.SqlDbType.Decimal).Value = ValidBetValue;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
+
+        public static System.Data.DataTable GetUserAccountTotalSummary() {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT * " +
+                     " FROM UserAccountTotalSummary WITH (NOLOCK) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
     }
 
     public static class BulletinBoard {
@@ -1004,8 +1052,50 @@ public static class EWinWebDB {
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
 
-            SS = " SELECT ISNULL(Sum(DepositAmount),0)  DepositAmount, " +
+            SS = " SELECT  ISNULL(Sum(DepositAmount),0)  DepositAmount, " +
                       "                ISNULL(Sum(WithdrawalAmount),0) WithdrawalAmount " +
+                      " FROM   UserAccountSummary " +
+                      " WHERE  LoginAccount = @LoginAccount " +
+                      "        AND SummaryDate >= @StartDate " +
+                      "        AND SummaryDate < @EndDate  ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(StartDate);
+            DBCmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(EndDate);
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
+        public static System.Data.DataTable GetUserAccountTotalValidBetValueSummaryData(string LoginAccount, string StartDate, string EndDate) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT  ISNULL(Sum(ValidBetValue),0)  ValidBetValue " +
+                      " FROM   UserAccountSummary " +
+                      " WHERE  LoginAccount = @LoginAccount " +
+                      "        AND SummaryDate >= @StartDate " +
+                      "        AND SummaryDate < @EndDate  ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(StartDate);
+            DBCmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(EndDate);
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
+        public static System.Data.DataTable GetUserAccountSummaryData(string LoginAccount, string StartDate, string EndDate) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT  * " +
                       " FROM   UserAccountSummary " +
                       " WHERE  LoginAccount = @LoginAccount " +
                       "        AND SummaryDate >= @StartDate " +
@@ -1037,6 +1127,105 @@ public static class EWinWebDB {
             DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
 
             return DT;
+        }
+
+        public static int UpdateValidBetValueBySummaryGUID(decimal ValidBetValue, string SummaryGUID) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " UPDATE UserAccountSummary WITH (ROWLOCK) SET ValidBetValue=@ValidBetValue " +
+                      " WHERE SummaryGUID=@SummaryGUID";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@ValidBetValue", System.Data.SqlDbType.Decimal).Value = ValidBetValue;
+            DBCmd.Parameters.Add("@SummaryGUID", System.Data.SqlDbType.VarChar).Value = SummaryGUID;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
+
+        public static int InsertValidBetValue(decimal ValidBetValue, string LoginAccount, string SummaryDate, int DepositCount, decimal DepositRealAmount, decimal DepositAmount, int WithdrawalCount, decimal WithdrawalRealAmount, decimal WithdrawalAmount) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " INSERT INTO UserAccountSummary " +
+                     "                      (SummaryGUID, " +
+                     "                       SummaryDate, " +
+                     "                       LoginAccount, " +
+                     "                       DepositCount, " +
+                     "                       DepositRealAmount, " +
+                     "                       DepositAmount, " +
+                     "                       WithdrawalCount, " +
+                     "                       WithdrawalRealAmount, " +
+                     "                       ValidBetValue) " +
+                     " VALUES      (@SummaryGUID, " +
+                     "                       @SummaryDate, " +
+                     "                       @LoginAccount, " +
+                     "                       @DepositCount, " +
+                     "                       @DepositRealAmount, " +
+                     "                       @DepositAmount, " +
+                     "                       @WithdrawalCount, " +
+                     "                       @WithdrawalRealAmount, " +
+                     "                       @ValidBetValue)  ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@SummaryGUID", System.Data.SqlDbType.VarChar).Value = System.Guid.NewGuid().ToString();
+            DBCmd.Parameters.Add("@SummaryDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(SummaryDate);
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@DepositCount", System.Data.SqlDbType.Int).Value = DepositCount;
+            DBCmd.Parameters.Add("@DepositRealAmount", System.Data.SqlDbType.Decimal).Value = DepositRealAmount;
+            DBCmd.Parameters.Add("@DepositAmount", System.Data.SqlDbType.Decimal).Value = DepositAmount;
+            DBCmd.Parameters.Add("@WithdrawalCount", System.Data.SqlDbType.Int).Value = WithdrawalCount;
+            DBCmd.Parameters.Add("@WithdrawalRealAmount", System.Data.SqlDbType.Decimal).Value = WithdrawalRealAmount;
+            DBCmd.Parameters.Add("@WithdrawalAmount", System.Data.SqlDbType.Decimal).Value = WithdrawalAmount;
+            DBCmd.Parameters.Add("@ValidBetValue", System.Data.SqlDbType.Decimal).Value = ValidBetValue;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
+    }
+
+    public static class UserAccountLevel {
+
+        public static int UpdateUserAccountLevel(int UserLevelIndex, string LoginAccount, string UserLevelUpdateDate) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " UPDATE UserAccountLevel SET UserLevelIndex=@UserLevelIndex,UserLevelUpdateDate=@UserLevelUpdateDate " +
+                      " WHERE LoginAccount=@LoginAccount";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@UserLevelIndex", System.Data.SqlDbType.Int).Value = UserLevelIndex;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@UserLevelUpdateDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(UserLevelUpdateDate);
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
+
+
+        public static int InsertUserAccountLevel(int UserLevelIndex, string LoginAccount, string UserLevelUpdateDate) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " INSERT INTO UserAccountLevel (UserLevelIndex, LoginAccount, UserLevelUpdateDate) " +
+                                  " VALUES (@UserLevelIndex, @LoginAccount, @UserLevelUpdateDate) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@UserLevelIndex", System.Data.SqlDbType.Int).Value = UserLevelIndex;
+            DBCmd.Parameters.Add("@UserLevelUpdateDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(UserLevelUpdateDate);
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
         }
     }
 }
