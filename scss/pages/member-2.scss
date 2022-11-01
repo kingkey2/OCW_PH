@@ -161,6 +161,7 @@ input{
         width: 100%;
         display: flex;
         justify-content: center;
+        align-items: center;
         // padding: 0 10px;
         padding: 0 40px 0 10px;
 
@@ -262,6 +263,7 @@ input{
         .qrcode-img {
             margin: 0 auto;
             max-width: 150px;
+            margin-bottom: 10px;
 
             img {
                 width: 100%;                
@@ -537,8 +539,30 @@ input{
 
 }
 
+
+
+
+.sec-title-container{
+    .btn-addcard{
+        .btn-round{
+            margin-right: 0.35rem;
+        }
+    }
+}
+
+.sec-title{
+    
+}
+
+.sub-title{        
+    
+}
+
+
 // 出入金卡片管理
 .section-cashflow-card{
+    display: flex;
+    flex-flow: column wrap;
     overflow: hidden;
     .btn-addcard{
         color: initial !important;
@@ -552,7 +576,9 @@ input{
     border-radius: 30px;
     // padding: 40px 20px 40px;
     padding: 20px 20px 20px;
-    height: 100%;
+    width: 100%;
+    // height: 100%;
+    flex: 1;
 }   
 
 // 無卡片時
@@ -577,6 +603,10 @@ input{
     }
 
 }
+
+.cashflowCard-slider-wrapper{        
+    height: 100%;        
+ }
 
 // BANKCARD/GCash
 .cashflowCard-slider{
@@ -892,23 +922,7 @@ color: #ffffff;
     }
 }
 
-.sec-title-container{
-    .btn-addcard{
-        .btn-round{
-            margin-right: 0.35rem;
-        }
-    }
-}
 
-.sec-title{
-    .icon-mask{
-        width: 28px;
-        height: 28px;
-        &:before{
-            background-color: #207A80;
-        }
-    }
-}
 
 .tab-member{
     margin-bottom: 1.6rem;
@@ -2630,6 +2644,12 @@ $card-bg-normal: (
 }
 
 @include media-breakpoint-up(smd){
+   // 出入金卡片管理
+   .cashflowCard-wrapper {   
+    padding-top: 60px;
+    padding-bottom: 30px;
+  }
+
 
    //會員簽到進度顯示 新的===============
    .dailylogin-bouns {
@@ -2780,6 +2800,7 @@ $card-bg-normal: (
     .activity{
 
     }
+   
 
     // 會員錢包中心
     .section-member-wallet-transaction {
@@ -3079,41 +3100,32 @@ $card-bg-normal: (
 
 }
 
-@include media-breakpoint-up(desc-xl) {
+@include media-breakpoint-up(gx) {
+     // 會員頭像 + 會員等級
+     .section-member-profile{
+        width: 100%;   
+        display: flex;
+        flex-flow: row wrap;
+        // padding-right: 36px;    
+    }     
 
-    //Modal - Member LEVEL - 會員等級 Slider
-    .memberLevelCard-slider{
+     .member-profile {
+
+        &-avater-wrapper {
+            flex: 0 0 175px;
+            padding-right: 3rem;
+        }
+
+        &-data-wrapper {
+            flex: 1;
+        }
+
         &-wrapper{
-            .swiper-button-next,
-            .swiper-button-prev{
-                top: 45%;
-                width: 35px;
-                height: 60px;                
-            }
-
-            .swiper-button-prev{               
-                left: -$modalMemberLevel-body-padding-left-xl + 0.8rem; 
-            }
-            .swiper-button-next{               
-                right: -$modalMemberLevel-body-padding-right-xl + 0.8rem; 
-            }
+            width: 36%;  
+            // display: flex;
+            flex-flow: column wrap;
+            padding-right: 50px;         
         }
-    }
-
-    // Modal - Member LEVEL
-    .modalMemberLevel{
-        .modal-body{
-            padding-left: $modalMemberLevel-body-padding-left-xl;
-            padding-right: $modalMemberLevel-body-padding-right-xl;  
-        }
-    }
-
-    // Modal - Member LEVEL - 會員等級 Slider 縮圖
-    .card-thumb-wrapper{
-        margin-left: -$modalMemberLevel-body-padding-left-xl;
-        margin-right: -$modalMemberLevel-body-padding-right-xl;
-        padding-left: $modalMemberLevel-body-padding-left-xl;
-        padding-right: $modalMemberLevel-body-padding-right-xl;       
     }
 
     .data-item {
@@ -3148,21 +3160,60 @@ $card-bg-normal: (
         }
 
         &.qrcode {
-            width: 30%;
+            // width: 30%;
+            width: (100%/3);
             position: relative;
             right: 0;
+            margin-bottom: 0;
             // top: 0;       
         }
 
     }
     .data-item-group{
-        width: 70%;
+        // width: 70%;
+        width: (100%/3*2);
     }
-    
-    .member-profile-QRcode .qrcode-img{
-       
 
+}
+
+@include media-breakpoint-up(desc-xl) {
+
+
+    //Modal - Member LEVEL - 會員等級 Slider
+    .memberLevelCard-slider{
+        &-wrapper{
+            .swiper-button-next,
+            .swiper-button-prev{
+                top: 45%;
+                width: 35px;
+                height: 60px;                
+            }
+
+            .swiper-button-prev{               
+                left: -$modalMemberLevel-body-padding-left-xl + 0.8rem; 
+            }
+            .swiper-button-next{               
+                right: -$modalMemberLevel-body-padding-right-xl + 0.8rem; 
+            }
+        }
     }
+
+    // Modal - Member LEVEL
+    .modalMemberLevel{
+        .modal-body{
+            padding-left: $modalMemberLevel-body-padding-left-xl;
+            padding-right: $modalMemberLevel-body-padding-right-xl;  
+        }
+    }
+
+    // Modal - Member LEVEL - 會員等級 Slider 縮圖
+    .card-thumb-wrapper{
+        margin-left: -$modalMemberLevel-body-padding-left-xl;
+        margin-right: -$modalMemberLevel-body-padding-right-xl;
+        padding-left: $modalMemberLevel-body-padding-left-xl;
+        padding-right: $modalMemberLevel-body-padding-right-xl;       
+    }   
+   
 
     .article-member-center {
         display: flex;
@@ -3175,24 +3226,10 @@ $card-bg-normal: (
     //     width: 50%;
     //  }
 
-    .section-member-profile{
-        width: 100%;       
-    }   
+     
     .section-member-wallet{
         width: 100%;
     }
-
-    // 會員頭像 + 會員等級
-    .member-profile {
-        &-wrapper{
-            width: 36%;  
-            // display: flex;
-            flex-flow: column wrap;
-            padding-right: 50px;         
-        }
-    }
-
-  
 
     .section-member-activity{
         // min-height: 950px;
@@ -3272,26 +3309,8 @@ $card-bg-normal: (
     }
 
     // 出金 - 舊的樣式 結束 ==========================
-
-    .section-member-profile {
-        display: flex;
-        flex-flow: row wrap;
-
-        padding-right: 36px;
-    }
-
-    .member-profile {
-
-        &-avater-wrapper {
-            flex: 0 0 175px;
-            padding-right: 3rem;
-
-        }
-
-        &-data-wrapper {
-            flex: 1;
-        }
-    }
+   
+   
 
    .member-withdraw-limit{
 
@@ -3328,12 +3347,13 @@ $card-bg-normal: (
         display: none;
     }
 
-
     .section-member-wallet{
         display: flex;
         flex-flow: row wrap;
     }    
-
+    .sec-title-member-wallet{
+        margin-bottom: 1.2rem;
+    }
      // 會員錢包中心
      .section-member-wallet-transaction {
         display: flex;
@@ -3342,6 +3362,7 @@ $card-bg-normal: (
         flex: 0 0 500px;
         padding-right: 60px;
         margin-bottom: 0;
+        
        
         .member-wallet-deposit-wrapper{
             padding-right: 0;
@@ -3358,20 +3379,25 @@ $card-bg-normal: (
         overflow: hidden;
 
         .swiper-pagination{
-            top: 0;
-            bottom: auto;        
+            top: 2rem;
+            bottom: auto;  
+            
+            &-bullet{                
+                width: 36px;
+                height: 36px;
+            }
         }
      }
 
-     .cashflowCard-slider-wrapper{
-        // color: red;
-        height: 100%;
-        
+     .cashflowCard-slider-wrapper{        
+        // height: 100%;        
      }
      .cashflowCard-slider{
         display: flex;
         align-items: center;
         height: 100%;
+        padding-bottom: 0;
+        padding-top: 50px;
         
         .swiper-wrapper{
             max-height: 180px;
@@ -3383,7 +3409,7 @@ $card-bg-normal: (
 
 @media screen and (max-width:breakpoints_BS4(xl) - 1){
     .section-member-wallet{
-        display: none;
+        // display: none;
     }
     .sec-title-member-wallet{
         display: none;
@@ -3552,6 +3578,7 @@ $card-bg-normal: (
 }
 
 @media screen and (max-width:breakpoints_BS4(smd) - 1) {
+
     .section-cashflow-card{
         background-color: #F3F3F3;
         border-radius: 30px;
