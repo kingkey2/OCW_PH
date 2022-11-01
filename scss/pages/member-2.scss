@@ -3056,29 +3056,35 @@ $card-bg-normal: (
         &.name {
             // width: 60%;
             width: (100%/3);
+            width: 40%;
             order: -4;
         }
 
         &.password {
             // width: 60%;
             // order: -2;
-            width: (100%/3);
+            // width: (100%/3);
+            width: 30%;
         }
 
         &.birth {
             // width: 40%;
-            width: (100%/3);
+            // width: (100%/3);
+            width: 30%;
             order: -3;
         }
 
         &.verify {
-            width: (100%/3);
+            // width: (100%/3);
+            width: 40%;
         }
         &.mobile {
             width: (100%/3);
+            width: 30%;
         }
         &.email {
             width: (100%/3);
+            width: 30%;
         }
     }
 }
@@ -3116,25 +3122,24 @@ $card-bg-normal: (
 
         &.name {
             // width: 60%;
-            width: (100%/3);
-            order: -4;
+            // width: (100%/3);
+           
         }
 
         &.password {
             // width: 60%;
             // order: -2;
-            width: (100%/3);
+            // width: (100%/3);
         }
 
         &.birth {
             // width: 40%;
-            width: (100%/3);
-            order: -3;
+            // width: (100%/3);
+           
         }
 
         &.currency {
             width: 40%;
-            order: -1;
         }
 
         // &.mobile,
@@ -3326,8 +3331,15 @@ $card-bg-normal: (
 @include media-breakpoint-up(xl){
     // 個人資訊
     .data-item {
+        &.name {           
+            width: (70%/2);
+        }
+        &.birth {           
+            width: (70%/2);
+        }
+        
         &.verify {
-            width: (100%/2);
+            width: (100%/2);           
         }
         &.mobile {
             width: (100%/2);
@@ -3336,16 +3348,16 @@ $card-bg-normal: (
             width: 100%;
         }
         &.qrcode {
-            // width: 30%;
-            width: (100%/3);
+            width: 30%;
+            // width: (100%/3);
             position: relative;
             right: 0;
             margin-bottom: 0;
         }
     }
     .data-item-group{
-        // width: 70%;
-        width: (100%/3*2);
+        width: 70%;
+        // width: (100%/3*2);
     }
     .member-profile {
         &-wrapper{

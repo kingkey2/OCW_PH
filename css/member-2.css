@@ -1953,27 +1953,30 @@ input.month:read-only, input.day:read-only {
 @media (min-width: 992px) {
   .data-item.name {
     width: 33.3333333333%;
+    width: 40%;
     -webkit-box-ordinal-group: -3;
         -ms-flex-order: -4;
             order: -4;
   }
   .data-item.password {
-    width: 33.3333333333%;
+    width: 30%;
   }
   .data-item.birth {
-    width: 33.3333333333%;
+    width: 30%;
     -webkit-box-ordinal-group: -2;
         -ms-flex-order: -3;
             order: -3;
   }
   .data-item.verify {
-    width: 33.3333333333%;
+    width: 40%;
   }
   .data-item.mobile {
     width: 33.3333333333%;
+    width: 30%;
   }
   .data-item.email {
     width: 33.3333333333%;
+    width: 30%;
   }
 }
 @media (min-width: 1200px) {
@@ -2008,26 +2011,8 @@ input.month:read-only, input.day:read-only {
     padding-right: 20px;
   }
 
-  .data-item.name {
-    width: 33.3333333333%;
-    -webkit-box-ordinal-group: -3;
-        -ms-flex-order: -4;
-            order: -4;
-  }
-  .data-item.password {
-    width: 33.3333333333%;
-  }
-  .data-item.birth {
-    width: 33.3333333333%;
-    -webkit-box-ordinal-group: -2;
-        -ms-flex-order: -3;
-            order: -3;
-  }
   .data-item.currency {
     width: 40%;
-    -webkit-box-ordinal-group: 0;
-        -ms-flex-order: -1;
-            order: -1;
   }
   .data-item.home, .data-item.news {
     width: 100%;
@@ -2088,6 +2073,12 @@ input.month:read-only, input.day:read-only {
   }
 }
 @media (min-width: 1440px) {
+  .data-item.name {
+    width: 35%;
+  }
+  .data-item.birth {
+    width: 35%;
+  }
   .data-item.verify {
     width: 50%;
   }
@@ -2098,14 +2089,14 @@ input.month:read-only, input.day:read-only {
     width: 100%;
   }
   .data-item.qrcode {
-    width: 33.3333333333%;
+    width: 30%;
     position: relative;
     right: 0;
     margin-bottom: 0;
   }
 
   .data-item-group {
-    width: 66.6666666667%;
+    width: 70%;
   }
 
   .member-profile-wrapper {

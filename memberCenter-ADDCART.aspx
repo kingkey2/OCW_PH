@@ -726,7 +726,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-people"></i>
-                                                <span class="title-name language_replace">姓名</span>
+                                                <span class="title-name language_replace">暱稱</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
