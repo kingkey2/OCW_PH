@@ -922,7 +922,7 @@
                 });
             }
         } else {
-            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
                 window.parent.API_LoadPage("Login", "Login.aspx");
             }, null);
         }
