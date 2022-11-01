@@ -904,10 +904,10 @@
     };
 
     function favBtnClcik(gameCode) {
-        if (WebInfo.UserLogined) {
-            var btn = event.currentTarget;
-            event.stopPropagation();
+        var btn = event.currentTarget;
+        event.stopPropagation();
 
+        if (WebInfo.UserLogined) {
             if ($(btn).hasClass("added")) {
                 $(btn).removeClass("added");
                 GCB.RemoveFavo(gameCode, function () {
