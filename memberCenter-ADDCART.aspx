@@ -20,7 +20,10 @@
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/member-2.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -364,8 +367,9 @@
 
     function initSwiper() {
         var sliderCardCashFlow = new Swiper("#slider-CardCashFlow", {
-            // loop: true,           
-            slidesPerView: 3,
+            loop: true,           
+            // slidesPerView: 3,
+            slidesPerView: "auto",
             centeredSlides: true,
             // effect: "fade",
             speed: 1000, //Duration of transition between slides (in ms)
@@ -387,8 +391,8 @@
             },
             breakpoints: {                
                 768: {
-                    slidesPerView: 3,
-                    centeredSlides: true,
+                    // slidesPerView: 3,
+                    // centeredSlides: true,
                     // slidesPerGroup: 6, //index:992px
                 },
                
@@ -396,7 +400,7 @@
 
         });
     }
-
+  
     function TabSwitch(type) {
         $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_Tab" + type).addClass("active");
@@ -650,7 +654,7 @@
                                 </span>
                             </div>
                             <div class="member-profile-level-wrapper">
-                                <div class="sec-title-container sec-title-member mb-0 align-items-end sec-col-2">
+                                <div class="sec-title-container mb-0 align-items-end sec-col-2">
                                     <div class="sec-title-wrapper align-items-end">
                                         <div class="member-level ">
                                             <h1 class="sec-title language_replace">青銅</h1>
@@ -722,7 +726,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-people"></i>
-                                                <span class="title-name language_replace">姓名</span>
+                                                <span class="title-name language_replace">暱稱</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -921,7 +925,7 @@
                     </section>
                     
                     <section class="section-member-wallet" id="divMemberWallet">
-                        <legend class="sec-title-container sec-col-2 sec-title-member ">
+                        <legend class="sec-title-container sec-col-2 sec-title-member-wallet">
                             <div class="sec-title-wrapper">
                                 <h1 class="sec-title title-deco"><span class="language_replace">個人錢包</span></h1>
                             </div>
@@ -929,10 +933,10 @@
 
                         <!-- 會員錢包中心 - 入金 + 履歷紀錄 / 出金 -->
                         <section class="section-member-wallet-transaction">
-                            <div class="sec-title-container sec-col-2 sec-title-member ">
+                            <div class="sec-title-container sec-col-2 sec-title-wallet sub-title">
                                 <div class="sec-title-wrapper">
                                     <h1 class="sec-title">
-                                        <i class="icon icon-mask icon-wallet"></i><span class="language_replace">錢包管理</span></h1>
+                                        <i class="icon icon-mask icon-wallet2"></i><span class="language_replace">錢包資訊</span></h1>
                                 </div>                               
                             </div>
                             <div class="member-wallet-deposit-wrapper">
@@ -1015,7 +1019,7 @@
 
                         <!-- 出入金卡片管理 -->
                         <section class="section-cashflow-card">
-                            <div class="sec-title-container sec-col-2 sec-title-member ">
+                            <div class="sec-title-container sec-col-2 sub-title">
                                 <div class="sec-title-wrapper">
                                     <h1 class="sec-title">
                                         <i class="icon icon-mask icon-card"></i><span class="language_replace">卡片管理</span></h1>
@@ -1286,7 +1290,7 @@
                     <!-- 熱門活動 -->
                     <div class="activity-promo-wrapper">
                         <div class="activity-promo-inner">
-                            <div class="sec-title-container sec-title-member ">
+                            <div class="sec-title-container">
                                 <div class="sec-title-wrapper">
                                     <h3 class="sec-title title-deco"><span class="language_replace">熱門活動</span></h3>
                                 </div>

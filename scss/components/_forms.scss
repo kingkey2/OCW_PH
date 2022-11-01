@@ -61,10 +61,9 @@ select:-webkit-autofill:focus {
 
     // padding-left: $input-default-label-iconSize + $input-default-label-iconSize-padding;
 
-    
     color: $body-default-fontColor;
-
     background-color: rgba(#ffffff, 0.1);
+    border-color: rgba(#2c2d3a, 0.25);
 
     // border-radius: 30px;
     // padding-left: 20px;    

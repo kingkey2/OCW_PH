@@ -1079,6 +1079,9 @@
 .card-item.sd-08 .card-item-link {
   background-image: url(../images/assets/card-surface/card-08.svg);
 }
+.card-item.sd-09 .card-item-link {
+  background-image: url(../images/assets/card-surface/card-09.svg);
+}
 .card-item-inner {
   z-index: 2;
   padding: 1rem 1rem;
@@ -1144,6 +1147,12 @@
   max-width: 180px;
   margin: 0 auto;
 }
+.card-item-inner .logo.vertical-center img{
+  width: 100%;
+  height: auto;
+
+}
+
 .card-item-inner .amount-info {
   margin: 0.5em 0 0;
 }

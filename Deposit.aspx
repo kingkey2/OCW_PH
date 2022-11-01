@@ -154,7 +154,7 @@
                         </a>
                     </div>
                     <!-- EPay -->
-                    <div class="card-item sd-03" id="idDepositGCash">
+                    <div class="card-item sd-09" id="idDepositGCash">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGCash','DepositGCash.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -163,14 +163,14 @@
                                 </div>
                                 <div class="logo vertical-center text-center"> 
                                     <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-bankcard.png">
+                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
                                 </div>
                             </div>
-                            <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
+                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
                         </a>
                     </div>
                      <!-- EPay -->
-                    <div class="card-item sd-03" id="idDepositGcashQRcode">
+                    <div class="card-item sd-09" id="idDepositGcashQRcode">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGcashQRcode','DepositGcashQRcode.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -180,12 +180,45 @@
                                 <div class="logo vertical-center text-center"> 
                                     <!-- <span class="text language_replace">銀行振込</span> -->
                                     <!-- <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg"> -->
-                                    <img src="images/assets/card-surface/icon-logo-bankcard.png">
+                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
                                 </div>
                             </div>
-                            <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
+                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
                         </a>
                     </div>
+                     <!-- EPay -->
+                    <div class="card-item sd-09" id="idDepositPaymaya">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositPaymaya','DepositPaymaya.aspx')">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span class="language_replace">Paymaya</span>
+                                    <!-- <span>Electronic Wallet</span>  -->
+                                </div>
+                                <div class="logo vertical-center text-center"> 
+                                    <!-- <span class="text language_replace">銀行振込</span> -->
+                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
+                                </div>
+                            </div>
+                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
+                        </a>
+                    </div>
+                     <!-- EPay -->
+                    <div class="card-item sd-09" id="idDepositGrabpay">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGrabpay','DepositGrabpay.aspx')">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span class="language_replace">Grabpay</span>
+                                    <!-- <span>Electronic Wallet</span>  -->
+                                </div>
+                                <div class="logo vertical-center text-center"> 
+                                    <!-- <span class="text language_replace">銀行振込</span> -->
+                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
+                                </div>
+                            </div>
+                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
+                        </a>
+                    </div>
+            
                 </div>
                 <!-- 存款紀錄 -->
                 <div class="notice-container mt-5">

@@ -161,6 +161,7 @@ input{
         width: 100%;
         display: flex;
         justify-content: center;
+        align-items: center;
         // padding: 0 10px;
         padding: 0 40px 0 10px;
 
@@ -262,6 +263,7 @@ input{
         .qrcode-img {
             margin: 0 auto;
             max-width: 150px;
+            margin-bottom: 10px;
 
             img {
                 width: 100%;                
@@ -292,10 +294,11 @@ input{
     
 }
 
-//會員等級 =============
+//個人資訊 =============
 .section-member-profile{
 
 }
+//會員等級 =============
 .member-profile-level-wrapper{
     flex: 1;
     width: 100%;
@@ -537,19 +540,46 @@ input{
 
 }
 
+
+
+
+.sec-title-container{
+    .btn-addcard{
+        .btn-round{
+            margin-right: 0.35rem;
+        }
+    }
+}
+
+.sec-title{
+    
+}
+
+.sub-title{        
+    
+}
+
+
 // 出入金卡片管理
 .section-cashflow-card{
+    display: flex;
+    flex-flow: column wrap;
+    overflow: hidden;
     .btn-addcard{
         color: initial !important;
         font-weight: 300;
+        
     }
 }
 
 .cashflowCard-wrapper{
     background-color: #F3F3F3;
     border-radius: 30px;
-    padding: 40px 20px 40px;
-    height: 100%;
+    // padding: 40px 20px 40px;
+    padding: 20px 20px 20px;
+    width: 100%;
+    // height: 100%;
+    flex: 1;
 }   
 
 // 無卡片時
@@ -575,29 +605,84 @@ input{
 
 }
 
+.cashflowCard-slider-wrapper{        
+    height: 100%;        
+ }
+
 // BANKCARD/GCash
 .cashflowCard-slider{
     padding-bottom: 75px;    
 
     &.swiper-container{
-        // overflow: visible;
+        overflow: visible;
     }
 
     .swiper-slide{
         padding: 0 10px;
         height: auto; //!IMPORANT
+        // transform: scale(0.85, 0.85) translate3d(0,0,-20px);
+        transform: scale(0.85, 0.85);
+        width: 80% !important;
+        max-width: 360px;
+        opacity: 0.5;
+
+        transition-property: transform, opacity;
+
+        &-active{
+            // transform: scale(1.12, 1.12) translate3d(0,0,0);
+            transform: scale(1.12, 1.12);
+            opacity: 1;
+        }
     }
 
     .bankcard{
         .card-item{
             background: linear-gradient(107.89deg, #0180A2 1.19%, #0185A7 25.54%, #0098C8 101.21%);
         }
+        .branch{
+            display: inline-flex;
+            align-items: center;
+            &::before{
+                content: '';
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: #9ADDE7;
+                display: inline-flex;
+                margin: 0 0.45rem;
+            }
+        }
+        .btn-delete{
+            .icon-mask {               
+                &:before {
+                    // background-color: rgba(#000, 0.55);
+                }
+            }
+
+        }
+
+       
     }
     .gcash{
         .card-item{
             background: linear-gradient(107.89deg, #1265BD -0.39%, #197CE3 101.21%);
+        }
+
+        .card-info{
+            .icon-mask {
+                width: font-resize(24px);
+                height: font-resize(24px);
+                margin-right: 4px;
+    
+                &:before {
+                    background-color: rgba(#FFD19B, .75);
+                }       
+            }
 
         }
+
+        
+
     }
     .custom-control,
     .custom-label{
@@ -613,13 +698,15 @@ input{
         color: #fff;
         padding: 20px 15px;
         position: relative;
+        overflow: hidden;
+        
         
         *{
             font-weight: 300;
             font-size: inherit;
         }
 
-        &:after{
+        &::after{
             content: attr(data-card-num);
             position: absolute;
             background-color: rgba(#000, 0.21);
@@ -629,12 +716,34 @@ input{
             border-radius: 0 0 30px 30px;
             
         }
+
+        &::before{
+            content: '';
+                width: 120%;
+                height: 0;
+                padding-bottom: 120%;
+                border-radius: 50%;
+                background-color: rgba(#fff, 0.08);
+                display: inline-flex;
+                
+                position: absolute;
+                right: -25%;
+                bottom: -165%;
+
+
+        }
+
+        &-inner{
+            width: calc(100% - 50px);
+        }
     }
 
     .card-type{
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-bottom: 15px;
+        padding-bottom: 5px;
 
         .type{
             display: flex;            
@@ -650,6 +759,7 @@ input{
 
     .card-status{
         font-size: font-resize(12px);
+        color: #FFD19B;
     }
 
     //user自行建立卡片名稱
@@ -665,6 +775,8 @@ input{
         
         .bank{
             display: flex;
+            margin-bottom: 1rem;
+            color: #F2F0F0;
         }
         .account-name{
             font-size: font-resize(12px);
@@ -683,17 +795,28 @@ input{
 
         .icon-mask {
             width: 100%;
-            height: 100%;
+            height: 100%;   
+            &:before {
+                background-color: rgba(#000, 0.55);
+            }       
         }
+
         &:hover{
             background-color: rgba(#000, 0.45);
-            
+            .icon-mask {
+               
+                &:before {
+                    background-color: rgba(#fff, 0.95);            }       
+            }
+
         }
     }
 
     .card-info{
         .item{
             display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
         }
     }
 
@@ -800,23 +923,7 @@ color: #ffffff;
     }
 }
 
-.sec-title-container{
-    .btn-addcard{
-        .btn-round{
-            margin-right: 0.35rem;
-        }
-    }
-}
 
-.sec-title{
-    .icon-mask{
-        width: 30px;
-        height: 30px;
-        &:before{
-            background-color: #207A80;
-        }
-    }
-}
 
 .tab-member{
     margin-bottom: 1.6rem;
@@ -2485,59 +2592,13 @@ $card-bg-normal: (
 
 
 
-@keyframes dothabottomcheck {
-    0% {
-        height: 0;
-    }
-
-    100% {
-        height: 20px;
-    }
-}
-
-@keyframes dothatopcheck {
-    0% {
-        height: 0;
-    }
-
-    50% {
-        height: 0;
-    }
-
-    100% {
-        height: 40px;
-    }
-}
-
-@keyframes crossLeft{
-    0% {
-        // height: 0;
-        transform: scale(0, 0) rotate(-45deg);
-        opacity: 0;
-    }
-
-    100% {
-        // height: 40px;
-        transform: scale(1, 1) rotate(-45deg);
-        opacity: 1;
-    }
-}
-
-@keyframes crossRight{
-    0% {
-        // height: 0;
-        transform: scale(0, 0) rotate(45deg);
-        opacity: 0;
-    }
-
-    100% {
-        // height: 40px;
-        transform: scale(1, 1) rotate(45deg);
-        opacity: 1;
-    }
-}
-
 @include media-breakpoint-up(smd){
+   // 出入金卡片管理
+   .cashflowCard-wrapper {   
+    padding-top: 60px;
+    padding-bottom: 30px;
+  }
+
 
    //會員簽到進度顯示 新的===============
    .dailylogin-bouns {
@@ -2669,7 +2730,7 @@ $card-bg-normal: (
 }
 
 @include media-breakpoint-up(smg) {
-
+     // 個人資訊
     .data-item {
 
         &.mobile,
@@ -2688,6 +2749,7 @@ $card-bg-normal: (
     .activity{
 
     }
+   
 
     // 會員錢包中心
     .section-member-wallet-transaction {
@@ -2847,7 +2909,7 @@ $card-bg-normal: (
 
 // @include media-breakpoint-up(md) {
 @include media-breakpoint-up(desc-md) {
-
+   // 個人資訊
     .data-item {
 
         &.name {
@@ -2987,7 +3049,123 @@ $card-bg-normal: (
 
 }
 
+@include media-breakpoint-up(lg) {
+       // 個人資訊
+       .data-item {
+
+        &.name {
+            // width: 60%;
+            width: (100%/3);
+            width: 40%;
+            order: -4;
+        }
+
+        &.password {
+            // width: 60%;
+            // order: -2;
+            // width: (100%/3);
+            width: 30%;
+        }
+
+        &.birth {
+            // width: 40%;
+            // width: (100%/3);
+            width: 30%;
+            order: -3;
+        }
+
+        &.verify {
+            // width: (100%/3);
+            width: 40%;
+        }
+        &.mobile {
+            width: (100%/3);
+            width: 30%;
+        }
+        &.email {
+            width: (100%/3);
+            width: 30%;
+        }
+    }
+}
+
+@include media-breakpoint-up(gx) {
+     
+    // 個人資訊
+     .section-member-profile{
+        width: 100%;   
+        display: flex;
+        flex-flow: row wrap;
+        // padding-right: 36px;    
+    }     
+
+     .member-profile {
+
+        &-avater-wrapper {
+            flex: 0 0 175px;
+            padding-right: 3rem;
+        }
+
+        &-data-wrapper {
+            flex: 1;
+        }
+
+        &-wrapper{
+            // display: flex;
+            width: 33%;
+            flex-flow: column wrap;
+            padding-right: 20px;         
+        }
+    }
+
+    .data-item {
+
+        &.name {
+            // width: 60%;
+            // width: (100%/3);
+           
+        }
+
+        &.password {
+            // width: 60%;
+            // order: -2;
+            // width: (100%/3);
+        }
+
+        &.birth {
+            // width: 40%;
+            // width: (100%/3);
+           
+        }
+
+        &.currency {
+            width: 40%;
+        }
+
+        // &.mobile,
+        &.home,
+        &.news {
+            width: 100%;
+        }
+
+        &.qrcode {
+            // // width: 30%;
+            // width: (100%/3);
+            // position: relative;
+            // right: 0;
+            // margin-bottom: 0;
+        }
+    }
+    .data-item-group{
+        // // width: 70%;
+        // width: (100%/3*2);
+    }
+   
+
+}
+
 @include media-breakpoint-up(desc-xl) {
+
 
     //Modal - Member LEVEL - 會員等級 Slider
     .memberLevelCard-slider{
@@ -3022,55 +3200,8 @@ $card-bg-normal: (
         margin-right: -$modalMemberLevel-body-padding-right-xl;
         padding-left: $modalMemberLevel-body-padding-left-xl;
         padding-right: $modalMemberLevel-body-padding-right-xl;       
-    }
-
-    .data-item {
-
-        &.name {
-            // width: 60%;
-            width: (100%/3);
-            order: -4;
-        }
-
-        &.password {
-            // width: 60%;
-            // order: -2;
-            width: (100%/3);
-        }
-
-        &.birth {
-            // width: 40%;
-            width: (100%/3);
-            order: -3;
-        }
-
-        &.currency {
-            width: 40%;
-            order: -1;
-        }
-
-        // &.mobile,
-        &.home,
-        &.news {
-            width: 100%;
-        }
-
-        &.qrcode {
-            width: 30%;
-            position: relative;
-            right: 0;
-            // top: 0;       
-        }
-
-    }
-    .data-item-group{
-        width: 70%;
-    }
-    
-    .member-profile-QRcode .qrcode-img{
-       
-
-    }
+    }   
+   
 
     .article-member-center {
         display: flex;
@@ -3083,24 +3214,10 @@ $card-bg-normal: (
     //     width: 50%;
     //  }
 
-    .section-member-profile{
-        width: 100%;       
-    }   
+     
     .section-member-wallet{
         width: 100%;
     }
-
-    // 會員頭像 + 會員等級
-    .member-profile {
-        &-wrapper{
-            width: 36%;  
-            // display: flex;
-            flex-flow: column wrap;
-            padding-right: 50px;         
-        }
-    }
-
-  
 
     .section-member-activity{
         // min-height: 950px;
@@ -3180,26 +3297,7 @@ $card-bg-normal: (
     }
 
     // 出金 - 舊的樣式 結束 ==========================
-
-    .section-member-profile {
-        display: flex;
-        flex-flow: row wrap;
-
-        padding-right: 36px;
-    }
-
-    .member-profile {
-
-        &-avater-wrapper {
-            flex: 0 0 175px;
-            padding-right: 3rem;
-
-        }
-
-        &-data-wrapper {
-            flex: 1;
-        }
-    }
+   
 
    .member-withdraw-limit{
 
@@ -3231,25 +3329,64 @@ $card-bg-normal: (
 }
 
 @include media-breakpoint-up(xl){
+    // 個人資訊
+    .data-item {
+        &.name {           
+            width: (70%/2);
+        }
+        &.birth {           
+            width: (70%/2);
+        }
+        
+        &.verify {
+            width: (100%/2);           
+        }
+        &.mobile {
+            width: (100%/2);
+        }
+        &.email {
+            width: 100%;
+        }
+        &.qrcode {
+            width: 30%;
+            // width: (100%/3);
+            position: relative;
+            right: 0;
+            margin-bottom: 0;
+        }
+    }
+    .data-item-group{
+        width: 70%;
+        // width: (100%/3*2);
+    }
+    .member-profile {
+        &-wrapper{
+            width: 36%; 
+            padding-right: 50px;         
+        }
+    }
+
     
     .tab-member{
         display: none;
     }
 
-
     .section-member-wallet{
         display: flex;
         flex-flow: row wrap;
     }    
-
+    .sec-title-member-wallet{
+        margin-bottom: 1.2rem;
+    }
      // 會員錢包中心
      .section-member-wallet-transaction {
         display: flex;
         flex-flow: column wrap;
         // width: 300px;
-        flex: 0 0 300px;
-        padding-right: 20px;
+        flex: 0 0 500px;
+        padding-right: 60px;
         margin-bottom: 0;
+        
        
         .member-wallet-deposit-wrapper{
             padding-right: 0;
@@ -3266,20 +3403,25 @@ $card-bg-normal: (
         overflow: hidden;
 
         .swiper-pagination{
-            top: 0;
-            bottom: auto;        
+            top: 2rem;
+            bottom: auto;  
+            
+            &-bullet{                
+                width: 36px;
+                height: 36px;
+            }
         }
      }
 
-     .cashflowCard-slider-wrapper{
-        // color: red;
-        height: 100%;
-        
+     .cashflowCard-slider-wrapper{        
+        // height: 100%;        
      }
      .cashflowCard-slider{
         display: flex;
         align-items: center;
         height: 100%;
+        padding-bottom: 0;
+        padding-top: 50px;
         
         .swiper-wrapper{
             max-height: 180px;
@@ -3291,6 +3433,9 @@ $card-bg-normal: (
 
 @media screen and (max-width:breakpoints_BS4(xl) - 1){
     .section-member-wallet{
+        display: none;
+    }
+    .sec-title-member-wallet{
         display: none;
     }
 
@@ -3325,7 +3470,7 @@ $card-bg-normal: (
         }
 
         &.birth {
-            width: 30%;
+            // width: 30%;
             order: -3;
         }
 
@@ -3457,6 +3602,7 @@ $card-bg-normal: (
 }
 
 @media screen and (max-width:breakpoints_BS4(smd) - 1) {
+
     .section-cashflow-card{
         background-color: #F3F3F3;
         border-radius: 30px;
@@ -3564,4 +3710,56 @@ $card-bg-normal: (
 
     }
 
+}
+
+@keyframes dothabottomcheck {
+    0% {
+        height: 0;
+    }
+
+    100% {
+        height: 20px;
+    }
+}
+
+@keyframes dothatopcheck {
+    0% {
+        height: 0;
+    }
+
+    50% {
+        height: 0;
+    }
+
+    100% {
+        height: 40px;
+    }
+}
+
+@keyframes crossLeft{
+    0% {
+        // height: 0;
+        transform: scale(0, 0) rotate(-45deg);
+        opacity: 0;
+    }
+
+    100% {
+        // height: 40px;
+        transform: scale(1, 1) rotate(-45deg);
+        opacity: 1;
+    }
+}
+
+@keyframes crossRight{
+    0% {
+        // height: 0;
+        transform: scale(0, 0) rotate(45deg);
+        opacity: 0;
+    }
+
+    100% {
+        // height: 40px;
+        transform: scale(1, 1) rotate(45deg);
+        opacity: 1;
+    }
 }

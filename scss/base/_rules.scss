@@ -73,6 +73,9 @@ ul {
 	margin: 0;
 	padding: 0;
 }
+legend{
+	display: inline-flex ;
+}
 
 
 .container,
@@ -1010,6 +1013,26 @@ hr{
 
 	}
 
+	&-container.sub-title{
+		.sec-title-wrapper {
+			.sec-title{
+				font-size: font-resize(21px);
+				font-weight: 400;
+
+				.icon-mask{
+
+					width: font-resize(26px);
+					height: font-resize(26px);
+
+					&:before{
+						background-color: #207A80;
+					}
+				}
+
+			}
+		}
+	}
+
 	&-wrapper{
 		flex: 1;
 		display: flex;
@@ -1019,8 +1042,8 @@ hr{
 		margin-bottom: 0.5rem;
 
 		.sec-title {
-			// font-size: font-resize(24px);
-			font-size: font-resize(22px);
+			font-size: font-resize(23px);
+			// font-size: font-resize(22px);
 			font-weight: 500;
 			
 	
@@ -1053,7 +1076,6 @@ hr{
 		}
 
 	}
-
 	
 }
 
