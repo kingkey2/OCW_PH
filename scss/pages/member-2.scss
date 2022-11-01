@@ -925,8 +925,8 @@ color: #ffffff;
 
 
 
-.tab-member{
-    margin-bottom: 1.6rem;
+.tab-member-wrapper{
+    // margin-bottom: 1.6rem;
 }
 
 // 活動中心
@@ -3367,7 +3367,7 @@ $card-bg-normal: (
     }
 
     
-    .tab-member{
+    .tab-member-wrapper{
         display: none;
     }
 
@@ -3403,7 +3403,8 @@ $card-bg-normal: (
         overflow: hidden;
 
         .swiper-pagination{
-            top: 2rem;
+            // top: 2rem;
+            top: 0;
             bottom: auto;  
             
             &-bullet{                

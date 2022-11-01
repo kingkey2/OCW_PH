@@ -615,24 +615,28 @@
                 <article class="article-member-center">
 
                     <!-- TAB -->
-                    <div class="tab-member tab-scroller tab-2 tab-primary">
-                        <div class="tab-scroller__area">
-                            <ul class="tab-scroller__content" id="">
-                                <li class="tab-item act-running active" id="li_Tab0" onclick="TabSwitch(0)">
-                                    <span class="tab-item-link">
-                                        <span class="title language_replace">個人資訊</span>
-                                    </span>
-                                </li>
-                                <li class="tab-item act-finish" id="li_Tab1" onclick="TabSwitch(1)">
-                                    <span class="tab-item-link">
-                                        <span class="title language_replace">個人錢包</span>
-                                    </span>
-                                </li>
-                                <div class="tab-slide"></div>
-                            </ul>
+                    <div class="tab-wrapper sticky tab-member-wrapper">
+                        <div class="container">
+                            <div class="tab-member tab-scroller tab-2 tab-primary">
+                                <div class="tab-scroller__area">
+                                    <ul class="tab-scroller__content" id="">
+                                        <li class="tab-item act-running active" id="li_Tab0" onclick="TabSwitch(0)">
+                                            <span class="tab-item-link">
+                                                <span class="title language_replace">個人資訊</span>
+                                            </span>
+                                        </li>
+                                        <li class="tab-item act-finish" id="li_Tab1" onclick="TabSwitch(1)">
+                                            <span class="tab-item-link">
+                                                <span class="title language_replace">個人錢包</span>
+                                            </span>
+                                        </li>
+                                        <div class="tab-slide"></div>
+                                    </ul>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                   
 
                     <!-- 個人資料 -->
                     <section id="divMemberProfile" class="section-member-profile" style="display: ;">
