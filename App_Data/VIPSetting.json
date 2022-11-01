@@ -1,0 +1,108 @@
+{
+  "Name": "VIPSetting",
+  "State": 0,
+  "StartDate": "2022/10/01 11:00:00",
+  "EndDate": "2099/11/01 11:00:00",
+  "Title": "會員升降級",
+  "VIPSetting": [
+    {
+      "UserLevelIndex": 0,
+      "Description": "VIP0",
+      "DepositMinValue": 0,
+      "DepositMaxValue": 500,
+      "ValidBetMinValue": 0,
+      "ValidBetMaxValue": 3000,
+      "KeepValidBetValue": 0
+    },
+    {
+      "UserLevelIndex": 1,
+      "Description": "青銅",
+      "DepositMinValue": 500,
+      "DepositMaxValue": 2000,
+      "ValidBetMinValue": 3000,
+      "ValidBetMaxValue": 12000,
+      "KeepValidBetValue": 2000
+    },
+    {
+      "UserLevelIndex": 2,
+      "Description": "白銀",
+      "DepositMinValue": 2000,
+      "DepositMaxValue": 10000,
+      "ValidBetMinValue": 12000,
+      "ValidBetMaxValue": 60000,
+      "KeepValidBetValue": 5000
+    },
+    {
+      "UserLevelIndex": 3,
+      "Description": "勇士",
+      "DepositMinValue": 10000,
+      "DepositMaxValue": 50000,
+      "ValidBetMinValue": 60000,
+      "ValidBetMaxValue": 300000,
+      "KeepValidBetValue": 18000
+    },
+    {
+      "UserLevelIndex": 4,
+      "Description": "白金",
+      "DepositMinValue": 50000,
+      "DepositMaxValue": 200000,
+      "ValidBetMinValue": 300000,
+      "ValidBetMaxValue": 1200000,
+      "KeepValidBetValue": 60000
+    },
+    {
+      "UserLevelIndex": 5,
+      "Description": "鑽石",
+      "DepositMinValue": 200000,
+      "DepositMaxValue": 500000,
+      "ValidBetMinValue": 1200000,
+      "ValidBetMaxValue": 3000000,
+      "KeepValidBetValue": 250000
+    },
+    {
+      "UserLevelIndex": 6,
+      "Description": "精英",
+      "DepositMinValue": 500000,
+      "DepositMaxValue": 1200000,
+      "ValidBetMinValue": 3000000,
+      "ValidBetMaxValue": 7200000,
+      "KeepValidBetValue": 600000
+    },
+    {
+      "UserLevelIndex": 7,
+      "Description": "金鑽",
+      "DepositMinValue": 1200000,
+      "DepositMaxValue": 3000000,
+      "ValidBetMinValue": 7200000,
+      "ValidBetMaxValue": 18000000,
+      "KeepValidBetValue": 1800000
+    },
+    {
+      "UserLevelIndex": 8,
+      "Description": "大師",
+      "DepositMinValue": 3000000,
+      "DepositMaxValue": 10000000,
+      "ValidBetMinValue": 18000000,
+      "ValidBetMaxValue": 60000000,
+      "KeepValidBetValue": 6000000
+    },
+    {
+      "UserLevelIndex": 9,
+      "Description": "宗師",
+      "DepositMinValue": 10000000,
+      "DepositMaxValue": 30000000,
+      "ValidBetMinValue": 60000000,
+      "ValidBetMaxValue": 180000000,
+      "KeepValidBetValue": 25000000
+    },
+    {
+      "UserLevelIndex": 10,
+      "Description": "史詩",
+      "DepositMinValue": 30000000,
+      "DepositMaxValue": 0,
+      "ValidBetMinValue": 180000000,
+      "ValidBetMaxValue": 0,
+      "KeepValidBetValue": 50000000
+    }
+  ]
+}

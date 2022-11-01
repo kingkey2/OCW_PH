@@ -78,22 +78,22 @@
     {
       "Name": "RegisterBouns",
       "State": 0,
-      "PageShowState": 1
+      "PageShowState": 0
     },
     {
       "Name": "RegisterBounsToParent",
       "State": 0,
-      "PageShowState": 1
+      "PageShowState": 0
     },
     {
       "Name": "FirstDepositBonus",
       "State": 0,
-      "PageShowState": 1
+      "PageShowState": 0
     },
     {
       "Name": "DepositBounsToParent",
       "State": 0,
-      "PageShowState": 1
+      "PageShowState": 0
     },
     {
       "Name": "Act001",

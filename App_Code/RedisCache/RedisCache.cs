@@ -1832,6 +1832,53 @@ public static class RedisCache {
         }
     }
 
+    public static class UserAccountLevel {
+        private static string XMLPath = "UserAccountLevel";
+        private static int DBIndex = 0;
+
+        public static System.Data.DataTable GetUserAccountLevelByLoginAccount(string LoginAccount) {
+            string Key;
+            System.Data.DataTable DT;
+            Key = XMLPath + ":LoginAccount:" + LoginAccount;
+
+            if (KeyExists(DBIndex, Key) == true) {
+                DT = DTReadFromRedis(DBIndex, Key);
+            } else {
+                DT = UpdateUserAccountLevelByLoginAccount(LoginAccount);
+            }
+
+            return DT;
+        }
+
+        public static System.Data.DataTable UpdateUserAccountLevelByLoginAccount(string LoginAccount) {
+            string Key;
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT = null;
+
+            SS = "SELECT * FROM UserAccountLevel WITH (NOLOCK)" +
+                 " WHERE LoginAccount=@LoginAccount ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+            if (DT.Rows.Count > 0) {
+                Key = XMLPath + ":LoginAccount:" + LoginAccount;
+
+                for (int I = 0; I <= 3; I++) {
+                    try {
+                        DTWriteToRedis(DBIndex, DT, Key);
+                        break;
+                    } catch (Exception ex) {
+                    }
+                }
+            }
+
+            return DT;
+        }
+    }
+
     public static void UpdateRedisByPrivateKey() {
         PaymentCategory.UpdatePaymentCategory();
         PaymentMethod.UpdatePaymentMethodByCategory("Paypal");
