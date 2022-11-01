@@ -791,40 +791,6 @@ public static class EWinWebDB {
             return RetValue;
         }
 
-        public static int UpdateValidBetValue(decimal ValidBetValue, string LoginAccount) {
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            int RetValue = 0;
-
-            SS = " UPDATE UserAccountTotalSummary WITH (ROWLOCK) SET ValidBetValue=@ValidBetValue " +
-                      " WHERE LoginAccount=@LoginAccount";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@ValidBetValue", System.Data.SqlDbType.Decimal).Value = ValidBetValue;
-            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
-            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
-
-            return RetValue;
-        }
-
-        public static int InsertValidBetValue(decimal ValidBetValue, string LoginAccount) {
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            int RetValue = 0;
-
-            SS = " INSERT INTO UserAccountTotalSummary (LoginAccount, ValidBetValue) " +
-                      " VALUES (@LoginAccount, @ValidBetValue) ";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@ValidBetValue", System.Data.SqlDbType.Decimal).Value = ValidBetValue;
-            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
-            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
-
-            return RetValue;
-        }
-
         public static System.Data.DataTable GetUserAccountTotalSummary() {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -832,6 +798,22 @@ public static class EWinWebDB {
 
             SS = " SELECT * " +
                      " FROM UserAccountTotalSummary WITH (NOLOCK) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
+        public static System.Data.DataTable GetUserAccountNeedCheckPromotion() {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT * " +
+                     " FROM UserAccountTotalSummary WITH (NOLOCK) " +
+                     " WHERE DepositRealAmount > 0";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
@@ -1069,10 +1051,10 @@ public static class EWinWebDB {
             return DT;
         }
 
-        public static System.Data.DataTable GetUserAccountTotalValidBetValueSummaryData(string LoginAccount, string StartDate, string EndDate) {
+        public static decimal GetUserAccountTotalValidBetValueSummaryData(string LoginAccount, string StartDate, string EndDate) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
-            System.Data.DataTable DT;
+            decimal UserAccountTotalValidBetValue = 0;
 
             SS = " SELECT  ISNULL(Sum(ValidBetValue),0)  ValidBetValue " +
                       " FROM   UserAccountSummary " +
@@ -1085,9 +1067,9 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
             DBCmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(StartDate);
             DBCmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(EndDate);
-            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+            UserAccountTotalValidBetValue = Convert.ToDecimal(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
 
-            return DT;
+            return UserAccountTotalValidBetValue;
         }
 
         public static System.Data.DataTable GetUserAccountSummaryData(string LoginAccount, string StartDate, string EndDate) {
