@@ -475,7 +475,7 @@
 
     function API_Home() {
         //Game
-        API_LoadPage("Home", "Home.aspx");
+        API_LoadPage("Casino", "Casino.aspx");
     }
 
     function API_Casino() {

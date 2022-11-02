@@ -24,13 +24,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-
+    <style>
+        .invalid-feedback {
+            display:block !important;
+        }
+    </style>
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
+<script type="text/javascript" src="/Scripts/libphonenumber.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
@@ -47,8 +52,8 @@
     var v = "<%:Version%>";
     var swiper;
     var initPopUpSwiperEnd = false;
-    
-
+    var PaymentClient;
+    var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
     function copyText(tag) {
         var copyText = document.getElementById(tag);
         copyText.select();
@@ -192,30 +197,24 @@
         p.GetUserBankCard(WebInfo.SID, Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    console.log(o);
                     if (o.BankCardList.length > 0) {
+                        $('#swiperBankCardContent').empty();
                         for (var i = 0; i < o.BankCardList.length; i++) {
                             var data = o.BankCardList[i];
-                            var BankCardState;
                             if (data.BankCardState == 0) {
-                                BankCardState == mlp.getLanguageKey("正常");
-                            } else {
-                                BankCardState == mlp.getLanguageKey("停用");
-                            }
-
-                            if (data.PaymentMethod == 0) {
-                                var BANKCARD = ` <div class="swiper-slide bankcard">
+                                if (data.PaymentMethod == 0) {
+                                    var BANKCARD = ` <div class="swiper-slide bankcard">
                                     <div class="custom-control custom-input-noCheck">
                                         <label class="custom-label">
                                             <input type="checkbox" name="chkcard" class="custom-control-input-hidden">
                                                 <div class="custom-input">
-                                                    <div class="card-item" data-card-num="${i+1}">
+                                                    <div class="card-item" data-card-num="${i + 1}">
                                                         <div class="card-item-inner">
                                                             <div class="card-type">
                                                                 <div class="type">
                                                                     <i class="icon icon-mask icon-bank"></i>
                                                                 </div>
-                                                                <span class="card-status language_replace">${BankCardState}</span>
+                                                                <span class="card-status language_replace"></span>
                                                             </div>
                                                             <div class="card-account">
                                                                 <h4 class="account-num">${data.BankNumber}</h4>
@@ -236,22 +235,22 @@
                                                     </label>
                                                 </div>
                                     </div>`;
-                                $('#swiperBankCardContent').append(BANKCARD);
-                            }
-                            else if (data.PaymentMethod == 4) {
-                                var gcash = `<div class="swiper-slide gcash">
+                                    $('#swiperBankCardContent').append(BANKCARD);
+                                }
+                                else if (data.PaymentMethod == 4) {
+                                    var gcash = `<div class="swiper-slide gcash">
                                 <div class="custom-control custom-input-noCheck">
                                     <label class="custom-label">
                                         <input type="checkbox" name="chkcard" class="custom-control-input-hidden">
                                             <div class="custom-input">
-                                                <div class="card-item" data-card-num="${i+1}">
+                                                <div class="card-item" data-card-num="${i + 1}">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-inner">
                                                         <div class="card-type">
                                                             <div class="type">
                                                                 <i class="icon icon-mask icon-GCash"></i>
                                                             </div>
-                                                            <span class="card-status language_replace">${BankCardState}</span>
+                                                            <span class="card-status language_replace"></span>
                                                         </div>
                                                         <div class="card-info">
                                                             <div class="item telphone">
@@ -270,16 +269,20 @@
                                                     </label>
                                                 </div>
                                 </div>`;
-                                $('#swiperBankCardContent').append(gcash);
+                                    $('#swiperBankCardContent').append(gcash);
+                                }
                             }
                         };
                         if ($('#swiperBankCardContent').children().length == 0) {
                             $('.cashflowCard-noCard').show();
+                            $('.cashflowCard-slider-wrapper').hide();
                         } else {
                             $('.cashflowCard-slider-wrapper').show();
+                            $('.cashflowCard-noCard').hide();
                             initSwiper();
                         }
                     } else {
+                        $('.cashflowCard-slider-wrapper').hide();
                         $('.cashflowCard-noCard').show();
                     }
                 } else {
@@ -298,12 +301,13 @@
     function showAddCardModal() {
         $('#ModalSelectCardWays').modal('hide');
         if ($("input[name='button-Exchange']:checked").val() == 'BANKCARD') {
+            $('#stepFadeInUpBank').show();
             $('#ModalBankCard').modal('show');
+
         } else {
+            $('#stepFadeInUpGCash').show();
             $('#ModalGCash').modal('show');
         }
-
-     
     }
 
     function updateUserAccountRemoveReadOnly() {
@@ -520,32 +524,148 @@
     }
 
     function BankCardSave() {
-        var BankCardName = $('idBankCardName').val().trim();
-        var BankCard = $('idBankCard').val().trim();
-        var BankBranch = $('idBankBranch').val().trim();
+        var BankCardName = $('#idBankCardName').val().trim();
+        var BankCard = $('#idBankCard').val().trim();
+        var BankBranch = $('#idBankBranch').val().trim();
         var Bank = $('#selectedBank').val();
         var boolChecked = true;
-        if (BankCardName=='') {
+        if (BankCardName == '') {
             $('#idBankCardNameErrorMessage').text(mlp.getLanguageKey("尚未輸入姓名"));
             boolChecked = false;
+        } else {
+            $('#idBankCardNameErrorMessage').text(mlp.getLanguageKey(""));
         }
 
         if (BankCard=='') {
             $('#idBankCardErrorMessage').text(mlp.getLanguageKey("尚未輸入卡號"));
             boolChecked = false;
+        } else {
+            $('#idBankCardErrorMessage').text(mlp.getLanguageKey(""));
         }
 
         if (BankBranch=='') {
             $('#idBankBranchErrorMessage').text(mlp.getLanguageKey("尚未輸入分行"));
             boolChecked = false;
+        } else {
+            $('#idBankBranchErrorMessage').text(mlp.getLanguageKey(""));
         }
 
         if (Bank == '-1') {
             $('#idBankErrorMessage').text(mlp.getLanguageKey("尚未選擇銀行"));
             boolChecked = false;
+        } else {
+            $('#idBankErrorMessage').text(mlp.getLanguageKey(""));
         }
+
+        if (boolChecked) {
+            p.AddUserBankCard(WebInfo.SID, Math.uuid(), WebInfo.MainCurrencyType, 0, Bank, BankBranch, BankCard, BankCardName,"","","",function (success, o) {
+                if (success) {
+                    if (o.Result == 0) {
+                        getUserBankCard();
+                        $('#showSuccessMessageBank').show();
+                        $('#stepFadeInUpBank').hide();
+                        $('#showErrorMessageBank').hide();
+                    } else {
+                        $('#showErrorMessageBank').find('.verify_resultTitle>span').eq(0).text(mlp.getLanguageKey(o.Message));
+                        $('#showErrorMessageBank').show();
+                        $('#stepFadeInUpBank').hide();
+                        $('#showSuccessMessageBank').hide();
+                    }
+                } else {
+                    if (o == "Timeout") {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    }
+                }
+            });
+        }
+
     }
-  
+
+    function GCashSave() {
+        var GCashAccount = $('#idGCashAccount').val().trim();
+        var PhonePrefix = $('#idPhonePrefix').val().trim();
+        var PhoneNumber = $('#idPhoneNumber').val().trim();
+
+        var boolChecked = true;
+        if (GCashAccount == '') {
+            $('#idGCashAccountErrorMessage').text(mlp.getLanguageKey("尚未輸入帳戶名稱"));
+            boolChecked = false;
+        } else {
+            $('#idGCashAccountErrorMessage').text(mlp.getLanguageKey(""));
+        }
+
+        if (PhonePrefix == '') {
+            $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey("尚未輸入國碼"));
+            boolChecked = false;
+        } else {
+            $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey(""));
+        }
+
+        if (PhoneNumber == '') {
+            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("尚未輸入電話號碼"));
+            boolChecked = false;
+        } else {
+            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey(""));
+        }
+
+        var phoneValue = PhonePrefix + PhoneNumber;
+        var phoneObj;
+
+        try {
+            phoneObj = PhoneNumberUtil.parse(phoneValue);
+
+            var type = PhoneNumberUtil.getNumberType(phoneObj);
+
+            if (type != libphonenumber.PhoneNumberType.MOBILE && type != libphonenumber.PhoneNumberType.FIXED_LINE_OR_MOBILE) {
+                $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
+                $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
+                boolChecked = false;
+
+            } else {
+                $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey(""));
+                $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey(""));
+            }
+        }
+        catch (e) {
+
+            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
+            $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
+            boolChecked = false;
+        }
+
+        if (boolChecked) {
+            p.AddUserBankCard(WebInfo.SID, Math.uuid(), WebInfo.MainCurrencyType, 4, "GCash", PhonePrefix, PhoneNumber, GCashAccount, "", "", "", function (success, o) {
+                if (success) {
+                    if (o.Result == 0) {
+                        getUserBankCard();
+                        $('#showSuccessMessageGCash').show();
+                        $('#showErrorMessageGCash').hide();
+                        $('#stepFadeInUpGCash').hide();
+                    } else {
+                        if (o.Message == "BankNumberExist") {
+                            $('#showErrorMessageGCash').find('.verify_resultTitle>span').eq(0).text(mlp.getLanguageKey("電話號碼已存在"));
+                        } else {
+                            $('#showErrorMessageGCash').find('.verify_resultTitle>span').eq(0).text(mlp.getLanguageKey(o.Message));
+                        }
+                 
+                        $('#showErrorMessageGCash').show();
+                        $('#showSuccessMessageGCash').hide();
+                        $('#stepFadeInUpGCash').hide();
+                    }
+                } else {
+                    if (o == "Timeout") {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    }
+                }
+            });
+        }
+
+    }
+
     function TabSwitch(type) {
         $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_Tab" + type).addClass("active");
@@ -569,13 +689,16 @@
 
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetLobbyAPI();
+        PaymentClient = window.parent.API_GetPaymentAPI();
         lang = window.parent.API_GetLang();
+ 
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
 
             if (p != null) {
                 getVIPInfo();
+                GetEPayBankSelect();
                 getUserBankCard();
                 updateBaseInfo();
                 window.top.API_GetUserThisWeekTotalValidBetValue(function (e) {
@@ -601,6 +724,37 @@
         if (!WebInfo.UserInfo.IsWalletPasswordSet) {
             //document.getElementById('idWalletPasswordUnSet').style.display = "block";
         }
+    }
+
+    function GetEPayBankSelect() {
+        PaymentClient.GetEPayBankSelect(WebInfo.SID, Math.uuid(), "", function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    o.Datas = JSON.parse(o.Datas);
+                    if (o.Datas.length > 0) {
+                        var strSelectBank = mlp.getLanguageKey("選擇銀行");
+                        $('#selectedBank').append(`<option class="title" value="-1" selected="">${strSelectBank}</option>`);
+                        for (var i = 0; i < o.Datas.length; i++) {
+                            $('#selectedBank').append(`<option class="searchFilter-option" value="${o.Datas[i].BankName}">${o.Datas[i].BankName}</option>`);
+                        }
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定銀行列表"), function () {
+                            window.parent.API_Home();
+                        });
+                    }
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定銀行列表"), function () {
+                        window.parent.API_Home();
+                    });
+                }
+            }
+            else {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
+                    window.parent.API_Home();
+                });
+            }
+
+        })
     }
 
     function copyActivityUrl() {
@@ -1275,73 +1429,7 @@
                                 <section class="cashflowCard-slider-wrapper" style="display:none">
                                     <div class="swiper cashflowCard-slider swiper-container" id="slider-CardCashFlow">
                                         <div class="swiper-wrapper" id="swiperBankCardContent">
-
-                                            <!-- BANKCARD -->
-                                            <!-- GCASH -->
-                                            <div class="swiper-slide gcash">  
-                                                <div class="custom-control custom-input-noCheck">
-                                                    <label class="custom-label">
-                                                        <input type="checkbox" name="chkcard" class="custom-control-input-hidden" disabled>
-                                                        <div class="custom-input">
-                                                            <div class="card-item" data-card-num="2">
-                                                                <a class="card-item-link"></a>
-                                                                <div class="card-item-inner">
-                                                                    <div class="card-type">
-                                                                        <div class="type">
-                                                                            <i class="icon icon-mask icon-GCash"></i>
-                                                                        </div>
-                                                                        <span class="card-status language_replace">正常</span>             
-                                                                    </div>
-                                                                    <div class="card-info">
-                                                                        <div class="item telphone">
-                                                                            <i class="icon icon-mask icon-mobile"></i>
-                                                                            <h4 class="phone">0959111222</h4>
-                                                                        </div>
-                                                                        <div class="item account">
-                                                                            <i class="icon icon-mask icon-mail"></i>
-                                                                            <h4 class="mail">eddie@kingkey.com.tw</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
-                                                                </div>
-                                                        </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <!-- BANKCARD -->
-                                            <div class="swiper-slide bankcard">  
-                                                <div class="custom-control custom-input-noCheck">
-                                                    <label class="custom-label">
-                                                        <input type="checkbox" name="chkcard" class="custom-control-input-hidden" disabled>
-                                                        <div class="custom-input">
-                                                            <div class="card-item"  data-card-num="3">      
-                                                                <div class="card-item-inner">
-                                                                    <div class="card-type">
-                                                                        <div class="type">
-                                                                            <i class="icon icon-mask icon-bank"></i>
-                                                                        </div>
-                                                                        <span class="card-status language_replace">正常</span>             
-                                                                    </div>
-                                                                    <div class="card-account">
-                                                                        <h4 class="account-num">1234123412341234</h4>
-                                                                    </div>
-                                                                    <div class="card-bank">
-                                                                        <div class="bank">
-                                                                            <h4 class="head">RCBC</h4>
-                                                                            <h5 class="branch">Branch</h5>
-                                                                        </div>
-                                                                        <div class="account-name">
-                                                                            <h4 class="name">Eddie Lucky</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>                                  
+                        
                                         </div>
                                         <div class="swiper-pagination"></div>
                                 </div>
@@ -3018,7 +3106,7 @@
                     <div class="BankCard-popup-wrapper popup-wrapper">                      
                         <form id="">
                             <!-- Step 1 欄位填寫-->
-                            <div class="data-wrapper stepFadeInUp">
+                            <div class="data-wrapper stepFadeInUp" id="stepFadeInUpBank">
                                 <div class="BankCard-popup-inner">
                                     <div class="form-group">
                                         <label class="form-title language_replace">持卡人姓名</label>
@@ -3055,8 +3143,8 @@
                                     </div>
                                 </div>
                                 <div class="wrapper_center">
-                                    <button class="btn btn-primary btn-roundcorner" type="button" onclick="">
-                                        <span class="language_replace" onclick="BankCardSave()">新增</span>
+                                    <button class="btn btn-primary btn-roundcorner" type="button" onclick="BankCardSave()">
+                                        <span class="language_replace">新增</span>
                                     </button>
                                 </div>
                 
@@ -3065,7 +3153,7 @@
                             <!-- Step 2 新增結果-->
                             <div class="verifyResult-wrapper stepFadeInUp">
                                 <!-- 成功 -->
-                                <div class="resultShow success" id="showSuccessMessageBank" >
+                                <div class="resultShow success" id="showSuccessMessageBank" style="display:none;">
                                     <div class="verifyResult-inner">
                                         <div class="verify_resultShow">
                                             <div class="verify_resultDisplay">
@@ -3083,14 +3171,14 @@
                                 </div>
                 
                                 <!-- 失敗 -->
-                                <div class="resultShow fail" id="">
+                                <div class="resultShow fail" id="showErrorMessageBank" style="display:none;">
                                     <div class="verifyResult-inner">
                                         <div class="verify_resultShow">
                                             <div class="verify_resultDisplay">
                                                 <div class="icon-symbol"></div>
                                             </div>
                                             <!-- 新增卡片文字 -->
-                                            <p class="verify_resultTitle"><span class="language_replace">新增失敗</span></p>
+                                            <p class="verify_resultTitle"><span class="language_replace"></span></p>
                                         </div>
                                     </div>
                 
@@ -3111,7 +3199,7 @@
     </div>
    
     <!-- Modal GCash -->
-    <div class="modal fade footer-center" id="ModalGCash" tabindex="-1" aria-hidden="true" style="display: ;">
+    <div class="modal fade footer-center" id="ModalGCash" tabindex="-1" aria-hidden="true" style="">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable cashCard">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3126,33 +3214,33 @@
                     <div class="GCash-popup-wrapper popup-wrapper">
                         <form id="">
                             <!-- Step 1 欄位填寫-->
-                            <div class="data-wrapper stepFadeInUp">
+                            <div class="data-wrapper stepFadeInUp" id="stepFadeInUpGCash">
                                 <div class="GCash-popup-inner">
                                     <div class="form-group">
                                         <label class="form-title language_replace">戶名</label>
                                         <div class="input-group">
-                                            <input id="idEmail" name="Email" type="text" language_replace="placeholder"
+                                            <input id="idGCashAccount" name="idGCashAccount" type="text" language_replace="placeholder"
                                                 class="form-control custom-style" placeholder="請填寫帳戶名稱" inputmode="email">
-                                            <div class="invalid-feedback language_replace">提示</div>
+                                            <div class="invalid-feedback language_replace" id="idGCashAccountErrorMessage"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-title language_replace">國碼</label>
                                         <div class="input-group">
-                                            <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+63" inputmode="decimal" value="+63" onchange="()">
-                                            <div class="invalid-feedback language_replace">請輸入國碼</div>
+                                            <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+63" inputmode="decimal" value="+63">
+                                            <div class="invalid-feedback language_replace" id="idPhonePrefixErrorMessage"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-title language_replace">手機電話號碼</label>
                                         <div class="input-group">
                                             <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-000-0000" inputmode="decimal">
-                                            <div class="invalid-feedback language_replace">請輸入正確電話</div>
+                                            <div class="invalid-feedback language_replace" id="idPhoneNumberErrorMessage"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="wrapper_center">
-                                    <button class="btn btn-primary btn-roundcorner" type="button" onclick="">
+                                    <button class="btn btn-primary btn-roundcorner" type="button" onclick="GCashSave()">
                                         <span class="language_replace">新增</span>
                                     </button>
                                 </div>
@@ -3215,7 +3303,7 @@
                                     <div class="wrapper_center">
                                         <!-- 返回新增卡片popup -->
                                         <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeGCashModal()">
-                                            <span class="language_replace">返回</span>
+                                            <span class="language_replace">確認</span>
                                         </button>
                                     </div>
                                 </div>
