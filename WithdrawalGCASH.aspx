@@ -59,6 +59,7 @@
     var v = "<%:Version%>";
     var IsOpenTime = "<%:InOpenTime%>";
     var IsWithdrawlTemporaryMaintenance = "<%:IsWithdrawlTemporaryMaintenance%>";
+    var BankCardData;
 
     function init() {
         if (self == top) {
@@ -83,6 +84,8 @@
                     });
                 }
             }
+
+            getUserBankCard();
             GetPaymentMethod();
             GetEPayBankSelect();
         },"PaymentAPI");
@@ -93,6 +96,49 @@
         var walletList = WebInfo.UserInfo.WalletList;
         var selectedLang = $('.header-tool-item').eq(2).find('a>span').text();
 
+    }
+
+    function getUserBankCard() {
+        var checkbool = false;
+        lobbyClient.GetUserBankCard(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.BankCardList.length > 0) {
+                        var strSelectBank = mlp.getLanguageKey("選擇 GCash 帳號");
+                        $('#SearchCard').append(`<option class="title" value="-1" selected="">${strSelectBank}</option>`);
+                        for (var i = 0; i < o.BankCardList.length; i++) {
+                            var data = o.BankCardList[i];
+                            if (data.BankCardState == 0) {
+                                if (data.PaymentMethod == 4) {
+                                    $('#SearchCard').append(`<option class="searchFilter-option" value="${data.BankCardGUID}">${data.BankNumber}</option>`);
+                                    checkbool = true;
+                                }
+                            }
+                        };
+
+                        if (!checkbool) {
+                            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定 GCash 帳號"), function () {
+                                window.parent.API_LoadPage("memberCenter-ADDCART", "memberCenter-ADDCART.aspx");
+                            });
+                        }
+
+                        BankCardData = o.BankCardList;
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定 GCash 帳號"), function () {
+                            window.parent.API_LoadPage("memberCenter-ADDCART", "memberCenter-ADDCART.aspx");
+                        });
+                    }
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                }
+            } else {
+                if (o == "Timeout") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                }
+            }
+        });
     }
 
     function btn_NextStep() {
@@ -284,7 +330,15 @@
 
     //建立訂單
     function CreateEPayWithdrawal() {
-        var phoneNumber = $('#phoneNumber').val().trim();
+        if ($("#SearchCard").val() == '-1') {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇 GCash 帳號"), function () { });
+            window.parent.API_LoadingEnd(1);
+            return false;
+        }
+
+        var bankcarddata = BankCardData.find(w => w.BankCardGUID == $("#SearchCard").val());
+
+        var phoneNumber = bankcarddata.BankNumber;
         var bankName = 'Gcash';
 
         if ($("#amount").val().trim() == '') {
@@ -403,7 +457,10 @@
     //完成訂單
     function ConfirmEPayWithdrawal() {
         var bankName = 'Gcash';
-        var phoneNumber = $('#phoneNumber').val().trim();
+        var bankcarddata = BankCardData.find(w => w.BankCardGUID == $("#SearchCard").val());
+
+        var phoneNumber = bankcarddata.BankNumber.trim();
+
         PaymentClient.ConfirmEPayWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, '', '', bankName, '',phoneNumber ,function (success, o) {
             if (success) {
                 window.parent.API_LoadingEnd(1);
@@ -609,12 +666,10 @@
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>
-                                 <div class="form-group mb-3">
-                                    <label class="form-title language_replace">輸入手機號</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="phoneNumber" language_replace="placeholder" placeholder="請輸入手機號" onkeyup="" />
-                                        <div class="invalid-feedback language_replace">提示</div>
-                                    </div>
+                               <div class="form-group mt-4 mb-0">
+                                    <label class="form-title language_replace" >選擇 GCash 帳號</label>
+                                    <div class="searchFilter-item input-group game-brand" id="div_SearchCard"></div>
+                                    <select class="custom-select mb-4" id="SearchCard" style=""></select> 
                                 </div>
                         
                             <div class="form-group award-take-check">

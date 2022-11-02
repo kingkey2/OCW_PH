@@ -688,6 +688,40 @@
         }
     }
 
+    function showMessageOK2(title, message, cbOK) {
+        debugger;
+        if ($("#alertMsg2").attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("alertMsg2");
+            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertMsg_Close");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alertMsg_OK");
+            var divMessageBoxContent = divMessageBox.querySelector(".alertMsg_Text");
+
+            if (MessageModal == null) {
+                MessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+            }
+
+            if (divMessageBox != null) {
+                MessageModal.show();
+
+                if (divMessageBoxCloseButton != null) {
+                    divMessageBoxCloseButton.classList.add("is-hide");
+                }
+
+                if (divMessageBoxOKButton != null) {
+
+                    divMessageBoxOKButton.onclick = function () {
+                        MessageModal.hide();
+
+                        if (cbOK != null)
+                            cbOK();
+                    }
+                }
+
+                divMessageBoxContent.innerHTML = message;
+            }
+        }
+    }
+
     function showMessageOK(title, message, cbOK) {
         if ($("#alertMsg").attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("alertMsg");
@@ -4080,6 +4114,7 @@
             </div>
         </div>
     </div>
+   
     <!--alert-->
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="nonClose_alertContact" aria-hidden="true" id="nonClose_alertContact">
         <div class="modal-dialog modal-dialog-centered" role="document">

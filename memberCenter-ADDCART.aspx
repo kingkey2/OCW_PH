@@ -52,6 +52,7 @@
     var v = "<%:Version%>";
     var swiper;
     var initPopUpSwiperEnd = false;
+    var isInitSwiper = false;
     var PaymentClient;
     var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
     function copyText(tag) {
@@ -198,17 +199,26 @@
             if (success) {
                 if (o.Result == 0) {
                     if (o.BankCardList.length > 0) {
-                        $('#swiperBankCardContent').empty();
+                        $('#slider-CardCashFlowContent').empty();
+                        
+                        $('#slider-CardCashFlowContent').append(`<div class="swiper cashflowCard-slider swiper-container" id="slider-CardCashFlow">
+                                        <div class="swiper-wrapper" id="swiperBankCardContent">
+
+                                        </div>
+                                        <div class="swiper-pagination"></div>
+                                    </div>`);
+                        var k = 0;
                         for (var i = 0; i < o.BankCardList.length; i++) {
                             var data = o.BankCardList[i];
                             if (data.BankCardState == 0) {
+                                k++;
                                 if (data.PaymentMethod == 0) {
                                     var BANKCARD = ` <div class="swiper-slide bankcard">
                                     <div class="custom-control custom-input-noCheck">
                                         <label class="custom-label">
                                             <input type="checkbox" name="chkcard" class="custom-control-input-hidden">
                                                 <div class="custom-input">
-                                                    <div class="card-item" data-card-num="${i + 1}">
+                                                    <div class="card-item" data-card-num="${k}">
                                                         <div class="card-item-inner">
                                                             <div class="card-type">
                                                                 <div class="type">
@@ -243,7 +253,7 @@
                                     <label class="custom-label">
                                         <input type="checkbox" name="chkcard" class="custom-control-input-hidden">
                                             <div class="custom-input">
-                                                <div class="card-item" data-card-num="${i + 1}">
+                                                <div class="card-item" data-card-num="${k}">
                                                     <a class="card-item-link"></a>
                                                     <div class="card-item-inner">
                                                         <div class="card-type">
@@ -279,7 +289,10 @@
                         } else {
                             $('.cashflowCard-slider-wrapper').show();
                             $('.cashflowCard-noCard').hide();
-                            initSwiper();
+                            if (!isInitSwiper) {
+                                initSwiper();
+                            }
+                            
                         }
                     } else {
                         $('.cashflowCard-slider-wrapper').hide();
@@ -303,18 +316,15 @@
             p.SetUserBankCardState(WebInfo.SID, Math.uuid(), BankCardGUID, 1, function (success, o) {
                 if (success) {
                     if (o.Result == 0) {
-
-                        window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已刪除"), function () {
-                            getUserBankCard();
-                        });
+                        getUserBankCard();
                     } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+               
                     }
                 } else {
                     if (o == "Timeout") {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                        
                     } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    
                     }
                 }
             });
@@ -326,9 +336,24 @@
         $('#ModalSelectCardWays').modal('hide');
         if ($("input[name='button-Exchange']:checked").val() == 'BANKCARD') {
             $('#stepFadeInUpBank').show();
+            $('#idBankCardName').val('');
+            $('#selectedBank').val('-1');
+            $('#idBankCard').val('');
+            $('#idBankBranch').val('');
+
+            $('#idBankCardNameErrorMessage').text('');
+            $('#idBankErrorMessage').text('');
+            $('#idBankCardErrorMessage').text('');
+            $('#idBankBranchErrorMessage').text('');
+   
             $('#ModalBankCard').modal('show');
 
         } else {
+            $('#idGCashAccount').val('');
+            $('#idGCashAccountErrorMessage').text('');
+            $('#idPhoneNumber').val('');
+            $('#idPhoneNumberErrorMessage').text('');
+            $('#idPhonePrefixErrorMessage').text('');
             $('#stepFadeInUpGCash').show();
             $('#ModalGCash').modal('show');
         }
@@ -1433,7 +1458,7 @@
                                     <span class="btn-full-stress btn-round">
                                         <span class="icon icon-add"></span>
                                     </span>
-                                    <span class="name">加入卡片</span>
+                                    <span class="name language_replace">加入卡片</span>
                                 </button>
                             </div>
                             <div class="cashflowCard-wrapper">
@@ -1451,12 +1476,10 @@
                                 </section>
                                 <!-- BANKCARD/GCash -->
                                 <section class="cashflowCard-slider-wrapper" style="display:none">
-                                    <div class="swiper cashflowCard-slider swiper-container" id="slider-CardCashFlow">
-                                        <div class="swiper-wrapper" id="swiperBankCardContent">
-                        
-                                        </div>
-                                        <div class="swiper-pagination"></div>
-                                </div>
+                                    <div id="slider-CardCashFlowContent">
+
+                                    </div>
+                                    
                                 </section>
                             </div>                             
                         </section> 

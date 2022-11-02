@@ -99,5 +99,8 @@
   "請勾選確認出金注意事項": "Please tick to confirm withdrawal notices",
   "餘額不足": "Insufficient balance",
   "只能有一筆進行中之訂單": "There can only be one order in progress",
-  "尚未選擇銀行": "Bank not selected"
+  "尚未選擇銀行": "Bank not selected",
+  "選擇銀行卡": "Bank card select",
+  "尚未設定銀行卡": "Bank card has not been set up.",
+  "尚未選擇銀行卡": "Bank card has not been selected."
 }
