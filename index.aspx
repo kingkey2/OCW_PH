@@ -922,8 +922,8 @@
         likebtn.onclick = new Function("favBtnClick('" + brandName + "." + gameName + "')");
 
         if (GI_img != null) {
-            GI_img.src = `${EWinWebInfo.ImageUrl}/${brandName}/${EWinWebInfo.Lang}/${gameName}.png`;
-            GI_img.onerror = new Function("showDefauktGameIcon('" + brandName + "', '" + gameName + "')");
+            GI_img.src = `${EWinWebInfo.ImageUrl}/${brandName}/ENG/${gameName}.png`;
+            GI_img.onerror = new Function("showDefauktGameIcon2()");
             //var el = GI_img;
             //var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
             //observer.observe();
@@ -2724,8 +2724,8 @@
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
                             //GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/${lang}/${gameItem.GameName}.png`;
-                            GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/${EWinWebInfo.Lang}/${gameItem.GameName}.png`;
-                            GI_img.onerror = new Function("showDefauktGameIcon('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                            GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
+                            GI_img.onerror = new Function("showDefauktGameIcon2()");
                             var el = GI_img;
                             var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                             observer.observe();
@@ -3073,8 +3073,8 @@
                 var GI_img = GI.querySelector(".gameimg");
                 if (GI_img != null) {
                     //GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/${lang}/${gameItem.GameName}.png`; 
-                    GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/${EWinWebInfo.Lang}/${gameItem.GameName}.png`;
-                    GI_img.onerror = new Function("showDefauktGameIcon('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                    GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
+                    GI_img.onerror = new Function("showDefauktGameIcon2()");
                     var el = GI_img;
                     var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                     observer.observe();

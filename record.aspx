@@ -221,12 +221,12 @@
 
                                 if (GameBrand == "EWin") {
                                     c.setClassText(RecordDom, "gameName", null, "EWinゲーミング");
-                                    GI_img.src = WebInfo.ImageUrl + "/" + GameBrand + "/" + WebInfo.Lang + "/EWinGaming.png";
+                                    GI_img.src = WebInfo.ImageUrl + "/" + GameBrand + "/ENG/EWinGaming.png";
                                 } else {
-                                    GI_img.src = WebInfo.ImageUrl + "/" + GameBrand + "/" + WebInfo.Lang + "/" + GameName + ".png";
+                                    GI_img.src = WebInfo.ImageUrl + "/" + GameBrand + "/ENG/" + GameName + ".png";
                                 }
 
-                                GI_img.onerror = new Function("showDefauktGameIcon('" + GameBrand + "', '" + GameName + "')");
+                                GI_img.onerror = new Function("showDefauktGameIcon2()");
 
                                 panel.appendChild(RecordDom);
                             }).bind(record))
