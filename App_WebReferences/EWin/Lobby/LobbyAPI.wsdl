@@ -1811,6 +1811,33 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="SetWalletPasswordByValidateCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ValidateType" type="tns:enumValidateType" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPhonePrefix" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ValidateCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="enumValidateType">
+        <s:restriction base="s:string">
+          <s:enumeration value="EMail" />
+          <s:enumeration value="PhoneNumber" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SetWalletPasswordByValidateCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetWalletPasswordByValidateCodeResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="SetUserPassword">
         <s:complexType>
           <s:sequence>
@@ -1843,12 +1870,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:simpleType name="enumValidateType">
-        <s:restriction base="s:string">
-          <s:enumeration value="EMail" />
-          <s:enumeration value="PhoneNumber" />
-        </s:restriction>
-      </s:simpleType>
       <s:element name="SetUserPasswordByValidateCodeResponse">
         <s:complexType>
           <s:sequence>
@@ -2469,6 +2490,12 @@
   <wsdl:message name="SetWalletPasswordSoapOut">
     <wsdl:part name="parameters" element="tns:SetWalletPasswordResponse" />
   </wsdl:message>
+  <wsdl:message name="SetWalletPasswordByValidateCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:SetWalletPasswordByValidateCode" />
+  </wsdl:message>
+  <wsdl:message name="SetWalletPasswordByValidateCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:SetWalletPasswordByValidateCodeResponse" />
+  </wsdl:message>
   <wsdl:message name="SetUserPasswordSoapIn">
     <wsdl:part name="parameters" element="tns:SetUserPassword" />
   </wsdl:message>
@@ -3057,6 +3084,19 @@
     <wsdl:part name="NewWalletPassword" type="s:string" />
   </wsdl:message>
   <wsdl:message name="SetWalletPasswordHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="SetWalletPasswordByValidateCodeHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="ValidateType" type="s:string" />
+    <wsdl:part name="EMail" type="s:string" />
+    <wsdl:part name="ContactPhonePrefix" type="s:string" />
+    <wsdl:part name="ContactPhoneNumber" type="s:string" />
+    <wsdl:part name="ValidateCode" type="s:string" />
+    <wsdl:part name="NewPassword" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetWalletPasswordByValidateCodeHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="SetUserPasswordHttpGetIn">
@@ -3687,6 +3727,19 @@
   <wsdl:message name="SetWalletPasswordHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="SetWalletPasswordByValidateCodeHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="ValidateType" type="s:string" />
+    <wsdl:part name="EMail" type="s:string" />
+    <wsdl:part name="ContactPhonePrefix" type="s:string" />
+    <wsdl:part name="ContactPhoneNumber" type="s:string" />
+    <wsdl:part name="ValidateCode" type="s:string" />
+    <wsdl:part name="NewPassword" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetWalletPasswordByValidateCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="SetUserPasswordHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -4018,6 +4071,10 @@
       <wsdl:input message="tns:SetWalletPasswordSoapIn" />
       <wsdl:output message="tns:SetWalletPasswordSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="SetWalletPasswordByValidateCode">
+      <wsdl:input message="tns:SetWalletPasswordByValidateCodeSoapIn" />
+      <wsdl:output message="tns:SetWalletPasswordByValidateCodeSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="SetUserPassword">
       <wsdl:input message="tns:SetUserPasswordSoapIn" />
       <wsdl:output message="tns:SetUserPasswordSoapOut" />
@@ -4280,6 +4337,10 @@
       <wsdl:input message="tns:SetWalletPasswordHttpGetIn" />
       <wsdl:output message="tns:SetWalletPasswordHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="SetWalletPasswordByValidateCode">
+      <wsdl:input message="tns:SetWalletPasswordByValidateCodeHttpGetIn" />
+      <wsdl:output message="tns:SetWalletPasswordByValidateCodeHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="SetUserPassword">
       <wsdl:input message="tns:SetUserPasswordHttpGetIn" />
       <wsdl:output message="tns:SetUserPasswordHttpGetOut" />
@@ -4541,6 +4602,10 @@
     <wsdl:operation name="SetWalletPassword">
       <wsdl:input message="tns:SetWalletPasswordHttpPostIn" />
       <wsdl:output message="tns:SetWalletPasswordHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetWalletPasswordByValidateCode">
+      <wsdl:input message="tns:SetWalletPasswordByValidateCodeHttpPostIn" />
+      <wsdl:output message="tns:SetWalletPasswordByValidateCodeHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="SetUserPassword">
       <wsdl:input message="tns:SetUserPasswordHttpPostIn" />
@@ -5119,6 +5184,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetWalletPassword">
       <soap:operation soapAction="http://tempuri.org/SetWalletPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetWalletPasswordByValidateCode">
+      <soap:operation soapAction="http://tempuri.org/SetWalletPasswordByValidateCode" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5750,6 +5824,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetWalletPasswordByValidateCode">
+      <soap12:operation soapAction="http://tempuri.org/SetWalletPasswordByValidateCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SetUserPassword">
       <soap12:operation soapAction="http://tempuri.org/SetUserPassword" style="document" />
       <wsdl:input>
@@ -6338,6 +6421,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetWalletPasswordByValidateCode">
+      <http:operation location="/SetWalletPasswordByValidateCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SetUserPassword">
       <http:operation location="/SetUserPassword" />
       <wsdl:input>
@@ -6919,6 +7011,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetWalletPassword">
       <http:operation location="/SetWalletPassword" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetWalletPasswordByValidateCode">
+      <http:operation location="/SetWalletPasswordByValidateCode" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
