@@ -165,5 +165,12 @@
   "請填寫帳戶名稱": "請填寫帳戶名稱",
   "戶名": "戶名",
   "新增GCash": "新增GCash",
-  "電話號碼已存在": "Phone number Exist."
+  "電話號碼已存在": "Phone number Exist.",
+  "個人資訊": "Personal Information",
+  "個人錢包": "Personal Wallet",
+  "錢包資訊": "Wallet Information",
+  "卡片管理": "Card management",
+  "加入卡片": "Add Card",
+  "請綁定 銀行卡 或 GCash": "Please bind bank card or GCash",
+  "錢包密碼": "WalletPassword"
 }

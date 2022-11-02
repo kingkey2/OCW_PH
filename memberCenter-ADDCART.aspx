@@ -1014,6 +1014,14 @@
         $('#ModalGCash').modal('hide');
     }
 
+    function changePassword() {
+        window.parent.API_LoadPage("ForgotPassword", "ForgotPassword.aspx")
+    }
+
+    function changeWalletPassword() {
+        window.parent.API_LoadPage("ForgotWalletPassword", "ForgotWalletPassword.aspx")
+    }
+
     window.onload = init;
 </script>
 <body class="innerBody">
@@ -1132,7 +1140,7 @@
                                         <h1 class="sec-title title-deco"><span class="language_replace">個人資訊</span></h1>
                                     </div>
                                     <!-- 資料更新 Button-->
-                                    <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
+                                    <%--<button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>--%>
                                 </legend>
 
                                 <!-- 當點擊 資料更新 Button時 text input可編輯的項目 會移除 readonly-->
@@ -1178,6 +1186,7 @@
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
                                                 <span class="title-name language_replace">密碼</span>
+                                               <button type="button" class="btn btn-edit btn-full-main" onclick="changePassword()"><i class="icon icon-mask icon-pencile"></i></button>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -1203,6 +1212,20 @@
                                                     <span id="idNewPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
                                                     <p class="notice is-hide" id="NewPasswordErrorMessage"></p>                                                 
                                                 </div>                                                
+                                            </div>
+                                        </div>                                        
+                                    </div>       
+                                    <div class="data-item password">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-lock-closed"></i>
+                                                <span class="title-name language_replace">錢包密碼</span>
+                                               <button type="button" class="btn btn-edit btn-full-main" onclick="changeWalletPassword()"><i class="icon icon-mask icon-pencile"></i></button>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <div class="password-fake">
+                                                <p class="password">**************</p>
                                             </div>
                                         </div>                                        
                                     </div>
@@ -1443,7 +1466,7 @@
                                     <span class="btn-full-stress btn-round">
                                         <span class="icon icon-add"></span>
                                     </span>
-                                    <span class="name">加入卡片</span>
+                                    <span class="name language_replace">加入卡片</span>
                                 </button>
                             </div>
                             <div class="cashflowCard-wrapper">
