@@ -348,45 +348,96 @@ public class MgmtAPI : System.Web.Services.WebService {
         decimal Setting_ValidBetMinValue = 0;
         decimal Setting_ValidBetMaxValue = 0;
         decimal Setting_KeepValidBetValue = 0;
+        int NextUserLevelIndex = UserLevelIndex + 1;
+        bool IsMaxLevel = false;
         bool CheckDeposit = true;
         bool CheckValidBet = true;
         int DepositLevel = 0;    //儲值符合等級
         int ValidBetLevel = 0;   //流水符合等級
 
-        for (int i = UserLevelIndex; i < VIPSettingDetail.Count; i++) {
-            Setting_UserLevelIndex = (int)VIPSettingDetail[i]["UserLevelIndex"];
-            Setting_DepositMinValue = (decimal)VIPSettingDetail[i]["DepositMinValue"];
-            Setting_DepositMaxValue = (decimal)VIPSettingDetail[i]["DepositMaxValue"];
-            Setting_ValidBetMinValue = (decimal)VIPSettingDetail[i]["ValidBetMinValue"];
-            Setting_ValidBetMaxValue = (decimal)VIPSettingDetail[i]["ValidBetMaxValue"];
-            Setting_KeepValidBetValue = (decimal)VIPSettingDetail[i]["KeepValidBetValue"];
+        //for (int i = UserLevelIndex; i < VIPSettingDetail.Count; i++) {
+        //    Setting_UserLevelIndex = (int)VIPSettingDetail[i]["UserLevelIndex"];
+        //    Setting_DepositMinValue = (decimal)VIPSettingDetail[i]["DepositMinValue"];
+        //    Setting_DepositMaxValue = (decimal)VIPSettingDetail[i]["DepositMaxValue"];
+        //    Setting_ValidBetMinValue = (decimal)VIPSettingDetail[i]["ValidBetMinValue"];
+        //    Setting_ValidBetMaxValue = (decimal)VIPSettingDetail[i]["ValidBetMaxValue"];
+        //    Setting_KeepValidBetValue = (decimal)VIPSettingDetail[i]["KeepValidBetValue"];
 
-            if (CheckDeposit) {
-                if (DeposiAmount < Setting_DepositMaxValue) {
-                    if (DeposiAmount >= Setting_DepositMinValue) {
-                        DepositLevel = Setting_UserLevelIndex;
-                        CheckDeposit = false;
-                    }
-                }
-            }
+        //    if (CheckDeposit) {
+        //        //最高等級
+        //        if (Setting_UserLevelIndex == VIPSettingDetail.Count - 1) {
+        //            if (DeposiAmount >= Setting_DepositMinValue) {
+        //                DepositLevel = Setting_UserLevelIndex;
+        //                CheckDeposit = false;
+        //            }
+        //        } else {
+        //            if (DeposiAmount < Setting_DepositMaxValue) {
+        //                if (DeposiAmount >= Setting_DepositMinValue) {
+        //                    DepositLevel = Setting_UserLevelIndex;
+        //                    CheckDeposit = false;
+        //                }
+        //            }
+        //        }
 
-            if (CheckValidBet) {
-                if (ValidBetValue < Setting_ValidBetMaxValue) {
-                    if (ValidBetValue >= Setting_ValidBetMinValue) {
-                        ValidBetLevel = Setting_UserLevelIndex;
-                        CheckValidBet = false;
-                    }
-                }
-            }
+        //    }
 
-        }
+        //    if (CheckValidBet) {
+        //        //最高等級
+        //        if (Setting_UserLevelIndex == VIPSettingDetail.Count - 1) {
+        //            if (ValidBetValue >= Setting_ValidBetMinValue) {
+        //                ValidBetLevel = Setting_UserLevelIndex;
+        //                CheckValidBet = false;
+        //            }
+        //        } else {
+        //            if (ValidBetValue < Setting_ValidBetMaxValue) {
+        //                if (ValidBetValue >= Setting_ValidBetMinValue) {
+        //                    ValidBetLevel = Setting_UserLevelIndex;
+        //                    CheckValidBet = false;
+        //                }
+        //            }
+        //        }
+        //    }
 
-        if (DepositLevel == ValidBetLevel) {
-            UserLevel = DepositLevel;
-        } else if (DepositLevel < ValidBetLevel) {
-            UserLevel = DepositLevel;
+        //}
+
+        //if (DepositLevel == ValidBetLevel) {
+        //    UserLevel = DepositLevel;
+        //} else if (DepositLevel < ValidBetLevel) {
+        //    UserLevel = DepositLevel;
+        //} else {
+        //    UserLevel = ValidBetLevel;
+        //}
+
+        //最高等級
+        if (UserLevelIndex == VIPSettingDetail.Count - 1) {
+            return UserLevelIndex;
         } else {
-            UserLevel = ValidBetLevel;
+            Setting_UserLevelIndex = (int)VIPSettingDetail[NextUserLevelIndex]["UserLevelIndex"];
+            Setting_DepositMinValue = (decimal)VIPSettingDetail[NextUserLevelIndex]["DepositMinValue"];
+            Setting_DepositMaxValue = (decimal)VIPSettingDetail[NextUserLevelIndex]["DepositMaxValue"];
+            Setting_ValidBetMinValue = (decimal)VIPSettingDetail[NextUserLevelIndex]["ValidBetMinValue"];
+            Setting_ValidBetMaxValue = (decimal)VIPSettingDetail[NextUserLevelIndex]["ValidBetMaxValue"];
+            Setting_KeepValidBetValue = (decimal)VIPSettingDetail[NextUserLevelIndex]["KeepValidBetValue"];
+                
+            if (DeposiAmount >= Setting_DepositMinValue) {
+                DepositLevel = Setting_UserLevelIndex;
+            } else {
+                DepositLevel = UserLevelIndex;
+            }
+
+            if (ValidBetValue >= Setting_ValidBetMinValue) {
+                ValidBetLevel = Setting_UserLevelIndex;
+            } else {
+                ValidBetLevel = UserLevelIndex;
+            }
+            
+            if (DepositLevel == ValidBetLevel) {
+                UserLevel = DepositLevel;
+            } else if (DepositLevel < ValidBetLevel) {
+                UserLevel = DepositLevel;
+            } else {
+                UserLevel = ValidBetLevel;
+            }
         }
 
         return UserLevel;

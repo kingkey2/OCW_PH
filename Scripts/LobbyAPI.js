@@ -1145,6 +1145,33 @@
         });
     };
 
+    this.SetWalletPasswordByValidateCode = function (GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword, cb) {
+        var url = APIUrl + "/SetWalletPasswordByValidateCode";
+        var postData;
+
+        postData = {
+            GUID: GUID,
+            ValidateType: ValidateType,
+            EMail: EMail,
+            ContactPhonePrefix: ContactPhonePrefix,
+            ContactPhoneNumber: ContactPhoneNumber,
+            ValidateCode: ValidateCode,
+            NewPassword: NewPassword
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.SetValidateCode = function (GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, cb) {
         var url = APIUrl + "/SetValidateCode";
         var postData;
