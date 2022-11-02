@@ -1037,7 +1037,7 @@
                             </div>
                             <div class="cashflowCard-wrapper">
                              <!-- 無卡片時 -->
-                                <section class="cashflowCard-noCard" style="display:none">
+                                <section class="cashflowCard-noCard" style="display:">
                                     <div class="card-item">
                                         <button type="button" class="btn btn-addcard btn-transparent" data-toggle="modal" data-target="#ModalSelectCardWays">
                                             <span class="btn-full-stress btn-round">
@@ -2878,7 +2878,7 @@
         </div>
     </div>
 
-    <!-- Modal AddCard -->
+    <!-- Modal BankCard -->
     <div class="modal fade footer-center" id="ModalBankCard" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable cashCard">
             <div class="modal-content">
@@ -2891,11 +2891,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="BankCard-popup-wrapper popup-wrapper">
-                      
+                    <div class="BankCard-popup-wrapper popup-wrapper">                      
                         <form id="">
                             <!-- Step 1 欄位填寫-->
-                            <div class="data-wrapper">
+                            <div class="data-wrapper stepFadeInUp">
                                 <div class="BankCard-popup-inner">
                                     <div class="form-group">
                                         <label class="form-title language_replace">持卡人姓名</label>
@@ -2939,9 +2938,8 @@
                 
                             </div>
                 
-                
                             <!-- Step 2 新增結果-->
-                            <div class="verifyResult-wrapper">
+                            <div class="verifyResult-wrapper stepFadeInUp">
                                 <!-- 成功 -->
                                 <div class="resultShow success" id="">
                                     <div class="verifyResult-inner">
@@ -2989,7 +2987,7 @@
     </div>
    
     <!-- Modal GCash -->
-    <div class="modal fade footer-center" id="ModalGCash" tabindex="-1" aria-hidden="true">
+    <div class="modal fade footer-center" id="ModalGCash" tabindex="-1" aria-hidden="true" style="display: ;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable cashCard">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3004,7 +3002,7 @@
                     <div class="GCash-popup-wrapper popup-wrapper">
                         <form id="">
                             <!-- Step 1 欄位填寫-->
-                            <div class="data-wrapper">
+                            <div class="data-wrapper stepFadeInUp">
                                 <div class="GCash-popup-inner">
                                     <div class="form-group">
                                         <label class="form-title language_replace">戶名</label>
@@ -3036,9 +3034,10 @@
                                 </div>
                     
                             </div>
-                    
-                            <!-- Step 2 收取驗證碼-->
-                            <div class="VerificationCode-wrapper">
+
+                            <%--
+                            <!-- Step 2 收取驗證碼 先取消-->
+                            <div class="VerificationCode-wrapper stepFadeInUp">
                                 <p class="text">請至<span class="member-email ">xxxx@xxx.com</span>收取驗證碼</p>
                                 <div class="form-group">
                                     <label class="form-title language_replace">驗證碼</label>
@@ -3055,9 +3054,10 @@
                                     </button>
                                 </div>
                             </div>
+                            --%>
                     
                             <!-- Step 3 新增結果-->
-                            <div class="verifyResult-wrapper">
+                            <div class="verifyResult-wrapper stepFadeInUp" style="display: none;">
                                 <!-- 成功 -->
                                 <div class="resultShow success" id="">
                                     <div class="verifyResult-inner">
@@ -3096,10 +3096,7 @@
                                     </div>
                                 </div>
                     
-                            </div>
-                    
-                    
-                    
+                            </div>                    
                         </form>
                     </div>
                 </div>                
