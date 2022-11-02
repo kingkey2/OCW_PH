@@ -348,7 +348,7 @@ public class MgmtAPI : System.Web.Services.WebService {
         decimal Setting_ValidBetMinValue = 0;
         decimal Setting_ValidBetMaxValue = 0;
         decimal Setting_KeepValidBetValue = 0;
-        int Setting_NextUserLevelIndex = UserLevelIndex + 1;
+        int NextUserLevelIndex = UserLevelIndex + 1;
         bool IsMaxLevel = false;
         bool CheckDeposit = true;
         bool CheckValidBet = true;
@@ -410,20 +410,15 @@ public class MgmtAPI : System.Web.Services.WebService {
 
         //最高等級
         if (UserLevelIndex == VIPSettingDetail.Count - 1) {
-            IsMaxLevel = true;
-            Setting_NextUserLevelIndex = VIPSettingDetail.Count;
-        }
-
-        Setting_UserLevelIndex = (int)VIPSettingDetail[Setting_NextUserLevelIndex]["UserLevelIndex"];
-        Setting_DepositMinValue = (decimal)VIPSettingDetail[Setting_NextUserLevelIndex]["DepositMinValue"];
-        Setting_DepositMaxValue = (decimal)VIPSettingDetail[Setting_NextUserLevelIndex]["DepositMaxValue"];
-        Setting_ValidBetMinValue = (decimal)VIPSettingDetail[Setting_NextUserLevelIndex]["ValidBetMinValue"];
-        Setting_ValidBetMaxValue = (decimal)VIPSettingDetail[Setting_NextUserLevelIndex]["ValidBetMaxValue"];
-        Setting_KeepValidBetValue = (decimal)VIPSettingDetail[Setting_NextUserLevelIndex]["KeepValidBetValue"];
-
-        if (IsMaxLevel) {
             return UserLevelIndex;
         } else {
+            Setting_UserLevelIndex = (int)VIPSettingDetail[NextUserLevelIndex]["UserLevelIndex"];
+            Setting_DepositMinValue = (decimal)VIPSettingDetail[NextUserLevelIndex]["DepositMinValue"];
+            Setting_DepositMaxValue = (decimal)VIPSettingDetail[NextUserLevelIndex]["DepositMaxValue"];
+            Setting_ValidBetMinValue = (decimal)VIPSettingDetail[NextUserLevelIndex]["ValidBetMinValue"];
+            Setting_ValidBetMaxValue = (decimal)VIPSettingDetail[NextUserLevelIndex]["ValidBetMaxValue"];
+            Setting_KeepValidBetValue = (decimal)VIPSettingDetail[NextUserLevelIndex]["KeepValidBetValue"];
+                
             if (DeposiAmount >= Setting_DepositMinValue) {
                 DepositLevel = Setting_UserLevelIndex;
             } else {
@@ -435,16 +430,16 @@ public class MgmtAPI : System.Web.Services.WebService {
             } else {
                 ValidBetLevel = UserLevelIndex;
             }
+            
+            if (DepositLevel == ValidBetLevel) {
+                UserLevel = DepositLevel;
+            } else if (DepositLevel < ValidBetLevel) {
+                UserLevel = DepositLevel;
+            } else {
+                UserLevel = ValidBetLevel;
+            }
         }
 
-        if (DepositLevel == ValidBetLevel) {
-            UserLevel = DepositLevel;
-        } else if (DepositLevel < ValidBetLevel) {
-            UserLevel = DepositLevel;
-        } else {
-            UserLevel = ValidBetLevel;
-        }
-        
         return UserLevel;
     }
 
