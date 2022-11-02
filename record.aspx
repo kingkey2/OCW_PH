@@ -692,9 +692,18 @@
     }
 
     function showDefauktGameIcon2() {
+
         var el = event.target;
-        el.onerror = null;
-        el.src = WebInfo.ImageUrl + "/default.png";
+        if (el.src.includes("PG")) {
+            el.onerror = null;
+            el.src = el.src.replace("PG", "PG2");
+        } else if (el.src.includes("MG")) {
+            el.onerror = null;
+            el.src = el.src.replace("MG", "MG2");
+        } else {
+            el.onerror = null;
+            el.src = WebInfo.ImageUrl + "/default.png";
+        }
     }
 
 
