@@ -126,7 +126,7 @@
   "2.保級要求：會員在達到某VIP等級後，30天內投注需要完成保級要求。如果在此期間完成晉升，保級要求重新按照當前等級計算。": "2. Relegation Criteria:<br>Must reach the required betting amount within 30 days after reaching a certain VIP level.<br>If the upgrade is completed within the required period (within 30 days), the relegation requirement will be recalculated according to the current level.",
   "3.降級標準：如果會員在30天內沒有完成相應的保級要求流水，系統會自動降級1個等級，相應的返水及其它優惠也會隨之調整至降級後的等級。": "3. Downgrade Criteria:<br>The system will automatically downgrade by 1 level if you do not meet the required rolling within 30 days.<br>The rebate and other favorable terms will also be adjusted to the downgraded level.",
   "4.自升/降級日起算，每30天後會重新計算累積存款以及累計投注額。": "4. From the upgrade/downgrade date, the build-up savings and accumulated betting amount will be recalculated every 30 days.",
-  "5.30日的計算條件以升降級的當下重新計算(VIP0時是以當日往前30天的總洗碼量計算。若是青銅降回VIP0級，以降級的時間點重新計算30日洗碼量)": "5. 30 Day Recalculation Of Rolling Term: Rolling rules will be recalculated at the moment of upgrade or downgrade.<br>For example:<br>At VIP level 0, the rolling is calculated based on the total rolling which is pushed forward 30 days from the current day. <br>If bronze is downgraded to VIP level 0, the 30-day rolling will be recalculated based on the downgrade time.",
+  "5.30日的計算條件以升降級的當下重新計算(VIP0時是以當日往前30天的總洗碼量計算。若是青銅降回VIP0級，以降級的時間點重新計算30日洗碼量)": "5. 30 Day Recalculation Of Rolling Term: Rolling rules will be recalculated at the moment of upgrade or downgrade. ",
   "6.網站保留對活動的修改、停止及最終解釋權。": "6. The website reserves the right, at its sole discretion, to change, modify, add or remove portions of these Terms of Use, at any time.",
   "青銅": "Bronze",
   "白銀": "Silver",
@@ -160,6 +160,6 @@
   "尚未選擇銀行": "尚未選擇銀行",
   "尚未輸入卡號": "Card number has not been entered",
   "尚未輸入金額": "Amount has not been entered",
-  "尚未設定銀行列表": "Bank list not yet set"
-
+  "尚未設定銀行列表": "Bank list not yet set",
+  "BankNumberExist": "Bank card number Exist."
 }
