@@ -116,7 +116,7 @@
   "累積流水": "Build Up Rolling",
   "流水要求": "Rolling Criteria",
   "保級流水": "Relegation Criteria",
-  "特別服務通道": "Exclusive Customer Service", 
+  "特別服務通道": "Exclusive Customer Service",
   "生日禮金": "Birthday Gift",
   "體育返水": "Sports Rebate",
   "真人返水": "Live Rebate",
@@ -144,6 +144,22 @@
   "史詩": "Epic",
   "VIP 會員級數說明": "VIP Details",
   "等級": "VIP Level",
-  "每月流水": "Rolling Criteria"
+  "每月流水": "Rolling Criteria",
+  "正常": "正常",
+  "停用": "停用",
+  "新增成功": "新增成功",
+  "新增失敗": "新增失敗",
+  "分行": "分行",
+  "請填寫分行": "請填寫分行",
+  "新增": "新增",
+  "持卡人姓名": "Cardholder's name",
+  "請填寫姓名": "Please Cardholder's name.",
+  "卡號": "Bank card number",
+  "請填寫卡號": "Please enter bank card number.",
+  "選擇銀行": "Select bank",
+  "尚未選擇銀行": "尚未選擇銀行",
+  "尚未輸入卡號": "Card number has not been entered",
+  "尚未輸入金額": "Amount has not been entered",
+  "尚未設定銀行列表": "Bank list not yet set"
 
 }

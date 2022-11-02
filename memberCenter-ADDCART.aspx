@@ -188,6 +188,124 @@
 
     }
 
+    function getUserBankCard() {
+        p.GetUserBankCard(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    console.log(o);
+                    if (o.BankCardList.length > 0) {
+                        for (var i = 0; i < o.BankCardList.length; i++) {
+                            var data = o.BankCardList[i];
+                            var BankCardState;
+                            if (data.BankCardState == 0) {
+                                BankCardState == mlp.getLanguageKey("正常");
+                            } else {
+                                BankCardState == mlp.getLanguageKey("停用");
+                            }
+
+                            if (data.PaymentMethod == 0) {
+                                var BANKCARD = ` <div class="swiper-slide bankcard">
+                                    <div class="custom-control custom-input-noCheck">
+                                        <label class="custom-label">
+                                            <input type="checkbox" name="chkcard" class="custom-control-input-hidden">
+                                                <div class="custom-input">
+                                                    <div class="card-item" data-card-num="${i+1}">
+                                                        <div class="card-item-inner">
+                                                            <div class="card-type">
+                                                                <div class="type">
+                                                                    <i class="icon icon-mask icon-bank"></i>
+                                                                </div>
+                                                                <span class="card-status language_replace">${BankCardState}</span>
+                                                            </div>
+                                                            <div class="card-account">
+                                                                <h4 class="account-num">${data.BankNumber}</h4>
+                                                            </div>
+                                                            <div class="card-bank">
+                                                                <div class="bank">
+                                                                    <h4 class="head">${data.BankName}</h4>
+                                                                    <h5 class="branch">${data.BranchName}</h5>
+                                                                </div>
+                                                                <div class="account-name">
+                                                                    <h4 class="name">${data.BankNumber}</h4>
+                                                                </div>
+                                                            </div>
+                                                            <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                    </label>
+                                                </div>
+                                    </div>`;
+                                $('#swiperBankCardContent').append(BANKCARD);
+                            }
+                            else if (data.PaymentMethod == 4) {
+                                var gcash = `<div class="swiper-slide gcash">
+                                <div class="custom-control custom-input-noCheck">
+                                    <label class="custom-label">
+                                        <input type="checkbox" name="chkcard" class="custom-control-input-hidden">
+                                            <div class="custom-input">
+                                                <div class="card-item" data-card-num="${i+1}">
+                                                    <a class="card-item-link"></a>
+                                                    <div class="card-item-inner">
+                                                        <div class="card-type">
+                                                            <div class="type">
+                                                                <i class="icon icon-mask icon-GCash"></i>
+                                                            </div>
+                                                            <span class="card-status language_replace">${BankCardState}</span>
+                                                        </div>
+                                                        <div class="card-info">
+                                                            <div class="item telphone">
+                                                                <i class="icon icon-mask icon-mobile"></i>
+                                                                <h4 class="phone">${data.BankNumber}</h4>
+                                                            </div>
+                                                            <div class="item account">
+                                                                <i class="icon icon-mask icon-mail"></i>
+                                                                <h4 class="mail">${data.AccountName}</h4>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                    </label>
+                                                </div>
+                                </div>`;
+                                $('#swiperBankCardContent').append(gcash);
+                            }
+                        };
+                        if ($('#swiperBankCardContent').children().length == 0) {
+                            $('.cashflowCard-noCard').show();
+                        } else {
+                            $('.cashflowCard-slider-wrapper').show();
+                            initSwiper();
+                        }
+                    } else {
+                        $('.cashflowCard-noCard').show();
+                    }
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                }
+            } else {
+                if (o == "Timeout") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                }
+            }
+        });
+    }
+
+    function showAddCardModal() {
+        $('#ModalSelectCardWays').modal('hide');
+        if ($("input[name='button-Exchange']:checked").val() == 'BANKCARD') {
+            $('#ModalBankCard').modal('show');
+        } else {
+            $('#ModalGCash').modal('show');
+        }
+
+     
+    }
+
     function updateUserAccountRemoveReadOnly() {
         $('.password-fake').addClass('is-hide');
         $('#idOldPasswordGroup').removeClass('is-hide');
@@ -400,6 +518,33 @@
 
         });
     }
+
+    function BankCardSave() {
+        var BankCardName = $('idBankCardName').val().trim();
+        var BankCard = $('idBankCard').val().trim();
+        var BankBranch = $('idBankBranch').val().trim();
+        var Bank = $('#selectedBank').val();
+        var boolChecked = true;
+        if (BankCardName=='') {
+            $('#idBankCardNameErrorMessage').text(mlp.getLanguageKey("尚未輸入姓名"));
+            boolChecked = false;
+        }
+
+        if (BankCard=='') {
+            $('#idBankCardErrorMessage').text(mlp.getLanguageKey("尚未輸入卡號"));
+            boolChecked = false;
+        }
+
+        if (BankBranch=='') {
+            $('#idBankBranchErrorMessage').text(mlp.getLanguageKey("尚未輸入分行"));
+            boolChecked = false;
+        }
+
+        if (Bank == '-1') {
+            $('#idBankErrorMessage').text(mlp.getLanguageKey("尚未選擇銀行"));
+            boolChecked = false;
+        }
+    }
   
     function TabSwitch(type) {
         $(".tab-scroller__content").find(".tab-item").removeClass("active");
@@ -412,7 +557,7 @@
         } else {
             $("#divMemberWallet").show();            
             $("#divMemberProfile").hide();
-            initSwiper();
+    
         }
     }
 
@@ -430,6 +575,8 @@
             window.parent.API_LoadingEnd();
 
             if (p != null) {
+                getVIPInfo();
+                getUserBankCard();
                 updateBaseInfo();
                 window.top.API_GetUserThisWeekTotalValidBetValue(function (e) {
                     setUserThisWeekLogined(e);
@@ -454,9 +601,6 @@
         if (!WebInfo.UserInfo.IsWalletPasswordSet) {
             //document.getElementById('idWalletPasswordUnSet').style.display = "block";
         }
-
-        initSwiper();
-
     }
 
     function copyActivityUrl() {
@@ -597,14 +741,90 @@
         $("#btn_PupLangClose1").click();
     }
 
-    
-
     $(document).on('shown.bs.modal', '#ModalMemberLevel', function () {
         if (!initPopUpSwiperEnd) {
             initPopUpSwiper();
             initPopUpSwiperEnd = true;
         }
     });
+
+    function setBarWidth(id, width) {
+        $("#" + id).width(width);
+    }
+
+    function getVIPInfo() {
+        p.GetUserVIPData(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    let k = o.Data;
+                    let d = 0;
+                    let v = 0;
+                    let kv = 0;
+                    $(".nowVIPLevel").text(k.VIPDescription);
+                    $(".nextVIPLevel").text(k.NextVIPDescription);
+
+                    $(".elapsedDays").text(k.ElapsedDays);
+                    $(".keepLevelDays").text(k.KeepLevelDays);
+
+                    $(".depositValue").text(new BigNumber(parseFloat(k.DepositValue).toFixed(2)).toFormat());
+                    $(".depositMaxValue").text(new BigNumber(parseFloat(k.DepositMaxValue).toFixed(2)).toFormat());
+                    $(".validBetValue").text(new BigNumber(parseFloat(k.ValidBetValue).toFixed(2)).toFormat());
+                    $(".validBetMaxValue").text(new BigNumber(parseFloat(k.ValidBetMaxValue).toFixed(2)).toFormat());
+                    $(".keepValidBetValue").text(new BigNumber(parseFloat(k.ValidBetValue).toFixed(2)).toFormat());
+                    $(".keepValidBetMaxValue").text(new BigNumber(parseFloat(k.KeepValidBetValue).toFixed(2)).toFormat());
+
+                    //VIP進度Bar(存款與流水各佔50%)
+                    if (k.DepositValue > 0) {
+                        d = ((k.DepositValue / k.DepositMaxValue) * 100) * 0.5;
+
+                        if (d > 50) {
+                            d = 50;
+                        }
+                    }
+
+                    if (k.ValidBetValue > 0) {
+                        v = ((k.ValidBetValue / k.ValidBetMaxValue) * 100) * 0.5;
+
+                        if (v > 50) {
+                            v = 50;
+                        }
+
+                        kv = (k.ValidBetValue / k.KeepValidBetValue) * 100;
+                    }
+
+                    setBarWidth("divVIPBar", (d + v) + "%");
+
+                    if (kv > 100) {
+                        setBarWidth("divKeepVIPBar", "100%");
+                    } else {
+                        setBarWidth("divKeepVIPBar", kv + "%");
+                    }
+
+                } else {
+
+                }
+            } else {
+                if (o == "Timeout") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                } else {
+
+
+                }
+            }
+        });
+    }
+
+    function closeBankModal() {
+        $('.resultShow.success').hide();
+        $('.resultShow.fail').hide();
+        $('#ModalBankCard').modal('hide');
+    }
+
+    function closeGCashModal() {
+        $('.resultShow.fail').hide();
+        $('.resultShow.success').hide();
+        $('#ModalGCash').modal('hide');
+    }
 
     window.onload = init;
 </script>
@@ -657,11 +877,11 @@
                                     --%>
                                 </span>
                             </div>
-                            <div class="member-profile-level-wrapper">
-                                <div class="sec-title-container mb-0 align-items-end sec-col-2">
+                      <div class="member-profile-level-wrapper">
+                                <div class="sec-title-container sec-title-member mb-0 align-items-end sec-col-2">
                                     <div class="sec-title-wrapper align-items-end">
                                         <div class="member-level ">
-                                            <h1 class="sec-title language_replace">青銅</h1>
+                                            <h1 class="sec-title language_replace nowVIPLevel"></h1>
                                             <span class="btn" data-toggle="modal" data-target="#ModalMemberLevel">
                                                 <img src="images/member/btn-member-level-popup.png" alt="">
                                             </span>
@@ -672,22 +892,25 @@
                                 <!-- 升級條件 -->
                                 <div class="member-level-upgrade-wrapper"> 
                                     <div class="level-progress progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="divVIPBar"></div>
                                         <div class="member-level">
-                                            <span class="level-name current language_replace">VIP0</span>
-                                            <span class="level-name next language_replace">青銅</span>
+                                            <span class="level-name current language_replace nowVIPLevel"></span>
+                                            <span class="level-name next language_replace nextVIPLevel"></span>
                                         </div> 
                                     </div>
                                     <div class="level-rules">
                                         <div class="level-item deposit">
                                             <h4 class="title language_replace">累積存款</h4>
-                                            <span class="value">900,000,000</span>
+                                            <span class="value">
+                                                <span class="current depositValue"></span>/
+                                                <span class="level-rule depositMaxValue"></span>
+                                            </span>
                                         </div>
                                         <div class="level-item rollover">
                                             <h4 class="title language_replace">累積流水</h4>
                                             <span class="value">
-                                                <span class="current ">25,000,000</span>/
-                                                <span class="level-rule">50,000,000</span>
+                                                <span class="current validBetValue"></span>/
+                                                <span class="level-rule validBetMaxValue"></span>
                                             </span>
                                         </div>
                                     </div>
@@ -696,17 +919,17 @@
                                 <!-- 保級條件 -->
                                 <div class="member-level-reservation-wrapper">
                                     <div class="sec-title"><h2 class="title language_replace">保級流水</h2>
-                                        <span class="days">(<span class="current">10</span>/<span class="total">30D</span>)</span>
+                                        <span class="days">(<span class="current elapsedDays">0</span>/<span class="total keepLevelDays">0</span>)</span>
                                     </div>
                                     <div class="level-progress progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>                                       
+                                        <div class="progress-bar" role="progressbar"  aria-valuemin="0" aria-valuemax="100" id="divKeepVIPBar"></div>                                       
                                     </div>
                                     <div class="level-rules">
                                         <div class="level-item rollover">
                                             <h4 class="title language_replace">每月流水</h4>
                                            <span class="value">
-                                                <span class="current ">25,000,000</span>/
-                                                <span class="level-rule">50,000,000</span>
+                                                <span class="current keepValidBetValue"></span>/
+                                                <span class="level-rule keepValidBetMaxValue"></span>
                                             </span>
                                         </div>
                                     </div>
@@ -1037,55 +1260,23 @@
                             </div>
                             <div class="cashflowCard-wrapper">
                              <!-- 無卡片時 -->
-                                <section class="cashflowCard-noCard" style="display:">
+                                <section class="cashflowCard-noCard" style="display:none">
                                     <div class="card-item">
                                         <button type="button" class="btn btn-addcard btn-transparent" data-toggle="modal" data-target="#ModalSelectCardWays">
                                             <span class="btn-full-stress btn-round">
                                                 <span class="icon icon-add"></span>
                                             </span>
-                                            <span class="name">請綁定 銀行卡 或 GCash</span>
+                                            <span class="name language_replace">請綁定 銀行卡 或 GCash</span>
                                         </button>
                                     </div>
                                     
                                 </section>
                                 <!-- BANKCARD/GCash -->
-                                <section class="cashflowCard-slider-wrapper">
+                                <section class="cashflowCard-slider-wrapper" style="display:none">
                                     <div class="swiper cashflowCard-slider swiper-container" id="slider-CardCashFlow">
-                                        <div class="swiper-wrapper">
+                                        <div class="swiper-wrapper" id="swiperBankCardContent">
 
                                             <!-- BANKCARD -->
-                                            <div class="swiper-slide bankcard">  
-                                                <div class="custom-control custom-input-noCheck">
-                                                    <label class="custom-label">
-                                                        <input type="checkbox" name="chkcard" class="custom-control-input-hidden" disabled>
-                                                        <div class="custom-input">
-                                                            <div class="card-item"  data-card-num="1">      
-                                                                <div class="card-item-inner">
-                                                                    <div class="card-type">
-                                                                        <div class="type">
-                                                                            <i class="icon icon-mask icon-bank"></i>
-                                                                        </div>
-                                                                        <span class="card-status language_replace">正常</span>             
-                                                                    </div>
-                                                                    <div class="card-account">
-                                                                        <h4 class="account-num">1234123412341234</h4>
-                                                                    </div>
-                                                                    <div class="card-bank">
-                                                                        <div class="bank">
-                                                                            <h4 class="head">RCBC</h4>
-                                                                            <h5 class="branch">Branch</h5>
-                                                                        </div>
-                                                                        <div class="account-name">
-                                                                            <h4 class="name">Eddie Lucky</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>                                           
-                                            </div>
                                             <!-- GCASH -->
                                             <div class="swiper-slide gcash">  
                                                 <div class="custom-control custom-input-noCheck">
@@ -1150,71 +1341,7 @@
                                                         </div>
                                                     </label>
                                                 </div>
-                                            </div>
-                                            <!-- GCASH -->
-                                            <div class="swiper-slide gcash">  
-                                                <div class="custom-control custom-input-noCheck">
-                                                    <label class="custom-label">
-                                                        <input type="checkbox" name="chkcard" class="custom-control-input-hidden" disabled>
-                                                        <div class="custom-input">
-                                                            <div class="card-item" data-card-num="4">
-                                                                <a class="card-item-link"></a>
-                                                                <div class="card-item-inner">
-                                                                    <div class="card-type">
-                                                                        <div class="type">
-                                                                            <i class="icon icon-mask icon-GCash"></i>
-                                                                        </div>
-                                                                        <span class="card-status language_replace">正常</span>             
-                                                                    </div>
-                                                                    <div class="card-info">
-                                                                        <div class="item telphone">
-                                                                            <i class="icon icon-mask icon-mobile"></i>
-                                                                            <h4 class="phone">0959111222</h4>
-                                                                        </div>
-                                                                        <div class="item account">
-                                                                            <i class="icon icon-mask icon-mail"></i>
-                                                                            <h4 class="mail">eddie@kingkey.com.tw</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
-                                                                </div>
-                                                        </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <!-- GCASH -->
-                                            <div class="swiper-slide gcash">  
-                                                <div class="custom-control custom-input-noCheck">
-                                                    <label class="custom-label">
-                                                        <input type="checkbox" name="chkcard" class="custom-control-input-hidden" disabled>
-                                                        <div class="custom-input">
-                                                            <div class="card-item" data-card-num="5">
-                                                                <a class="card-item-link"></a>
-                                                                <div class="card-item-inner">
-                                                                    <div class="card-type">
-                                                                        <div class="type">
-                                                                            <i class="icon icon-mask icon-GCash"></i>
-                                                                        </div>
-                                                                        <span class="card-status language_replace">正常</span>             
-                                                                    </div>
-                                                                    <div class="card-info">
-                                                                        <div class="item telphone">
-                                                                            <i class="icon icon-mask icon-mobile"></i>
-                                                                            <h4 class="phone">0959111222</h4>
-                                                                        </div>
-                                                                        <div class="item account">
-                                                                            <i class="icon icon-mask icon-mail"></i>
-                                                                            <h4 class="mail">eddie@kingkey.com.tw</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                    <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>                                
-                                                                </div>
-                                                        </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>                                 
+                                            </div>                                  
                                         </div>
                                         <div class="swiper-pagination"></div>
                                 </div>
@@ -2844,7 +2971,7 @@
                         <ul class="addCard-popup-list">
                             <li class="card-item custom-control custom-input-noCheck default">
                                 <label class="custom-label card-inner">
-                                    <input type="radio" name="button-Exchange" class="custom-control-input-hidden">
+                                    <input type="radio" name="button-Exchange" class="custom-control-input-hidden" value="BANKCARD" checked="checked">
                                     <div class="custom-input card-content">
                                         <i class="icon icon-mask icon-bank"></i>
                                         <span class="card-status language_replace">銀行卡</span>
@@ -2853,7 +2980,7 @@
                             </li>
                             <li class="card-item custom-control custom-input-noCheck default">
                                 <label class="custom-label card-inner">
-                                    <input type="radio" name="button-Exchange" class="custom-control-input-hidden">
+                                    <input type="radio" name="button-Exchange" class="custom-control-input-hidden" value="GCASH">
                                     <div class="custom-input card-content">
                                         <i class="icon icon-mask icon-GCash"></i>
                                         <span class="card-status language_replace">GCash</span>
@@ -2865,12 +2992,9 @@
                             <button type="button" class="btn btn-outline-main btn-sm btn-roundcorner" data-dismiss="modal" aria-label="Close">
                                 <span class="language_replace">取消</span>
                             </button>
-                            <button onclick="" type="button" class="btn btn-primary btn-sm btn-roundcorner" data-toggle="modal" data-target="#ModalBankCard">
-                                <span class="language_replace">確定-BANKCARD TEST</span>
-                            </button>                        
-                            <button onclick="" type="button" class="btn btn-primary btn-sm btn-roundcorner" data-toggle="modal" data-target="#ModalGCash">
-                                <span class="language_replace">確定-GCash TEST</span>
-                            </button>                        
+                            <button onclick="showAddCardModal()" type="button" class="btn btn-primary btn-sm btn-roundcorner">
+                                <span class="language_replace">確定</span>
+                            </button>                                              
                         </div>
                     </div>
                 </div>
@@ -2899,40 +3023,40 @@
                                     <div class="form-group">
                                         <label class="form-title language_replace">持卡人姓名</label>
                                         <div class="input-group">
-                                            <input id="idEmail" name="Email" type="text" language_replace="placeholder"
-                                                class="form-control custom-style" placeholder="請填寫姓名" inputmode="email">
-                                            <div class="invalid-feedback language_replace">提示</div>
+                                            <input id="idBankCardName" name="idBankCardName" type="text" language_replace="placeholder"
+                                                class="form-control custom-style" placeholder="請填寫姓名" inputmode="idBankCardName">
+                                            <div class="invalid-feedback language_replace" id="idBankCardNameErrorMessage"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-title language_replace">選擇銀行</label>
                                         <div class="input-group">
-                                            <select id="" class="form-control custom-style" name="" onchange="">
-                                                <option value="1" selected>RCBC</option>
-                                                <option value="2">PP</option>
+                                            <select id="selectedBank" class="form-control custom-style" name="" onchange="">
+                                                
                                             </select>
+                                           <div class="invalid-feedback language_replace" id="idBankErrorMessage"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-title language_replace">卡號</label>
                                         <div class="input-group">
-                                            <input id="idEmail" name="Email" type="text" language_replace="placeholder"
-                                                class="form-control custom-style" placeholder="請填寫卡號" inputmode="email">
-                                            <div class="invalid-feedback language_replace">提示</div>
+                                            <input id="idBankCard" name="idBankCard" type="text" language_replace="placeholder"
+                                                class="form-control custom-style" placeholder="請填寫卡號" inputmode="idBankCard">
+                                            <div class="invalid-feedback language_replace" id="idBankCardErrorMessage"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-title language_replace">分行代碼</label>
+                                        <label class="form-title language_replace">分行</label>
                                         <div class="input-group">
-                                            <input id="idEmail" name="Email" type="text" language_replace="placeholder"
-                                                class="form-control custom-style" placeholder="請填寫分行代碼" inputmode="email">
-                                            <div class="invalid-feedback language_replace">提示</div>
+                                            <input id="idBankBranch" name="Email" type="text" language_replace="placeholder"
+                                                class="form-control custom-style" placeholder="請填寫分行" inputmode="idBankBranch">
+                                            <div class="invalid-feedback language_replace" id="idBankBranchErrorMessage"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="wrapper_center">
                                     <button class="btn btn-primary btn-roundcorner" type="button" onclick="">
-                                        <span class="language_replace">新增</span>
+                                        <span class="language_replace" onclick="BankCardSave()">新增</span>
                                     </button>
                                 </div>
                 
@@ -2941,7 +3065,7 @@
                             <!-- Step 2 新增結果-->
                             <div class="verifyResult-wrapper stepFadeInUp">
                                 <!-- 成功 -->
-                                <div class="resultShow success" id="">
+                                <div class="resultShow success" id="showSuccessMessageBank" >
                                     <div class="verifyResult-inner">
                                         <div class="verify_resultShow">
                                             <div class="verify_resultDisplay">
@@ -2952,7 +3076,7 @@
                                         </div>
                                     </div>
                                     <div class="wrapper_center">
-                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeCertification()">
+                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeBankModal()">
                                             <span class="language_replace">確認</span>
                                         </button>
                                     </div>
@@ -2972,8 +3096,8 @@
                 
                                     <div class="wrapper_center">
                                         <!-- 返回新增卡片popup -->
-                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeCertification()">
-                                            <span class="language_replace">返回</span>
+                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeBankModal()">
+                                            <span class="language_replace">確認</span>
                                         </button>
                                     </div>
                                 </div>
@@ -3057,9 +3181,9 @@
                             --%>
                     
                             <!-- Step 3 新增結果-->
-                            <div class="verifyResult-wrapper stepFadeInUp" style="display: none;">
+                            <div class="verifyResult-wrapper stepFadeInUp">
                                 <!-- 成功 -->
-                                <div class="resultShow success" id="">
+                                <div class="resultShow success" id="showSuccessMessageGCash" style="display:none;">
                                     <div class="verifyResult-inner">
                                         <div class="verify_resultShow">
                                             <div class="verify_resultDisplay">
@@ -3070,14 +3194,14 @@
                                         </div>
                                     </div>
                                     <div class="wrapper_center">
-                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeCertification()">
+                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeGCashModal()">
                                             <span class="language_replace">確認</span>
                                         </button>
                                     </div>
                                 </div>
                     
                                 <!-- 失敗 -->
-                                <div class="resultShow fail" id="">
+                                <div class="resultShow fail" id="showErrorMessageGCash" style="display:none;">
                                     <div class="verifyResult-inner">
                                         <div class="verify_resultShow">
                                             <div class="verify_resultDisplay">
@@ -3090,7 +3214,7 @@
                     
                                     <div class="wrapper_center">
                                         <!-- 返回新增卡片popup -->
-                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeCertification()">
+                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeGCashModal()">
                                             <span class="language_replace">返回</span>
                                         </button>
                                     </div>
