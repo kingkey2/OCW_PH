@@ -1879,6 +1879,36 @@ public static class RedisCache {
         }
     }
 
+    public static class UserAccountVIPInfo {
+        private static string XMLPath = "UserAccountVIPInfo";
+        private static int DBIndex = 0;
+
+        public static string GetUserAccountVIPInfo(string LoginAccount) {
+            string Key;
+            string strRet = string.Empty;
+           
+            Key = XMLPath + ":LoginAccount:" + LoginAccount;
+            if (KeyExists(DBIndex, Key) == true) {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdateUserAccountVIPInfo(string JsonData, string LoginAccount) {
+            string Key;
+
+            Key = XMLPath + ":LoginAccount:" + LoginAccount;
+            for (int I = 0; I <= 3; I++) {
+                try {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, 3600);
+                    break;
+                } catch (Exception ex) {
+                }
+            }
+        }
+    }
+
     public static void UpdateRedisByPrivateKey() {
         PaymentCategory.UpdatePaymentCategory();
         PaymentMethod.UpdatePaymentMethodByCategory("Paypal");

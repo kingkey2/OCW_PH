@@ -364,6 +364,7 @@
 
             if (p != null) {
                 updateBaseInfo();
+                getVIPInfo();
                 window.top.API_GetUserThisWeekTotalValidBetValue(function (e) {
                     setUserThisWeekLogined(e);
                 });
@@ -527,6 +528,72 @@
         $("#btn_PupLangClose1").click();
     }
 
+    function setBarWidth(id, width) {
+        $("#" + id).width(width);
+    }
+    
+    function getVIPInfo() {
+        p.GetUserVIPData(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    let k = o.Data;
+                    let d = 0;
+                    let v = 0;
+                    let kv = 0;
+                    $(".nowVIPLevel").text(k.VIPDescription);
+                    $(".nextVIPLevel").text(k.NextVIPDescription);
+
+                    $(".elapsedDays").text(k.ElapsedDays);
+                    $(".keepLevelDays").text(k.KeepLevelDays);
+
+                    $(".depositValue").text(new BigNumber(parseFloat(k.DepositValue).toFixed(2)).toFormat());
+                    $(".depositMaxValue").text(new BigNumber(parseFloat(k.DepositMaxValue).toFixed(2)).toFormat());
+                    $(".validBetValue").text(new BigNumber(parseFloat(k.ValidBetValue).toFixed(2)).toFormat());
+                    $(".validBetMaxValue").text(new BigNumber(parseFloat(k.ValidBetMaxValue).toFixed(2)).toFormat());
+                    $(".keepValidBetValue").text(new BigNumber(parseFloat(k.ValidBetValue).toFixed(2)).toFormat());
+                    $(".keepValidBetMaxValue").text(new BigNumber(parseFloat(k.KeepValidBetValue).toFixed(2)).toFormat());
+
+                    //VIP進度Bar(存款與流水各佔50%)
+                    if (k.DepositValue > 0) {
+                        d = ((k.DepositValue / k.DepositMaxValue) * 100) * 0.5;
+
+                        if (d > 50) {
+                            d = 50;
+                        }
+                    }
+
+                    if (k.ValidBetValue > 0) {
+                        v = ((k.ValidBetValue / k.ValidBetMaxValue) * 100) * 0.5;
+
+                        if (v > 50) {
+                            v = 50;
+                        }
+
+                        kv = (k.ValidBetValue / k.KeepValidBetValue) * 100;
+                    }
+
+                    setBarWidth("divVIPBar", (d + v) + "%");
+
+                    if (kv > 100) {
+                        setBarWidth("divKeepVIPBar", "100%");
+                    } else {
+                        setBarWidth("divKeepVIPBar", kv + "%");
+                    }
+
+                } else {
+
+                }
+            } else {
+                if (o == "Timeout") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                } else {
+
+
+                }
+            }
+        });
+    }
+
     $(document).on('shown.bs.modal', '#ModalMemberLevel', function () {
         if (!initSwiperEnd) {
             initSwiper();
@@ -544,7 +611,7 @@
                     <!-- 個人資料 -->
                     <section class="section-member-profile">
                         <!-- 會員頭像 + 會員等級 -->
-                        <div class="member-profile-wrapper" style="display:">
+                        <div class="member-profile-wrapper">
                             <div class="member-profile-avater-wrapper">
                                 <span class="avater">
                                     <span class="avater-img">
@@ -561,7 +628,7 @@
                                 <div class="sec-title-container sec-title-member mb-0 align-items-end sec-col-2">
                                     <div class="sec-title-wrapper align-items-end">
                                         <div class="member-level ">
-                                            <h1 class="sec-title language_replace">青銅</h1>
+                                            <h1 class="sec-title language_replace nowVIPLevel"></h1>
                                             <span class="btn" data-toggle="modal" data-target="#ModalMemberLevel">
                                                 <img src="images/member/btn-member-level-popup.png" alt="">
                                             </span>
@@ -572,22 +639,25 @@
                                 <!-- 升級條件 -->
                                 <div class="member-level-upgrade-wrapper"> 
                                     <div class="level-progress progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="divVIPBar"></div>
                                         <div class="member-level">
-                                            <span class="level-name current language_replace">VIP0</span>
-                                            <span class="level-name next language_replace">青銅</span>
+                                            <span class="level-name current language_replace nowVIPLevel"></span>
+                                            <span class="level-name next language_replace nextVIPLevel"></span>
                                         </div> 
                                     </div>
                                     <div class="level-rules">
                                         <div class="level-item deposit">
                                             <h4 class="title language_replace">累積存款</h4>
-                                            <span class="value">900,000,000</span>
+                                            <span class="value">
+                                                <span class="current depositValue"></span>/
+                                                <span class="level-rule depositMaxValue"></span>
+                                            </span>
                                         </div>
                                         <div class="level-item rollover">
                                             <h4 class="title language_replace">累積流水</h4>
                                             <span class="value">
-                                                <span class="current ">25,000,000</span>/
-                                                <span class="level-rule">50,000,000</span>
+                                                <span class="current validBetValue"></span>/
+                                                <span class="level-rule validBetMaxValue"></span>
                                             </span>
                                         </div>
                                     </div>
@@ -596,17 +666,17 @@
                                 <!-- 保級條件 -->
                                 <div class="member-level-reservation-wrapper">
                                     <div class="sec-title"><h2 class="title language_replace">保級流水</h2>
-                                        <span class="days">(<span class="current">10</span>/<span class="total">30D</span>)</span>
+                                        <span class="days">(<span class="current elapsedDays">0</span>/<span class="total keepLevelDays">0</span>)</span>
                                     </div>
                                     <div class="level-progress progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>                                       
+                                        <div class="progress-bar" role="progressbar"  aria-valuemin="0" aria-valuemax="100" id="divKeepVIPBar"></div>                                       
                                     </div>
                                     <div class="level-rules">
                                         <div class="level-item rollover">
                                             <h4 class="title language_replace">每月流水</h4>
                                            <span class="value">
-                                                <span class="current ">25,000,000</span>/
-                                                <span class="level-rule">50,000,000</span>
+                                                <span class="current keepValidBetValue"></span>/
+                                                <span class="level-rule keepValidBetMaxValue"></span>
                                             </span>
                                         </div>
                                     </div>
