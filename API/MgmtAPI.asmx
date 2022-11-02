@@ -257,11 +257,9 @@ public class MgmtAPI : System.Web.Services.WebService {
                                             //等級有升級時再更新
                                             if (NewUserLevelIndex > UserLevelIndex) {
                                                 EWinWebDB.UserAccountLevel.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
-                                                RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
                                             }
                                         } else {
                                             EWinWebDB.UserAccountLevel.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
-                                            RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
                                         }
 
                                     } else {
@@ -282,20 +280,16 @@ public class MgmtAPI : System.Web.Services.WebService {
                                                 //更新會員等級資料
                                                 if (IsUserAccountLevelDBHasData) {
                                                     EWinWebDB.UserAccountLevel.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
-                                                    RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
                                                 } else {
                                                     EWinWebDB.UserAccountLevel.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
-                                                    RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
                                                 }
 
                                             } else { //保級成功時間重新計算
                                                      //更新會員等級資料
                                                 if (IsUserAccountLevelDBHasData) {
                                                     EWinWebDB.UserAccountLevel.UpdateUserAccountLevel(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
-                                                    RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
                                                 } else {
                                                     EWinWebDB.UserAccountLevel.InsertUserAccountLevel(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
-                                                    RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
                                                 }
                                             }
                                         }
@@ -309,14 +303,15 @@ public class MgmtAPI : System.Web.Services.WebService {
                                                 //等級有升級時再更新
                                                 if (NewUserLevelIndex > UserLevelIndex) {
                                                     EWinWebDB.UserAccountLevel.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
-                                                    RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
                                                 }
                                             } else {
                                                 EWinWebDB.UserAccountLevel.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
-                                                RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
                                             }
                                         }
                                     }
+
+                                    RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
+                                    RedisCache.UserAccountVIPInfo.DeleteUserAccountVIPInfo(LoginAccount);
                                 }
                             }
                         }
@@ -418,7 +413,7 @@ public class MgmtAPI : System.Web.Services.WebService {
             Setting_ValidBetMinValue = (decimal)VIPSettingDetail[NextUserLevelIndex]["ValidBetMinValue"];
             Setting_ValidBetMaxValue = (decimal)VIPSettingDetail[NextUserLevelIndex]["ValidBetMaxValue"];
             Setting_KeepValidBetValue = (decimal)VIPSettingDetail[NextUserLevelIndex]["KeepValidBetValue"];
-                
+
             if (DeposiAmount >= Setting_DepositMinValue) {
                 DepositLevel = Setting_UserLevelIndex;
             } else {
@@ -430,7 +425,7 @@ public class MgmtAPI : System.Web.Services.WebService {
             } else {
                 ValidBetLevel = UserLevelIndex;
             }
-            
+
             if (DepositLevel == ValidBetLevel) {
                 UserLevel = DepositLevel;
             } else if (DepositLevel < ValidBetLevel) {

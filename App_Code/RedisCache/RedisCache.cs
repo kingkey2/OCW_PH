@@ -1907,6 +1907,15 @@ public static class RedisCache {
                 }
             }
         }
+
+        public static void DeleteUserAccountVIPInfo(string LoginAccount) {
+            string Key2;
+            StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient();
+
+            Key2 = XMLPath + ":LoginAccount:" + LoginAccount;
+
+            Client.KeyDelete(Key2.ToUpper());
+        }
     }
 
     public static void UpdateRedisByPrivateKey() {
