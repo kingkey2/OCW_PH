@@ -547,9 +547,19 @@
                     $(".keepLevelDays").text(k.KeepLevelDays);
 
                     $(".depositValue").text(new BigNumber(parseFloat(k.DepositValue).toFixed(2)).toFormat());
-                    $(".depositMaxValue").text(new BigNumber(parseFloat(k.DepositMaxValue).toFixed(2)).toFormat());
+                    //最高等級
+                    if (k.DepositMaxValue == 0) {
+                         $(".depositMaxValue").text("-");
+                    } else {
+                       $(".depositMaxValue").text(new BigNumber(parseFloat(k.DepositMaxValue).toFixed(2)).toFormat());
+                    }
                     $(".validBetValue").text(new BigNumber(parseFloat(k.ValidBetValue).toFixed(2)).toFormat());
-                    $(".validBetMaxValue").text(new BigNumber(parseFloat(k.ValidBetMaxValue).toFixed(2)).toFormat());
+                    //最高等級
+                    if (k.ValidBetMaxValue == 0) {
+                        $(".validBetMaxValue").text("-");
+                    } else {
+                        $(".validBetMaxValue").text(new BigNumber(parseFloat(k.ValidBetMaxValue).toFixed(2)).toFormat());
+                    }
                     $(".keepValidBetValue").text(new BigNumber(parseFloat(k.ValidBetValue).toFixed(2)).toFormat());
                     $(".keepValidBetMaxValue").text(new BigNumber(parseFloat(k.KeepValidBetValue).toFixed(2)).toFormat());
 
