@@ -160,6 +160,6 @@
   "尚未選擇銀行": "尚未選擇銀行",
   "尚未輸入卡號": "Card number has not been entered",
   "尚未輸入金額": "Amount has not been entered",
-  "尚未設定銀行列表": "Bank list not yet set"
-
+  "尚未設定銀行列表": "Bank list not yet set",
+  "BankNumberExist": "Bank card number Exist."
 }
