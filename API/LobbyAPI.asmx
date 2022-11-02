@@ -418,6 +418,9 @@ public class LobbyAPI : System.Web.Services.WebService {
         R = lobbyAPI.CreateAccount(GetToken(), GUID, LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS);
 
         if (R.Result == EWin.Lobby.enumResult.OK) {
+            //建立會員等級資料
+            EWinWebDB.UserAccountLevel.InsertUserAccountLevel(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+
             var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
 
             if (GetRegisterResult.Result == ActivityCore.enumActResult.OK) {
@@ -2016,6 +2019,122 @@ public class LobbyAPI : System.Web.Services.WebService {
         return R;
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public UserVIPResult GetUserVIPData(string WebSID, string GUID) {
+        UserVIPResult R = new UserVIPResult() { Result = EWin.Lobby.enumResult.ERR, Data = new UserVIPResult.UserVIPInfo() };
+        UserVIPResult.UserVIPInfo k = new UserVIPResult.UserVIPInfo();
+        RedisCache.SessionContext.SIDInfo SI;
+        System.Data.DataTable UserLevDT = new System.Data.DataTable();
+        System.Data.DataTable DT = new System.Data.DataTable();
+        Newtonsoft.Json.Linq.JObject VIPSetting;
+        Newtonsoft.Json.Linq.JArray VIPSettingDetail;
+        int UserLevelIndex = 0;
+        int UserNextLevelIndex = 0;
+        int KeepLevelDays = 30;
+        int Setting_UserLevelIndex = 0;
+        decimal DeposiAmount = 0;
+        decimal ValidBetValue = 0;
+        DateTime UserLevelUpdateDate = DateTime.Now;
+        string RedisVIPInfo = string.Empty;
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+
+            RedisVIPInfo = RedisCache.UserAccountVIPInfo.GetUserAccountVIPInfo(SI.LoginAccount);
+
+            if (string.IsNullOrEmpty(RedisVIPInfo)) {
+                VIPSetting = GetActivityDetail("../App_Data/VIPSetting.json");
+
+                if (VIPSetting != null) {
+                    VIPSettingDetail = Newtonsoft.Json.Linq.JArray.Parse(VIPSetting["VIPSetting"].ToString());
+                    KeepLevelDays = (int)VIPSetting["KeepLevelDays"];
+
+                    UserLevDT = RedisCache.UserAccountLevel.GetUserAccountLevelByLoginAccount(SI.LoginAccount);
+                    if (UserLevDT != null) {
+                        if (UserLevDT.Rows.Count > 0) {
+                            UserLevelIndex = (int)UserLevDT.Rows[0]["UserLevelIndex"];
+                            UserLevelUpdateDate = (DateTime)UserLevDT.Rows[0]["UserLevelUpdateDate"];
+                        }
+                    }
+
+                    UserNextLevelIndex = UserLevelIndex + 1;
+
+                    for (int i = UserLevelIndex; i < VIPSettingDetail.Count; i++) {
+                        Setting_UserLevelIndex = (int)VIPSettingDetail[i]["UserLevelIndex"];
+
+                        //當前等級資訊
+                        if (UserLevelIndex == Setting_UserLevelIndex) {
+                            k.VIPDescription = (string)VIPSettingDetail[i]["Description"];
+                            k.DepositMaxValue = (decimal)VIPSettingDetail[i]["DepositMaxValue"];
+                            k.KeepValidBetValue = (decimal)VIPSettingDetail[i]["KeepValidBetValue"];
+                            k.ValidBetMaxValue = (decimal)VIPSettingDetail[i]["ValidBetMaxValue"];
+                        }
+
+                        if (UserNextLevelIndex == Setting_UserLevelIndex) {
+                            k.NextVIPDescription = (string)VIPSettingDetail[i]["Description"];
+                        }
+                        //已達到最高等級
+                        if (UserNextLevelIndex == VIPSettingDetail.Count - 1) {
+                            k.NextVIPDescription = (string)VIPSettingDetail[i]["Description"];
+                        }
+                    }
+
+                    DT = EWinWebDB.UserAccountSummary.GetUserAccountTotalValueSummaryData(SI.LoginAccount, UserLevelUpdateDate.ToString("yyyy/MM/dd"), UserLevelUpdateDate.AddDays(KeepLevelDays).ToString("yyyy/MM/dd"));
+                    if (DT != null) {
+                        if (DT.Rows.Count > 0) {
+                            ValidBetValue = (decimal)DT.Rows[0]["ValidBetValue"];
+                            DeposiAmount = (decimal)DT.Rows[0]["DepositAmount"];
+                        }
+                    }
+
+                    double UserLevelUpdatedays = DateTime.Now.Date.Subtract(UserLevelUpdateDate).TotalDays;
+
+                    k.UserLevelIndex = UserLevelIndex;
+                    k.KeepLevelDays = KeepLevelDays;
+                    k.ValidBetValue = ValidBetValue;
+                    k.DepositValue = DeposiAmount;
+                    k.ElapsedDays = (int)UserLevelUpdatedays;
+
+                    R.Data = k;
+                    R.Result = EWin.Lobby.enumResult.OK;
+
+                    RedisCache.UserAccountVIPInfo.UpdateUserAccountVIPInfo(Newtonsoft.Json.JsonConvert.SerializeObject(k), SI.LoginAccount);
+                } else {
+                    R.Result = EWin.Lobby.enumResult.ERR;
+                    R.Message = "InvalidVIPSetting";
+                }
+            } else {
+                R.Data = Newtonsoft.Json.JsonConvert.DeserializeObject<UserVIPResult.UserVIPInfo>(RedisVIPInfo);
+                R.Result = EWin.Lobby.enumResult.OK;
+            }
+        } else {
+            R.Result = EWin.Lobby.enumResult.ERR;
+            R.Message = "InvalidWebSID";
+        }
+        return R;
+    }
+
+    private static Newtonsoft.Json.Linq.JObject GetActivityDetail(string Path) {
+        Newtonsoft.Json.Linq.JObject o = null;
+        string Filename;
+
+        Filename = HttpContext.Current.Server.MapPath(Path);
+
+        if (System.IO.File.Exists(Filename)) {
+            string SettingContent;
+
+            SettingContent = System.IO.File.ReadAllText(Filename);
+
+            if (string.IsNullOrEmpty(SettingContent) == false) {
+                try { o = Newtonsoft.Json.Linq.JObject.Parse(SettingContent); } catch (Exception ex) { }
+            }
+        }
+
+        return o;
+    }
+
     public class UserTwoMonthSummaryResult : EWin.Lobby.APIResult {
         public List<Payment> PaymentResult { get; set; }
         public List<Game> GameResult { get; set; }
@@ -2232,5 +2351,22 @@ public class LobbyAPI : System.Web.Services.WebService {
         public DateTime LastDepositDate { get; set; }
         public DateTime LastWithdrawalDate { get; set; }
         public string FingerPrints { get; set; }
+    }
+
+    public class UserVIPResult : EWin.Lobby.APIResult {
+        public UserVIPInfo Data { get; set; }
+
+        public class UserVIPInfo {
+            public int UserLevelIndex { get; set; }
+            public string VIPDescription { get; set; }
+            public string NextVIPDescription { get; set; }
+            public int ElapsedDays { get; set; } //保級流水計算時間 (10/30天) => 10
+            public int KeepLevelDays { get; set; } //保級流水計算時間 (10/30天) => 30
+            public decimal DepositValue { get; set; }
+            public decimal DepositMaxValue { get; set; }
+            public decimal ValidBetValue { get; set; }
+            public decimal ValidBetMaxValue { get; set; }
+            public decimal KeepValidBetValue { get; set; }
+        }
     }
 }
