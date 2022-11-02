@@ -963,16 +963,26 @@
                     let d = 0;
                     let v = 0;
                     let kv = 0;
-                    $(".nowVIPLevel").text(k.VIPDescription);
-                    $(".nextVIPLevel").text(k.NextVIPDescription);
+                    $(".nowVIPLevel").text(mlp.getLanguageKey(k.VIPDescription));
+                    $(".nextVIPLevel").text(mlp.getLanguageKey(k.NextVIPDescription));
 
                     $(".elapsedDays").text(k.ElapsedDays);
                     $(".keepLevelDays").text(k.KeepLevelDays);
 
                     $(".depositValue").text(new BigNumber(parseFloat(k.DepositValue).toFixed(2)).toFormat());
-                    $(".depositMaxValue").text(new BigNumber(parseFloat(k.DepositMaxValue).toFixed(2)).toFormat());
+                    //最高等級
+                    if (k.DepositMaxValue == 0) {
+                         $(".depositMaxValue").text("-");
+                    } else {
+                       $(".depositMaxValue").text(new BigNumber(parseFloat(k.DepositMaxValue).toFixed(2)).toFormat());
+                    }
                     $(".validBetValue").text(new BigNumber(parseFloat(k.ValidBetValue).toFixed(2)).toFormat());
-                    $(".validBetMaxValue").text(new BigNumber(parseFloat(k.ValidBetMaxValue).toFixed(2)).toFormat());
+                    //最高等級
+                    if (k.ValidBetMaxValue == 0) {
+                        $(".validBetMaxValue").text("-");
+                    } else {
+                        $(".validBetMaxValue").text(new BigNumber(parseFloat(k.ValidBetMaxValue).toFixed(2)).toFormat());
+                    }
                     $(".keepValidBetValue").text(new BigNumber(parseFloat(k.ValidBetValue).toFixed(2)).toFormat());
                     $(".keepValidBetMaxValue").text(new BigNumber(parseFloat(k.KeepValidBetValue).toFixed(2)).toFormat());
 
@@ -1027,6 +1037,14 @@
         $('.resultShow.fail').hide();
         $('.resultShow.success').hide();
         $('#ModalGCash').modal('hide');
+    }
+
+    function changePassword() {
+        window.parent.API_LoadPage("ForgotPassword", "ForgotPassword.aspx")
+    }
+
+    function changeWalletPassword() {
+        window.parent.API_LoadPage("ForgotWalletPassword", "ForgotWalletPassword.aspx")
     }
 
     window.onload = init;
@@ -1147,7 +1165,7 @@
                                         <h1 class="sec-title title-deco"><span class="language_replace">個人資訊</span></h1>
                                     </div>
                                     <!-- 資料更新 Button-->
-                                    <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
+                                    <%--<button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>--%>
                                 </legend>
 
                                 <!-- 當點擊 資料更新 Button時 text input可編輯的項目 會移除 readonly-->
@@ -1193,6 +1211,7 @@
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
                                                 <span class="title-name language_replace">密碼</span>
+                                               <button type="button" class="btn btn-edit btn-full-main" onclick="changePassword()"><i class="icon icon-mask icon-pencile"></i></button>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -1218,6 +1237,20 @@
                                                     <span id="idNewPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
                                                     <p class="notice is-hide" id="NewPasswordErrorMessage"></p>                                                 
                                                 </div>                                                
+                                            </div>
+                                        </div>                                        
+                                    </div>       
+                                    <div class="data-item password">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-lock-closed"></i>
+                                                <span class="title-name language_replace">錢包密碼</span>
+                                               <button type="button" class="btn btn-edit btn-full-main" onclick="changeWalletPassword()"><i class="icon icon-mask icon-pencile"></i></button>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <div class="password-fake">
+                                                <p class="password">**************</p>
                                             </div>
                                         </div>                                        
                                     </div>
