@@ -1359,27 +1359,23 @@ hr.line {
 }
 
 .loader-logo {
-    width: 100%;
-    height: 100%;
-    background: url(../images/icon/ico-dog-w.svg) center center no-repeat;
-    background-size: calc(100% - 50px);
-    -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both;
-    animation: loader-logo-anim 1.2s infinite ease-in-out both
+    width: 80%;
+    height: 80%;
+    margin: 0px auto;
+    background: url(../images/icon/ico-dog-w.svg) center center / calc(100% - 50px) no-repeat;
+    animation: 1.2s ease-in-out 0s infinite normal both running loader-logo-anim;
 }
 
 .loader-spinner {
-    width: 130px;
-    height: 130px;
+    width: 200px;
+    height: 200px;
     position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 80px;
-    right: 0;
+    top: 0px;
+    left: 0px;
+    bottom: 100px;
+    right: 0px;
+    user-select: none;
     margin: auto;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none
 }
 
 .sk-fading-circle {
