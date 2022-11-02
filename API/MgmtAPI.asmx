@@ -187,59 +187,136 @@ public class MgmtAPI : System.Web.Services.WebService {
     /// </summary>
     /// <returns></returns>
     [WebMethod]
-    public APIResult UserPromotion(string password) {
+    public APIResult UserPromotion(string password, string BeginDate, string EndDate) {
         APIResult R = new APIResult() { Result = enumResult.ERR };
         JObject VIPSetting;
         JArray VIPSettingDetail;
         int ActivityState = 1;
+        int KeepLevelDays = 30;
         DateTime ActivityStartDate;
         DateTime ActivityEndDate;
         System.Data.DataTable UTSDT = new System.Data.DataTable();
+        System.Data.DataTable DT = new System.Data.DataTable();
         System.Data.DataTable UserLevDT = new System.Data.DataTable();
 
-        if (CheckPassword(password)) {
-            VIPSetting = GetActivityDetail("../App_Data/VIPSetting.json");
+        //if (CheckPassword(password)) {
+        VIPSetting = GetActivityDetail("../App_Data/VIPSetting.json");
 
-            if (VIPSetting != null) {
-                ActivityState = (int)VIPSetting["State"];
-                ActivityStartDate = DateTime.Parse(VIPSetting["StartDate"].ToString());
-                ActivityEndDate = DateTime.Parse(VIPSetting["EndDate"].ToString());
-                VIPSettingDetail = JArray.Parse(VIPSetting["VIPSetting"].ToString());
+        if (VIPSetting != null) {
+            ActivityState = (int)VIPSetting["State"];
+            ActivityStartDate = DateTime.Parse(VIPSetting["StartDate"].ToString());
+            ActivityEndDate = DateTime.Parse(VIPSetting["EndDate"].ToString());
+            VIPSettingDetail = JArray.Parse(VIPSetting["VIPSetting"].ToString());
+            KeepLevelDays = (int)VIPSetting["KeepLevelDays"];
 
-                if (ActivityState == 0) {
-                    if (DateTime.Now >= ActivityStartDate && DateTime.Now < ActivityEndDate) {
-                        //取UserAccountTotalSummary資料 
-                        UTSDT = EWinWebDB.UserAccountTotalSummary.GetUserAccountNeedCheckPromotion();
+            if (ActivityState == 0) {
+                if (DateTime.Now >= ActivityStartDate && DateTime.Now < ActivityEndDate) {
+                    //取UserAccountTotalSummary資料 
+                    UTSDT = EWinWebDB.UserAccountTotalSummary.GetUserAccountNeedCheckPromotion(BeginDate, EndDate);
 
-                        if (UTSDT != null) {
-                            if (UTSDT.Rows.Count > 0) {
-                                string LoginAccount;
-                                decimal DeposiAmount = 0;
-                                decimal ValidBetValue = 0;
-                                int UserLevelIndex = 0;
-                                int NewUserLevelIndex = 0;
-                                DateTime UserLevelUpdateDate = DateTime.Now;
-                                bool IsUserAccountLevelDBHasData = false;
+                    if (UTSDT != null) {
+                        if (UTSDT.Rows.Count > 0) {
+                            string LoginAccount;
+                            decimal DeposiAmount = 0;
+                            decimal ValidBetValue = 0;
+                            int UserLevelIndex = 0;
+                            int NewUserLevelIndex = 0;
+                            DateTime UserLevelUpdateDate = DateTime.Now;
+                            bool IsUserAccountLevelDBHasData = false;
 
-                                foreach (System.Data.DataRow dr in UTSDT.Rows) {
-                                    LoginAccount = (string)dr["LoginAccount"];
-                                    DeposiAmount = (decimal)dr["DepositRealAmount"];
-                                    ValidBetValue = 0;
+                            foreach (System.Data.DataRow dr in UTSDT.Rows) {
+                                LoginAccount = (string)dr["LoginAccount"];
+                                DeposiAmount = 0;
+                                ValidBetValue = 0;
 
-                                    //取當下會員等級
-                                    UserLevDT = RedisCache.UserAccountLevel.GetUserAccountLevelByLoginAccount(LoginAccount);
-                                    if (UserLevDT != null) {
-                                        if (UserLevDT.Rows.Count > 0) {
-                                            UserLevelIndex = (int)UserLevDT.Rows[0]["UserLevelIndex"];
-                                            UserLevelUpdateDate = (DateTime)UserLevDT.Rows[0]["UserLevelUpdateDate"];
+                                //取當下會員等級
+                                UserLevDT = RedisCache.UserAccountLevel.GetUserAccountLevelByLoginAccount(LoginAccount);
+                                if (UserLevDT != null) {
+                                    if (UserLevDT.Rows.Count > 0) {
+                                        UserLevelIndex = (int)UserLevDT.Rows[0]["UserLevelIndex"];
+                                        UserLevelUpdateDate = (DateTime)UserLevDT.Rows[0]["UserLevelUpdateDate"];
 
-                                            IsUserAccountLevelDBHasData = true;
+                                        IsUserAccountLevelDBHasData = true;
+                                    }
+                                }
+
+                                //最初級沒有降級問題直接確認升級
+                                if (UserLevelIndex == 0) {
+                                    DT = EWinWebDB.UserAccountSummary.GetUserAccountTotalValueSummaryData(LoginAccount, DateTime.Now.AddDays(-KeepLevelDays).ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
+                                    if (DT != null) {
+                                        if (DT.Rows.Count > 0) {
+                                            ValidBetValue = (decimal)DT.Rows[0]["ValidBetValue"];
+                                            DeposiAmount = (decimal)DT.Rows[0]["DepositAmount"];
                                         }
                                     }
 
-                                    //最初級沒有降級問題直接確認升級
-                                    if (UserLevelIndex == 0) {
-                                        ValidBetValue = EWinWebDB.UserAccountSummary.GetUserAccountTotalValidBetValueSummaryData(LoginAccount, DateTime.Now.AddDays(-30).ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
+                                    NewUserLevelIndex = CheckUserLevelUpgrade(UserLevelIndex, DeposiAmount, ValidBetValue, VIPSettingDetail);
+
+                                    //更新會員等級資料
+                                    if (IsUserAccountLevelDBHasData) {
+                                        //等級有變動時再更新
+                                        if (NewUserLevelIndex != UserLevelIndex) {
+                                            EWinWebDB.UserAccountLevel.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+                                            RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
+                                        }
+                                    } else {
+                                        EWinWebDB.UserAccountLevel.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+                                        RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
+                                    }
+
+                                } else {
+                                    //會員等級變更時間超過1個月 先檢查保級再檢查升級
+                                    //會員等級變更時間未達1個月 檢查升級
+
+                                    double UserLevelUpdatedays = DateTime.Now.Date.Subtract(UserLevelUpdateDate).TotalDays;
+                                    bool CheckUpgrade = true;
+
+                                    //等級變動時間超過30天，檢查保級
+                                    if (UserLevelUpdatedays >= KeepLevelDays) {
+                                        DT = EWinWebDB.UserAccountSummary.GetUserAccountTotalValueSummaryData(LoginAccount, UserLevelUpdateDate.ToString("yyyy/MM/dd"), UserLevelUpdateDate.AddDays(KeepLevelDays).ToString("yyyy/MM/dd"));
+                                        if (DT != null) {
+                                            if (DT.Rows.Count > 0) {
+                                                ValidBetValue = (decimal)DT.Rows[0]["ValidBetValue"];
+                                                DeposiAmount = (decimal)DT.Rows[0]["DepositAmount"];
+                                            }
+                                        }
+
+                                        //保級失敗
+                                        if (!CheckUserLevelDowngrade(LoginAccount, UserLevelIndex, ValidBetValue, VIPSettingDetail)) {
+                                            NewUserLevelIndex = UserLevelIndex - 1;
+
+                                            CheckUpgrade = false;
+
+                                            //更新會員等級資料
+                                            if (IsUserAccountLevelDBHasData) {
+                                                EWinWebDB.UserAccountLevel.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+                                                RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
+                                            } else {
+                                                EWinWebDB.UserAccountLevel.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+                                                RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
+                                            }
+
+                                        } else { //保級成功時間重新計算
+                                                 //更新會員等級資料
+                                            if (IsUserAccountLevelDBHasData) {
+                                                EWinWebDB.UserAccountLevel.UpdateUserAccountLevel(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+                                                RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
+                                            } else {
+                                                EWinWebDB.UserAccountLevel.InsertUserAccountLevel(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+                                                RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
+                                            }
+                                        }
+                                    }
+
+                                    //保級成功或等級變動未超過30天，檢查升級
+                                    if (CheckUpgrade) {
+                                        DT = EWinWebDB.UserAccountSummary.GetUserAccountTotalValueSummaryData(LoginAccount, DateTime.Now.AddDays(-KeepLevelDays).ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
+                                        if (DT != null) {
+                                            if (DT.Rows.Count > 0) {
+                                                ValidBetValue = (decimal)DT.Rows[0]["ValidBetValue"];
+                                                DeposiAmount = (decimal)DT.Rows[0]["DepositAmount"];
+                                            }
+                                        }
 
                                         NewUserLevelIndex = CheckUserLevelUpgrade(UserLevelIndex, DeposiAmount, ValidBetValue, VIPSettingDetail);
 
@@ -254,75 +331,27 @@ public class MgmtAPI : System.Web.Services.WebService {
                                             EWinWebDB.UserAccountLevel.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                             RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
                                         }
-
-                                    } else {
-                                        //會員等級變更時間超過1個月 先檢查保級再檢查升級
-                                        //會員等級變更時間未達1個月 檢查升級
-
-                                        double UserLevelUpdatedays = DateTime.Now.Date.Subtract(UserLevelUpdateDate).TotalDays;
-                                        bool CheckUpgrade = true;
-
-                                        //等級變動時間超過30天，檢查保級
-                                        if (UserLevelUpdatedays >= 30) {
-                                            //保級失敗
-                                            ValidBetValue = EWinWebDB.UserAccountSummary.GetUserAccountTotalValidBetValueSummaryData(LoginAccount, UserLevelUpdateDate.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
-                                            if (!CheckUserLevelDowngrade(LoginAccount, UserLevelIndex, ValidBetValue, VIPSettingDetail)) {
-                                                NewUserLevelIndex = UserLevelIndex - 1;
-
-                                                CheckUpgrade = false;
-
-                                                //更新會員等級資料
-                                                if (IsUserAccountLevelDBHasData) {
-                                                    EWinWebDB.UserAccountLevel.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
-                                                    RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
-                                                } else {
-                                                    EWinWebDB.UserAccountLevel.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
-                                                    RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
-                                                }
-
-                                            }
-                                        }
-
-                                        //保級成功或等級變動未超過30天，檢查升級
-                                        if (CheckUpgrade) {
-                                            ValidBetValue = EWinWebDB.UserAccountSummary.GetUserAccountTotalValidBetValueSummaryData(LoginAccount, DateTime.Now.AddDays(-30).ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
-
-                                            NewUserLevelIndex = CheckUserLevelUpgrade(UserLevelIndex, DeposiAmount, ValidBetValue, VIPSettingDetail);
-
-                                            //更新會員等級資料
-                                            if (IsUserAccountLevelDBHasData) {
-                                                //等級有變動時再更新
-                                                if (NewUserLevelIndex != UserLevelIndex) {
-                                                    EWinWebDB.UserAccountLevel.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
-                                                    RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
-                                                }
-                                            } else {
-                                                EWinWebDB.UserAccountLevel.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
-                                                RedisCache.UserAccountLevel.UpdateUserAccountLevelByLoginAccount(LoginAccount);
-                                            }
-                                        }
-
                                     }
-
                                 }
                             }
                         }
-
-                        R.Result = enumResult.OK;
-
-                    } else {
-                        SetResultException(R, "ActivityIsExpired");
                     }
+
+                    R.Result = enumResult.OK;
+
                 } else {
                     SetResultException(R, "ActivityIsExpired");
                 }
-
             } else {
                 SetResultException(R, "ActivityIsExpired");
             }
+
         } else {
-            SetResultException(R, "InvalidPassword");
+            SetResultException(R, "ActivityIsExpired");
         }
+        //} else {
+        //    SetResultException(R, "InvalidPassword");
+        //}
 
         return R;
     }

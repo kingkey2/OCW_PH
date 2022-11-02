@@ -4,6 +4,7 @@
   "StartDate": "2022/10/01 11:00:00",
   "EndDate": "2099/11/01 11:00:00",
   "Title": "會員升降級",
+  "KeepLevelDays": "30",
   "VIPSetting": [
     {
       "UserLevelIndex": 0,

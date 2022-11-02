@@ -806,17 +806,22 @@ public static class EWinWebDB {
             return DT;
         }
 
-        public static System.Data.DataTable GetUserAccountNeedCheckPromotion() {
+        public static System.Data.DataTable GetUserAccountNeedCheckPromotion(string StartDate, string EndDate) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
 
             SS = " SELECT * " +
-                     " FROM UserAccountTotalSummary WITH (NOLOCK) " +
-                     " WHERE DepositRealAmount > 0";
+                     " FROM   UserAccountTotalSummary WITH (nolock) " +
+                     " WHERE  LoginAccount IN(SELECT DISTINCT LoginAccount " +
+                     "                                                  FROM   UserAccountSummary " +
+                     "                                                  WHERE  SummaryDate >= @StartDate " +
+                     "                                                         AND SummaryDate < @EndDate)  ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(StartDate);
+            DBCmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(EndDate).AddDays(1);
             DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
 
             return DT;
@@ -1051,12 +1056,14 @@ public static class EWinWebDB {
             return DT;
         }
 
-        public static decimal GetUserAccountTotalValidBetValueSummaryData(string LoginAccount, string StartDate, string EndDate) {
+        public static System.Data.DataTable GetUserAccountTotalValueSummaryData(string LoginAccount, string StartDate, string EndDate) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
-            decimal UserAccountTotalValidBetValue = 0;
+            System.Data.DataTable DT;
 
-            SS = " SELECT  ISNULL(Sum(ValidBetValue),0)  ValidBetValue " +
+            SS = " SELECT   ISNULL(Sum(DepositAmount),0)  DepositAmount, " +
+                      "                 ISNULL(Sum(WithdrawalAmount),0) WithdrawalAmount, " +
+                      "                 ISNULL(Sum(ValidBetValue),0)  ValidBetValue " +
                       " FROM   UserAccountSummary " +
                       " WHERE  LoginAccount = @LoginAccount " +
                       "        AND SummaryDate >= @StartDate " +
@@ -1067,9 +1074,9 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
             DBCmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(StartDate);
             DBCmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(EndDate);
-            UserAccountTotalValidBetValue = Convert.ToDecimal(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
 
-            return UserAccountTotalValidBetValue;
+            return DT;
         }
 
         public static System.Data.DataTable GetUserAccountSummaryData(string LoginAccount, string StartDate, string EndDate) {
