@@ -228,7 +228,7 @@
                                                                     <h4 class="name">${data.BankNumber}</h4>
                                                                 </div>
                                                             </div>
-                                                            <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>
+                                                            <button type="button" class="btn btn-transparent btn-delete" onclick="setUserBankCardState('${data.BankCardGUID}')"><i class="icon icon-mask icon-trash"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -262,7 +262,7 @@
                                                                 <h4 class="mail">${data.AccountName}</h4>
                                                             </div>
                                                         </div>
-                                                        <button type="button" class="btn btn-transparent btn-delete"><i class="icon icon-mask icon-trash"></i></button>
+                                                        <button type="button" class="btn btn-transparent btn-delete" onclick="setUserBankCardState('${data.BankCardGUID}')"><i class="icon icon-mask icon-trash"></i></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -296,6 +296,30 @@
                 }
             }
         });
+    }
+
+    function setUserBankCardState(BankCardGUID) {
+        window.parent.showMessage("", "確認刪除此卡片?", function () {
+            p.SetUserBankCardState(WebInfo.SID, Math.uuid(), BankCardGUID, 1, function (success, o) {
+                if (success) {
+                    if (o.Result == 0) {
+
+                        window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已刪除"), function () {
+                            getUserBankCard();
+                        });
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    }
+                } else {
+                    if (o == "Timeout") {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    }
+                }
+            });
+        });
+
     }
 
     function showAddCardModal() {

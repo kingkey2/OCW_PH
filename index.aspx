@@ -922,6 +922,7 @@
         likebtn.onclick = new Function("favBtnClick('" + brandName + "." + gameName + "')");
 
         if (GI_img != null) {
+       
             GI_img.src = `${EWinWebInfo.ImageUrl}/${brandName}/ENG/${gameName}.png`;
             GI_img.onerror = new Function("showDefauktGameIcon2()");
             //var el = GI_img;
@@ -939,9 +940,18 @@
     }
 
     function showDefauktGameIcon2() {
+
         var el = event.target;
-        el.onerror = null;
-        el.src = EWinWebInfo.ImageUrl + "/default.png";
+        if (el.src.includes("PG")) {
+            el.onerror = null;
+            el.src = el.src.replace("PG", "PG2");
+        } else if (el.src.includes("MG")) {
+            el.onerror = null;
+            el.src = el.src.replace("MG", "MG2");
+        } else {
+            el.onerror = null;
+            el.src = WebInfo.ImageUrl + "/default.png";
+        }
     }
 
     function showPartialHtml(title, pathName, isNeedLang, cbOK) {
