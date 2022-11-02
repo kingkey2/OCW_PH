@@ -8,6 +8,7 @@
   "DepositMinValue": 500,
   "ReceiveValueMaxLimit": 10000,
   "Title": "First Time Deposit Event!",
-  "SubTitle": "首次入金贈送50%",
+  "SubTitle": "50% bonus on first deposit",
+  "SubTitle1": "首次入金贈送50%",
   "CollectAreaType": 2
 }
