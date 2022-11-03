@@ -1082,6 +1082,12 @@
 .card-item.sd-09 .card-item-link {
   background-image: url(../images/assets/card-surface/card-09.svg);
 }
+.card-item.sd-10 .card-item-link {
+  background-image: url(../images/assets/card-surface/card-10.svg);
+}
+.card-item.sd-11 .card-item-link {
+  background-image: url(../images/assets/card-surface/card-11.svg);
+}
 .card-item-inner {
   z-index: 2;
   padding: 1rem 1rem;

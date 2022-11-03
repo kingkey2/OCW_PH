@@ -435,7 +435,7 @@
                 <div class="split-layout-container">
                     <div class="aside-panel" data-deposite="step2">
                         <!-- PayPal -->
-                        <div class="card-item sd-03">
+                        <div class="card-item sd-10">
                             <div class="card-item-link">
                                 <div class="card-item-inner">
                                     <div class="title">
@@ -444,10 +444,10 @@
                                     </div>                                   
                                     <div class="logo vertical-center text-center">
                                         <!-- <span class="text language_replace">銀行振込</span>   -->
-                                          <img src="images/assets/card-surface/icon-logo-bankcard.png">                                 
+                                          <img src="images/assets/card-surface/icon-logo-GrabPay.svg">                                 
                                     </div>
                                 </div>
-                                <img src="images/assets/card-surface/card-03.svg" class="card-item-bg" />
+                                <img src="images/assets/card-surface/card-10.svg" class="card-item-bg" />
                             </div>
                         </div>
                         <div class="text-wrap payment-change" style="display: none">

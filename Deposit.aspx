@@ -153,7 +153,7 @@
                             <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
                         </a>
                     </div>
-                    <!-- EPay -->
+                    <!-- GCash -->
                     <div class="card-item sd-09" id="idDepositGCash">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGCash','DepositGCash.aspx')">
                             <div class="card-item-inner">
@@ -186,8 +186,8 @@
                             <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
                         </a>
                     </div>
-                     <!-- EPay -->
-                    <div class="card-item sd-09" id="idDepositPaymaya">
+                     <!-- Paymaya -->
+                    <div class="card-item sd-11" id="idDepositPaymaya">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositPaymaya','DepositPaymaya.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -196,14 +196,14 @@
                                 </div>
                                 <div class="logo vertical-center text-center"> 
                                     <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
+                                    <img src="images/assets/card-surface/icon-logo-PayMaya.svg">
                                 </div>
                             </div>
-                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
+                            <img src="images/assets/card-surface/card-11.svg" class="card-item-bg">
                         </a>
                     </div>
-                     <!-- EPay -->
-                    <div class="card-item sd-09" id="idDepositGrabpay">
+                     <!-- Grabpay -->
+                    <div class="card-item sd-10" id="idDepositGrabpay">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGrabpay','DepositGrabpay.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -212,7 +212,7 @@
                                 </div>
                                 <div class="logo vertical-center text-center"> 
                                     <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
+                                    <img src="images/assets/card-surface/icon-logo-GrabPay.svg">
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
