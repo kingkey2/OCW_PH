@@ -98,5 +98,6 @@
   "尚未設定銀行列表": "Bank list not yet set",
   "請勾選確認出金注意事項": "Please tick to confirm withdrawal notices",
   "餘額不足": "Insufficient balance",
-  "只能有一筆進行中之訂單": "There can only be one order in progress"
+  "只能有一筆進行中之訂單": "There can only be one order in progress",
+  "尚未選擇銀行": "Bank not selected"
 }

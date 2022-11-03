@@ -116,7 +116,7 @@
   "累積流水": "Build Up Rolling",
   "流水要求": "Rolling Criteria",
   "保級流水": "Relegation Criteria",
-  "特別服務通道": "Exclusive Customer Service", 
+  "特別服務通道": "Exclusive Customer Service",
   "生日禮金": "Birthday Gift",
   "體育返水": "Sports Rebate",
   "真人返水": "Live Rebate",
@@ -144,5 +144,6 @@
   "史詩": "Epic",
   "VIP 會員級數說明": "VIP Details",
   "等級": "VIP Level",
-  "每月流水": "Rolling Criteria"
+  "每月流水": "Rolling Criteria",
+  "錢包密碼": "WalletPassword"
 }

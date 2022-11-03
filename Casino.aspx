@@ -698,7 +698,7 @@
                 gameitemlink = `<span class="game-item-link" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')" onmouseover="appendGameProp('${gameItem.GameBrand}','${gameName}','${RTP}','${gameItem.GameID}','${gameItem.GameCode}',${showType},'${gameItem.GameCategoryCode}','${gameItem.GameName}')"></span>`;
 
             }
-            
+   
             imgsrc = `${WebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
            /*  三冠王 ===========================
             等級：crownLevel-1/
@@ -1284,9 +1284,16 @@
     function showDefauktGameIcon2() {
   
         var el = event.target;
-        console.log(el.src);
-        el.onerror = null;
-        el.src = WebInfo.ImageUrl+"/default.png";
+        if (el.src.includes("PG")) {
+            el.onerror = null;
+            el.src = el.src.replace("PG", "PG2");
+        } else if (el.src.includes("MG")) {
+            el.onerror = null;
+            el.src = el.src.replace("MG", "MG2");
+        } else {
+            el.onerror = null;
+            el.src = WebInfo.ImageUrl + "/default.png";
+        }
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
