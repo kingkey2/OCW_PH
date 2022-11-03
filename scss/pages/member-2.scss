@@ -605,9 +605,14 @@ input{
 
 }
 
-.cashflowCard-slider-wrapper{        
-    height: 100%;        
- }
+.cashflowCard-slider{
+    &-wrapper{        
+        height: 100%;        
+    }
+    &-inner{        
+        height: 100%;      
+    }
+}
 
 // BANKCARD/GCash
 .cashflowCard-slider{
@@ -3414,15 +3419,21 @@ $card-bg-normal: (
         }
      }
 
-     .cashflowCard-slider-wrapper{        
-        // height: 100%;        
+     .cashflowCard-slider{
+        &-wrapper{     
+            // height: 100%;        
+         }
+         &-inner{        
+                
+        }
      }
+
      .cashflowCard-slider{
         display: flex;
         align-items: center;
         height: 100%;
         padding-bottom: 0;
-        padding-top: 50px;
+        padding-top: 50px;  
         
         .swiper-wrapper{
             max-height: 180px;

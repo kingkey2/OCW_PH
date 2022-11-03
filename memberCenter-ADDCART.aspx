@@ -1516,10 +1516,9 @@
                                 </section>
                                 <!-- BANKCARD/GCash -->
                                 <section class="cashflowCard-slider-wrapper" style="display:none">
-                                    <div id="slider-CardCashFlowContent">
+                                    <div id="slider-CardCashFlowContent" class="cashflowCard-slider-inner">
 
-                                    </div>
-                                    
+                                    </div>                                    
                                 </section>
                             </div>                             
                         </section> 
