@@ -243,7 +243,7 @@
                                                                     <h5 class="branch">${data.BranchName}</h5>
                                                                 </div>
                                                                 <div class="account-name">
-                                                                    <h4 class="name">${data.BankNumber}</h4>
+                                                                    <h4 class="name">${data.AccountName}</h4>
                                                                 </div>
                                                             </div>
                                                             <button type="button" class="btn btn-transparent btn-delete" onclick="setUserBankCardState('${data.BankCardGUID}')"><i class="icon icon-mask icon-trash"></i></button>
@@ -585,6 +585,10 @@
     }
 
     function BankCardSave() {
+        if ($('#swiperBankCardContent').next().children().length >= 10) {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("最多只能新增10張卡片"));
+        }
+
         var BankCardName = $('#idBankCardName').val().trim();
         var BankCard = $('#idBankCard').val().trim();
         var BankBranch = $('#idBankBranch').val().trim();

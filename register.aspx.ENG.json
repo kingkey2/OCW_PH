@@ -49,7 +49,7 @@
   "現在就存款": "Deposit Now",
   "首頁": "HOMEPAGE",
   "立刻登入": "LOGIN",
-  "點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在Lucky Fanta不能持有複數的帳號這個條件。": "Click [SignUp] on behalf of understanding<span class=\"link\" style=\"cursor:pointer\" onclick=\"window.parent.API_ShowPartialHtml('Privacy Policy', 'PrivacyPolicy_ENG', false)\">Privacy Policy</span>，Also agress<span class=\"link\" style=\"cursor:pointer\" onclick=\"window.parent.API_ShowPartialHtml('Rules', 'Rules_ENG', false)\">Rules</span> There is also the condition that you cannot hold multiple accounts in Lucky Fanta.",
+  "點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在Lucky Fanta不能持有複數的帳號這個條件。": "Click [SignUp] on behalf of understanding<span class=\"link\" style=\"cursor:pointer\" onclick=\"window.parent.API_ShowPartialHtml('Privacy Policy', 'PrivacyPolicy_ENG', false)\">Privacy Policy</span>,Also agress<span class=\"link\" style=\"cursor:pointer\" onclick=\"window.parent.API_ShowPartialHtml('Rules', 'Rules_ENG', false)\">Rules</span> There is also the condition that you cannot hold multiple accounts in Lucky Fanta.",
   "不可輸入 , ": "Cannot entered ',' ",
   "請輸入驗證碼": "Please enter the verification code.",
   "請輸入正確驗證碼": "Please enter the correct verification code.",
