@@ -182,9 +182,9 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
 
-        navigator.clipboard.writeText(copyText.value).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
+        copyToClipboard(copyText.textContent)
+            .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
+            .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
     }
 
     function copyTextPaymentSerial(tag) {
@@ -194,10 +194,35 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
 
-        navigator.clipboard.writeText(copyText.value).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
+        copyToClipboard(copyText.textContent)
+            .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
+            .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
     }
+
+    function copyToClipboard(textToCopy) {
+        // navigator clipboard api needs a secure context (https)
+        if (navigator.clipboard && window.isSecureContext) {
+            // navigator clipboard api method'
+            return navigator.clipboard.writeText(textToCopy);
+        } else {
+            // text area method
+            let textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            // make the textarea out of viewport
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            return new Promise((res, rej) => {
+                // here the magic happens
+                document.execCommand('copy') ? res() : rej();
+                textArea.remove();
+            });
+        }
+    }
+
 
     function EWinEventNotify(eventName, isDisplay, param) {
         switch (eventName) {
@@ -696,7 +721,8 @@
                     }
                     setEthWalletAddress(k.WalletPublicAddress);
                     $(".OrderNumber").text(k.PaymentSerial);
-                    $("#depositdetail .inputPaymentSerial").val(k.PaymentSerial);
+                    //$("#depositdetail .inputPaymentSerial").val(k.PaymentSerial);
+                    $("#inputPaymentSerial").text(k.PaymentSerial);
                     $(".OrderNumber").parent().show();
                     setExpireSecond();
                     let Step3 = $('button[data-deposite="step3"]');
@@ -1237,8 +1263,8 @@
                                     <li class="item" style="display: none">
                                         <h6 class="title language_replace">訂單號碼</h6>
                                         <span class="data OrderNumber"></span>
-                                        <input class="inputPaymentSerial is-hide" />
-                                        <i class="icon-copy" onclick="copyTextPaymentSerial(this)" style="display: inline;"></i>
+                                        <input class="inputPaymentSerial is-hide" id="inputPaymentSerial"/>
+                                        <i class="icon-copy" onclick="copyText('inputPaymentSerial')" style="display: inline;"></i>
                                     </li>
                                     <li class="item">
                                         <h6 class="title language_replace">支付方式</h6>
