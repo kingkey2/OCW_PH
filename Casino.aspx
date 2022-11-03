@@ -1399,6 +1399,11 @@
                                     el: ".swiper-pagination",
                                     clickable: true,
                                 },
+                                autuplay: {
+                                    delay: 1000,
+                                    disableOnInteraction: false,
+                                    pauseOnMouseEnter: true
+                                }
 
                             });
                             window.parent.API_LoadingEnd();

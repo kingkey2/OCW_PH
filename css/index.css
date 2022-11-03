@@ -422,6 +422,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .way-payment-inner {
   height: calc(0.2857142857 * (100vw - 20px));
 }
+@media (min-width: 360px) {
+  .way-payment-inner {
+    height: calc(0.2857142857 * (100vw - 20px));
+  }
+}
 @media (min-width: 375px) {
   .way-payment-inner {
     height: calc(0.2857142857 * (100vw - 20px));
@@ -538,6 +543,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .way-payment-detail .title {
   font-size: calc(0.0642857143 * (100vw - 20px));
+}
+@media (min-width: 360px) {
+  .way-payment-detail .title {
+    font-size: calc(0.0642857143 * (100vw - 20px));
+  }
 }
 @media (min-width: 375px) {
   .way-payment-detail .title {

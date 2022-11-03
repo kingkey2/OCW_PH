@@ -187,6 +187,7 @@ $innerBody-desc-navbarMenu-max-width: $header-navbarMenu-width-xl-default + 90px
 
 $grid-breakpoints: (
   xs: 0,
+  xsm: 360px,
   sm: 375px,
   smd: 576px,
   smg: 640px,
@@ -218,6 +219,7 @@ $grid-breakpoints: (
 $container-max-widths: (  
   // sm: 100%, //此必設為100%
   xs: 100vw,
+  xsm: 100vw,
   sm: 100vw, 
   smd: 536px,
   smg: 600px, 

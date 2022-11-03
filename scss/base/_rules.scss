@@ -1535,8 +1535,10 @@ hr{
   }
 
   .loader-logo {
-	width: 100%;  
-	height: 100%;
+	// width: 100%;  
+	// height: 100%;
+	width: 80%;  
+	height: 80%;
 	background: url(../images/icon/ico-dog-w.svg) center center no-repeat ;
 	background-size: calc(100% - 50px);
 
@@ -1545,17 +1547,17 @@ hr{
   }
 
   .loader-spinner{
-	width: 130px;
-    height: 130px;
+	// width: 130px;
+    // height: 130px;
+	width: 200px;
+    height: 200px;
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 80px;
+    // bottom: 80px;
+    bottom: 100px;
     right: 0;
-    margin: auto;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+    margin: auto;   
     user-select: none;
   }
 
