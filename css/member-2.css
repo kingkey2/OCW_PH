@@ -432,7 +432,7 @@ input.month:read-only, input.day:read-only {
 .cashflowCard-wrapper {
   background-color: #F3F3F3;
   border-radius: 30px;
-  padding: 20px 20px 20px;
+  padding: 10px;
   width: 100%;
   -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -484,18 +484,29 @@ input.month:read-only, input.day:read-only {
 }
 
 .cashflowCard-slider {
-  padding-bottom: 75px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  padding: 20px 0;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
 }
 .cashflowCard-slider.swiper-container {
   overflow: visible;
   width: 100%;
 }
 .cashflowCard-slider .swiper-slide {
-  padding: 0 10px;
+  padding: 0 5px;
   height: auto;
   -webkit-transform: scale(0.85, 0.85);
           transform: scale(0.85, 0.85);
-  width: 80% !important;
+  width: 90% !important;
   max-width: 360px;
   opacity: 0.5;
   -webkit-transition-property: opacity, -webkit-transform;
@@ -516,6 +527,9 @@ input.month:read-only, input.day:read-only {
 }
 .cashflowCard-slider .bankcard .card-item {
   background: linear-gradient(107.89deg, #0180A2 1.19%, #0185A7 25.54%, #0098C8 101.21%);
+}
+.cashflowCard-slider .bankcard .bank {
+  font-size: 0.875rem;
 }
 .cashflowCard-slider .bankcard .branch {
   display: -webkit-inline-box;
@@ -559,7 +573,7 @@ input.month:read-only, input.day:read-only {
   width: 100%;
   border-radius: 20px;
   color: #fff;
-  padding: 20px 15px;
+  padding: 10px 15px;
   position: relative;
   overflow: hidden;
 }
@@ -672,7 +686,8 @@ input.month:read-only, input.day:read-only {
   background-color: #fff;
 }
 .cashflowCard-slider .swiper-pagination {
-  bottom: 0;
+  position: relative;
+  margin-top: 50px;
 }
 .cashflowCard-slider .swiper-pagination-bullet {
   display: -webkit-inline-box;
@@ -1724,7 +1739,6 @@ input.month:read-only, input.day:read-only {
 
 @media (min-width: 576px) {
   .cashflowCard-wrapper {
-    padding-top: 60px;
     padding-bottom: 30px;
   }
 
@@ -2171,8 +2185,11 @@ input.month:read-only, input.day:read-only {
     overflow: hidden;
   }
   .section-cashflow-card .swiper-pagination {
-    top: 0;
     bottom: auto;
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+    margin-top: 0;
   }
   .section-cashflow-card .swiper-pagination-bullet {
     width: 36px;
@@ -2180,15 +2197,7 @@ input.month:read-only, input.day:read-only {
   }
 
   .cashflowCard-slider {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    height: 100%;
     padding-bottom: 0;
-    padding-top: 50px;
   }
   .cashflowCard-slider .swiper-wrapper {
     max-height: 180px;
