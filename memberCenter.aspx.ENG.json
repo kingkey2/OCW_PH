@@ -180,5 +180,6 @@
   "個人資訊": "Personal information",
   "個人錢包": "Personal wallet",
   "錢包資訊": "Wallet information",
-  "請綁定 銀行卡 或 GCash": "Please bind bank card or GCash"
+  "請綁定 銀行卡 或 GCash": "Please bind bank card or GCash",
+  "最多只能新增10張卡片": "You can only have most 10 card."
 }
