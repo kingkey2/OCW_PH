@@ -437,8 +437,21 @@ input.month:read-only, input.day:read-only {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
+.cashflowCard-noCard {
+  width: 100%;
+}
 .cashflowCard-noCard .card-item {
   width: 100%;
   max-width: 360px;
@@ -459,7 +472,7 @@ input.month:read-only, input.day:read-only {
   min-height: 200px;
 }
 .cashflowCard-noCard .card-item .name {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 .cashflowCard-slider-wrapper {
