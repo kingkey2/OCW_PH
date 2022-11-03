@@ -118,14 +118,14 @@
 
                         if (!checkbool) {
                             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定 GCash 帳號"), function () {
-                                window.parent.API_LoadPage("memberCenter-ADDCART", "memberCenter-ADDCART.aspx");
+                                window.parent.API_LoadPage("memberCenter", "memberCenter.aspx?Type=CardSetting");
                             });
                         }
 
                         BankCardData = o.BankCardList;
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定 GCash 帳號"), function () {
-                            window.parent.API_LoadPage("memberCenter-ADDCART", "memberCenter-ADDCART.aspx");
+                            window.parent.API_LoadPage("memberCenter", "memberCenter.aspx?Type=CardSetting");
                         });
                     }
                 } else {
@@ -696,7 +696,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="main-panel cryptopanel" data-deposite="step2">
+                    <div class="main-panel cryptopanel" data-deposite="step2" style="display:none;">
                        
                         <div class="box-item-container">                           
                            <%--    <div class="card-item-intro">
