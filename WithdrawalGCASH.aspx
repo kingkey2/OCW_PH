@@ -391,8 +391,7 @@
                                         $("#depositdetail .PaymentMethodName").text(mlp.getLanguageKey(data.PaymentMethodName));
                                         $("#depositdetail .EWinCryptoWalletType").text("PHP");
                                         $("#depositdetail .phoneNumber").text(phoneNumber);
-                                        $("#depositdetail .bankName").text('Gcash');
-                                        
+                
                                         if (data.PaymentCryptoDetailList != null) {
                                             var depositdetail = document.getElementsByClassName("Collectionitem")[0];
                                             for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
@@ -792,10 +791,6 @@
                                         <h6 class="title language_replace">手機電話號碼</h6>
                                         <span class="data phoneNumber"></span>
                                     </li>
-                                     <li class="item">
-                                        <h6 class="title language_replace">銀行</h6>
-                                        <span class="data bankName"></span>
-                                    </li>   
                                 </ul>
                             </div>
                         </div>
