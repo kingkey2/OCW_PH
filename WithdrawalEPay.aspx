@@ -59,7 +59,7 @@
     var v = "<%:Version%>";
     var IsOpenTime = "<%:InOpenTime%>";
     var IsWithdrawlTemporaryMaintenance = "<%:IsWithdrawlTemporaryMaintenance%>";
-
+    var BankCardData;
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
@@ -83,8 +83,9 @@
                     });
                 }
             }
+            getUserBankCard();
             GetPaymentMethod();
-            GetEPayBankSelect();
+            //GetEPayBankSelect();
         },"PaymentAPI");
 
     
@@ -93,6 +94,50 @@
         var walletList = WebInfo.UserInfo.WalletList;
         var selectedLang = $('.header-tool-item').eq(2).find('a>span').text();
 
+    }
+
+
+    function getUserBankCard() {
+        var checkbool = false;
+        lobbyClient.GetUserBankCard(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.BankCardList.length > 0) {
+                        var strSelectBank = mlp.getLanguageKey("選擇銀行卡");
+                        $('#SearchCard').append(`<option class="title" value="-1" selected="">${strSelectBank}</option>`);
+                        for (var i = 0; i < o.BankCardList.length; i++) {
+                            var data = o.BankCardList[i];
+                            if (data.BankCardState == 0) {
+                                if (data.PaymentMethod == 0) {
+                                    $('#SearchCard').append(`<option class="searchFilter-option" value="${data.BankCardGUID}">${data.BankNumber}</option>`);
+                                    checkbool = true;
+                                }
+                            }
+                        };
+
+                        if (!checkbool) {
+                            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定銀行卡"), function () {
+                                window.parent.API_LoadPage("memberCenter-ADDCART", "memberCenter-ADDCART.aspx");
+                            });
+                        }
+
+                        BankCardData = o.BankCardList;
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定銀行卡"), function () {
+                            window.parent.API_LoadPage("memberCenter-ADDCART", "memberCenter-ADDCART.aspx");
+                        });
+                    }
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                }
+            } else {
+                if (o == "Timeout") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                }
+            }
+        });
     }
 
     function btn_NextStep() {
@@ -257,9 +302,18 @@
 
     //建立訂單
     function CreateEPayWithdrawal() {
-        var bankCard = $("#bankCard").val().trim();
-        var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
-        var bankName = $("#SearchBank").val();
+        if ($("#SearchCard").val() == '-1') {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇銀行卡"), function () { });
+            window.parent.API_LoadingEnd(1);
+            return false;
+        }
+
+        var bankcarddata= BankCardData.find(w => w.BankCardGUID == $("#SearchCard").val());
+
+        var bankCard = bankcarddata.BankNumber;
+        var bankCardNameFirst = bankcarddata.AccountName;
+        var bankName = bankcarddata.BankName;
+
         if ($("#amount").val().trim() == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"), function () { });
             window.parent.API_LoadingEnd(1);
@@ -403,11 +457,12 @@
     }
     //完成訂單
     function ConfirmEPayWithdrawal() {
-        var bankCard = $("#bankCard").val().trim();
-        var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
-        var bankCardName=bankCardNameFirst;
-        var bankName = $("#SearchBank").val();
-    
+
+        var bankcarddata = BankCardData.find(w => w.BankCardGUID == $("#SearchCard").val());
+
+        var bankCard = bankcarddata.BankNumber.trim();
+        var bankCardName = bankcarddata.AccountName.trim();
+        var bankName = bankcarddata.BankName.trim();
 
         PaymentClient.ConfirmEPayWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, bankCard, bankCardName, bankName, '','' ,function (success, o) {
             if (success) {
@@ -614,7 +669,7 @@
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>
-                                 <div class="form-group mb-3">
+                              <%--   <div class="form-group mb-3">
                                     <label class="form-title language_replace">輸入卡號</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control custom-style" id="bankCard" language_replace="placeholder" placeholder="請輸入卡號" onkeyup="bankcardCheck()" />
@@ -627,14 +682,19 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control custom-style" id="bankCardNameFirst" language_replace="placeholder" placeholder="輸入持卡人姓名" />
                                     </div>
-                                </div>
+                                </div>--%>
 
-                                <div class="form-group mt-4 mb-0">
+                    <%--            <div class="form-group mt-4 mb-0">
                                     <label class="form-title language_replace" >選擇銀行</label>
                                     <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
                                     <select class="custom-select mb-4" id="SearchBank" style=""></select> 
-                                </div>
+                                </div>--%>
                                 
+                                <div class="form-group mt-4 mb-0">
+                                    <label class="form-title language_replace" >選擇銀行卡</label>
+                                    <div class="searchFilter-item input-group game-brand" id="div_SearchCard"></div>
+                                    <select class="custom-select mb-4" id="SearchCard" style=""></select> 
+                                </div>
                                 <!-- 舊的 測試無誤時刪除-->
                                 <%--
                                 <div class="language_replace mt-4 mb-0" >

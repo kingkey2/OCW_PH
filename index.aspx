@@ -129,7 +129,8 @@
     <!-- Share image -->
     <!--英文圖片-->
     <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
-    <%--<link rel="shortcut icon" href="images/share_pic.png">--%>
+    <link rel="shortcut icon" href="images/share_pic.png">
+    <link rel="apple-touch-icon" href="images/share_pic.png">
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css?3">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
@@ -671,6 +672,40 @@
                             cbCancel();
                         }
                     }
+                }
+
+                if (divMessageBoxOKButton != null) {
+
+                    divMessageBoxOKButton.onclick = function () {
+                        MessageModal.hide();
+
+                        if (cbOK != null)
+                            cbOK();
+                    }
+                }
+
+                divMessageBoxContent.innerHTML = message;
+            }
+        }
+    }
+
+    function showMessageOK2(title, message, cbOK) {
+        debugger;
+        if ($("#alertMsg2").attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("alertMsg2");
+            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertMsg_Close");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alertMsg_OK");
+            var divMessageBoxContent = divMessageBox.querySelector(".alertMsg_Text");
+
+            if (MessageModal == null) {
+                MessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+            }
+
+            if (divMessageBox != null) {
+                MessageModal.show();
+
+                if (divMessageBoxCloseButton != null) {
+                    divMessageBoxCloseButton.classList.add("is-hide");
                 }
 
                 if (divMessageBoxOKButton != null) {
@@ -3275,11 +3310,11 @@
                                 </li>
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
-                                        <li class="nav-item submenu dropdown">
+                                   <%--     <li class="nav-item submenu dropdown">
                                             <a class="nav-link" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
                                                 <i class="icon icon-mask icon-people"></i>
                                                 <span class="title language_replace">會員中心</span></a>
-                                        </li>
+                                        </li>--%>
                                         <li class="nav-item submenu dropdown">
                                             <a class="nav-link" onclick="API_LoadPage('MemberCenter2', 'memberCenter-ADDCART.aspx', true)">
                                                 <i class="icon icon-mask icon-people"></i>
@@ -4080,6 +4115,7 @@
             </div>
         </div>
     </div>
+   
     <!--alert-->
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="nonClose_alertContact" aria-hidden="true" id="nonClose_alertContact">
         <div class="modal-dialog modal-dialog-centered" role="document">

@@ -97,5 +97,7 @@
   "尚未輸入金額": "Amount has not been entered",
   "請勾選確認出金注意事項": "Please tick to confirm withdrawal notices",
   "餘額不足": "Insufficient balance",
-  "只能有一筆進行中之訂單": "There can only be one order in progress"
+  "只能有一筆進行中之訂單": "There can only be one order in progress",
+  "選擇 GCash 帳號": "GCash account select",
+  "尚未設定 GCash 帳號": "GCash account has not been set up."
 }
