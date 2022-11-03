@@ -1687,6 +1687,10 @@
  + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";--%>
 
                 } else {
+                    if (gameBrand.toUpperCase() == 'CMD') {
+                        $('#GameIFramePage').removeAttr('sandbox');
+                    }
+
                     gameLogoutPram.GameCode = gameBrand + "." + gameName;
                     GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
                 }
@@ -1776,6 +1780,7 @@
             w = vw - 110;
         }
 
+        
         // class="divGameFrame"
         let tmp = `<div class="divGameFrameWrapper">
             <div class="btn-wrapper">

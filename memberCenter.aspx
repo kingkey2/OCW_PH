@@ -243,7 +243,7 @@
                                                                     <h5 class="branch">${data.BranchName}</h5>
                                                                 </div>
                                                                 <div class="account-name">
-                                                                    <h4 class="name">${data.BankNumber}</h4>
+                                                                    <h4 class="name">${data.AccountName}</h4>
                                                                 </div>
                                                             </div>
                                                             <button type="button" class="btn btn-transparent btn-delete" onclick="setUserBankCardState('${data.BankCardGUID}')"><i class="icon icon-mask icon-trash"></i></button>
