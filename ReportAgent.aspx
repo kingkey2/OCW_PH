@@ -290,11 +290,11 @@
                         <div class="tab-scroller__area">
                             <ul class="tab-scroller__content">
                                 <li class="tab-item payment " onclick="changeTab(0)" id="tabRecordPayment">
-                                    <a class="tab-item-link" href="#top"><span class="title"><span class="language_replace">會員管理</span></span>
+                                    <a class="tab-item-link"><span class="title"><span class="language_replace">會員管理</span></span>
                                     </a>
                                 </li>
                                 <li class="tab-item game active" onclick="changeTab(1)" id="tabRecordGame">
-                                    <a class="tab-item-link" href="#idMemberReport"><span class="title"><span class="language_replace">代理報表</span></span>
+                                    <a class="tab-item-link"><span class="title"><span class="language_replace">代理報表</span></span>
                                     </a>
                                 </li>
                                 <div class="tab-slide"></div>
