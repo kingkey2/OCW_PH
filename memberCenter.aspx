@@ -1263,7 +1263,7 @@
                                             </div>
                                         </div>                                        
                                     </div>       
-                                    <div class="data-item password">
+                                   <%-- <div class="data-item password">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
@@ -1276,7 +1276,7 @@
                                                 <p class="password">**************</p>
                                             </div>
                                         </div>                                        
-                                    </div>
+                                    </div>--%>
                                     <div class="data-item-group">
                                         <div class="data-item verify">
                                             <div class="data-item-title">
