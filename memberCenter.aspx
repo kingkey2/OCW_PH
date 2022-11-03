@@ -3253,9 +3253,9 @@
                             </div>
                 
                             <!-- Step 2 新增結果-->
-                            <div class="verifyResult-wrapper stepFadeInUp">
+                            <div class="verifyResult-wrapper">
                                 <!-- 成功 -->
-                                <div class="resultShow success" id="showSuccessMessageBank" style="display:none;">
+                                <div class="resultShow success stepFadeInUp" id="showSuccessMessageBank" style="display:none;">
                                     <div class="verifyResult-inner">
                                         <div class="verify_resultShow">
                                             <div class="verify_resultDisplay">
@@ -3273,7 +3273,7 @@
                                 </div>
                 
                                 <!-- 失敗 -->
-                                <div class="resultShow fail" id="showErrorMessageBank" style="display:none;">
+                                <div class="resultShow fail stepFadeInUp" id="showErrorMessageBank" style="display:none;">
                                     <div class="verifyResult-inner">
                                         <div class="verify_resultShow">
                                             <div class="verify_resultDisplay">
@@ -3371,9 +3371,9 @@
                             --%>
                     
                             <!-- Step 3 新增結果-->
-                            <div class="verifyResult-wrapper stepFadeInUp">
+                            <div class="verifyResult-wrapper">
                                 <!-- 成功 -->
-                                <div class="resultShow success" id="showSuccessMessageGCash" style="display:none;">
+                                <div class="resultShow success stepFadeInUp" id="showSuccessMessageGCash" style="display:none;">
                                     <div class="verifyResult-inner">
                                         <div class="verify_resultShow">
                                             <div class="verify_resultDisplay">
@@ -3391,7 +3391,7 @@
                                 </div>
                     
                                 <!-- 失敗 -->
-                                <div class="resultShow fail" id="showErrorMessageGCash" style="display:none;">
+                                <div class="resultShow fail stepFadeInUp" id="showErrorMessageGCash" style="display:none;">
                                     <div class="verifyResult-inner">
                                         <div class="verify_resultShow">
                                             <div class="verify_resultDisplay">
