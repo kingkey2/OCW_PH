@@ -587,6 +587,7 @@
     function BankCardSave() {
         if ($('#swiperBankCardContent').next().children().length >= 10) {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("最多只能新增10張卡片"));
+            return false;
         }
 
         var BankCardName = $('#idBankCardName').val().trim();
@@ -849,6 +850,15 @@
             () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
             () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
         //alert("Copied the text: " + copyText.value);
+    }
+
+    function openAddGameModal() {
+        if ($('#swiperBankCardContent').next().children().length >= 10) {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("最多只能新增10張卡片"));
+        } else {
+            $('#ModalSelectCardWays').modal('show');
+        }
+     
     }
 
     function AdjustDate() {
@@ -1516,7 +1526,7 @@
                                     <h1 class="sec-title">
                                         <i class="icon icon-mask icon-card"></i><span class="language_replace">卡片管理</span></h1>
                                 </div>
-                                <button id="btnAddCard" type="button" class="btn btn-addcard btn-transparent" data-toggle="modal" data-target="#ModalSelectCardWays">
+                                <button id="btnAddCard" type="button" class="btn btn-addcard btn-transparent" onclick="openAddGameModal()">
                                     <span class="btn-full-stress btn-round">
                                         <span class="icon icon-add"></span>
                                     </span>
