@@ -1405,7 +1405,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 }
                 break;
             case EWin.Lobby.enumValidateType.PhoneNumber:
-                string smsContent = "Welcome to LUCKY FANTA !"+"\r\n"+"Your OTP code is " + ValidateCode +  "\r\n" + "Thanks for joining LUCKY FANTA!";
+                string smsContent = "Your LUCKY FANTA OTP code is " + ValidateCode;
                 R = SendSMS(GUID, "0", 0, ContactPhonePrefix + ContactPhoneNumber, smsContent);
                 break;
             default:
