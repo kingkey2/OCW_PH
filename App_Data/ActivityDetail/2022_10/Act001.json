@@ -85,7 +85,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "DiDiPay",
+      "PaymentCode": "Gcash",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -93,7 +93,23 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "YuHong",
+      "PaymentCode": "Grabpay",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "Paymaya",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "GcashQRcode",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -175,7 +191,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "DiDiPay",
+      "PaymentCode": "Gcash",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -183,7 +199,23 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "YuHong",
+      "PaymentCode": "Grabpay",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "Paymaya",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "GcashQRcode",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -265,7 +297,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "DiDiPay",
+      "PaymentCode": "Gcash",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -273,7 +305,23 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "YuHong",
+      "PaymentCode": "Grabpay",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "Paymaya",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "GcashQRcode",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
