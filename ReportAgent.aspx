@@ -243,11 +243,26 @@
             if (p != null) {
 
                 if (WebInfo.DeviceType == 1) {
+                    $("#tabRecordPayment").on("touchend", function (e) {
+                        changeTab(0);
+                    });
+                    $("#tabRecordGame").on("touchend", function (e) {
+                        changeTab(1);
+                    });
+                    changeTab(1);
                     $("#divAgentReport_M").show();
                     $("#divAgentReport").hide();
                 } else {
+                    $("#tabRecordPayment").on("click", function (e) {
+                        changeTab(0);
+                    });
+                    $("#tabRecordGame").on("click", function (e) {
+                        changeTab(1);
+                    });
                     $("#divAgentReport_M").hide();
                     $("#divAgentReport").show();
+                    $("#idMemberReport").show();
+                    $("#idMemberMange").show();
                 }
 
                 $("#startDate").val(Date.today().moveToFirstDayOfMonth().toString("yyyy-MM-dd"));
@@ -262,6 +277,19 @@
         });
     }
 
+    function changeTab(type) {
+        $(".tab-scroller__content").find(".tab-item").removeClass("active");
+        if (type == 0) {
+            $("#tabRecordPayment").addClass("active");
+            $("#idMemberMange").show();
+            $("#idMemberReport").hide();
+        } else {
+            $("#tabRecordGame").addClass("active");
+            $("#idMemberReport").show();
+            $("#idMemberMange").hide();
+        }
+    }
+
     window.onload = init;
 </script>
 <body class="innerBody">
@@ -273,12 +301,12 @@
                     <div class="tab-report tab-scroller tab-2 tab-primary">
                         <div class="tab-scroller__area">
                             <ul class="tab-scroller__content">
-                                <li class="tab-item payment active" onclick="" id="tabRecordPayment">
-                                    <a class="tab-item-link" href="#top"><span class="title"><span class="language_replace">會員管理</span></span>
+                                <li class="tab-item payment "  id="tabRecordPayment">
+                                    <a class="tab-item-link"><span class="title"><span class="language_replace">會員管理</span></span>
                                     </a>
                                 </li>
-                                <li class="tab-item game" onclick="" id="tabRecordGame">
-                                    <a class="tab-item-link" href="#idMemberReport"><span class="title"><span class="language_replace">代理報表</span></span>
+                                <li class="tab-item game active"  id="tabRecordGame">
+                                    <a class="tab-item-link"><span class="title"><span class="language_replace">代理報表</span></span>
                                     </a>
                                 </li>
                                 <div class="tab-slide"></div>
@@ -288,7 +316,7 @@
                 </div>
             </div>
 
-            <section id="idMemberMange" class="section-wrap section-agentDownline-member">
+            <section id="idMemberMange" class="section-wrap section-agentDownline-member"  style="display:none">
                 <div class="container">
                     <div class="sec-title-container sec-title-record sec-report-agentDownline">
                         <div class="sec-title-wrapper">
@@ -314,12 +342,11 @@
 
 
             <!-- 紀錄 - Table -->
-            <section id="idMemberReport" class="section-wrap section-agentDownline-report">
+            <section id="idMemberReport" class="section-wrap section-agentDownline-report" style="display:none">
                 <div class="container">
                     <div class="sec-title-container sec-title-record sec-report-agentDownline">
                         <div class="sec-title-wrapper">
-                            <h1 class="sec-title title-deco"><span class="language_replace">代理報表
-                            </span></h1>
+                            <h1 class="sec-title title-deco"><span class="language_replace">代理報表</span></h1>
                         </div>
                         <div class="sec-input row">
                             <div class="form-group col-6 col-smd-4 col-md-auto">
