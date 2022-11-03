@@ -278,6 +278,26 @@
         p = window.parent.API_GetLobbyAPI();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
+
+            if (WebInfo.UserLogined) {
+                if (WebInfo.UserInfo.ContactPhonePrefix != "" && WebInfo.UserInfo.ContactPhoneNumber != "") {
+                    if (WebInfo.UserInfo.ContactPhonePrefix[0] != "+") {
+                        $("#idPhonePrefix").val("+" + WebInfo.UserInfo.ContactPhonePrefix);
+                    } else {
+                        $("#idPhonePrefix").val(WebInfo.UserInfo.ContactPhonePrefix);
+                    }
+
+                    $("#idPhoneNumber").val(WebInfo.UserInfo.ContactPhoneNumber);
+
+                    $("#idPhonePrefix").attr("disabled", "true");
+                    $("#idPhoneNumber").attr("disabled", "true");
+                } else {
+                    window.parent.showMessageOK("", mlp.getLanguageKey("無電話資訊，請聯繫客服"), function () {
+                        window.parent.API_LoadPage('Casino','Casino.aspx');
+                    });
+                }
+            }
+
             window.parent.API_LoadingEnd();
         });
     }
