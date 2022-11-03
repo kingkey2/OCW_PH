@@ -585,6 +585,10 @@
     }
 
     function BankCardSave() {
+        if ($('#swiperBankCardContent').next().children().length >= 10) {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("最多只能新增10張卡片"));
+        }
+
         var BankCardName = $('#idBankCardName').val().trim();
         var BankCard = $('#idBankCard').val().trim();
         var BankBranch = $('#idBankBranch').val().trim();

@@ -2017,11 +2017,12 @@
         -ms-flex-align: center;
             align-items: center;
   }
-  .crypto-info-inqury .content .btn-etherscan {
+  /* .crypto-info-inqury .content .btn-etherscan {
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
-  }
+           
+  } */
   .crypto-info-inqury .content .desc-1 {
     display: none;
   }
@@ -2747,5 +2748,22 @@ i.icon-logo {
   100% {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 1119px) {
+  .crypto-info-inqury .content .desc{
+    display: flex;
+    flex-flow: row wrap;
+  }
+  .crypto-info-inqury .content .btn-etherscan {
+      width: 100%;
+      max-width: 240px;
+      margin: 0 auto;           
+  }
+  .crypto-info-inqury .content .desc-2 {
+    width: 100%;
+    font-size: 12px;
+    margin: 4px 0;   
   }
 }
