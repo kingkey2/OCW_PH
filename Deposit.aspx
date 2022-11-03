@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
-    <link rel="stylesheet" href="css/wallet.css" type="text/css" />
+    <link rel="stylesheet" href="css/wallet.css?<%:Version%>" type="text/css" />
     <link href="css/footer-new.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
     <style>
@@ -174,7 +174,7 @@
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGcashQRcode','DepositGcashQRcode.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
-                                    <span class="language_replace">GcashQRcode</span>
+                                    <span class="language_replace">Gcash(QRcode)</span>
                                     <!-- <span>Electronic Wallet</span>  -->
                                 </div>
                                 <div class="logo vertical-center text-center"> 
@@ -218,7 +218,21 @@
                             <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
                         </a>
                     </div>
-            
+                    <div class="card-item sd-09" id="idDepositGCashDirect">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGCashDirect','DepositGCashDirect.aspx')">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span class="language_replace">GCash(Direct)</span>
+                                    <!-- <span>Electronic Wallet</span>  -->
+                                </div>
+                                <div class="logo vertical-center text-center"> 
+                                    <!-- <span class="text language_replace">銀行振込</span> -->
+                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
+                                </div>
+                            </div>
+                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
+                        </a>
+                    </div>
                 </div>
                 <!-- 存款紀錄 -->
                 <div class="notice-container mt-5">
