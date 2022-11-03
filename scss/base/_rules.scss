@@ -1543,6 +1543,7 @@ hr{
 	background-size: calc(100% - 50px);
 
 	animation: loader-logo-anim 1.2s infinite ease-in-out both;
+	margin: 10%;
 
   }
 
@@ -1574,8 +1575,8 @@ hr{
 	content: '';
 	display: block;
 	margin: 0 auto;
-	width: 12%;
-	height: 12%;
+	width: 10%;
+	height: 10%;
 	background-color: #fff;
 	border-radius: 100%;
 	-webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
