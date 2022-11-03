@@ -899,7 +899,7 @@
                             </div>
 
                             <!-- 溫馨提醒 -->
-                            <div class="notice-container mt-3 mb-3">
+                            <%--<div class="notice-container mt-3 mb-3">
                                 <div class="notice-item">
                                     <i class="icon-info_circle_outline"></i>
                                     <div class="text-wrap">
@@ -913,7 +913,7 @@
                                          </ul>  
                                     </div>
                                 </div>
-                            </div>
+                            </div>--%>
 
                         </div>
                     </div>
