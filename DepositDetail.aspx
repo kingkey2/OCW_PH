@@ -370,7 +370,9 @@
                                         <h6 class="title language_replace">訂單號碼</h6>
                                         <span class="data Paymentserial"></span>
                                          <%--<i class="icon-copy" onclick="copyTextPaymentSerial(this)" style="display: inline;"></i>     --%>
-                                        <i class="icon icon-mask icon-copy" onclick="copyText('idinputPaymentSerial')"></i>
+                                        <span class="btn btn-icon" type="button" onclick="copyText('idinputPaymentSerial')">
+                                            <i class="icon icon-copy"></i>
+                                        </span>                                         
                                         <input class="inputPaymentSerial is-hide" id="idinputPaymentSerial" />
                                     </li>
                                     <li class="item">

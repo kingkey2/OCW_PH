@@ -11,11 +11,6 @@
       "DiDiPay": "Unibank"
     },
     {
-      "FeibaoPay": "GXCHP",
-      "BankName": "Gcash",
-      "DiDiPay": "gcash"
-    },
-    {
       "FeibaoPay": -1,
       "BankName": "Metropolitan Bank and Trust Co ",
       "DiDiPay": "mbt"
