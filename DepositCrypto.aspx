@@ -182,9 +182,9 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
 
-        navigator.clipboard.writeText(copyText.value).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
+        copyToClipboard(copyText.textContent)
+            .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
+            .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
     }
 
     function copyTextPaymentSerial(tag) {
@@ -194,10 +194,35 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
 
-        navigator.clipboard.writeText(copyText.value).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
+        copyToClipboard(copyText.textContent)
+            .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
+            .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
     }
+
+    function copyToClipboard(textToCopy) {
+        // navigator clipboard api needs a secure context (https)
+        if (navigator.clipboard && window.isSecureContext) {
+            // navigator clipboard api method'
+            return navigator.clipboard.writeText(textToCopy);
+        } else {
+            // text area method
+            let textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            // make the textarea out of viewport
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            return new Promise((res, rej) => {
+                // here the magic happens
+                document.execCommand('copy') ? res() : rej();
+                textArea.remove();
+            });
+        }
+    }
+
 
     function EWinEventNotify(eventName, isDisplay, param) {
         switch (eventName) {
@@ -696,7 +721,8 @@
                     }
                     setEthWalletAddress(k.WalletPublicAddress);
                     $(".OrderNumber").text(k.PaymentSerial);
-                    $("#depositdetail .inputPaymentSerial").val(k.PaymentSerial);
+                    //$("#depositdetail .inputPaymentSerial").val(k.PaymentSerial);
+                    $("#inputPaymentSerial").text(k.PaymentSerial);
                     $(".OrderNumber").parent().show();
                     setExpireSecond();
                     let Step3 = $('button[data-deposite="step3"]');
@@ -1237,8 +1263,8 @@
                                     <li class="item" style="display: none">
                                         <h6 class="title language_replace">訂單號碼</h6>
                                         <span class="data OrderNumber"></span>
-                                        <input class="inputPaymentSerial is-hide" />
-                                        <i class="icon-copy" onclick="copyTextPaymentSerial(this)" style="display: inline;"></i>
+                                        <input class="inputPaymentSerial is-hide" id="inputPaymentSerial"/>
+                                        <i class="icon-copy" onclick="copyText('inputPaymentSerial')" style="display: inline;"></i>
                                     </li>
                                     <li class="item">
                                         <h6 class="title language_replace">支付方式</h6>
@@ -1312,7 +1338,7 @@
                                 <li><span class="language_replace">虛擬貨幣入款需經過區塊認證確認，可能需要數分鐘或者更久，完成時間並非由本網站決定，敬請知悉。</span></li>
                                 <li><span class="language_replace">實際入款遊戲幣為入款金額-手續費後之餘額進行換算。</span></li>
                                 <li><span class="language_replace">匯率可能隨時變動中，所有交易以本網站的匯率為準，打幣後交易期間若有變動，將以實際入幣時的匯率撥給遊戲幣。建議您可於入款前重整匯率資訊，確保您同意目前的匯率後進行入款。</span></li>
-                                <li><span class="language_replace">『ETH』和USDT的『ERC20』可透過 https://etherscan.io/ 進行查詢交易的狀況。</span></li>
+                                <%--<li><span class="language_replace">『ETH』和USDT的『ERC20』可透過 https://etherscan.io/ 進行查詢交易的狀況。</span></li>--%>
                             </ul>
                             <!-- <ul class="list-style-decimal">
                                 <li><span class="language_replace">請正確使用對應的錢包入款，否則將造成資產損失。</span><br>
