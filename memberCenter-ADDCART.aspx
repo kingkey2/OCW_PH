@@ -312,7 +312,7 @@
     }
 
     function setUserBankCardState(BankCardGUID) {
-        window.parent.showMessage("", "確認刪除此卡片?", function () {
+        window.parent.showMessage("", mlp.getLanguageKey("確認刪除此卡片?"), function () {
             p.SetUserBankCardState(WebInfo.SID, Math.uuid(), BankCardGUID, 1, function (success, o) {
                 if (success) {
                     if (o.Result == 0) {
@@ -726,7 +726,9 @@
         } else {
             $("#divMemberWallet").show();            
             $("#divMemberProfile").hide();
-    
+            if (WebInfo.DeviceType == 1) {
+                getUserBankCard();
+            }
         }
     }
 
@@ -748,7 +750,10 @@
             if (p != null) {
                 getVIPInfo();
                 GetEPayBankSelect();
-                getUserBankCard();
+                if (WebInfo.DeviceType==0) {
+                    getUserBankCard();
+                }
+              
                 updateBaseInfo();
                 window.top.API_GetUserThisWeekTotalValidBetValue(function (e) {
                     setUserThisWeekLogined(e);
