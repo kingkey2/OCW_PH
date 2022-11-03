@@ -2095,7 +2095,7 @@ hr.line {
 @media (min-width: 375px) {
   .navbar-brand .logo {
     height: 50px;
-    width: 50px;
+    width: 80px;
   }
 }
 @media (min-width: 768px) {
@@ -2490,12 +2490,6 @@ hr.line {
         -ms-flex: 0 0 200px;
             flex: 0 0 200px;
   }
-}
-
-.modal-footer {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 
 .main_area:not(.main__login) {
