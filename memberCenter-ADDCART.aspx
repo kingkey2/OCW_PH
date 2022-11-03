@@ -140,7 +140,7 @@
         
         $("#idAmount").text(new BigNumber(parseFloat(wallet.PointValue).toFixed(1)).toFormat());
         $("#PersonCode").text(WebInfo.UserInfo.PersonCode);
-        $("#idCopyPersonCode").text(WebInfo.UserInfo.PersonCode);
+        $("#idCopyPersonCode").text(`${"<%=EWinWeb.CasinoWorldUrl %>"}/registerForQrCode.aspx?P=${WebInfo.UserInfo.PersonCode}&Download=2`);
         $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"<%=EWinWeb.CasinoWorldUrl %>"}/registerForQrCode.aspx?P=${WebInfo.UserInfo.PersonCode}&Download=2`);
 
         var ThresholdInfos = WebInfo.UserInfo.ThresholdInfo;
