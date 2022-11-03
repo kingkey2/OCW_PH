@@ -1121,6 +1121,10 @@ public class PaymentAPI : System.Web.Services.WebService
                 {
                     ServiceType = "PHP04";
                 }
+                else if (tagInfoData.PaymentCode=="GcashDirect")
+                {
+                    ServiceType = "PHP05";
+                }
                 else if(tagInfoData.PaymentCode=="Gcash"){
                     ServiceType = "PHP01";
                 }
