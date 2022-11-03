@@ -602,7 +602,7 @@ input.month:read-only, input.day:read-only {
   display: inline-flex;
   position: absolute;
   right: -25%;
-  bottom: -165%;
+  bottom: -135%;
 }
 .cashflowCard-slider .card-item-inner {
   width: calc(100% - 50px);
