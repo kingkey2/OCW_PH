@@ -249,6 +249,8 @@
                 } else {
                     $("#divAgentReport_M").hide();
                     $("#divAgentReport").show();
+                    $("#idMemberReport").show();
+                    $("#idMemberMange").show();
                 }
 
                 $("#startDate").val(Date.today().moveToFirstDayOfMonth().toString("yyyy-MM-dd"));
@@ -302,7 +304,7 @@
                 </div>
             </div>
 
-            <section id="idMemberMange" class="section-wrap section-agentDownline-member">
+            <section id="idMemberMange" class="section-wrap section-agentDownline-member"  style="display:none">
                 <div class="container">
                     <div class="sec-title-container sec-title-record sec-report-agentDownline">
                         <div class="sec-title-wrapper">
@@ -328,12 +330,11 @@
 
 
             <!-- 紀錄 - Table -->
-            <section id="idMemberReport" class="section-wrap section-agentDownline-report">
+            <section id="idMemberReport" class="section-wrap section-agentDownline-report" style="display:none">
                 <div class="container">
                     <div class="sec-title-container sec-title-record sec-report-agentDownline">
                         <div class="sec-title-wrapper">
-                            <h1 class="sec-title title-deco"><span class="language_replace">代理報表
-                            </span></h1>
+                            <h1 class="sec-title title-deco"><span class="language_replace">代理報表</span></h1>
                         </div>
                         <div class="sec-input row">
                             <div class="form-group col-6 col-smd-4 col-md-auto">
