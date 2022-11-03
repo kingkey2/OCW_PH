@@ -176,5 +176,8 @@
   "尚未輸入姓名": "Cardholder's name has not been entered.",
   "尚未輸入分行": "Bank branch name has not been entered.",
   "尚未輸入帳戶名稱": "GCash account has not been entered.",
-  "電話格式有誤": "Phone numbers formatted incorrectly."
+  "電話格式有誤": "Phone numbers formatted incorrectly.",
+  "個人資訊": "Personal information",
+  "個人錢包": "Personal wallet",
+  "錢包資訊": "Wallet information"
 }

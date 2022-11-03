@@ -285,16 +285,18 @@
                         };
                         if ($('#swiperBankCardContent').children().length == 0) {
                             $('.cashflowCard-noCard').show();
+                            $('#btnAddCard').hide();
                             $('.cashflowCard-slider-wrapper').hide();
                         } else {
                             $('.cashflowCard-slider-wrapper').show();
                             $('.cashflowCard-noCard').hide();
+                            $('#btnAddCard').show();
                             if (!isInitSwiper) {
                                 initSwiper();
                             }
-                            
                         }
                     } else {
+                        $('#btnAddCard').hide();
                         $('.cashflowCard-slider-wrapper').hide();
                         $('.cashflowCard-noCard').show();
                     }
@@ -1492,7 +1494,7 @@
                                     <h1 class="sec-title">
                                         <i class="icon icon-mask icon-card"></i><span class="language_replace">卡片管理</span></h1>
                                 </div>
-                                <button type="button" class="btn btn-addcard btn-transparent" data-toggle="modal" data-target="#ModalSelectCardWays">
+                                <button id="btnAddCard" type="button" class="btn btn-addcard btn-transparent" data-toggle="modal" data-target="#ModalSelectCardWays">
                                     <span class="btn-full-stress btn-round">
                                         <span class="icon icon-add"></span>
                                     </span>
