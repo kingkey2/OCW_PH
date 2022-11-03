@@ -297,8 +297,10 @@
                             $('.cashflowCard-slider-wrapper').show();
                             $('.cashflowCard-noCard').hide();
                             $('#btnAddCard').show();
-                            if (!isInitSwiper) {
-                                initSwiper();
+                            if ($('#swiperBankCardContent').children().length !=1) {
+                                if (!isInitSwiper) {
+                                    initSwiper();
+                                }
                             }
                         }
                     } else {
