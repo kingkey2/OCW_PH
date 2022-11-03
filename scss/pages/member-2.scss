@@ -585,7 +585,9 @@ input{
 // 無卡片時
 .cashflowCard-noCard{
     .card-item{
+        width: 100%;
         max-width: 360px;
+       
         margin: 0 auto;
 
         .btn{
@@ -606,11 +608,15 @@ input{
 }
 
 .cashflowCard-slider{
-    &-wrapper{        
+    
+    &-wrapper{   
+        width: 100%;     
         height: 100%;        
     }
     &-inner{        
-        height: 100%;      
+        height: 100%;
+        // display: flex;
+        // justify-content: center;      
     }
 }
 
@@ -620,6 +626,7 @@ input{
 
     &.swiper-container{
         overflow: visible;
+        width: 100%;
     }
 
     .swiper-slide{
@@ -632,6 +639,13 @@ input{
         &[aria-label="3 / 3"][data-swiper-slide-index="0"]{
             // opacity: 0;           
         }
+
+        &:only-child{
+            transform: scale(1.2,1.2);
+            opacity: 1;
+            margin: 0 auto;
+        }
+
 
         padding: 0 10px;
         height: auto; //!IMPORANT
@@ -3447,6 +3461,7 @@ $card-bg-normal: (
         
         .swiper-wrapper{
             max-height: 180px;
+            
         }
      }
 

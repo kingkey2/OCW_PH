@@ -440,6 +440,7 @@ input.month:read-only, input.day:read-only {
 }
 
 .cashflowCard-noCard .card-item {
+  width: 100%;
   max-width: 360px;
   margin: 0 auto;
 }
@@ -462,6 +463,7 @@ input.month:read-only, input.day:read-only {
 }
 
 .cashflowCard-slider-wrapper {
+  width: 100%;
   height: 100%;
 }
 .cashflowCard-slider-inner {
@@ -473,6 +475,7 @@ input.month:read-only, input.day:read-only {
 }
 .cashflowCard-slider.swiper-container {
   overflow: visible;
+  width: 100%;
 }
 .cashflowCard-slider .swiper-slide {
   padding: 0 10px;
@@ -486,6 +489,12 @@ input.month:read-only, input.day:read-only {
   transition-property: opacity, -webkit-transform;
   transition-property: transform, opacity;
   transition-property: transform, opacity, -webkit-transform;
+}
+.cashflowCard-slider .swiper-slide:only-child {
+  -webkit-transform: scale(1.2, 1.2);
+          transform: scale(1.2, 1.2);
+  opacity: 1;
+  margin: 0 auto;
 }
 .cashflowCard-slider .swiper-slide-active {
   -webkit-transform: scale(1.12, 1.12);
