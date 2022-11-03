@@ -359,21 +359,21 @@
 
                 <div class="form-content">
                     <div id="idPhoneLoginGroup" class="form-row">
-                        <div class="form-group col-3">
+                        <div class="form-group col phonePrefix">
                             <label class="form-title language_replace">國碼</label>
                             <div class="input-group">
                                 <input name="PhonePrefix" id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+63" inputmode="decimal" value="+63" onchange="onChangePhonePrefix()">
                                 <div class="invalid-feedback language_replace">請輸入國碼</div>
                             </div>
                         </div>
-                        <div class="form-group col-9">
+                        <div class="form-group col">
                             <label class="form-title language_replace">手機電話號碼</label>
                             <div class="input-group">
                                 <input name="PhoneNumber" id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-000-0000" inputmode="decimal">
                                 <div class="invalid-feedback language_replace">請輸入正確電話</div>
                             </div>
                         </div>
-                        <div class="form-group btn-container ">
+                        <div class="btn-container col-12">
                             <button type="button" class="btn btn-primary" id="btnSend" onclick="SendPhone()"><span class="language_replace">取得驗證碼</span></button>
                         </div>
                     </div>

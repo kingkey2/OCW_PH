@@ -37,6 +37,10 @@
         // @include scrollbar(12px);       
         @include scrollbar();       
     }
+
+    .modal-footer{
+        justify-content: center;
+    }
    
 
 }
