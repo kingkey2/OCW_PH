@@ -132,7 +132,7 @@
     <link rel="shortcut icon" href="images/share_pic.png">
     <link rel="apple-touch-icon" href="images/share_pic.png">
     <link rel="stylesheet" href="css/basic.min.css">
-    <link rel="stylesheet" href="css/main.css?3">
+    <link rel="stylesheet" href="css/main.css?<%:Version%>">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
 
     <link rel="alternate" hreflang="ja" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
