@@ -1234,7 +1234,7 @@
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
                                                 <span class="title-name language_replace">密碼</span>
-                                               <button type="button" class="btn btn-edit btn-full-main" onclick="changePassword()"><i class="icon icon-mask icon-pencile"></i></button>
+                                               <button type="button" class="btn btn-edit btn-transparent btn-round btn-outline-main" onclick="changePassword()"><i class="icon icon-mask icon-pencile"></i></button>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -1268,7 +1268,7 @@
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
                                                 <span class="title-name language_replace">錢包密碼</span>
-                                               <button type="button" class="btn btn-edit btn-full-main" onclick="changeWalletPassword()"><i class="icon icon-mask icon-pencile"></i></button>
+                                               <button type="button" class="btn btn-edit btn-transparent btn-round" onclick="changeWalletPassword()"><i class="icon icon-mask icon-pencile"></i></button>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
