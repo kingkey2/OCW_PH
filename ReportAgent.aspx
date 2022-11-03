@@ -243,6 +243,7 @@
             if (p != null) {
 
                 if (WebInfo.DeviceType == 1) {
+                    changeTab(1);
                     $("#divAgentReport_M").show();
                     $("#divAgentReport").hide();
                 } else {
@@ -262,6 +263,19 @@
         });
     }
 
+    function changeTab(type) {
+        $(".tab-scroller__content").find(".tab-item").removeClass("active");
+        if (type == 0) {
+            $("#tabRecordPayment").addClass("active");
+            $("#idMemberMange").show();
+            $("#idMemberReport").hide();
+        } else {
+            $("#tabRecordGame").addClass("active");
+            $("#idMemberReport").show();
+            $("#idMemberMange").hide();
+        }
+    }
+
     window.onload = init;
 </script>
 <body class="innerBody">
@@ -273,11 +287,11 @@
                     <div class="tab-report tab-scroller tab-2 tab-primary">
                         <div class="tab-scroller__area">
                             <ul class="tab-scroller__content">
-                                <li class="tab-item payment active" onclick="" id="tabRecordPayment">
+                                <li class="tab-item payment " onclick="changeTab(0)" id="tabRecordPayment">
                                     <a class="tab-item-link" href="#top"><span class="title"><span class="language_replace">會員管理</span></span>
                                     </a>
                                 </li>
-                                <li class="tab-item game" onclick="" id="tabRecordGame">
+                                <li class="tab-item game active" onclick="changeTab(1)" id="tabRecordGame">
                                     <a class="tab-item-link" href="#idMemberReport"><span class="title"><span class="language_replace">代理報表</span></span>
                                     </a>
                                 </li>
