@@ -366,7 +366,7 @@
 
         if (LoginType == 0) {
             if (form.LoginAccount.value == "") {
-                form.LoginAccount.setCustomValidity(mlp.getLanguageKey("請輸入信箱"));
+                form.LoginAccount.setCustomValidity(mlp.getLanguageKey("請輸入帳號"));
             } else if (form.LoginPassword.value == "") {
                 form.LoginPassword.setCustomValidity(mlp.getLanguageKey("請輸入密碼"));
             } else if (form.ValidImg.value == "") {
