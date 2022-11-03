@@ -724,6 +724,7 @@
     }
 
     function TabSwitch(type) {
+  
         $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_Tab" + type).addClass("active");
         
@@ -738,6 +739,9 @@
                 getUserBankCard();
             }
         }
+
+        window.document.body.scrollTop = 0;
+        window.document.documentElement.scrollTop = 0;
     }
 
 
@@ -3099,7 +3103,7 @@
                                     </div>
                                 </div>
                                 <ul class="notice-list">
-                                    <li class="item language_replace">1.晉升標準：會員的累積存款以及累計投注額在30天內達到相應級別的要求，即可在次日24點前晉級相應VIP等級。</li>
+                                    <li class="item language_replace">1.晉升標準：會員的累積存款以及累計投注額在30天內達到相應級別的要求，即可在次日24點前晉級相應VIP等級，VIP等級不可越級晉升。</li>
                                     <li class="item language_replace">2.保級要求：會員在達到某VIP等級後，30天內投注需要完成保級要求。如果在此期間完成晉升，保級要求重新按照當前等級計算。</li>
                                     <li class="item language_replace">3.降級標準：如果會員在30天內沒有完成相應的保級要求流水，系統會自動降級1個等級，相應的返水及其它優惠也會隨之調整至降級後的等級。</li>
                                     <li class="item language_replace">4.自升/降級日起算，每30天後會重新計算累積存款以及累計投注額。</li>
