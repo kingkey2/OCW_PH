@@ -1115,10 +1115,7 @@
                                 <span class="avater">
                                     <span class="avater-img">
                                         <img src="images/avatar/avater-1.png" alt="">
-                                    </span>
-                                    <button type="button" class="btn btn-round btn-primary btn-exchange-avater" data-toggle="modal" data-target="#ModalAvatar">
-                                        <i class="icon icon-mask icon-camera"></i>
-                                    </button>
+                                    </span>                                   
                                    <%--
                                     <button type="button" class="btn btn-round btn-primary btn-exchange-avater" data-toggle="modal" data-target="#ModalAvatar">
                                         <i class="icon icon-mask icon-camera"></i>
