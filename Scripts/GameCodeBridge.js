@@ -184,8 +184,8 @@
                                 data.Language = [];
                             }
 
-                            if (data.Tags != "null") {
-                                data.Tags = JSON.parse(data.Language);
+                            if (data.Tags != "null" && data.Tags != "") {
+                                data.Tags = JSON.parse(data.Tags);
                             } else {
                                 data.Tags = [];
                             }
@@ -214,8 +214,8 @@
                             data.Language = [];
                         }
 
-                        if (data.Tags != "null") {
-                            data.Tags = JSON.parse(data.Language);
+                        if (data.Tags != "null" && data.Tags != "") {
+                            data.Tags = JSON.parse(data.Tags);
                         } else {
                             data.Tags = [];
                         }
