@@ -556,8 +556,12 @@
                 } else {
                     if (WebInfo.DeviceType == 1) {
                         $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
+                        $(ParentMain_M).show();
+                        $(ParentMain).hide();
                     } else {
                         $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
+                        $(ParentMain).show();
+                        $(ParentMain).hide();
                     }
                     //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
                     window.parent.API_CloseLoading();

@@ -82,5 +82,8 @@
   "禮金部份": "About Gift",
   "*獎金和禮金的出金門檻在BOUNS箱領取後才會追加": "*The withdrawal threshold and gift will be added after you claim bonus.",
   "燃料費由存款者負擔。": "Please noted that gas costs are borne by depositors.",
-  "進到下一步便會出現付款用的QR Code（錢包地址）。該QR Code僅用於本次交易。QR Code的有效時間為1小時，但建議您每次付款時皆使用新生成的QR Code。": "Go to the next step and the QR Code (wallet address) for payment will appear. This QR Code is only used for this transaction. The QR Code is valid for 1 hour, but it is recommended that you use the newly generated QR Code for each payment."
+  "進到下一步便會出現付款用的QR Code（錢包地址）。該QR Code僅用於本次交易。QR Code的有效時間為1小時，但建議您每次付款時皆使用新生成的QR Code。": "Go to the next step and the QR Code (wallet address) for payment will appear. This QR Code is only used for this transaction. The QR Code is valid for 1 hour, but it is recommended that you use the newly generated QR Code for each payment.",
+  "查看進行中訂單": "View in-progress orders",
+  "已存在進行中訂單": "An order in progress already exists"
+
 }
