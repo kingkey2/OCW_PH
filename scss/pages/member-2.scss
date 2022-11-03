@@ -576,7 +576,7 @@ input{
     background-color: #F3F3F3;
     border-radius: 30px;
     // padding: 40px 20px 40px;
-    padding: 20px 20px 20px;
+    padding: 10px;
     width: 100%;
     // height: 100%;
     flex: 1;
@@ -627,7 +627,14 @@ input{
 
 // BANKCARD/GCash
 .cashflowCard-slider{
-    padding-bottom: 75px;    
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 20px 0;
+    flex-flow: row wrap;
+
+    // padding-bottom: 75px; 
+
 
     &.swiper-container{
         overflow: visible;
@@ -652,11 +659,11 @@ input{
         }
 
 
-        padding: 0 10px;
+        padding: 0 5px;
         height: auto; //!IMPORANT
         // transform: scale(0.85, 0.85) translate3d(0,0,-20px);
         transform: scale(0.85, 0.85);
-        width: 80% !important;
+        width: 90% !important;
         max-width: 360px;
         opacity: 0.5;
 
@@ -672,6 +679,10 @@ input{
     .bankcard{
         .card-item{
             background: linear-gradient(107.89deg, #0180A2 1.19%, #0185A7 25.54%, #0098C8 101.21%);
+        }
+
+        .bank{
+            font-size: font-resize(14px);
         }
         .branch{
             display: inline-flex;
@@ -730,10 +741,9 @@ input{
        
         border-radius: 20px;
         color: #fff;
-        padding: 20px 15px;
+        padding: 10px 15px;
         position: relative;
-        overflow: hidden;
-        
+        overflow: hidden;        
         
         *{
             font-weight: 300;
@@ -763,8 +773,6 @@ input{
                 position: absolute;
                 right: -25%;
                 bottom: -165%;
-
-
         }
 
         &-inner{
@@ -862,7 +870,9 @@ input{
     
 
     .swiper-pagination{
-        bottom: 0;
+        // bottom: 0;
+        position: relative;
+        margin-top: 50px;
 
         &-bullet{
             display: inline-flex;
@@ -2629,7 +2639,7 @@ $card-bg-normal: (
 @include media-breakpoint-up(smd){
    // 出入金卡片管理
    .cashflowCard-wrapper {   
-    padding-top: 60px;
+    // padding-top: 60px;
     padding-bottom: 30px;
   }
 
@@ -3438,8 +3448,10 @@ $card-bg-normal: (
 
         .swiper-pagination{
             // top: 2rem;
-            top: 0;
-            bottom: auto;  
+            // top: 0;
+            bottom: auto; 
+            order: -1; 
+            margin-top: 0;
             
             &-bullet{                
                 width: 36px;
@@ -3458,11 +3470,12 @@ $card-bg-normal: (
      }
 
      .cashflowCard-slider{
-        display: flex;
-        align-items: center;
-        height: 100%;
+        // display: flex;
+        // align-items: center;
+        // height: 100%;
         padding-bottom: 0;
-        padding-top: 50px;  
+        // padding-top: 50px;  
+        
         
         .swiper-wrapper{
             max-height: 180px;            
