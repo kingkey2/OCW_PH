@@ -269,13 +269,20 @@
 
 .tab-wrapper{
     width: 100%;
+    
     &.sticky{
         position: sticky;
         top: 0;
         z-index: 11;
         background-color: #fff;
-        padding: 5px 0;   
+        padding: 5px 0;  
+        
+        @include media-breakpoint-up(md){
+            margin-bottom: 20px
+        }
     }
+
+
     
 }
 
