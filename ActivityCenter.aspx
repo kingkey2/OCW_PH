@@ -152,9 +152,9 @@
                 if (o1.Result == 0) {
                     if (o1.DocumentList.length > 0) {
                         for (var i = 0; i < o1.DocumentList.length; i++) {
-                            var k = o1.DocumentList[i];
+                            var a = o1.DocumentList[i];
 
-                            kk.onclick = new Function("showPopup('" + k.DocNumber + "')");
+                            kk.onclick = new Function("showPopup('" + a.DocNumber + "')");
                         }
                     }
                 }
@@ -166,14 +166,14 @@
             if (success) {
                 if (o2.Result == 0) {
                     if (o2.DocumentList.length > 0) {
-                        for (var i = 0; i < o2.DocumentList.length; i++) {
-                            var k1 = o2.DocumentList[i];
+                        for (var ii = 0; ii < o2.DocumentList.length; ii++) {
+                            var k1 = o2.DocumentList[ii];
 
                             $.ajax({
                                 url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + k1.DocNumber,
                                 success: (function (res) {
-                                    var k = this;
-                                    $(k).find('.activityTitle').html(res);
+                                    var b = this;
+                                    $(b).find('.activityTitle').html(res);
 
                                 }).bind(kkk)
                             });
@@ -184,20 +184,20 @@
         }).bind(RecordDom2));
 
         LobbyClient.CheckDocumentByTagName(GUID, TagName_Pic, (function (success, o2) {
-            var kkk = this;
+            var kkkk = this;
             if (success) {
                 if (o2.Result == 0) {
                     if (o2.DocumentList.length > 0) {
-                        for (var i = 0; i < o2.DocumentList.length; i++) {
-                            var k1 = o2.DocumentList[i];
+                        for (var iii = 0; iii < o2.DocumentList.length; iii++) {
+                            var k2 = o2.DocumentList[iii];
 
                             $.ajax({
-                                url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + k1.DocNumber,
+                                url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + k2.DocNumber,
                                 success: (function (res) {
-                                    var k = this;
-                                    $(k).find('.activityPicture').html(res);
+                                    var c = this;
+                                    $(c).find('.activityPicture').html(res);
 
-                                }).bind(kkk)
+                                }).bind(kkkk)
                             });
                         }
                     }
