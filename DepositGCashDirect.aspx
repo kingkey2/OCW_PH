@@ -18,17 +18,17 @@
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
-  <link rel="stylesheet" href="css/wallet.css?<%:Version%>" type="text/css" />
+    <link rel="stylesheet" href="css/wallet.css?<%:Version%>" type="text/css" />
     <link href="css/footer-new.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
- 
+   
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
+<script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/libphonenumber.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script type="text/javascript" src="/Scripts/DateExtension.js"></script>
@@ -46,12 +46,12 @@
     var ActivityNames = [];
     var OrderNumber = "";
     var ExpireSecond = 0;
-    var userAccountJKCValue;
+
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
         }
-
+        
         WebInfo = window.parent.API_GetWebInfo();
         lang = window.parent.API_GetLang();
         PaymentClient = window.parent.API_GetPaymentAPI();
@@ -65,118 +65,13 @@
         //    this.setTime(this.getTime() + (s * 1000));
         //    return this;
         //}
-        GetUserAccountJKCValue();
+
         GetPaymentMethod();
-
-        // window.setInterval(function () {
-        //     watchScroll();
-        // }, 0);
-    }
-
-    function detectionAltitude() {
-        let scrollHeight = window.pageYOffset;
-
-        if (scrollHeight > 400) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function watchScroll() {
-        if (detectionAltitude()) {
-            $(".sm-sticky").eq(0).addClass("scroll");
-            return;
-        } else {
-            $(".sm-sticky").eq(0).removeClass("scroll");
-            return;
-        }
-    }
-
-
-    function startCountDown() {
-        let secondsRemaining = 30;
-
-        CountInterval = setInterval(function () {
-            let idRecClock = document.getElementById("idRecClock");
-
-            //min = parseInt(secondsRemaining / 60);
-            //sec = parseInt(secondsRemaining % 60);
-            idRecClock.innerText = secondsRemaining;
-
-            secondsRemaining = secondsRemaining - 1;
-            if (secondsRemaining < 0) {
-                secondsRemaining = 30;
-                GetExchangeRateFromNomics(function () {
-                    let amountText = document.getElementById("amount").value;
-
-                    if (amountText) {
-                        ReSetPaymentAmount(true, Number(amountText));
-                    } else {
-                        ReSetPaymentAmount(true);
-                    }
-                });
-            };
-
-        }, 1000);
     }
 
     function CoinBtn_Click() {
         var seleAmount = parseInt($(event.currentTarget).data("val"));
-        let RangeRate = 0;
         $("#amount").val(seleAmount);
-
-        for (var i = 0; i < PaymentMethod[0].ExtraData.length; i++) {
-            let RangeMinValuie = PaymentMethod[0].ExtraData[i].RangeMinValuie;
-            let RangeMaxValuie = PaymentMethod[0].ExtraData[i].RangeMaxValuie;
-            if (RangeMaxValuie != 0) {
-                if (RangeMinValuie <= seleAmount && seleAmount < RangeMaxValuie) {
-                    RangeRate = PaymentMethod[0].ExtraData[i].RangeRate;
-                    break;
-                }
-            } else {
-                if (RangeMinValuie <= seleAmount) {
-                    RangeRate = PaymentMethod[0].ExtraData[i].RangeRate;
-                    break;
-                }
-            }
-        }
-
-        ReSetPaymentAmount(false, seleAmount);
-        $("#ExchangeVal").text(new BigNumber(seleAmount * (1 + RangeRate)).toFormat());
-    }
-
-    function GetExchangeRateFromNomics(cb) {
-
-        PaymentClient.GetExchangeRateFromNomics(WebInfo.SID, Math.uuid(), function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    if (o.Message != "") {
-                        NomicsExchangeRate = JSON.parse(o.Message);
-                        if (cb) {
-                            cb();
-                        }
-                    } else {
-                        window.parent.API_LoadingEnd(1);
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
-
-                        });
-                    }
-                } else {
-                    window.parent.API_LoadingEnd(1);
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
-
-                    });
-                }
-            }
-            else {
-                window.parent.API_LoadingEnd(1);
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
-
-                });
-            }
-        })
-
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -202,8 +97,6 @@
         var amount = $("#amount").val().replace(/[^\-?\d.]/g, '');
         $("#amount").val(amount);
 
-        $("#ExchangeVal").text(Math.ceil(amount));
-        ReSetPaymentAmount(false, amount);
     }
 
     function btn_NextStep() {
@@ -223,130 +116,12 @@
         });
     }
 
-    function GetUserAccountJKCValue() {
-        PaymentClient.GetUserAccountJKCValue(WebInfo.SID, Math.uuid(), function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    userAccountJKCValue = new BigNumber(o.Message).toFormat();
-                    //window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("JKC 餘額" + userAccountJKCValue));
-                 
-                } else {
-                    userAccountJKCValue = 0;
-                }
-            }
-            else {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
-                    window.parent.location.href = "index.aspx";
-                });
-            }
-
-        })
-    }
-
-    function SetPaymentMethodDom() {
-        let idPaymentMethod = document.getElementById('idPaymentMethods');
-        idPaymentMethod.innerHTML = "";
-        let strCryptoWalletType;
-
-        for (var i = 0; i < PaymentMethod.length; i++) {
-
-            if (PaymentMethod[i]["MultiCurrencyInfo"]) {
-                if (!PaymentMethod[i]["MultiCurrencys"]) {
-                    PaymentMethod[i]["MultiCurrencys"] = JSON.parse(PaymentMethod[i]["MultiCurrencyInfo"]);
-                }
-            }
-
-            let PaymentMethodDom = c.getTemplate("templatePaymentMethod");
-            let ItemsDom = PaymentMethodDom.querySelector(".amount");
-            let EWinCryptoWalletType = parseInt(PaymentMethod[i]["EWinCryptoWalletType"]);
-
-            strCryptoWalletType = "JKC";
-
-            //PaymentMethodDom.classList.add("box_" + PaymentMethod[i]["PaymentCode"] + "_" + PaymentMethod[i]["EWinCryptoWalletType"]);
-            //PaymentMethodDom.querySelector(".PaymentCode").value = PaymentMethod[i]["PaymentMethodID"];
-            //PaymentMethodDom.querySelector(".PaymentCode").id = "payment-" + PaymentMethod[i]["PaymentCode"] + "_" + PaymentMethod[i]["EWinCryptoWalletType"];
-            //PaymentMethodDom.querySelector(".tab").setAttribute("for", "payment-" + PaymentMethod[i]["PaymentCode"] + "_" + PaymentMethod[i]["EWinCryptoWalletType"]);
-            PaymentMethodDom.querySelector(".icon-logo").classList.add("icon-logo-jkc");
-            c.setClassText(PaymentMethodDom, "coinType", null, PaymentMethod[i]["PaymentName"] + " (" + strCryptoWalletType + ")");
-
-            if (PaymentMethod[i]["MultiCurrencys"]) {
-                PaymentMethod[i]["MultiCurrencys"].forEach(function (mc) {
-                    let item = document.createElement("div");
-                    item.classList.add("item");
-                    item.innerHTML = '<span class="count needReset" data-rate="' + mc["Rate"] + '" data-feerate="' + PaymentMethod[i]["HandingFeeRate"] + '" data-currency="' + mc["ShowCurrency"] + '">0</span><sup class="unit">' + mc["ShowCurrency"] + '</sup>';
-
-                    ItemsDom.appendChild(item);
-                });
-            } else {
-                let item = document.createElement("div");
-                item.classList.add("item");
-                item.innerHTML = '<span class="count needReset" data-rate="1" data-feerate="' + PaymentMethod[i]["HandingFeeRate"] + '"  data-currency="' + PaymentMethod[i]["CurrencyType"] + '">0</span><sup class="unit">' + PaymentMethod[i]["CurrencyType"] + '</sup>';
-
-                ItemsDom.appendChild(item);
-            }
-
-            if (PaymentMethod[i]["HintText"]) {
-                PaymentMethodDom.querySelector('.hintText').innerText = PaymentMethod[i]["HintText"];
-            } else {
-                PaymentMethodDom.querySelector('.box-item-sub').classList.add("is-hide");
-            }
-
-            idPaymentMethod.appendChild(PaymentMethodDom);
-        }
-
-        startCountDown();
-    }
-
-    function GetRealExchange(currency) {
-        var R = 0;
-        var price;
-
-        if (NomicsExchangeRate && NomicsExchangeRate.length > 0) {
-            if (currency == "JKC") {
-                price = NomicsExchangeRate.find(x => x["currency"] == "ETH").price;
-                R = 1 / (price / 3000);
-            } else if(currency == "JPY"){
-                R = 1;
-            }
-        }
-        return R;
-    }
-
-    function ReSetPaymentAmount(isResetRealRate, Amount) {
-        let needResetDom = document.querySelectorAll(".needReset");
-        needResetDom.forEach(function (dom) {
-            let realRate = 0;
-            if (isResetRealRate) {
-                let Rate = Number(dom.dataset.rate);
-                let Currency = dom.dataset.currency;
-                let HandingFeeRate = Number(dom.dataset.feerate);
-                let RealExChange = GetRealExchange(Currency);
-                realRate = 1 * Rate * (1 + HandingFeeRate) * RealExChange;
-                dom.dataset.realrate = realRate.toString();
-            } else {
-                realRate = Number(dom.dataset.realrate);
-            }
-
-            if (Amount) {
-                dom.innerText = new BigNumber((realRate * Amount).toFixed(6)).toFormat();
-            } else {
-                dom.innerText = 0;
-            }
-        });
-    }
-
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByCategory(WebInfo.SID, Math.uuid(), "EPAYJKC", 0, function (success, o) {
+        PaymentClient.GetPaymentMethodByPaymentCode(WebInfo.SID, Math.uuid(), "EPAY", 0,"GcashDirect" ,function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
                         PaymentMethod = o.PaymentMethodResults;
-
-                        GetExchangeRateFromNomics(function () {
-                            SetPaymentMethodDom();
-                            ReSetPaymentAmount(true);
-                        });
-
                         for (var i = 0; i < PaymentMethod.length; i++) {
                             if (PaymentMethod[i]["ExtraData"]) {
                                 PaymentMethod[i]["ExtraData"] = JSON.parse(PaymentMethod[i]["ExtraData"]);
@@ -354,79 +129,77 @@
                         }
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                            window.parent.location.href = "index.aspx";
+                            window.location.href = "index.aspx"
                         });
                     }
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                        window.parent.location.href = "index.aspx";
+                        window.location.href = "index.aspx"
                     });
                 }
             }
             else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
-                    window.parent.location.href = "index.aspx";
+                    window.location.href = "index.aspx"
                 });
             }
 
         })
     }
+
     //建立訂單
     function CreatePayPalDeposit() {
         if ($("#amount").val() != '') {
             var amount = parseFloat($("#amount").val());
-            var depositName;
+            //var depositName;
             var paymentID = PaymentMethod[0]["PaymentMethodID"];
-            var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
-            var bankCardNameSecond = $("#bankCardNameSecond").val().trim();
+            //var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
+            //var bankCardNameSecond = $("#bankCardNameSecond").val().trim();
 
-            if (bankCardNameFirst == '') {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的姓"), function () { });
-                window.parent.API_LoadingEnd(1);
-                return false;
-            }
+            //if (bankCardNameFirst == '') {
+            //    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的姓"), function () { });
+            //    window.parent.API_LoadingEnd(1);
+            //    return false;
+            //}
 
-            if (check_pKatakana(bankCardNameFirst)) {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的姓"), function () { });
-                window.parent.API_LoadingEnd(1);
-                return false;
-            }
-
-            if (bankCardNameSecond == '') {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的名"), function () { });
-                window.parent.API_LoadingEnd(1);
-                return false;
-            }
-
-            if (check_pKatakana(bankCardNameSecond)) {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的名"), function () { });
-                window.parent.API_LoadingEnd(1);
-                return false;
-            }
+            //if (check_pKatakana(bankCardNameFirst)) {
+            //    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的姓"), function () { });
+            //    window.parent.API_LoadingEnd(1);
+            //    return false;
+            //}
             
-            depositName = bankCardNameFirst + "　" + bankCardNameSecond;
 
-            PaymentClient.CreateEPayJKCDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, depositName, function (success, o) {
+            //if (bankCardNameSecond == '') {
+            //    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的名"), function () { });
+            //    window.parent.API_LoadingEnd(1);
+            //    return false;
+            //}
+
+            //if (check_pKatakana(bankCardNameSecond)) {
+            //    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的名"), function () { });
+            //    window.parent.API_LoadingEnd(1);
+            //    return false;
+            //}
+
+            //depositName = bankCardNameFirst + "　" + bankCardNameSecond;
+
+            PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, '', function (success, o) {
                 if (success) {
                     let data = o.Data;
                     if (o.Result == 0) {
-                        $("#depositdetail .DepositName").text(data.ToInfo);
+                        //$("#depositdetail .DepositName").text(data.ToInfo);
                         $("#depositdetail .Amount").text(new BigNumber(data.Amount).toFormat());
                         $("#depositdetail .TotalAmount").text(new BigNumber(data.Amount).toFormat());
                         $("#depositdetail .OrderNumber").text(data.OrderNumber);
                         $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
                         $("#depositdetail .ThresholdValue").text(new BigNumber(data.ThresholdValue).toFormat());
-                        $("#depositdetail .JKCValue").text(userAccountJKCValue);
                         ExpireSecond = data.ExpireSecond;
 
                         var depositdetail = document.getElementsByClassName("Collectionitem")[0];
-
-                        for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
-                            var CollectionitemDom = c.getTemplate("templateCollectionitem");
-                            c.setClassText(CollectionitemDom, "currency", null, data.PaymentCryptoDetailList[i].TokenCurrencyType);
-                            c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.PaymentCryptoDetailList[i].ReceiveAmount).toFormat());
-                            depositdetail.appendChild(CollectionitemDom);
-                        }
+                        var CollectionitemDom = c.getTemplate("templateCollectionitem");
+                        c.setClassText(CollectionitemDom, "currency", null, data.ReceiveCurrencyType);
+                        c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.ReceiveTotalAmount).toFormat());
+                        depositdetail.appendChild(CollectionitemDom);
 
                         OrderNumber = data.OrderNumber;
                         GetDepositActivityInfoByOrderNumber(OrderNumber);
@@ -435,7 +208,6 @@
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                         });
-
                     }
 
                 }
@@ -455,14 +227,13 @@
     }
 
     function check_pKatakana(word) {
-
+    
         if (word.match(/[^ァ-ヶ|ー]/)) {
             return true;
         } else {
             return false;
         }
     }
-
     //根據訂單編號取得可參加活動
     function GetDepositActivityInfoByOrderNumber(OrderNum) {
         PaymentClient.GetDepositActivityInfoByOrderNumber(WebInfo.SID, Math.uuid(), OrderNum, function (success, o) {
@@ -507,7 +278,6 @@
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-collectareatype", CollectAreaType);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].id = "award-bonus" + ActivityCount;
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("checked", "true");
-        ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("disabled", "disabled");
         ActivityDom.getElementsByClassName("custom-control-label")[0].setAttribute("for", "award-bonus" + ActivityCount);
 
         $(".ThresholdValue_" + CollectAreaType).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CollectAreaType).text()) + ThresholdValue));
@@ -556,15 +326,12 @@
     }
 
     function ConfirmPayPalDeposit() {
-        PaymentClient.ConfirmEPayDeposit(WebInfo.SID, Math.uuid(), OrderNumber, ActivityNames, lang,"EPayJKC",0,function (success, o) {
+        PaymentClient.ConfirmEPayDeposit(WebInfo.SID, Math.uuid(), OrderNumber, ActivityNames, lang,"EPay",0,function (success, o) {
             window.parent.API_LoadingEnd(1);
              if (success) {
                  if (o.Result == 0) {
-                             var data = o.Data;
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("前往付款"), function () {
-                  
                         window.open(o.Message);
-
                     });
 
                     setExpireSecond();
@@ -625,7 +392,7 @@
     window.onload = init;
 </script>
 <body>
-    <div class="page-container mobile-scroll-sticky depositJKCEPAY">
+    <div class="page-container">
         <!-- Heading-Top -->
         <div id="heading-top"></div>
         <div class="page-content">
@@ -665,89 +432,83 @@
                      <p data-deposite="step4">支付</p> -->
                 </div>
 
-                <div class="split-layout-container">                    
+                <div class="split-layout-container">
                     <div class="aside-panel" data-deposite="step2">
-                        <div class="form-content">
-                             <!-- PayPal -->
-                            <div class="card-item tempCard">
-                                <div class="card-item-link"
-                                    style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
-                                    <div class="card-item-inner">
-                                        <div class="title">
-                                            <span class="language_replace">マハラジャ</span>
-                                            <!-- <span>Electronic Wallet</span>  -->
-                                        </div>
-                                        <div class="logo vertical-center text-center">
-                                            <!-- <span class="text language_replace">銀行振込</span>   -->
-                                            <img src="images/assets/card-surface/jkc-font.svg">
-                                        </div>
+                        <!-- PayPal -->
+                        <div class="card-item sd-09">
+                            <div class="card-item-link">
+                                <div class="card-item-inner">
+                                    <div class="title">
+                                        <span class="language_replace">GCash</span>
+                                        <!-- <span>Electronic Wallet</span>  -->
+                                    </div>                                   
+                                    <div class="logo vertical-center text-center">
+                                        <!-- <span class="text language_replace">銀行振込</span>   -->
+                                          <img src="images/assets/card-surface/icon-logo-GCash.svg">                                 
                                     </div>
-                                    <%--<img src="images/assets/card-surface/card-jkc.svg" class="card-item-bg" />--%>
                                 </div>
+                                <img src="images/assets/card-surface/card-03.svg" class="card-item-bg" />
                             </div>
+                        </div>
+                        <div class="text-wrap payment-change" style="display: none">
+                            <a href="deposit.html" class="text-link c-blk">
+                                <i class="icon-transfer"></i>
+                                <span class="language_replace">切換</span>
+                            </a>
+                        </div>
+                        <div class="form-content">
+                            <!-- 存款提示 -->
                             <div class="form-group text-wrap desc mt-2 mt-md-4">
+                                <!-- <h5 class="language_replace">便捷金額存款</h5> -->
                                 <p class="text-s language_replace">請從下方金額選擇您要的金額，或是自行填入想要存款的金額。兩種方式擇一即可。</p>
                             </div>
-                            <!-- 要固定時：sm-sticky -->
-                            <div class="">
-                                <form>
-                                    <div class="form-group">
-                                        <div class="btn-wrap btn-radio-wrap btn-radio-payment">
-                                            <div class="btn-radio btn-radio-coinType">
-                                                <input type="radio" name="amount" id="amount1" />
-                                                <label class="btn btn-outline-primary" for="amount1" data-val="10000"
-                                                    onclick="CoinBtn_Click()">
-                                                    <span class="coinType gameCoin">
-                                                        <%-- <span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                        <span class="coinType-title">PHP</span>
-                                                        <span class="coinType-amount OcoinAmount">10,000</span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div class="btn-radio btn-radio-coinType">
-                                                <input type="radio" name="amount" id="amount2" />
-                                                <label class="btn btn-outline-primary" for="amount2" data-val="50000"
-                                                    onclick="CoinBtn_Click()">
-                                                    <span class="coinType gameCoin">
-                                                        <span class="coinType-name">PHP</span>
-                                                        <span class="coinType-amount OcoinAmount">50,000</span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div class="btn-radio btn-radio-coinType">
-                                                <input type="radio" name="amount" id="amount3" />
-                                                <label class="btn btn-outline-primary" for="amount3" data-val="100000"
-                                                    onclick="CoinBtn_Click()">
-                                                    <span class="coinType gameCoin">
-                                                        <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                        <span class="coinType-name">PHP</span>
-                                                        <span class="coinType-amount OcoinAmount">100,000</span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- 輸入金額(美元) -->
-                                    <div class="form-group language_replace">
-                                        <label class="form-title language_replace">輸入金額</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control custom-style" id="amount"
-                                                language_replace="placeholder" placeholder="請輸入金額" onkeyup="setAmount()" />
-                                            <div class="form-notice-aside unit" id="OrderCurrencyType">PHP</div>
-                                            <div class="invalid-feedback language_replace">提示</div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>                            
-                            <div class="mt-2">
-                                <span id="idRecClock">30</span><span class="language_replace">秒後，重新取得匯率</span>
-                            </div>
-                            <div class="box-item-container crypto-list mb-2">
-                                <div id="idPaymentMethods">
-                                </div>
-                            </div>
                             <form>
-                                <div class="form-group depositLastName mb-2">
+                                <div class="form-group">
+                                    <div class="btn-wrap btn-radio-wrap btn-radio-payment">
+                                        <div class="btn-radio btn-radio-coinType" >
+                                            <input type="radio" name="amount" id="amount1" />
+                                            <label class="btn btn-outline-primary" for="amount1" data-val="10000" onclick="CoinBtn_Click()">
+                                                <span class="coinType gameCoin">
+                                                    <%-- <span class="coinType-title language_replace">遊戲幣</span>--%>
+                                                    <span class="coinType-title">PHP</span>
+                                                    <span class="coinType-amount OcoinAmount">10,000</span>
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                        <div class="btn-radio btn-radio-coinType" >
+                                            <input type="radio" name="amount" id="amount2" />
+                                            <label class="btn btn-outline-primary" for="amount2" data-val="50000" onclick="CoinBtn_Click()">
+                                                <span class="coinType gameCoin">
+                                                    <span class="coinType-name">PHP</span>
+                                                    <span class="coinType-amount OcoinAmount">50,000</span>
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                        <div class="btn-radio btn-radio-coinType" >
+                                            <input type="radio" name="amount" id="amount3" />
+                                            <label class="btn btn-outline-primary" for="amount3" data-val="100000" onclick="CoinBtn_Click()">
+                                                <span class="coinType gameCoin">
+                                                    <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
+                                                    <span class="coinType-name">PHP</span>
+                                                    <span class="coinType-amount OcoinAmount">100,000</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 輸入金額(美元) -->
+                                <div class="form-group language_replace">
+                                    <label class="form-title language_replace">輸入金額</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control custom-style" id="amount" language_replace="placeholder" placeholder="請輸入金額" onkeyup="setAmount()" />
+                                        <div class="form-notice-aside unit" id="OrderCurrencyType">PHP</div>
+                                        <div class="invalid-feedback language_replace">提示</div>
+                                    </div>
+                                </div>
+                             <%--   <div class="form-group depositLastName mb-2">
                                     <label class="form-title language_replace" >請正確填寫存款人之姓名</label>
                                     <div class="input-group">                                       
                                         <input type="text" class="form-control custom-style" id="bankCardNameFirst" language_replace="placeholder" placeholder="請填寫片假名的姓">
@@ -757,32 +518,19 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control custom-style" id="bankCardNameSecond" language_replace="placeholder" placeholder="請填寫片假名的名">
                                     </div>                            
-                                </div>
+                                </div>--%>
+                              
+
                             </form>
-                            <div class="form-group text-wrap desc mt-2 mt-md-4">
+                          <%--   <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
-                                <p class="text-s language_replace">※存款金額為3,000ocoin至700,000ocoin。</p>
+                                <p class="text-s language_replace">※存款金額為2,000ocoin至500,000ocoin。</p>
                                 <p class="text-s language_replace">※OCoin必須在款項到帳後才會反映，如果過了1個銀行營業日也沒反映請聯絡客服。</p>
                                 <p class="text-s language_replace">※此處填寫的全名必須與銀行的匯款人名稱（片假名）完全相同，敬請見諒。</p>
-
                                 <p class="text-s language_replace">※訂單申請後請於20分鐘內匯款，若超過20分鐘未進行交易，請另提交易申請，以利交易順利進行。</p>
-                            </div>
+                            </div>--%>
                         </div>
-
-                        <!-- 溫馨提醒 -->
-                        <div class="notice-container mt-3 mb-3">
-                            <div class="notice-item">
-                                <i class="icon-info_circle_outline"></i>
-                                <div class="text-wrap">
-                                    <p class="title language_replace">溫馨提醒</p>
-                                    <p class="language_replace">匯率波動以交易所為主，匯率可能不定時更新。</p>
-                                    <p class="language_replace">手續費由存款者負擔。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                   
-                  
-                   
+                    </div>
                     <!-- 虛擬錢包 step4 -->
                     <div class="main-panel" data-deposite="step4">
 
@@ -841,10 +589,10 @@
                                         <h6 class="title language_replace">訂單號碼</h6>
                                         <span class="data OrderNumber"></span>
                                     </li>
-                                    <li class="item">
+                                 <%--   <li class="item">
                                         <h6 class="title language_replace">匯款人姓名</h6>
                                         <span class="data DepositName"></span>
-                                    </li>
+                                    </li>--%>
                                     <li class="item">
                                         <h6 class="title language_replace">支付方式</h6>
                                         <span class="data PaymentMethodName"></span>
@@ -855,9 +603,8 @@
                                         <span class="data text-primary ExpireSecond"></span>
                                     </li>
 
-                                    <li class="item mt-4">
+                                    <li class="item no-border mt-4">
                                         <h6 class="title language_replace">出金條件</h6>
-                                        <%--<span class="data ThresholdValue"></span>--%>
                                         <ul class="deposit-detail-sub">
                                             <li class="sub-item">
                                                 <span class="title language_replace">入金部份</span>
@@ -872,12 +619,9 @@
                                                 <span class="data ThresholdValue_2">0</span>
                                             </li>
                                         </ul>
+                                        <p class="text-note text-primary language_replace">*獎金和禮金的出金門檻在BOUNS箱領取後才會追加</p>
                                     </li>
-                                     <li class="item">
-                                        <h6 class="title language_replace">JKC 餘額</h6>
-                                        <span class="data JKCValue"></span>
-                                    </li>
-                                    <p class="text-note text-primary language_replace">*獎金和禮金的出金門檻在BOUNS箱領取後才會追加</p>
+
                                 </ul>
                             </div>
                         </div>
@@ -895,10 +639,10 @@
 
                 </div>
                 <!-- 溫馨提醒 -->
-                <div class="notice-container" data-deposite="step3" style="margin-bottom:10px">
+              <%--  <div class="notice-container" data-deposite="step3" style="margin-bottom:10px">
                     <div class="notice-item">
                         <i class="icon-info_circle_outline"></i>
-                        <div class="text-wrap">
+                       <div class="text-wrap">
                             <p class="title language_replace">注意事項</p>
                             <ul class="list-style-decimal">
                                 <li><span class="language_replace">點擊 下一步，會顯示收款人信息。</span></li>
@@ -909,8 +653,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-                  
+                </div>--%>
 
                 <div class="btn-container">
                     <button class="btn btn-primary" data-deposite="step2">
@@ -982,40 +725,6 @@
                 </label>
             </div>
         </li>
-    </div>
-
-      <div id="templatePaymentMethod" style="display: none">
-        <div class="box-item">
-            <input class="PaymentCode" type="radio" name="payment-crypto" checked />
-            <label class="box-item-inner tab">
-                <div class="box-item-info">
-                    <i class="icon-logo"></i>
-                    <div class="box-item-detail">
-                        <div class="box-item-title">
-                            <div class="coinUnit">
-                                <span class="coinType">BTC</span>
-                            </div>
-                            <div class="amount">
-                                <%--                                <div class="item">
-                                    <span class="count BTCval">0</span><sup class="unit"></sup>
-                                </div>
-                                <div class="item">
-                                    <span class="count ETHval">0</span><sup class="unit"></sup>
-                                </div>--%>
-                            </div>
-                            <%--<span class="box-item-status">1 TRON = 1234567 USD</span>--%>
-                        </div>
-                    </div>
-                </div>
-                <div class="box-item-sub">
-                    <div class="coinPush">
-                        <i class="icon icon-coin"></i>
-                        <p class="text hintText language_replace">業界最高! Play Open Bouns! 最大100% &10萬送給您!首次 USDT 入金回饋100%</p>
-                    </div>
-                </div>
-
-            </label>
-        </div>
     </div>
 </body>
 </html>

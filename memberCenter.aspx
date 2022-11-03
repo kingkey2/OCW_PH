@@ -191,8 +191,10 @@
 
         if (IsFullRegistration == 0) {
             $("#IsFullRegistration0").show();
+            $("#IsFullRegistration").hide();
         } else {
             $("#IsFullRegistration1").show();
+            $("#IsFullRegistration0").hide();
         }
     }
 
@@ -963,8 +965,11 @@
     }
 
     function closeCertification() {
-        updateBaseInfo();
-        $("#btn_PupLangClose1").click();
+        window.parent.API_RefreshUserInfo(function () {
+            updateBaseInfo();
+            $("#btn_PupLangClose1").click();
+        });
+      
     }
 
     $(document).on('shown.bs.modal', '#ModalMemberLevel', function () {
@@ -1758,7 +1763,7 @@
                                     <label class="form-title language_replace">信箱</label>
                                     <div class="input-group">
                                         <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請輸入正確信箱" inputmode="email">
-                                        <div class="invalid-feedback language_replace">請輸入正確信箱</div>
+                                        <div class="invalid-feedback language_replace"></div>
                                     </div>
                                 </div>
                                 <%--
@@ -1784,14 +1789,14 @@
                                         <label class="form-title language_replace">姓(羅馬字)</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" id="Name1" name="Name1">
-                                            <div class="invalid-feedback language_replace">提示</div>
+                                            <div class="invalid-feedback language_replace"></div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md">
                                         <label class="form-title language_replace">名(羅馬字)</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" id="Name2" name="Name2">
-                                            <div class="invalid-feedback language_replace">提示</div>
+                                            <div class="invalid-feedback language_replace"></div>
                                         </div>
                                     </div>
                                 </div>
