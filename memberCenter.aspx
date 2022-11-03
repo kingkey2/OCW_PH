@@ -131,7 +131,7 @@
         
         $("#idAmount").text(new BigNumber(parseFloat(wallet.PointValue).toFixed(1)).toFormat());
         $("#PersonCode").text(WebInfo.UserInfo.PersonCode);
-        $("#idCopyPersonCode").text(WebInfo.UserInfo.PersonCode);
+        $("#idCopyPersonCode").text(`${"<%=EWinWeb.CasinoWorldUrl %>"}/registerForQrCode.aspx?P=${WebInfo.UserInfo.PersonCode}&Download=2`);
         $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"<%=EWinWeb.CasinoWorldUrl %>"}/registerForQrCode.aspx?P=${WebInfo.UserInfo.PersonCode}&Download=2`);
 
         var ThresholdInfos = WebInfo.UserInfo.ThresholdInfo;
@@ -709,7 +709,7 @@
                                         <h1 class="sec-title title-deco"><span class="language_replace">會員中心</span></h1>
                                     </div>
                                     <!-- 資料更新 Button-->
-                                    <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
+                                    <%--<button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>--%>
                                 </legend>
 
                                 <!-- 當點擊 資料更新 Button時 text input可編輯的項目 會移除 readonly-->
