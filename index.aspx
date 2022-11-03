@@ -3559,6 +3559,21 @@
                                         <img src="/images/logo/footer/logo-kgs.png" alt="">
                                     </div>
                                 </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-JL.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-FC.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-RICH88.png" alt="">
+                                    </div>
+                                </div>
                                 <%--  
                                 <div class="logo-item">
                                     <div class="img-crop">
