@@ -679,27 +679,27 @@
         var phoneValue = PhonePrefix + PhoneNumber;
         var phoneObj;
 
-        try {
-            phoneObj = PhoneNumberUtil.parse(phoneValue);
+        //try {
+        //    phoneObj = PhoneNumberUtil.parse(phoneValue);
 
-            var type = PhoneNumberUtil.getNumberType(phoneObj);
+        //    var type = PhoneNumberUtil.getNumberType(phoneObj);
 
-            if (type != libphonenumber.PhoneNumberType.MOBILE && type != libphonenumber.PhoneNumberType.FIXED_LINE_OR_MOBILE) {
-                $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
-                $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
-                boolChecked = false;
+        //    if (type != libphonenumber.PhoneNumberType.MOBILE && type != libphonenumber.PhoneNumberType.FIXED_LINE_OR_MOBILE) {
+        //        $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
+        //        $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
+        //        boolChecked = false;
 
-            } else {
-                $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey(""));
-                $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey(""));
-            }
-        }
-        catch (e) {
+        //    } else {
+        //        $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey(""));
+        //        $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey(""));
+        //    }
+        //}
+        //catch (e) {
 
-            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
-            $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
-            boolChecked = false;
-        }
+        //    $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
+        //    $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
+        //    boolChecked = false;
+        //}
 
         if (boolChecked) {
             p.AddUserBankCard(WebInfo.SID, Math.uuid(), WebInfo.MainCurrencyType, 4, "GCash", PhonePrefix, PhoneNumber, GCashAccount, "", "", "", function (success, o) {
