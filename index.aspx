@@ -3625,6 +3625,11 @@
                                         <img src="/images/logo/footer/logo-pg.png" alt="">
                                     </div>
                                 </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-cmd.png" alt="">
+                                    </div>
+                                </div>
                                 <%-- 
                                 <div class="logo-item">
                                     <div class="img-crop">
