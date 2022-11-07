@@ -909,7 +909,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 }
 .marquee {
-  margin: 5px auto 0;
+  margin: 35px auto 5px;
   padding: 0;
 }
 .marquee .marquee_bock {
@@ -928,9 +928,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   position: relative;
 }
 .marquee .marquee_bock .marquee_title .icon-announce {
-  width: 32px;
-  height: 32px;
-  margin-right: 2px;
+  width: 40px;
+  height: 40px;
   float: left;
 }
 .marquee .marquee_bock .marquee_title .icon-announce:before {
@@ -946,7 +945,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
           box-sizing: border-box;
   font-size: 1rem;
   line-height: 24px;
-  padding: 4px;
+  padding: 8px;
   background: #f3f3f3;
   border-radius: 30px;
 }
@@ -961,10 +960,15 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 @media screen and (max-width: 1024px) {
-  .marquee .marquee_bock .marquee_title h6 {
-    display: none;
+  .marquee {
+    margin: 35px auto 0px;
+  }
+  .marquee .marquee_bock .marquee_title .icon-announce {
+    width: 36px;
+    height: 36px;
   }
   .marquee .marquee-content {
+    padding: 6px;
     font-size: 0.875rem;
   }
 }

@@ -1448,7 +1448,7 @@
         </div>
 
         <!-- 跑馬燈 -->
-        <%--
+        <%-- --%>
         <div class="container marquee">
             <div class="marquee_bock">
                 <div class="marquee_title">
@@ -1462,7 +1462,7 @@
                 </marquee>
             </div>
         </div>
-        --%>
+        
         <!-- 各分類-單一遊戲推薦區 -->
          <%--    <section class="section-category-dailypush" style="display:none;">
             <div class="container">                

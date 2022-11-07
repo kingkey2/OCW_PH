@@ -1752,7 +1752,7 @@ $gameRanking-swiper-slide-width-over-xxl: $swiper-slide-width-over-xxl         *
 
 // 跑馬燈 =================
 .marquee {
-    margin: 5px auto 0;
+    margin: 35px auto 5px;
     padding:0;
     .marquee_bock {
         margin: auto;
@@ -1768,9 +1768,8 @@ $gameRanking-swiper-slide-width-over-xxl: $swiper-slide-width-over-xxl         *
             color: #079eb2;
             position: relative;
             .icon-announce{
-                width:32px;
-                height:32px;
-                margin-right: 2px;
+                width:40px;
+                height:40px;
                 float:left;
                 &:before{background-color: #079eb2;}
             }
@@ -1785,7 +1784,7 @@ $gameRanking-swiper-slide-width-over-xxl: $swiper-slide-width-over-xxl         *
         box-sizing: border-box;
         font-size: 1rem;
         line-height: 24px;
-        padding: 4px;
+        padding: 8px;
         background: #f3f3f3;
         border-radius: 30px;
         .marquee-item {
@@ -1801,14 +1800,17 @@ $gameRanking-swiper-slide-width-over-xxl: $swiper-slide-width-over-xxl         *
 }
 @media screen and (max-width:1024px){
     .marquee {
+        margin: 35px auto 0px;
         .marquee_bock {
             .marquee_title {
-                h6{
-                    display:none;
+                .icon-announce {
+                    width: 36px;
+                    height: 36px;
                 }
             }
         }
         .marquee-content {
+            padding: 6px;
             font-size: 0.875rem;
         }
     }
