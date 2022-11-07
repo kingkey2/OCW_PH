@@ -650,7 +650,6 @@
         if (gameItem) {
             gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
             //if (gameItem.ChampionType > 0) {
-            //    debugger;
             //    console.log(gameItem);
             //}
 
