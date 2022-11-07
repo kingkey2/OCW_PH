@@ -1752,40 +1752,72 @@ $gameRanking-swiper-slide-width-over-xxl: $swiper-slide-width-over-xxl         *
 
 // 跑馬燈 =================
 .marquee {
-    margin: 5px 0;
+    margin: 5px auto 0;
+    padding:0;
     .marquee_bock {
-        max-width: 1440px;
         margin: auto;
         white-space: nowrap;
         position: relative;
         overflow: hidden;
+        border-radius: 30px;
         .marquee_title {
             display: inline-block;
             text-align: center;
-            padding: 0 5px;
+            padding: 0 5px 0 0;
             vertical-align: top;
-            color: #a18b53;
+            color: #079eb2;
             position: relative;
+            .icon-announce{
+                width:32px;
+                height:32px;
+                margin-right: 2px;
+                float:left;
+                &:before{background-color: #079eb2;}
+            }
         }
     }
     .marquee-content {
         display: inline-block;
         width: 100%;
-        min-height: 20px;
         overflow: hidden;
         vertical-align: top;
         white-space: nowrap;
         box-sizing: border-box;
-        font-size: 12px;
-        padding: 1px 0;
+        font-size: 1rem;
+        line-height: 24px;
+        padding: 4px;
+        background: #f3f3f3;
+        border-radius: 30px;
         .marquee-item {
-            padding: 0 2%;
+            padding: 0 5% 0 0;
         }
         a {
             width: 100%;
             position: relative;
-            color: #000;
+            color: rgba(0, 0, 0, 0.8);
             text-decoration: none;
+        }
+    }
+}
+@media screen and (max-width:1024px){
+    .marquee {
+        .marquee_bock {
+            .marquee_title {
+                h6{
+                    display:none;
+                }
+            }
+        }
+        .marquee-content {
+            font-size: 0.875rem;
+        }
+    }
+}
+@media screen and (max-width:935px){
+    .marquee {
+        margin: 8px auto;
+        .marquee-content {
+            font-size: 0.875rem;
         }
     }
 }

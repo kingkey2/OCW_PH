@@ -204,7 +204,7 @@ input{
     &-data-wrapper {
         .btn-edit {
             padding: 5px;
-
+            padding: 0px;
             .icon {
                 width: 25px;
                 height: 25px;
@@ -2986,6 +2986,10 @@ $card-bg-normal: (
         &.verify{
             width: 50%;
         }
+        
+        &.password{
+            width: 50%;
+        }
         &.mobile{
             width: 50%;
         }
@@ -3100,7 +3104,7 @@ $card-bg-normal: (
         &.name {
             // width: 60%;
             width: (100%/3);
-            width: 40%;
+            width: 33.33%;
             order: -4;
         }
 
@@ -3109,12 +3113,13 @@ $card-bg-normal: (
             // order: -2;
             // width: (100%/3);
             width: 30%;
+            width: 33.33%;
         }
 
         &.birth {
             // width: 40%;
             // width: (100%/3);
-            width: 30%;
+            width: 33.33%;
             order: -3;
         }
 
@@ -3124,11 +3129,11 @@ $card-bg-normal: (
         }
         &.mobile {
             width: (100%/3);
-            width: 30%;
+            width: 33.33%;
         }
         &.email {
             width: (100%/3);
-            width: 30%;
+            width: 33.33%;
         }
     }
 }
@@ -3377,9 +3382,11 @@ $card-bg-normal: (
     .data-item {
         &.name {           
             width: (70%/2);
+            width:50%;
         }
         &.birth {           
             width: (70%/2);
+            width:50%;
         }
         
         &.verify {
@@ -3389,7 +3396,7 @@ $card-bg-normal: (
             width: (100%/2);
         }
         &.email {
-            width: 100%;
+            width: 50%;
         }
         &.qrcode {
             width: 30%;
@@ -3817,3 +3824,18 @@ $card-bg-normal: (
         opacity: 1;
     }
 }
+@media screen and (min-width:1024px){
+    .data-item.name, .data-item.birth, .data-item.password, .data-item.mobile, .data-item.email{
+        width: 33.33% !important;
+    }
+}
+@media screen and (max-width:1023px){
+    .data-item.name, .data-item.birth, .data-item.password, .data-item.mobile, .data-item.email{
+        width: 50% !important;
+    }
+}
+// @media screen and (max-width:450px){
+//     .data-item.name, .data-item.birth, .data-item.password, .data-item.mobile, .data-item.email{
+//         width: 100% !important;
+//     }
+// }

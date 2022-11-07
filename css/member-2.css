@@ -143,6 +143,7 @@ input.month:read-only, input.day:read-only {
 }
 .member-profile-data-wrapper .btn-edit {
   padding: 5px;
+  padding: 0px;
 }
 .member-profile-data-wrapper .btn-edit .icon {
   width: 25px;
@@ -1528,8 +1529,7 @@ input.month:read-only, input.day:read-only {
   font-weight: 700;
 }
 .member-withdraw-wrapper.lacking .member-withdraw-limit-inner {
-  background-color: #074B57;
-  /* Old browsers */
+  background-color: #074B57; /* Old browsers */
   background: -webkit-gradient(linear, left bottom, left top, from(#074B57), to(#009ED0));
   background: linear-gradient(0deg, #074B57, #009ED0);
 }
@@ -1741,7 +1741,6 @@ input.month:read-only, input.day:read-only {
   .cashflowCard-wrapper {
     padding-bottom: 30px;
   }
-
   .dailylogin-bouns-inner::before {
     content: "";
     display: block;
@@ -1750,8 +1749,7 @@ input.month:read-only, input.day:read-only {
     height: 40%;
     bottom: 53px;
     border-radius: 10px 10px 0 0;
-    background-color: #fff6e4;
-    /* Old browsers */
+    background-color: #fff6e4; /* Old browsers */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(17.71%, #fff6e4), color-stop(83.85%, #d8bf8f));
     background: linear-gradient(180deg, #fff6e4 17.71%, #d8bf8f 83.85%);
   }
@@ -1858,33 +1856,28 @@ input.month:read-only, input.day:read-only {
   .section-member-wallet-transaction .member-withdraw-wrapper {
     padding-left: 0.4rem;
   }
-
   .member-profile-avater-wrapper {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 185px;
             flex: 0 0 185px;
   }
-
   .activity-record-wrapper {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
   }
-
   .activity-center-wrapper {
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
     padding-right: 5px;
   }
-
   .prize-center-wrapper {
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
     padding-left: 5px;
   }
-
   .activity-promo-list .promo-item {
     width: 33.3333333333%;
   }
@@ -1912,6 +1905,9 @@ input.month:read-only, input.day:read-only {
   .data-item.verify {
     width: 50%;
   }
+  .data-item.password {
+    width: 50%;
+  }
   .data-item.mobile {
     width: 50%;
   }
@@ -1922,7 +1918,6 @@ input.month:read-only, input.day:read-only {
     width: 100%;
     right: 0;
   }
-
   .prize-center-wrapper {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 40%;
@@ -1939,7 +1934,6 @@ input.month:read-only, input.day:read-only {
   .activity-promo-list .promo-item {
     width: 25%;
   }
-
   .memberLevelCard-slider {
     padding: 50px 0;
   }
@@ -1963,12 +1957,10 @@ input.month:read-only, input.day:read-only {
     width: 15px;
     height: 30px;
   }
-
   .modalMemberLevel .modal-body {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
   }
-
   .card-thumb-wrapper {
     margin-left: -2.5rem;
     margin-right: -2.5rem;
@@ -1988,16 +1980,17 @@ input.month:read-only, input.day:read-only {
 @media (min-width: 992px) {
   .data-item.name {
     width: 33.3333333333%;
-    width: 40%;
+    width: 33.33%;
     -webkit-box-ordinal-group: -3;
         -ms-flex-order: -4;
             order: -4;
   }
   .data-item.password {
     width: 30%;
+    width: 33.33%;
   }
   .data-item.birth {
-    width: 30%;
+    width: 33.33%;
     -webkit-box-ordinal-group: -2;
         -ms-flex-order: -3;
             order: -3;
@@ -2007,11 +2000,11 @@ input.month:read-only, input.day:read-only {
   }
   .data-item.mobile {
     width: 33.3333333333%;
-    width: 30%;
+    width: 33.33%;
   }
   .data-item.email {
     width: 33.3333333333%;
-    width: 30%;
+    width: 33.33%;
   }
 }
 @media (min-width: 1200px) {
@@ -2025,7 +2018,6 @@ input.month:read-only, input.day:read-only {
         -ms-flex-flow: row wrap;
             flex-flow: row wrap;
   }
-
   .member-profile-avater-wrapper {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 175px;
@@ -2044,7 +2036,6 @@ input.month:read-only, input.day:read-only {
             flex-flow: column wrap;
     padding-right: 20px;
   }
-
   .data-item.currency {
     width: 40%;
   }
@@ -2065,19 +2056,16 @@ input.month:read-only, input.day:read-only {
   .memberLevelCard-slider-wrapper .swiper-button-next {
     right: -3.7rem;
   }
-
   .modalMemberLevel .modal-body {
     padding-left: 4.5rem;
     padding-right: 4.5rem;
   }
-
   .card-thumb-wrapper {
     margin-left: -4.5rem;
     margin-right: -4.5rem;
     padding-left: 4.5rem;
     padding-right: 4.5rem;
   }
-
   .article-member-center {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2087,18 +2075,15 @@ input.month:read-only, input.day:read-only {
         -ms-flex-flow: row wrap;
             flex-flow: row wrap;
   }
-
   .section-member-wallet {
     width: 100%;
   }
-
   .member-withdraw-limit-wrapper {
     min-height: 300px;
   }
   .member-withdraw-limit-content .limit-amount {
     width: 100%;
   }
-
   .activity-promo-wrapper {
     padding-left: 150px;
   }
@@ -2109,9 +2094,11 @@ input.month:read-only, input.day:read-only {
 @media (min-width: 1440px) {
   .data-item.name {
     width: 35%;
+    width: 50%;
   }
   .data-item.birth {
     width: 35%;
+    width: 50%;
   }
   .data-item.verify {
     width: 50%;
@@ -2120,7 +2107,7 @@ input.month:read-only, input.day:read-only {
     width: 50%;
   }
   .data-item.email {
-    width: 100%;
+    width: 50%;
   }
   .data-item.qrcode {
     width: 30%;
@@ -2128,20 +2115,16 @@ input.month:read-only, input.day:read-only {
     right: 0;
     margin-bottom: 0;
   }
-
   .data-item-group {
     width: 70%;
   }
-
   .member-profile-wrapper {
     width: 36%;
     padding-right: 50px;
   }
-
   .tab-member-wrapper {
     display: none;
   }
-
   .section-member-wallet {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2151,11 +2134,9 @@ input.month:read-only, input.day:read-only {
         -ms-flex-flow: row wrap;
             flex-flow: row wrap;
   }
-
   .sec-title-member-wallet {
     margin-bottom: 1.2rem;
   }
-
   .section-member-wallet-transaction {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2177,7 +2158,6 @@ input.month:read-only, input.day:read-only {
     padding-left: 0;
     margin-top: 20px;
   }
-
   .section-cashflow-card {
     -webkit-box-flex: 1;
         -ms-flex: 1;
@@ -2195,7 +2175,6 @@ input.month:read-only, input.day:read-only {
     width: 36px;
     height: 36px;
   }
-
   .cashflowCard-slider {
     padding-bottom: 0;
   }
@@ -2207,7 +2186,6 @@ input.month:read-only, input.day:read-only {
   .section-member-wallet {
     display: none;
   }
-
   .sec-title-member-wallet {
     display: none;
   }
@@ -2216,11 +2194,9 @@ input.month:read-only, input.day:read-only {
   .data-item-group .wrapper_center {
     margin-bottom: 2.5rem;
   }
-
   .coming-soon:after {
     background-size: 65%;
   }
-
   .data-item.name {
     -webkit-box-ordinal-group: -3;
         -ms-flex-order: -4;
@@ -2250,12 +2226,10 @@ input.month:read-only, input.day:read-only {
   .section-cashflow-card .sec-title-container .name {
     display: none;
   }
-
   .dailylogin-bouns-inner {
     padding: 50px 10px 10px;
     border-radius: 20px;
-    background-color: #A79C8E;
-    /* Old browsers */
+    background-color: #A79C8E; /* Old browsers */
     background: -webkit-gradient(linear, left top, left bottom, from(#A79C8E), to(#A79C8E));
     background: linear-gradient(180deg, #A79C8E 0%, #A79C8E 100%);
   }
@@ -2408,5 +2382,15 @@ input.month:read-only, input.day:read-only {
     -webkit-transform: scale(1, 1) rotate(45deg);
             transform: scale(1, 1) rotate(45deg);
     opacity: 1;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .data-item.name, .data-item.birth, .data-item.password, .data-item.mobile, .data-item.email {
+    width: 33.33% !important;
+  }
+}
+@media screen and (max-width: 1023px) {
+  .data-item.name, .data-item.birth, .data-item.password, .data-item.mobile, .data-item.email {
+    width: 50% !important;
   }
 }
