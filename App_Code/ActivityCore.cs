@@ -296,7 +296,7 @@ public static class ActivityCore {
         string ActiviyName = null;
         int UserLevelIndex = 0;
 
-        UserLevDT = RedisCache.UserAccountLevel.GetUserAccountLevelByLoginAccount(LoginAccount);
+        UserLevDT = RedisCache.UserAccount.GetUserAccountByLoginAccount(LoginAccount);
         if (UserLevDT != null && UserLevDT.Rows.Count > 0) {
             UserLevelIndex = (int)UserLevDT.Rows[0]["UserLevelIndex"];
 
@@ -333,7 +333,7 @@ public static class ActivityCore {
         string ActiviyName = null;
         int UserLevelIndex = 0;
 
-        UserLevDT = RedisCache.UserAccountLevel.GetUserAccountLevelByLoginAccount(LoginAccount);
+        UserLevDT = RedisCache.UserAccount.GetUserAccountByLoginAccount(LoginAccount);
         if (UserLevDT != null && UserLevDT.Rows.Count > 0) {
             UserLevelIndex = (int)UserLevDT.Rows[0]["UserLevelIndex"];
 
