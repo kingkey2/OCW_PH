@@ -12,9 +12,8 @@ using System.Web.UI.WebControls;
 /// </summary>
 public static class EWinWebDB {
     public static class CompanyCategory {
-   
-        public static int DeleteCompanyCategoryByCompanyCategoryID2(int CompanyCategoryID)
-        {
+
+        public static int DeleteCompanyCategoryByCompanyCategoryID2(int CompanyCategoryID) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int CategoryCount = 0;
@@ -35,7 +34,7 @@ public static class EWinWebDB {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int CompanyCategoryID = 0;
-    
+
             SS = "INSERT INTO CompanyCategory (EwinCompanyCategoryID, CategoryType, CategoryName,SortIndex,State,Location,ShowType) " +
            "                VALUES (@EwinCompanyCategoryID, @CategoryType, @CategoryName,@SortIndex,@State,@Location,@ShowType) " +
            " SELECT @@IDENTITY";
@@ -57,8 +56,7 @@ public static class EWinWebDB {
             return CompanyCategoryID;
         }
 
-        public static int UpdateCompanyCategory(int EwinCompanyCategoryID, int CategoryType, string CategoryName, int SortIndex, int State, string Location, int ShowType)
-        {
+        public static int UpdateCompanyCategory(int EwinCompanyCategoryID, int CategoryType, string CategoryName, int SortIndex, int State, string Location, int ShowType) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int CompanyCategoryID = 0;
@@ -82,8 +80,7 @@ public static class EWinWebDB {
             return CompanyCategoryID;
         }
 
-        public static int InsertOcwCompanyCategory(int EwinCompanyCategoryID, int CategoryType, string CategoryName, int SortIndex, int State, string Location, int ShowType)
-        {
+        public static int InsertOcwCompanyCategory(int EwinCompanyCategoryID, int CategoryType, string CategoryName, int SortIndex, int State, string Location, int ShowType) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int CompanyCategoryID = 0;
@@ -108,11 +105,10 @@ public static class EWinWebDB {
             return CompanyCategoryID;
         }
 
-        public static int UpdateOcwCompanyCategory(int CompanyCategoryID, int CategoryType, string CategoryName, int SortIndex, int State, string Location, int ShowType)
-        {
+        public static int UpdateOcwCompanyCategory(int CompanyCategoryID, int CategoryType, string CategoryName, int SortIndex, int State, string Location, int ShowType) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
-   
+
             SS = "UPDATE CompanyCategory SET CategoryType=@CategoryType, CategoryName=@CategoryName,SortIndex=@SortIndex,State=@State,Location=@Location,ShowType=@ShowType " +
             " WHERE CompanyCategoryID=@CompanyCategoryID ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
@@ -148,7 +144,7 @@ public static class EWinWebDB {
     }
 
     public static class CompanyGameCode {
-        public static int InsertCompanyGameCode(string GameCode, int GameID, string GameName, string GameCategoryCode, string GameCategorySubCode, int AllowDemoPlay, string RTPInfo,int IsHot, int IsNew, string Tag, int SortIndex,string GameBrand, string Language,long UpdateTimestamp,string CompanyCategoryTag,string GameAccountingCode,string GameCodeCategory,int GameStatus) {
+        public static int InsertCompanyGameCode(string GameCode, int GameID, string GameName, string GameCategoryCode, string GameCategorySubCode, int AllowDemoPlay, string RTPInfo, int IsHot, int IsNew, string Tag, int SortIndex, string GameBrand, string Language, long UpdateTimestamp, string CompanyCategoryTag, string GameAccountingCode, string GameCodeCategory, int GameStatus) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int insertCount = 0;
@@ -160,8 +156,7 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
             searchCount = (int)DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd);
 
-            if (searchCount == 0)
-            {
+            if (searchCount == 0) {
                 SS = "INSERT INTO CompanyGameCode (GameCode,GameID, GameName,GameCategoryCode,GameCategorySubCode,AllowDemoPlay,RTPInfo,IsHot,IsNew,Tags,SortIndex,GameBrand,Language,UpdateTimestamp,CompanyCategoryTag,GameAccountingCode,GameCodeCategory,GameStatus) " +
           "                VALUES (@GameCode,@GameID, @GameName,@GameCategoryCode,@GameCategorySubCode,@AllowDemoPlay,@RTPInfo,@IsHot,@IsNew,@Tag,@SortIndex,@GameBrand,@Language,@UpdateTimestamp,@CompanyCategoryTag,@GameAccountingCode,@GameCodeCategory,@GameStatus) ";
 
@@ -187,9 +182,7 @@ public static class EWinWebDB {
                 DBCmd.Parameters.Add("@GameCodeCategory", System.Data.SqlDbType.NVarChar).Value = GameCodeCategory;
                 DBCmd.Parameters.Add("@GameStatus", System.Data.SqlDbType.Int).Value = GameStatus;
                 DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
-            }
-            else
-            {
+            } else {
                 SS = "UPDATE CompanyGameCode SET GameID=@GameID, GameName=@GameName,GameCategoryCode=@GameCategoryCode,GameCategorySubCode=@GameCategorySubCode,AllowDemoPlay=@AllowDemoPlay,RTPInfo=@RTPInfo,IsHot=@IsHot,IsNew=@IsNew,Tags=@Tag,SortIndex=@SortIndex,GameBrand=@GameBrand,Language=@Language,UpdateTimestamp=@UpdateTimestamp,CompanyCategoryTag=@CompanyCategoryTag,GameAccountingCode=@GameAccountingCode,GameCodeCategory=@GameCodeCategory,GameStatus=@GameStatus WHERE GameCode=@GameCode ";
                 DBCmd = new System.Data.SqlClient.SqlCommand();
                 DBCmd.CommandText = SS;
@@ -214,14 +207,13 @@ public static class EWinWebDB {
                 DBCmd.Parameters.Add("@GameStatus", System.Data.SqlDbType.Int).Value = GameStatus;
                 DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
             }
-     
+
             RedisCache.CompanyGameCode.UpdateCompanyGameCode(GameBrand, GameCode);
 
             return insertCount;
         }
 
-        public static System.Data.DataTable GetCompanyGameCode(string GameCode)
-        {
+        public static System.Data.DataTable GetCompanyGameCode(string GameCode) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -240,7 +232,7 @@ public static class EWinWebDB {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int DeleteCount = 0;
-  
+
             SS = " DELETE FROM CompanyGameCode WHERE GameCode=@GameCode ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
@@ -252,11 +244,9 @@ public static class EWinWebDB {
         }
     }
 
-    public static class CompanyCategoryGameCode
-    {
+    public static class CompanyCategoryGameCode {
 
-        public static int InsertCompanyCategoryGameCode(int forCompanyCategoryID, string GameCode,int SortIndex)
-        {
+        public static int InsertCompanyCategoryGameCode(int forCompanyCategoryID, string GameCode, int SortIndex) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int insertCount = 0;
@@ -269,10 +259,9 @@ public static class EWinWebDB {
             DBCmd.CommandType = System.Data.CommandType.Text;
             DBCmd.Parameters.Add("@forCompanyCategoryID", System.Data.SqlDbType.Int).Value = forCompanyCategoryID;
             DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
-        
+
             searchCount = int.Parse(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd).ToString());
-            if (searchCount == 0)
-            {
+            if (searchCount == 0) {
                 SS = "INSERT INTO CompanyCategoryGameCode (forCompanyCategoryID,GameCode,SortIndex) " +
             "                VALUES (@forCompanyCategoryID,@GameCode,@SortIndex) ";
                 DBCmd = new System.Data.SqlClient.SqlCommand();
@@ -282,8 +271,7 @@ public static class EWinWebDB {
                 DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
                 DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
                 insertCount = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
-            }
-            else {
+            } else {
                 SS = "UPDATE CompanyCategoryGameCode WITH (ROWLOCK) SET SortIndex=@SortIndex " +
                      " WHERE forCompanyCategoryID=@forCompanyCategoryID And GameCode=@GameCode ";
                 DBCmd = new System.Data.SqlClient.SqlCommand();
@@ -298,8 +286,7 @@ public static class EWinWebDB {
             return insertCount;
         }
 
-        public static int DeleteCompanyCategoryGameCodeByCategoryID(int CompanyCategoryID)
-        {
+        public static int DeleteCompanyCategoryGameCodeByCategoryID(int CompanyCategoryID) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int DeleteCount = 0;
@@ -315,8 +302,7 @@ public static class EWinWebDB {
             return DeleteCount;
         }
 
-        public static int DeleteCompanyCategoryGameCodeByGameCode(string GameCode)
-        {
+        public static int DeleteCompanyCategoryGameCodeByGameCode(string GameCode) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int DeleteCount = 0;
@@ -332,16 +318,15 @@ public static class EWinWebDB {
             return DeleteCount;
         }
 
-        public static int DeleteCompanyCategoryGameCodeByGameCodeByCategoryType0(string GameCode)
-        {
+        public static int DeleteCompanyCategoryGameCodeByGameCodeByCategoryType0(string GameCode) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int DeleteCount = 0;
 
-            SS = " DELETE CCGC"+
-                 " FROM CompanyCategoryGameCode CCGC"+
-                 " JOIN CompanyCategory CC"+
-                 " ON CCGC.forCompanyCategoryID = CC.CompanyCategoryID"+
+            SS = " DELETE CCGC" +
+                 " FROM CompanyCategoryGameCode CCGC" +
+                 " JOIN CompanyCategory CC" +
+                 " ON CCGC.forCompanyCategoryID = CC.CompanyCategoryID" +
                  " WHERE GameCode = @GameCode AND CC.CategoryType = 0";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
@@ -428,7 +413,7 @@ public static class EWinWebDB {
 
     public static class UserAccountEventSummary {
         //public static int UpdateUserAccountEventSummary(string LoginAccount, string ActivityName, int Type, decimal ThresholdValue, decimal BonusValue) {
-            public static int UpdateUserAccountEventSummary(string LoginAccount, string ActivityName, string JoinActivityCycle, int Type, decimal ThresholdValue, decimal BonusValue) {
+        public static int UpdateUserAccountEventSummary(string LoginAccount, string ActivityName, string JoinActivityCycle, int Type, decimal ThresholdValue, decimal BonusValue) {
             //Type: 0=Collect/1=Join
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -750,78 +735,6 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
             DBCmd.Parameters.Add("@PaymentType", System.Data.SqlDbType.Int).Value = PaymentType;
             DBCmd.Parameters.Add("@PaymentMethodID", System.Data.SqlDbType.Int).Value = PaymentMethodID;
-            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
-
-            return DT;
-        }
-    }
-
-    public static class UserAccountTotalSummary {
-        public static int UpdateFingerPrint(string FingerPrints, string LoginAccount) {
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            int RetValue = 0;
-
-            SS = " UPDATE UserAccountTotalSummary WITH (ROWLOCK) SET FingerPrints=@FingerPrints " +
-                      " WHERE LoginAccount=@LoginAccount";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@FingerPrints", System.Data.SqlDbType.VarChar).Value = FingerPrints;
-            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
-            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
-
-            return RetValue;
-        }
-
-        public static int InsertUserAccountTotalSummary(string FingerPrints, string LoginAccount) {
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            int RetValue = 0;
-
-            SS = " INSERT INTO UserAccountTotalSummary (LoginAccount, FingerPrints) " +
-                      " VALUES (@LoginAccount, @FingerPrints) ";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@FingerPrints", System.Data.SqlDbType.VarChar).Value = FingerPrints;
-            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
-            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
-
-            return RetValue;
-        }
-
-        public static System.Data.DataTable GetUserAccountTotalSummary() {
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            System.Data.DataTable DT;
-
-            SS = " SELECT * " +
-                     " FROM UserAccountTotalSummary WITH (NOLOCK) ";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
-
-            return DT;
-        }
-
-        public static System.Data.DataTable GetUserAccountNeedCheckPromotion(string StartDate, string EndDate) {
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            System.Data.DataTable DT;
-
-            SS = " SELECT * " +
-                     " FROM   UserAccountTotalSummary WITH (nolock) " +
-                     " WHERE  LoginAccount IN(SELECT DISTINCT LoginAccount " +
-                     "                                                  FROM   UserAccountSummary " +
-                     "                                                  WHERE  SummaryDate >= @StartDate " +
-                     "                                                         AND SummaryDate < @EndDate)  ";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(StartDate);
-            DBCmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(EndDate).AddDays(1);
             DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
 
             return DT;
@@ -1178,14 +1091,14 @@ public static class EWinWebDB {
         }
     }
 
-    public static class UserAccountLevel {
+    public static class UserAccount {
 
         public static int UpdateUserAccountLevel(int UserLevelIndex, string LoginAccount, string UserLevelUpdateDate) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int RetValue = 0;
 
-            SS = " UPDATE UserAccountLevel SET UserLevelIndex=@UserLevelIndex,UserLevelUpdateDate=@UserLevelUpdateDate " +
+            SS = " UPDATE UserAccountTable SET UserLevelIndex=@UserLevelIndex,UserLevelUpdateDate=@UserLevelUpdateDate " +
                       " WHERE LoginAccount=@LoginAccount";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
@@ -1198,22 +1111,93 @@ public static class EWinWebDB {
             return RetValue;
         }
 
-        public static int InsertUserAccountLevel(int UserLevelIndex, string LoginAccount, string UserLevelUpdateDate) {
+        public static int InsertUserAccountLevel(int UserLevelIndex, string LoginAccount, string UserLevelUpdateDate, string Birthday) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int RetValue = 0;
 
-            SS = " INSERT INTO UserAccountLevel (UserLevelIndex, LoginAccount, UserLevelUpdateDate) " +
-                                  " VALUES (@UserLevelIndex, @LoginAccount, @UserLevelUpdateDate) ";
+            SS = " INSERT INTO UserAccountTable (UserLevelIndex, LoginAccount, UserLevelUpdateDate, Birthday) " +
+                                  " VALUES (@UserLevelIndex, @LoginAccount, @UserLevelUpdateDate, @Birthday) ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
             DBCmd.Parameters.Add("@UserLevelIndex", System.Data.SqlDbType.Int).Value = UserLevelIndex;
             DBCmd.Parameters.Add("@UserLevelUpdateDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(UserLevelUpdateDate);
             DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("Birthday", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(Birthday);
             RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
 
             return RetValue;
+        }
+
+        public static int UpdateFingerPrint(string FingerPrints, string LoginAccount) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " UPDATE UserAccountTable WITH (ROWLOCK) SET FingerPrints=@FingerPrints " +
+                      " WHERE LoginAccount=@LoginAccount";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@FingerPrints", System.Data.SqlDbType.VarChar).Value = FingerPrints;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
+
+        public static int InsertUserAccountTotalSummary(string FingerPrints, string LoginAccount) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " INSERT INTO UserAccountTable (LoginAccount, FingerPrints) " +
+                      " VALUES (@LoginAccount, @FingerPrints) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@FingerPrints", System.Data.SqlDbType.VarChar).Value = FingerPrints;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
+
+        public static System.Data.DataTable GetUserAccount() {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT * " +
+                     " FROM UserAccountTable WITH (NOLOCK) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
+        public static System.Data.DataTable GetUserAccountNeedCheckPromotion(string StartDate, string EndDate) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT * " +
+                     " FROM   UserAccountTable WITH (nolock) " +
+                     " WHERE  LoginAccount IN(SELECT DISTINCT LoginAccount " +
+                     "                                                  FROM   UserAccountSummary " +
+                     "                                                  WHERE  SummaryDate >= @StartDate " +
+                     "                                                         AND SummaryDate < @EndDate)  ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(StartDate);
+            DBCmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(EndDate).AddDays(1);
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
         }
     }
 }

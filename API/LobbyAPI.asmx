@@ -419,12 +419,18 @@ public class LobbyAPI : System.Web.Services.WebService {
         System.Data.DataTable DT = null;
         string ParentLoginAccount = string.Empty;
         string CollectAreaType;
+        string Birthday = DateTime.Now.ToString("yyyy/MM/dd");
 
         R = lobbyAPI.CreateAccount(GetToken(), GUID, LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS);
 
         if (R.Result == EWin.Lobby.enumResult.OK) {
             //建立會員等級資料
-            EWinWebDB.UserAccountLevel.InsertUserAccountLevel(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+            foreach (EWin.Lobby.PropertySet EachPS in PS) {
+                if (EachPS.Name.ToUpper() == "Birthday".ToUpper()) {
+                    Birthday = EachPS.Value;
+                }
+            }
+            EWinWebDB.UserAccount.InsertUserAccountLevel(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), Birthday);
 
             var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
 
@@ -456,7 +462,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     ParentLoginAccount = Parent.ParentLoginAccount;
                 }
 
-                DT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(ParentLoginAccount);
+                DT = RedisCache.UserAccount.GetUserAccountByLoginAccount(ParentLoginAccount);
 
                 if (DT != null) {
                     if (DT.Rows.Count > 0) {
@@ -1996,7 +2002,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
 
-            DT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(SI.LoginAccount);
+            DT = RedisCache.UserAccount.GetUserAccountByLoginAccount(SI.LoginAccount);
 
             if (DT != null && DT.Rows.Count > 0) {
                 for (int i = 0; i < DT.Rows.Count; i++) {
@@ -2063,7 +2069,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     VIPSettingDetail = Newtonsoft.Json.Linq.JArray.Parse(VIPSetting["VIPSetting"].ToString());
                     KeepLevelDays = (int)VIPSetting["KeepLevelDays"];
 
-                    UserLevDT = RedisCache.UserAccountLevel.GetUserAccountLevelByLoginAccount(SI.LoginAccount);
+                    UserLevDT = RedisCache.UserAccount.GetUserAccountByLoginAccount(SI.LoginAccount);
                     if (UserLevDT != null) {
                         if (UserLevDT.Rows.Count > 0) {
                             UserLevelIndex = (int)UserLevDT.Rows[0]["UserLevelIndex"];

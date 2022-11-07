@@ -38,6 +38,64 @@
       "InfoMethodName": "RegisterBounsToParent"
     }
   ],
+  "VIP": [
+    {
+      "Name": "VIPLev3",
+      "Path": "VIPGift/VIPLev3.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev4",
+      "Path": "VIPGift/VIPLev4.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev5",
+      "Path": "VIPGift/VIPLev5.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev6",
+      "Path": "VIPGift/VIPLev6.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev7",
+      "Path": "VIPGift/VIPLev7.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev8",
+      "Path": "VIPGift/VIPLev8.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev9",
+      "Path": "VIPGift/VIPLev9.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev10",
+      "Path": "VIPGift/VIPLev10.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    }
+  ],
+  "VIPMonthGift": [
+    {
+      "Name": "VIPMonthGift",
+      "Path": "VIPGift/VIPMonthGift.json",
+      "MethodName": "MonthGift",
+      "InfoMethodName": "MonthGift"
+    }
+  ],
   "Keep": [
     {
       "Name": "RegisterBouns",
@@ -72,6 +130,60 @@
     {
       "Name": "BS001",
       "Path": "Common/BS001.json"
+    },
+    {
+      "Name": "VIPLev3",
+      "Path": "VIPGift/VIPLev3.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev4",
+      "Path": "VIPGift/VIPLev4.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev5",
+      "Path": "VIPGift/VIPLev5.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev6",
+      "Path": "VIPGift/VIPLev6.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev7",
+      "Path": "VIPGift/VIPLev7.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev8",
+      "Path": "VIPGift/VIPLev8.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev9",
+      "Path": "VIPGift/VIPLev9.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPLev10",
+      "Path": "VIPGift/VIPLev10.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
+    },
+    {
+      "Name": "VIPMonthGift",
+      "Path": "VIPGift/VIPMonthGift.json",
+      "MethodName": "UpgradeBonus",
+      "InfoMethodName": "UpgradeBonus"
     }
   ],
   "All": [
@@ -102,6 +214,51 @@
     },
     {
       "Name": "BS001",
+      "State": 0,
+      "PageShowState": 1
+    },
+    {
+      "Name": "VIPLev3",
+      "State": 0,
+      "PageShowState": 1
+    },
+    {
+      "Name": "VIPLev4",
+      "State": 0,
+      "PageShowState": 1
+    },
+    {
+      "Name": "VIPLev5",
+      "State": 0,
+      "PageShowState": 1
+    },
+    {
+      "Name": "VIPLev6",
+      "State": 0,
+      "PageShowState": 1
+    },
+    {
+      "Name": "VIPLev7",
+      "State": 0,
+      "PageShowState": 1
+    },
+    {
+      "Name": "VIPLev8",
+      "State": 0,
+      "PageShowState": 1
+    },
+    {
+      "Name": "VIPLev9",
+      "State": 0,
+      "PageShowState": 1
+    },
+    {
+      "Name": "VIPLev10",
+      "State": 0,
+      "PageShowState": 1
+    },
+    {
+      "Name": "VIPMonthGift",
       "State": 0,
       "PageShowState": 1
     }
