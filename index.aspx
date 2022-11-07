@@ -1674,12 +1674,13 @@
 
             if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
                 gameLogoutPram.GameCode = gameCode;
+                $('#GameMask').show();
                 gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
                 CloseWindowOpenGamePage(gameWindow);
             } else {
                 if (EWinWebInfo.DeviceType == 1) {
+                    $('#GameMask').show();
                     gameLogoutPram.GameCode = gameCode;
-
                     gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
                     CloseWindowOpenGamePage(gameWindow);
 
@@ -1732,6 +1733,7 @@
     }
 
     function game_userlogout() {
+        $('#GameMask').hide();
         if (gameLogoutPram.GameCode != "") {
             var guid = Math.uuid();
             lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
@@ -1801,6 +1803,7 @@
             if (e.closed) {
                 clearInterval(winLoop);
                 game_userlogout();
+                $('#popupMoblieGameInfo').modal('hide');
             } else {
 
             }
@@ -3194,9 +3197,36 @@
     }
     //#endregion
 
+    function closeGameMask() {
+        showMessage(mlp.getLanguageKey(""), mlp.getLanguageKey("是否關閉遊戲"), function () {
+            gameWindow.close();
+            game_userlogout();
+            $('#popupMoblieGameInfo').modal('hide');
+        }, function () {
+
+        });
+    }
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
+     <div onclick="closeGameMask()" id="GameMask" class="" style="display: none;  position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 9999;
+            text-align: center;
+            opacity: 0.5;
+            background-color: #2fb4c9;">
+
+        <div class="loader-backdrop is-show"></div>
+    </div>
+
+
     <div class="loader-container" style="display: block;">
         <div class="loader-box">
             <div class="loader-spinner">
