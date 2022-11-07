@@ -112,14 +112,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-    <title>Lucky Fanta</title>
-    <%--<title>Maharaja，The most popular online casino amusement.</title>--%>
-    <%--<meta name='keywords' content="Casino、Slot、Amusement、Game" />
-    <meta name='description' content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />--%>
-    <%--<meta property="og:site_name" content="Maharaja" />--%>
-    <%--<meta property="og:title" content="The most popular online casino amusement." />
-    <meta property="og:Keyword" content="Casino、Slot、Amusement、Game" />
-    <meta property="og:description" content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />--%>
+    <title>Lucky Fanta - Most popular online casino</title>
+    <meta name='keywords' content="Casino、Slot、Amusement、Game、Auto Fast Deposits and Withdrawals" />
+    <meta name='description' content="Partners with a wide variety of well-known game brands, we provide fast deposit and withdrawal options, so you can play and have fun whenever you want!" />
+    <meta property="og:site_name" content="Lucky Fanta" />
+    <meta property="og:title" content="Most popular online casino - Lucky Fanta" />
+    <meta property="og:Keyword" content="Auto Fast Deposits and Withdrawals" />
+    <meta property="og:description" content="Partners with a wide variety of well-known game brands, we provide fast deposit and withdrawal options, so you can play and have fun whenever you want!" />
 
     <%--<meta property="og:url" content="https://casino-maharaja.com/" />--%>
     <!--英文圖片-->
