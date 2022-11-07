@@ -1749,3 +1749,43 @@ $gameRanking-swiper-slide-width-over-xxl: $swiper-slide-width-over-xxl         *
         padding-right: 10px;
     }
 }
+
+// 跑馬燈 =================
+.marquee {
+    margin: 5px 0;
+    .marquee_bock {
+        max-width: 1440px;
+        margin: auto;
+        white-space: nowrap;
+        position: relative;
+        overflow: hidden;
+        .marquee_title {
+            display: inline-block;
+            text-align: center;
+            padding: 0 5px;
+            vertical-align: top;
+            color: #a18b53;
+            position: relative;
+        }
+    }
+    .marquee-content {
+        display: inline-block;
+        width: 100%;
+        min-height: 20px;
+        overflow: hidden;
+        vertical-align: top;
+        white-space: nowrap;
+        box-sizing: border-box;
+        font-size: 12px;
+        padding: 1px 0;
+        .marquee-item {
+            padding: 0 2%;
+        }
+        a {
+            width: 100%;
+            position: relative;
+            color: #000;
+            text-decoration: none;
+        }
+    }
+}

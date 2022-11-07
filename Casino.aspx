@@ -1447,6 +1447,22 @@
                 </div>
             </div>
         </div>
+
+        <!-- 跑馬燈 -->
+        <%-- <div class="marquee">
+            <div class="marquee_bock">
+                <div class="marquee_title">
+                    <h6>Announcement :</h6>
+                </div>
+                <marquee class="marquee-content" width="850" height="auto" direction="left" align="middle" scrollamount="3" scrolldelay="100" behavior="scroll" hover="true">
+                    <a class="marquee-item" data-remote="true" href="#">跑馬燈1</a>
+                    <a class="marquee-item" data-remote="true" href="#">跑馬燈2</a>
+                    <a class="marquee-item" data-remote="true" href="#">跑馬燈3</a>
+                    <a class="marquee-item" data-remote="true" href="#">跑馬燈4</a>
+                </marquee>
+            </div>
+        </div>--%>
+
         <!-- 各分類-單一遊戲推薦區 -->
          <%--    <section class="section-category-dailypush" style="display:none;">
             <div class="container">                
