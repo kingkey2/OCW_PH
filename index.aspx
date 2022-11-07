@@ -688,40 +688,6 @@
         }
     }
 
-    function showMessageOK2(title, message, cbOK) {
-        debugger;
-        if ($("#alertMsg2").attr("aria-hidden") == 'true') {
-            var divMessageBox = document.getElementById("alertMsg2");
-            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertMsg_Close");
-            var divMessageBoxOKButton = divMessageBox.querySelector(".alertMsg_OK");
-            var divMessageBoxContent = divMessageBox.querySelector(".alertMsg_Text");
-
-            if (MessageModal == null) {
-                MessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
-            }
-
-            if (divMessageBox != null) {
-                MessageModal.show();
-
-                if (divMessageBoxCloseButton != null) {
-                    divMessageBoxCloseButton.classList.add("is-hide");
-                }
-
-                if (divMessageBoxOKButton != null) {
-
-                    divMessageBoxOKButton.onclick = function () {
-                        MessageModal.hide();
-
-                        if (cbOK != null)
-                            cbOK();
-                    }
-                }
-
-                divMessageBoxContent.innerHTML = message;
-            }
-        }
-    }
-
     function showMessageOK(title, message, cbOK) {
         if ($("#alertMsg").attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("alertMsg");
@@ -941,8 +907,8 @@
         popupMoblieGameInfo.find('.GameName').text(GameLangName);
         $('.headerGameName').text(GameLangName);
 
-        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
-        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
+        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName + "')");
+        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName + "')");
         GCB.GetFavo(function (data) {
             favoriteGames.push(data);
         }, function (data) {
@@ -1624,6 +1590,7 @@
     }
 
     function openGame(gameBrand, gameName, gameLangName) {
+
         var alertSearch = $("#alertSearch");
         var alertSearchCloseButton = $("#alertSearchCloseButton");
         var alertFavoPlayed = $("#alertFavoPlayed");
@@ -1673,12 +1640,13 @@
 
             if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
                 gameLogoutPram.GameCode = gameCode;
+                $('#GameMask').show();
                 gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
                 CloseWindowOpenGamePage(gameWindow);
             } else {
                 if (EWinWebInfo.DeviceType == 1) {
+                    $('#GameMask').show();
                     gameLogoutPram.GameCode = gameCode;
-
                     gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
                     CloseWindowOpenGamePage(gameWindow);
 
@@ -1731,6 +1699,7 @@
     }
 
     function game_userlogout() {
+        $('#GameMask').hide();
         if (gameLogoutPram.GameCode != "") {
             var guid = Math.uuid();
             lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
@@ -1800,6 +1769,10 @@
             if (e.closed) {
                 clearInterval(winLoop);
                 game_userlogout();
+                $('#popupMoblieGameInfo').modal('hide');
+                if (MessageModal && MessageModal!=null) {
+                    MessageModal.hide();
+                }
             } else {
 
             }
@@ -2449,7 +2422,7 @@
 
 
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
-                                            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("即將開啟") + ":" + openGameBeforeLogin.GameName, function () {
+                                            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("即將開啟") + ":" + openGameBeforeLogin.GameLangName, function () {
                                                 openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
                                             });
                                         } else {
@@ -3193,14 +3166,44 @@
     }
     //#endregion
 
+    function closeGameMask() {
+        showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("確認關閉遊戲?"), function () {
+            gameWindow.close();
+            game_userlogout();
+            $('#popupMoblieGameInfo').modal('hide');
+        });
+    }
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
-    <div class="loader-container" style="display: block;">
+     <div onclick="closeGameMask()" id="GameMask" class="" style="display: none;  position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 9999;
+            text-align: center;
+            opacity: 0.5;
+            background-color: #2fb4c9;">
+
+        <div class="loader-backdrop is-show"></div>
+    </div>
+
+    <div class="loader-container" style="display:block;">
         <div class="loader-box">
             <div class="loader-spinner">
                 <div class="sk-fading-circle">
-                    <div class="loader-logo"></div>
+                    <div class="loader-logo" style="width: 80%;
+                    height: 80%;
+                    background: url(../images/icon/ico-dog-w.svg) center center no-repeat;
+                    background-size: calc(100% - 50px);
+                    -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both;
+                    animation: loader-logo-anim 1.2s infinite ease-in-out both;
+                    margin: 10%;" ></div>
                     <div class="sk-circle1 sk-circle"></div>
                     <div class="sk-circle2 sk-circle"></div>
                     <div class="sk-circle3 sk-circle"></div>
