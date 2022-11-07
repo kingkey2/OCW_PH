@@ -1,0 +1,11 @@
+{
+  "Name": "VIPLev8",
+  "State": 0,
+  "StartDate": "2022/02/20 00:00:00",
+  "EndDate": "2099/05/31 00:00:00",
+  "BonusValue": 12000,
+  "ThresholdValue": 60000,
+  "Title": "Bonus Upgrade",
+  "SubTitle": "Bonus Upgrade",
+  "CollectAreaType": 2
+}

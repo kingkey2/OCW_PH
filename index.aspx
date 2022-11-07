@@ -206,11 +206,6 @@
     var SearchControll;
     var PCode = "<%=PCode%>";
     var PageType = "<%=PageType%>";
-    var gameLogoutPram = {
-        GameCode: "",
-        LoginAccount: "",
-        CompanyCode: ""
-    }
     //#region TOP API
     function API_GetGCB() {
         return GCB;
@@ -307,6 +302,11 @@
     function API_SetLogin(_SID, cb) {
         var sourceLogined = EWinWebInfo.UserLogined;
         checkUserLogin(_SID, function (logined) {
+            if (!isFirstLogined) {
+                isFirstLogined=true;
+                game_userlogout();
+            }
+
             updateBaseInfo();
 
             if (cb) {
@@ -688,40 +688,6 @@
         }
     }
 
-    function showMessageOK2(title, message, cbOK) {
-        debugger;
-        if ($("#alertMsg2").attr("aria-hidden") == 'true') {
-            var divMessageBox = document.getElementById("alertMsg2");
-            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertMsg_Close");
-            var divMessageBoxOKButton = divMessageBox.querySelector(".alertMsg_OK");
-            var divMessageBoxContent = divMessageBox.querySelector(".alertMsg_Text");
-
-            if (MessageModal == null) {
-                MessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
-            }
-
-            if (divMessageBox != null) {
-                MessageModal.show();
-
-                if (divMessageBoxCloseButton != null) {
-                    divMessageBoxCloseButton.classList.add("is-hide");
-                }
-
-                if (divMessageBoxOKButton != null) {
-
-                    divMessageBoxOKButton.onclick = function () {
-                        MessageModal.hide();
-
-                        if (cbOK != null)
-                            cbOK();
-                    }
-                }
-
-                divMessageBoxContent.innerHTML = message;
-            }
-        }
-    }
-
     function showMessageOK(title, message, cbOK) {
         if ($("#alertMsg").attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("alertMsg");
@@ -941,8 +907,8 @@
         popupMoblieGameInfo.find('.GameName').text(GameLangName);
         $('.headerGameName').text(GameLangName);
 
-        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
-        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
+        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName + "')");
+        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName + "')");
         GCB.GetFavo(function (data) {
             favoriteGames.push(data);
         }, function (data) {
@@ -1624,6 +1590,7 @@
     }
 
     function openGame(gameBrand, gameName, gameLangName) {
+
         var alertSearch = $("#alertSearch");
         var alertSearchCloseButton = $("#alertSearchCloseButton");
         var alertFavoPlayed = $("#alertFavoPlayed");
@@ -1672,13 +1639,12 @@
             $('.headerGameName').text(gameLangName);
 
             if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
-                gameLogoutPram.GameCode = gameCode;
+                $('#GameMask').show();
                 gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
                 CloseWindowOpenGamePage(gameWindow);
             } else {
                 if (EWinWebInfo.DeviceType == 1) {
-                    gameLogoutPram.GameCode = gameCode;
-
+                    $('#GameMask').show();
                     gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
                     CloseWindowOpenGamePage(gameWindow);
 
@@ -1690,7 +1656,6 @@
                         $('#GameIFramePage').removeAttr('sandbox');
                     }
 
-                    gameLogoutPram.GameCode = gameBrand + "." + gameName;
                     GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
                 }
             }
@@ -1731,7 +1696,7 @@
     }
 
     function game_userlogout() {
-        if (gameLogoutPram.GameCode != "") {
+        $('#GameMask').hide();
             var guid = Math.uuid();
             lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
                 if (success == true) {
@@ -1739,7 +1704,8 @@
                         if (o.OnlineList && o.OnlineList.length > 0) {
                             var promiseAll = [];
                             for (var i = 0; i < o.OnlineList.length; i++) {
-                                var url = EWinWebInfo.EWinUrl + "/API/GamePlatformAPI2/" + gameLogoutPram.GameCode.split(".")[0] + "/UserLogout.aspx?LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode + "&SID=" + o.Message;
+                                var gameBrand = o.OnlineList[i].GameBrand;
+                                var url = EWinWebInfo.EWinUrl + "/API/GamePlatformAPI2/" + gameBrand + "/UserLogout.aspx?LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode + "&SID=" + o.Message;
                                 var promise = new Promise((resolve, reject) => {
                                     $.get(url, function (result) {
                                         resolve();
@@ -1748,22 +1714,20 @@
 
                                 promiseAll.push(promise);
                             }
-                        }
 
-                        Promise.all(promiseAll).then(values => {
-                            checkUserLogin(EWinWebInfo.SID, function (logined) {
-                                if (logined) {
-                                    updateBaseInfo();
-                                }
+                            Promise.all(promiseAll).then(values => {
+                                checkUserLogin(EWinWebInfo.SID, function (logined) {
+                                    if (logined) {
+                                        updateBaseInfo();
+                                    }
+                                });
                             });
-                        });
+                        }
                     } else {
 
                     }
                 }
             });
-        }
-
     }
 
     function appendGameFrame() {
@@ -1800,6 +1764,10 @@
             if (e.closed) {
                 clearInterval(winLoop);
                 game_userlogout();
+                $('#popupMoblieGameInfo').modal('hide');
+                if (MessageModal && MessageModal!=null) {
+                    MessageModal.hide();
+                }
             } else {
 
             }
@@ -2449,7 +2417,7 @@
 
 
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
-                                            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("即將開啟") + ":" + openGameBeforeLogin.GameName, function () {
+                                            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("即將開啟") + ":" + openGameBeforeLogin.GameLangName, function () {
                                                 openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
                                             });
                                         } else {
@@ -2997,7 +2965,7 @@
 
                                     //GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
 
-                                    GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png`;
+                                    GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png?` + v;
                                 }
 
                                 ParentMain.append(GBLDom);
@@ -3193,14 +3161,44 @@
     }
     //#endregion
 
+    function closeGameMask() {
+        showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("確認關閉遊戲?"), function () {
+            gameWindow.close();
+            game_userlogout();
+            $('#popupMoblieGameInfo').modal('hide');
+        });
+    }
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
-    <div class="loader-container" style="display: block;">
+     <div onclick="closeGameMask()" id="GameMask" class="" style="display: none;  position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 9999;
+            text-align: center;
+            opacity: 0.5;
+            background-color: #2fb4c9;">
+
+        <div class="loader-backdrop is-show"></div>
+    </div>
+
+    <div class="loader-container" style="display:block;">
         <div class="loader-box">
             <div class="loader-spinner">
                 <div class="sk-fading-circle">
-                    <div class="loader-logo"></div>
+                    <div class="loader-logo" style="width: 80%;
+                    height: 80%;
+                    background: url(../images/icon/ico-dog-w.svg) center center no-repeat;
+                    background-size: calc(100% - 50px);
+                    -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both;
+                    animation: loader-logo-anim 1.2s infinite ease-in-out both;
+                    margin: 10%;" ></div>
                     <div class="sk-circle1 sk-circle"></div>
                     <div class="sk-circle2 sk-circle"></div>
                     <div class="sk-circle3 sk-circle"></div>

@@ -88,7 +88,7 @@
                                                 foreach (var activityData in allParentBonusAfterDepositResult.Data) {
 
                                                     if (ParentPaymentDT == null) {
-                                                        ParentPaymentDT =  RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(activityData.ParentLoginAccount);
+                                                        ParentPaymentDT =  RedisCache.UserAccount.GetUserAccountByLoginAccount(activityData.ParentLoginAccount);
                                                         if (ParentPaymentDT != null) {
                                                             if (ParentPaymentDT.Rows.Count > 0) {
                                                                 ParentDepositAmount = (decimal)ParentPaymentDT.Rows[0]["DepositAmount"];
@@ -121,7 +121,7 @@
                                                     //若該用戶為首儲需清除PHP_Bonus錢包的餘額及門檻，若PHP_Bonus錢包餘額大於等於200發給該會員200的禮物
                                                     System.Data.DataTable UserPaymentDT = null;
                                                     int UserDepositCount = 0;
-                                                    UserPaymentDT =  RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(BodyObj.LoginAccount);
+                                                    UserPaymentDT =  RedisCache.UserAccount.GetUserAccountByLoginAccount(BodyObj.LoginAccount);
                                                     if (UserPaymentDT != null) {
                                                         if (UserPaymentDT.Rows.Count > 0) {
                                                             UserDepositCount = (int)UserPaymentDT.Rows[0]["DepositCount"];
@@ -153,7 +153,7 @@
                                                     R.Result = 0;
                                                     RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
                                                     ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
-                                                    RedisCache.UserAccountTotalSummary.UpdateUserAccountTotalSummaryByLoginAccount(BodyObj.LoginAccount);
+                                                    RedisCache.UserAccount.UpdateUserAccountByLoginAccount(BodyObj.LoginAccount);
                                                     RedisCache.UserAccountSummary.UpdateUserAccountSummary(BodyObj.LoginAccount, DateTime.Now.Date);
                                                 } else {
                                                     SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
@@ -243,7 +243,7 @@
                                 R.Result = 0;
                                 RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
                                 ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
-                                RedisCache.UserAccountTotalSummary.UpdateUserAccountTotalSummaryByLoginAccount(BodyObj.LoginAccount);
+                                RedisCache.UserAccount.UpdateUserAccountByLoginAccount(BodyObj.LoginAccount);
                                 RedisCache.UserAccountSummary.UpdateUserAccountSummary(BodyObj.LoginAccount, DateTime.Now.Date);
                             } else {
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
