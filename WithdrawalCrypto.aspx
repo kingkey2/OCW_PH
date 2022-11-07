@@ -669,8 +669,6 @@
         })
     }
 
-
-
     function setEthWalletAddress(EthAddress) {
         $('#idEthAddr').text(EthAddress);
         $('#idEthAddrInput').val(EthAddress);
