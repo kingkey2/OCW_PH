@@ -756,78 +756,6 @@ public static class EWinWebDB {
         }
     }
 
-    public static class UserAccountTotalSummary {
-        public static int UpdateFingerPrint(string FingerPrints, string LoginAccount) {
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            int RetValue = 0;
-
-            SS = " UPDATE UserAccountTotalSummary WITH (ROWLOCK) SET FingerPrints=@FingerPrints " +
-                      " WHERE LoginAccount=@LoginAccount";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@FingerPrints", System.Data.SqlDbType.VarChar).Value = FingerPrints;
-            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
-            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
-
-            return RetValue;
-        }
-
-        public static int InsertUserAccountTotalSummary(string FingerPrints, string LoginAccount) {
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            int RetValue = 0;
-
-            SS = " INSERT INTO UserAccountTotalSummary (LoginAccount, FingerPrints) " +
-                      " VALUES (@LoginAccount, @FingerPrints) ";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@FingerPrints", System.Data.SqlDbType.VarChar).Value = FingerPrints;
-            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
-            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
-
-            return RetValue;
-        }
-
-        public static System.Data.DataTable GetUserAccountTotalSummary() {
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            System.Data.DataTable DT;
-
-            SS = " SELECT * " +
-                     " FROM UserAccountTotalSummary WITH (NOLOCK) ";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
-
-            return DT;
-        }
-
-        public static System.Data.DataTable GetUserAccountNeedCheckPromotion(string StartDate, string EndDate) {
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            System.Data.DataTable DT;
-
-            SS = " SELECT * " +
-                     " FROM   UserAccountTotalSummary WITH (nolock) " +
-                     " WHERE  LoginAccount IN(SELECT DISTINCT LoginAccount " +
-                     "                                                  FROM   UserAccountSummary " +
-                     "                                                  WHERE  SummaryDate >= @StartDate " +
-                     "                                                         AND SummaryDate < @EndDate)  ";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(StartDate);
-            DBCmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(EndDate).AddDays(1);
-            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
-
-            return DT;
-        }
-    }
-
     public static class BulletinBoard {
         public static System.Data.DataTable GetBulletinBoard() {
             string SS;
@@ -1178,14 +1106,14 @@ public static class EWinWebDB {
         }
     }
 
-    public static class UserAccountLevel {
+    public static class UserAccount {
 
         public static int UpdateUserAccountLevel(int UserLevelIndex, string LoginAccount, string UserLevelUpdateDate) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int RetValue = 0;
 
-            SS = " UPDATE UserAccountLevel SET UserLevelIndex=@UserLevelIndex,UserLevelUpdateDate=@UserLevelUpdateDate " +
+            SS = " UPDATE UserAccountTable SET UserLevelIndex=@UserLevelIndex,UserLevelUpdateDate=@UserLevelUpdateDate " +
                       " WHERE LoginAccount=@LoginAccount";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
@@ -1203,7 +1131,7 @@ public static class EWinWebDB {
             System.Data.SqlClient.SqlCommand DBCmd;
             int RetValue = 0;
 
-            SS = " INSERT INTO UserAccountLevel (UserLevelIndex, LoginAccount, UserLevelUpdateDate) " +
+            SS = " INSERT INTO UserAccountTable (UserLevelIndex, LoginAccount, UserLevelUpdateDate) " +
                                   " VALUES (@UserLevelIndex, @LoginAccount, @UserLevelUpdateDate) ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
@@ -1214,6 +1142,75 @@ public static class EWinWebDB {
             RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
 
             return RetValue;
+        }
+        public static int UpdateFingerPrint(string FingerPrints, string LoginAccount) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " UPDATE UserAccountTable WITH (ROWLOCK) SET FingerPrints=@FingerPrints " +
+                      " WHERE LoginAccount=@LoginAccount";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@FingerPrints", System.Data.SqlDbType.VarChar).Value = FingerPrints;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
+
+        public static int InsertUserAccountTotalSummary(string FingerPrints, string LoginAccount) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " INSERT INTO UserAccountTable (LoginAccount, FingerPrints) " +
+                      " VALUES (@LoginAccount, @FingerPrints) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@FingerPrints", System.Data.SqlDbType.VarChar).Value = FingerPrints;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
+
+        public static System.Data.DataTable GetUserAccount() {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT * " +
+                     " FROM UserAccountTable WITH (NOLOCK) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
+        public static System.Data.DataTable GetUserAccountNeedCheckPromotion(string StartDate, string EndDate) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT * " +
+                     " FROM   UserAccountTable WITH (nolock) " +
+                     " WHERE  LoginAccount IN(SELECT DISTINCT LoginAccount " +
+                     "                                                  FROM   UserAccountSummary " +
+                     "                                                  WHERE  SummaryDate >= @StartDate " +
+                     "                                                         AND SummaryDate < @EndDate)  ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(StartDate);
+            DBCmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(EndDate).AddDays(1);
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
         }
     }
 }

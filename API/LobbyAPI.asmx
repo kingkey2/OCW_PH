@@ -424,7 +424,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
         if (R.Result == EWin.Lobby.enumResult.OK) {
             //建立會員等級資料
-            EWinWebDB.UserAccountLevel.InsertUserAccountLevel(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+            EWinWebDB.UserAccount.InsertUserAccountLevel(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
 
             var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
 
@@ -456,7 +456,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     ParentLoginAccount = Parent.ParentLoginAccount;
                 }
 
-                DT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(ParentLoginAccount);
+                DT = RedisCache.UserAccount.GetUserAccountByLoginAccount(ParentLoginAccount);
 
                 if (DT != null) {
                     if (DT.Rows.Count > 0) {
@@ -1996,7 +1996,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
 
-            DT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(SI.LoginAccount);
+            DT = RedisCache.UserAccount.GetUserAccountByLoginAccount(SI.LoginAccount);
 
             if (DT != null && DT.Rows.Count > 0) {
                 for (int i = 0; i < DT.Rows.Count; i++) {
@@ -2063,7 +2063,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     VIPSettingDetail = Newtonsoft.Json.Linq.JArray.Parse(VIPSetting["VIPSetting"].ToString());
                     KeepLevelDays = (int)VIPSetting["KeepLevelDays"];
 
-                    UserLevDT = RedisCache.UserAccountLevel.GetUserAccountLevelByLoginAccount(SI.LoginAccount);
+                    UserLevDT = RedisCache.UserAccount.GetUserAccountByLoginAccount(SI.LoginAccount);
                     if (UserLevDT != null) {
                         if (UserLevDT.Rows.Count > 0) {
                             UserLevelIndex = (int)UserLevDT.Rows[0]["UserLevelIndex"];

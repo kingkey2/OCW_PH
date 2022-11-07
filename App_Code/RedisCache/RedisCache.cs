@@ -1091,55 +1091,6 @@ public static class RedisCache {
         }
     }
 
-    public static class UserAccountTotalSummary {
-        private static string XMLPath = "UserAccountTotalSummary";
-        private static int DBIndex = 0;
-
-        public static System.Data.DataTable GetUserAccountTotalSummaryByLoginAccount(string LoginAccount) {
-            string Key;
-            System.Data.DataTable DT;
-
-            Key = XMLPath + ":" + LoginAccount;
-            if (KeyExists(DBIndex, Key) == true) {
-                DT = DTReadFromRedis(DBIndex, Key);
-            } else {
-                DT = UpdateUserAccountTotalSummaryByLoginAccount(LoginAccount);
-            }
-
-            return DT;
-        }
-
-        public static System.Data.DataTable UpdateUserAccountTotalSummaryByLoginAccount(string LoginAccount) {
-            string Key;
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            System.Data.DataTable DT = null;
-
-            Key = XMLPath + ":" + LoginAccount;
-
-            SS = "SELECT * FROM UserAccountTotalSummary WITH (NOLOCK)" +
-                     " WHERE LoginAccount = @LoginAccount  ";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
-            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
-            if (DT.Rows.Count > 0) {
-
-
-                for (int I = 0; I <= 3; I++) {
-                    try {
-                        DTWriteToRedis(DBIndex, DT, Key);
-                        break;
-                    } catch (Exception ex) {
-                    }
-                }
-            }
-
-            return DT;
-        }
-    }
-
     public static class UserAccountSummary {
         private static string XMLPath = "UserAccountSummary";
         private static int DBIndex = 0;
@@ -1832,11 +1783,11 @@ public static class RedisCache {
         }
     }
 
-    public static class UserAccountLevel {
-        private static string XMLPath = "UserAccountLevel";
+    public static class UserAccount {
+        private static string XMLPath = "UserAccount";
         private static int DBIndex = 0;
 
-        public static System.Data.DataTable GetUserAccountLevelByLoginAccount(string LoginAccount) {
+        public static System.Data.DataTable GetUserAccountByLoginAccount(string LoginAccount) {
             string Key;
             System.Data.DataTable DT;
             Key = XMLPath + ":LoginAccount:" + LoginAccount;
@@ -1844,19 +1795,19 @@ public static class RedisCache {
             if (KeyExists(DBIndex, Key) == true) {
                 DT = DTReadFromRedis(DBIndex, Key);
             } else {
-                DT = UpdateUserAccountLevelByLoginAccount(LoginAccount);
+                DT = UpdateUserAccountByLoginAccount(LoginAccount);
             }
 
             return DT;
         }
 
-        public static System.Data.DataTable UpdateUserAccountLevelByLoginAccount(string LoginAccount) {
+        public static System.Data.DataTable UpdateUserAccountByLoginAccount(string LoginAccount) {
             string Key;
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT = null;
 
-            SS = "SELECT * FROM UserAccountLevel WITH (NOLOCK)" +
+            SS = "SELECT * FROM UserAccountTable WITH (NOLOCK)" +
                  " WHERE LoginAccount=@LoginAccount ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;

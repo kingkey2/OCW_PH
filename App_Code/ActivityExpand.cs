@@ -483,7 +483,7 @@ public static class ActivityExpand {
 
             ActivityDetail = GetActivityDetail(DetailPath);
 
-            DT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(LoginAccount);
+            DT = RedisCache.UserAccount.GetUserAccountByLoginAccount(LoginAccount);
             if (DT != null && DT.Rows.Count > 0) {
                 DepositCount = (int)DT.Rows[0]["DepositCount"];
             }
@@ -636,7 +636,7 @@ public static class ActivityExpand {
 
             ActivityDetail = GetActivityDetail(DetailPath);
 
-            DT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(LoginAccount);
+            DT = RedisCache.UserAccount.GetUserAccountByLoginAccount(LoginAccount);
             if (DT != null && DT.Rows.Count > 0) {
                 DepositCount = (int)DT.Rows[0]["DepositCount"];
             }
