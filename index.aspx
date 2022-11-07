@@ -2975,7 +2975,7 @@
 
                                     //GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
 
-                                    GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png?a=1`;
+                                    GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png?` + v;
                                 }
 
                                 ParentMain.append(GBLDom);
