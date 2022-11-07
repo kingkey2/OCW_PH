@@ -1209,31 +1209,6 @@
 
                                 <!-- 當點擊 資料更新 Button時 text input可編輯的項目 會移除 readonly-->
                                 <div class="dataFieldset-content row no-gutters">
-                                    <div class="data-item name">
-                                        <div class="data-item-title">
-                                            <label class="title">
-                                                <i class="icon icon-mask icon-people"></i>
-                                                <span class="title-name language_replace">暱稱</span>
-                                            </label>
-                                        </div>
-                                        <div class="data-item-content">
-                                            <input type="text" class="custom-input-edit" id="RealName" value="" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="data-item birth">
-                                        <div class="data-item-title">
-                                            <label class="title">
-                                                <i class="icon icon-mask icon-gift"></i>
-                                                <span class="title-name language_replace">出生年月日</span>
-                                            </label>
-                                        </div>
-                                        <div class="data-item-content">
-                                            <input type="number" min="1920" max="2300" class="custom-input-edit year" id="idBornYear" value="" readonly> / 
-                                            <input type="number" min="1" max="12" class="custom-input-edit month" id="idBornMonth" value="" readonly> / 
-                                            <input type="number" min="1" max="31"  class="custom-input-edit day" id="idBornDay" value="" readonly>
-                                        </div>
-                                    </div>
-                                    
                                     <%--<div class="data-item password" style="display: none;">
                                         <div class="data-item-title">
                                             <label class="title">
@@ -1244,41 +1219,7 @@
                                         <div class="data-item-content">
                                             <input type="password" class="custom-input-edit" id="idOldPassword" value="">
                                         </div>
-                                    </div>--%>                                   
-                                    <div class="data-item password">
-                                        <div class="data-item-title">
-                                            <label class="title">
-                                                <i class="icon icon-mask icon-lock-closed"></i>
-                                                <span class="title-name language_replace">密碼</span>
-                                               <button type="button" class="btn btn-edit btn-transparent btn-round btn-outline-main" onclick="changePassword()"><i class="icon icon-mask icon-pencile"></i></button>
-                                            </label>
-                                        </div>
-                                        <div class="data-item-content">
-                                            <div class="password-fake">
-                                                <p class="password">**************</p>
-                                            </div>
-                                            <div class="password-real">
-                                                <div id="idOldPasswordGroup" class="data-item-form-group is-hide">
-                                                    <input type="password" class="form-control" id="idOldPassword" value="" language_replace="placeholder" placeholder="請輸入舊密碼" >
-                                                    <%--
-                                                    <label for="" class="form-label"><span class="language_replace">請輸入舊密碼</span></label>
-                                                    --%>
-                                                    <span id="idOldPasswordSuccessIcon" class="label success is-hide"><i class="icon icon-mask icon-check"></i></span>
-                                                    <span id="idOldPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
-                                                    <p class="notice is-hide" id="OldPasswordErrorMessage"></p>
-                                                </div>
-                                                <div id="idNewPasswordGroup" class="data-item-form-group is-hide">
-                                                    <input type="password" class="form-control" id="idNewPassword" value="" language_replace="placeholder" placeholder="請輸入新密碼">
-                                                    <%--
-                                                    <label for="" class="form-label"><span class="language_replace">請輸入新密碼</span></label>
-                                                    --%>
-                                                    <span id="idNewPasswordSuccessIcon" class="label success is-hide"><i class="icon icon-mask icon-check"></i></span>
-                                                    <span id="idNewPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
-                                                    <p class="notice is-hide" id="NewPasswordErrorMessage"></p>                                                 
-                                                </div>                                                
-                                            </div>
-                                        </div>                                        
-                                    </div>       
+                                    </div>--%>                                       
                                    <%-- <div class="data-item password">
                                         <div class="data-item-title">
                                             <label class="title">
@@ -1294,6 +1235,65 @@
                                         </div>                                        
                                     </div>--%>
                                     <div class="data-item-group">
+                                        <div class="data-item name">
+                                            <div class="data-item-title">
+                                                <label class="title">
+                                                    <i class="icon icon-mask icon-people"></i>
+                                                    <span class="title-name language_replace">暱稱</span>
+                                                </label>
+                                            </div>
+                                            <div class="data-item-content">
+                                                <input type="text" class="custom-input-edit" id="RealName" value="" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="data-item birth">
+                                            <div class="data-item-title">
+                                                <label class="title">
+                                                    <i class="icon icon-mask icon-gift"></i>
+                                                    <span class="title-name language_replace">出生年月日</span>
+                                                </label>
+                                            </div>
+                                            <div class="data-item-content">
+                                                <input type="number" min="1920" max="2300" class="custom-input-edit year" id="idBornYear" value="" readonly> / 
+                                                <input type="number" min="1" max="12" class="custom-input-edit month" id="idBornMonth" value="" readonly> / 
+                                                <input type="number" min="1" max="31"  class="custom-input-edit day" id="idBornDay" value="" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="data-item password">
+                                            <div class="data-item-title">
+                                                <label class="title">
+                                                    <i class="icon icon-mask icon-lock-closed"></i>
+                                                    <span class="title-name language_replace">密碼</span>
+                                                   <button type="button" class="btn btn-edit btn-transparent btn-round btn-outline-main" onclick="changePassword()"><i class="icon icon-mask icon-pencile"></i></button>
+                                                </label>
+                                            </div>
+                                            <div class="data-item-content">
+                                                <div class="password-fake">
+                                                    <p class="password">**************</p>
+                                                </div>
+                                                <div class="password-real">
+                                                    <div id="idOldPasswordGroup" class="data-item-form-group is-hide">
+                                                        <input type="password" class="form-control" id="idOldPassword" value="" language_replace="placeholder" placeholder="請輸入舊密碼" >
+                                                        <%--
+                                                        <label for="" class="form-label"><span class="language_replace">請輸入舊密碼</span></label>
+                                                        --%>
+                                                        <span id="idOldPasswordSuccessIcon" class="label success is-hide"><i class="icon icon-mask icon-check"></i></span>
+                                                        <span id="idOldPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
+                                                        <p class="notice is-hide" id="OldPasswordErrorMessage"></p>
+                                                    </div>
+                                                    <div id="idNewPasswordGroup" class="data-item-form-group is-hide">
+                                                        <input type="password" class="form-control" id="idNewPassword" value="" language_replace="placeholder" placeholder="請輸入新密碼">
+                                                        <%--
+                                                        <label for="" class="form-label"><span class="language_replace">請輸入新密碼</span></label>
+                                                        --%>
+                                                        <span id="idNewPasswordSuccessIcon" class="label success is-hide"><i class="icon icon-mask icon-check"></i></span>
+                                                        <span id="idNewPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
+                                                        <p class="notice is-hide" id="NewPasswordErrorMessage"></p>                                                 
+                                                    </div>                                                
+                                                </div>
+                                            </div>                                        
+                                        </div>  
+                                        <%--
                                         <div class="data-item verify">
                                             <div class="data-item-title">
                                                 <label class="title mb-3">
@@ -1323,7 +1323,7 @@
                                                 </div>
                                             </div>                                        
                                         </div>
-                                      
+                                        --%>
                                         <div class="data-item mobile">
                                             <div class="data-item-title">
                                                 <label class="title">
