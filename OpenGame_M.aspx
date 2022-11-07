@@ -88,7 +88,8 @@
                     if (o.OnlineList && o.OnlineList.length > 0) {
                         var promiseAll=[];
                         for (var i = 0; i < o.OnlineList.length; i++) {
-                            var url = EWinUrl + "/API/GamePlatformAPI2/" + GameCode.split(".")[0] + "/UserLogout.aspx?LoginAccount=" + LoginAccount + "&CompanyCode=" + CompanyCode + "&SID=" + o.Message;
+                            var gameBrand = o.OnlineList[i].GameBrand;
+                            var url = EWinUrl + "/API/GamePlatformAPI2/" + gameBrand + "/UserLogout.aspx?LoginAccount=" + LoginAccount + "&CompanyCode=" + CompanyCode + "&SID=" + o.Message;
                             var promise = new Promise((resolve, reject) => {
                                 $.get(url, function (result) {
                                     console.log(result);

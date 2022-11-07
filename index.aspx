@@ -206,11 +206,6 @@
     var SearchControll;
     var PCode = "<%=PCode%>";
     var PageType = "<%=PageType%>";
-    var gameLogoutPram = {
-        GameCode: "",
-        LoginAccount: "",
-        CompanyCode: ""
-    }
     //#region TOP API
     function API_GetGCB() {
         return GCB;
@@ -1644,14 +1639,12 @@
             $('.headerGameName').text(gameLangName);
 
             if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
-                gameLogoutPram.GameCode = gameCode;
                 $('#GameMask').show();
                 gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
                 CloseWindowOpenGamePage(gameWindow);
             } else {
                 if (EWinWebInfo.DeviceType == 1) {
                     $('#GameMask').show();
-                    gameLogoutPram.GameCode = gameCode;
                     gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
                     CloseWindowOpenGamePage(gameWindow);
 
@@ -1663,7 +1656,6 @@
                         $('#GameIFramePage').removeAttr('sandbox');
                     }
 
-                    gameLogoutPram.GameCode = gameBrand + "." + gameName;
                     GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
                 }
             }
@@ -1705,7 +1697,6 @@
 
     function game_userlogout() {
         $('#GameMask').hide();
-        if (gameLogoutPram.GameCode != "") {
             var guid = Math.uuid();
             lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
                 if (success == true) {
@@ -1713,7 +1704,8 @@
                         if (o.OnlineList && o.OnlineList.length > 0) {
                             var promiseAll = [];
                             for (var i = 0; i < o.OnlineList.length; i++) {
-                                var url = EWinWebInfo.EWinUrl + "/API/GamePlatformAPI2/" + gameLogoutPram.GameCode.split(".")[0] + "/UserLogout.aspx?LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode + "&SID=" + o.Message;
+                                var gameBrand = o.OnlineList[i].GameBrand;
+                                var url = EWinWebInfo.EWinUrl + "/API/GamePlatformAPI2/" + gameBrand + "/UserLogout.aspx?LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode + "&SID=" + o.Message;
                                 var promise = new Promise((resolve, reject) => {
                                     $.get(url, function (result) {
                                         resolve();
@@ -1736,8 +1728,6 @@
                     }
                 }
             });
-        }
-
     }
 
     function appendGameFrame() {
