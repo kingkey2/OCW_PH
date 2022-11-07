@@ -91,9 +91,11 @@
   "VIPMonthGift": [
     {
       "Name": "VIPMonthGift",
-      "Path": "VIPGift/VIPMonthGift.json",
-      "MethodName": "MonthGift",
-      "InfoMethodName": "MonthGift"
+      "Path": "VIPGift/VIPMonthGift.json"
+    },
+    {
+      "Name": "VIPBirthdayGift",
+      "Path": "VIPGift/VIPBirthdayGift.json"
     }
   ],
   "Keep": [
@@ -181,9 +183,11 @@
     },
     {
       "Name": "VIPMonthGift",
-      "Path": "VIPGift/VIPMonthGift.json",
-      "MethodName": "UpgradeBonus",
-      "InfoMethodName": "UpgradeBonus"
+      "Path": "VIPGift/VIPMonthGift.json"
+    },
+    {
+      "Name": "VIPBirthdayGift",
+      "Path": "VIPGift/VIPBirthdayGift.json"
     }
   ],
   "All": [
@@ -259,6 +263,11 @@
     },
     {
       "Name": "VIPMonthGift",
+      "State": 0,
+      "PageShowState": 1
+    },
+    {
+      "Name": "VIPBirthdayGift",
       "State": 0,
       "PageShowState": 1
     }

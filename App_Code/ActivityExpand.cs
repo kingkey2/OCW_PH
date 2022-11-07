@@ -994,60 +994,6 @@ public static class ActivityExpand {
 
             return R;
         }
-
-        public static ActivityCore.ActResult<ActivityCore.Activity> MonthGift(string DetailPath, string LoginAccount, int UserLevelIndex) {
-            ActivityCore.ActResult<ActivityCore.Activity> R = new ActivityCore.ActResult<ActivityCore.Activity>() { Result = ActivityCore.enumActResult.ERR, Data = new ActivityCore.Activity() };
-            JObject ActivityDetail;
-            string ActivityName = string.Empty;
-            bool IsUserLevelIndexSupport = false;
-            decimal BonusValue = 0;
-            decimal ThresholdValue = 0;
-
-            ActivityDetail = GetActivityDetail(DetailPath);
-
-            if (ActivityDetail != null) {
-                DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
-                DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
-
-                if ((int)ActivityDetail["State"] == 0) {
-                    if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
-
-                        foreach (var item in ActivityDetail["VIP"]) {
-                            if ((int)item["UserLevelIndex"] == UserLevelIndex) {
-                                IsUserLevelIndexSupport = true;
-                                BonusValue = (decimal)item["BonusValue"];
-                                ThresholdValue = (decimal)item["ThresholdValue"];
-                                break;
-                            }
-                        }
-
-                        if (IsUserLevelIndexSupport) {
-                            ActivityName = (string)ActivityDetail["Name"];
-
-                            R.Data.ActivityName = ActivityDetail["Name"].ToString();
-                            R.Data.Title = ActivityDetail["Title"].ToString();
-                            R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
-                            R.Data.BonusRate = 1;
-                            R.Data.BonusValue = BonusValue;
-                            R.Data.ThresholdRate = 1;
-                            R.Data.ThresholdValue = ThresholdValue;
-                            R.Data.CollectAreaType = ActivityDetail["CollectAreaType"].ToString();
-                            R.Result = ActivityCore.enumActResult.OK;
-                        } else {
-                            SetResultException(R, "UserLevelNotExist");
-                        }
-                    } else {
-                        SetResultException(R, "ActivityIsExpired");
-                    }
-                } else {
-                    SetResultException(R, "ActivityIsExpired");
-                }
-            } else {
-                SetResultException(R, "ActivityNotExist");
-            }
-
-            return R;
-        }
     }
 
     private static JObject GetActivityDetail(string Path) {
