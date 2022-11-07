@@ -1294,6 +1294,36 @@
                                         </div>                                        
                                     </div>--%>
                                     <div class="data-item-group">
+                                        <div class="data-item verify">
+                                            <div class="data-item-title">
+                                                <label class="title mb-3">
+                                                    <i class="icon icon-mask icon-verify"></i>
+                                                    <span class="title-name language_replace">認證狀態</span>
+                                                    <span class="btn btn-Q-mark btn-round btn-sm" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
+                                                </label>
+                                            </div>
+                                            <div class="data-item-content">
+                                                <div class="verify-item">
+                                                    <!-- 尚未認證 -->
+                                                    <span class="verify-result fail" id="IsFullRegistration0" style="display:none">
+                                                        <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
+                                                        <span class="verify-desc language_replace">尚未認證</span>  
+                                                        <button type="button" class="btn btn-verify" data-toggle="modal" data-target="#ModalRegisterComplete">
+                                                            <span class="title language_replace">進行認證</span>
+                                                            <i class="icon icon-mask icon-pencile"></i>
+                                                        </button>
+                                                    </span>
+    
+                                                    <!-- 認證完成 -->
+                                                    <span class="verify-result success" id="IsFullRegistration1" style="display:none">
+                                                        <span class="label success"><i class="icon icon-mask icon-check"></i></span>
+                                                        <span class="verify-desc language_replace">認證完成</span>
+                                                    </span>
+                                                   
+                                                </div>
+                                            </div>                                        
+                                        </div>
+                                      
                                         <div class="data-item mobile">
                                             <div class="data-item-title">
                                                 <label class="title">
