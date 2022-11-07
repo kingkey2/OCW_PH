@@ -1126,19 +1126,20 @@ public static class EWinWebDB {
             return RetValue;
         }
 
-        public static int InsertUserAccountLevel(int UserLevelIndex, string LoginAccount, string UserLevelUpdateDate) {
+        public static int InsertUserAccountLevel(int UserLevelIndex, string LoginAccount, string UserLevelUpdateDate, string Birthday) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int RetValue = 0;
 
-            SS = " INSERT INTO UserAccountTable (UserLevelIndex, LoginAccount, UserLevelUpdateDate) " +
-                                  " VALUES (@UserLevelIndex, @LoginAccount, @UserLevelUpdateDate) ";
+            SS = " INSERT INTO UserAccountTable (UserLevelIndex, LoginAccount, UserLevelUpdateDate, Birthday) " +
+                                  " VALUES (@UserLevelIndex, @LoginAccount, @UserLevelUpdateDate, @Birthday) ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
             DBCmd.Parameters.Add("@UserLevelIndex", System.Data.SqlDbType.Int).Value = UserLevelIndex;
             DBCmd.Parameters.Add("@UserLevelUpdateDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(UserLevelUpdateDate);
             DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("Birthday", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(Birthday);
             RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
 
             return RetValue;

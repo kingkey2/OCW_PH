@@ -259,7 +259,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                                 EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                             }
                                         } else {
-                                            EWinWebDB.UserAccount.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+                                            EWinWebDB.UserAccount.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
                                         }
 
                                     } else {
@@ -281,7 +281,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                                 if (IsUserAccountLevelDBHasData) {
                                                     EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                                 } else {
-                                                    EWinWebDB.UserAccount.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+                                                    EWinWebDB.UserAccount.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
                                                 }
 
                                             } else { //保級成功時間重新計算
@@ -289,7 +289,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                                 if (IsUserAccountLevelDBHasData) {
                                                     EWinWebDB.UserAccount.UpdateUserAccountLevel(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                                 } else {
-                                                    EWinWebDB.UserAccount.InsertUserAccountLevel(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+                                                    EWinWebDB.UserAccount.InsertUserAccountLevel(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
                                                 }
                                             }
                                         }
@@ -305,7 +305,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                                     EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                                 }
                                             } else {
-                                                EWinWebDB.UserAccount.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+                                                EWinWebDB.UserAccount.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
                                             }
                                         }
                                     }

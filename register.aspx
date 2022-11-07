@@ -210,30 +210,29 @@
 
         let nowYear = new Date().getFullYear();
         //完整註冊
-        if ($("#li_register2").hasClass("active")) {
-            if (form2.Name1.value == "") {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入姓"));
-                return;
-            } else if (form2.Name2.value == "") {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入名"));
-                return;
-            } else if (form2.BornYear.value.length != 4) {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
-                return;
-            } else if (parseInt(form2.BornYear.value) < 1900) {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
-                return;
-            } else if (parseInt(form2.BornYear.value) > nowYear) {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
-                return;
-            }  else if (form2.Email.value == "") {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
-                return;
-            } else if (!IsEmail(form2.Email.value)) {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
-                return;
-            } 
+        if (form2.Name1.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入姓"));
+            return;
+        } else if (form2.Name2.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入名"));
+            return;
+        } else if (form2.BornYear.value.length != 4) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+            return;
+        } else if (parseInt(form2.BornYear.value) < 1900) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+            return;
+        } else if (parseInt(form2.BornYear.value) > nowYear) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+            return;
         }
+            //else if (form2.Email.value == "") {
+            //    window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
+            //    return;
+            //} else if (!IsEmail(form2.Email.value)) {
+            //    window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
+            //    return;
+            //} 
 
         if ($("#idPhonePrefix").val() == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
@@ -284,8 +283,16 @@
                 PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
             }
 
-            //full registration
-            if ($("#li_register2").hasClass("active")) {
+            if (Email == "") {
+                PS = [
+                    { Name: "IsFullRegistration", Value: 1 },
+                    { Name: "RealName", Value: $("#NickName").val() },
+                    { Name: "KYCRealName", Value: form2.Name1.value + form2.Name2.value },
+                    { Name: "ContactPhonePrefix", Value: PhonePrefix },
+                    { Name: "ContactPhoneNumber", Value: PhoneNumber },
+                    { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
+                ];
+            } else {
                 PS = [
                     { Name: "IsFullRegistration", Value: 1 },
                     { Name: "RealName", Value: $("#NickName").val() },
@@ -295,20 +302,11 @@
                     { Name: "EMail", Value: Email },
                     { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
                 ];
-            } else {
-                PS = [
-                    { Name: "IsFullRegistration", Value: 0 },
-                    { Name: "RealName", Value: $("#NickName").val() },
-                    { Name: "ContactPhonePrefix", Value: PhonePrefix },
-                    { Name: "ContactPhoneNumber", Value: PhoneNumber }
-                ];
             }
 
             p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
                 if (success) {
                     if (o.Result == 0) {
-                        //sendThanksMail();
-                        //sendReceiveRegisterRewardMail();
                         window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
                             document.getElementById("idRegister").classList.add("is-hide");
                             document.getElementById("contentFinish").classList.remove("is-hide");
@@ -335,36 +333,6 @@
 
     function updateBaseInfo() {
 
-    }
-
-    function sendThanksMail() {
-        p.SetUserMail(Math.uuid(), 0, 2, $("#idEmail").val(), "", "", "", function (success, o) {
-            if (success) {
-                if (o.Result != 0) {
-
-                } else {
-
-                }
-            }
-        });
-    }
-
-    function sendReceiveRegisterRewardMail() {
-        let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-        let Email = $("#idEmail").val();
-        if (Email.search(emailRule) != -1) {
-            let ReceiveRegisterRewardURL = "<%=EWinWeb.CasinoWorldUrl%>" + "/ReceiveRegisterReward.aspx?LoginAccount=" + LoginAccount;
-
-            p.SetUserMail(Math.uuid(), 0, 3, $("#idEmail").val(), "", "", ReceiveRegisterRewardURL, function (success, o) {
-                if (success) {
-                    if (o.Result == 0) {
-
-                    } else {
-
-                    }
-                }
-            });
-        }
     }
 
     function init() {
@@ -533,7 +501,7 @@
                 </div>
 
                 <!-- 簡易/完整步驟 -->
-                <div class="tab-register">
+                <div class="tab-register" style="display:none">
                     <div class="tab-primary tab-scroller tab-2">
                         <div class="tab-scroller__area">
                             <ul class="tab-scroller__content">
@@ -626,7 +594,7 @@
                 </div>
 
                 <!-- 以下為 完整註冊-進階版 -->
-                <div id="contentStep2" class="form-content is-hide" data-form-group="registerStep2">
+                <div id="contentStep2" class="form-content" data-form-group="registerStep2">
                     <form id="registerStep2">
                         <div class="form-group mt-4">
                             <label class="form-title language_replace">信箱</label>
