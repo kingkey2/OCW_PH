@@ -307,6 +307,11 @@
     function API_SetLogin(_SID, cb) {
         var sourceLogined = EWinWebInfo.UserLogined;
         checkUserLogin(_SID, function (logined) {
+            if (!isFirstLogined) {
+                isFirstLogined=true;
+                game_userlogout();
+            }
+
             updateBaseInfo();
 
             if (cb) {
@@ -1717,15 +1722,15 @@
 
                                 promiseAll.push(promise);
                             }
-                        }
 
-                        Promise.all(promiseAll).then(values => {
-                            checkUserLogin(EWinWebInfo.SID, function (logined) {
-                                if (logined) {
-                                    updateBaseInfo();
-                                }
+                            Promise.all(promiseAll).then(values => {
+                                checkUserLogin(EWinWebInfo.SID, function (logined) {
+                                    if (logined) {
+                                        updateBaseInfo();
+                                    }
+                                });
                             });
-                        });
+                        }
                     } else {
 
                     }
@@ -2970,7 +2975,7 @@
 
                                     //GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
 
-                                    GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png`;
+                                    GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png?` + v;
                                 }
 
                                 ParentMain.append(GBLDom);
