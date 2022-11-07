@@ -189,13 +189,13 @@
             $("#divThrehold").removeClass("lacking");
         }
 
-        if (IsFullRegistration == 0) {
-            $("#IsFullRegistration0").show();
-            $("#IsFullRegistration").hide();
-        } else {
-            $("#IsFullRegistration1").show();
-            $("#IsFullRegistration0").hide();
-        }
+        //if (IsFullRegistration == 0) {
+        //    $("#IsFullRegistration0").show();
+        //    $("#IsFullRegistration").hide();
+        //} else {
+        //    $("#IsFullRegistration1").show();
+        //    $("#IsFullRegistration0").hide();
+        //}
     }
 
     function memberInit() {

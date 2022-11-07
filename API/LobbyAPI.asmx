@@ -419,12 +419,19 @@ public class LobbyAPI : System.Web.Services.WebService {
         System.Data.DataTable DT = null;
         string ParentLoginAccount = string.Empty;
         string CollectAreaType;
+        string Birthday = DateTime.Now.ToString("yyyy/MM/dd");
 
         R = lobbyAPI.CreateAccount(GetToken(), GUID, LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS);
 
         if (R.Result == EWin.Lobby.enumResult.OK) {
             //建立會員等級資料
-            EWinWebDB.UserAccount.InsertUserAccountLevel(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+
+            foreach (EWin.Lobby.PropertySet EachPS in PS) {
+                if (EachPS.Name.ToUpper() == "Birthday".ToUpper()) {
+                    Birthday = EachPS.Value;
+                }
+            }
+            EWinWebDB.UserAccount.InsertUserAccountLevel(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), Birthday);
 
             var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
 
