@@ -1,0 +1,47 @@
+{
+  "Name": "VIPBirthdayGift",
+  "State": 0,
+  "StartDate": "2022/02/20 00:00:00",
+  "EndDate": "2099/05/31 00:00:00",
+  "Title": "Birthday Lucky Bonus",
+  "SubTitle": "Birthday Lucky Bonus",
+  "CollectAreaType": 2,
+  "MinLevelIndex": 4,
+  "VIP": [
+    {
+      "UserLevelIndex": 4,
+      "BonusValue": 1500,
+      "ThresholdValue": 7500
+    },
+    {
+      "UserLevelIndex": 5,
+      "BonusValue": 3000,
+      "ThresholdValue": 15000
+    },
+    {
+      "UserLevelIndex": 6,
+      "BonusValue": 5000,
+      "ThresholdValue": 25000
+    },
+    {
+      "UserLevelIndex": 7,
+      "BonusValue": 8888,
+      "ThresholdValue": 44440
+    },
+    {
+      "UserLevelIndex": 8,
+      "BonusValue": 10000,
+      "ThresholdValue": 50000
+    },
+    {
+      "UserLevelIndex": 9,
+      "BonusValue": 20000,
+      "ThresholdValue": 100000
+    },
+    {
+      "UserLevelIndex": 10,
+      "BonusValue": 50000,
+      "ThresholdValue": 250000
+    }
+  ]
+}

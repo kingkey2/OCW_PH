@@ -1179,6 +1179,24 @@ public static class EWinWebDB {
             return DT;
         }
 
+        //當月壽星
+        public static System.Data.DataTable GetBirthdayOfTheMonth(string month) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT * " +
+                     " FROM UserAccountTable WITH (NOLOCK) " +
+                     " WHERE  MONTH(Birthday) = @month";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@month", System.Data.SqlDbType.Int).Value = month;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
         public static System.Data.DataTable GetUserAccountNeedCheckPromotion(string StartDate, string EndDate) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;

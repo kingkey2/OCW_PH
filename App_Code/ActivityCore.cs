@@ -323,42 +323,6 @@ public static class ActivityCore {
         return R;
     }
 
-    public static ActResult<List<Activity>> GetVIPMonthGiftResult(string LoginAccount) {
-        ActResult<List<Activity>> R = new ActResult<List<Activity>>() { Result = enumActResult.ERR, Data = new List<Activity>() };
-        JObject InProgressActivity;
-        System.Data.DataTable UserLevDT = new System.Data.DataTable();
-
-        string DetailPath = null;
-        string MethodName = null;
-        string ActiviyName = null;
-        int UserLevelIndex = 0;
-
-        UserLevDT = RedisCache.UserAccount.GetUserAccountByLoginAccount(LoginAccount);
-        if (UserLevDT != null && UserLevDT.Rows.Count > 0) {
-            UserLevelIndex = (int)UserLevDT.Rows[0]["UserLevelIndex"];
-
-            InProgressActivity = GetInProgressActivity();
-
-            foreach (var item in InProgressActivity["VIPMonthGift"]) {
-                DetailPath = InProgressActivity["BasicPath"] + item["Path"].ToString();
-                MethodName = item["MethodName"].ToString();
-                ActiviyName = item["Name"].ToString();
-
-                var DR = (ActResult<Activity>)(typeof(ActivityExpand.VIP).GetMethod(MethodName).Invoke(null, new object[] { DetailPath, LoginAccount, UserLevelIndex }));
-
-                if (DR.Result == enumActResult.OK) {
-                    R.Data.Add(DR.Data);
-                }
-
-            }
-        }
-
-        R.Result = enumActResult.OK;
-        R.Message = "";
-
-        return R;
-    }
-
     public static JObject GetActivityDetailByCategoryAndName(string ActivityCategory, string ActiviyName) {
         JObject ActivityDetail = new JObject();
         JObject InProgressActivity;

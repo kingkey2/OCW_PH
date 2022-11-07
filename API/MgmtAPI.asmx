@@ -562,6 +562,85 @@ public class MgmtAPI : System.Web.Services.WebService {
         return R;
     }
 
+    [WebMethod]
+    public APIResult SendVIPBirthdayGift(string password, string searchMonth) {
+        APIResult R = new APIResult();
+        JObject ActivityDetail;
+        System.Data.DataTable DT = new System.Data.DataTable();
+        decimal BonusValue = 0;
+        decimal ThresholdValue = 0;
+        int UserLevelIndex = 0;
+        int MinLevelIndex = 0;   //最低可取得月禮物的等級
+        bool IsUserLevelIndexSupport = false;
+        string LoginAccount;
+        List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+
+        if (CheckPassword(password)) {
+            ActivityDetail = ActivityCore.GetActivityDetailByCategoryAndName("VIPMonthGift", "VIPBirthdayGift");
+
+            if (ActivityDetail != null) {
+                DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
+                DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
+                MinLevelIndex = int.Parse(ActivityDetail["MinLevelIndex"].ToString());
+
+                if ((int)ActivityDetail["State"] == 0) {
+                    if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
+
+                        DT = EWinWebDB.UserAccount.GetBirthdayOfTheMonth(searchMonth);
+
+                        if (DT != null && DT.Rows.Count > 0) {
+                            foreach (System.Data.DataRow dr in DT.Rows) {
+                                IsUserLevelIndexSupport = false;
+                                BonusValue = 0;
+                                ThresholdValue = 0;
+                                UserLevelIndex = (int)dr["UserLevelIndex"];
+                                LoginAccount = (string)dr["LoginAccount"];
+                                PropertySets = new List<EWin.Lobby.PropertySet>();
+
+                                if (UserLevelIndex >= MinLevelIndex) {
+                                    foreach (var item in ActivityDetail["VIP"]) {
+                                        if ((int)item["UserLevelIndex"] == UserLevelIndex) {
+                                            IsUserLevelIndexSupport = true;
+                                            BonusValue = (decimal)item["BonusValue"];
+                                            ThresholdValue = (decimal)item["ThresholdValue"];
+                                            break;
+                                        }
+                                    }
+
+                                    if (IsUserLevelIndexSupport) {
+                                        string description = (string)ActivityDetail["Name"];
+                                        string JoinActivityCycle = "1";
+                                        string CollectAreaType = ActivityDetail["CollectAreaType"].ToString() == null ? "2" : ActivityDetail["CollectAreaType"].ToString();
+
+                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
+                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
+                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
+
+                                        lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_" + System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, ThresholdValue, BonusValue);
+
+                                    }
+                                }
+                            }
+                        }
+
+                        R.Result = enumResult.OK;
+                    } else {
+                        SetResultException(R, "ActivityIsExpired");
+                    }
+                } else {
+                    SetResultException(R, "ActivityIsExpired");
+                }
+            } else {
+                SetResultException(R, "ActivityNotExist");
+            }
+        } else {
+            SetResultException(R, "InvalidPassword");
+        }
+        return R;
+    }
+
     private void updateEwinUserLevel(string LoginAccount, int UserLevelIndex) {
         EWin.FANTA.APIResult R = new EWin.FANTA.APIResult();
         EWin.FANTA.FANTA API = new EWin.FANTA.FANTA();
