@@ -1111,7 +1111,7 @@ public static class EWinWebDB {
             return RetValue;
         }
 
-        public static int InsertUserAccountLevel(int UserLevelIndex, string LoginAccount, string UserLevelUpdateDate, string Birthday) {
+        public static int InsertUserAccountLevelAndBirthday(int UserLevelIndex, string LoginAccount, string UserLevelUpdateDate, string Birthday) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int RetValue = 0;

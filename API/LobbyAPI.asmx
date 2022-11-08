@@ -430,7 +430,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     Birthday = EachPS.Value;
                 }
             }
-            EWinWebDB.UserAccount.InsertUserAccountLevel(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), Birthday);
+            EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), Birthday);
 
             var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
 

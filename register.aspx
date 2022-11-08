@@ -485,9 +485,9 @@
                     <div class="heading-title">
                         <h3 class="language_replace">創建新帳號</h3>
                     </div>
-                    <span class="sec-title-intro-link ml-2" data-toggle="modal" data-target="#ModalRegisterWay">
+                    <%--<span class="sec-title-intro-link ml-2" data-toggle="modal" data-target="#ModalRegisterWay">
                         <span class="btn btn-Q-mark btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
-                    </span>
+                    </span>--%>
                 </div>
 
                 <!-- 步驟 -->

@@ -49,7 +49,7 @@
         } else {
             EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
         }
-        Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(CT) + "&KeepLogin=0"+ "&GPSPosition=1" + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
+        Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(CT) + "&KeepLogin=0" + "&GPSPosition=1" + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
     }
 
     EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
@@ -303,7 +303,7 @@
         var sourceLogined = EWinWebInfo.UserLogined;
         checkUserLogin(_SID, function (logined) {
             if (!isFirstLogined) {
-                isFirstLogined=true;
+                isFirstLogined = true;
                 game_userlogout();
             }
 
@@ -922,7 +922,7 @@
         likebtn.onclick = new Function("favBtnClick('" + brandName + "." + gameName + "')");
 
         if (GI_img != null) {
-       
+
             GI_img.src = `${EWinWebInfo.ImageUrl}/${brandName}/ENG/${gameName}.png`;
             GI_img.onerror = new Function("showDefauktGameIcon2()");
             //var el = GI_img;
@@ -1697,37 +1697,37 @@
 
     function game_userlogout() {
         $('#GameMask').hide();
-            var guid = Math.uuid();
-            lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
-                if (success == true) {
-                    if (o.Result == 0) {
-                        if (o.OnlineList && o.OnlineList.length > 0) {
-                            var promiseAll = [];
-                            for (var i = 0; i < o.OnlineList.length; i++) {
-                                var gameBrand = o.OnlineList[i].GameBrand;
-                                var url = EWinWebInfo.EWinUrl + "/API/GamePlatformAPI2/" + gameBrand + "/UserLogout.aspx?LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode + "&SID=" + o.Message;
-                                var promise = new Promise((resolve, reject) => {
-                                    $.get(url, function (result) {
-                                        resolve();
-                                    });
-                                });
-
-                                promiseAll.push(promise);
-                            }
-
-                            Promise.all(promiseAll).then(values => {
-                                checkUserLogin(EWinWebInfo.SID, function (logined) {
-                                    if (logined) {
-                                        updateBaseInfo();
-                                    }
+        var guid = Math.uuid();
+        lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
+            if (success == true) {
+                if (o.Result == 0) {
+                    if (o.OnlineList && o.OnlineList.length > 0) {
+                        var promiseAll = [];
+                        for (var i = 0; i < o.OnlineList.length; i++) {
+                            var gameBrand = o.OnlineList[i].GameBrand;
+                            var url = EWinWebInfo.EWinUrl + "/API/GamePlatformAPI2/" + gameBrand + "/UserLogout.aspx?LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode + "&SID=" + o.Message;
+                            var promise = new Promise((resolve, reject) => {
+                                $.get(url, function (result) {
+                                    resolve();
                                 });
                             });
-                        }
-                    } else {
 
+                            promiseAll.push(promise);
+                        }
+
+                        Promise.all(promiseAll).then(values => {
+                            checkUserLogin(EWinWebInfo.SID, function (logined) {
+                                if (logined) {
+                                    updateBaseInfo();
+                                }
+                            });
+                        });
                     }
+                } else {
+
                 }
-            });
+            }
+        });
     }
 
     function appendGameFrame() {
@@ -1743,7 +1743,7 @@
             w = vw - 110;
         }
 
-        
+
         // class="divGameFrame"
         let tmp = `<div class="divGameFrameWrapper">
             <div class="btn-wrapper">
@@ -1765,7 +1765,7 @@
                 clearInterval(winLoop);
                 game_userlogout();
                 $('#popupMoblieGameInfo').modal('hide');
-                if (MessageModal && MessageModal!=null) {
+                if (MessageModal && MessageModal != null) {
                     MessageModal.hide();
                 }
             } else {
@@ -3172,33 +3172,17 @@
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
-     <div onclick="closeGameMask()" id="GameMask" class="" style="display: none;  position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            z-index: 9999;
-            text-align: center;
-            opacity: 0.5;
-            background-color: #2fb4c9;">
+    <div onclick="closeGameMask()" id="GameMask" class="" style="display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; z-index: 9999; text-align: center; opacity: 0.5; background-color: #2fb4c9;">
 
         <div class="loader-backdrop is-show"></div>
     </div>
 
-    <div class="loader-container" style="display:block;">
+    <div class="loader-container" style="display: block;">
         <div class="loader-box">
             <div class="loader-spinner">
                 <div class="sk-fading-circle">
-                    <div class="loader-logo" style="width: 80%;
-                    height: 80%;
-                    background: url(../images/icon/ico-dog-w.svg) center center no-repeat;
-                    background-size: calc(100% - 50px);
-                    -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both;
-                    animation: loader-logo-anim 1.2s infinite ease-in-out both;
-                    margin: 10%;" ></div>
+                    <div class="loader-logo" style="width: 80%; height: 80%; background: url(../images/icon/ico-dog-w.svg) center center no-repeat; background-size: calc(100% - 50px); -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both; animation: loader-logo-anim 1.2s infinite ease-in-out both; margin: 10%;">
+                    </div>
                     <div class="sk-circle1 sk-circle"></div>
                     <div class="sk-circle2 sk-circle"></div>
                     <div class="sk-circle3 sk-circle"></div>
@@ -3315,7 +3299,7 @@
                                                 <i class="icon icon-mask icon-people"></i>
                                                 <span class="title language_replace">會員中心</span></a>
                                         </li>
-                                     
+
                                         <li class="nav-item submenu dropdown">
                                             <a class="nav-link" onclick="API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                                                 <i class="icon icon-mask icon-loudspeaker"></i>
@@ -3582,7 +3566,7 @@
                                         <img src="/images/logo/footer/logo-gmw.png" alt="">
                                     </div>
                                 </div>
-                                --%> 
+                                --%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-cq9.png" alt="">
@@ -3594,7 +3578,7 @@
                                         <img src="/images/logo/footer/logo-red-tiger.png" alt="">
                                     </div>
                                 </div>
-                                --%> 
+                                --%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-evo.png" alt="">
@@ -3616,7 +3600,7 @@
                                         <img src="/images/logo/footer/logo-playngo.png" alt="">
                                     </div>
                                 </div>
-                                --%> 
+                                --%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-pg.png" alt="">
@@ -3673,19 +3657,19 @@
                                         <img src="/images/logo/footer/logo-va.png" alt="">
                                     </div>
                                 </div>
-                                --%> 
+                                --%>
                             </div>
                         </div>
                     </div>
 
-                    <%--                    <div class="company-detail">
+                    <div class="company-detail">
                         <div class="company-license">
                             <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
                         </div>
                         <div class="company-address">
-                            <p class="address language_replace">MAHARAJA由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
+                            <p class="address language_replace">Lucky Fanta由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
                         </div>
-                    </div>--%>
+                    </div>
 
 
                     <div class="footer-copyright">
@@ -3908,7 +3892,7 @@
                             <div class="searchFilter-item input-group keyword">
                                 <input id="alertSearchKeyWord" type="text" class="form-control"
                                     language_replace="placeholder" placeholder="關鍵字" enterkeyhint="">
-                                    <%--    
+                                <%--    
                                 <label for="" class="form-label"><span class="language_replace">關鍵字</span></label>
                                 --%>
                             </div>
@@ -4141,7 +4125,7 @@
             </div>
         </div>
     </div>
-   
+
     <!--alert-->
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="nonClose_alertContact" aria-hidden="true" id="nonClose_alertContact">
         <div class="modal-dialog modal-dialog-centered" role="document">
