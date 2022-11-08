@@ -6,6 +6,7 @@
   "請輸入信箱": "Please enter the email address.",
   "電話已存在": "The number has been registered, please confirm the phone number.",
   "信箱已存在": "The email address is already exists.",
+  "帳號已存在": "UserName is already exists.",
   "請輸入登入密碼": "Please enter the password.",
   "請輸入半形的英文大小寫/數字，長度6-12位元": " To create your password, please enter 6 to 12 characters, without spaces.",
   "請輸入姓": "Please enter last name.",

@@ -48,6 +48,8 @@
     var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
     var v ="<%:Version%>";
     var isSent = false;
+    var isLoginAccountExist = true;
+    var isEmailExist = true;
     var LoginAccount;
 
     function BackHome() {
@@ -123,6 +125,50 @@
             }
 
         });
+    }
+
+    function CheckLoginAccountExist() {
+
+        var LoginAccount = document.getElementById("idLoginAccount").value;
+
+        if (LoginAccount != "") {
+            if (LoginAccount.length > 20) {
+                window.parent.showMessageOK("", mlp.getLanguageKey("字母和數字的組合在20個字符以內"));
+            } else {
+                p.CheckAccountExistEx(Math.uuid(), LoginAccount, "", "", "", function (success, o) {
+                    if (success) {
+                        if (o.Result != 0) {
+                            isLoginAccountExist = false;
+                        } else {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("帳號已存在"));
+                            isLoginAccountExist = true;
+                        }
+                    }
+
+                });
+            }
+        }
+    }
+
+    function CheckEmailExist() {
+
+        var Email = document.getElementById("idEmail").value;
+
+        if (Email != "") {
+            p.CheckAccountExistEx(Math.uuid(), "", "", "", Email, function (success, o) {
+                if (success) {
+                    if (o.Result != 0) {
+                        isEmailExist = false;
+                    } else {
+                        window.parent.showMessageOK("", mlp.getLanguageKey("信箱已存在"));
+                        isEmailExist = true;
+                    }
+                }
+
+            });
+        } else {
+              isEmailExist = false;
+        }
     }
 
     function CheckPassword() {
@@ -260,6 +306,11 @@
             return;
         }
 
+        if (isLoginAccountExist) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("帳號已存在"));
+            return;
+        }
+
         form2.reportValidity();
 
         if (form2.checkValidity()) {
@@ -281,6 +332,11 @@
 
             if (PhonePrefix.substring(0, 1) == "+") {
                 PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
+            }
+
+            if (Email != "" && isEmailExist) {
+                window.parent.showMessageOK("", mlp.getLanguageKey("信箱已存在"));
+                return;
             }
 
             if (Email == "") {
@@ -313,7 +369,7 @@
                         });
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
-                            window.parent.API_LoadPage("Register", "Register.aspx")
+                           
                         });
                     }
                 } else {
@@ -525,7 +581,7 @@
                         <div class="form-group mt-4">
                             <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
-                                <input id="idLoginAccount" name="" type="text" class="form-control custom-style"  language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" />
+                                <input id="idLoginAccount" name="" type="text" class="form-control custom-style"  language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內"  onblur="CheckLoginAccountExist()"/>
                             </div>
                         </div>
                         <div class="form-row">
@@ -599,7 +655,7 @@
                         <div class="form-group mt-4">
                             <label class="form-title language_replace">信箱</label>
                             <div class="input-group">
-                                <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
+                                <input id="idEmail" name="Email" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email" onblur="CheckEmailExist()">
                                 <div class="invalid-feedback language_replace">請輸入正確信箱</div>
                             </div>
                         </div>
