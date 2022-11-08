@@ -30,6 +30,93 @@
           <s:enumeration value="ERR" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="CheckPaymentChannelAmount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DirectionType" type="tns:enumPaymentDirectionType" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentChannelCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="enumPaymentDirectionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Deposit" />
+          <s:enumeration value="Withdrawal" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CheckPaymentChannelAmountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckPaymentChannelAmountResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListPaymentChannel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListPaymentChannelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListPaymentChannelResult" type="tns:PaymentChannelResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentChannelResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ChannelList" type="tns:ArrayOfPaymentChannel" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfPaymentChannel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaymentChannel" nillable="true" type="tns:PaymentChannel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PaymentChannel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentChannelCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentBrand" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserLevelIndex" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChannelStatus" type="tns:enumChannelStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="AllowDeposit" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="DepositAmountMin" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="DepositAmountMax" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="DepositAvailableTime" type="tns:PaymentTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="AllowWithdrawal" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalAmountMin" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalAmountMax" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="WithdrawalAvailableTime" type="tns:PaymentTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="enumChannelStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="Available" />
+          <s:enumeration value="ChannelDisabled" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PaymentTime">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="RemoveUserAccountAddRate">
         <s:complexType>
           <s:sequence>
@@ -2096,6 +2183,7 @@
         </s:sequence>
       </s:complexType>
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
+      <s:element name="PaymentChannelResult" nillable="true" type="tns:PaymentChannelResult" />
       <s:element name="UserAccountAddRateList" nillable="true" type="tns:UserAccountAddRateList" />
       <s:element name="PromotionJoinListResult" nillable="true" type="tns:PromotionJoinListResult" />
       <s:element name="GameCodeOnlineListResult" nillable="true" type="tns:GameCodeOnlineListResult" />
@@ -2129,6 +2217,18 @@
   </wsdl:message>
   <wsdl:message name="HeartBeatSoapOut">
     <wsdl:part name="parameters" element="tns:HeartBeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckPaymentChannelAmountSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckPaymentChannelAmount" />
+  </wsdl:message>
+  <wsdl:message name="CheckPaymentChannelAmountSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckPaymentChannelAmountResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentChannelSoapIn">
+    <wsdl:part name="parameters" element="tns:ListPaymentChannel" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentChannelSoapOut">
+    <wsdl:part name="parameters" element="tns:ListPaymentChannelResponse" />
   </wsdl:message>
   <wsdl:message name="RemoveUserAccountAddRateSoapIn">
     <wsdl:part name="parameters" element="tns:RemoveUserAccountAddRate" />
@@ -2550,6 +2650,26 @@
   </wsdl:message>
   <wsdl:message name="HeartBeatHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckPaymentChannelAmountHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="PaymentChannelCode" type="s:string" />
+    <wsdl:part name="Amount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckPaymentChannelAmountHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentChannelHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentChannelHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentChannelResult" />
   </wsdl:message>
   <wsdl:message name="RemoveUserAccountAddRateHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
@@ -3192,6 +3312,26 @@
   <wsdl:message name="HeartBeatHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="CheckPaymentChannelAmountHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="PaymentChannelCode" type="s:string" />
+    <wsdl:part name="Amount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckPaymentChannelAmountHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentChannelHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentChannelHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentChannelResult" />
+  </wsdl:message>
   <wsdl:message name="RemoveUserAccountAddRateHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -3831,6 +3971,14 @@
       <wsdl:input message="tns:HeartBeatSoapIn" />
       <wsdl:output message="tns:HeartBeatSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <wsdl:input message="tns:CheckPaymentChannelAmountSoapIn" />
+      <wsdl:output message="tns:CheckPaymentChannelAmountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <wsdl:input message="tns:ListPaymentChannelSoapIn" />
+      <wsdl:output message="tns:ListPaymentChannelSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RemoveUserAccountAddRate">
       <wsdl:input message="tns:RemoveUserAccountAddRateSoapIn" />
       <wsdl:output message="tns:RemoveUserAccountAddRateSoapOut" />
@@ -4113,6 +4261,14 @@
       <wsdl:input message="tns:HeartBeatHttpGetIn" />
       <wsdl:output message="tns:HeartBeatHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <wsdl:input message="tns:CheckPaymentChannelAmountHttpGetIn" />
+      <wsdl:output message="tns:CheckPaymentChannelAmountHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <wsdl:input message="tns:ListPaymentChannelHttpGetIn" />
+      <wsdl:output message="tns:ListPaymentChannelHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="RemoveUserAccountAddRate">
       <wsdl:input message="tns:RemoveUserAccountAddRateHttpGetIn" />
       <wsdl:output message="tns:RemoveUserAccountAddRateHttpGetOut" />
@@ -4379,6 +4535,14 @@
       <wsdl:input message="tns:HeartBeatHttpPostIn" />
       <wsdl:output message="tns:HeartBeatHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <wsdl:input message="tns:CheckPaymentChannelAmountHttpPostIn" />
+      <wsdl:output message="tns:CheckPaymentChannelAmountHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <wsdl:input message="tns:ListPaymentChannelHttpPostIn" />
+      <wsdl:output message="tns:ListPaymentChannelHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="RemoveUserAccountAddRate">
       <wsdl:input message="tns:RemoveUserAccountAddRateHttpPostIn" />
       <wsdl:output message="tns:RemoveUserAccountAddRateHttpPostOut" />
@@ -4644,6 +4808,24 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="HeartBeat">
       <soap:operation soapAction="http://tempuri.org/HeartBeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <soap:operation soapAction="http://tempuri.org/CheckPaymentChannelAmount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <soap:operation soapAction="http://tempuri.org/ListPaymentChannel" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5284,6 +5466,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <soap12:operation soapAction="http://tempuri.org/CheckPaymentChannelAmount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <soap12:operation soapAction="http://tempuri.org/ListPaymentChannel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RemoveUserAccountAddRate">
       <soap12:operation soapAction="http://tempuri.org/RemoveUserAccountAddRate" style="document" />
       <wsdl:input>
@@ -5917,6 +6117,24 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <http:operation location="/CheckPaymentChannelAmount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <http:operation location="/ListPaymentChannel" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RemoveUserAccountAddRate">
       <http:operation location="/RemoveUserAccountAddRate" />
       <wsdl:input>
@@ -6507,6 +6725,24 @@
     <http:binding verb="POST" />
     <wsdl:operation name="HeartBeat">
       <http:operation location="/HeartBeat" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <http:operation location="/CheckPaymentChannelAmount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <http:operation location="/ListPaymentChannel" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
