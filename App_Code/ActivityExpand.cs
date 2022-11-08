@@ -664,7 +664,7 @@ public static class ActivityExpand {
                                 R.Data.PaymentCode = PaymentCode;
                                 R.Data.BonusRate = BonusRate;
                                 R.Data.BonusValue = Amount * BonusRate;
-                                
+
                                 if (R.Data.BonusValue > ReceiveValueMaxLimit) {
                                     R.Data.BonusValue = ReceiveValueMaxLimit;
                                 }
@@ -933,6 +933,65 @@ public static class ActivityExpand {
             R.Data.ActivityName = ActivityDetail["Name"].ToString();
             R.Data.Title = ActivityDetail["Title"].ToString();
             R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+            return R;
+        }
+    }
+
+    public static class VIP {
+        public static ActivityCore.ActResult<ActivityCore.ActivityInfo> GetActInfo(string DetailPath) {
+            ActivityCore.ActResult<ActivityCore.ActivityInfo> R = new ActivityCore.ActResult<ActivityCore.ActivityInfo>() { Data = new ActivityCore.ActivityInfo() };
+            JObject ActivityDetail;
+
+            ActivityDetail = GetActivityDetail(DetailPath);
+
+            R.Data.ActivityName = ActivityDetail["Name"].ToString();
+            R.Data.Title = ActivityDetail["Title"].ToString();
+            R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+            return R;
+        }
+
+        public static ActivityCore.ActResult<ActivityCore.Activity> UpgradeBonus(string DetailPath, string LoginAccount) {
+            ActivityCore.ActResult<ActivityCore.Activity> R = new ActivityCore.ActResult<ActivityCore.Activity>() { Result = ActivityCore.enumActResult.ERR, Data = new ActivityCore.Activity() };
+            JObject ActivityDetail;
+            System.Data.DataTable DT;
+            string ActivityName = string.Empty;
+
+            ActivityDetail = GetActivityDetail(DetailPath);
+
+            if (ActivityDetail != null) {
+                DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
+                DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
+
+                if ((int)ActivityDetail["State"] == 0) {
+                    if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
+                        ActivityName = (string)ActivityDetail["Name"];
+
+                        DT = EWinWebDB.UserAccountEventBonusHistory.GetBonusHistoryByLoginAccountActivityName(LoginAccount, ActivityName);
+
+                        if (DT != null && DT.Rows.Count > 0) {
+                            SetResultException(R, "ActivityIsAlreadyJoin");
+                        } else {
+                            R.Data.ActivityName = ActivityDetail["Name"].ToString();
+                            R.Data.Title = ActivityDetail["Title"].ToString();
+                            R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+                            R.Data.BonusRate = 1;
+                            R.Data.BonusValue = (decimal)ActivityDetail["BonusValue"];
+                            R.Data.ThresholdRate = 1;
+                            R.Data.ThresholdValue = (decimal)ActivityDetail["ThresholdValue"];
+                            R.Data.CollectAreaType = ActivityDetail["CollectAreaType"].ToString();
+                            R.Result = ActivityCore.enumActResult.OK;
+                        }
+
+                    } else {
+                        SetResultException(R, "ActivityIsExpired");
+                    }
+                } else {
+                    SetResultException(R, "ActivityIsExpired");
+                }
+            } else {
+                SetResultException(R, "ActivityNotExist");
+            }
+
             return R;
         }
     }

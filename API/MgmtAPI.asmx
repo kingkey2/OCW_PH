@@ -256,10 +256,11 @@ public class MgmtAPI : System.Web.Services.WebService {
                                         if (IsUserAccountLevelDBHasData) {
                                             //等級有升級時再更新
                                             if (NewUserLevelIndex > UserLevelIndex) {
+                                                setUserAccountProperty(LoginAccount, System.Guid.NewGuid().ToString(), "UserLevelUpdateDate", DateTime.Now.ToString("yyyy/MM/dd"));
                                                 EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                             }
                                         } else {
-                                            EWinWebDB.UserAccount.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
+                                            EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
                                         }
 
                                     } else {
@@ -281,7 +282,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                                 if (IsUserAccountLevelDBHasData) {
                                                     EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                                 } else {
-                                                    EWinWebDB.UserAccount.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
+                                                    EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
                                                 }
 
                                             } else { //保級成功時間重新計算
@@ -289,7 +290,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                                 if (IsUserAccountLevelDBHasData) {
                                                     EWinWebDB.UserAccount.UpdateUserAccountLevel(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                                 } else {
-                                                    EWinWebDB.UserAccount.InsertUserAccountLevel(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
+                                                    EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
                                                 }
                                             }
                                         }
@@ -302,10 +303,14 @@ public class MgmtAPI : System.Web.Services.WebService {
                                             if (IsUserAccountLevelDBHasData) {
                                                 //等級有升級時再更新
                                                 if (NewUserLevelIndex > UserLevelIndex) {
+                                                    //3以後才有禮物
+                                                    SendUpgradeGift(LoginAccount);
+                                                    updateEwinUserLevel(LoginAccount, NewUserLevelIndex);
+                                                    setUserAccountProperty(LoginAccount, System.Guid.NewGuid().ToString(), "UserLevelUpdateDate", DateTime.Now.ToString("yyyy/MM/dd"));
                                                     EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                                 }
                                             } else {
-                                                EWinWebDB.UserAccount.InsertUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
+                                                EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
                                             }
                                         }
                                     }
@@ -452,6 +457,202 @@ public class MgmtAPI : System.Web.Services.WebService {
         }
 
         return KeepLevelSucc;
+    }
+
+    private void SendUpgradeGift(string LoginAccount) {
+        var UpgradeBonusResult = ActivityCore.GetVIPUpgradeBonusResult(LoginAccount);
+
+        if (UpgradeBonusResult.Result == ActivityCore.enumActResult.OK) {
+            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+            List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+            string CollectAreaType;
+
+            foreach (var activityData in UpgradeBonusResult.Data) {
+
+                string description = activityData.ActivityName;
+                string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
+                CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
+
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
+
+                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_UpgradeGift" , LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
+            }
+        }
+    }
+
+    [WebMethod]
+    public APIResult SendVIPMonthGift(string password) {
+        APIResult R = new APIResult();
+        JObject ActivityDetail;
+        System.Data.DataTable DT = new System.Data.DataTable();
+        decimal BonusValue = 0;
+        decimal ThresholdValue = 0;
+        int UserLevelIndex = 0;
+        int MinLevelIndex = 0;   //最低可取得月禮物的等級
+        bool IsUserLevelIndexSupport = false;
+        string LoginAccount;
+        List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+
+        if (CheckPassword(password)) {
+            ActivityDetail = ActivityCore.GetActivityDetailByCategoryAndName("VIPMonthGift", "VIPMonthGift");
+
+            if (ActivityDetail != null) {
+                DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
+                DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
+                MinLevelIndex = int.Parse(ActivityDetail["MinLevelIndex"].ToString());
+
+                if ((int)ActivityDetail["State"] == 0) {
+                    if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
+
+                        DT = EWinWebDB.UserAccount.GetUserAccount();
+
+                        if (DT != null && DT.Rows.Count > 0) {
+                            foreach (System.Data.DataRow dr in DT.Rows) {
+                                IsUserLevelIndexSupport = false;
+                                BonusValue = 0;
+                                ThresholdValue = 0;
+                                UserLevelIndex = (int)dr["UserLevelIndex"];
+                                LoginAccount = (string)dr["LoginAccount"];
+                                PropertySets = new List<EWin.Lobby.PropertySet>();
+
+                                if (UserLevelIndex >= MinLevelIndex) {
+                                    foreach (var item in ActivityDetail["VIP"]) {
+                                        if ((int)item["UserLevelIndex"] == UserLevelIndex) {
+                                            IsUserLevelIndexSupport = true;
+                                            BonusValue = (decimal)item["BonusValue"];
+                                            ThresholdValue = (decimal)item["ThresholdValue"];
+                                            break;
+                                        }
+                                    }
+
+                                    if (IsUserLevelIndexSupport) {
+                                        string description = (string)ActivityDetail["Name"];
+                                        string JoinActivityCycle = "1";
+                                        string CollectAreaType = ActivityDetail["CollectAreaType"].ToString() == null ? "2" : ActivityDetail["CollectAreaType"].ToString();
+
+                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
+                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
+                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
+
+                                        lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_" + System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, ThresholdValue, BonusValue);
+
+                                    }
+                                }
+                            }
+                        }
+
+                        R.Result = enumResult.OK;
+                    } else {
+                        SetResultException(R, "ActivityIsExpired");
+                    }
+                } else {
+                    SetResultException(R, "ActivityIsExpired");
+                }
+            } else {
+                SetResultException(R, "ActivityNotExist");
+            }
+        } else {
+            SetResultException(R, "InvalidPassword");
+        }
+        return R;
+    }
+
+    [WebMethod]
+    public APIResult SendVIPBirthdayGift(string password, string searchMonth) {
+        APIResult R = new APIResult();
+        JObject ActivityDetail;
+        System.Data.DataTable DT = new System.Data.DataTable();
+        decimal BonusValue = 0;
+        decimal ThresholdValue = 0;
+        int UserLevelIndex = 0;
+        int MinLevelIndex = 0;   //最低可取得月禮物的等級
+        bool IsUserLevelIndexSupport = false;
+        string LoginAccount;
+        List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+
+        if (CheckPassword(password)) {
+            ActivityDetail = ActivityCore.GetActivityDetailByCategoryAndName("VIPMonthGift", "VIPBirthdayGift");
+
+            if (ActivityDetail != null) {
+                DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
+                DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
+                MinLevelIndex = int.Parse(ActivityDetail["MinLevelIndex"].ToString());
+
+                if ((int)ActivityDetail["State"] == 0) {
+                    if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
+
+                        DT = EWinWebDB.UserAccount.GetBirthdayOfTheMonth(searchMonth);
+
+                        if (DT != null && DT.Rows.Count > 0) {
+                            foreach (System.Data.DataRow dr in DT.Rows) {
+                                IsUserLevelIndexSupport = false;
+                                BonusValue = 0;
+                                ThresholdValue = 0;
+                                UserLevelIndex = (int)dr["UserLevelIndex"];
+                                LoginAccount = (string)dr["LoginAccount"];
+                                PropertySets = new List<EWin.Lobby.PropertySet>();
+
+                                if (UserLevelIndex >= MinLevelIndex) {
+                                    foreach (var item in ActivityDetail["VIP"]) {
+                                        if ((int)item["UserLevelIndex"] == UserLevelIndex) {
+                                            IsUserLevelIndexSupport = true;
+                                            BonusValue = (decimal)item["BonusValue"];
+                                            ThresholdValue = (decimal)item["ThresholdValue"];
+                                            break;
+                                        }
+                                    }
+
+                                    if (IsUserLevelIndexSupport) {
+                                        string description = (string)ActivityDetail["Name"];
+                                        string JoinActivityCycle = "1";
+                                        string CollectAreaType = ActivityDetail["CollectAreaType"].ToString() == null ? "2" : ActivityDetail["CollectAreaType"].ToString();
+
+                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
+                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
+                                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
+
+                                        lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_" + System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, ThresholdValue, BonusValue);
+
+                                    }
+                                }
+                            }
+                        }
+
+                        R.Result = enumResult.OK;
+                    } else {
+                        SetResultException(R, "ActivityIsExpired");
+                    }
+                } else {
+                    SetResultException(R, "ActivityIsExpired");
+                }
+            } else {
+                SetResultException(R, "ActivityNotExist");
+            }
+        } else {
+            SetResultException(R, "InvalidPassword");
+        }
+        return R;
+    }
+
+    private void updateEwinUserLevel(string LoginAccount, int UserLevelIndex) {
+        EWin.FANTA.APIResult R = new EWin.FANTA.APIResult();
+        EWin.FANTA.FANTA API = new EWin.FANTA.FANTA();
+
+        R = API.UpdateUserLevel(GetToken(), LoginAccount, UserLevelIndex);
+    }
+
+    private void setUserAccountProperty(string LoginAccount, string GUID, string PropertyName, string PropertyValue) {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult();
+
+        R = lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, PropertyName, PropertyValue);
     }
 
     [WebMethod]

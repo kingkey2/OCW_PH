@@ -425,13 +425,12 @@ public class LobbyAPI : System.Web.Services.WebService {
 
         if (R.Result == EWin.Lobby.enumResult.OK) {
             //建立會員等級資料
-
             foreach (EWin.Lobby.PropertySet EachPS in PS) {
                 if (EachPS.Name.ToUpper() == "Birthday".ToUpper()) {
                     Birthday = EachPS.Value;
                 }
             }
-            EWinWebDB.UserAccount.InsertUserAccountLevel(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), Birthday);
+            EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), Birthday);
 
             var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
 

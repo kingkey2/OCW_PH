@@ -14,31 +14,23 @@
         EWin.Agent.LoginResult ASS = null;
         string CompanyCode = Request["CompanyCode"];
         string LoginType = Request["LoginType"];  //0=主帳戶登入/1=助手登入
-        string PhoneNumber = Request["PhoneNumber"];
-        string PhonePrefix = Request["PhonePrefix"];
-        string LoginAccount;
+        string LoginAccount = Request["LoginAccount"];
         string LoginPassword = Request["LoginPassword"];
         string LoginGUID  = string.Empty;
         string Token;
         int RValue;
         Random R = new Random();
-        TelPhoneNormalize telPhoneNormalize;
-
 
         RValue = R.Next(100000, 9999999);
         Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
-        telPhoneNormalize = new TelPhoneNormalize(PhonePrefix, PhoneNumber);
         LoginGUID = loginAPI.CreateLoginGUID(Token);
-        LoginAccount = telPhoneNormalize.PhonePrefix + telPhoneNormalize.PhoneNumber;
 
-        if (LoginType == "0")
-        {
-            ASS = agentAPI.AgentLoginByPhoneNumber(LoginGUID, System.Guid.NewGuid().ToString(), telPhoneNormalize.PhonePrefix, telPhoneNormalize.PhoneNumber, LoginPassword, String.Empty, CodingControl.GetUserIP());
-        }
-        else if (LoginType == "1")
-        {
+        if (LoginType == "0") {
+            ASS = agentAPI.AgentLogin(LoginGUID, System.Guid.NewGuid().ToString(), EWin.Agent.enumLoginType.MainAccount, LoginAccount, LoginPassword, LoginAccount, CodingControl.GetUserIP());
+
+        } else if (LoginType == "1") {
             string MainAccount = Request["MainAccount"];
-            ASS = agentAPI.AgentLogin(LoginGUID, System.Guid.NewGuid().ToString(), EWin.Agent.enumLoginType.AgentLogin, LoginAccount, LoginPassword, MainAccount, CodingControl.GetUserIP());            
+            ASS = agentAPI.AgentLogin(LoginGUID, System.Guid.NewGuid().ToString(), EWin.Agent.enumLoginType.AgentLogin, LoginAccount, LoginPassword, MainAccount, CodingControl.GetUserIP());
         }
 
         if (ASS != null)
@@ -47,9 +39,9 @@
             {
                 //Session["_AgentLogined"] = ASS;
                 Response.SetCookie(new HttpCookie("ASID", ASS.AID));
-
+                var aa = EWinWeb.EWinAgentUrl + "/agent/AgentLoginFromWeb.aspx?DefaultCompany=" + DefaultCompany + "&ASID=" + System.Web.HttpUtility.UrlEncode(ASS.AID) + "&Lang=" + Lang;
                 if (string.IsNullOrEmpty(DefaultCompany) == false)
-                    Response.Redirect( EWinWeb.EWinAgentUrl + "/agent/AgentLoginFromWeb.aspx?DefaultCompany=" + DefaultCompany + "&ASID=" + System.Web.HttpUtility.UrlEncode(ASS.AID)+ "&Lang=" + Lang);
+                    Response.Redirect(EWinWeb.EWinAgentUrl + "/agent/AgentLoginFromWeb.aspx?DefaultCompany=" + DefaultCompany + "&ASID=" + System.Web.HttpUtility.UrlEncode(ASS.AID)+ "&Lang=" + Lang);
                 else
                     Response.Redirect(EWinWeb.EWinAgentUrl + "/agent/AgentLoginFromWeb.aspx?Lang="+ Lang);
             }
