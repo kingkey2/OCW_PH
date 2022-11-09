@@ -378,7 +378,7 @@
                     </div>
                     <div class="form-group form-group-lang">
                         <div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('CHS')">
-                            <input type="radio" id="lang1" name="lang" class="custom-control-input-hidden" value="CHS" checked>
+                            <input type="radio" id="lang1" name="lang" class="custom-control-input-hidden" value="CHS" >
                             <label class="custom-control-label-lang ico-before-cn" for="lang1">
                                 <span
                                     class="language_replace">简体中文</span></label>
@@ -390,7 +390,7 @@
                                     class="language_replace">繁體中文</span></label>
                         </div>
                         <div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('ENG')">
-                            <input type="radio" id="lang3" name="lang" class="custom-control-input-hidden" value="ENG">
+                            <input type="radio" id="lang3" name="lang" class="custom-control-input-hidden" value="ENG" checked>
                             <label class="custom-control-label-lang ico-before-en" for="lang3">
                                 <span
                                     class="language_replace">english</span></label>
