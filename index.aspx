@@ -3024,8 +3024,8 @@
 
                             RecordDom2 = c.getTemplate("idTempBulletinBoard");
 
-                            //c.setClassText(RecordDom2, "BulletinTitle", null, record.DocumentTitle);
-                            c.setClassText(RecordDom2, "CreateDate", null, record.DocumentTitle);
+                            c.setClassText(RecordDom2, "BulletinTitle", null, record.DocumentTitle);
+                            //c.setClassText(RecordDom2, "CreateDate", null, record.DocumentTitle);
 
                             RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.DocumentTitle + "','" + record.DocNumber + "')");
                             ParentMain2.appendChild(RecordDom2);
@@ -4279,8 +4279,8 @@
         <div id="idTempBulletinBoard" style="display: none;">
             <!-- <div> -->
             <li class="item" style="cursor: pointer">
-                <span class="date CreateDate"></span>
-                <span class="info BulletinTitle"></span>
+                <span class="date CreateDate" style="display:none"></span>
+                <span class="info BulletinTitle" style="padding-left:5px"></span>
             </li>
             <!-- </div> -->
         </div>
