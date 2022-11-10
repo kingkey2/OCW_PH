@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucky Fanta</title>
+    <title>Lucky Sprite</title>
 
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
@@ -312,7 +312,7 @@
                             <p class="language_replace">關於出金門檻的詳細說明於</p>
                             <p class="language_replace">4.持有的OCoin在100以下時入金，或是領取領獎中心的OCoin即可解除原有的出金門檻。</p> -->
 
-                            <p class="language_replace" style="text-indent: -1rem; margin-left: 1rem;">1. Using Lucky Fanta's fully automated recharge and withdrawal channels, you'll enjoy the best gaming experience, and your recharge and withdrawal will arrive within seconds!</p>
+                            <p class="language_replace" style="text-indent: -1rem; margin-left: 1rem;">1. Using Lucky Sprite's fully automated recharge and withdrawal channels, you'll enjoy the best gaming experience, and your recharge and withdrawal will arrive within seconds!</p>
 
                             <p class="language_replace" style="text-indent: -1rem; margin-left: 1rem;">2. With regard to withdrawal valid bet requirements<br><br>
 GCASH · Main deposit channels = 1 times the deposit amount<br>

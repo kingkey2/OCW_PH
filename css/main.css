@@ -1337,7 +1337,7 @@ hr.line {
   height: 100%;
   position: absolute;
   left: 0;
-  top: 0;
+  top: -10%;
 }
 
 .sk-fading-circle .sk-circle2 {
@@ -1575,7 +1575,7 @@ hr.line {
           align-items: center;
   height: 50px;
   width: 40px;
-  background: url(../images/logo-mobile.svg) left center no-repeat;
+  background: url(../images/logo-mobile.png) left center no-repeat;
   background-size: contain;
 }
 .navbar-brand .logo a {
@@ -1968,6 +1968,10 @@ hr.line {
   background: linear-gradient(90deg, #FFAA47, #D66D26);
   color: #fff;
 }
+.unLogIn_wrapper .btn-login:hover {
+  background: -webkit-gradient(linear, left top, right top, from(#ffbe72), to(#eb8846));
+  background: linear-gradient(90deg, #ffbe72, #eb8846);
+}
 .unLogIn_wrapper .btn-login .avater {
   position: absolute;
   left: -6px;
@@ -1985,6 +1989,10 @@ hr.line {
   background: -webkit-gradient(linear, left top, right top, from(#FF7761), to(#ff836f));
   background: linear-gradient(90deg, #FF7761, #ff836f);
   color: #fff;
+}
+.unLogIn_wrapper .btn-register:hover {
+  background: -webkit-gradient(linear, left top, right top, from(#ffb3a7), to(#ff9887));
+  background: linear-gradient(90deg, #ffb3a7, #ff9887);
 }
 
 .logIned_wrapper .avater_wrapper .btn {
@@ -2112,7 +2120,8 @@ hr.line {
 @media (min-width: 768px) {
   .navbar-brand .logo {
     width: 190px;
-    background: url(../images/logo.svg) left center no-repeat;
+    background: url(../images/logo.png) left center no-repeat;
+    background-size: contain;
   }
 
   .navbar-toggler {
@@ -7054,7 +7063,7 @@ i {
 }
 @media (min-width: 936px) {
   .game-area.overflow-hidden > .container {
-    padding-top: 10px;
+    padding-top: 30px;
   }
 
   .game_slider .swiper-button-next, .game_slider .swiper-button-next.swiper-button-disabled, .game_slider .swiper-button-prev, .game_slider .swiper-button-prev.swiper-button-disabled {
@@ -7079,10 +7088,11 @@ i {
     padding-bottom: 0px;
   }
   .game-area.overflow-hidden .categoryPage > .container {
-    padding-top: 10px;
+    padding-top: 30px;
   }
   .game-area.overflow-hidden .container.category-dailypush {
-    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 0px;
   }
 }
 @media (min-width: 1384px) {

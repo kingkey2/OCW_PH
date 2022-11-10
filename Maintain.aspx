@@ -36,7 +36,7 @@
                         </div>
                         <div class="text-wrap text-center">
                             <p>
-                                <span class="language_replace">Lucky Fanta in currently down for maintenance</span><br>
+                                <span class="language_replace">Lucky Sprite in currently down for maintenance</span><br>
                                 <span class="language_replace">Please wait a moment, we will be right back!</span><br>
                                 <br>
                                 <span class="language_replace"><%:MaintainMessage%></span>

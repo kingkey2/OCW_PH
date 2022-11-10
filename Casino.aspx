@@ -30,7 +30,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucky Fanta</title>
+    <title>Lucky Sprite</title>
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
@@ -1450,7 +1450,7 @@
         <div class="tab-game">
             <div class="tab-inner">
                 <div class="tab-search" onclick="showSearchGameModel()">
-                    <img src="images/icon/ico-search-dog-tt.svg" alt="" onerror="setDefaultIcon(this)"><span class="title language_replace">找遊戲</span>
+                    <img src="images/icon/ico-search-dog-tt.png" alt="" onerror="setDefaultIcon(this)"><span class="title language_replace">找遊戲</span>
                 </div>
                 <div class="tab-scroller tab-6">
                     <div class="tab-scroller__area">

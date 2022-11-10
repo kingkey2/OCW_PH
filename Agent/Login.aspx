@@ -351,7 +351,7 @@
         <div class="container loginWrapper">
             <section class="login__brand">
                 <div class="heading-login text-center">
-                    <span class="language_replace" onclick="showCompanyCode()">Lucky Fanta</span>
+                    <span class="language_replace" onclick="showCompanyCode()">Lucky Sprite</span>
                 </div>
                 <!-- <div class="login__qrcode"><span class="qrcode"></span></div> -->
                 <%if (EWinWeb.IsTestSite == true)
