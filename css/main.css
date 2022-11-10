@@ -1575,7 +1575,7 @@ hr.line {
           align-items: center;
   height: 50px;
   width: 40px;
-  background: url(../images/logo-mobile.svg) left center no-repeat;
+  background: url(../images/logo-mobile.png) left center no-repeat;
   background-size: contain;
 }
 .navbar-brand .logo a {
@@ -2120,7 +2120,8 @@ hr.line {
 @media (min-width: 768px) {
   .navbar-brand .logo {
     width: 190px;
-    background: url(../images/logo.svg) left center no-repeat;
+    background: url(../images/logo.png) left center no-repeat;
+    background-size: contain;
   }
 
   .navbar-toggler {

@@ -84,8 +84,8 @@
         // min-width: 100px;
 
         // background: url(../images/logo.svg) left center no-repeat;
-        background: url(../images/logo-mobile.svg) left center no-repeat;
-      
+        // background: url(../images/logo-mobile.svg) left center no-repeat;
+        background: url(../images/logo-mobile.png) left center no-repeat;
         background-size: contain;
 
         a {
@@ -873,7 +873,9 @@
     .navbar-brand {
         .logo {
             width: 190px;
-            background: url(../images/logo.svg) left center no-repeat;
+            // background: url(../images/logo.svg) left center no-repeat;
+            background: url(../images/logo.png) left center no-repeat;
+            background-size: contain;
         }
     }
 

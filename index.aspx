@@ -117,18 +117,19 @@
     <meta name='description' content="Partners with a wide variety of well-known game brands, we provide fast deposit and withdrawal options, so you can play and have fun whenever you want!" />
     <meta property="og:site_name" content="Lucky Fanta" />
     <meta property="og:title" content="Most popular online casino - Lucky Fanta" />
+    <meta property="og:type" content="website" />
     <meta property="og:Keyword" content="Auto Fast Deposits and Withdrawals" />
     <meta property="og:description" content="Partners with a wide variety of well-known game brands, we provide fast deposit and withdrawal options, so you can play and have fun whenever you want!" />
 
     <%--<meta property="og:url" content="https://casino-maharaja.com/" />--%>
-    <!--英文圖片-->
     <%--<meta property="og:image" content="https://casino-maharaja.com/images/share_pic_en.png" />--%>
-    <%--<meta property="og:type" content="website" />--%>
 
     <!-- Share image -->
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="bookmark" href="images/favicon.ico" />
-    <link rel="apple-touch-icon" href="images/share_pic.png">
+    <link rel="shortcut icon" href="images/favicon.ico"/>
+    <link rel="bookmark" href="images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="images/share_pic.png"/>
+
+
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css?<%:Version%>">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
