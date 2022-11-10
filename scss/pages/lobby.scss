@@ -842,6 +842,7 @@ $gameRanking-swiper-slide-width-over-xxl: $swiper-slide-width-over-xxl         *
 
             .tab-search{
                 // width:((54/46)*(52px-5px));
+          
                 width:((54/46)*(52px+10px-5px));
                 height:((54/46)*(52px+10px-5px));
                 &:hover{
