@@ -377,6 +377,7 @@
                                 if (o.Result == 0) {
                                     //if (UserAccountPayments.length == 0) {
                                     if (UserAccountPayments.length > 0) {
+                                        window.parent.API_LoadingEnd(1);
                                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能有一筆進行中之訂單"), function () {
 
                                         });
@@ -410,6 +411,7 @@
                                                     OrderNumber = data.OrderNumber;
                                                     GetDepositActivityInfoByOrderNumber(OrderNumber);
                                                 } else {
+                                                    window.parent.API_LoadingEnd(1);
                                                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                                                     });
@@ -417,6 +419,7 @@
 
                                             }
                                             else {
+                                                window.parent.API_LoadingEnd(1);
                                                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
 
                                                 });
@@ -424,6 +427,7 @@
                                         })
                                     }
                                 } else {
+                                    window.parent.API_LoadingEnd(1);
                                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                                     });
@@ -443,6 +447,10 @@
                     }
                 });
             } else {
+                window.parent.API_LoadingEnd(1);
+                if (message2 == 'InvalidPassword') {
+                    message2 = 'InvalidWalletPassword';
+                }
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(message2));
             }
         });

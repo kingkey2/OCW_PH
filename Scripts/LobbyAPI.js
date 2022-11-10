@@ -1217,11 +1217,12 @@
         });
     };
 
-    this.SetWalletPasswordByValidateCode = function (GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword, cb) {
+    this.SetWalletPasswordByValidateCode = function (WebSID, GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword, cb) {
         var url = APIUrl + "/SetWalletPasswordByValidateCode";
         var postData;
 
         postData = {
+            WebSID: WebSID,
             GUID: GUID,
             ValidateType: ValidateType,
             EMail: EMail,

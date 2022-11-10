@@ -51,12 +51,15 @@
     var v = "<%:Version%>";
     var IsOpenTime = "<%:InOpenTime%>";
     var IsWithdrawlTemporaryMaintenance = "<%:IsWithdrawlTemporaryMaintenance%>";
+    var lobbyClient;
+    var WebInfo;
 
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
         }
-
+        lobbyClient = window.parent.API_GetLobbyAPI();
+        WebInfo = window.parent.API_GetWebInfo();
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
@@ -72,7 +75,23 @@
                     });
                 }
             }
+            checkWalletPassword();
         }, "PaymentAPI");
+    }
+
+    function checkWalletPassword() {
+        lobbyClient.GetUserAccountProperty(WebInfo.SID, Math.uuid(), "IsSetWalletPassword", function (success, o) {
+            if (success) {
+                console.log(o);
+                if (o.Result != 0) {
+                    if (o.Message=="NoExist") {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定錢包密碼"), function () {
+                            window.parent.API_LoadPage("ForgotWalletPassword", "ForgotWalletPassword.aspx");
+                        });
+                    }
+                }
+            }
+        });
     }
 
     function GetListPaymentChannel() {

@@ -928,7 +928,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         }
     }
 
-        
+
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult CheckPassword(string WebSID, string GUID, int PasswordType, string Password) {
@@ -1217,9 +1217,26 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult SetWalletPasswordByValidateCode(string GUID, EWin.Lobby.enumValidateType ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword) {
+    public EWin.Lobby.APIResult SetWalletPasswordByValidateCode(string WebSID,string GUID, EWin.Lobby.enumValidateType ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-        return lobbyAPI.SetWalletPasswordByValidateCode(GetToken(), GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
+        RedisCache.SessionContext.SIDInfo SI;
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+        EWin.Lobby.APIResult R;
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            R= lobbyAPI.SetWalletPasswordByValidateCode(GetToken(), GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
+            if (R.Result == EWin.Lobby.enumResult.OK)
+            {
+                R = lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.BySID, SI.EWinSID, "IsSetWalletPassword", "true");
+            }
+        } else {
+            R = new EWin.Lobby.APIResult() {
+                Result = EWin.Lobby.enumResult.ERR,
+                Message = "InvalidWebSID",
+                GUID = GUID
+            };
+        }
+
+        return R;
     }
 
     [WebMethod]

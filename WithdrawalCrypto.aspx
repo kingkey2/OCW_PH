@@ -657,6 +657,9 @@
                                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("錢包地址與選擇的加密貨幣格式不符"));
                                 }
                             } else {
+                                if (message2 =='InvalidPassword') {
+                                    message2 = 'InvalidWalletPassword';
+                                }
                                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(message2));
                             }
                         });
