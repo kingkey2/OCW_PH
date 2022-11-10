@@ -256,6 +256,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                         if (IsUserAccountLevelDBHasData) {
                                             //等級有升級時再更新
                                             if (NewUserLevelIndex > UserLevelIndex) {
+                                                updateEwinUserLevel(LoginAccount, NewUserLevelIndex);
                                                 setUserAccountProperty(LoginAccount, System.Guid.NewGuid().ToString(), "UserLevelUpdateDate", DateTime.Now.ToString("yyyy/MM/dd"));
                                                 EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                             }
@@ -277,6 +278,8 @@ public class MgmtAPI : System.Web.Services.WebService {
                                                 NewUserLevelIndex = UserLevelIndex - 1;
 
                                                 CheckUpgrade = false;
+                                                updateEwinUserLevel(LoginAccount, NewUserLevelIndex);
+                                                setUserAccountProperty(LoginAccount, System.Guid.NewGuid().ToString(), "UserLevelUpdateDate", DateTime.Now.ToString("yyyy/MM/dd"));
 
                                                 //更新會員等級資料
                                                 if (IsUserAccountLevelDBHasData) {
