@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucky Fanta</title>
+    <title>Lucky Sprite</title>
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
@@ -1457,7 +1457,7 @@
                 <marquee class="marquee-content" direction="left" scrollamount="3" scrolldelay="100" behavior="scroll" hover="true"   onMouseOver="this.stop()" onMouseOut="this.start()">
                     <a class="marquee-item" data-remote="true" href="#">【cash in/out Maintenance Notice】Maintenance Instructions: cash in / out Maintenance During the period of 03-06 am, there will be no recharge channel and withdrawal channel available If the maintenance will be extended, will be notified separately. Thank you for your support and understanding. Maintenance time: 2022/08/11 03:00 - 06:00 (GMT+8)</a>
                     <a class="marquee-item" data-remote="true" href="#">【System Maintenance Notice】Maintenance Instructions: System Maintenance. Maintenance time: 2022/03/22 8:00am - 11:00am</a>
-                    <a class="marquee-item" data-remote="true" href="#">Welcome to Lucky Fanta - We have the best thirst quenching games out there, 24/7 customer service</a>
+                    <a class="marquee-item" data-remote="true" href="#">Welcome to Lucky Sprite - We have the best thirst quenching games out there, 24/7 customer service</a>
                     <a class="marquee-item" data-remote="true" href="#">Reminder: Transactions are all web-based, and if you want to participate in bonus events, you must apply for bonus first before depositing. If you have any concerns, please contact customer service immediately.</a>
                 </marquee>
             </div>

@@ -83,7 +83,7 @@
     string GameBrand = "YS";
     string GameName ="Sumo";
     string HomeUrl = EWinWeb.CasinoWorldUrl+"/CloseGame.aspx";
-    string DemoPlay = string.IsNullOrEmpty(Request["DemoPlay"]) ? "0" : Request["DemoPlay"]; //¤£¤ä´©DEMOª½±µ³Ì¥~¼h§PÂ_
+    string DemoPlay = string.IsNullOrEmpty(Request["DemoPlay"]) ? "0" : Request["DemoPlay"]; //ï¿½ï¿½ï¿½ä´©DEMOï¿½ï¿½ï¿½ï¿½ï¿½Ì¥~ï¿½hï¿½Pï¿½_
 
     SI = RedisCache.SessionContext.GetSIDInfo(SID);
 
@@ -99,7 +99,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucky Fanta</title>
+    <title>Lucky Sprite</title>
 </head>
 
 <body>

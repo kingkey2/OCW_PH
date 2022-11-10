@@ -112,11 +112,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-    <title>Lucky Fanta - Most popular online casino</title>
+    <title>Lucky Sprite - Most popular online casino</title>
     <meta name='keywords' content="Casino、Slot、Amusement、Game、Auto Fast Deposits and Withdrawals" />
     <meta name='description' content="Partners with a wide variety of well-known game brands, we provide fast deposit and withdrawal options, so you can play and have fun whenever you want!" />
-    <meta property="og:site_name" content="Lucky Fanta" />
-    <meta property="og:title" content="Most popular online casino - Lucky Fanta" />
+    <meta property="og:site_name" content="Lucky Sprite" />
+    <meta property="og:title" content="Most popular online casino - Lucky Sprite" />
     <meta property="og:type" content="website" />
     <meta property="og:Keyword" content="Auto Fast Deposits and Withdrawals" />
     <meta property="og:description" content="Partners with a wide variety of well-known game brands, we provide fast deposit and withdrawal options, so you can play and have fun whenever you want!" />
@@ -3667,13 +3667,13 @@
                             <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
                         </div>
                         <div class="company-address">
-                            <p class="address language_replace">Lucky Fanta由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
+                            <p class="address language_replace">Lucky Sprite由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
                         </div>
                     </div>
 
 
                     <div class="footer-copyright">
-                        <p class="language_replace">Copyright © 2022 Lucky Fanta. All Rights Reserved.</p>
+                        <p class="language_replace">Copyright © 2022 Lucky Sprite. All Rights Reserved.</p>
                     </div>
                 </div>
             </div>

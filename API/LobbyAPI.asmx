@@ -1411,7 +1411,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 }
                 break;
             case EWin.Lobby.enumValidateType.PhoneNumber:
-                string smsContent = "Your LUCKY FANTA OTP code is " + ValidateCode;
+                string smsContent = "Your Lucky Sprite OTP code is " + ValidateCode;
                 R = SendSMS(GUID, "0", 0, ContactPhonePrefix + ContactPhoneNumber, smsContent);
                 break;
             default:
