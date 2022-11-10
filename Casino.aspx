@@ -2,11 +2,26 @@
 
 <%
     string Version = EWinWeb.Version;
-
+    string MarqueeText = "";
+    int RValue;
+    string Token;
     string selectedCategory ="GameList_Hot";
 
     if (string.IsNullOrEmpty(Request["selectedCategory"]) == false) {
         selectedCategory = Request["selectedCategory"];
+    }
+
+    Random R = new Random();
+
+    EWin.Lobby.APIResult Result;
+    EWin.Lobby.LobbyAPI LobbyAPI = new EWin.Lobby.LobbyAPI();
+
+    RValue = R.Next(100000, 9999999);
+    Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
+    Result = LobbyAPI.GetCompanyMarqueeText(Token, Guid.NewGuid().ToString());
+    if (Result.Result == EWin.Lobby.enumResult.OK)
+    {
+        MarqueeText = Result.Message;
     }
 %>
 <!doctype html>
@@ -81,7 +96,7 @@
     var tmpCategory_GameList_Slot = "";
     var selectedCategorys = [];
     var GameCategoryCodeArray = [];
-
+ 
     var HeaderGames = [
         {
             GameCode: "BNG.242",
@@ -1455,10 +1470,7 @@
                     <i class="icon icon-mask icon-announce"></i>
                 </div>
                 <marquee class="marquee-content" direction="left" scrollamount="3" scrolldelay="100" behavior="scroll" hover="true"   onMouseOver="this.stop()" onMouseOut="this.start()">
-                    <a class="marquee-item" data-remote="true" href="#">【cash in/out Maintenance Notice】Maintenance Instructions: cash in / out Maintenance During the period of 03-06 am, there will be no recharge channel and withdrawal channel available If the maintenance will be extended, will be notified separately. Thank you for your support and understanding. Maintenance time: 2022/08/11 03:00 - 06:00 (GMT+8)</a>
-                    <a class="marquee-item" data-remote="true" href="#">【System Maintenance Notice】Maintenance Instructions: System Maintenance. Maintenance time: 2022/03/22 8:00am - 11:00am</a>
-                    <a class="marquee-item" data-remote="true" href="#">Welcome to Lucky Fanta - We have the best thirst quenching games out there, 24/7 customer service</a>
-                    <a class="marquee-item" data-remote="true" href="#">Reminder: Transactions are all web-based, and if you want to participate in bonus events, you must apply for bonus first before depositing. If you have any concerns, please contact customer service immediately.</a>
+                    <a class="marquee-item" data-remote="true" href="#"><%=MarqueeText %></a>
                 </marquee>
             </div>
         </div>

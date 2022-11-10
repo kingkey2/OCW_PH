@@ -800,9 +800,9 @@
         $("#activityURL").attr("href", "https://casino-maharaja.net/lp/01/" + WebInfo.UserInfo.PersonCode);
         $("#activityURL1").attr("href", "https://casino-maharaja.net/lp/02/" + WebInfo.UserInfo.PersonCode);
 
-        if (!WebInfo.UserInfo.IsWalletPasswordSet) {
+        //if (!WebInfo.UserInfo.IsWalletPasswordSet) {
             //document.getElementById('idWalletPasswordUnSet').style.display = "block";
-        }
+        //}
     }
 
     function GetEPayBankSelect() {
@@ -1220,7 +1220,7 @@
                                             <input type="password" class="custom-input-edit" id="idOldPassword" value="">
                                         </div>
                                     </div>--%>                                       
-                                   <%-- <div class="data-item password">
+                                    <div class="data-item password">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
@@ -1233,7 +1233,7 @@
                                                 <p class="password">**************</p>
                                             </div>
                                         </div>                                        
-                                    </div>--%>
+                                    </div>
                                     <div class="data-item-group">
                                         <div class="data-item name">
                                             <div class="data-item-title">

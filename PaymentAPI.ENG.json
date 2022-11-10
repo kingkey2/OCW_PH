@@ -34,5 +34,8 @@
   "JKCAmountInsufficient2": "JKC balance insufficient",
   "ClientOrderNumber": "The order number is repeated.",
   "WithdrawlTemporaryMaintenance": "Payout program is under maintenance.",
-  "OPFailure": "Insufficient balance, please check your wallet."
+  "OPFailure": "Insufficient balance, please check your wallet.",
+  "InvalidAmount": "Invalid amount",
+  "InvalidDailyAmount": "Invalid daily amount",
+  "ChannelNoAvailable": "This deposit method is not available now."
 }

@@ -140,6 +140,57 @@
         });
     };
 
+    this.GetPaymentMethodCryptoFilterPaymentChannel = function (WebSID, GUID, PaymentCategoryCode, PaymentType, UserLevel, cb) {
+        var url = APIUrl + "/GetPaymentMethodCryptoFilterPaymentChannel";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            PaymentCategoryCode: PaymentCategoryCode,
+            PaymentType: PaymentType,
+            UserLevel: UserLevel
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.GetPaymentMethodByPaymentCodeFilterPaymentChannel = function (WebSID, GUID, PaymentCategoryCode, PaymentType, PaymentCode, UserLevel, cb) {
+        var url = APIUrl + "/GetPaymentMethodByPaymentCodeFilterPaymentChannel";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            PaymentCategoryCode: PaymentCategoryCode,
+            PaymentType: PaymentType,
+            PaymentCode: PaymentCode,
+            UserLevel: UserLevel
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.GetEPayBankSelect = function (WebSID, GUID, ProviderCode, cb) {
         var url = APIUrl + "/GetEPayBankSelect";
         var postData;

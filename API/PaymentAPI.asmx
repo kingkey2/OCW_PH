@@ -71,7 +71,7 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public PaymentMethodResult GetPaymentMethodByPaymentCode(string WebSID, string GUID, string PaymentCategoryCode, int PaymentType,string PaymentCode)
+    public PaymentMethodResult GetPaymentMethodByPaymentCode(string WebSID, string GUID, string PaymentCategoryCode, int PaymentType, string PaymentCode)
     {
         RedisCache.SessionContext.SIDInfo SI;
         PaymentMethodResult R = new PaymentMethodResult() { GUID = GUID, Result = enumResult.ERR, PaymentMethodResults = new List<PaymentMethod>() };
@@ -87,7 +87,7 @@ public class PaymentAPI : System.Web.Services.WebService
                 if (DT.Rows.Count > 0)
                 {
                     R.Result = enumResult.OK;
-                    R.PaymentMethodResults = EWinWeb.ToList<PaymentMethod>(DT).Where(x => x.PaymentType == PaymentType&&x.PaymentCode==PaymentCode && x.State == 0).ToList();
+                    R.PaymentMethodResults = EWinWeb.ToList<PaymentMethod>(DT).Where(x => x.PaymentType == PaymentType && x.PaymentCode == PaymentCode && x.State == 0).ToList();
                 }
                 else
                 {
@@ -126,6 +126,159 @@ public class PaymentAPI : System.Web.Services.WebService
                 {
                     R.Result = enumResult.OK;
                     R.PaymentMethodResults = EWinWeb.ToList<PaymentMethod>(DT).Where(x => x.PaymentType == PaymentType && x.State == 0).ToList();
+                }
+                else
+                {
+                    SetResultException(R, "NoData");
+                }
+            }
+            else
+            {
+                SetResultException(R, "NoData");
+            }
+        }
+        else
+        {
+            SetResultException(R, "InvalidWebSID");
+        }
+
+        return R;
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public PaymentMethodResult GetPaymentMethodByPaymentCodeFilterPaymentChannel(string WebSID, string GUID, string PaymentCategoryCode, int PaymentType, string PaymentCode, int UserLevel)
+    {
+        RedisCache.SessionContext.SIDInfo SI;
+        PaymentMethodResult R = new PaymentMethodResult() { GUID = GUID, Result = enumResult.ERR, PaymentMethodResults = new List<PaymentMethod>() };
+        System.Data.DataTable DT = new System.Data.DataTable();
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.Lobby.PaymentChannelResult PaymentChannelResult;
+        DT = RedisCache.PaymentMethod.GetPaymentMethodByCategory(PaymentCategoryCode);
+        EWin.Lobby.PaymentChannel Channel = null;
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+        {
+            PaymentChannelResult = lobbyAPI.ListPaymentChannel(GetToken(), SI.EWinSID, GUID);
+            if (PaymentChannelResult.Result == EWin.Lobby.enumResult.OK)
+            {
+                if (DT != null)
+                {
+                    if (DT.Rows.Count > 0)
+                    {
+                        if (PaymentType == 0)
+                        {
+                            Channel = PaymentChannelResult.ChannelList.Where(w => w.ChannelStatus == 0 && w.CurrencyType == EWinWeb.MainCurrencyType && w.AllowDeposit == true && w.PaymentChannelCode == PaymentCode && w.UserLevelIndex <= UserLevel).FirstOrDefault();
+                        }
+                        else if (PaymentType == 1)
+                        {
+                            Channel = PaymentChannelResult.ChannelList.Where(w => w.ChannelStatus == 0 && w.CurrencyType == EWinWeb.MainCurrencyType && w.AllowWithdrawal == true && w.PaymentChannelCode == PaymentCode && w.UserLevelIndex <= UserLevel).FirstOrDefault();
+                        }
+
+                        if (Channel != null)
+                        {
+                            R.Result = enumResult.OK;
+                            R.PaymentMethodResults = EWinWeb.ToList<PaymentMethod>(DT).Where(x => x.PaymentType == PaymentType && x.PaymentCode == PaymentCode).ToList();
+                        }
+
+
+                    }
+                    else
+                    {
+                        SetResultException(R, "NoData");
+                    }
+                }
+                else
+                {
+                    SetResultException(R, "NoData");
+                }
+            }
+            else
+            {
+                SetResultException(R, "NoData");
+            }
+
+        }
+        else
+        {
+            SetResultException(R, "InvalidWebSID");
+        }
+
+        return R;
+    }
+
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public PaymentMethodResult GetPaymentMethodCryptoFilterPaymentChannel(string WebSID, string GUID, string PaymentCategoryCode, int PaymentType, int UserLevel)
+    {
+        RedisCache.SessionContext.SIDInfo SI;
+        PaymentMethodResult R = new PaymentMethodResult() { GUID = GUID, Result = enumResult.ERR, PaymentMethodResults = new List<PaymentMethod>() };
+        System.Data.DataTable DT = new System.Data.DataTable();
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.Lobby.PaymentChannelResult PaymentChannelResult;
+        List<PaymentMethod> TmpPaymentMethodResults = new List<PaymentMethod>();
+        DT = RedisCache.PaymentMethod.GetPaymentMethodByCategory(PaymentCategoryCode);
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+        {
+            PaymentChannelResult = lobbyAPI.ListPaymentChannel(GetToken(), SI.EWinSID, GUID);
+            if (PaymentChannelResult.Result == EWin.Lobby.enumResult.OK)
+            {
+                if (DT != null)
+                {
+                    if (DT.Rows.Count > 0)
+                    {
+
+                        R.PaymentMethodResults = EWinWeb.ToList<PaymentMethod>(DT).Where(x => x.PaymentType == PaymentType).ToList();
+                        for (int i = 0; i < PaymentChannelResult.ChannelList.Count(); i++)
+                        {
+                            var Channel = PaymentChannelResult.ChannelList[i];
+
+                            if (PaymentType == 0)
+                            {
+                                if (Channel.ChannelStatus == 0 && Channel.CurrencyType == EWinWeb.MainCurrencyType && Channel.AllowDeposit == true && Channel.UserLevelIndex <= UserLevel)
+                                {
+                                    if (TmpPaymentMethodResults.Where(f => f.PaymentCode == Channel.PaymentChannelCode).Count() == 0)
+                                    {
+                                        var PaymentMethod = R.PaymentMethodResults.Find(f => f.PaymentCode == Channel.PaymentChannelCode);
+                                        if (PaymentMethod != null)
+                                        {
+                                            TmpPaymentMethodResults.Add(PaymentMethod);
+                                        }
+                                    }
+                                }
+                            }
+                            else if (PaymentType == 1)
+                            {
+                                if (Channel.ChannelStatus == 0 && Channel.CurrencyType == EWinWeb.MainCurrencyType && Channel.AllowWithdrawal == true && Channel.UserLevelIndex <= UserLevel)
+                                {
+                                    if (TmpPaymentMethodResults.Where(f => f.PaymentCode == Channel.PaymentChannelCode).Count() == 0)
+                                    {
+                                        var PaymentMethod = R.PaymentMethodResults.Find(f => f.PaymentCode == Channel.PaymentChannelCode);
+                                        if (PaymentMethod != null)
+                                        {
+                                            TmpPaymentMethodResults.Add(PaymentMethod);
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+
+                        if (TmpPaymentMethodResults.Count > 0)
+                        {
+                            R.PaymentMethodResults = TmpPaymentMethodResults;
+                            R.Result = enumResult.OK;
+                        }
+                    }
+                    else
+                    {
+                        SetResultException(R, "NoData");
+                    }
                 }
                 else
                 {
@@ -224,7 +377,8 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public ActivityCore.ActResult<List<ActivityCore.DepositActivity>> GetAllActivityInfo(string GUID) {
+    public ActivityCore.ActResult<List<ActivityCore.DepositActivity>> GetAllActivityInfo(string GUID)
+    {
         ActivityCore.ActResult<List<ActivityCore.DepositActivity>> R = new ActivityCore.ActResult<List<ActivityCore.DepositActivity>>() { GUID = GUID, Result = ActivityCore.enumActResult.ERR };
 
         R = ActivityCore.GetActivityAllResult();
@@ -238,14 +392,13 @@ public class PaymentAPI : System.Web.Services.WebService
     {
         PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
         PaymentCommonData PaymentCommonData = new PaymentCommonData() { PaymentCryptoDetailList = new List<CryptoDetail>() };
-
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.Lobby.APIResult CheckPaymentChannelAmountResult;
         RedisCache.SessionContext.SIDInfo SI;
         string PaymentMethodName;
         string PaymentCode;
         string ReceiveCurrencyType;
         string MultiCurrencyInfo;
-        int MinLimit;
-        int MaxLimit;
         int DailyMaxAmount;
         int DailyMaxCount;
         decimal ReceiveTotalAmount;
@@ -269,190 +422,176 @@ public class PaymentAPI : System.Web.Services.WebService
 
             if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
             {
-                if ((int)PaymentMethodDT.Rows[0]["State"] == 0)
+                CheckPaymentChannelAmountResult = lobbyAPI.CheckPaymentChannelAmount(GetToken(), SI.EWinSID, GUID, (EWin.Lobby.enumPaymentDirectionType)0, EWinWeb.MainCurrencyType, (string)PaymentMethodDT.Rows[0]["PaymentCode"], Amount);
+                if (CheckPaymentChannelAmountResult.Result != EWin.Lobby.enumResult.OK)
                 {
-                    if ((int)PaymentMethodDT.Rows[0]["PaymentType"] == 0)
+                    SetResultException(R, CheckPaymentChannelAmountResult.Message);
+                    return R;
+                }
+
+                if ((int)PaymentMethodDT.Rows[0]["PaymentType"] == 0)
+                {
+
+                    DailyMaxCount = (int)PaymentMethodDT.Rows[0]["DailyMaxCount"];
+                    DailyMaxAmount = (int)PaymentMethodDT.Rows[0]["DailyMaxAmount"];
+                    DecimalPlaces = (int)PaymentMethodDT.Rows[0]["DecimalPlaces"];
+
+                    System.Data.DataTable SummaryDT = RedisCache.UserAccountSummary.GetUserAccountSummary(SI.LoginAccount, DateTime.Now);
+
+                    if (SummaryDT != null && SummaryDT.Rows.Count > 0)
                     {
-                        MinLimit = (int)PaymentMethodDT.Rows[0]["MinLimit"];
-                        MaxLimit = (int)PaymentMethodDT.Rows[0]["MaxLimit"];
-                        DailyMaxCount = (int)PaymentMethodDT.Rows[0]["DailyMaxCount"];
-                        DailyMaxAmount = (int)PaymentMethodDT.Rows[0]["DailyMaxAmount"];
-                        DecimalPlaces = (int)PaymentMethodDT.Rows[0]["DecimalPlaces"];
-                        if (Amount >= MinLimit)
+                        DepositAmountByDay = (decimal)SummaryDT.Rows[0]["DepositAmount"];
+                        DepositCountByDay = (int)SummaryDT.Rows[0]["DepositCount"];
+                    }
+                    else
+                    {
+                        DepositAmountByDay = 0;
+                        DepositCountByDay = 0;
+                    }
+
+                    if (DailyMaxCount == 0 || (DepositCountByDay + 1) <= DailyMaxCount)
+                    {
+                        if (DailyMaxAmount == 0 || (DepositAmountByDay + Amount) <= DailyMaxAmount)
                         {
-                            if (Amount <= MaxLimit || MaxLimit == 0)
+                            if ((int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 2)
                             {
-                                System.Data.DataTable SummaryDT = RedisCache.UserAccountSummary.GetUserAccountSummary(SI.LoginAccount, DateTime.Now);
+                                PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
+                                PaymentCode = (string)PaymentMethodDT.Rows[0]["PaymentCode"];
+                                ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
+                                ThresholdRate = (decimal)PaymentMethodDT.Rows[0]["ThresholdRate"];
+                                HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
+                                HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
+                                ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
+                                WalletType = (int)PaymentMethodDT.Rows[0]["EWinCryptoWalletType"];
+                                MultiCurrencyInfo = (string)PaymentMethodDT.Rows[0]["MultiCurrencyInfo"];
+                                ReceiveTotalAmount = (Amount * (1 + HandingFeeRate)) + HandingFeeAmount;
 
-                                if (SummaryDT != null && SummaryDT.Rows.Count > 0)
-                                {
-                                    DepositAmountByDay = (decimal)SummaryDT.Rows[0]["DepositAmount"];
-                                    DepositCountByDay = (int)SummaryDT.Rows[0]["DepositCount"];
-                                }
-                                else
-                                {
-                                    DepositAmountByDay = 0;
-                                    DepositCountByDay = 0;
-                                }
 
-                                if (DailyMaxCount == 0 || (DepositCountByDay + 1) <= DailyMaxCount)
+                                if (!string.IsNullOrEmpty(MultiCurrencyInfo))
                                 {
-                                    if (DailyMaxAmount == 0 || (DepositAmountByDay + Amount) <= DailyMaxAmount)
+                                    Newtonsoft.Json.Linq.JArray MultiCurrency = Newtonsoft.Json.Linq.JArray.Parse(MultiCurrencyInfo);
+
+                                    foreach (var item in MultiCurrency)
                                     {
-                                        if ((int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 2)
+                                        string TokenCurrency;
+                                        decimal ExchangeRate;
+                                        decimal PartialRate;
+                                        if (!int.TryParse(item["DecimalPlaces"].ToString(), out DecimalPlaces))
                                         {
-                                            PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
-                                            PaymentCode = (string)PaymentMethodDT.Rows[0]["PaymentCode"];
-                                            ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
-                                            ThresholdRate = (decimal)PaymentMethodDT.Rows[0]["ThresholdRate"];
-                                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
-                                            HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
-                                            ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
-                                            WalletType = (int)PaymentMethodDT.Rows[0]["EWinCryptoWalletType"];
-                                            MultiCurrencyInfo = (string)PaymentMethodDT.Rows[0]["MultiCurrencyInfo"];
-                                            ReceiveTotalAmount = (Amount * (1 + HandingFeeRate)) + HandingFeeAmount;
+                                            DecimalPlaces = 6;
+                                        }
+                                        TokenCurrency = item["Currency"].ToString();
+                                        ExchangeRate = CryptoExpand.GetCryptoExchangeRate(TokenCurrency);
 
-
-                                            if (!string.IsNullOrEmpty(MultiCurrencyInfo))
-                                            {
-                                                Newtonsoft.Json.Linq.JArray MultiCurrency = Newtonsoft.Json.Linq.JArray.Parse(MultiCurrencyInfo);
-
-                                                foreach (var item in MultiCurrency)
-                                                {
-                                                    string TokenCurrency;
-                                                    decimal ExchangeRate;
-                                                    decimal PartialRate;
-                                                    if (!int.TryParse(item["DecimalPlaces"].ToString(), out DecimalPlaces))
-                                                    {
-                                                        DecimalPlaces = 6;
-                                                    }
-                                                    TokenCurrency = item["Currency"].ToString();
-                                                    ExchangeRate = CryptoExpand.GetCryptoExchangeRate(TokenCurrency);
-
-                                                    if (ExchangeRate == 0)
-                                                    {
-                                                        //表示取得匯率失敗
-                                                        GetExchangeRateSuccess = false;
-                                                        break;
-                                                    }
-                                                    else
-                                                    {
-                                                        PartialRate = (decimal)item["Rate"];
-
-                                                        CryptoDetail Dcd = new CryptoDetail()
-                                                        {
-                                                            TokenCurrencyType = TokenCurrency,
-                                                            TokenContractAddress = item["TokenContractAddress"].ToString(),
-                                                            ExchangeRate = CodingControl.FormatDecimal(ExchangeRate, DecimalPlaces),
-                                                            PartialRate = PartialRate,
-                                                            ReceiveAmount = CodingControl.FormatDecimal(ReceiveTotalAmount * PartialRate * ExchangeRate, DecimalPlaces),
-                                                        };
-
-                                                        PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
-                                                    }
-                                                }
-                                            }
-                                            else
-                                            {
-                                                decimal ExchangeRate;
-                                                decimal ReceiveAmount;
-
-                                                ExchangeRate = CryptoExpand.GetCryptoExchangeRate(ReceiveCurrencyType);
-                                                ReceiveAmount = Amount * ExchangeRate;
-
-                                                if (ExchangeRate == 0)
-                                                {
-                                                    //表示取得匯率失敗
-                                                    GetExchangeRateSuccess = false;
-                                                }
-                                                else
-                                                {
-                                                    CryptoDetail Dcd = new CryptoDetail()
-                                                    {
-                                                        TokenCurrencyType = ReceiveCurrencyType,
-                                                        TokenContractAddress = (string)PaymentMethodDT.Rows[0]["TokenContractAddress"],
-                                                        ExchangeRate = CodingControl.FormatDecimal(ExchangeRate, DecimalPlaces),
-                                                        PartialRate = 1,
-                                                        ReceiveAmount = CodingControl.FormatDecimal(ReceiveTotalAmount * 1 * ExchangeRate, DecimalPlaces),
-                                                    };
-
-                                                    PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
-                                                }
-                                            }
-
-                                            if (GetExchangeRateSuccess)
-                                            {
-                                                string OrderNumber = System.Guid.NewGuid().ToString();
-                                                int InsertRet;
-
-                                                PaymentCommonData.PaymentType = 0;
-                                                PaymentCommonData.BasicType = 2;
-                                                PaymentCommonData.WalletType = WalletType;
-                                                PaymentCommonData.OrderNumber = OrderNumber;
-                                                PaymentCommonData.LoginAccount = SI.LoginAccount;
-                                                PaymentCommonData.Amount = Amount;
-                                                PaymentCommonData.ReceiveTotalAmount = ReceiveTotalAmount;
-                                                PaymentCommonData.HandingFeeRate = HandingFeeRate;
-                                                PaymentCommonData.HandingFeeAmount = HandingFeeAmount;
-                                                PaymentCommonData.ExpireSecond = ExpireSecond;
-                                                PaymentCommonData.PaymentMethodID = PaymentMethodID;
-                                                PaymentCommonData.PaymentMethodName = PaymentMethodName;
-                                                PaymentCommonData.PaymentCode = PaymentCode;
-                                                PaymentCommonData.ThresholdRate = ThresholdRate;
-                                                PaymentCommonData.ThresholdValue = Amount * ThresholdRate;
-                                                PaymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
-
-                                                InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, PaymentCommonData.PaymentType, 2, PaymentCommonData.LoginAccount, PaymentCommonData.Amount, PaymentCommonData.HandingFeeRate, PaymentCommonData.HandingFeeAmount, PaymentCommonData.ThresholdRate, PaymentCommonData.ThresholdValue, PaymentCommonData.PaymentMethodID, "", "", Newtonsoft.Json.JsonConvert.SerializeObject(PaymentCommonData.PaymentCryptoDetailList), PaymentCommonData.ExpireSecond);
-
-                                                if (InsertRet == 1)
-                                                {
-                                                    R.Result = enumResult.OK;
-                                                    R.Data = PaymentCommonData;
-                                                    RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(PaymentCommonData), PaymentCommonData.OrderNumber);
-                                                }
-                                                else
-                                                {
-                                                    SetResultException(R, "InsertFailure");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                SetResultException(R, "GetExchangeFailed");
-                                            }
+                                        if (ExchangeRate == 0)
+                                        {
+                                            //表示取得匯率失敗
+                                            GetExchangeRateSuccess = false;
+                                            break;
                                         }
                                         else
                                         {
-                                            SetResultException(R, "PaymentMethodNotCrypto");
+                                            PartialRate = (decimal)item["Rate"];
+
+                                            CryptoDetail Dcd = new CryptoDetail()
+                                            {
+                                                TokenCurrencyType = TokenCurrency,
+                                                TokenContractAddress = item["TokenContractAddress"].ToString(),
+                                                ExchangeRate = CodingControl.FormatDecimal(ExchangeRate, DecimalPlaces),
+                                                PartialRate = PartialRate,
+                                                ReceiveAmount = CodingControl.FormatDecimal(ReceiveTotalAmount * PartialRate * ExchangeRate, DecimalPlaces),
+                                            };
+
+                                            PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
                                         }
-                                    }
-                                    else
-                                    {
-                                        SetResultException(R, "DailyAmountGreaterThanMaxlimit");
                                     }
                                 }
                                 else
                                 {
-                                    SetResultException(R, "DailyCountGreaterThanMaxlimit");
+                                    decimal ExchangeRate;
+                                    decimal ReceiveAmount;
+
+                                    ExchangeRate = CryptoExpand.GetCryptoExchangeRate(ReceiveCurrencyType);
+                                    ReceiveAmount = Amount * ExchangeRate;
+
+                                    if (ExchangeRate == 0)
+                                    {
+                                        //表示取得匯率失敗
+                                        GetExchangeRateSuccess = false;
+                                    }
+                                    else
+                                    {
+                                        CryptoDetail Dcd = new CryptoDetail()
+                                        {
+                                            TokenCurrencyType = ReceiveCurrencyType,
+                                            TokenContractAddress = (string)PaymentMethodDT.Rows[0]["TokenContractAddress"],
+                                            ExchangeRate = CodingControl.FormatDecimal(ExchangeRate, DecimalPlaces),
+                                            PartialRate = 1,
+                                            ReceiveAmount = CodingControl.FormatDecimal(ReceiveTotalAmount * 1 * ExchangeRate, DecimalPlaces),
+                                        };
+
+                                        PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
+                                    }
+                                }
+
+                                if (GetExchangeRateSuccess)
+                                {
+                                    string OrderNumber = System.Guid.NewGuid().ToString();
+                                    int InsertRet;
+
+                                    PaymentCommonData.PaymentType = 0;
+                                    PaymentCommonData.BasicType = 2;
+                                    PaymentCommonData.WalletType = WalletType;
+                                    PaymentCommonData.OrderNumber = OrderNumber;
+                                    PaymentCommonData.LoginAccount = SI.LoginAccount;
+                                    PaymentCommonData.Amount = Amount;
+                                    PaymentCommonData.ReceiveTotalAmount = ReceiveTotalAmount;
+                                    PaymentCommonData.HandingFeeRate = HandingFeeRate;
+                                    PaymentCommonData.HandingFeeAmount = HandingFeeAmount;
+                                    PaymentCommonData.ExpireSecond = ExpireSecond;
+                                    PaymentCommonData.PaymentMethodID = PaymentMethodID;
+                                    PaymentCommonData.PaymentMethodName = PaymentMethodName;
+                                    PaymentCommonData.PaymentCode = PaymentCode;
+                                    PaymentCommonData.ThresholdRate = ThresholdRate;
+                                    PaymentCommonData.ThresholdValue = Amount * ThresholdRate;
+                                    PaymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
+
+                                    InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, PaymentCommonData.PaymentType, 2, PaymentCommonData.LoginAccount, PaymentCommonData.Amount, PaymentCommonData.HandingFeeRate, PaymentCommonData.HandingFeeAmount, PaymentCommonData.ThresholdRate, PaymentCommonData.ThresholdValue, PaymentCommonData.PaymentMethodID, "", "", Newtonsoft.Json.JsonConvert.SerializeObject(PaymentCommonData.PaymentCryptoDetailList), PaymentCommonData.ExpireSecond);
+
+                                    if (InsertRet == 1)
+                                    {
+                                        R.Result = enumResult.OK;
+                                        R.Data = PaymentCommonData;
+                                        RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(PaymentCommonData), PaymentCommonData.OrderNumber);
+                                    }
+                                    else
+                                    {
+                                        SetResultException(R, "InsertFailure");
+                                    }
+                                }
+                                else
+                                {
+                                    SetResultException(R, "GetExchangeFailed");
                                 }
                             }
                             else
                             {
-                                SetResultException(R, "AmountGreaterThanMaxlimit");
+                                SetResultException(R, "PaymentMethodNotCrypto");
                             }
                         }
                         else
                         {
-                            SetResultException(R, "AmountLessThanMinLimit");
+                            SetResultException(R, "DailyAmountGreaterThanMaxlimit");
                         }
                     }
                     else
                     {
-                        SetResultException(R, "PaymentMethodNotSupportDeposit");
+                        SetResultException(R, "DailyCountGreaterThanMaxlimit");
                     }
                 }
                 else
                 {
-                    SetResultException(R, "PaymentMethodDisable");
+                    SetResultException(R, "PaymentMethodNotSupportDeposit");
                 }
             }
             else
@@ -566,7 +705,7 @@ public class PaymentAPI : System.Web.Services.WebService
                             Decription += ", TokenName=" + paymentCryptoDetail.TokenCurrencyType + " TokenAmount=" + paymentCryptoDetail.ReceiveAmount.ToString("F10");
                             paymentDetailWallets.Add(paymentDetailWallet);
                         }
-                        paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,0, Decription, true, PointValue, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailWallets.ToArray());
+                        paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, 0, Decription, true, PointValue, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailWallets.ToArray());
                         if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                         {
                             EWin.Payment.Result updateTagResult = paymentAPI.UpdateTagInfo(GetToken(), GUID, paymentResult.PaymentSerial, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData));
@@ -864,7 +1003,7 @@ public class PaymentAPI : System.Web.Services.WebService
                     EWin.Payment.PaymentResult paymentResult;
                     string Decription = TempCommonData.PaymentMethodName + ", ReceiveTotalAmount=" + TempCommonData.ReceiveTotalAmount.ToString("F10");
 
-                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount,0, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, null);
+                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, 0, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, null);
                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                     {
                         EWin.Payment.Result updateTagResult = paymentAPI.UpdateTagInfo(GetToken(), GUID, paymentResult.PaymentSerial, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData));
@@ -1083,7 +1222,7 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public PaymentCommonResult ConfirmEPayDeposit(string WebSID, string GUID, string OrderNumber, string[] ActivityNames, string Lang,string PaymentType,int RequestType=0)
+    public PaymentCommonResult ConfirmEPayDeposit(string WebSID, string GUID, string OrderNumber, string[] ActivityNames, string Lang, string PaymentType, int RequestType = 0)
     {
         //PaymentType:0=EWIN PAY 回傳URL /1=FORMPOST導頁 
         PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
@@ -1095,7 +1234,7 @@ public class PaymentAPI : System.Web.Services.WebService
         string ReceiveCurrencyType;
         string Decription = "";
         dynamic o = null;
-        decimal JPYRate=0;
+        decimal JPYRate = 0;
         string ServiceType = "";
         System.Data.DataTable DT;
         EWin.Payment.PaymentDetailInheritsBase[] p;
@@ -1117,71 +1256,28 @@ public class PaymentAPI : System.Web.Services.WebService
                 PointValue = TempCommonData.Amount;
                 ReceiveCurrencyType = TempCommonData.ReceiveCurrencyType;
 
-                if (tagInfoData.PaymentCode=="GcashQRcode")
+                if (tagInfoData.PaymentCode == "EPAY.GcashQRcode")
                 {
                     ServiceType = "PHP04";
                 }
-                else if (tagInfoData.PaymentCode=="GcashDirect")
+                else if (tagInfoData.PaymentCode == "EPAY.GcashDirect")
                 {
                     ServiceType = "PHP05";
                 }
-                else if(tagInfoData.PaymentCode=="Gcash"){
+                else if (tagInfoData.PaymentCode == "EPAY.Gcash")
+                {
                     ServiceType = "PHP01";
                 }
-                else if(tagInfoData.PaymentCode=="Paymaya"){
+                else if (tagInfoData.PaymentCode == "EPAY.Paymaya")
+                {
                     ServiceType = "PHP03";
                 }
-                else if(tagInfoData.PaymentCode=="Grabpay"){
+                else if (tagInfoData.PaymentCode == "EPAY.Grabpay")
+                {
                     ServiceType = "PHP02";
                 }
 
-                if (PaymentType == "EPayJKC")
-                {
-                    if (TempCommonData.PaymentCryptoDetailList != null && TempCommonData.PaymentCryptoDetailList.Count > 0)
-                    {
-                        var getUserAccountJKCValue = GetUserAccountJKCValue(WebSID, GUID);
-                        if (getUserAccountJKCValue.Result == enumResult.OK)
-                        {
-                            for (int i = 0; i < TempCommonData.PaymentCryptoDetailList.Count; i++)
-                            {
-                                Decription += TempCommonData.PaymentCryptoDetailList[i].TokenCurrencyType + ",Amount=" + TempCommonData.PaymentCryptoDetailList[i].ReceiveAmount + ",";
-                            }
-
-                            Decription = Decription.Substring(0, Decription.Length - 1);
-
-                            var JKCDepositAmount = TempCommonData.PaymentCryptoDetailList.Where(w => w.TokenCurrencyType == "JKC").First().ReceiveAmount;
-                            decimal userAccountJKCValue = decimal.Parse(getUserAccountJKCValue.Message);
-                            if (userAccountJKCValue < JKCDepositAmount)
-                            {
-                                SetResultException(R, "JKCAmountInsufficient");
-                                return R;
-                            }
-                        }
-                        else
-                        {
-                            SetResultException(R, "JKCAmountInsufficient2");
-                            return R;
-                        }
-                    }
-                    else
-                    {
-                        SetResultException(R, "JKCAmountInsufficient3");
-                        return R;
-                    }
-                }
-                else if (PaymentType == "EPay")
-                {
-                    Decription = TempCommonData.PaymentMethodName + ", ReceiveTotalAmount=" + TempCommonData.ReceiveTotalAmount.ToString("F10");
-                }
-                else if (PaymentType == "GASH")
-                {
-                    Decription = TempCommonData.PaymentMethodName + ", ReceiveTotalAmount=" + TempCommonData.ReceiveTotalAmount.ToString("F10");
-                }
-                else
-                {
-                    SetResultException(R, "PaymentType Error");
-                    return R;
-                }
+                Decription = TempCommonData.PaymentMethodName + ", ReceiveTotalAmount=" + TempCommonData.ReceiveTotalAmount.ToString("F10");
 
                 if (ActivityNames.Length > 0)
                 {
@@ -1247,51 +1343,11 @@ public class PaymentAPI : System.Web.Services.WebService
                         //TaxFeeValue = (TempCryptoData.Amount*ProviderHandingFeeRate)+ProviderHandingFeeAmount
                     };
 
-                    if (PaymentType == "EPayJKC")
-                    {
-                        DT = RedisCache.PaymentMethod.GetPaymentMethodByCategory("EPAYJKC");
-                        var MultiCurrencyInfo = (string)DT.Select("PaymentCategoryCode='" + "EPAYJKC" + "'")[0]["MultiCurrencyInfo"];
-                        Newtonsoft.Json.Linq.JArray MultiCurrency = Newtonsoft.Json.Linq.JArray.Parse(MultiCurrencyInfo);
-                        for (int i = 0; i < MultiCurrency.Count; i++)
-                        {
-                            if ((string)MultiCurrency[i]["Currency"] == "JPY")
-                            {
-                                JPYRate = (decimal)MultiCurrency[i]["Rate"];
-                            }
-                        }
-                        paymentDetailBankCard.CashAmount = JPYRate * TempCommonData.Amount;
-                        paymentDetailBankCard.TaxFeeValue = (JPYRate * TempCommonData.Amount) * TempCommonData.ProviderHandingFeeRate;
-                        p = new EWin.Payment.PaymentDetailInheritsBase[2];
+                    paymentDetailBankCard.CashAmount = TempCommonData.Amount;
+                    paymentDetailBankCard.TaxFeeValue = TempCommonData.Amount * TempCommonData.ProviderHandingFeeRate;
 
-                        for (int i = 0; i < TempCommonData.PaymentCryptoDetailList.Count; i++)
-                        {
-                            if (TempCommonData.PaymentCryptoDetailList[i].TokenCurrencyType == "JKC")
-                            {
-                                EWin.Payment.PaymentDetailWallet paymentDetailWallet = new EWin.Payment.PaymentDetailWallet()
-                                {
-                                    DetailType = EWin.Payment.enumDetailType.BitCoinWallet,
-                                    WalletType = (EWin.Payment.enumWalletType)TempCommonData.WalletType,
-                                    Status = EWin.Payment.enumDetailWalletStatus.DetailCreated,
-                                    ToWalletAddress = "",
-                                    TokenName = TempCommonData.PaymentCryptoDetailList[i].TokenCurrencyType,
-                                    TokenContractAddress = TempCommonData.PaymentCryptoDetailList[i].TokenContractAddress,
-                                    TokenAmount = TempCommonData.PaymentCryptoDetailList[i].ReceiveAmount
-                                };
-                                p[0] = paymentDetailWallet;
-                            }
-
-                        }
-
-                        p[1] = paymentDetailBankCard;
-                    }
-                    else
-                    {
-                        paymentDetailBankCard.CashAmount = TempCommonData.Amount;
-                        paymentDetailBankCard.TaxFeeValue = TempCommonData.Amount * TempCommonData.ProviderHandingFeeRate;
-
-                        p = new EWin.Payment.PaymentDetailInheritsBase[1];
-                        p[0] = paymentDetailBankCard;
-                    }
+                    p = new EWin.Payment.PaymentDetailInheritsBase[1];
+                    p[0] = paymentDetailBankCard;
 
                     paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, paymentDetailBankCard.TaxFeeValue, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, p);
                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
@@ -1304,7 +1360,7 @@ public class PaymentAPI : System.Web.Services.WebService
                             {
                                 EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
                                 EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
-                                var CreateEPayDepositeReturn = Payment.EPay.CreateEPayDeposite(paymentResult.PaymentSerial, TempCommonData.Amount, PaymentType, TempCommonData.ToInfo, userInfoResult.ContactPhoneNumber,ServiceType);
+                                var CreateEPayDepositeReturn = Payment.EPay.CreateEPayDeposite(paymentResult.PaymentSerial, TempCommonData.Amount, PaymentType, TempCommonData.ToInfo, userInfoResult.ContactPhoneNumber, ServiceType);
                                 if (CreateEPayDepositeReturn.ResultState == Payment.APIResult.enumResultCode.OK)
                                 {
                                     int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, TempCommonData.ToInfo, paymentResult.PaymentSerial, "", PointValue, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData.ActivityDatas));
@@ -1452,7 +1508,7 @@ public class PaymentAPI : System.Web.Services.WebService
                     EWin.Payment.PaymentResult paymentResult;
                     string Decription = TempCommonData.PaymentMethodName + ", ReceiveTotalAmount=" + TempCommonData.ReceiveTotalAmount.ToString("F10");
 
-                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount,0, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, null);
+                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, 0, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, null);
                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                     {
                         EWin.Payment.Result updateTagResult = paymentAPI.UpdateTagInfo(GetToken(), GUID, paymentResult.PaymentSerial, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData));
@@ -1527,263 +1583,17 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public PaymentCommonResult CreateEPayJKCDeposit(string WebSID, string GUID, decimal Amount, int PaymentMethodID, string DepositName)
-    {
-        PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
-        PaymentCommonData paymentCommonData = new PaymentCommonData() { PaymentCryptoDetailList = new List<CryptoDetail>() };
-        RedisCache.SessionContext.SIDInfo SI;
-        string PaymentMethodName;
-        string PaymentCode;
-        string ReceiveCurrencyType;
-        string ExtraData;
-        string MultiCurrencyInfo;
-        int MinLimit;
-        int MaxLimit;
-        decimal ReceiveTotalAmount;
-        decimal JKCDepositAmount = 0;
-        decimal ThresholdRate;
-        decimal HandingFeeRate;
-        decimal JKCRate;
-        int ExpireSecond;
-        int DecimalPlaces;
-        APIResult ExchangeRateFromNomics;
-        Newtonsoft.Json.Linq.JArray jsonExchangeRateFromNomics;
-        System.Data.DataTable PaymentMethodDT;
-
-
-        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
-
-        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
-        {
-            PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
-
-            if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
-            {
-                if ((int)PaymentMethodDT.Rows[0]["State"] == 0)
-                {
-                    if ((int)PaymentMethodDT.Rows[0]["PaymentType"] == 0)
-                    {
-                        MinLimit = (int)PaymentMethodDT.Rows[0]["MinLimit"];
-                        MaxLimit = (int)PaymentMethodDT.Rows[0]["MaxLimit"];
-
-                        if (Amount >= MinLimit)
-                        {
-                            if (Amount <= MaxLimit || MaxLimit == 0)
-                            {
-                                if ((int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 1)
-                                {
-                                    string OrderNumber = System.Guid.NewGuid().ToString();
-                                    int InsertRet;
-
-                                    PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
-                                    PaymentCode = (string)PaymentMethodDT.Rows[0]["PaymentCode"];
-                                    ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
-                                    MultiCurrencyInfo = (string)PaymentMethodDT.Rows[0]["MultiCurrencyInfo"];
-                                    ThresholdRate = (decimal)PaymentMethodDT.Rows[0]["ThresholdRate"];
-                                    ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
-                                    ExtraData = (string)PaymentMethodDT.Rows[0]["ExtraData"];
-
-                                    if (!string.IsNullOrEmpty(MultiCurrencyInfo))
-                                    {
-                                        Newtonsoft.Json.Linq.JArray MultiCurrency = Newtonsoft.Json.Linq.JArray.Parse(MultiCurrencyInfo);
-                                        foreach (var item in MultiCurrency)
-                                        {
-                                            string TokenCurrency;
-                                            decimal ExchangeRate;
-                                            decimal PartialRate;
-                                            if (!int.TryParse(item["DecimalPlaces"].ToString(), out DecimalPlaces))
-                                            {
-                                                DecimalPlaces = 2;
-                                            }
-                                            TokenCurrency = item["Currency"].ToString();
-                                            ExchangeRate = 1;
-
-                                            PartialRate = (decimal)item["Rate"];
-
-                                            if (TokenCurrency == "JKC")
-                                            {
-                                                ExchangeRateFromNomics = GetExchangeRateFromNomics(WebSID, GUID);
-
-                                                if (ExchangeRateFromNomics.Result == enumResult.OK)
-                                                {
-                                                    jsonExchangeRateFromNomics = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray>(ExchangeRateFromNomics.Message);
-                                                    Newtonsoft.Json.Linq.JObject jo = jsonExchangeRateFromNomics.Children<Newtonsoft.Json.Linq.JObject>().FirstOrDefault(o => o["currency"] != null && o["currency"].ToString() == "ETH");
-                                                    Newtonsoft.Json.Linq.JToken JToken;
-                                                    if (jo.TryGetValue("price", out JToken))
-                                                    {
-                                                        JKCRate = 1 / (decimal.Parse(JToken.ToString()) / 3000);
-                                                        ExchangeRate = JKCRate;
-                                                        JKCDepositAmount = decimal.Round(PartialRate * Amount * JKCRate, 2);
-                                                    }
-                                                    else
-                                                    {
-                                                        SetResultException(R, "InvalidCryptoExchangeRate");
-                                                        return R;
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    SetResultException(R, "InvalidCryptoExchangeRate");
-                                                    return R;
-                                                }
-
-                                            }
-
-                                            CryptoDetail Dcd = new CryptoDetail()
-                                            {
-                                                TokenCurrencyType = TokenCurrency,
-                                                TokenContractAddress = item["TokenContractAddress"].ToString(),
-                                                ExchangeRate = CodingControl.FormatDecimal(ExchangeRate, DecimalPlaces),
-                                                PartialRate = PartialRate,
-                                                ReceiveAmount = 0
-                                            };
-
-                                            if (Dcd.TokenCurrencyType == "JKC")
-                                            {
-                                                Dcd.ReceiveAmount = JKCDepositAmount;
-                                            }
-                                            else
-                                            {
-                                                Dcd.ReceiveAmount = PartialRate * Amount;
-                                            }
-
-                                            paymentCommonData.PaymentCryptoDetailList.Add(Dcd);
-
-                                        }
-
-                                        if (string.IsNullOrEmpty(ExtraData))
-                                        {
-                                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
-                                        }
-                                        else
-                                        {
-                                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
-                                            try
-                                            {
-                                                Newtonsoft.Json.Linq.JArray rangeRates = Newtonsoft.Json.Linq.JArray.Parse(ExtraData);
-                                                foreach (var rangeRate in rangeRates)
-                                                {
-                                                    decimal RangeMinValuie = (decimal)rangeRate["RangeMinValuie"];
-                                                    decimal RangeMaxValuie = (decimal)rangeRate["RangeMaxValuie"];
-
-                                                    if (RangeMaxValuie != 0)
-                                                    {
-                                                        if (RangeMinValuie <= Amount && Amount < RangeMaxValuie)
-                                                        {
-                                                            HandingFeeRate = (decimal)rangeRate["RangeRate"];
-                                                            break;
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        if (RangeMinValuie <= Amount)
-                                                        {
-                                                            HandingFeeRate = (decimal)rangeRate["RangeRate"];
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            catch (Exception)
-                                            {
-                                                HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
-                                            }
-                                        }
-
-                                        ReceiveTotalAmount = Amount * (1 + HandingFeeRate);
-
-                                        paymentCommonData.PaymentType = 0;
-                                        paymentCommonData.BasicType = 1;
-                                        paymentCommonData.OrderNumber = OrderNumber;
-                                        paymentCommonData.LoginAccount = SI.LoginAccount;
-                                        paymentCommonData.Amount = Amount;
-                                        paymentCommonData.HandingFeeRate = HandingFeeRate;
-                                        paymentCommonData.HandingFeeAmount = 0;
-                                        paymentCommonData.ReceiveCurrencyType = ReceiveCurrencyType;
-                                        paymentCommonData.ReceiveTotalAmount = ReceiveTotalAmount;
-                                        paymentCommonData.ExpireSecond = ExpireSecond;
-                                        paymentCommonData.PaymentMethodID = PaymentMethodID;
-                                        paymentCommonData.PaymentMethodName = PaymentMethodName;
-                                        paymentCommonData.PaymentCode = PaymentCode;
-                                        paymentCommonData.ThresholdRate = ThresholdRate;
-                                        paymentCommonData.ThresholdValue = Amount * ThresholdRate;
-                                        paymentCommonData.ToInfo = DepositName;
-                                        paymentCommonData.ProviderHandingFeeRate=(decimal)PaymentMethodDT.Rows[0]["ProviderHandingFeeRate"];
-                                        paymentCommonData.ProviderHandingFeeAmount=(int)PaymentMethodDT.Rows[0]["ProviderHandingFeeAmount"];
-                                        paymentCommonData.FromInfo = "";
-                                        paymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
-
-
-                                        InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, paymentCommonData.PaymentType, 1, paymentCommonData.LoginAccount, paymentCommonData.Amount, paymentCommonData.HandingFeeRate, paymentCommonData.HandingFeeAmount, paymentCommonData.ThresholdRate, paymentCommonData.ThresholdValue, paymentCommonData.PaymentMethodID, paymentCommonData.FromInfo, paymentCommonData.ToInfo, Newtonsoft.Json.JsonConvert.SerializeObject(paymentCommonData.PaymentCryptoDetailList), paymentCommonData.ExpireSecond);
-
-                                        if (InsertRet == 1)
-                                        {
-                                            R.Result = enumResult.OK;
-                                            R.Data = paymentCommonData;
-                                            RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(paymentCommonData), paymentCommonData.OrderNumber);
-                                        }
-                                        else
-                                        {
-                                            SetResultException(R, "InsertFailure");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        SetResultException(R, "GetExchangeFailed");
-                                    }
-                                }
-                                else
-                                {
-                                    SetResultException(R, "PaymentMethodNotCrypto");
-                                }
-                            }
-                            else
-                            {
-                                SetResultException(R, "AmountGreaterThanMaxlimit");
-                            }
-                        }
-                        else
-                        {
-                            SetResultException(R, "AmountLessThanMinLimit");
-                        }
-                    }
-                    else
-                    {
-                        SetResultException(R, "PaymentMethodNotSupportDeposit");
-                    }
-                }
-                else
-                {
-                    SetResultException(R, "PaymentMethodDisable");
-                }
-            }
-            else
-            {
-                SetResultException(R, "PaymentMethodNotExist");
-            }
-        }
-        else
-        {
-            SetResultException(R, "InvalidWebSID");
-        }
-
-        return R;
-    }
-
-    [WebMethod]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public PaymentCommonResult CreateEPayDeposit(string WebSID, string GUID, decimal Amount, int PaymentMethodID, string DepositName)
     {
         PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
         PaymentCommonData paymentCommonData = new PaymentCommonData() { };
-
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.Lobby.APIResult CheckPaymentChannelAmountResult;
         RedisCache.SessionContext.SIDInfo SI;
         string PaymentMethodName;
         string PaymentCode;
         string ReceiveCurrencyType;
         string ExtraData;
-        int MinLimit;
-        int MaxLimit;
         decimal ReceiveTotalAmount;
         decimal ThresholdRate;
         decimal HandingFeeRate;
@@ -1799,128 +1609,111 @@ public class PaymentAPI : System.Web.Services.WebService
 
             if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
             {
-                if ((int)PaymentMethodDT.Rows[0]["State"] == 0)
+                CheckPaymentChannelAmountResult = lobbyAPI.CheckPaymentChannelAmount(GetToken(), SI.EWinSID, GUID, (EWin.Lobby.enumPaymentDirectionType)0, EWinWeb.MainCurrencyType, (string)PaymentMethodDT.Rows[0]["PaymentCode"], Amount);
+                if (CheckPaymentChannelAmountResult.Result != EWin.Lobby.enumResult.OK)
                 {
-                    if ((int)PaymentMethodDT.Rows[0]["PaymentType"] == 0)
+                    SetResultException(R, CheckPaymentChannelAmountResult.Message);
+                    return R;
+                }
+
+                if ((int)PaymentMethodDT.Rows[0]["PaymentType"] == 0)
+                {
+                    if ((int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 1)
                     {
-                        MinLimit = (int)PaymentMethodDT.Rows[0]["MinLimit"];
-                        MaxLimit = (int)PaymentMethodDT.Rows[0]["MaxLimit"];
+                        string OrderNumber = System.Guid.NewGuid().ToString();
+                        int InsertRet;
 
-                        if (Amount >= MinLimit)
+                        PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
+                        PaymentCode = (string)PaymentMethodDT.Rows[0]["PaymentCode"];
+                        ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
+
+                        ThresholdRate = (decimal)PaymentMethodDT.Rows[0]["ThresholdRate"];
+                        ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
+                        ExtraData = (string)PaymentMethodDT.Rows[0]["ExtraData"];
+
+                        if (string.IsNullOrEmpty(ExtraData))
                         {
-                            if (Amount <= MaxLimit || MaxLimit == 0)
-                            {
-                                if ((int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 1)
-                                {
-                                    string OrderNumber = System.Guid.NewGuid().ToString();
-                                    int InsertRet;
-
-                                    PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
-                                    PaymentCode = (string)PaymentMethodDT.Rows[0]["PaymentCode"];
-                                    ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
-
-                                    ThresholdRate = (decimal)PaymentMethodDT.Rows[0]["ThresholdRate"];
-                                    ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
-                                    ExtraData = (string)PaymentMethodDT.Rows[0]["ExtraData"];
-
-                                    if (string.IsNullOrEmpty(ExtraData))
-                                    {
-                                        HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
-                                    }
-                                    else
-                                    {
-                                        HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
-                                        try
-                                        {
-                                            Newtonsoft.Json.Linq.JArray rangeRates = Newtonsoft.Json.Linq.JArray.Parse(ExtraData);
-                                            foreach (var rangeRate in rangeRates)
-                                            {
-                                                decimal RangeMinValuie = (decimal)rangeRate["RangeMinValuie"];
-                                                decimal RangeMaxValuie = (decimal)rangeRate["RangeMaxValuie"];
-
-                                                if (RangeMaxValuie != 0)
-                                                {
-                                                    if (RangeMinValuie <= Amount && Amount < RangeMaxValuie)
-                                                    {
-                                                        HandingFeeRate = (decimal)rangeRate["RangeRate"];
-                                                        break;
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if (RangeMinValuie <= Amount)
-                                                    {
-                                                        HandingFeeRate = (decimal)rangeRate["RangeRate"];
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        catch (Exception)
-                                        {
-                                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
-                                        }
-                                    }
-                                    ReceiveTotalAmount = Amount * (1 + HandingFeeRate);
-
-                                    paymentCommonData.PaymentType = 0;
-                                    paymentCommonData.BasicType = 1;
-                                    paymentCommonData.OrderNumber = OrderNumber;
-                                    paymentCommonData.LoginAccount = SI.LoginAccount;
-                                    paymentCommonData.Amount = Amount;
-                                    paymentCommonData.HandingFeeRate = HandingFeeRate;
-                                    paymentCommonData.HandingFeeAmount = 0;
-                                    paymentCommonData.ReceiveCurrencyType = ReceiveCurrencyType;
-                                    paymentCommonData.ReceiveTotalAmount = ReceiveTotalAmount;
-                                    paymentCommonData.ExpireSecond = ExpireSecond;
-                                    paymentCommonData.PaymentMethodID = PaymentMethodID;
-                                    paymentCommonData.PaymentMethodName = PaymentMethodName;
-                                    paymentCommonData.PaymentCode = PaymentCode;
-                                    paymentCommonData.ThresholdRate = ThresholdRate;
-                                    paymentCommonData.ThresholdValue = Amount * ThresholdRate;
-                                    paymentCommonData.ToInfo = DepositName;
-                                    paymentCommonData.ProviderHandingFeeRate=(decimal)PaymentMethodDT.Rows[0]["ProviderHandingFeeRate"];
-                                    paymentCommonData.ProviderHandingFeeAmount=(int)PaymentMethodDT.Rows[0]["ProviderHandingFeeAmount"];
-                                    paymentCommonData.FromInfo = "";
-                                    paymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
-
-
-                                    InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, paymentCommonData.PaymentType,1, paymentCommonData.LoginAccount, paymentCommonData.Amount, paymentCommonData.HandingFeeRate, paymentCommonData.HandingFeeAmount, paymentCommonData.ThresholdRate, paymentCommonData.ThresholdValue, paymentCommonData.PaymentMethodID, paymentCommonData.FromInfo, paymentCommonData.ToInfo, "", paymentCommonData.ExpireSecond);
-
-                                    if (InsertRet == 1)
-                                    {
-                                        R.Result = enumResult.OK;
-                                        R.Data = paymentCommonData;
-                                        RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(paymentCommonData), paymentCommonData.OrderNumber);
-                                    }
-                                    else
-                                    {
-                                        SetResultException(R, "InsertFailure");
-                                    }
-                                }
-                                else
-                                {
-                                    SetResultException(R, "PaymentMethodNotCrypto");
-                                }
-                            }
-                            else
-                            {
-                                SetResultException(R, "AmountGreaterThanMaxlimit");
-                            }
+                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
                         }
                         else
                         {
-                            SetResultException(R, "AmountLessThanMinLimit");
+                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
+                            try
+                            {
+                                Newtonsoft.Json.Linq.JArray rangeRates = Newtonsoft.Json.Linq.JArray.Parse(ExtraData);
+                                foreach (var rangeRate in rangeRates)
+                                {
+                                    decimal RangeMinValuie = (decimal)rangeRate["RangeMinValuie"];
+                                    decimal RangeMaxValuie = (decimal)rangeRate["RangeMaxValuie"];
+
+                                    if (RangeMaxValuie != 0)
+                                    {
+                                        if (RangeMinValuie <= Amount && Amount < RangeMaxValuie)
+                                        {
+                                            HandingFeeRate = (decimal)rangeRate["RangeRate"];
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (RangeMinValuie <= Amount)
+                                        {
+                                            HandingFeeRate = (decimal)rangeRate["RangeRate"];
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
+                            }
+                        }
+                        ReceiveTotalAmount = Amount * (1 + HandingFeeRate);
+
+                        paymentCommonData.PaymentType = 0;
+                        paymentCommonData.BasicType = 1;
+                        paymentCommonData.OrderNumber = OrderNumber;
+                        paymentCommonData.LoginAccount = SI.LoginAccount;
+                        paymentCommonData.Amount = Amount;
+                        paymentCommonData.HandingFeeRate = HandingFeeRate;
+                        paymentCommonData.HandingFeeAmount = 0;
+                        paymentCommonData.ReceiveCurrencyType = ReceiveCurrencyType;
+                        paymentCommonData.ReceiveTotalAmount = ReceiveTotalAmount;
+                        paymentCommonData.ExpireSecond = ExpireSecond;
+                        paymentCommonData.PaymentMethodID = PaymentMethodID;
+                        paymentCommonData.PaymentMethodName = PaymentMethodName;
+                        paymentCommonData.PaymentCode = PaymentCode;
+                        paymentCommonData.ThresholdRate = ThresholdRate;
+                        paymentCommonData.ThresholdValue = Amount * ThresholdRate;
+                        paymentCommonData.ToInfo = DepositName;
+                        paymentCommonData.ProviderHandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["ProviderHandingFeeRate"];
+                        paymentCommonData.ProviderHandingFeeAmount = (int)PaymentMethodDT.Rows[0]["ProviderHandingFeeAmount"];
+                        paymentCommonData.FromInfo = "";
+                        paymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
+
+
+                        InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, paymentCommonData.PaymentType, 1, paymentCommonData.LoginAccount, paymentCommonData.Amount, paymentCommonData.HandingFeeRate, paymentCommonData.HandingFeeAmount, paymentCommonData.ThresholdRate, paymentCommonData.ThresholdValue, paymentCommonData.PaymentMethodID, paymentCommonData.FromInfo, paymentCommonData.ToInfo, "", paymentCommonData.ExpireSecond);
+
+                        if (InsertRet == 1)
+                        {
+                            R.Result = enumResult.OK;
+                            R.Data = paymentCommonData;
+                            RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(paymentCommonData), paymentCommonData.OrderNumber);
+                        }
+                        else
+                        {
+                            SetResultException(R, "InsertFailure");
                         }
                     }
                     else
                     {
-                        SetResultException(R, "PaymentMethodNotSupportDeposit");
+                        SetResultException(R, "PaymentMethodNotCrypto");
                     }
                 }
                 else
                 {
-                    SetResultException(R, "PaymentMethodDisable");
+                    SetResultException(R, "PaymentMethodNotSupportDeposit");
                 }
             }
             else
@@ -1942,20 +1735,17 @@ public class PaymentAPI : System.Web.Services.WebService
     {
         PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
         PaymentCommonData PaymentCommonData = new PaymentCommonData() { PaymentCryptoDetailList = new List<CryptoDetail>() };
-
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.Lobby.APIResult CheckPaymentChannelAmountResult;
         RedisCache.SessionContext.SIDInfo SI;
         string PaymentMethodName;
         string PaymentCode;
         string ReceiveCurrencyType;
-        int MinLimit;
-        int MaxLimit;
         int DailyMaxAmount;
         int DailyMaxCount;
         decimal ReceiveTotalAmount;
         decimal HandingFeeRate;
         int HandingFeeAmount;
-        decimal WithdrawalAmountByDay;
-        int WithdrawalCountByDay;
         int ExpireSecond;
         int DecimalPlaces;
         System.Data.DataTable PaymentMethodDT;
@@ -1965,183 +1755,130 @@ public class PaymentAPI : System.Web.Services.WebService
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
-            if (EWinWeb.CheckInWithdrawalTime())
+            if (!EWinWeb.IsWithdrawlTemporaryMaintenance())
             {
-                if (!EWinWeb.IsWithdrawlTemporaryMaintenance())
+                PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
+
+                if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
                 {
-                    PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
-
-                    if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
+                    CheckPaymentChannelAmountResult = lobbyAPI.CheckPaymentChannelAmount(GetToken(), SI.EWinSID, GUID, (EWin.Lobby.enumPaymentDirectionType)1, EWinWeb.MainCurrencyType, (string)PaymentMethodDT.Rows[0]["PaymentCode"], Amount);
+                    if (CheckPaymentChannelAmountResult.Result != EWin.Lobby.enumResult.OK)
                     {
-                        if ((int)PaymentMethodDT.Rows[0]["State"] == 0)
+                        SetResultException(R, CheckPaymentChannelAmountResult.Message);
+                        return R;
+                    }
+
+                    if ((int)PaymentMethodDT.Rows[0]["PaymentType"] == 1)
+                    {
+
+                        DailyMaxCount = (int)PaymentMethodDT.Rows[0]["DailyMaxCount"];
+                        DailyMaxAmount = (int)PaymentMethodDT.Rows[0]["DailyMaxAmount"];
+                        DecimalPlaces = (int)PaymentMethodDT.Rows[0]["DecimalPlaces"];
+
+                        if ((int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 1)
                         {
-                            if ((int)PaymentMethodDT.Rows[0]["PaymentType"] == 1)
+                            //Check ThresholdValue
+                            EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
+                            EWin.Lobby.ThresholdInfo thresholdInfo;
+                            decimal thresholdValue;
+
+                            if (userInfoResult.Result == EWin.Lobby.enumResult.OK)
                             {
-                                MinLimit = (int)PaymentMethodDT.Rows[0]["MinLimit"];
-                                MaxLimit = (int)PaymentMethodDT.Rows[0]["MaxLimit"];
-                                DailyMaxCount = (int)PaymentMethodDT.Rows[0]["DailyMaxCount"];
-                                DailyMaxAmount = (int)PaymentMethodDT.Rows[0]["DailyMaxAmount"];
-                                DecimalPlaces = (int)PaymentMethodDT.Rows[0]["DecimalPlaces"];
-                                if (Amount >= MinLimit)
+                                thresholdInfo = userInfoResult.ThresholdInfo.Where(x => x.CurrencyType.ToUpper() == EWinWeb.MainCurrencyType.ToUpper()).FirstOrDefault();
+
+                                if (thresholdInfo != null)
                                 {
-                                    if (Amount <= MaxLimit || MaxLimit == 0)
+                                    thresholdValue = thresholdInfo.ThresholdValue;
+                                }
+                                else
+                                {
+                                    thresholdValue = 0;
+                                }
+                                if (thresholdValue == 0)
+                                {
+                                    PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
+                                    PaymentCode = (string)PaymentMethodDT.Rows[0]["PaymentCode"];
+                                    ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
+                                    ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
+
+
+                                    HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
+                                    HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
+                                    ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
+
+
+                                    ReceiveTotalAmount = CodingControl.FormatDecimal(ReceiveTotalAmount, 0);
+                                    CryptoDetail Dcd = new CryptoDetail()
                                     {
-                                        System.Data.DataTable SummaryDT = EWinWebDB.UserAccountPayment.GetTodayPaymentByLoginAccount(SI.LoginAccount, 1);
+                                        TokenCurrencyType = ReceiveCurrencyType,
+                                        TokenContractAddress = "",
+                                        ExchangeRate = 1,
+                                        PartialRate = 1,
+                                        ReceiveAmount = ReceiveTotalAmount,
+                                    };
 
-                                        if (SummaryDT != null && SummaryDT.Rows.Count > 0)
-                                        {
-                                            WithdrawalAmountByDay = 0;
-                                            foreach (System.Data.DataRow dr in SummaryDT.Rows)
-                                            {
-                                                WithdrawalAmountByDay += (decimal)dr["Amount"];
-                                            }
-                                            WithdrawalCountByDay = SummaryDT.Rows.Count;
-                                        }
-                                        else
-                                        {
-                                            WithdrawalAmountByDay = 0;
-                                            WithdrawalCountByDay = 0;
-                                        }
+                                    PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
 
-                                        if (DailyMaxCount == 0 || (WithdrawalCountByDay + 1) <= DailyMaxCount)
-                                        {
-                                            if (DailyMaxAmount == 0 || (WithdrawalAmountByDay + Amount) <= DailyMaxAmount)
-                                            {
-                                                if ((int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 1)
-                                                {
-                                                    //Check ThresholdValue
-                                                    EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-                                                    EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
-                                                    EWin.Lobby.ThresholdInfo thresholdInfo;
-                                                    decimal thresholdValue;
+                                    string OrderNumber = System.Guid.NewGuid().ToString();
+                                    int InsertRet;
 
-                                                    if (userInfoResult.Result == EWin.Lobby.enumResult.OK)
-                                                    {
-                                                        thresholdInfo = userInfoResult.ThresholdInfo.Where(x => x.CurrencyType.ToUpper() == EWinWeb.MainCurrencyType.ToUpper()).FirstOrDefault();
+                                    PaymentCommonData.PaymentType = 1;
+                                    PaymentCommonData.BasicType = 1;
+                                    PaymentCommonData.OrderNumber = OrderNumber;
+                                    PaymentCommonData.LoginAccount = SI.LoginAccount;
+                                    PaymentCommonData.Amount = Amount;
+                                    PaymentCommonData.ReceiveTotalAmount = ReceiveTotalAmount;
+                                    PaymentCommonData.HandingFeeRate = HandingFeeRate;
+                                    PaymentCommonData.HandingFeeAmount = HandingFeeAmount;
+                                    PaymentCommonData.ExpireSecond = ExpireSecond;
+                                    PaymentCommonData.PaymentMethodID = PaymentMethodID;
+                                    PaymentCommonData.PaymentMethodName = PaymentMethodName;
+                                    PaymentCommonData.PaymentCode = PaymentCode;
+                                    PaymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
 
-                                                        if (thresholdInfo != null)
-                                                        {
-                                                            thresholdValue = thresholdInfo.ThresholdValue;
-                                                        }
-                                                        else
-                                                        {
-                                                            thresholdValue = 0;
-                                                        }
-                                                        if (thresholdValue == 0)
-                                                        {
-                                                            PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
-                                                            PaymentCode = (string)PaymentMethodDT.Rows[0]["PaymentCode"];
-                                                            ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
-                                                            ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
+                                    InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, PaymentCommonData.PaymentType, PaymentCommonData.BasicType, PaymentCommonData.LoginAccount, PaymentCommonData.Amount, PaymentCommonData.HandingFeeRate, PaymentCommonData.HandingFeeAmount, 0, 0, PaymentCommonData.PaymentMethodID, "", "", Newtonsoft.Json.JsonConvert.SerializeObject(PaymentCommonData.PaymentCryptoDetailList), PaymentCommonData.ExpireSecond);
 
-
-                                                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
-                                                            HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
-                                                            ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
-
-
-                                                            ReceiveTotalAmount = CodingControl.FormatDecimal(ReceiveTotalAmount, 0);
-                                                            CryptoDetail Dcd = new CryptoDetail()
-                                                            {
-                                                                TokenCurrencyType = ReceiveCurrencyType,
-                                                                TokenContractAddress = "",
-                                                                ExchangeRate = 1,
-                                                                PartialRate = 1,
-                                                                ReceiveAmount = ReceiveTotalAmount,
-                                                            };
-
-                                                            PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
-
-                                                            string OrderNumber = System.Guid.NewGuid().ToString();
-                                                            int InsertRet;
-
-                                                            PaymentCommonData.PaymentType = 1;
-                                                            PaymentCommonData.BasicType = 1;
-                                                            PaymentCommonData.OrderNumber = OrderNumber;
-                                                            PaymentCommonData.LoginAccount = SI.LoginAccount;
-                                                            PaymentCommonData.Amount = Amount;
-                                                            PaymentCommonData.ReceiveTotalAmount = ReceiveTotalAmount;
-                                                            PaymentCommonData.HandingFeeRate = HandingFeeRate;
-                                                            PaymentCommonData.HandingFeeAmount = HandingFeeAmount;
-                                                            PaymentCommonData.ExpireSecond = ExpireSecond;
-                                                            PaymentCommonData.PaymentMethodID = PaymentMethodID;
-                                                            PaymentCommonData.PaymentMethodName = PaymentMethodName;
-                                                            PaymentCommonData.PaymentCode = PaymentCode;
-                                                            PaymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
-
-                                                            InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, PaymentCommonData.PaymentType, PaymentCommonData.BasicType, PaymentCommonData.LoginAccount, PaymentCommonData.Amount, PaymentCommonData.HandingFeeRate, PaymentCommonData.HandingFeeAmount, 0, 0, PaymentCommonData.PaymentMethodID, "", "", Newtonsoft.Json.JsonConvert.SerializeObject(PaymentCommonData.PaymentCryptoDetailList), PaymentCommonData.ExpireSecond);
-
-                                                            if (InsertRet == 1)
-                                                            {
-                                                                R.Result = enumResult.OK;
-                                                                R.Data = PaymentCommonData;
-                                                                RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(R.Data), PaymentCommonData.OrderNumber);
-                                                            }
-                                                            else
-                                                            {
-                                                                SetResultException(R, "InsertFailure");
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            SetResultException(R, "ThresholdLimit");
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        SetResultException(R, "GetInfoError");
-                                                    }
-
-                                                }
-                                                else
-                                                {
-                                                    SetResultException(R, "PaymentMethodNotCrypto");
-                                                }
-
-                                            }
-                                            else
-                                            {
-                                                SetResultException(R, "DailyAmountGreaterThanMaxlimit");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            SetResultException(R, "DailyCountGreaterThanMaxlimit");
-                                        }
+                                    if (InsertRet == 1)
+                                    {
+                                        R.Result = enumResult.OK;
+                                        R.Data = PaymentCommonData;
+                                        RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(R.Data), PaymentCommonData.OrderNumber);
                                     }
                                     else
                                     {
-                                        SetResultException(R, "AmountGreaterThanMaxlimit");
+                                        SetResultException(R, "InsertFailure");
                                     }
                                 }
                                 else
                                 {
-                                    SetResultException(R, "AmountLessThanMinLimit");
+                                    SetResultException(R, "ThresholdLimit");
                                 }
                             }
                             else
                             {
-                                SetResultException(R, "PaymentMethodNotSupportDeposit");
+                                SetResultException(R, "GetInfoError");
                             }
+
                         }
                         else
                         {
-                            SetResultException(R, "PaymentMethodDisable");
+                            SetResultException(R, "PaymentMethodNotCrypto");
                         }
+
                     }
                     else
                     {
-                        SetResultException(R, "PaymentMethodNotExist");
+                        SetResultException(R, "PaymentMethodNotSupportDeposit");
                     }
                 }
                 else
                 {
-                    SetResultException(R, "WithdrawlTemporaryMaintenance");
+                    SetResultException(R, "PaymentMethodNotExist");
                 }
             }
             else
             {
-                SetResultException(R, "NotInOpenTime");
+                SetResultException(R, "WithdrawlTemporaryMaintenance");
             }
         }
         else
@@ -2154,7 +1891,7 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public APIResult ConfirmEPayWithdrawal(string WebSID, string GUID, string OrderNumber, string BankCard, string BankCardName, string BankName,string BankBranchCode,string PhoneNumber)
+    public APIResult ConfirmEPayWithdrawal(string WebSID, string GUID, string OrderNumber, string BankCard, string BankCardName, string BankName, string BankBranchCode, string PhoneNumber)
     {
         APIResult R = new APIResult() { GUID = GUID, Result = enumResult.ERR };
         //APIResult CreateEPayWithdrawalReturn = new APIResult() { GUID = GUID, Result = enumResult.ERR };
@@ -2212,7 +1949,7 @@ public class PaymentAPI : System.Web.Services.WebService
 
                     if (TempCryptoData != null)
                     {
-           
+
                         PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(TempCryptoData.PaymentMethodID);
                         if (!(PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0))
                         {
@@ -2238,10 +1975,10 @@ public class PaymentAPI : System.Web.Services.WebService
                                 {
                                     PointValue = TempCryptoData.Amount;
 
-                                    BankDatas.Add("BankCard",BankCard);
-                                    BankDatas.Add("BankCardName",BankCardName);
-                                    BankDatas.Add("BankName",BankName);
-                                    BankDatas.Add("ReceiveAmount",PointValue);
+                                    BankDatas.Add("BankCard", BankCard);
+                                    BankDatas.Add("BankCardName", BankCardName);
+                                    BankDatas.Add("BankName", BankName);
+                                    BankDatas.Add("ReceiveAmount", PointValue);
                                     //準備送出至EWin
 
                                     EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
@@ -2249,7 +1986,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                     List<EWin.Payment.PaymentDetailBankCard> paymentDetailBankCards = new List<EWin.Payment.PaymentDetailBankCard>();
 
                                     //Description待實際測試後調整
-                                    string Decription = "ReceiveAmount:"+TempCryptoData.ReceiveTotalAmount+",Card Number:"+BankCard+",Name:"+BankCardName+",BankName:"+BankName+",BankBranchCode:"+BankBranchCode;
+                                    string Decription = "ReceiveAmount:" + TempCryptoData.ReceiveTotalAmount + ",Card Number:" + BankCard + ",Name:" + BankCardName + ",BankName:" + BankName + ",BankBranchCode:" + BankBranchCode;
 
                                     EWin.Payment.PaymentDetailBankCard paymentDetailWallet = new EWin.Payment.PaymentDetailBankCard()
                                     {
@@ -2266,10 +2003,10 @@ public class PaymentAPI : System.Web.Services.WebService
                                         TaxFeeValue = TempCryptoData.Amount - TempCryptoData.ReceiveTotalAmount
                                     };
                                     paymentDetailBankCards.Add(paymentDetailWallet);
-                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,paymentDetailWallet.TaxFeeValue ,Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
+                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, paymentDetailWallet.TaxFeeValue, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
-                                        var CreateEPayWithdrawalReturn= Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial,TempCryptoData.ReceiveTotalAmount,paymentResult.CreateDate,BankCard,BankCardName,BankName,BankBranchCode,PhoneNumber);
+                                        var CreateEPayWithdrawalReturn = Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial, TempCryptoData.ReceiveTotalAmount, paymentResult.CreateDate, BankCard, BankCardName, BankName, BankBranchCode, PhoneNumber);
                                         if (CreateEPayWithdrawalReturn.ResultState == Payment.APIResult.enumResultCode.OK)
                                         {
                                             int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, BankDatas.ToString(), paymentResult.PaymentSerial, PointValue, "");
@@ -2361,16 +2098,13 @@ public class PaymentAPI : System.Web.Services.WebService
     {
         PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
         PaymentCommonData PaymentCommonData = new PaymentCommonData() { PaymentCryptoDetailList = new List<CryptoDetail>() };
-
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.Lobby.APIResult CheckPaymentChannelAmountResult;
         RedisCache.SessionContext.SIDInfo SI;
         string PaymentMethodName;
         string PaymentCode;
         string ReceiveCurrencyType;
         string MultiCurrencyInfo;
-        int MinLimit;
-        int MaxLimit;
-        int DailyMaxAmount;
-        int DailyMaxCount;
         decimal ReceiveTotalAmount;
         decimal HandingFeeRate;
         int HandingFeeAmount;
@@ -2387,247 +2121,207 @@ public class PaymentAPI : System.Web.Services.WebService
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
-            if (EWinWeb.CheckInWithdrawalTime())
+            if (!EWinWeb.IsWithdrawlTemporaryMaintenance())
             {
-                if (!EWinWeb.IsWithdrawlTemporaryMaintenance())
+                PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
+
+                if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
                 {
-                    PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
-
-                    if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
+                    CheckPaymentChannelAmountResult = lobbyAPI.CheckPaymentChannelAmount(GetToken(), SI.EWinSID, GUID, (EWin.Lobby.enumPaymentDirectionType)1, EWinWeb.MainCurrencyType, (string)PaymentMethodDT.Rows[0]["PaymentCode"], Amount);
+                    if (CheckPaymentChannelAmountResult.Result != EWin.Lobby.enumResult.OK)
                     {
-                        if ((int)PaymentMethodDT.Rows[0]["State"] == 0)
+                        SetResultException(R, CheckPaymentChannelAmountResult.Message);
+                        return R;
+                    }
+
+                    if ((int)PaymentMethodDT.Rows[0]["PaymentType"] == 1)
+                    {
+                        DecimalPlaces = (int)PaymentMethodDT.Rows[0]["DecimalPlaces"];
+
+                        System.Data.DataTable SummaryDT = EWinWebDB.UserAccountPayment.GetTodayPaymentByLoginAccount(SI.LoginAccount, 1);
+
+                        if (SummaryDT != null && SummaryDT.Rows.Count > 0)
                         {
-                            if ((int)PaymentMethodDT.Rows[0]["PaymentType"] == 1)
+                            WithdrawalAmountByDay = 0;
+                            foreach (System.Data.DataRow dr in SummaryDT.Rows)
                             {
-                                MinLimit = (int)PaymentMethodDT.Rows[0]["MinLimit"];
-                                MaxLimit = (int)PaymentMethodDT.Rows[0]["MaxLimit"];
-                                DailyMaxCount = (int)PaymentMethodDT.Rows[0]["DailyMaxCount"];
-                                DailyMaxAmount = (int)PaymentMethodDT.Rows[0]["DailyMaxAmount"];
-                                DecimalPlaces = (int)PaymentMethodDT.Rows[0]["DecimalPlaces"];
-                                if (Amount >= MinLimit)
+                                WithdrawalAmountByDay += (decimal)dr["Amount"];
+                            }
+                            WithdrawalCountByDay = SummaryDT.Rows.Count;
+                        }
+                        else
+                        {
+                            WithdrawalAmountByDay = 0;
+                            WithdrawalCountByDay = 0;
+                        }
+
+                        if ((int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 2)
+                        {
+                            //Check ThresholdValue
+                            EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
+                            EWin.Lobby.ThresholdInfo thresholdInfo;
+                            decimal thresholdValue;
+
+                            if (userInfoResult.Result == EWin.Lobby.enumResult.OK)
+                            {
+                                thresholdInfo = userInfoResult.ThresholdInfo.Where(x => x.CurrencyType.ToUpper() == EWinWeb.MainCurrencyType.ToUpper()).FirstOrDefault();
+
+                                if (thresholdInfo != null)
                                 {
-                                    if (Amount <= MaxLimit || MaxLimit == 0)
+                                    thresholdValue = thresholdInfo.ThresholdValue;
+                                }
+                                else
+                                {
+                                    thresholdValue = 0;
+                                }
+                                if (thresholdValue == 0)
+                                {
+                                    PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
+                                    PaymentCode = (string)PaymentMethodDT.Rows[0]["PaymentCode"];
+                                    ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
+                                    ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
+                                    HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
+                                    HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
+                                    WalletType = (int)PaymentMethodDT.Rows[0]["EWinCryptoWalletType"];
+                                    MultiCurrencyInfo = (string)PaymentMethodDT.Rows[0]["MultiCurrencyInfo"];
+                                    ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
+                                    if (!string.IsNullOrEmpty(MultiCurrencyInfo))
                                     {
-                                        System.Data.DataTable SummaryDT = EWinWebDB.UserAccountPayment.GetTodayPaymentByLoginAccount(SI.LoginAccount, 1);
+                                        Newtonsoft.Json.Linq.JArray MultiCurrency = Newtonsoft.Json.Linq.JArray.Parse(MultiCurrencyInfo);
 
-                                        if (SummaryDT != null && SummaryDT.Rows.Count > 0)
+                                        foreach (var item in MultiCurrency)
                                         {
-                                            WithdrawalAmountByDay = 0;
-                                            foreach (System.Data.DataRow dr in SummaryDT.Rows)
+                                            string TokenCurrency;
+                                            decimal ExchangeRate;
+                                            decimal PartialRate;
+
+                                            TokenCurrency = item["Currency"].ToString();
+                                            ExchangeRate = CryptoExpand.GetCryptoExchangeRate(TokenCurrency);
+                                            if (!int.TryParse(item["DecimalPlaces"].ToString(), out DecimalPlaces))
                                             {
-                                                WithdrawalAmountByDay += (decimal)dr["Amount"];
+                                                DecimalPlaces = 6;
                                             }
-                                            WithdrawalCountByDay = SummaryDT.Rows.Count;
-                                        }
-                                        else
-                                        {
-                                            WithdrawalAmountByDay = 0;
-                                            WithdrawalCountByDay = 0;
-                                        }
 
-                                        if (DailyMaxCount == 0 || (WithdrawalCountByDay + 1) <= DailyMaxCount)
-                                        {
-                                            if (DailyMaxAmount == 0 || (WithdrawalAmountByDay + Amount) <= DailyMaxAmount)
+                                            if (ExchangeRate == 0)
                                             {
-                                                if ((int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 2)
-                                                {
-                                                    //Check ThresholdValue
-                                                    EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-                                                    EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
-                                                    EWin.Lobby.ThresholdInfo thresholdInfo;
-                                                    decimal thresholdValue;
-
-                                                    if (userInfoResult.Result == EWin.Lobby.enumResult.OK)
-                                                    {
-                                                        thresholdInfo = userInfoResult.ThresholdInfo.Where(x => x.CurrencyType.ToUpper() == EWinWeb.MainCurrencyType.ToUpper()).FirstOrDefault();
-
-                                                        if (thresholdInfo != null)
-                                                        {
-                                                            thresholdValue = thresholdInfo.ThresholdValue;
-                                                        }
-                                                        else
-                                                        {
-                                                            thresholdValue = 0;
-                                                        }
-                                                        if (thresholdValue == 0)
-                                                        {
-                                                            PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
-                                                            PaymentCode = (string)PaymentMethodDT.Rows[0]["PaymentCode"];
-                                                            ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
-                                                            ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
-                                                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
-                                                            HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
-                                                            WalletType = (int)PaymentMethodDT.Rows[0]["EWinCryptoWalletType"];
-                                                            MultiCurrencyInfo = (string)PaymentMethodDT.Rows[0]["MultiCurrencyInfo"];
-                                                            ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
-                                                            if (!string.IsNullOrEmpty(MultiCurrencyInfo))
-                                                            {
-                                                                Newtonsoft.Json.Linq.JArray MultiCurrency = Newtonsoft.Json.Linq.JArray.Parse(MultiCurrencyInfo);
-
-                                                                foreach (var item in MultiCurrency)
-                                                                {
-                                                                    string TokenCurrency;
-                                                                    decimal ExchangeRate;
-                                                                    decimal PartialRate;
-
-                                                                    TokenCurrency = item["Currency"].ToString();
-                                                                    ExchangeRate = CryptoExpand.GetCryptoExchangeRate(TokenCurrency);
-                                                                    if (!int.TryParse(item["DecimalPlaces"].ToString(), out DecimalPlaces))
-                                                                    {
-                                                                        DecimalPlaces = 6;
-                                                                    }
-
-                                                                    if (ExchangeRate == 0)
-                                                                    {
-                                                                        //表示取得匯率失敗
-                                                                        GetExchangeRateSuccess = false;
-                                                                        break;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        PartialRate = (decimal)item["Rate"];
-
-                                                                        CryptoDetail Dcd = new CryptoDetail()
-                                                                        {
-                                                                            TokenCurrencyType = TokenCurrency,
-                                                                            TokenContractAddress = item["TokenContractAddress"].ToString(),
-                                                                            ExchangeRate = CodingControl.FormatDecimal(ExchangeRate, DecimalPlaces),
-                                                                            PartialRate = PartialRate,
-                                                                            ReceiveAmount = CodingControl.FormatDecimal(ReceiveTotalAmount * PartialRate * ExchangeRate, DecimalPlaces)
-                                                                        };
-
-                                                                        PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
-
-                                                                    }
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                decimal ExchangeRate;
-                                                                decimal ReceiveAmount;
-
-                                                                ExchangeRate = CryptoExpand.GetCryptoExchangeRate(ReceiveCurrencyType);
-                                                                ReceiveAmount = Amount * ExchangeRate;
-
-                                                                if (ExchangeRate == 0)
-                                                                {
-                                                                    //表示取得匯率失敗
-                                                                    GetExchangeRateSuccess = false;
-                                                                }
-                                                                else
-                                                                {
-                                                                    CryptoDetail Dcd = new CryptoDetail()
-                                                                    {
-                                                                        TokenCurrencyType = ReceiveCurrencyType,
-                                                                        TokenContractAddress = (string)PaymentMethodDT.Rows[0]["TokenContractAddress"],
-                                                                        ExchangeRate = CodingControl.FormatDecimal(ExchangeRate, DecimalPlaces),
-                                                                        PartialRate = 1,
-                                                                        ReceiveAmount = CodingControl.FormatDecimal(ReceiveTotalAmount * 1 * ExchangeRate, DecimalPlaces),
-                                                                    };
-
-                                                                    PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
-                                                                }
-                                                            }
-
-                                                            if (GetExchangeRateSuccess)
-                                                            {
-                                                                string OrderNumber = System.Guid.NewGuid().ToString();
-                                                                int InsertRet;
-
-                                                                PaymentCommonData.PaymentType = 1;
-                                                                PaymentCommonData.BasicType = 2;
-                                                                PaymentCommonData.WalletType = WalletType;
-                                                                PaymentCommonData.OrderNumber = OrderNumber;
-                                                                PaymentCommonData.LoginAccount = SI.LoginAccount;
-                                                                PaymentCommonData.Amount = Amount;
-                                                                PaymentCommonData.ReceiveTotalAmount = ReceiveTotalAmount;
-                                                                PaymentCommonData.HandingFeeRate = HandingFeeRate;
-                                                                PaymentCommonData.HandingFeeAmount = HandingFeeAmount;
-                                                                PaymentCommonData.ExpireSecond = ExpireSecond;
-                                                                PaymentCommonData.PaymentMethodID = PaymentMethodID;
-                                                                PaymentCommonData.PaymentMethodName = PaymentMethodName;
-                                                                PaymentCommonData.PaymentCode = PaymentCode;
-                                                                PaymentCommonData.ToWalletAddress = ToWalletAddress;
-                                                                PaymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
-
-                                                                InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, PaymentCommonData.PaymentType, 2, PaymentCommonData.LoginAccount, PaymentCommonData.Amount, PaymentCommonData.HandingFeeRate, PaymentCommonData.HandingFeeAmount, 0, 0, PaymentCommonData.PaymentMethodID, "", "", Newtonsoft.Json.JsonConvert.SerializeObject(PaymentCommonData.PaymentCryptoDetailList), PaymentCommonData.ExpireSecond);
-
-                                                                if (InsertRet == 1)
-                                                                {
-                                                                    R.Result = enumResult.OK;
-                                                                    R.Data = PaymentCommonData;
-                                                                    RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(R.Data), PaymentCommonData.OrderNumber);
-                                                                }
-                                                                else
-                                                                {
-                                                                    SetResultException(R, "InsertFailure");
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                SetResultException(R, "GetExchangeFailed");
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            SetResultException(R, "ThresholdLimit");
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        SetResultException(R, "GetInfoError");
-                                                    }
-
-                                                }
-                                                else
-                                                {
-                                                    SetResultException(R, "PaymentMethodNotCrypto");
-                                                }
-
+                                                //表示取得匯率失敗
+                                                GetExchangeRateSuccess = false;
+                                                break;
                                             }
                                             else
                                             {
-                                                SetResultException(R, "DailyAmountGreaterThanMaxlimit");
+                                                PartialRate = (decimal)item["Rate"];
+
+                                                CryptoDetail Dcd = new CryptoDetail()
+                                                {
+                                                    TokenCurrencyType = TokenCurrency,
+                                                    TokenContractAddress = item["TokenContractAddress"].ToString(),
+                                                    ExchangeRate = CodingControl.FormatDecimal(ExchangeRate, DecimalPlaces),
+                                                    PartialRate = PartialRate,
+                                                    ReceiveAmount = CodingControl.FormatDecimal(ReceiveTotalAmount * PartialRate * ExchangeRate, DecimalPlaces)
+                                                };
+
+                                                PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
+
                                             }
-                                        }
-                                        else
-                                        {
-                                            SetResultException(R, "DailyCountGreaterThanMaxlimit");
                                         }
                                     }
                                     else
                                     {
-                                        SetResultException(R, "AmountGreaterThanMaxlimit");
+                                        decimal ExchangeRate;
+                                        decimal ReceiveAmount;
+
+                                        ExchangeRate = CryptoExpand.GetCryptoExchangeRate(ReceiveCurrencyType);
+                                        ReceiveAmount = Amount * ExchangeRate;
+
+                                        if (ExchangeRate == 0)
+                                        {
+                                            //表示取得匯率失敗
+                                            GetExchangeRateSuccess = false;
+                                        }
+                                        else
+                                        {
+                                            CryptoDetail Dcd = new CryptoDetail()
+                                            {
+                                                TokenCurrencyType = ReceiveCurrencyType,
+                                                TokenContractAddress = (string)PaymentMethodDT.Rows[0]["TokenContractAddress"],
+                                                ExchangeRate = CodingControl.FormatDecimal(ExchangeRate, DecimalPlaces),
+                                                PartialRate = 1,
+                                                ReceiveAmount = CodingControl.FormatDecimal(ReceiveTotalAmount * 1 * ExchangeRate, DecimalPlaces),
+                                            };
+
+                                            PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
+                                        }
+                                    }
+
+                                    if (GetExchangeRateSuccess)
+                                    {
+                                        string OrderNumber = System.Guid.NewGuid().ToString();
+                                        int InsertRet;
+
+                                        PaymentCommonData.PaymentType = 1;
+                                        PaymentCommonData.BasicType = 2;
+                                        PaymentCommonData.WalletType = WalletType;
+                                        PaymentCommonData.OrderNumber = OrderNumber;
+                                        PaymentCommonData.LoginAccount = SI.LoginAccount;
+                                        PaymentCommonData.Amount = Amount;
+                                        PaymentCommonData.ReceiveTotalAmount = ReceiveTotalAmount;
+                                        PaymentCommonData.HandingFeeRate = HandingFeeRate;
+                                        PaymentCommonData.HandingFeeAmount = HandingFeeAmount;
+                                        PaymentCommonData.ExpireSecond = ExpireSecond;
+                                        PaymentCommonData.PaymentMethodID = PaymentMethodID;
+                                        PaymentCommonData.PaymentMethodName = PaymentMethodName;
+                                        PaymentCommonData.PaymentCode = PaymentCode;
+                                        PaymentCommonData.ToWalletAddress = ToWalletAddress;
+                                        PaymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
+
+                                        InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, PaymentCommonData.PaymentType, 2, PaymentCommonData.LoginAccount, PaymentCommonData.Amount, PaymentCommonData.HandingFeeRate, PaymentCommonData.HandingFeeAmount, 0, 0, PaymentCommonData.PaymentMethodID, "", "", Newtonsoft.Json.JsonConvert.SerializeObject(PaymentCommonData.PaymentCryptoDetailList), PaymentCommonData.ExpireSecond);
+
+                                        if (InsertRet == 1)
+                                        {
+                                            R.Result = enumResult.OK;
+                                            R.Data = PaymentCommonData;
+                                            RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(R.Data), PaymentCommonData.OrderNumber);
+                                        }
+                                        else
+                                        {
+                                            SetResultException(R, "InsertFailure");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        SetResultException(R, "GetExchangeFailed");
                                     }
                                 }
                                 else
                                 {
-                                    SetResultException(R, "AmountLessThanMinLimit");
+                                    SetResultException(R, "ThresholdLimit");
                                 }
                             }
                             else
                             {
-                                SetResultException(R, "PaymentMethodNotSupportDeposit");
+                                SetResultException(R, "GetInfoError");
                             }
+
                         }
                         else
                         {
-                            SetResultException(R, "PaymentMethodDisable");
+                            SetResultException(R, "PaymentMethodNotCrypto");
                         }
                     }
                     else
                     {
-                        SetResultException(R, "PaymentMethodNotExist");
+                        SetResultException(R, "PaymentMethodNotSupportDeposit");
                     }
                 }
                 else
                 {
-                    SetResultException(R, "WithdrawlTemporaryMaintenance");
+                    SetResultException(R, "PaymentMethodNotExist");
                 }
             }
             else
             {
-                SetResultException(R, "NotInOpenTime");
+                SetResultException(R, "WithdrawlTemporaryMaintenance");
             }
         }
         else
@@ -2701,7 +2395,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                         paymentDetailWallets.Add(paymentDetailWallet);
                                     }
 
-                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,0, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailWallets.ToArray());
+                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, 0, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailWallets.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
 

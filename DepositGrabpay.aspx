@@ -46,7 +46,7 @@
     var ActivityNames = [];
     var OrderNumber = "";
     var ExpireSecond = 0;
-
+    var lobbyClient;
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
@@ -55,6 +55,7 @@
         WebInfo = window.parent.API_GetWebInfo();
         lang = window.parent.API_GetLang();
         PaymentClient = window.parent.API_GetPaymentAPI();
+        lobbyClient = window.parent.API_GetLobbyAPI();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
@@ -116,8 +117,21 @@
         });
     }
 
+    function CheckPaymentChannelAmount(amount, paymentChannelCode, cb) {
+        lobbyClient.CheckPaymentChannelAmount(WebInfo.SID, Math.uuid(), WebInfo.MainCurrencyType, 0, amount, paymentChannelCode, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    cb(true, '');
+                } else {
+                    cb(false, o.Message);
+                }
+            }
+        })
+    }
+
+
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByPaymentCode(WebInfo.SID, Math.uuid(), "EPAY", 0,"Grabpay" ,function (success, o) {
+        PaymentClient.GetPaymentMethodByPaymentCodeFilterPaymentChannel(WebInfo.SID, Math.uuid(), "EPAY", 0, "EPAY.Grabpay", WebInfo.UserInfo.UserLevel,function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
@@ -151,73 +165,50 @@
     function CreatePayPalDeposit() {
         if ($("#amount").val() != '') {
             var amount = parseFloat($("#amount").val());
-            //var depositName;
             var paymentID = PaymentMethod[0]["PaymentMethodID"];
-            //var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
-            //var bankCardNameSecond = $("#bankCardNameSecond").val().trim();
+            CheckPaymentChannelAmount(amount, PaymentMethod[0]["PaymentCode"], function (s, message) {
+                if (s) {
+                    PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, '', function (success, o) {
+                        if (success) {
+                            let data = o.Data;
+                            if (o.Result == 0) {
+                                //$("#depositdetail .DepositName").text(data.ToInfo);
+                                $("#depositdetail .Amount").text(new BigNumber(data.Amount).toFormat());
+                                $("#depositdetail .TotalAmount").text(new BigNumber(data.Amount).toFormat());
+                                $("#depositdetail .OrderNumber").text(data.OrderNumber);
+                                $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
+                                $("#depositdetail .ThresholdValue").text(new BigNumber(data.ThresholdValue).toFormat());
+                                ExpireSecond = data.ExpireSecond;
 
-            //if (bankCardNameFirst == '') {
-            //    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的姓"), function () { });
-            //    window.parent.API_LoadingEnd(1);
-            //    return false;
-            //}
+                                var depositdetail = document.getElementsByClassName("Collectionitem")[0];
+                                var CollectionitemDom = c.getTemplate("templateCollectionitem");
+                                c.setClassText(CollectionitemDom, "currency", null, data.ReceiveCurrencyType);
+                                c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.ReceiveTotalAmount).toFormat());
+                                depositdetail.appendChild(CollectionitemDom);
 
-            //if (check_pKatakana(bankCardNameFirst)) {
-            //    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的姓"), function () { });
-            //    window.parent.API_LoadingEnd(1);
-            //    return false;
-            //}
-            
+                                OrderNumber = data.OrderNumber;
+                                GetDepositActivityInfoByOrderNumber(OrderNumber);
+                            } else {
+                                window.parent.API_LoadingEnd(1);
+                                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
-            //if (bankCardNameSecond == '') {
-            //    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的名"), function () { });
-            //    window.parent.API_LoadingEnd(1);
-            //    return false;
-            //}
+                                });
+                            }
 
-            //if (check_pKatakana(bankCardNameSecond)) {
-            //    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的名"), function () { });
-            //    window.parent.API_LoadingEnd(1);
-            //    return false;
-            //}
+                        }
+                        else {
+                            window.parent.API_LoadingEnd(1);
+                            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
 
-            //depositName = bankCardNameFirst + "　" + bankCardNameSecond;
-
-            PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, '', function (success, o) {
-                if (success) {
-                    let data = o.Data;
-                    if (o.Result == 0) {
-                        //$("#depositdetail .DepositName").text(data.ToInfo);
-                        $("#depositdetail .Amount").text(new BigNumber(data.Amount).toFormat());
-                        $("#depositdetail .TotalAmount").text(new BigNumber(data.Amount).toFormat());
-                        $("#depositdetail .OrderNumber").text(data.OrderNumber);
-                        $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
-                        $("#depositdetail .ThresholdValue").text(new BigNumber(data.ThresholdValue).toFormat());
-                        ExpireSecond = data.ExpireSecond;
-
-                        var depositdetail = document.getElementsByClassName("Collectionitem")[0];
-                        var CollectionitemDom = c.getTemplate("templateCollectionitem");
-                        c.setClassText(CollectionitemDom, "currency", null, data.ReceiveCurrencyType);
-                        c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.ReceiveTotalAmount).toFormat());
-                        depositdetail.appendChild(CollectionitemDom);
-
-                        OrderNumber = data.OrderNumber;
-                        GetDepositActivityInfoByOrderNumber(OrderNumber);
-                    } else {
-                        window.parent.API_LoadingEnd(1);
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
-
-                        });
-                    }
-
-                }
-                else {
+                            });
+                        }
+                    })
+                } else {
                     window.parent.API_LoadingEnd(1);
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
-
-                    });
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(message));
                 }
-            })
+            });
+
         } else {
             window.parent.API_LoadingEnd(1);
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入購買金額"), function () {

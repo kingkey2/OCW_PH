@@ -75,6 +75,37 @@
         }, "PaymentAPI");
     }
 
+    function GetListPaymentChannel() {
+        lobby.ListPaymentChannel(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.ChannelList && o.ChannelList.length > 0) {
+                        o.ChannelList = o.ChannelList.filter(f => f.UserLevelIndex <= WebInfo.UserInfo.UserLevel)
+                        for (var i = 0; i < o.ChannelList.length; i++) {
+                            var channel = o.ChannelList[i];
+                            //UserLevelIndex
+                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType && channel.AllowWithdrawal == true) {
+                                switch (channel.PaymentChannelCode) {
+                                    case "EPAY.Bank":
+                                        $('#idWithdrawalBankCard').show();
+                                        break;
+                                    case "EPAY.Gcash":
+                                        $('#idWithdrawalGCASH').show();
+                                        break;
+                                    default:
+                                }
+
+                                if (channel.PaymentBrand == "BlockChain") {
+                                    $('#idWithdrawalCrypto').show();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    }
+
     function API_showMessageOK(title, message, cbOK) {
         if ($("#alertContact").attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("alertContact");
@@ -196,7 +227,7 @@
 
                     </div>--%>
                     <!-- 虛擬錢包 -->
-                    <div class="card-item sd-02" style="">
+                    <div class="card-item sd-02" id="idWithdrawalCrypto">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalCrypto','WithdrawalCrypto.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -225,7 +256,7 @@
                         </a>
                     </div>
                     <!-- EPay -->
-                    <div class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalEPay.aspx')">
+                    <div id="idWithdrawalBankCard" class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalEPay.aspx')">
                         <a class="card-item-link ">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -240,7 +271,7 @@
                         </a>
                            <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
-                       <div class="card-item sd-09 tempCard" onclick="window.parent.API_LoadPage('WithdrawalGCASH','WithdrawalGCASH.aspx')">
+                       <div id="idWithdrawalGCASH" class="card-item sd-09 tempCard" onclick="window.parent.API_LoadPage('WithdrawalGCASH','WithdrawalGCASH.aspx')">
                         <a class="card-item-link ">
                             <div class="card-item-inner">
                                 <div class="title">

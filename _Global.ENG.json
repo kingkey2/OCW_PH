@@ -1,5 +1,5 @@
 ﻿{
-    "UserNotExist": "The account does not exist, please check.",
+  "UserNotExist": "The account does not exist, please check.",
   "InvalidImageCode": "Invalid verification code, please check.",
   "InvalidAccountOrPassword": "The account/password is incorrect, please check.",
   "AccountLock": "The account is locked, please contact customer service staff/relevant person in charge for assistance.",
@@ -33,7 +33,7 @@
   "InvalidValidateCode": "The verification code is invalid, please check.",
   "ValidateFailure": "The verification code is incorrect, please check.",
   "LoginExpire:InvalidHash": "The login status has expired, please confirm whether other devices are logged in at the same time.",
-   "熱門文章": "Popular Articles",
+  "熱門文章": "Popular Articles",
   "線上客服": "Customer Service",
   "聯絡客服": "Contact",
   "隱私權政策": "Privacy Policy",

@@ -38,7 +38,7 @@
     var lang;
     var mlp;
     var v = "<%:Version%>";
-
+    var lobby;
     function init() {
 
         if (self == top) {
@@ -46,12 +46,56 @@
         }
 
         WebInfo = window.parent.API_GetWebInfo();
-
+        lobby = window.parent.API_GetLobbyAPI();
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
         }, "PaymentAPI");
+
+        GetListPaymentChannel();
+    }
+
+    function GetListPaymentChannel() {
+        lobby.ListPaymentChannel(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.ChannelList && o.ChannelList.length > 0) {
+                        o.ChannelList = o.ChannelList.filter(f => f.UserLevelIndex <= WebInfo.UserInfo.UserLevel)
+                        for (var i = 0; i < o.ChannelList.length; i++) {
+                            var channel = o.ChannelList[i];
+                            //UserLevelIndex
+                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType && channel.AllowDeposit==true) {
+                                switch (channel.PaymentChannelCode) {
+                                    case "EPAY.Bank":
+                                       
+                                        break;
+                                    case "EPAY.Gcash":
+                                        $('#idDepositGCash').show();
+                                        break;
+                                    case "EPAY.GcashDirect":
+                                        $('#idDepositGCashDirect').show();
+                                    case "EPAY.GcashQRcode":
+                                        $('#idDepositGcashQRcode').show();
+                                        break;
+                                    case "EPAY.Grabpay":
+                                        $('#idDepositGrabpay').show();
+                                        break;
+                                    case "EPAY.Paymaya":
+                                        $('#idDepositPaymaya').show();
+                                        break;
+                                    default:
+                                }
+
+                                if (channel.PaymentBrand == "BlockChain") {
+                                    $('#idDepositCrypto').show();
+                                }
+                            }
+                        }
+                    }
+                } 
+            }
+        })
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -123,7 +167,7 @@
                 <div class="card-container">
                 
                     <!-- 虛擬錢包 -->
-                    <div class="card-item sd-02" style="">
+                    <div class="card-item sd-02" id="idDepositCrypto" style="display:none;">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositCrypto','DepositCrypto.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -154,7 +198,7 @@
                         </a>
                     </div>
                     <!-- GCash -->
-                    <div class="card-item sd-09" id="idDepositGCash">
+                    <div class="card-item sd-09" id="idDepositGCash" style="display:none;">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGCash','DepositGCash.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -170,7 +214,7 @@
                         </a>
                     </div>
                      <!-- EPay -->
-                    <div class="card-item sd-09" id="idDepositGcashQRcode">
+                    <div class="card-item sd-09" id="idDepositGcashQRcode" style="display:none;">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGcashQRcode','DepositGcashQRcode.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -187,7 +231,7 @@
                         </a>
                     </div>
                      <!-- Paymaya -->
-                    <div class="card-item sd-11" id="idDepositPaymaya">
+                    <div class="card-item sd-11" id="idDepositPaymaya" style="display:none;">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositPaymaya','DepositPaymaya.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -203,7 +247,7 @@
                         </a>
                     </div>
                      <!-- Grabpay -->
-                    <div class="card-item sd-10" id="idDepositGrabpay">
+                    <div class="card-item sd-10" id="idDepositGrabpay" style="display:none;">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGrabpay','DepositGrabpay.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -218,7 +262,7 @@
                             <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
                         </a>
                     </div>
-                    <div class="card-item sd-09" id="idDepositGCashDirect">
+                    <div class="card-item sd-09" id="idDepositGCashDirect" style="display:none;">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGCashDirect','DepositGCashDirect.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
