@@ -7063,7 +7063,7 @@ i {
 }
 @media (min-width: 936px) {
   .game-area.overflow-hidden > .container {
-    padding-top: 10px;
+    padding-top: 30px;
   }
 
   .game_slider .swiper-button-next, .game_slider .swiper-button-next.swiper-button-disabled, .game_slider .swiper-button-prev, .game_slider .swiper-button-prev.swiper-button-disabled {
@@ -7088,10 +7088,11 @@ i {
     padding-bottom: 0px;
   }
   .game-area.overflow-hidden .categoryPage > .container {
-    padding-top: 10px;
+    padding-top: 30px;
   }
   .game-area.overflow-hidden .container.category-dailypush {
-    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 0px;
   }
 }
 @media (min-width: 1384px) {
