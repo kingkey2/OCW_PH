@@ -1435,7 +1435,7 @@
         <div class="tab-game">
             <div class="tab-inner">
                 <div class="tab-search" onclick="showSearchGameModel()">
-                    <img src="images/icon/ico-search-dog-tt.svg" alt="" onerror="setDefaultIcon(this)"><span class="title language_replace">找遊戲</span>
+                    <img src="images/icon/ico-search-dog-tt.png" alt="" onerror="setDefaultIcon(this)"><span class="title language_replace">找遊戲</span>
                 </div>
                 <div class="tab-scroller tab-6">
                     <div class="tab-scroller__area">

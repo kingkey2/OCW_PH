@@ -844,6 +844,10 @@ $gameRanking-swiper-slide-width-over-xxl: $swiper-slide-width-over-xxl         *
                 // width:((54/46)*(52px-5px));
                 width:((54/46)*(52px+10px-5px));
                 height:((54/46)*(52px+10px-5px));
+                &:hover{
+                    background-color: #c6f6fd;
+                    box-shadow: 0 0 0px 5px #52b8bf;
+                }
             }
 
             .icon-mask {

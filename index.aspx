@@ -126,9 +126,8 @@
     <%--<meta property="og:type" content="website" />--%>
 
     <!-- Share image -->
-    <!--英文圖片-->
-    <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
-    <link rel="shortcut icon" href="images/share_pic.png">
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="bookmark" href="images/favicon.ico" />
     <link rel="apple-touch-icon" href="images/share_pic.png">
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css?<%:Version%>">

@@ -676,7 +676,9 @@
 
         color: #fff;
         // white-space: nowrap;
-
+        &:hover{
+            background: linear-gradient(90deg, #ffbe72, #eb8846);
+        }
         .avater {
             position: absolute;
             left: -6px;
@@ -695,9 +697,10 @@
     .btn-register {
         // background: linear-gradient(90deg, #E62162 5.73%, #E84E8B 50.96%, #FF9CC3 100%);
         @include bg-gradient(90deg, $header-btn-register-backgroundColor);
-
         color: #fff;
-
+        &:hover{
+            background: linear-gradient(90deg, #ffb3a7, #ff9887);
+        }
     }
 
 }
