@@ -645,6 +645,22 @@
         });
 
     }
+
+    function API_GetUserAccountProperty(PropertyName, cb) {
+        lobbyClient.GetUserAccountProperty(EWinWebInfo.SID, Math.uuid(), PropertyName, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.PropertyValue != "") {
+                        var data = o.PropertyValue;
+
+                        if (cb) {
+                            cb(data);
+                        }
+                    }
+                }
+            }
+        });
+    }
     //#endregion
 
     //#region Alert
