@@ -159,16 +159,7 @@
                                 let ExpireDate = Date.parse(Collect.ExpireDate);
                                 let PointValue = Collect.PointValue;
 
-                                if (collectAreaType == 1) {
-                                    if (wallet.PointValue > 100) {
-                                        RecordDom = c.getTemplate("tmpPrize1");
-
-                                    } else {
-                                        RecordDom = c.getTemplate("tmpPrize0");
-                                    }
-                                } else {
-                                    RecordDom = c.getTemplate("tmpPrize0");
-                                }
+                                RecordDom = c.getTemplate("tmpPrize0");
 
                                 let DomBtn = RecordDom.querySelector(".bouns-get");
 

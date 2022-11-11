@@ -1695,7 +1695,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 }
                             }
 
-                            EWin.Lobby.UserAccountPropertyResult UP = GetUserAccountProperty(SI.EWinSID, GUID, "JoinActivity");
+                            EWin.Lobby.UserAccountPropertyResult UP = GetUserAccountProperty(WebSID, GUID, "JoinActivity");
 
                             if (OldThresholdValue == 0 || (UP.Result == EWin.Lobby.enumResult.ERR && UP.Message == "NoExist")) {
                                 var ResetResult = lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
@@ -1718,10 +1718,10 @@ public class LobbyAPI : System.Web.Services.WebService {
                                                     JoinActivityCycle = item["Value"].ToString();
                                                 }
                                                 if (item["Field"].ToString() == "ThresholdValue") {
-                                                    ThresholdValue = decimal.Parse(item["ThresholdValue"].ToString());
+                                                    ThresholdValue = decimal.Parse(item["Value"].ToString());
                                                 }
                                                 if (item["Field"].ToString() == "PointValue") {
-                                                    PointValue = decimal.Parse(item["PointValue"].ToString());
+                                                    PointValue = decimal.Parse(item["Value"].ToString());
                                                 }
                                             }
                                         }
@@ -1746,7 +1746,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 }
                             } else {
                                 R.Result = EWin.Lobby.enumResult.ERR;
-                                R.Message = "PointLimit";
+                                R.Message = "Mismatch Condition";
                             }
 
                         }

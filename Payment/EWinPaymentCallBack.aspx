@@ -54,13 +54,15 @@
                                     string CollectAreaType;
                                     int PaymentFlowStatus = (int)PaymentDT.Rows[0]["FlowStatus"];
                                     bool ResetThreshold = false;
+                                    decimal ThresholdValue;
 
                                     if (PaymentFlowStatus == 1) {
                                         transactionCode = BodyObj.PaymentSerial;
                                         description = "Deposit, PaymentCode=" + tagInfoData.PaymentCode + ", Amount=" + BodyObj.Amount;
                                         ResetThreshold = CheckResetThreshold(BodyObj.LoginAccount);
+                                        ThresholdValue = GetUserThresholdValue(BodyObj.LoginAccount);
 
-                                        if (ResetThreshold) {
+                                        if (ThresholdValue == 0) {
                                             lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinActivity");
                                         }
 
