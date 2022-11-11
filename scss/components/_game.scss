@@ -2297,7 +2297,7 @@
         &.overflow-hidden{        
             
             > .container{
-                padding-top: 10px;
+                padding-top: 30px;
                 // padding-bottom: 100px;
             }
         }
@@ -2373,13 +2373,14 @@
         .categoryPage>.container{
             // padding-left: 12px;
            // padding-right: 12px;
-            padding-top: 10px;
+            padding-top: 30px;
             // padding-bottom: 100px;
             
         }
 
         .container.category-dailypush{
-            padding-bottom: 20px;
+            padding-top:10px;
+            padding-bottom: 0px;
         }    
    }
 

@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucky Fanta</title>
+    <title>Lucky Sprite</title>
 
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
@@ -51,12 +51,15 @@
     var v = "<%:Version%>";
     var IsOpenTime = "<%:InOpenTime%>";
     var IsWithdrawlTemporaryMaintenance = "<%:IsWithdrawlTemporaryMaintenance%>";
+    var lobbyClient;
+    var WebInfo;
 
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
         }
-
+        lobbyClient = window.parent.API_GetLobbyAPI();
+        WebInfo = window.parent.API_GetWebInfo();
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
@@ -72,7 +75,54 @@
                     });
                 }
             }
+            checkWalletPassword();
         }, "PaymentAPI");
+    }
+
+    function checkWalletPassword() {
+        lobbyClient.GetUserAccountProperty(WebInfo.SID, Math.uuid(), "IsSetWalletPassword", function (success, o) {
+            if (success) {
+                console.log(o);
+                if (o.Result != 0) {
+                    if (o.Message=="NoExist") {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定錢包密碼"), function () {
+                            window.parent.API_LoadPage("ForgotWalletPassword", "ForgotWalletPassword.aspx");
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    function GetListPaymentChannel() {
+        lobby.ListPaymentChannel(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.ChannelList && o.ChannelList.length > 0) {
+                        o.ChannelList = o.ChannelList.filter(f => f.UserLevelIndex <= WebInfo.UserInfo.UserLevel)
+                        for (var i = 0; i < o.ChannelList.length; i++) {
+                            var channel = o.ChannelList[i];
+                            //UserLevelIndex
+                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType && channel.AllowWithdrawal == true) {
+                                switch (channel.PaymentChannelCode) {
+                                    case "EPAY.Bank":
+                                        $('#idWithdrawalBankCard').show();
+                                        break;
+                                    case "EPAY.Gcash":
+                                        $('#idWithdrawalGCASH').show();
+                                        break;
+                                    default:
+                                }
+
+                                if (channel.PaymentBrand == "BlockChain") {
+                                    $('#idWithdrawalCrypto').show();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
     }
 
     function API_showMessageOK(title, message, cbOK) {
@@ -196,7 +246,7 @@
 
                     </div>--%>
                     <!-- 虛擬錢包 -->
-                    <div class="card-item sd-02" style="">
+                    <div class="card-item sd-02" id="idWithdrawalCrypto">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalCrypto','WithdrawalCrypto.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -225,7 +275,7 @@
                         </a>
                     </div>
                     <!-- EPay -->
-                    <div class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalEPay.aspx')">
+                    <div id="idWithdrawalBankCard" class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalEPay.aspx')">
                         <a class="card-item-link ">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -240,7 +290,7 @@
                         </a>
                            <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
-                       <div class="card-item sd-09 tempCard" onclick="window.parent.API_LoadPage('WithdrawalGCASH','WithdrawalGCASH.aspx')">
+                       <div id="idWithdrawalGCASH" class="card-item sd-09 tempCard" onclick="window.parent.API_LoadPage('WithdrawalGCASH','WithdrawalGCASH.aspx')">
                         <a class="card-item-link ">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -285,7 +335,7 @@
                             <p class="language_replace">4.若達到上述任何限制，請隔天以後再申請出金。</p>
                             <p class="language_replace">5.出金時間為365天日本時間早上10點到下午18點為止。</p> -->
                             <p class="language_replace" style="text-indent: -1rem; margin-left: 1rem;">1. Using Lucky
-                                Fanta's fully automated recharge and withdrawal channels, you'll enjoy the best gaming
+                                Sprite's fully automated recharge and withdrawal channels, you'll enjoy the best gaming
                                 experience, and your recharge and withdrawal will arrive within seconds!</p>
 
                             <p class="language_replace" style="text-indent: -1rem; margin-left: 1rem;">2. With regard to
