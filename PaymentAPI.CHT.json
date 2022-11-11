@@ -34,5 +34,8 @@
   "JKCAmountInsufficient2": "JKC餘額不足",
   "ClientOrderNumber": "訂單已存在,請重新申請訂單",
   "WithdrawlTemporaryMaintenance": "出款程序維護中",
-  "OPFailure": "餘額不足"
+  "OPFailure": "餘額不足",
+  "InvalidAmount": "金額不符合限額",
+  "InvalidDailyAmount": "超過每日提領上限",
+  "ChannelNoAvailable": "通道未開啟"
 }

@@ -50,7 +50,6 @@
     var v ="<%:Version%>";
     var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
 
-
     function BackLogin() {
         window.parent.API_LoadPage("Login", "Login.aspx");
     }
@@ -187,7 +186,7 @@
 
 
         //c.callService(LobbyAPIUrl + "/SetUserPasswordByValidateCode", postObj, function (success, content) {
-        p.SetWalletPasswordByValidateCode(GUID, ValidateType, EMail, idPhonePrefix.value, idPhoneNumber.value, ValidateCode, NewPassword, function (success, o) {
+        p.SetWalletPasswordByValidateCode(WebInfo.SID,GUID, ValidateType, EMail, idPhonePrefix.value, idPhoneNumber.value, ValidateCode, NewPassword, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     window.parent.showMessageOK("", mlp.getLanguageKey("已成功修改密碼！"), function () {

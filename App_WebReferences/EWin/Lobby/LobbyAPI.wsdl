@@ -1880,6 +1880,30 @@
           <s:element minOccurs="1" maxOccurs="1" name="TotalValidBetValue" type="s:decimal" />
         </s:sequence>
       </s:complexType>
+      <s:element name="CheckPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PasswordType" type="tns:enumPasswordType" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="enumPasswordType">
+        <s:restriction base="s:string">
+          <s:enumeration value="LoginPassword" />
+          <s:enumeration value="WalletPassword" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CheckPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckPasswordResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="SetWalletPassword">
         <s:complexType>
           <s:sequence>
@@ -2584,6 +2608,12 @@
   <wsdl:message name="GetGameOrderSummaryHistorySoapOut">
     <wsdl:part name="parameters" element="tns:GetGameOrderSummaryHistoryResponse" />
   </wsdl:message>
+  <wsdl:message name="CheckPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckPassword" />
+  </wsdl:message>
+  <wsdl:message name="CheckPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckPasswordResponse" />
+  </wsdl:message>
   <wsdl:message name="SetWalletPasswordSoapIn">
     <wsdl:part name="parameters" element="tns:SetWalletPassword" />
   </wsdl:message>
@@ -3195,6 +3225,16 @@
   </wsdl:message>
   <wsdl:message name="GetGameOrderSummaryHistoryHttpGetOut">
     <wsdl:part name="Body" element="tns:OrderSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckPasswordHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PasswordType" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckPasswordHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="SetWalletPasswordHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
@@ -3857,6 +3897,16 @@
   <wsdl:message name="GetGameOrderSummaryHistoryHttpPostOut">
     <wsdl:part name="Body" element="tns:OrderSummaryResult" />
   </wsdl:message>
+  <wsdl:message name="CheckPasswordHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PasswordType" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckPasswordHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="SetWalletPasswordHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -4215,6 +4265,10 @@
       <wsdl:input message="tns:GetGameOrderSummaryHistorySoapIn" />
       <wsdl:output message="tns:GetGameOrderSummaryHistorySoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <wsdl:input message="tns:CheckPasswordSoapIn" />
+      <wsdl:output message="tns:CheckPasswordSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="SetWalletPassword">
       <wsdl:input message="tns:SetWalletPasswordSoapIn" />
       <wsdl:output message="tns:SetWalletPasswordSoapOut" />
@@ -4489,6 +4543,10 @@
       <wsdl:input message="tns:GetGameOrderSummaryHistoryHttpGetIn" />
       <wsdl:output message="tns:GetGameOrderSummaryHistoryHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <wsdl:input message="tns:CheckPasswordHttpGetIn" />
+      <wsdl:output message="tns:CheckPasswordHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="SetWalletPassword">
       <wsdl:input message="tns:SetWalletPasswordHttpGetIn" />
       <wsdl:output message="tns:SetWalletPasswordHttpGetOut" />
@@ -4762,6 +4820,10 @@
     <wsdl:operation name="GetGameOrderSummaryHistory">
       <wsdl:input message="tns:GetGameOrderSummaryHistoryHttpPostIn" />
       <wsdl:output message="tns:GetGameOrderSummaryHistoryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <wsdl:input message="tns:CheckPasswordHttpPostIn" />
+      <wsdl:output message="tns:CheckPasswordHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="SetWalletPassword">
       <wsdl:input message="tns:SetWalletPasswordHttpPostIn" />
@@ -5357,6 +5419,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGameOrderSummaryHistory">
       <soap:operation soapAction="http://tempuri.org/GetGameOrderSummaryHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <soap:operation soapAction="http://tempuri.org/CheckPassword" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6015,6 +6086,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <soap12:operation soapAction="http://tempuri.org/CheckPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SetWalletPassword">
       <soap12:operation soapAction="http://tempuri.org/SetWalletPassword" style="document" />
       <wsdl:input>
@@ -6630,6 +6710,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <http:operation location="/CheckPassword" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SetWalletPassword">
       <http:operation location="/SetWalletPassword" />
       <wsdl:input>
@@ -7238,6 +7327,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGameOrderSummaryHistory">
       <http:operation location="/GetGameOrderSummaryHistory" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <http:operation location="/CheckPassword" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

@@ -800,9 +800,9 @@
         $("#activityURL").attr("href", "https://casino-maharaja.net/lp/01/" + WebInfo.UserInfo.PersonCode);
         $("#activityURL1").attr("href", "https://casino-maharaja.net/lp/02/" + WebInfo.UserInfo.PersonCode);
 
-        if (!WebInfo.UserInfo.IsWalletPasswordSet) {
+        //if (!WebInfo.UserInfo.IsWalletPasswordSet) {
             //document.getElementById('idWalletPasswordUnSet').style.display = "block";
-        }
+        //}
     }
 
     function GetEPayBankSelect() {
@@ -1220,20 +1220,7 @@
                                             <input type="password" class="custom-input-edit" id="idOldPassword" value="">
                                         </div>
                                     </div>--%>                                       
-                                   <%-- <div class="data-item password">
-                                        <div class="data-item-title">
-                                            <label class="title">
-                                                <i class="icon icon-mask icon-lock-closed"></i>
-                                                <span class="title-name language_replace">錢包密碼</span>
-                                               <button type="button" class="btn btn-edit btn-transparent btn-round" onclick="changeWalletPassword()"><i class="icon icon-mask icon-pencile"></i></button>
-                                            </label>
-                                        </div>
-                                        <div class="data-item-content">
-                                            <div class="password-fake">
-                                                <p class="password">**************</p>
-                                            </div>
-                                        </div>                                        
-                                    </div>--%>
+                                  
                                     <div class="data-item-group">
                                         <div class="data-item name">
                                             <div class="data-item-title">
@@ -1352,6 +1339,21 @@
                                                 </div>
                                             </div>                                        
                                         </div>  
+
+                                        <div class="data-item password">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-lock-closed"></i>
+                                                <span class="title-name language_replace">錢包密碼</span>
+                                               <button type="button" class="btn btn-edit btn-transparent btn-round" onclick="changeWalletPassword()"><i class="icon icon-mask icon-pencile"></i></button>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <div class="password-fake">
+                                                <p class="password">**************</p>
+                                            </div>
+                                        </div>                                        
+                                    </div>
 
                                         <div class="wrapper_center">
                                             <button id="updateUserAccountCancelBtn" onclick="updateUserAccountReadOnly()" type="button" class="btn btn-confirm btn-gray is-hide"><span class="language_replace">取消</span></button>
