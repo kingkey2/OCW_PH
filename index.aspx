@@ -515,6 +515,12 @@
         return showMessageOK(title, msg, cbOK);
     }
 
+    $(document).on('shown.bs.modal', '#alertSearch', function () {
+        if ($('#search-brand-wrapper').css('display')=='none') {
+            $('.input-fake-select').trigger("click");
+        }
+    });
+
     function API_ShowSearchGameModel() {
         $('#alertSearch').modal('show');
     }
@@ -2983,8 +2989,11 @@
 
                                     GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png?` + v;
                                 }
-
-                                ParentMain.append(GBLDom);
+                                if (GBL.GameBrand.toUpperCase() == 'JL' || GBL.GameBrand.toUpperCase() == 'EVO') {
+                                    ParentMain.prepend(GBLDom);
+                                } else {
+                                    ParentMain.append(GBLDom);
+                                }
                             }
                         }
                     } else {
@@ -3924,7 +3933,7 @@
                         </div>
 
                         <!-- 品牌LOGO版 Collapse -->
-                        <div class="brand-wrapper">
+                        <div class="brand-wrapper" id="search-brand-wrapper">
                             <div class="modal-header-container">
                                 <div class="brand-inner">
                                     <ul class="brand-popup-list" id="ulSearchGameBrand">
