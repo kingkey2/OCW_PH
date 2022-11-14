@@ -125,15 +125,15 @@
             DesktopSrc: "/images/lobby/dailypush-live-001.jpg",
             BackgroundColor: "#010101"
         },
-        {
-            GameCode: "BTI.Sport",
-            GameBrand: "BTI",
-            Location: "GameList_Other",
-            MobileSrc: "/images/lobby/dailypush-bti-M-001.jpg",
-            PadSrc: "/images/lobby/dailypush-bti-MD-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-bti-001.jpg",
-            BackgroundColor: "#f66f13"
-        },
+        //{
+        //    GameCode: "BTI.Sport",
+        //    GameBrand: "BTI",
+        //    Location: "GameList_Other",
+        //    MobileSrc: "/images/lobby/dailypush-bti-M-001.jpg",
+        //    PadSrc: "/images/lobby/dailypush-bti-MD-001.jpg",
+        //    DesktopSrc: "/images/lobby/dailypush-bti-001.jpg",
+        //    BackgroundColor: "#f66f13"
+        //},
         {
             GameCode: "MG.429",
             GameBrand: "MG",
@@ -1355,11 +1355,11 @@
     function getBanner() {
         var GUID = Math.uuid();
         var TagName = "CasinoBanner";
-
-        if (WebInfo.DeviceType == 1) {
-            TagName = TagName + "_M";
-        } else {
+        
+        if (WebInfo.DeviceType_B == 0) {
             TagName = TagName + "_P";
+        } else {
+            TagName = TagName + "_M";
         }
 
         p.CheckDocumentByTagName(GUID, TagName, function (success, o) {
@@ -1384,7 +1384,7 @@
                                     url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
                                     success: (function (res) {
                                         var k = this;
-                                        if (WebInfo.DeviceType == 1) {
+                                        if (WebInfo.DeviceType_B == 1) {
                                             $(k).find('.Banner_M').html(res);
                                             $(k).find('.Banner_M').children().find('img').removeAttr("width");
                                             $(k).find('.Banner_M').children().find('img').removeAttr("height");
