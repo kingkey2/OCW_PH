@@ -30,6 +30,48 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.PaymentChannelResult ListPaymentChannel(string WebSID, string GUID) {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            return lobbyAPI.ListPaymentChannel(GetToken(), SI.EWinSID, GUID);
+        } else {
+            var R = new EWin.Lobby.PaymentChannelResult() {
+                Result = EWin.Lobby.enumResult.ERR,
+                Message = "InvalidWebSID",
+                GUID = GUID
+            };
+
+            return R;
+        }
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.APIResult CheckPaymentChannelAmount(string WebSID, string GUID, string CurrencyType, int DirectionType,decimal Amount,string PaymentChannelCode) {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            return lobbyAPI.CheckPaymentChannelAmount(GetToken(), SI.EWinSID, GUID,(EWin.Lobby.enumPaymentDirectionType)DirectionType ,CurrencyType, PaymentChannelCode,Amount);
+        } else {
+            var R = new EWin.Lobby.APIResult() {
+                Result = EWin.Lobby.enumResult.ERR,
+                Message = "InvalidWebSID",
+                GUID = GUID
+            };
+
+            return R;
+        }
+    }
+
+
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult AddUserBankCard(string WebSID, string GUID, string CurrencyType, int PaymentMethod, string BankName, string BranchName, string BankNumber, string AccountName, string BankProvince, string BankCity, string Description) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
@@ -419,12 +461,18 @@ public class LobbyAPI : System.Web.Services.WebService {
         System.Data.DataTable DT = null;
         string ParentLoginAccount = string.Empty;
         string CollectAreaType;
+        string Birthday = DateTime.Now.ToString("yyyy/MM/dd");
 
         R = lobbyAPI.CreateAccount(GetToken(), GUID, LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS);
 
         if (R.Result == EWin.Lobby.enumResult.OK) {
             //建立會員等級資料
-            EWinWebDB.UserAccountLevel.InsertUserAccountLevel(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+            foreach (EWin.Lobby.PropertySet EachPS in PS) {
+                if (EachPS.Name.ToUpper() == "Birthday".ToUpper()) {
+                    Birthday = EachPS.Value;
+                }
+            }
+            EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), Birthday);
 
             var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
 
@@ -456,7 +504,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     ParentLoginAccount = Parent.ParentLoginAccount;
                 }
 
-                DT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(ParentLoginAccount);
+                DT = RedisCache.UserAccount.GetUserAccountByLoginAccount(ParentLoginAccount);
 
                 if (DT != null) {
                     if (DT.Rows.Count > 0) {
@@ -880,6 +928,27 @@ public class LobbyAPI : System.Web.Services.WebService {
         }
     }
 
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.APIResult CheckPassword(string WebSID, string GUID, int PasswordType, string Password) {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            return lobbyAPI.CheckPassword(GetToken(), SI.EWinSID, GUID, (EWin.Lobby.enumPasswordType)PasswordType,Password);
+        } else {
+            var R = new EWin.Lobby.APIResult() {
+                Result = EWin.Lobby.enumResult.ERR,
+                Message = "InvalidWebSID",
+                GUID = GUID
+            };
+            return R;
+        }
+    }
+
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult SetWalletPassword(string WebSID, string GUID, string LoginPassword, string NewWalletPassword) {
@@ -1148,9 +1217,26 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult SetWalletPasswordByValidateCode(string GUID, EWin.Lobby.enumValidateType ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword) {
+    public EWin.Lobby.APIResult SetWalletPasswordByValidateCode(string WebSID,string GUID, EWin.Lobby.enumValidateType ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-        return lobbyAPI.SetWalletPasswordByValidateCode(GetToken(), GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
+        RedisCache.SessionContext.SIDInfo SI;
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+        EWin.Lobby.APIResult R;
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            R= lobbyAPI.SetWalletPasswordByValidateCode(GetToken(), GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
+            if (R.Result == EWin.Lobby.enumResult.OK)
+            {
+                R = lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.BySID, SI.EWinSID, "IsSetWalletPassword", "true");
+            }
+        } else {
+            R = new EWin.Lobby.APIResult() {
+                Result = EWin.Lobby.enumResult.ERR,
+                Message = "InvalidWebSID",
+                GUID = GUID
+            };
+        }
+
+        return R;
     }
 
     [WebMethod]
@@ -1405,7 +1491,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 }
                 break;
             case EWin.Lobby.enumValidateType.PhoneNumber:
-                string smsContent = "Your LUCKY FANTA OTP code is " + ValidateCode;
+                string smsContent = "Your Lucky Sprite OTP code is " + ValidateCode;
                 R = SendSMS(GUID, "0", 0, ContactPhonePrefix + ContactPhoneNumber, smsContent);
                 break;
             default:
@@ -1422,7 +1508,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { GUID = GUID, Result = EWin.Lobby.enumResult.ERR };
         string ValidateCode = string.Empty;
 
-        R = lobbyAPI.SendSMS(GetToken(), GUID, SMSTypeCode, RecvUserAccountID,"LuckyFanta" ,ContactNumber, SendContent);
+        R = lobbyAPI.SendSMS(GetToken(), GUID, SMSTypeCode, RecvUserAccountID,"LuckySprite" ,ContactNumber, SendContent);
 
         return R;
     }
@@ -1562,7 +1648,6 @@ public class LobbyAPI : System.Web.Services.WebService {
                         if (Collect.CollectAreaType == 2) {
 
                             if (Wallet.PointValue < CollectLimit) {
-                                ReportSystem.UserAccountPromotionCollect.CreateUserAccountPromotionCollect(Token, SI.LoginAccount, EWinWeb.MainCurrencyType, "ResetCollettPromotion. CollectID=" + CollectID.ToString());
                                 var ResetResult = lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
 
                                 if (ResetResult.Result == EWin.Lobby.enumResult.OK) {
@@ -1570,8 +1655,6 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 } else {
                                     R.Result = EWin.Lobby.enumResult.ERR;
                                     R.Message = "Reset Failure : " + ResetResult.Message;
-
-                                    ReportSystem.UserAccountPromotionCollect.CreateUserAccountPromotionCollect(Token, SI.LoginAccount, EWinWeb.MainCurrencyType, R.Message);
                                 }
                             }
 
@@ -1600,8 +1683,21 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 R.Message = "Collect Failure";
                             }
                         } else {
+
                             if (Wallet.PointValue < CollectLimit) {
-                                ReportSystem.UserAccountPromotionCollect.CreateUserAccountPromotionCollect(Token, SI.LoginAccount, EWinWeb.MainCurrencyType, "ResetCollettPromotion. CollectID=" + CollectID.ToString());
+                                var ResetResult = lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
+
+                                if (ResetResult.Result == EWin.Lobby.enumResult.OK) {
+
+                                } else {
+                                    R.Result = EWin.Lobby.enumResult.ERR;
+                                    R.Message = "Reset Failure : " + ResetResult.Message;
+                                }
+                            }
+
+                            EWin.Lobby.UserAccountPropertyResult UP = GetUserAccountProperty(WebSID, GUID, "JoinActivity");
+
+                            if (OldThresholdValue == 0 || (UP.Result == EWin.Lobby.enumResult.ERR && UP.Message == "NoExist")) {
                                 var ResetResult = lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
 
                                 if (ResetResult.Result == EWin.Lobby.enumResult.OK) {
@@ -1610,6 +1706,8 @@ public class LobbyAPI : System.Web.Services.WebService {
                                     if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
 
                                         string JoinActivityCycle = "1";
+                                        decimal ThresholdValue = 0;
+                                        decimal PointValue = 0;
                                         Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
 
                                         if (actioncontent["ActionList"] != null) {
@@ -1619,8 +1717,21 @@ public class LobbyAPI : System.Web.Services.WebService {
                                                 if (item["Field"].ToString() == "JoinActivityCycle") {
                                                     JoinActivityCycle = item["Value"].ToString();
                                                 }
+                                                if (item["Field"].ToString() == "ThresholdValue") {
+                                                    ThresholdValue = decimal.Parse(item["Value"].ToString());
+                                                }
+                                                if (item["Field"].ToString() == "PointValue") {
+                                                    PointValue = decimal.Parse(item["Value"].ToString());
+                                                }
                                             }
                                         }
+
+                                        dynamic o = new System.Dynamic.ExpandoObject();
+                                        o.ActivityName = Collect.Description;
+                                        o.ThresholdValue = ThresholdValue;
+                                        o.PointValue = PointValue;
+
+                                        lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, SI.LoginAccount, "JoinActivity", Newtonsoft.Json.JsonConvert.SerializeObject(o));
 
                                         EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, JoinActivityCycle, 0, 0, 0);
                                         R.Result = EWin.Lobby.enumResult.OK;
@@ -1628,20 +1739,14 @@ public class LobbyAPI : System.Web.Services.WebService {
                                         lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, OldThresholdValue, "Undo ResetCollectPromotion. CollectID=" + CollectID.ToString(), true);
                                         R.Result = EWin.Lobby.enumResult.ERR;
                                         R.Message = "Collect Failure";
-
-                                        ReportSystem.UserAccountPromotionCollect.CreateUserAccountPromotionCollect(Token, SI.LoginAccount, EWinWeb.MainCurrencyType, R.Message);
                                     }
                                 } else {
                                     R.Result = EWin.Lobby.enumResult.ERR;
                                     R.Message = "Reset Failure : " + ResetResult.Message;
-
-                                    ReportSystem.UserAccountPromotionCollect.CreateUserAccountPromotionCollect(Token, SI.LoginAccount, EWinWeb.MainCurrencyType, R.Message);
                                 }
                             } else {
                                 R.Result = EWin.Lobby.enumResult.ERR;
-                                R.Message = "PointLimit";
-
-                                ReportSystem.UserAccountPromotionCollect.CreateUserAccountPromotionCollect(Token, SI.LoginAccount, EWinWeb.MainCurrencyType, R.Message);
+                                R.Message = "Mismatch Condition";
                             }
 
                         }
@@ -1653,8 +1758,6 @@ public class LobbyAPI : System.Web.Services.WebService {
                 } else {
                     R.Result = EWin.Lobby.enumResult.ERR;
                     R.Message = UserInfoResult.Message;
-
-                    ReportSystem.UserAccountPromotionCollect.CreateUserAccountPromotionCollect(Token, SI.LoginAccount, EWinWeb.MainCurrencyType, R.Message);
                 }
             } else {
                 R.Message = "Not Search CollectID";
@@ -1725,6 +1828,22 @@ public class LobbyAPI : System.Web.Services.WebService {
                     }
 
                     collectList.Add(PC);
+
+                }
+
+                var UserInfoResult=  lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
+
+                if (UserInfoResult.Result == EWin.Lobby.enumResult.OK) {
+                    var Wallet = UserInfoResult.WalletList.Where(x => x.CurrencyType == EWinWeb.MainCurrencyType).FirstOrDefault();
+
+                    decimal ThresholdValue = 0.0M;
+                    if (UserInfoResult.ThresholdInfo.Length > 0) {
+                        ThresholdValue = UserInfoResult.ThresholdInfo[0].ThresholdValue;
+                    }
+
+                    if (ThresholdValue == 0) {
+                        lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, SI.LoginAccount, "JoinActivity");
+                    }
 
                 }
 
@@ -1996,7 +2115,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
 
-            DT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(SI.LoginAccount);
+            DT = RedisCache.UserAccount.GetUserAccountByLoginAccount(SI.LoginAccount);
 
             if (DT != null && DT.Rows.Count > 0) {
                 for (int i = 0; i < DT.Rows.Count; i++) {
@@ -2063,7 +2182,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     VIPSettingDetail = Newtonsoft.Json.Linq.JArray.Parse(VIPSetting["VIPSetting"].ToString());
                     KeepLevelDays = (int)VIPSetting["KeepLevelDays"];
 
-                    UserLevDT = RedisCache.UserAccountLevel.GetUserAccountLevelByLoginAccount(SI.LoginAccount);
+                    UserLevDT = RedisCache.UserAccount.GetUserAccountByLoginAccount(SI.LoginAccount);
                     if (UserLevDT != null) {
                         if (UserLevDT.Rows.Count > 0) {
                             UserLevelIndex = (int)UserLevDT.Rows[0]["UserLevelIndex"];

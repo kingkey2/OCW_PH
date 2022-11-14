@@ -527,6 +527,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     width: 66.9130434783px;
     height: 66.9130434783px;
   }
+  .tab-game .tab-search:hover {
+    background-color: #c6f6fd;
+    -webkit-box-shadow: 0 0 0px 5px #52b8bf;
+            box-shadow: 0 0 0px 5px #52b8bf;
+  }
   .tab-game .icon-mask {
     height: 52px;
     padding: 3px 0;
@@ -934,5 +939,77 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     max-width: 160px;
     padding-left: 10px;
     padding-right: 10px;
+  }
+}
+.marquee {
+  margin: 35px auto 5px;
+  padding: 0;
+}
+.marquee .marquee_bock {
+  margin: auto;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+}
+.marquee .marquee_bock .marquee_title {
+  display: inline-block;
+  text-align: center;
+  padding: 0 5px 0 0;
+  vertical-align: top;
+  color: #079eb2;
+  position: relative;
+}
+.marquee .marquee_bock .marquee_title .icon-announce {
+  width: 40px;
+  height: 40px;
+  float: left;
+}
+.marquee .marquee_bock .marquee_title .icon-announce:before {
+  background-color: #079eb2;
+}
+.marquee .marquee-content {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  vertical-align: top;
+  white-space: nowrap;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 1rem;
+  line-height: 24px;
+  padding: 8px;
+  background: #f3f3f3;
+  border-radius: 30px;
+}
+.marquee .marquee-content .marquee-item {
+  padding: 0 5% 0 0;
+}
+.marquee .marquee-content a {
+  width: 100%;
+  position: relative;
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .marquee {
+    margin: 35px auto 0px;
+  }
+  .marquee .marquee_bock .marquee_title .icon-announce {
+    width: 36px;
+    height: 36px;
+  }
+  .marquee .marquee-content {
+    padding: 6px;
+    font-size: 0.875rem;
+  }
+}
+@media screen and (max-width: 935px) {
+  .marquee {
+    margin: 8px auto;
+  }
+  .marquee .marquee-content {
+    font-size: 0.875rem;
   }
 }

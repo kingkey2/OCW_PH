@@ -81,11 +81,16 @@
   "收款錢包地址": "Withdrawal Wallet Address",
   "出金金額": "Withdrawal Amount",
   "DailyAmountGreaterThanMaxlimit": "The amount of daily withdrawal limit has been reached.",
-  "DailyCountGreaterThanMaxlimit": "reached the maximum number of withdrawals..",
+  "DailyCountGreaterThanMaxlimit": "reached the maximum number of withdrawals.",
   "出款": "Withdrawal",
   "出款細項": "Withdrawal Amount",
   "WithdrawlTemporaryMaintenance": "Withdrawals are under maintenance.",
   "合約類型": "Contract Type",
   "業界最高! Play Open Bouns! 最大100% &10萬送給您!首次 USDT 入金回饋100%": "The best in the market! Play Open Bonus! Up to 100% & 100,000 Bonus!　100% of first USDT deposit refunded.",
-  "出金時，領取中心的獎勵將失效。": "When withdrawing, the rewards from the claim center are invalid."
+  "出金時，領取中心的獎勵將失效。": "When withdrawing, the rewards from the claim center are invalid.",
+  "請勾選確認出金注意事項": "Please tick to confirm withdrawal notices",
+  "輸入錢包密碼": "Enter your wallet password",
+  "請輸入錢包密碼": "Please enter the wallet password.",
+  "錢包密碼有誤": "Wallet password error."
+
 }

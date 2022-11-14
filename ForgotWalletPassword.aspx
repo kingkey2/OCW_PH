@@ -19,7 +19,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucky Fanta</title>
+    <title>Lucky Sprite</title>
 
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
@@ -49,7 +49,6 @@
     var isSent = false;
     var v ="<%:Version%>";
     var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
-
 
     function BackLogin() {
         window.parent.API_LoadPage("Login", "Login.aspx");
@@ -187,7 +186,7 @@
 
 
         //c.callService(LobbyAPIUrl + "/SetUserPasswordByValidateCode", postObj, function (success, content) {
-        p.SetWalletPasswordByValidateCode(GUID, ValidateType, EMail, idPhonePrefix.value, idPhoneNumber.value, ValidateCode, NewPassword, function (success, o) {
+        p.SetWalletPasswordByValidateCode(WebInfo.SID,GUID, ValidateType, EMail, idPhonePrefix.value, idPhoneNumber.value, ValidateCode, NewPassword, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     window.parent.showMessageOK("", mlp.getLanguageKey("已成功修改密碼！"), function () {

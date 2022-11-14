@@ -74,7 +74,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucky Fanta</title>
+    <title>Lucky Sprite</title>
 
     <meta name='keywords' content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
     <meta name='description' content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
@@ -762,7 +762,7 @@
                 
                                 <label class=" language_replace">5.您需要填寫您的姓名、暱稱、出生日期等。</label></br>
             
-                                <label class=" language_replace">6.開戶後，您將通過一封簡短的電子郵件收到有關 Lucky Fanta 的信息。</label></br>
+                                <label class=" language_replace">6.開戶後，您將通過一封簡短的電子郵件收到有關 Lucky Sprite 的信息。</label></br>
                            
                                 <label class=" language_replace">※為了能夠接收活動及獎金，請填寫正確的E-mail。</label></br>
 
@@ -1167,7 +1167,7 @@
                     <h1>Welcome</h1>
                 </div>
                 <div class="heading-sub-desc text-wrap">
-                    <h5 class="mb-4 language_replace">歡迎來到 Lucky Fanta！</h5>
+                    <h5 class="mb-4 language_replace">歡迎來到 Lucky Sprite！</h5>
                     <p class="language_replace">感謝您註冊我們的新會員，真正非常的感謝您 ！</p>
                     <p>
                         <span class="language_replace">您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。</span>

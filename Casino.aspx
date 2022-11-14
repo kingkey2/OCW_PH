@@ -2,11 +2,26 @@
 
 <%
     string Version = EWinWeb.Version;
-
+    string MarqueeText = "";
+    int RValue;
+    string Token;
     string selectedCategory ="GameList_Hot";
 
     if (string.IsNullOrEmpty(Request["selectedCategory"]) == false) {
         selectedCategory = Request["selectedCategory"];
+    }
+
+    Random R = new Random();
+
+    EWin.Lobby.APIResult Result;
+    EWin.Lobby.LobbyAPI LobbyAPI = new EWin.Lobby.LobbyAPI();
+
+    RValue = R.Next(100000, 9999999);
+    Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
+    Result = LobbyAPI.GetCompanyMarqueeText(Token, Guid.NewGuid().ToString());
+    if (Result.Result == EWin.Lobby.enumResult.OK)
+    {
+        MarqueeText = Result.Message;
     }
 %>
 <!doctype html>
@@ -15,7 +30,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucky Fanta</title>
+    <title>Lucky Sprite</title>
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
@@ -81,7 +96,7 @@
     var tmpCategory_GameList_Slot = "";
     var selectedCategorys = [];
     var GameCategoryCodeArray = [];
-
+ 
     var HeaderGames = [
         {
             GameCode: "BNG.242",
@@ -110,15 +125,15 @@
             DesktopSrc: "/images/lobby/dailypush-live-001.jpg",
             BackgroundColor: "#010101"
         },
-        {
-            GameCode: "BTI.Sport",
-            GameBrand: "BTI",
-            Location: "GameList_Other",
-            MobileSrc: "/images/lobby/dailypush-bti-M-001.jpg",
-            PadSrc: "/images/lobby/dailypush-bti-MD-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-bti-001.jpg",
-            BackgroundColor: "#f66f13"
-        },
+        //{
+        //    GameCode: "BTI.Sport",
+        //    GameBrand: "BTI",
+        //    Location: "GameList_Other",
+        //    MobileSrc: "/images/lobby/dailypush-bti-M-001.jpg",
+        //    PadSrc: "/images/lobby/dailypush-bti-MD-001.jpg",
+        //    DesktopSrc: "/images/lobby/dailypush-bti-001.jpg",
+        //    BackgroundColor: "#f66f13"
+        //},
         {
             GameCode: "MG.429",
             GameBrand: "MG",
@@ -650,7 +665,6 @@
         if (gameItem) {
             gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
             //if (gameItem.ChampionType > 0) {
-            //    debugger;
             //    console.log(gameItem);
             //}
 
@@ -1341,11 +1355,11 @@
     function getBanner() {
         var GUID = Math.uuid();
         var TagName = "CasinoBanner";
-
-        if (WebInfo.DeviceType == 1) {
-            TagName = TagName + "_M";
-        } else {
+        
+        if (WebInfo.DeviceType_B == 0) {
             TagName = TagName + "_P";
+        } else {
+            TagName = TagName + "_M";
         }
 
         p.CheckDocumentByTagName(GUID, TagName, function (success, o) {
@@ -1370,7 +1384,7 @@
                                     url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
                                     success: (function (res) {
                                         var k = this;
-                                        if (WebInfo.DeviceType == 1) {
+                                        if (WebInfo.DeviceType_B == 1) {
                                             $(k).find('.Banner_M').html(res);
                                             $(k).find('.Banner_M').children().find('img').removeAttr("width");
                                             $(k).find('.Banner_M').children().find('img').removeAttr("height");
@@ -1436,7 +1450,7 @@
         <div class="tab-game">
             <div class="tab-inner">
                 <div class="tab-search" onclick="showSearchGameModel()">
-                    <img src="images/icon/ico-search-dog-tt.svg" alt="" onerror="setDefaultIcon(this)"><span class="title language_replace">找遊戲</span>
+                    <img src="images/icon/ico-search-dog-tt.png" alt="" onerror="setDefaultIcon(this)"><span class="title language_replace">找遊戲</span>
                 </div>
                 <div class="tab-scroller tab-6">
                     <div class="tab-scroller__area">
@@ -1447,6 +1461,20 @@
                 </div>
             </div>
         </div>
+
+        <!-- 跑馬燈 -->
+        <%-- --%>
+        <div class="container marquee">
+            <div class="marquee_bock">
+                <div class="marquee_title">
+                    <i class="icon icon-mask icon-announce"></i>
+                </div>
+                <marquee class="marquee-content" direction="left" scrollamount="3" scrolldelay="100" behavior="scroll" hover="true"   onMouseOver="this.stop()" onMouseOut="this.start()">
+                    <a class="marquee-item" data-remote="true" href="#"><%=MarqueeText %></a>
+                </marquee>
+            </div>
+        </div>
+        
         <!-- 各分類-單一遊戲推薦區 -->
          <%--    <section class="section-category-dailypush" style="display:none;">
             <div class="container">                

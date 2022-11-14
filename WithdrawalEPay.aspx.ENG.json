@@ -105,5 +105,8 @@
   "尚未選擇銀行卡": "Bank card has not been selected.",
   "持卡人姓名": "Cardholder's name",
   "卡號": "Card number",
-  "銀行": "Bank"
+  "銀行": "Bank",
+  "輸入錢包密碼": "Enter your wallet password",
+  "請輸入錢包密碼": "Please enter the wallet password.",
+  "錢包密碼有誤": "Wallet password error."
 }

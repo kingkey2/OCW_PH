@@ -21,6 +21,54 @@
         });
     };
 
+    this.ListPaymentChannel = function (WebSID, GUID, cb) {
+        var url = APIUrl + "/ListPaymentChannel";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.CheckPaymentChannelAmount = function (WebSID, GUID, CurrencyType, DirectionType, Amount, PaymentChannelCode, cb) {
+        var url = APIUrl + "/CheckPaymentChannelAmount";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            CurrencyType: CurrencyType,
+            DirectionType: DirectionType,
+            Amount: Amount,
+            PaymentChannelCode: PaymentChannelCode
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.UserAccountTransfer = function (WebSID, GUID, DstLoginAccount, DstCurrencyType, SrcCurrencyType, TransOutValue, WalletPassword, Description, cb) {
         var url = APIUrl + "/UserAccountTransfer";
         var postData;
@@ -1070,6 +1118,30 @@
         });
     };
 
+    this.CheckPassword = function (WebSID, GUID, PasswordType, Password, cb) {
+        var url = APIUrl + "/CheckPassword";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            Password: Password,
+            PasswordType: PasswordType
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.SetWalletPassword = function (WebSID, GUID, LoginPassword, NewWalletPassword, cb) {
         var url = APIUrl + "/SetWalletPassword";
         var postData;
@@ -1145,11 +1217,12 @@
         });
     };
 
-    this.SetWalletPasswordByValidateCode = function (GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword, cb) {
+    this.SetWalletPasswordByValidateCode = function (WebSID, GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword, cb) {
         var url = APIUrl + "/SetWalletPasswordByValidateCode";
         var postData;
 
         postData = {
+            WebSID: WebSID,
             GUID: GUID,
             ValidateType: ValidateType,
             EMail: EMail,

@@ -842,8 +842,13 @@ $gameRanking-swiper-slide-width-over-xxl: $swiper-slide-width-over-xxl         *
 
             .tab-search{
                 // width:((54/46)*(52px-5px));
+          
                 width:((54/46)*(52px+10px-5px));
                 height:((54/46)*(52px+10px-5px));
+                &:hover{
+                    background-color: #c6f6fd;
+                    box-shadow: 0 0 0px 5px #52b8bf;
+                }
             }
 
             .icon-mask {
@@ -1747,5 +1752,79 @@ $gameRanking-swiper-slide-width-over-xxl: $swiper-slide-width-over-xxl         *
         max-width: 160px;       
         padding-left: 10px;
         padding-right: 10px;
+    }
+}
+
+// 跑馬燈 =================
+.marquee {
+    margin: 35px auto 5px;
+    padding:0;
+    .marquee_bock {
+        margin: auto;
+        white-space: nowrap;
+        position: relative;
+        overflow: hidden;
+        border-radius: 30px;
+        .marquee_title {
+            display: inline-block;
+            text-align: center;
+            padding: 0 5px 0 0;
+            vertical-align: top;
+            color: #079eb2;
+            position: relative;
+            .icon-announce{
+                width:40px;
+                height:40px;
+                float:left;
+                &:before{background-color: #079eb2;}
+            }
+        }
+    }
+    .marquee-content {
+        display: inline-block;
+        width: 100%;
+        overflow: hidden;
+        vertical-align: top;
+        white-space: nowrap;
+        box-sizing: border-box;
+        font-size: 1rem;
+        line-height: 24px;
+        padding: 8px;
+        background: #f3f3f3;
+        border-radius: 30px;
+        .marquee-item {
+            padding: 0 5% 0 0;
+        }
+        a {
+            width: 100%;
+            position: relative;
+            color: rgba(0, 0, 0, 0.8);
+            text-decoration: none;
+        }
+    }
+}
+@media screen and (max-width:1024px){
+    .marquee {
+        margin: 35px auto 0px;
+        .marquee_bock {
+            .marquee_title {
+                .icon-announce {
+                    width: 36px;
+                    height: 36px;
+                }
+            }
+        }
+        .marquee-content {
+            padding: 6px;
+            font-size: 0.875rem;
+        }
+    }
+}
+@media screen and (max-width:935px){
+    .marquee {
+        margin: 8px auto;
+        .marquee-content {
+            font-size: 0.875rem;
+        }
     }
 }

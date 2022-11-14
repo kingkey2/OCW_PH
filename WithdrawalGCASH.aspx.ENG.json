@@ -100,5 +100,8 @@
   "只能有一筆進行中之訂單": "There can only be one order in progress",
   "選擇 GCash 帳號": "GCash account select",
   "尚未設定 GCash 帳號": "GCash account has not been set up.",
-  "尚未選擇 GCash 帳號": "GCash account not selected."
+  "尚未選擇 GCash 帳號": "GCash account not selected.",
+  "輸入錢包密碼": "Enter your wallet password",
+  "請輸入錢包密碼": "Please enter the wallet password.",
+  "錢包密碼有誤": "Wallet password error."
 }

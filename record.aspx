@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lucky Fanta</title>
+    <title>Lucky Sprite</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/basic.min.css">    

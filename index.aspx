@@ -18,6 +18,8 @@
     int GoEwinLogin = 0;
     string Version = EWinWeb.Version;
     string ImageUrl = EWinWeb.ImageUrl;
+    string EwinLoginUrl = string.Empty;
+
     if (string.IsNullOrEmpty(Request["SID"]) == false) {
         SID = Request["SID"];
     }
@@ -49,7 +51,8 @@
         } else {
             EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
         }
-        Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(CT) + "&KeepLogin=0"+ "&GPSPosition=1" + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
+
+        Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(CT) + "&KeepLogin=0" + "&GPSPosition=1" + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
     }
 
     EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
@@ -112,25 +115,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-    <title>Lucky Fanta</title>
-    <%--<title>Maharaja，The most popular online casino amusement.</title>--%>
-    <%--<meta name='keywords' content="Casino、Slot、Amusement、Game" />
-    <meta name='description' content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />--%>
-    <%--<meta property="og:site_name" content="Maharaja" />--%>
-    <%--<meta property="og:title" content="The most popular online casino amusement." />
-    <meta property="og:Keyword" content="Casino、Slot、Amusement、Game" />
-    <meta property="og:description" content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />--%>
+    <title>Lucky Sprite - Most popular online casino</title>
+    <meta name='keywords' content="Casino、Slot、Amusement、Game、Auto Fast Deposits and Withdrawals" />
+    <meta name='description' content="Partners with a wide variety of well-known game brands, we provide fast deposit and withdrawal options, so you can play and have fun whenever you want!" />
+    <meta property="og:site_name" content="Lucky Sprite" />
+    <meta property="og:title" content="Most popular online casino - Lucky Sprite" />
+    <meta property="og:type" content="website" />
+    <meta property="og:Keyword" content="Auto Fast Deposits and Withdrawals" />
+    <meta property="og:description" content="Partners with a wide variety of well-known game brands, we provide fast deposit and withdrawal options, so you can play and have fun whenever you want!" />
 
     <%--<meta property="og:url" content="https://casino-maharaja.com/" />--%>
-    <!--英文圖片-->
     <%--<meta property="og:image" content="https://casino-maharaja.com/images/share_pic_en.png" />--%>
-    <%--<meta property="og:type" content="website" />--%>
 
     <!-- Share image -->
-    <!--英文圖片-->
-    <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
-    <link rel="shortcut icon" href="images/share_pic.png">
-    <link rel="apple-touch-icon" href="images/share_pic.png">
+    <link rel="shortcut icon" href="images/favicon.ico"/>
+    <link rel="bookmark" href="images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="images/share_pic.png"/>
+
+
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css?<%:Version%>">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
@@ -189,6 +191,7 @@
         RegisterType: "<%=RegisterType%>",
         RegisterParentPersonCode: "<%=RegisterParentPersonCode%>",
         DeviceType: getOS(),
+        DeviceType_B: getOS_ForBanner(),
         IsOpenGame: false,
         ImageUrl: "<%=ImageUrl%>"
     };
@@ -207,11 +210,7 @@
     var SearchControll;
     var PCode = "<%=PCode%>";
     var PageType = "<%=PageType%>";
-    var gameLogoutPram = {
-        GameCode: "",
-        LoginAccount: "",
-        CompanyCode: ""
-    }
+
     //#region TOP API
     function API_GetGCB() {
         return GCB;
@@ -285,7 +284,33 @@
         }
     };
 
+    function getOS_ForBanner() {
+        var os = function () {
+            var ua = navigator.userAgent,
+                isWindowsPhone = /(?:Windows Phone)/.test(ua),
+                isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+                isAndroid = /(?:Android)/.test(ua),
+                isFireFox = /(?:Firefox)/.test(ua),
+                isChrome = /(?:Chrome|CriOS)/.test(ua),
+                isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+                isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+                isPc = !isPhone && !isAndroid && !isSymbian;
+            return {
+                isTablet: isTablet,
+                isPhone: isPhone,
+                isAndroid: isAndroid,
+                isPc: isPc
+            };
+        }();
 
+        if (os.isTablet) {
+            return 2;
+        } else if (os.isAndroid || os.isPhone) {
+            return 1;
+        } else if (os.isPc) {
+            return 0;
+        }
+    };
 
     // type = 0 , data = gameCode ;  type = 1 , data = gameBrand 
     function API_GetGameLang(lang, GameCode, cb) {
@@ -308,6 +333,11 @@
     function API_SetLogin(_SID, cb) {
         var sourceLogined = EWinWebInfo.UserLogined;
         checkUserLogin(_SID, function (logined) {
+            if (!isFirstLogined) {
+                isFirstLogined = true;
+                game_userlogout();
+            }
+
             updateBaseInfo();
 
             if (cb) {
@@ -646,6 +676,22 @@
         });
 
     }
+
+    function API_GetUserAccountProperty(PropertyName, cb) {
+        lobbyClient.GetUserAccountProperty(EWinWebInfo.SID, Math.uuid(), PropertyName, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.PropertyValue != "") {
+                        var data = o.PropertyValue;
+
+                        if (cb) {
+                            cb(data);
+                        }
+                    }
+                }
+            }
+        });
+    }
     //#endregion
 
     //#region Alert
@@ -672,40 +718,6 @@
                             cbCancel();
                         }
                     }
-                }
-
-                if (divMessageBoxOKButton != null) {
-
-                    divMessageBoxOKButton.onclick = function () {
-                        MessageModal.hide();
-
-                        if (cbOK != null)
-                            cbOK();
-                    }
-                }
-
-                divMessageBoxContent.innerHTML = message;
-            }
-        }
-    }
-
-    function showMessageOK2(title, message, cbOK) {
-        debugger;
-        if ($("#alertMsg2").attr("aria-hidden") == 'true') {
-            var divMessageBox = document.getElementById("alertMsg2");
-            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertMsg_Close");
-            var divMessageBoxOKButton = divMessageBox.querySelector(".alertMsg_OK");
-            var divMessageBoxContent = divMessageBox.querySelector(".alertMsg_Text");
-
-            if (MessageModal == null) {
-                MessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
-            }
-
-            if (divMessageBox != null) {
-                MessageModal.show();
-
-                if (divMessageBoxCloseButton != null) {
-                    divMessageBoxCloseButton.classList.add("is-hide");
                 }
 
                 if (divMessageBoxOKButton != null) {
@@ -942,8 +954,8 @@
         popupMoblieGameInfo.find('.GameName').text(GameLangName);
         $('.headerGameName').text(GameLangName);
 
-        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
-        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
+        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName + "')");
+        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName + "')");
         GCB.GetFavo(function (data) {
             favoriteGames.push(data);
         }, function (data) {
@@ -957,7 +969,7 @@
         likebtn.onclick = new Function("favBtnClick('" + brandName + "." + gameName + "')");
 
         if (GI_img != null) {
-       
+
             GI_img.src = `${EWinWebInfo.ImageUrl}/${brandName}/ENG/${gameName}.png`;
             GI_img.onerror = new Function("showDefauktGameIcon2()");
             //var el = GI_img;
@@ -1625,6 +1637,7 @@
     }
 
     function openGame(gameBrand, gameName, gameLangName) {
+
         var alertSearch = $("#alertSearch");
         var alertSearchCloseButton = $("#alertSearchCloseButton");
         var alertFavoPlayed = $("#alertFavoPlayed");
@@ -1673,13 +1686,12 @@
             $('.headerGameName').text(gameLangName);
 
             if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
-                gameLogoutPram.GameCode = gameCode;
+                $('#GameMask').show();
                 gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
                 CloseWindowOpenGamePage(gameWindow);
             } else {
                 if (EWinWebInfo.DeviceType == 1) {
-                    gameLogoutPram.GameCode = gameCode;
-
+                    $('#GameMask').show();
                     gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
                     CloseWindowOpenGamePage(gameWindow);
 
@@ -1691,7 +1703,6 @@
                         $('#GameIFramePage').removeAttr('sandbox');
                     }
 
-                    gameLogoutPram.GameCode = gameBrand + "." + gameName;
                     GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
                 }
             }
@@ -1732,23 +1743,23 @@
     }
 
     function game_userlogout() {
-        if (gameLogoutPram.GameCode != "") {
-            var guid = Math.uuid();
-            lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
-                if (success == true) {
-                    if (o.Result == 0) {
-                        if (o.OnlineList && o.OnlineList.length > 0) {
-                            var promiseAll = [];
-                            for (var i = 0; i < o.OnlineList.length; i++) {
-                                var url = EWinWebInfo.EWinUrl + "/API/GamePlatformAPI2/" + gameLogoutPram.GameCode.split(".")[0] + "/UserLogout.aspx?LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode + "&SID=" + o.Message;
-                                var promise = new Promise((resolve, reject) => {
-                                    $.get(url, function (result) {
-                                        resolve();
-                                    });
+        $('#GameMask').hide();
+        var guid = Math.uuid();
+        lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
+            if (success == true) {
+                if (o.Result == 0) {
+                    if (o.OnlineList && o.OnlineList.length > 0) {
+                        var promiseAll = [];
+                        for (var i = 0; i < o.OnlineList.length; i++) {
+                            var gameBrand = o.OnlineList[i].GameBrand;
+                            var url = EWinWebInfo.EWinUrl + "/API/GamePlatformAPI2/" + gameBrand + "/UserLogout.aspx?LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode + "&SID=" + o.Message;
+                            var promise = new Promise((resolve, reject) => {
+                                $.get(url, function (result) {
+                                    resolve();
                                 });
+                            });
 
-                                promiseAll.push(promise);
-                            }
+                            promiseAll.push(promise);
                         }
 
                         Promise.all(promiseAll).then(values => {
@@ -1758,13 +1769,12 @@
                                 }
                             });
                         });
-                    } else {
-
                     }
-                }
-            });
-        }
+                } else {
 
+                }
+            }
+        });
     }
 
     function appendGameFrame() {
@@ -1780,7 +1790,7 @@
             w = vw - 110;
         }
 
-        
+
         // class="divGameFrame"
         let tmp = `<div class="divGameFrameWrapper">
             <div class="btn-wrapper">
@@ -1801,6 +1811,10 @@
             if (e.closed) {
                 clearInterval(winLoop);
                 game_userlogout();
+                $('#popupMoblieGameInfo').modal('hide');
+                if (MessageModal && MessageModal != null) {
+                    MessageModal.hide();
+                }
             } else {
 
             }
@@ -2450,7 +2464,7 @@
 
 
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
-                                            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("即將開啟") + ":" + openGameBeforeLogin.GameName, function () {
+                                            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("即將開啟") + ":" + openGameBeforeLogin.GameLangName, function () {
                                                 openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
                                             });
                                         } else {
@@ -2998,7 +3012,7 @@
 
                                     //GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
 
-                                    GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png`;
+                                    GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png?` + v;
                                 }
 
                                 ParentMain.append(GBLDom);
@@ -3057,8 +3071,8 @@
 
                             RecordDom2 = c.getTemplate("idTempBulletinBoard");
 
-                            //c.setClassText(RecordDom2, "BulletinTitle", null, record.DocumentTitle);
-                            c.setClassText(RecordDom2, "CreateDate", null, record.DocumentTitle);
+                            c.setClassText(RecordDom2, "BulletinTitle", null, record.DocumentTitle);
+                            //c.setClassText(RecordDom2, "CreateDate", null, record.DocumentTitle);
 
                             RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.DocumentTitle + "','" + record.DocNumber + "')");
                             ParentMain2.appendChild(RecordDom2);
@@ -3194,14 +3208,28 @@
     }
     //#endregion
 
+    function closeGameMask() {
+        showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("確認關閉遊戲?"), function () {
+            gameWindow.close();
+            game_userlogout();
+            $('#popupMoblieGameInfo').modal('hide');
+        });
+    }
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
+    <div onclick="closeGameMask()" id="GameMask" class="" style="display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; z-index: 9999; text-align: center; opacity: 0.5; background-color: #2fb4c9;">
+
+        <div class="loader-backdrop is-show"></div>
+    </div>
+
     <div class="loader-container" style="display: block;">
         <div class="loader-box">
             <div class="loader-spinner">
                 <div class="sk-fading-circle">
-                    <div class="loader-logo"></div>
+                    <div class="loader-logo" style="width: 80%; height: 80%; background: url(../images/icon/ico-dog-w.svg) center center no-repeat; background-size: calc(100% - 50px); -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both; animation: loader-logo-anim 1.2s infinite ease-in-out both; margin: 10%;">
+                    </div>
                     <div class="sk-circle1 sk-circle"></div>
                     <div class="sk-circle2 sk-circle"></div>
                     <div class="sk-circle3 sk-circle"></div>
@@ -3318,7 +3346,7 @@
                                                 <i class="icon icon-mask icon-people"></i>
                                                 <span class="title language_replace">會員中心</span></a>
                                         </li>
-                                     
+
                                         <li class="nav-item submenu dropdown">
                                             <a class="nav-link" onclick="API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                                                 <i class="icon icon-mask icon-loudspeaker"></i>
@@ -3585,7 +3613,7 @@
                                         <img src="/images/logo/footer/logo-gmw.png" alt="">
                                     </div>
                                 </div>
-                                --%> 
+                                --%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-cq9.png" alt="">
@@ -3597,7 +3625,7 @@
                                         <img src="/images/logo/footer/logo-red-tiger.png" alt="">
                                     </div>
                                 </div>
-                                --%> 
+                                --%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-evo.png" alt="">
@@ -3619,7 +3647,7 @@
                                         <img src="/images/logo/footer/logo-playngo.png" alt="">
                                     </div>
                                 </div>
-                                --%> 
+                                --%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-pg.png" alt="">
@@ -3676,23 +3704,23 @@
                                         <img src="/images/logo/footer/logo-va.png" alt="">
                                     </div>
                                 </div>
-                                --%> 
+                                --%>
                             </div>
                         </div>
                     </div>
 
-                    <%--                    <div class="company-detail">
-                        <div class="company-license">
+                    <div class="company-detail">
+                        <div class="company-license" style="display:none">
                             <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
                         </div>
                         <div class="company-address">
-                            <p class="address language_replace">MAHARAJA由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
+                            <p class="address language_replace">Lucky Sprite由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
                         </div>
-                    </div>--%>
+                    </div>
 
 
                     <div class="footer-copyright">
-                        <p class="language_replace">Copyright © 2022 Lucky Fanta. All Rights Reserved.</p>
+                        <p class="language_replace">Copyright © 2022 Lucky Sprite. All Rights Reserved.</p>
                     </div>
                 </div>
             </div>
@@ -3911,7 +3939,7 @@
                             <div class="searchFilter-item input-group keyword">
                                 <input id="alertSearchKeyWord" type="text" class="form-control"
                                     language_replace="placeholder" placeholder="關鍵字" enterkeyhint="">
-                                    <%--    
+                                <%--    
                                 <label for="" class="form-label"><span class="language_replace">關鍵字</span></label>
                                 --%>
                             </div>
@@ -4144,7 +4172,7 @@
             </div>
         </div>
     </div>
-   
+
     <!--alert-->
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="nonClose_alertContact" aria-hidden="true" id="nonClose_alertContact">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -4298,8 +4326,8 @@
         <div id="idTempBulletinBoard" style="display: none;">
             <!-- <div> -->
             <li class="item" style="cursor: pointer">
-                <span class="date CreateDate"></span>
-                <span class="info BulletinTitle"></span>
+                <span class="date CreateDate" style="display:none"></span>
+                <span class="info BulletinTitle" style="padding-left:5px"></span>
             </li>
             <!-- </div> -->
         </div>

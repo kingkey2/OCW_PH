@@ -286,11 +286,85 @@ public static class ActivityCore {
         return R;
     }
 
+    public static ActResult<List<Activity>> GetVIPUpgradeBonusResult(string LoginAccount) {
+        ActResult<List<Activity>> R = new ActResult<List<Activity>>() { Result = enumActResult.ERR, Data = new List<Activity>() };
+        JObject InProgressActivity;
+        System.Data.DataTable UserLevDT = new System.Data.DataTable();
+
+        string DetailPath = null;
+        string MethodName = null;
+        string ActiviyName = null;
+        int UserLevelIndex = 0;
+
+        UserLevDT = RedisCache.UserAccount.GetUserAccountByLoginAccount(LoginAccount);
+        if (UserLevDT != null && UserLevDT.Rows.Count > 0) {
+            UserLevelIndex = (int)UserLevDT.Rows[0]["UserLevelIndex"];
+
+            InProgressActivity = GetInProgressActivity();
+
+            foreach (var item in InProgressActivity["VIP"]) {
+                DetailPath = InProgressActivity["BasicPath"] + item["Path"].ToString();
+                MethodName = item["MethodName"].ToString();
+                ActiviyName = item["Name"].ToString();
+
+                if (ActiviyName == "VIPLev" + UserLevelIndex) {
+                    var DR = (ActResult<Activity>)(typeof(ActivityExpand.VIP).GetMethod(MethodName).Invoke(null, new object[] { DetailPath, LoginAccount }));
+
+                    if (DR.Result == enumActResult.OK) {
+                        R.Data.Add(DR.Data);
+                    }
+                }
+            }
+        }
+
+        R.Result = enumActResult.OK;
+        R.Message = "";
+
+        return R;
+    }
+
+    public static JObject GetActivityDetailByCategoryAndName(string ActivityCategory, string ActiviyName) {
+        JObject ActivityDetail = new JObject();
+        JObject InProgressActivity;
+        string DetailPath = null;
+
+        InProgressActivity = GetInProgressActivity();
+
+        foreach (var item in InProgressActivity[ActivityCategory]) {
+            if (item["Name"].ToString().ToUpper() == ActiviyName.ToUpper()) {
+                DetailPath = InProgressActivity["BasicPath"] + item["Path"].ToString();
+                ActivityDetail = GetActivityDetail(DetailPath);
+                break;
+            }
+        }
+
+        return ActivityDetail;
+    }
+
     private static JObject GetInProgressActivity() {
         JObject o = null;
         string Filename;
 
         Filename = HttpContext.Current.Server.MapPath(BasicFile);
+
+        if (System.IO.File.Exists(Filename)) {
+            string SettingContent;
+
+            SettingContent = System.IO.File.ReadAllText(Filename);
+
+            if (string.IsNullOrEmpty(SettingContent) == false) {
+                try { o = JObject.Parse(SettingContent); } catch (Exception ex) { }
+            }
+        }
+
+        return o;
+    }
+
+    private static JObject GetActivityDetail(string Path) {
+        JObject o = null;
+        string Filename;
+
+        Filename = HttpContext.Current.Server.MapPath(Path);
 
         if (System.IO.File.Exists(Filename)) {
             string SettingContent;
@@ -311,8 +385,6 @@ public static class ActivityCore {
             R.Message = Msg;
         }
     }
-
-
 
     #region Model
 
@@ -377,23 +449,4 @@ public static class ActivityCore {
         public string LoginAccount { get; set; }
     }
     #endregion
-
-    private static JObject GetActivityDetail(string Path) {
-        JObject o = null;
-        string Filename;
-
-        Filename = HttpContext.Current.Server.MapPath(Path);
-
-        if (System.IO.File.Exists(Filename)) {
-            string SettingContent;
-
-            SettingContent = System.IO.File.ReadAllText(Filename);
-
-            if (string.IsNullOrEmpty(SettingContent) == false) {
-                try { o = JObject.Parse(SettingContent); } catch (Exception ex) { }
-            }
-        }
-
-        return o;
-    }
 }

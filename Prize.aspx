@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lucky Fanta</title>
+    <title>Lucky Sprite</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
@@ -159,16 +159,7 @@
                                 let ExpireDate = Date.parse(Collect.ExpireDate);
                                 let PointValue = Collect.PointValue;
 
-                                if (collectAreaType == 1) {
-                                    if (wallet.PointValue > 100) {
-                                        RecordDom = c.getTemplate("tmpPrize1");
-
-                                    } else {
-                                        RecordDom = c.getTemplate("tmpPrize0");
-                                    }
-                                } else {
-                                    RecordDom = c.getTemplate("tmpPrize0");
-                                }
+                                RecordDom = c.getTemplate("tmpPrize0");
 
                                 let DomBtn = RecordDom.querySelector(".bouns-get");
 
@@ -195,20 +186,6 @@
                                     let val = new BigNumber($(e.target).closest(".prize-item").data("val")).toFormat();
 
                                     window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), val + mlp.getLanguageKey(" 確認領取"), function () {
-                                        if (collectAreaType == 1) {
-                                            if (wallet.PointValue > 100) {
-                                                //window.top.MessageModal.toggle();
-                                                //window.top.MessageModal.hide();
-
-                                                window.setTimeout(function () {
-                                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("PointLimit"));
-                                                }, 500);
-                                                //window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("PointLimit"));
-                                                //alert(mlp.getLanguageKey("PointLimit"));
-                                                return false;
-                                            }
-                                        }
-
                                         LobbyClient.CollectUserAccountPromotion(WebInfo.SID, Math.uuid(), CollectID, function (success, o) {
                                             if (success) {
                                                 if (o.Result == 0) {
