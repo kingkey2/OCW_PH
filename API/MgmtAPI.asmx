@@ -256,8 +256,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                         if (IsUserAccountLevelDBHasData) {
                                             //等級有升級時再更新
                                             if (NewUserLevelIndex > UserLevelIndex) {
-                                                updateEwinUserLevel(LoginAccount, NewUserLevelIndex);
-                                                setUserAccountProperty(LoginAccount, System.Guid.NewGuid().ToString(), "UserLevelUpdateDate", DateTime.Now.ToString("yyyy/MM/dd"));
+                                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex, VIPSettingDetail);
                                                 EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                             }
                                         } else {
@@ -278,8 +277,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                                 NewUserLevelIndex = UserLevelIndex - 1;
 
                                                 CheckUpgrade = false;
-                                                updateEwinUserLevel(LoginAccount, NewUserLevelIndex);
-                                                setUserAccountProperty(LoginAccount, System.Guid.NewGuid().ToString(), "UserLevelUpdateDate", DateTime.Now.ToString("yyyy/MM/dd"));
+                                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex, VIPSettingDetail);
 
                                                 //更新會員等級資料
                                                 if (IsUserAccountLevelDBHasData) {
@@ -308,8 +306,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                                 if (NewUserLevelIndex > UserLevelIndex) {
                                                     //3以後才有禮物
                                                     SendUpgradeGift(LoginAccount);
-                                                    updateEwinUserLevel(LoginAccount, NewUserLevelIndex);
-                                                    setUserAccountProperty(LoginAccount, System.Guid.NewGuid().ToString(), "UserLevelUpdateDate", DateTime.Now.ToString("yyyy/MM/dd"));
+                                                    updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex, VIPSettingDetail);
                                                     EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                                 }
                                             } else {
@@ -644,18 +641,29 @@ public class MgmtAPI : System.Web.Services.WebService {
         return R;
     }
 
-    private void updateEwinUserLevel(string LoginAccount, int UserLevelIndex) {
+    public void updateEwinUserLevelInfo(string LoginAccount, int UserLevelIndex, JArray VIPSettingDetail) {
+        updateEwinUserLevel(LoginAccount, UserLevelIndex, VIPSettingDetail);
+        setUserAccountProperty(LoginAccount, System.Guid.NewGuid().ToString(), "UserLevelUpdateDate", DateTime.Now.ToString("yyyy/MM/dd"));
+    }
+
+    private EWin.FANTA.APIResult updateEwinUserLevel(string LoginAccount, int UserLevelIndex, JArray VIPSettingDetail) {
         EWin.FANTA.APIResult R = new EWin.FANTA.APIResult();
         EWin.FANTA.FANTA API = new EWin.FANTA.FANTA();
 
-        R = API.UpdateUserLevel(GetToken(), LoginAccount, UserLevelIndex);
+        List<EWin.FANTA.VipBuyChipRateSetting>BuyChipAddRate = Newtonsoft.Json.JsonConvert.DeserializeObject<List<EWin.FANTA.VipBuyChipRateSetting>>(VIPSettingDetail[UserLevelIndex]["BuyChipAddRate"].ToString());
+
+        R = API.UpdateUserLevel(GetToken(), LoginAccount, UserLevelIndex, BuyChipAddRate.ToArray());
+
+        return R;
     }
 
-    private void setUserAccountProperty(string LoginAccount, string GUID, string PropertyName, string PropertyValue) {
+    private EWin.Lobby.APIResult setUserAccountProperty(string LoginAccount, string GUID, string PropertyName, string PropertyValue) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult();
 
         R = lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, PropertyName, PropertyValue);
+
+        return R;
     }
 
     [WebMethod]

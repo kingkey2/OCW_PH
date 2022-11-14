@@ -13,7 +13,8 @@
       "DepositMaxValue": 500,
       "ValidBetMinValue": 0,
       "ValidBetMaxValue": 3000,
-      "KeepValidBetValue": 0
+      "KeepValidBetValue": 0,
+      "BuyChipAddRate": []
     },
     {
       "UserLevelIndex": 1,
@@ -22,7 +23,8 @@
       "DepositMaxValue": 2000,
       "ValidBetMinValue": 3000,
       "ValidBetMaxValue": 12000,
-      "KeepValidBetValue": 2000
+      "KeepValidBetValue": 2000,
+      "BuyChipAddRate": []
     },
     {
       "UserLevelIndex": 2,
@@ -31,7 +33,8 @@
       "DepositMaxValue": 10000,
       "ValidBetMinValue": 12000,
       "ValidBetMaxValue": 60000,
-      "KeepValidBetValue": 5000
+      "KeepValidBetValue": 5000,
+      "BuyChipAddRate": []
     },
     {
       "UserLevelIndex": 3,
@@ -40,7 +43,17 @@
       "DepositMaxValue": 50000,
       "ValidBetMinValue": 60000,
       "ValidBetMaxValue": 300000,
-      "KeepValidBetValue": 18000
+      "KeepValidBetValue": 18000,
+      "BuyChipAddRate": [
+        {
+          "GameCategoryCode": "Live",
+          "BuyChipAddRate": 1.5
+        },
+        {
+          "GameCategoryCode": "Sports",
+          "BuyChipAddRate": 1.5
+        }
+      ]
     },
     {
       "UserLevelIndex": 4,
@@ -49,7 +62,29 @@
       "DepositMaxValue": 200000,
       "ValidBetMinValue": 300000,
       "ValidBetMaxValue": 1200000,
-      "KeepValidBetValue": 60000
+      "KeepValidBetValue": 60000,
+      "BuyChipAddRate": [
+        {
+          "GameCategoryCode": "Electron",
+          "BuyChipAddRate": 2
+        },
+        {
+          "GameCategoryCode": "Live",
+          "BuyChipAddRate": 2
+        },
+        {
+          "GameCategoryCode": "Sports",
+          "BuyChipAddRate": 2
+        },
+        {
+          "GameCategoryCode": "Fish",
+          "BuyChipAddRate": 2
+        },
+        {
+          "GameCategoryCode": "Slot",
+          "BuyChipAddRate": 2
+        }
+      ]
     },
     {
       "UserLevelIndex": 5,
@@ -58,7 +93,29 @@
       "DepositMaxValue": 500000,
       "ValidBetMinValue": 1200000,
       "ValidBetMaxValue": 3000000,
-      "KeepValidBetValue": 250000
+      "KeepValidBetValue": 250000,
+      "BuyChipAddRate": [
+        {
+          "GameCategoryCode": "Electron",
+          "BuyChipAddRate": 2.5
+        },
+        {
+          "GameCategoryCode": "Live",
+          "BuyChipAddRate": 2.5
+        },
+        {
+          "GameCategoryCode": "Sports",
+          "BuyChipAddRate": 2.5
+        },
+        {
+          "GameCategoryCode": "Fish",
+          "BuyChipAddRate": 2.5
+        },
+        {
+          "GameCategoryCode": "Slot",
+          "BuyChipAddRate": 2.5
+        }
+      ]
     },
     {
       "UserLevelIndex": 6,
@@ -67,7 +124,29 @@
       "DepositMaxValue": 1200000,
       "ValidBetMinValue": 3000000,
       "ValidBetMaxValue": 7200000,
-      "KeepValidBetValue": 600000
+      "KeepValidBetValue": 600000,
+      "BuyChipAddRate": [
+        {
+          "GameCategoryCode": "Electron",
+          "BuyChipAddRate": 3
+        },
+        {
+          "GameCategoryCode": "Live",
+          "BuyChipAddRate": 3
+        },
+        {
+          "GameCategoryCode": "Sports",
+          "BuyChipAddRate": 3
+        },
+        {
+          "GameCategoryCode": "Fish",
+          "BuyChipAddRate": 3
+        },
+        {
+          "GameCategoryCode": "Slot",
+          "BuyChipAddRate": 3
+        }
+      ]
     },
     {
       "UserLevelIndex": 7,
@@ -76,7 +155,29 @@
       "DepositMaxValue": 3000000,
       "ValidBetMinValue": 7200000,
       "ValidBetMaxValue": 18000000,
-      "KeepValidBetValue": 1800000
+      "KeepValidBetValue": 1800000,
+      "BuyChipAddRate": [
+        {
+          "GameCategoryCode": "Electron",
+          "BuyChipAddRate": 3.5
+        },
+        {
+          "GameCategoryCode": "Live",
+          "BuyChipAddRate": 3.5
+        },
+        {
+          "GameCategoryCode": "Sports",
+          "BuyChipAddRate": 3.5
+        },
+        {
+          "GameCategoryCode": "Fish",
+          "BuyChipAddRate": 3.5
+        },
+        {
+          "GameCategoryCode": "Slot",
+          "BuyChipAddRate": 3.5
+        }
+      ]
     },
     {
       "UserLevelIndex": 8,
@@ -85,7 +186,29 @@
       "DepositMaxValue": 10000000,
       "ValidBetMinValue": 18000000,
       "ValidBetMaxValue": 60000000,
-      "KeepValidBetValue": 6000000
+      "KeepValidBetValue": 6000000,
+      "BuyChipAddRate": [
+        {
+          "GameCategoryCode": "Electron",
+          "BuyChipAddRate": 4
+        },
+        {
+          "GameCategoryCode": "Live",
+          "BuyChipAddRate": 4
+        },
+        {
+          "GameCategoryCode": "Sports",
+          "BuyChipAddRate": 4
+        },
+        {
+          "GameCategoryCode": "Fish",
+          "BuyChipAddRate": 4
+        },
+        {
+          "GameCategoryCode": "Slot",
+          "BuyChipAddRate": 4
+        }
+      ]
     },
     {
       "UserLevelIndex": 9,
@@ -94,7 +217,29 @@
       "DepositMaxValue": 30000000,
       "ValidBetMinValue": 60000000,
       "ValidBetMaxValue": 180000000,
-      "KeepValidBetValue": 25000000
+      "KeepValidBetValue": 25000000,
+      "BuyChipAddRate": [
+        {
+          "GameCategoryCode": "Electron",
+          "BuyChipAddRate": 4.5
+        },
+        {
+          "GameCategoryCode": "Live",
+          "BuyChipAddRate": 4.5
+        },
+        {
+          "GameCategoryCode": "Sports",
+          "BuyChipAddRate": 4.5
+        },
+        {
+          "GameCategoryCode": "Fish",
+          "BuyChipAddRate": 4.5
+        },
+        {
+          "GameCategoryCode": "Slot",
+          "BuyChipAddRate": 4.5
+        }
+      ]
     },
     {
       "UserLevelIndex": 10,
@@ -103,7 +248,29 @@
       "DepositMaxValue": 0,
       "ValidBetMinValue": 180000000,
       "ValidBetMaxValue": 0,
-      "KeepValidBetValue": 50000000
+      "KeepValidBetValue": 50000000,
+      "BuyChipAddRate": [
+        {
+          "GameCategoryCode": "Electron",
+          "BuyChipAddRate": 5
+        },
+        {
+          "GameCategoryCode": "Live",
+          "BuyChipAddRate": 5
+        },
+        {
+          "GameCategoryCode": "Sports",
+          "BuyChipAddRate": 5
+        },
+        {
+          "GameCategoryCode": "Fish",
+          "BuyChipAddRate": 5
+        },
+        {
+          "GameCategoryCode": "Slot",
+          "BuyChipAddRate": 5
+        }
+      ]
     }
   ]
 }

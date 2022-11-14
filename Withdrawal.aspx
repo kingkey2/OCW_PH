@@ -335,7 +335,7 @@
                             <p class="language_replace">4.若達到上述任何限制，請隔天以後再申請出金。</p>
                             <p class="language_replace">5.出金時間為365天日本時間早上10點到下午18點為止。</p> -->
                             <p class="language_replace" style="text-indent: -1rem; margin-left: 1rem;">1. Using Lucky
-                                Fanta's fully automated recharge and withdrawal channels, you'll enjoy the best gaming
+                                Sprite's fully automated recharge and withdrawal channels, you'll enjoy the best gaming
                                 experience, and your recharge and withdrawal will arrive within seconds!</p>
 
                             <p class="language_replace" style="text-indent: -1rem; margin-left: 1rem;">2. With regard to

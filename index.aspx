@@ -645,6 +645,22 @@
         });
 
     }
+
+    function API_GetUserAccountProperty(PropertyName, cb) {
+        lobbyClient.GetUserAccountProperty(EWinWebInfo.SID, Math.uuid(), PropertyName, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.PropertyValue != "") {
+                        var data = o.PropertyValue;
+
+                        if (cb) {
+                            cb(data);
+                        }
+                    }
+                }
+            }
+        });
+    }
     //#endregion
 
     //#region Alert
@@ -3663,7 +3679,7 @@
                     </div>
 
                     <div class="company-detail">
-                        <div class="company-license">
+                        <div class="company-license" style="display:none">
                             <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
                         </div>
                         <div class="company-address">
