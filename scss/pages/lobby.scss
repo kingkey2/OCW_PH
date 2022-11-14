@@ -194,15 +194,15 @@
             overflow: hidden;
 
             &.mobile {
-                display: inherit !important;
+                // display: inherit !important;
             }
 
             &.pad {
-                display: none !important;
+                // display: none !important;
             }
 
             &.desktop {
-                display: none !important;
+                // display: none !important;
             }
         }
     }
@@ -971,11 +971,11 @@ $gameRanking-swiper-slide-width-over-xxl: $swiper-slide-width-over-xxl         *
 
             &-box {
                 &.mobile {
-                    display: none !important;
+                    // display: none !important;
                 }
 
                 &.desktop {
-                    display: inherit !important;
+                    // display: inherit !important;
                 }
             }
         }
