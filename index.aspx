@@ -3667,6 +3667,11 @@
                                         <img src="/images/logo/footer/logo-cmd.png" alt="">
                                     </div>
                                 </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-bti.png" alt="">
+                                    </div>
+                                </div>
                                 <%-- 
                                 <div class="logo-item">
                                     <div class="img-crop">
@@ -3683,11 +3688,7 @@
                                         <img src="/images/logo/footer/logo-evops.png" alt="">
                                     </div>
                                 </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="/images/logo/footer/logo-bti.png" alt="">
-                                    </div>
-                                </div>
+                                
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-zeus.png" alt="">
