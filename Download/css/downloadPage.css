@@ -45,10 +45,12 @@
 
 .onAgent .dlP_tab.dlP_tab2{
     color: rgba(255,255,255,1);
-    background: rgba(76, 179, 255,0.75);
+    background: #FFAA47;
 }
 
 .onAgent .dlP_tab.dlP_tab2 span{
+    font-size: 1.25rem;
+    font-weight: bold;
     color: rgba(255,255,255,1);
 }
 
@@ -88,7 +90,6 @@
 .dlP_AppType{
     font-size: 35px;
     font-weight: bolder;
-    
 }
 .dlP_AppName{
     font-size: 20px;
@@ -99,7 +100,8 @@
 }
 
 .onAgent .dlP_AppName span{
-    color: rgba(76,179,255,0.75);
+    padding-left:10px;
+    color: rgba(255,204,102,0.75);
 }
 
 .dlP_AppIcon img{
@@ -133,7 +135,7 @@
 }
 
 .onAgent .dlP_ConBtn{
-    border:2px solid rgba(76,179,255,0.75);
+    border:2px solid rgba(255,204,102,0.75);
 }
 
 
@@ -143,7 +145,7 @@
 }
 
 .onAgent .dlP_ConBtn:hover{
-   background: rgba(76,179,255,0.75);
+   background: rgba(255,204,102,0.75);
 }
 
 
