@@ -759,7 +759,7 @@
             window.parent.location.href = "index.aspx";
         }
 
-
+        alert(window.parent.API_IsAndroidAPI());
         if (window.parent.API_IsAndroidAPI()) {
             $('.icon-copy').hide();
         }
