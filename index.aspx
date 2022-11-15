@@ -1690,8 +1690,8 @@
 
             gameCode = gameBrand + "." + gameName;
             $('.headerGameName').text(gameLangName);
-
-            if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
+            if (false) {
+            //if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
                 $('#GameMask').show();
                 gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
                 CloseWindowOpenGamePage(gameWindow);
@@ -1705,7 +1705,7 @@
  + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";--%>
 
                 } else {
-                    if (gameBrand.toUpperCase() == 'CMD') {
+                    if (gameBrand.toUpperCase() == 'CMD' || gameBrand.toUpperCase() == 'EWIN') {
                         $('#GameIFramePage').removeAttr('sandbox');
                     }
 
@@ -3020,7 +3020,7 @@
 
                                     GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png?` + v;
                                 }
-                                if (GBL.GameBrand.toUpperCase() == 'JL' || GBL.GameBrand.toUpperCase() == 'EVO') {
+                                if (GBL.GameBrand.toUpperCase() == 'JL' || GBL.GameBrand.toUpperCase() == 'EVO' || GBL.GameBrand.toUpperCase() == 'FC') {
                                     ParentMain.prepend(GBLDom);
                                 } else {
                                     ParentMain.append(GBLDom);
