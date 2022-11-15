@@ -37,5 +37,6 @@
   "OPFailure": "Insufficient balance, please check your wallet.",
   "InvalidAmount": "Invalid amount",
   "InvalidDailyAmount": "Invalid daily amount",
-  "ChannelNoAvailable": "This deposit method is not available now."
+  "ChannelNoAvailable": "This deposit method is not available now.",
+  "OneOrderInProgress": "Can only have one order in progress."
 }

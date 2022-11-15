@@ -303,7 +303,7 @@
     function updatePaymentHistory(startDate, endDate) {
 
         //減1小時進ewin做搜尋
-        startDate = c.addHours(startDate + " 00:00", -1).format("yyyy/MM/dd");
+        startDate = c.addHours(startDate + " 00:00", 0).format("yyyy/MM/dd");
 
         var ParentMain = document.getElementById("divPayment");
         var ParentMain_M = document.getElementById("divPayment_M");
@@ -377,12 +377,12 @@
                             }
 
                             c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
-                            c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.CreateDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                            c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.CreateDate, 0).format("yyyy/MM/dd hh:mm:ss"));
                             c.setClassText(RecordDom, "BasicType", null, BasicType);
                             c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
 
                             c.setClassText(RecordDom_M, "PaymentStatus", null, paymentRecordText);
-                            c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.CreateDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                            c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.CreateDate, 0).format("yyyy/MM/dd hh:mm:ss"));
                             c.setClassText(RecordDom_M, "BasicType", null, BasicType);
                             c.setClassText(RecordDom_M, "PaymentSerial", null, record.PaymentSerial);
 
@@ -426,7 +426,7 @@
                             }
 
                             //ewin資料存GMT+8，取出後改+9看是否該資料符合搜尋區間
-                            if (c.addHours(record.FinishDate, 1).format("MM") == search_Month_P) {
+                            if (c.addHours(record.FinishDate, 0).format("MM") == search_Month_P) {
                                 var paymentRecordText;
                                 var BasicType;
 
@@ -499,12 +499,12 @@
                                 }
 
                                 c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
-                                c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.FinishDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                                c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.FinishDate, 0).format("yyyy/MM/dd hh:mm:ss"));
                                 c.setClassText(RecordDom, "BasicType", null, BasicType);
                                 c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
 
                                 c.setClassText(RecordDom_M, "PaymentStatus", null, paymentRecordText);
-                                c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.FinishDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                                c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.FinishDate, 0).format("yyyy/MM/dd hh:mm:ss"));
                                 c.setClassText(RecordDom_M, "BasicType", null, BasicType);
                                 c.setClassText(RecordDom_M, "PaymentSerial", null, record.PaymentSerial);
 
