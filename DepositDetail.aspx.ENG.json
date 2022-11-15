@@ -22,7 +22,7 @@
   "首頁": "homepage",
   "加密貨幣": "cryptocurrency",
   "貨幣未設定匯率": "Currency has no exchange rate set",
-  "服務器異常":"Server error",
+  "服務器異常": "Server error",
   "選擇使用的加密貨幣": "Choose the cryptocurrency to use",
   "使用": "use",
   "入款": "deposit",
@@ -44,12 +44,13 @@
   "支付方式": "payment method",
   "合約方式": "Contract Method",
   "交易限制時間": "Trade Limit Time",
-  "出金條件": "Payment Threshold",
+  "出金條件": "Payment Rolling",
   "熱門活動": "Popular event",
   "錢包地址": "wallet address",
   "收款項目": "Deposit item",
   "請輸入單號": "enter order number",
   "錯誤": "error",
   "成功": "succeed",
-  "入金確認": "Deposit confirmation"
+  "入金確認": "Deposit confirmation",
+  "請聯絡客服。": "Please contact customer service."
 }

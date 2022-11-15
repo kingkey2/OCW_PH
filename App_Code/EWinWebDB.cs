@@ -554,6 +554,27 @@ public static class EWinWebDB {
             return DT;
         }
 
+        public static System.Data.DataTable GetPaymentInfoByLoginAccount(string LoginAccount, int PaymentType, int FlowStatus) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = "SELECT P.*, PC.CategoryName, PM.PaymentCode, PaymentName, PM.PaymentMethodID, PM.EWinCryptoWalletType " +
+               "FROM UserAccountPayment AS P WITH (NOLOCK) " +
+               "LEFT JOIN PaymentMethod AS PM WITH (NOLOCK) ON P.forPaymentMethodID = PM.PaymentMethodID " +
+               "LEFT JOIN PaymentCategory AS PC WITH (NOLOCK) ON PM.PaymentCategoryCode = PC.PaymentCategoryCode " +
+               "WHERE P.LoginAccount=@LoginAccount AND P.PaymentType=@PaymentType AND P.FlowStatus=@FlowStatus";
+
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@PaymentType", System.Data.SqlDbType.Int).Value = PaymentType;
+            DBCmd.Parameters.Add("@FlowStatus", System.Data.SqlDbType.Int).Value = FlowStatus;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
 
         public static System.Data.DataTable GetPaymentByNonFinishedByLoginAccount(string LoginAccount) {
             string SS;

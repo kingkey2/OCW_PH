@@ -70,7 +70,10 @@
             window.parent.location.href = "index.aspx";
         }
 
-
+        if (window.parent.API_IsAndroidAPI()) {
+            $('.icon-copy').hide();
+        }
+     
         WebInfo = window.parent.API_GetWebInfo();
         lang = window.parent.API_GetLang();
         PaymentClient = window.parent.API_GetPaymentAPI();
@@ -1144,7 +1147,7 @@
                                     <span class="data">USDT</span>
                                 </li>
                                 <li class="item">
-                                    <h6 class="title language_replace">出款門檻</h6>
+                                    <h6 class="title language_replace">出款流水</h6>
                                     <span class="data ThresholdVal">6000</span>
                                 </li>
                             </ul>
@@ -1317,7 +1320,7 @@
                                                 <span class="data ThresholdValue_2">0</span>
                                             </li>
                                         </ul>
-                                        <p class="text-note text-primary language_replace">*獎金和禮金的出金門檻在BOUNS箱領取後才會追加</p>
+                                        <p class="text-note text-primary language_replace">*獎金和禮金的出金流水在BOUNS箱領取後才會追加</p>
                                     </li>
                                 </ul>
                             </div>

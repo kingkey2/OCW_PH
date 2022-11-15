@@ -236,6 +236,10 @@
         return paymentClient;
     }
 
+    function API_IsAndroidAPI() {
+        return isAndroid();
+    }
+
 
     function API_GetCurrency() {
         var selectedCurrency;
@@ -281,6 +285,32 @@
             return 1;
         } else if (os.isPc) {
             return 0;
+        }
+    };
+
+    function isAndroid() {
+        var os = function () {
+            var ua = navigator.userAgent,
+                isWindowsPhone = /(?:Windows Phone)/.test(ua),
+                isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+                isAndroid = /(?:Android)/.test(ua),
+                isFireFox = /(?:Firefox)/.test(ua),
+                isChrome = /(?:Chrome|CriOS)/.test(ua),
+                isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+                isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+                isPc = !isPhone && !isAndroid && !isSymbian;
+            return {
+                isTablet: isTablet,
+                isPhone: isPhone,
+                isAndroid: isAndroid,
+                isPc: isPc
+            };
+        }();
+
+        if (os.isAndroid) {
+            return true;
+        } else {
+            return false;
         }
     };
 
@@ -2315,32 +2345,7 @@
             return;
         }
 
-        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 30,
-            {
-                GameCode: "EWin.EWinGaming",
-                GameBrand: "EWin",
-                GameStatus: 1,
-                GameID: 0,
-                GameName: "EWinGaming",
-                GameCategoryCode: "Live",
-                GameCategorySubCode: "Baccarat",
-                GameAccountingCode: null,
-                AllowDemoPlay: 1,
-                RTPInfo: "",
-                IsHot: 1,
-                IsNew: 1,
-                SortIndex: 99,
-                Tags: [],
-                Language: [{
-                    LanguageCode: "JPN",
-                    DisplayText: "EWinゲーミング"
-                },
-                {
-                    LanguageCode: "CHT",
-                    DisplayText: "真人百家樂(eWIN)"
-                }],
-                RTP: null
-            },
+        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 30, null,
             () => {
                 notifyWindowEvent("GameLoadEnd", null);
             }
@@ -2567,7 +2572,6 @@
 
         API_changeAvatarImg(getCookie("selectAvatar"));
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
-
         //resize();
     }
 

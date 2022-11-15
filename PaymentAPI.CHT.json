@@ -18,7 +18,7 @@
   "CreatePayment Error": "建立訂單失敗",
   "No token": "token 不存在",
   "GetToken Error": "取得 token 失敗",
-  "ThresholdLimit": "未到出金門檻",
+  "ThresholdLimit": "未到出金流水",
   "GetInfoError": "取得資訊失敗",
   "CurrencyNotFound": "指定幣別不存在",
   "GetThresholdError": "取得限額額度失敗",
@@ -37,5 +37,6 @@
   "OPFailure": "餘額不足",
   "InvalidAmount": "金額不符合限額",
   "InvalidDailyAmount": "超過每日提領上限",
-  "ChannelNoAvailable": "通道未開啟"
+  "ChannelNoAvailable": "通道未開啟",
+  "OneOrderInProgress": "只可以擁有一張進行中的訂單"
 }

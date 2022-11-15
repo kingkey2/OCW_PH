@@ -47,11 +47,13 @@
       "BuyChipAddRate": [
         {
           "GameCategoryCode": "Live",
-          "BuyChipAddRate": 1.5
+          "BuyChipAddRate": 1.5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 1.5
+          "BuyChipAddRate": 1.5,
+          "CurrencyType": "PHP"
         }
       ]
     },
@@ -66,23 +68,28 @@
       "BuyChipAddRate": [
         {
           "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 2
+          "BuyChipAddRate": 2,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Live",
-          "BuyChipAddRate": 2
+          "BuyChipAddRate": 2,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 2
+          "BuyChipAddRate": 2,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 2
+          "BuyChipAddRate": 2,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 2
+          "BuyChipAddRate": 2,
+          "CurrencyType": "PHP"
         }
       ]
     },
@@ -97,23 +104,28 @@
       "BuyChipAddRate": [
         {
           "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 2.5
+          "BuyChipAddRate": 2.5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Live",
-          "BuyChipAddRate": 2.5
+          "BuyChipAddRate": 2.5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 2.5
+          "BuyChipAddRate": 2.5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 2.5
+          "BuyChipAddRate": 2.5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 2.5
+          "BuyChipAddRate": 2.5,
+          "CurrencyType": "PHP"
         }
       ]
     },
@@ -128,23 +140,28 @@
       "BuyChipAddRate": [
         {
           "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 3
+          "BuyChipAddRate": 3,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Live",
-          "BuyChipAddRate": 3
+          "BuyChipAddRate": 3,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 3
+          "BuyChipAddRate": 3,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 3
+          "BuyChipAddRate": 3,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 3
+          "BuyChipAddRate": 3,
+          "CurrencyType": "PHP"
         }
       ]
     },
@@ -159,23 +176,28 @@
       "BuyChipAddRate": [
         {
           "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 3.5
+          "BuyChipAddRate": 3.5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Live",
-          "BuyChipAddRate": 3.5
+          "BuyChipAddRate": 3.5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 3.5
+          "BuyChipAddRate": 3.5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 3.5
+          "BuyChipAddRate": 3.5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 3.5
+          "BuyChipAddRate": 3.5,
+          "CurrencyType": "PHP"
         }
       ]
     },
@@ -190,23 +212,28 @@
       "BuyChipAddRate": [
         {
           "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 4
+          "BuyChipAddRate": 4,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Live",
-          "BuyChipAddRate": 4
+          "BuyChipAddRate": 4,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 4
+          "BuyChipAddRate": 4,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 4
+          "BuyChipAddRate": 4,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 4
+          "BuyChipAddRate": 4,
+          "CurrencyType": "PHP"
         }
       ]
     },
@@ -221,23 +248,28 @@
       "BuyChipAddRate": [
         {
           "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 4.5
+          "BuyChipAddRate": 4.5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Live",
-          "BuyChipAddRate": 4.5
+          "BuyChipAddRate": 4.5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 4.5
+          "BuyChipAddRate": 4.5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 4.5
+          "BuyChipAddRate": 4.5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 4.5
+          "BuyChipAddRate": 4.5,
+          "CurrencyType": "PHP"
         }
       ]
     },
@@ -252,23 +284,28 @@
       "BuyChipAddRate": [
         {
           "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 5
+          "BuyChipAddRate": 5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Live",
-          "BuyChipAddRate": 5
+          "BuyChipAddRate": 5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 5
+          "BuyChipAddRate": 5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 5
+          "BuyChipAddRate": 5,
+          "CurrencyType": "PHP"
         },
         {
           "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 5
+          "BuyChipAddRate": 5,
+          "CurrencyType": "PHP"
         }
       ]
     }

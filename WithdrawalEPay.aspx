@@ -46,6 +46,7 @@
     if (self != top) {
         window.parent.API_LoadingStart();
     }
+
     var WebInfo;
     var mlp;
     var lang;
@@ -63,6 +64,10 @@
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
+        }
+
+        if (window.parent.API_IsAndroidAPI()) {
+            $('.icon-copy').hide();
         }
 
         WebInfo = window.parent.API_GetWebInfo();
@@ -802,7 +807,7 @@
                                     <span class="data">USDT</span>
                                 </li>
                                 <li class="item">
-                                    <h6 class="title language_replace">出款門檻</h6>
+                                    <h6 class="title language_replace">出款流水</h6>
                                     <span class="data ThresholdVal">6000</span>
                                 </li>
                             </ul>

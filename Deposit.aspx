@@ -39,6 +39,8 @@
     var mlp;
     var v = "<%:Version%>";
     var lobby;
+    var IsHaveOrderInProgress = 0; //0 = 沒有進行中訂單 / 1 = 有正在進行中的訂單
+
     function init() {
 
         if (self == top) {
@@ -50,6 +52,7 @@
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
+            CheckUserProcessPayment();
             window.parent.API_LoadingEnd();
         }, "PaymentAPI");
 
@@ -96,6 +99,24 @@
                 } 
             }
         })
+    }
+
+    function CheckUserProcessPayment() {
+        lobby.CheckUserProcessPayment(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    IsHaveOrderInProgress = 1;
+                }
+            }
+        })
+    }
+
+    function OpenPage(title,url) {
+        if (IsHaveOrderInProgress == 1) {
+            window.parent.API_ShowMessageOK("", mlp.getLanguageKey("OneOrderInProgress"));
+        } else {
+            window.parent.API_LoadPage(title, url);
+        }
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -168,7 +189,7 @@
                 
                     <!-- 虛擬錢包 -->
                     <div class="card-item sd-02" id="idDepositCrypto" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositCrypto','DepositCrypto.aspx')">
+                        <a class="card-item-link" onclick="OpenPage('DepositCrypto','DepositCrypto.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span>Crypto Wallet</span>
@@ -199,7 +220,7 @@
                     </div>
                     <!-- GCash -->
                     <div class="card-item sd-09" id="idDepositGCash" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGCash','DepositGCash.aspx')">
+                        <a class="card-item-link" onclick="OpenPage('DepositGCash','DepositGCash.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace">GCash</span>
@@ -215,7 +236,7 @@
                     </div>
                      <!-- EPay -->
                     <div class="card-item sd-09" id="idDepositGcashQRcode" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGcashQRcode','DepositGcashQRcode.aspx')">
+                        <a class="card-item-link" onclick="OpenPage('DepositGcashQRcode','DepositGcashQRcode.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace">Gcash(QRcode)</span>
@@ -232,7 +253,7 @@
                     </div>
                      <!-- Paymaya -->
                     <div class="card-item sd-11" id="idDepositPaymaya" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositPaymaya','DepositPaymaya.aspx')">
+                        <a class="card-item-link" onclick="OpenPage('DepositPaymaya','DepositPaymaya.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace">Paymaya</span>
@@ -248,7 +269,7 @@
                     </div>
                      <!-- Grabpay -->
                     <div class="card-item sd-10" id="idDepositGrabpay" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGrabpay','DepositGrabpay.aspx')">
+                        <a class="card-item-link" onclick="OpenPage('DepositGrabpay','DepositGrabpay.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace">Grabpay</span>
@@ -263,7 +284,7 @@
                         </a>
                     </div>
                     <div class="card-item sd-09" id="idDepositGCashDirect" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGCashDirect','DepositGCashDirect.aspx')">
+                        <a class="card-item-link" onclick="OpenPage('DepositGCashDirect','DepositGCashDirect.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace">GCash(Direct)</span>
@@ -303,14 +324,14 @@
                             <p class="title language_replace">溫馨提醒</p>
                             <!-- <p class="language_replace">1.OCOIN是客人在マハラジャ遊玩的幣別總稱</p>
                             <p class="language_replace">2.不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。</p>
-                            <p class="language_replace">3.關於出金門檻倍率</p>
+                            <p class="language_replace">3.關於出金流水倍率</p>
                             <p class="language_replace">PayPal・主要加密貨幣＝入金額の1.5倍</p>
                             <p class="language_replace">JKCETH・JKC現金＝入金額の8倍​ ボーナス＝20倍</p>
                             <p class="language_replace">（計算範例）</p>
                             <p class="language_replace">PayPal　10,000+獎金10,000的情況</p>
                             <p class="language_replace">10,000×1.5倍+10,000×20倍=215,000​</p>
-                            <p class="language_replace">關於出金門檻的詳細說明於</p>
-                            <p class="language_replace">4.持有的OCoin在100以下時入金，或是領取領獎中心的OCoin即可解除原有的出金門檻。</p> -->
+                            <p class="language_replace">關於出金流水的詳細說明於</p>
+                            <p class="language_replace">4.持有的OCoin在100以下時入金，或是領取領獎中心的OCoin即可解除原有的出金流水。</p> -->
 
                             <p class="language_replace" style="text-indent: -1rem; margin-left: 1rem;">1. Using Lucky Sprite's fully automated recharge and withdrawal channels, you'll enjoy the best gaming experience, and your recharge and withdrawal will arrive within seconds!</p>
 

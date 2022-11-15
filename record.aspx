@@ -303,7 +303,7 @@
     function updatePaymentHistory(startDate, endDate) {
 
         //減1小時進ewin做搜尋
-        startDate = c.addHours(startDate + " 00:00", -1).format("yyyy/MM/dd");
+        startDate = c.addHours(startDate + " 00:00", 0).format("yyyy/MM/dd");
 
         var ParentMain = document.getElementById("divPayment");
         var ParentMain_M = document.getElementById("divPayment_M");
@@ -377,12 +377,12 @@
                             }
 
                             c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
-                            c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.CreateDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                            c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.CreateDate, 0).format("yyyy/MM/dd hh:mm:ss"));
                             c.setClassText(RecordDom, "BasicType", null, BasicType);
                             c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
 
                             c.setClassText(RecordDom_M, "PaymentStatus", null, paymentRecordText);
-                            c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.CreateDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                            c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.CreateDate, 0).format("yyyy/MM/dd hh:mm:ss"));
                             c.setClassText(RecordDom_M, "BasicType", null, BasicType);
                             c.setClassText(RecordDom_M, "PaymentSerial", null, record.PaymentSerial);
 
@@ -426,7 +426,7 @@
                             }
 
                             //ewin資料存GMT+8，取出後改+9看是否該資料符合搜尋區間
-                            if (c.addHours(record.FinishDate, 1).format("MM") == search_Month_P) {
+                            if (c.addHours(record.FinishDate, 0).format("MM") == search_Month_P) {
                                 var paymentRecordText;
                                 var BasicType;
 
@@ -499,12 +499,12 @@
                                 }
 
                                 c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
-                                c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.FinishDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                                c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.FinishDate, 0).format("yyyy/MM/dd hh:mm:ss"));
                                 c.setClassText(RecordDom, "BasicType", null, BasicType);
                                 c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
 
                                 c.setClassText(RecordDom_M, "PaymentStatus", null, paymentRecordText);
-                                c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.FinishDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                                c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.FinishDate, 0).format("yyyy/MM/dd hh:mm:ss"));
                                 c.setClassText(RecordDom_M, "BasicType", null, BasicType);
                                 c.setClassText(RecordDom_M, "PaymentSerial", null, record.PaymentSerial);
 
@@ -744,6 +744,10 @@
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
+        }
+
+        if (window.parent.API_IsAndroidAPI()) {
+            $('.icon-copy').parent().hide();
         }
 
         WebInfo = window.parent.API_GetWebInfo();
@@ -1079,7 +1083,7 @@
                                     <span class="language_replace">投注金額</span>
                                 </div>
                                 <div class="record-table-cell td-validBet">
-                                    <span class="language_replace">出款門檻扣除值</span>
+                                    <span class="language_replace">出款流水扣除值</span>
                                 </div>
                                 <div class="record-table-cell td-rewardValue">
                                     <span class="language_replace">勝/負</span>
@@ -1349,7 +1353,7 @@
                     </div>
                     <!-- 有效投注 -->
                     <div class="record-table-cell td-validBet">
-                        <span class="title language_replace">出款門檻扣除值</span>
+                        <span class="title language_replace">出款流水扣除值</span>
                         <span class="data number validBet">50090</span>
                     </div>
                     <!-- 勝/負 -->
@@ -1374,7 +1378,7 @@
                         <span class="language_replace">投注金額</span>
                     </div>
                     <div class="record-table-cell cell-validBet">
-                        <span class="language_replace">出款門檻扣除值</span>
+                        <span class="language_replace">出款流水扣除值</span>
                     </div>
                     <div class="record-table-cell cell-rewardValue">
                         <span class="language_replace">勝/負</span>
@@ -1412,7 +1416,7 @@
                     </div>
                     <!-- 有效投注 -->
                     <div class="record-table-cell td-validBet">
-                        <span class="title language_replace">出款門檻扣除值</span>
+                        <span class="title language_replace">出款流水扣除值</span>
                         <span class="data number validBet">50090</span>
                     </div>
                     <!-- 勝/負 -->
@@ -1437,7 +1441,7 @@
                         <span class="language_replace orderValue">投注金額</span>
                     </div>
                     <div class="record-table-cell cell-validBet">
-                        <span class="language_replace validBet">出款門檻扣除值</span>
+                        <span class="language_replace validBet">出款流水扣除值</span>
                     </div>
                     <div class="record-table-cell cell-rewardValue">
                         <span class="language_replace rewardValue">勝/負</span>
@@ -1470,7 +1474,7 @@
                         <span class="data number orderValue">9999</span>
                     </div>
                     <div class="record-drop-item-validBet record-item">
-                        <span class="title language_replace">出款門檻扣除值</span>
+                        <span class="title language_replace">出款流水扣除值</span>
                         <span class="data number  validBet">9,99999</span>
                     </div>
                 </div>
@@ -1499,7 +1503,7 @@
                         <span class="data number orderValue">999</span>
                     </div>
                     <div class="record-drop-item-validBet record-item">
-                        <span class="title language_replace">出款門檻扣除值</span>
+                        <span class="title language_replace">出款流水扣除值</span>
                         <span class="data number validBet">9,99999</span>
                     </div>
                 </div>
