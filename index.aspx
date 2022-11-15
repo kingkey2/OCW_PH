@@ -3377,6 +3377,15 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="nav-item navbarMenu__catagory">
+                                    <ul class="catagory">
+                                        <li class="nav-item submenu dropdown" onclick="window.open('Download/pcdownload.aspx')">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-mobile"></i>
+                                                <span class="title language_replace">Mobile</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <%--
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
@@ -3435,6 +3444,7 @@
                         <div class="header_rightWrapper">
 
                             <div class="header_setting">
+                                <a href="/Download/pcdownload.aspx" target="_blank" class="mobile_download"><img src="images/mobile_head.svg"><span>mobile</span></a>
                                 <ul class="nav header_setting_content">
                                     <!-- Search -->
                                     <li class="navbar-search nav-item">
