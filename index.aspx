@@ -2345,32 +2345,7 @@
             return;
         }
 
-        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 30,
-            {
-                GameCode: "EWin.EWinGaming",
-                GameBrand: "EWin",
-                GameStatus: 1,
-                GameID: 0,
-                GameName: "EWinGaming",
-                GameCategoryCode: "Live",
-                GameCategorySubCode: "Baccarat",
-                GameAccountingCode: null,
-                AllowDemoPlay: 1,
-                RTPInfo: "",
-                IsHot: 1,
-                IsNew: 1,
-                SortIndex: 99,
-                Tags: [],
-                Language: [{
-                    LanguageCode: "JPN",
-                    DisplayText: "EWinゲーミング"
-                },
-                {
-                    LanguageCode: "CHT",
-                    DisplayText: "真人百家樂(eWIN)"
-                }],
-                RTP: null
-            },
+        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 30, null,
             () => {
                 notifyWindowEvent("GameLoadEnd", null);
             }

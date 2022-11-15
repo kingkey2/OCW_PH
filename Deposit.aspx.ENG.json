@@ -7,5 +7,6 @@
   "銀行卡": "Bank Transfer",
   "電子錢包": "Wallet",
   "使用說明": "How to use",
-  "檢視存款紀錄": "View Deposit History"
+  "檢視存款紀錄": "View Deposit History",
+  "OneOrderInProgress": "Can only have one order in progress."
 }

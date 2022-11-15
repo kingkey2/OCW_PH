@@ -881,14 +881,13 @@ public class LobbyAPI : System.Web.Services.WebService {
                     GUID = GUID
                 };
 
-                R.SummaryList = callResult.SummaryList.Where(x=>x.OrderValue > 0).GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
+                R.SummaryList = callResult.SummaryList.Where(x=>x.OrderValue > 0).GroupBy(x => new { x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
                     ValidBetValue = sum.Sum(y => y.ValidBetValue),
                     RewardValue = sum.Sum(y => y.RewardValue),
                     OrderValue = sum.Sum(y => y.OrderValue),
                     TotalValidBetValue = sum.Sum(y => y.TotalValidBetValue),
                     TotalRewardValue = sum.Sum(y => y.TotalRewardValue),
                     TotalOrderValue = sum.Sum(y => y.TotalOrderValue),
-                    CurrencyType = key.CurrencyType,
                     LoginAccount = sum.FirstOrDefault().LoginAccount,
                     SummaryDate = key.SummaryDate
                 }).ToArray();
@@ -1868,6 +1867,8 @@ public class LobbyAPI : System.Web.Services.WebService {
 
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
+        int RegisterBounsID = 0;
+        System.Data.DataTable DT;
         OcwPromotionCollectResult R = new OcwPromotionCollectResult() { CollectList = null, Result = EWin.Lobby.enumResult.ERR };
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
@@ -1879,6 +1880,11 @@ public class LobbyAPI : System.Web.Services.WebService {
                 List<OcwPromotionCollect> collectList = new List<OcwPromotionCollect>();
 
                 foreach (var item in EWinReturn.CollectList) {
+
+                    if (item.Description == "RegisterBouns") {
+                        RegisterBounsID = item.CollectID;
+                    }
+
                     OcwPromotionCollect PC = new OcwPromotionCollect() {
 
                         CollectID = item.CollectID,
@@ -1922,6 +1928,18 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                     collectList.Add(PC);
 
+                }
+
+                if (RegisterBounsID != 0) {
+                    DT = EWinWebDB.UserAccountPayment.GetPaymentInfoByLoginAccount(SI.LoginAccount, 0, 2);
+
+                    if (DT != null && DT.Rows.Count > 0) {
+                        EWin.Lobby.APIResult k =  lobbyAPI.SetExpireUserAccountPromotionByID(GetToken(), SI.EWinSID, GUID, RegisterBounsID);
+                        if (k.Result == EWin.Lobby.enumResult.OK) {
+                            var itemToRemove = collectList.Single(r => r.CollectID == RegisterBounsID);
+                            collectList.Remove(itemToRemove);
+                        }
+                    }
                 }
 
                 R.Result = EWin.Lobby.enumResult.OK;
@@ -2243,6 +2261,26 @@ public class LobbyAPI : System.Web.Services.WebService {
         } else {
             R.Result = EWin.Lobby.enumResult.ERR;
             R.Message = "InvalidWebSID";
+        }
+        return R;
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public  EWin.Lobby.APIResult CheckUserProcessPayment(string WebSID, string GUID) {
+        RedisCache.SessionContext.SIDInfo SI;
+        System.Data.DataTable DT = new System.Data.DataTable();
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            DT = EWinWebDB.UserAccountPayment.GetPaymentInfoByLoginAccount(SI.LoginAccount, 0, 1);
+
+            if (DT != null && DT.Rows.Count > 0) {
+                R.Result = EWin.Lobby.enumResult.OK;
+                R.Message = "Have one order in progress";
+            }
         }
         return R;
     }

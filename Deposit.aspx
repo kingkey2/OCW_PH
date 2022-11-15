@@ -39,6 +39,8 @@
     var mlp;
     var v = "<%:Version%>";
     var lobby;
+    var IsHaveOrderInProgress = 0; //0 = 沒有進行中訂單 / 1 = 有正在進行中的訂單
+
     function init() {
 
         if (self == top) {
@@ -50,6 +52,7 @@
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
+            CheckUserProcessPayment();
             window.parent.API_LoadingEnd();
         }, "PaymentAPI");
 
@@ -96,6 +99,24 @@
                 } 
             }
         })
+    }
+
+    function CheckUserProcessPayment() {
+        lobby.CheckUserProcessPayment(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    IsHaveOrderInProgress = 1;
+                }
+            }
+        })
+    }
+
+    function OpenPage(title,url) {
+        if (IsHaveOrderInProgress == 1) {
+            window.parent.API_ShowMessageOK("", mlp.getLanguageKey("OneOrderInProgress"));
+        } else {
+            window.parent.API_LoadPage(title, url);
+        }
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -168,7 +189,7 @@
                 
                     <!-- 虛擬錢包 -->
                     <div class="card-item sd-02" id="idDepositCrypto" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositCrypto','DepositCrypto.aspx')">
+                        <a class="card-item-link" onclick="OpenPage('DepositCrypto','DepositCrypto.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span>Crypto Wallet</span>
@@ -199,7 +220,7 @@
                     </div>
                     <!-- GCash -->
                     <div class="card-item sd-09" id="idDepositGCash" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGCash','DepositGCash.aspx')">
+                        <a class="card-item-link" onclick="OpenPage('DepositGCash','DepositGCash.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace">GCash</span>
@@ -215,7 +236,7 @@
                     </div>
                      <!-- EPay -->
                     <div class="card-item sd-09" id="idDepositGcashQRcode" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGcashQRcode','DepositGcashQRcode.aspx')">
+                        <a class="card-item-link" onclick="OpenPage('DepositGcashQRcode','DepositGcashQRcode.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace">Gcash(QRcode)</span>
@@ -232,7 +253,7 @@
                     </div>
                      <!-- Paymaya -->
                     <div class="card-item sd-11" id="idDepositPaymaya" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositPaymaya','DepositPaymaya.aspx')">
+                        <a class="card-item-link" onclick="OpenPage('DepositPaymaya','DepositPaymaya.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace">Paymaya</span>
@@ -248,7 +269,7 @@
                     </div>
                      <!-- Grabpay -->
                     <div class="card-item sd-10" id="idDepositGrabpay" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGrabpay','DepositGrabpay.aspx')">
+                        <a class="card-item-link" onclick="OpenPage('DepositGrabpay','DepositGrabpay.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace">Grabpay</span>
@@ -263,7 +284,7 @@
                         </a>
                     </div>
                     <div class="card-item sd-09" id="idDepositGCashDirect" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGCashDirect','DepositGCashDirect.aspx')">
+                        <a class="card-item-link" onclick="OpenPage('DepositGCashDirect','DepositGCashDirect.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace">GCash(Direct)</span>

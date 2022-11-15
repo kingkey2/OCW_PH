@@ -12,7 +12,7 @@ self.addEventListener('message', function (e) {
     //Params => data參數
     if (e.data) {
         if (e.data.Cmd == "Init") {
-            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 12);
+            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 13);
 
             //dataExist,true => indexedDB已經有資料，可不等同步直接使用
             wokerControl.OnInitSyncStart = function (dataExist) {
