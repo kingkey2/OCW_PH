@@ -50,6 +50,10 @@
         window.parent.API_LoadingStart();
     }
 
+    if (window.parent.API_IsAndroidAPI()) {
+        $('.icon-copy').hide();
+    }
+
     var WebInfo;
     var p;
     var lang;
@@ -1474,7 +1478,7 @@
                                 </div>
                             </div>
 
-                            <!-- 出金門檻--新版: class判斷=> 不足:lacking  足夠:enough-->
+                            <!-- 出金流水--新版: class判斷=> 不足:lacking  足夠:enough-->
                             <div class="member-withdraw-wrapper lacking" id="divThrehold">
                                 <div class="member-withdraw-limit-inner ">
                                     <div class="member-withdraw-limit-content">
@@ -1501,19 +1505,19 @@
                                 </div>
                             </div>
 
-                            <!-- 出金門檻--舊版: class判斷=> 不足:lacking  足夠:enough-->
+                            <!-- 出金流水--舊版: class判斷=> 不足:lacking  足夠:enough-->
                             <div class="member-withdraw-wrapper lacking" id="divThrehold" style="display: none;">
                                 <div class="member-withdraw-limit-wrapper">
                                     <div class="member-withdraw-limit-inner ">
                                         <i class="icon icon-mask icon-lock"></i>
                                         <span class="member-withdraw-limit-content">
-                                            <!-- 出金門檻 不足-->
+                                            <!-- 出金流水 不足-->
                                             <span class="title lacking language_replace">不可出金</span>
-                                            <!-- 出金門檻 足夠-->
+                                            <!-- 出金流水 足夠-->
                                             <span class="title enough language_replace">可出金</span>
                                             <!-- 出入金說明 -->
                                             <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
-                                            <!-- 出金門檻 -->
+                                            <!-- 出金流水 -->
                                             <span class="limit-amount" id="idThrehold"></span>
                                         </span>
                                     </div>

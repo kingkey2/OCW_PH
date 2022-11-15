@@ -14,7 +14,7 @@
   "下一步": "next",
   "存款細項": "deposit detail",
   "支付方式": "payment method",
-  "出金條件": "Payment Threshold",
+  "出金條件": "Payment Rolling",
   "收款項目": "deposit amount",
   "存入金額": "point",
   "請輸入購買金額": "Enter the amount you want to buy",
@@ -43,5 +43,5 @@
   "入金部份": "Deposit part",
   "獎金部份": "Bonus part",
   "禮金部份": "Gift part",
-  "*獎金和禮金的出金門檻在BOUNS箱領取後才會追加": "The withdrawal threshold of bonus and gift money will be added after the BOUNS box is claimed."
+  "*獎金和禮金的出金流水在BOUNS箱領取後才會追加": "The withdrawal rolling of bonus and gift money will be added after the BOUNS box is claimed."
 }
