@@ -144,17 +144,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .hero_slider_lobby .img-wrap {
   position: relative;
   padding-bottom: 200px;
+  padding-bottom: 0;
   overflow: hidden;
   border-radius: 12px;
 }
 .hero_slider_lobby .img-wrap img.bg {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: contain;
+     object-fit: contain;
   -o-object-position: center top;
      object-position: center top;
   width: 100%;
@@ -469,6 +465,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media (min-width: 375px) {
   .hero_slider_lobby .img-wrap {
     padding-bottom: 230px;
+    padding-bottom: 0;
   }
 
   .game_slider .swiper-slide {
@@ -483,6 +480,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media (min-width: 576px) {
   .hero_slider_lobby .img-wrap {
     padding-bottom: 300px;
+    padding-bottom: 0;
   }
   .hero_slider_lobby .swiper-slide {
     max-width: 68%;
@@ -545,6 +543,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
   .hero_slider_lobby .img-wrap {
     padding-bottom: 280px;
+    padding-bottom: 0;
   }
   .hero_slider_lobby .hero-item-box.mobile {
     display: none !important;
@@ -644,6 +643,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media (min-width: 1144px) {
   .hero_slider_lobby .img-wrap {
     padding-bottom: 320px;
+    padding-bottom: 0;
   }
   .hero_slider_lobby .swiper-slide {
     max-width: 70%;
@@ -695,6 +695,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media (min-width: 1384px) {
   .hero_slider_lobby .img-wrap {
     padding-bottom: 340px;
+    padding-bottom: 0;
   }
   .hero_slider_lobby .swiper-slide {
     max-width: 66%;
@@ -735,6 +736,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media (min-width: 1544px) {
   .hero_slider_lobby .img-wrap {
     padding-bottom: 380px;
+    padding-bottom: 0;
   }
   .hero_slider_lobby .swiper-slide {
     max-width: 70%;
@@ -803,6 +805,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media (min-width: 1864px) {
   .hero_slider_lobby .img-wrap {
     padding-bottom: 420px;
+    padding-bottom: 0;
   }
   .hero_slider_lobby .swiper-slide {
     max-width: 73%;
@@ -879,6 +882,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media (min-width: 2560px) {
   .hero_slider_lobby .img-wrap {
     padding-bottom: 570px;
+    padding-bottom: 0;
   }
 }
 @media (max-width: 711px) {
