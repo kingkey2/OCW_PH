@@ -99,31 +99,31 @@
  
     var HeaderGames = [
         {
-            GameCode: "BNG.242",
-            GameBrand: "BNG",
+            GameCode: "JL.74",
+            GameBrand: "JL",
             Location: "GameList_Hot",
-            MobileSrc: "/images/lobby/dailypush-hot-M-001.jpg",
-            PadSrc: "/images/lobby/dailypush-hot-MD-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-hot-001.jpg",
-            BackgroundColor: "#121a16"
+            MobileSrc: "/images/lobby/Mega Fishing-phone.jpg",
+            PadSrc: "/images/lobby/Mega Fishing-pad.jpg",
+            DesktopSrc: "/images/lobby/Mega Fishing-pc.jpg",
+            BackgroundColor: "#192033"
         },
         {
-            GameCode: "PNG.moonprincess",
-            GameBrand: "PNG",
+            GameCode: "JL.49",
+            GameBrand: "JL",
             Location: "GameList_Slot",
-            MobileSrc: "/images/lobby/dailypush-slot-M-001.jpg",
-            PadSrc: "/images/lobby/dailypush-slot-MD-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-slot-001.jpg",
-            BackgroundColor: "#3f2e56"
+            MobileSrc: "/images/lobby/SuperAce-phone.jpg",
+            PadSrc: "/images/lobby/SuperAce-pad.jpg",
+            DesktopSrc: "/images/lobby/SuperAce-pc.jpg",
+            BackgroundColor: "#8c1d0a"
         },
         {
-            GameCode: "EVO.LightningTable01",
+            GameCode: "EVO.CrazyTime0000001",
             GameBrand: "EVO",
             Location: "GameList_Live",
-            MobileSrc: "/images/lobby/dailypush-live-M-001.jpg",
-            PadSrc: "/images/lobby/dailypush-live-MD-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-live-001.jpg",
-            BackgroundColor: "#010101"
+            MobileSrc: "/images/lobby/CrazyTime-phone.jpg",
+            PadSrc: "/images/lobby/CrazyTime-pad.jpg",
+            DesktopSrc: "/images/lobby/CrazyTime-pc.jpg",
+            BackgroundColor: "#2d0503"
         },
         //{
         //    GameCode: "BTI.Sport",
@@ -1847,17 +1847,17 @@
                         <div class="category-dailypush-img" style="background-color: #121a16;">
                             <div class="img-box mobile">
                                 <div class="img-wrap">
-                                    <img src="/images/lobby/dailypush-hot-M-001.jpg" alt="">
+                                    <img src="/images/lobby/Mega Fishing-phone.jpg" alt="">
                                 </div>
                             </div>
                             <div class="img-box pad">
                                 <div class="img-wrap">
-                                    <img src="/images/lobby/dailypush-hot-MD-001.jpg" alt="">
+                                    <img src="/images/lobby/Mega Fishing-pad.jpg" alt="">
                                 </div>
                             </div>
                             <div class="img-box desktop">
                                 <div class="img-wrap">
-                                    <img src="/images/lobby/dailypush-hot-001.jpg" alt="">
+                                    <img src="/images/lobby/Mega Fishing-pc.jpg" alt="">
                                 </div>
                             </div>
                         </div>
