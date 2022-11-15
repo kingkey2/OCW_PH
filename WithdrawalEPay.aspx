@@ -46,6 +46,11 @@
     if (self != top) {
         window.parent.API_LoadingStart();
     }
+
+    if (window.parent.API_IsAndroidAPI()) {
+        $('.icon-copy').hide();
+    }
+
     var WebInfo;
     var mlp;
     var lang;
@@ -802,7 +807,7 @@
                                     <span class="data">USDT</span>
                                 </li>
                                 <li class="item">
-                                    <h6 class="title language_replace">出款門檻</h6>
+                                    <h6 class="title language_replace">出款流水</h6>
                                     <span class="data ThresholdVal">6000</span>
                                 </li>
                             </ul>

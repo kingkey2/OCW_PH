@@ -635,7 +635,7 @@
                                                 <span class="data ThresholdValue_2">0</span>
                                             </li>
                                         </ul>
-                                        <p class="text-note text-primary language_replace">*獎金和禮金的出金門檻在BOUNS箱領取後才會追加</p>
+                                        <p class="text-note text-primary language_replace">*獎金和禮金的出金流水在BOUNS箱領取後才會追加</p>
                                     </li>
 
                                 </ul>

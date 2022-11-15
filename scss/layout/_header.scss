@@ -644,6 +644,27 @@
         }
 
     }
+    .mobile_download{
+        width: auto;
+        height: auto;
+        padding: 6px 12px;
+        margin: 0 10px 0 0;
+        background: #f3f3f3;
+        border-radius: 20px;
+        img{
+            width: 22px;
+            height: 22px;
+            margin-right: 4px;
+        }
+        span{
+            line-height: 26px;
+            font-size: 1rem;
+            color: #079eb2;
+        }
+        &:hover{
+            background: #e7e7e7;
+        }
+    }
 
 }
 
@@ -1170,4 +1191,10 @@
         opacity: 1;
     }
 
+}
+
+@media (max-width: 1024px){
+    .mobile_download{
+        display:none;
+    }  
 }

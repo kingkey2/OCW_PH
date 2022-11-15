@@ -35,7 +35,7 @@
                             R.Result = 0;
                         } else if (BodyObj.Action == "Finished") {
                             EWinTagInfoData tagInfoData;
-                            //訂單完成，先處理入金產生的門檻
+                            //訂單完成，先處理入金產生的流水
 
                             try { tagInfoData = Newtonsoft.Json.JsonConvert.DeserializeObject<EWinTagInfoData>(BodyObj.TagInfo); } catch (Exception ex) {
                                 tagInfoData = null;
@@ -127,7 +127,8 @@
 
                                                 if (FinishPaymentRet == 0) {
                                                     RedisCache.UserAccount.UpdateUserAccountByLoginAccount(BodyObj.LoginAccount);
-                                                    //若該用戶為首儲需清除PHP_Bonus錢包的餘額及門檻，若PHP_Bonus錢包餘額大於等於200發給該會員200的禮物
+
+                                                    //若該用戶為首儲需清除PHP_Bonus錢包的餘額及流水，若PHP_Bonus錢包餘額大於等於200發給該會員200的禮物
                                                     System.Data.DataTable UserPaymentDT = null;
                                                     int UserDepositCount = 0;
                                                     UserPaymentDT =  RedisCache.UserAccount.GetUserAccountByLoginAccount(BodyObj.LoginAccount);

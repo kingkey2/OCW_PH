@@ -236,6 +236,10 @@
         return paymentClient;
     }
 
+    function API_IsAndroidAPI() {
+        return isAndroid();
+    }
+
 
     function API_GetCurrency() {
         var selectedCurrency;
@@ -281,6 +285,32 @@
             return 1;
         } else if (os.isPc) {
             return 0;
+        }
+    };
+
+    function isAndroid() {
+        var os = function () {
+            var ua = navigator.userAgent,
+                isWindowsPhone = /(?:Windows Phone)/.test(ua),
+                isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+                isAndroid = /(?:Android)/.test(ua),
+                isFireFox = /(?:Firefox)/.test(ua),
+                isChrome = /(?:Chrome|CriOS)/.test(ua),
+                isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+                isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+                isPc = !isPhone && !isAndroid && !isSymbian;
+            return {
+                isTablet: isTablet,
+                isPhone: isPhone,
+                isAndroid: isAndroid,
+                isPc: isPc
+            };
+        }();
+
+        if (os.isAndroid) {
+            return true;
+        } else {
+            return false;
         }
     };
 
@@ -545,6 +575,12 @@
     function API_ShowMessageOK(title, msg, cbOK) {
         return showMessageOK(title, msg, cbOK);
     }
+
+    $(document).on('shown.bs.modal', '#alertSearch', function () {
+        if ($('#search-brand-wrapper').css('display')=='none') {
+            $('.input-fake-select').trigger("click");
+        }
+    });
 
     function API_ShowSearchGameModel() {
         $('#alertSearch').modal('show');
@@ -1684,8 +1720,8 @@
 
             gameCode = gameBrand + "." + gameName;
             $('.headerGameName').text(gameLangName);
-
-            if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
+            if (false) {
+            //if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
                 $('#GameMask').show();
                 gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
                 CloseWindowOpenGamePage(gameWindow);
@@ -1699,7 +1735,7 @@
  + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";--%>
 
                 } else {
-                    if (gameBrand.toUpperCase() == 'CMD') {
+                    if (gameBrand.toUpperCase() == 'CMD' || gameBrand.toUpperCase() == 'EWIN') {
                         $('#GameIFramePage').removeAttr('sandbox');
                     }
 
@@ -2536,7 +2572,6 @@
 
         API_changeAvatarImg(getCookie("selectAvatar"));
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
-
         //resize();
     }
 
@@ -2989,8 +3024,11 @@
 
                                     GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png?` + v;
                                 }
-
-                                ParentMain.append(GBLDom);
+                                if (GBL.GameBrand.toUpperCase() == 'JL' || GBL.GameBrand.toUpperCase() == 'EVO' || GBL.GameBrand.toUpperCase() == 'FC') {
+                                    ParentMain.prepend(GBLDom);
+                                } else {
+                                    ParentMain.append(GBLDom);
+                                }
                             }
                         }
                     } else {
@@ -3352,6 +3390,15 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="nav-item navbarMenu__catagory">
+                                    <ul class="catagory">
+                                        <li class="nav-item submenu dropdown" onclick="window.open('Download/pcdownload.aspx')">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-mobile"></i>
+                                                <span class="title language_replace">Mobile</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <%--
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
@@ -3410,6 +3457,7 @@
                         <div class="header_rightWrapper">
 
                             <div class="header_setting">
+                                <a href="/Download/pcdownload.aspx" target="_blank" class="mobile_download"><img src="images/mobile_head.svg"><span>mobile</span></a>
                                 <ul class="nav header_setting_content">
                                     <!-- Search -->
                                     <li class="navbar-search nav-item">
@@ -3633,6 +3681,11 @@
                                         <img src="/images/logo/footer/logo-cmd.png" alt="">
                                     </div>
                                 </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-bti.png" alt="">
+                                    </div>
+                                </div>
                                 <%-- 
                                 <div class="logo-item">
                                     <div class="img-crop">
@@ -3649,11 +3702,7 @@
                                         <img src="/images/logo/footer/logo-evops.png" alt="">
                                     </div>
                                 </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="/images/logo/footer/logo-bti.png" alt="">
-                                    </div>
-                                </div>
+                                
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-zeus.png" alt="">
@@ -3930,7 +3979,7 @@
                         </div>
 
                         <!-- 品牌LOGO版 Collapse -->
-                        <div class="brand-wrapper">
+                        <div class="brand-wrapper" id="search-brand-wrapper">
                             <div class="modal-header-container">
                                 <div class="brand-inner">
                                     <ul class="brand-popup-list" id="ulSearchGameBrand">

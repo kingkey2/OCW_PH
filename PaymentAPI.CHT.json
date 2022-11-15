@@ -18,7 +18,7 @@
   "CreatePayment Error": "建立訂單失敗",
   "No token": "token 不存在",
   "GetToken Error": "取得 token 失敗",
-  "ThresholdLimit": "未到出金門檻",
+  "ThresholdLimit": "未到出金流水",
   "GetInfoError": "取得資訊失敗",
   "CurrencyNotFound": "指定幣別不存在",
   "GetThresholdError": "取得限額額度失敗",

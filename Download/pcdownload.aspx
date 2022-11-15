@@ -31,7 +31,7 @@
                         <span class="language_replace">GAME APP</span>
                     </div>--%>
                     <div class="dlP_tab dlP_tab2" onclick="onAgent()">
-                        <span class="language_replace">AGENT APP</span>
+                        <span class="language_replace">GAME APP</span>
                     </div>
                 </div>  
                 <!-- game 內容 -->
@@ -55,9 +55,10 @@
                 <!-- -->
                 <div class="dlP_Con agentLoadDiv">
                     <div class="dlP_ConAppInfo">
-                        <div class="dlP_AppIcon"><img src="../images/MaharajaAgent2.png" alt="icon_game"></div>
-                        <div class="dlP_AppType"><span>Agent APP</span></div>
-                        <div class="dlP_AppName"><span>Club Maharaja</span></div>
+                        <div class="dlP_AppIcon"><img src="../images/appdownload_logo.png" alt="icon_game"></div>
+                        <div class="dlP_AppType"><img src="../images/logo.png" alt="Lucky Sprite"></div>
+                        <!-- <span>Agent APP</span> -->
+                        <div class="dlP_AppName"><span>Lucky Sprite game APP</span></div>
                     </div>
                     <div class="dlP_ConAppQrcode">
                         <img class="img" src="images/MaharajaAgentDownLoad.png" alt="qrcode" />

@@ -46,6 +46,10 @@
             window.parent.location.href = "index.aspx";
         }
 
+        if (window.parent.API_IsAndroidAPI()) {
+            $('.icon-copy').hide();
+        }
+
         WebInfo = window.parent.API_GetWebInfo();
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
