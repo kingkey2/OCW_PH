@@ -23,5 +23,6 @@
   "領取時間": "Claim Date",
   "領取": "Claim",
   "可領取": "Congratulations! Claim it now.",
-  "餘額１００以下才可領取": "The balance needs less than 100 to claim."
+  "餘額１００以下才可領取": "The balance needs less than 100 to claim.",
+  "Mismatch Condition": "Mismatch Condition"
 }

@@ -95,6 +95,18 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page {
         return R;
     }
 
+    public decimal GetUserThresholdValue(string LoginAccount) {
+        decimal ThresholdValue = 0;
+        EWin.FANTA.FANTA api = new EWin.FANTA.FANTA();
+        var ApiResult = api.GetUserThresholdValue(GetToken(), System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
+
+        if (ApiResult.ResultState ==   EWin.FANTA.enumResultState.OK) {
+             ThresholdValue = decimal.Parse(ApiResult.Message);
+        }
+
+        return ThresholdValue;
+    }
+
     public string GetToken() {
         string Token;
         int RValue;

@@ -107,13 +107,42 @@
             <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="UserLevelIndex" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="VipBuyChipRateSetting" type="tns:ArrayOfVipBuyChipRateSetting" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="ArrayOfVipBuyChipRateSetting">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="VipBuyChipRateSetting" nillable="true" type="tns:VipBuyChipRateSetting" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VipBuyChipRateSetting">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GameCategoryCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipAddRate" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="UpdateUserLevelResponse">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="UpdateUserLevelResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserThresholdValue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserThresholdValueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserThresholdValueResult" type="tns:APIResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -146,6 +175,12 @@
   <wsdl:message name="UpdateUserLevelSoapOut">
     <wsdl:part name="parameters" element="tns:UpdateUserLevelResponse" />
   </wsdl:message>
+  <wsdl:message name="GetUserThresholdValueSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserThresholdValue" />
+  </wsdl:message>
+  <wsdl:message name="GetUserThresholdValueSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserThresholdValueResponse" />
+  </wsdl:message>
   <wsdl:message name="GetAccountingDetailBySummaryDateHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -174,12 +209,13 @@
   <wsdl:message name="ResetUserPointValueAndThresholdValueByCurrencyTypeHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
-  <wsdl:message name="UpdateUserLevelHttpGetIn">
+  <wsdl:message name="GetUserThresholdValueHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
     <wsdl:part name="LoginAccount" type="s:string" />
-    <wsdl:part name="UserLevelIndex" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
   </wsdl:message>
-  <wsdl:message name="UpdateUserLevelHttpGetOut">
+  <wsdl:message name="GetUserThresholdValueHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="GetAccountingDetailBySummaryDateHttpPostIn">
@@ -210,12 +246,13 @@
   <wsdl:message name="ResetUserPointValueAndThresholdValueByCurrencyTypeHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
-  <wsdl:message name="UpdateUserLevelHttpPostIn">
+  <wsdl:message name="GetUserThresholdValueHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
     <wsdl:part name="LoginAccount" type="s:string" />
-    <wsdl:part name="UserLevelIndex" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
   </wsdl:message>
-  <wsdl:message name="UpdateUserLevelHttpPostOut">
+  <wsdl:message name="GetUserThresholdValueHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:portType name="FANTASoap">
@@ -235,6 +272,10 @@
       <wsdl:input message="tns:UpdateUserLevelSoapIn" />
       <wsdl:output message="tns:UpdateUserLevelSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserThresholdValue">
+      <wsdl:input message="tns:GetUserThresholdValueSoapIn" />
+      <wsdl:output message="tns:GetUserThresholdValueSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="FANTAHttpGet">
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
@@ -249,9 +290,9 @@
       <wsdl:input message="tns:ResetUserPointValueAndThresholdValueByCurrencyTypeHttpGetIn" />
       <wsdl:output message="tns:ResetUserPointValueAndThresholdValueByCurrencyTypeHttpGetOut" />
     </wsdl:operation>
-    <wsdl:operation name="UpdateUserLevel">
-      <wsdl:input message="tns:UpdateUserLevelHttpGetIn" />
-      <wsdl:output message="tns:UpdateUserLevelHttpGetOut" />
+    <wsdl:operation name="GetUserThresholdValue">
+      <wsdl:input message="tns:GetUserThresholdValueHttpGetIn" />
+      <wsdl:output message="tns:GetUserThresholdValueHttpGetOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="FANTAHttpPost">
@@ -267,9 +308,9 @@
       <wsdl:input message="tns:ResetUserPointValueAndThresholdValueByCurrencyTypeHttpPostIn" />
       <wsdl:output message="tns:ResetUserPointValueAndThresholdValueByCurrencyTypeHttpPostOut" />
     </wsdl:operation>
-    <wsdl:operation name="UpdateUserLevel">
-      <wsdl:input message="tns:UpdateUserLevelHttpPostIn" />
-      <wsdl:output message="tns:UpdateUserLevelHttpPostOut" />
+    <wsdl:operation name="GetUserThresholdValue">
+      <wsdl:input message="tns:GetUserThresholdValueHttpPostIn" />
+      <wsdl:output message="tns:GetUserThresholdValueHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="FANTASoap" type="tns:FANTASoap">
@@ -303,6 +344,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateUserLevel">
       <soap:operation soapAction="http://tempuri.org/UpdateUserLevel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserThresholdValue">
+      <soap:operation soapAction="http://tempuri.org/GetUserThresholdValue" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -349,6 +399,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserThresholdValue">
+      <soap12:operation soapAction="http://tempuri.org/GetUserThresholdValue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="FANTAHttpGet" type="tns:FANTAHttpGet">
     <http:binding verb="GET" />
@@ -379,8 +438,8 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdateUserLevel">
-      <http:operation location="/UpdateUserLevel" />
+    <wsdl:operation name="GetUserThresholdValue">
+      <http:operation location="/GetUserThresholdValue" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -418,8 +477,8 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdateUserLevel">
-      <http:operation location="/UpdateUserLevel" />
+    <wsdl:operation name="GetUserThresholdValue">
+      <http:operation location="/GetUserThresholdValue" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

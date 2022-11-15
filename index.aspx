@@ -18,6 +18,8 @@
     int GoEwinLogin = 0;
     string Version = EWinWeb.Version;
     string ImageUrl = EWinWeb.ImageUrl;
+    string EwinLoginUrl = string.Empty;
+
     if (string.IsNullOrEmpty(Request["SID"]) == false) {
         SID = Request["SID"];
     }
@@ -49,6 +51,7 @@
         } else {
             EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
         }
+
         Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(CT) + "&KeepLogin=0" + "&GPSPosition=1" + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
     }
 
@@ -188,6 +191,7 @@
         RegisterType: "<%=RegisterType%>",
         RegisterParentPersonCode: "<%=RegisterParentPersonCode%>",
         DeviceType: getOS(),
+        DeviceType_B: getOS_ForBanner(),
         IsOpenGame: false,
         ImageUrl: "<%=ImageUrl%>"
     };
@@ -206,6 +210,7 @@
     var SearchControll;
     var PCode = "<%=PCode%>";
     var PageType = "<%=PageType%>";
+
     //#region TOP API
     function API_GetGCB() {
         return GCB;
@@ -279,7 +284,33 @@
         }
     };
 
+    function getOS_ForBanner() {
+        var os = function () {
+            var ua = navigator.userAgent,
+                isWindowsPhone = /(?:Windows Phone)/.test(ua),
+                isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+                isAndroid = /(?:Android)/.test(ua),
+                isFireFox = /(?:Firefox)/.test(ua),
+                isChrome = /(?:Chrome|CriOS)/.test(ua),
+                isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+                isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+                isPc = !isPhone && !isAndroid && !isSymbian;
+            return {
+                isTablet: isTablet,
+                isPhone: isPhone,
+                isAndroid: isAndroid,
+                isPc: isPc
+            };
+        }();
 
+        if (os.isTablet) {
+            return 2;
+        } else if (os.isAndroid || os.isPhone) {
+            return 1;
+        } else if (os.isPc) {
+            return 0;
+        }
+    };
 
     // type = 0 , data = gameCode ;  type = 1 , data = gameBrand 
     function API_GetGameLang(lang, GameCode, cb) {
@@ -644,6 +675,22 @@
             }
         });
 
+    }
+
+    function API_GetUserAccountProperty(PropertyName, cb) {
+        lobbyClient.GetUserAccountProperty(EWinWebInfo.SID, Math.uuid(), PropertyName, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.PropertyValue != "") {
+                        var data = o.PropertyValue;
+
+                        if (cb) {
+                            cb(data);
+                        }
+                    }
+                }
+            }
+        });
     }
     //#endregion
 
@@ -3664,7 +3711,7 @@
                     </div>
 
                     <div class="company-detail">
-                        <div class="company-license">
+                        <div class="company-license" style="display:none">
                             <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
                         </div>
                         <div class="company-address">
