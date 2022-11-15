@@ -47,10 +47,6 @@
         window.parent.API_LoadingStart();
     }
 
-    if (window.parent.API_IsAndroidAPI()) {
-        $('.icon-copy').hide();
-    }
-
     var WebInfo;
     var mlp;
     var lang;
@@ -68,6 +64,10 @@
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
+        }
+
+        if (window.parent.API_IsAndroidAPI()) {
+            $('.icon-copy').hide();
         }
 
         WebInfo = window.parent.API_GetWebInfo();
