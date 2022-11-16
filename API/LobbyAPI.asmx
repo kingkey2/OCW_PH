@@ -2265,26 +2265,6 @@ public class LobbyAPI : System.Web.Services.WebService {
         return R;
     }
 
-    [WebMethod]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public  EWin.Lobby.APIResult CheckUserProcessPayment(string WebSID, string GUID) {
-        RedisCache.SessionContext.SIDInfo SI;
-        System.Data.DataTable DT = new System.Data.DataTable();
-        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
-
-        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
-
-        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            DT = EWinWebDB.UserAccountPayment.GetPaymentInfoByLoginAccount(SI.LoginAccount, 0, 1);
-
-            if (DT != null && DT.Rows.Count > 0) {
-                R.Result = EWin.Lobby.enumResult.OK;
-                R.Message = "Have one order in progress";
-            }
-        }
-        return R;
-    }
-
     private static Newtonsoft.Json.Linq.JObject GetActivityDetail(string Path) {
         Newtonsoft.Json.Linq.JObject o = null;
         string Filename;

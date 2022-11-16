@@ -39,7 +39,6 @@
     var mlp;
     var v = "<%:Version%>";
     var lobby;
-    var IsHaveOrderInProgress = 0; //0 = 沒有進行中訂單 / 1 = 有正在進行中的訂單
 
     function init() {
 
@@ -52,7 +51,6 @@
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
-            CheckUserProcessPayment();
             window.parent.API_LoadingEnd();
         }, "PaymentAPI");
 
@@ -101,22 +99,8 @@
         })
     }
 
-    function CheckUserProcessPayment() {
-        lobby.CheckUserProcessPayment(WebInfo.SID, Math.uuid(), function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    IsHaveOrderInProgress = 1;
-                }
-            }
-        })
-    }
-
-    function OpenPage(title,url) {
-        if (IsHaveOrderInProgress == 1) {
-            window.parent.API_ShowMessageOK("", mlp.getLanguageKey("OneOrderInProgress"));
-        } else {
-            window.parent.API_LoadPage(title, url);
-        }
+    function OpenPage(title, url) {
+        window.parent.API_LoadPage(title, url);
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
