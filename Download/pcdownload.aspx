@@ -64,7 +64,7 @@
                         <img class="img" src="images/MaharajaAgentDownLoad.png" alt="qrcode" />
                     </div>
                     <div class="dlP_ConBtnDiv">
-                        <div class="dlP_ConBtn" onclick="javascript:location.href='https://game.ewin-soft.com/GetDownloadLink.aspx?Tag=MDBE0B1K'">
+                        <div class="dlP_ConBtn" onclick="javascript:location.href='/Download/GetDownloadLink.aspx?Tag=MDBE0B1K'">
                             <img src="images/APPSTOREICON.png">
                             <img src="images/APPSTOREICON2.png">
                             <span>Download</span>
