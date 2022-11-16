@@ -479,7 +479,9 @@ public static class ActivityExpand {
             ActivityCore.ActResult<ActivityCore.DepositActivity> R = new ActivityCore.ActResult<ActivityCore.DepositActivity>() { Result = ActivityCore.enumActResult.ERR, Data = new ActivityCore.DepositActivity() };
             JObject ActivityDetail;
             System.Data.DataTable DT;
+            System.Data.DataTable ProgressPaymentDT;
             int DepositCount = 0;
+            bool CanJoinActivity = false;
 
             ActivityDetail = GetActivityDetail(DetailPath);
 
@@ -488,7 +490,20 @@ public static class ActivityExpand {
                 DepositCount = (int)DT.Rows[0]["DepositCount"];
             }
 
+            //若入金次數為0時還要確認該使用者是否有進行中的訂單，有進行中訂單時也等同首儲已使用
             if (DepositCount > 0) {
+                CanJoinActivity = true;
+            } else {
+                ProgressPaymentDT = EWinWebDB.UserAccountPayment.GetInProgressPaymentByLoginAccount(LoginAccount, 0);
+
+                if (ProgressPaymentDT != null && ProgressPaymentDT.Rows.Count > 0) {
+                    CanJoinActivity = true;
+                } else {
+                    CanJoinActivity = false;
+                }
+            }
+
+            if (CanJoinActivity) {
                 if (ActivityDetail != null) {
                     DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
                     DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
@@ -632,7 +647,9 @@ public static class ActivityExpand {
             ActivityCore.ActResult<ActivityCore.DepositActivity> R = new ActivityCore.ActResult<ActivityCore.DepositActivity>() { Result = ActivityCore.enumActResult.ERR, Data = new ActivityCore.DepositActivity() };
             JObject ActivityDetail;
             System.Data.DataTable DT;
+            System.Data.DataTable ProgressPaymentDT;
             int DepositCount = 0;
+            bool CanJoinActivity = false;
 
             ActivityDetail = GetActivityDetail(DetailPath);
 
@@ -640,8 +657,20 @@ public static class ActivityExpand {
             if (DT != null && DT.Rows.Count > 0) {
                 DepositCount = (int)DT.Rows[0]["DepositCount"];
             }
-
+            //若入金次數為0時還要確認該使用者是否有進行中的訂單，有進行中訂單時也不符合條件
             if (DepositCount == 0) {
+                ProgressPaymentDT = EWinWebDB.UserAccountPayment.GetInProgressPaymentByLoginAccount(LoginAccount, 0);
+
+                if (ProgressPaymentDT != null && ProgressPaymentDT.Rows.Count > 0) {
+                    CanJoinActivity = false;
+                } else {
+                    CanJoinActivity = true;
+                }
+            } else {
+                CanJoinActivity = false;
+            }
+
+            if (CanJoinActivity) {
                 if (ActivityDetail != null) {
                     DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
                     DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
