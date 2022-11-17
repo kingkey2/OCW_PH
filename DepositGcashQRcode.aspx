@@ -130,7 +130,7 @@
     }
 
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByPaymentCodeFilterPaymentChannel(WebInfo.SID, Math.uuid(), "EPAY", 0, "EPAY.GcashDirect", WebInfo.UserInfo.UserLevel , function (success, o) {
+        PaymentClient.GetPaymentMethodByPaymentCodeFilterPaymentChannel(WebInfo.SID, Math.uuid(), "EPAY", 0, "EPAY.GcashQRcode", WebInfo.UserInfo.UserLevel , function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
