@@ -467,23 +467,23 @@
                                             </label>
                                         </div>
 
+                                        <div class="btn-radio btn-radio-coinType">
+                                            <input type="radio" name="amount" id="amount3" />
+                                            <label class="btn btn-outline-primary" for="amount3" data-val="20000" onclick="CoinBtn_Click()">
+                                                <span class="coinType gameCoin">
+                                                    <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
+                                                    <span class="coinType-name">PHP</span>
+                                                    <span class="coinType-amount OcoinAmount">20,000</span>
+                                                </span>
+                                            </label>
+                                        </div>
+
                                         <div class="btn-radio btn-radio-coinType" >
                                             <input type="radio" name="amount" id="amount2" />
                                             <label class="btn btn-outline-primary" for="amount2" data-val="50000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
                                                     <span class="coinType-name">PHP</span>
                                                     <span class="coinType-amount OcoinAmount">50,000</span>
-                                                </span>
-                                            </label>
-                                        </div>
-
-                                        <div class="btn-radio btn-radio-coinType" >
-                                            <input type="radio" name="amount" id="amount3" />
-                                            <label class="btn btn-outline-primary" for="amount3" data-val="100000" onclick="CoinBtn_Click()">
-                                                <span class="coinType gameCoin">
-                                                    <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                    <span class="coinType-name">PHP</span>
-                                                    <span class="coinType-amount OcoinAmount">100,000</span>
                                                 </span>
                                             </label>
                                         </div>
