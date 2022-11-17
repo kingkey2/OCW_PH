@@ -3593,13 +3593,11 @@
                     <div class="partner">
                         <div class="logo">
                             <div class="row">
-                                <%--   
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-eWIN.png" alt="">
                                     </div>
                                 </div>
-                                --%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-microgaming.png" alt="">
@@ -3659,7 +3657,6 @@
                                         <img src="/images/logo/footer/logo-bco.png" alt="">
                                     </div>
                                 </div>
-                                <%--  
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-cg.png" alt="">
@@ -3667,7 +3664,18 @@
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-ds88.png" alt="">
+                                    </div>
+                                </div>
+                                <%--  
+                                <div class="logo-item">
+                                    <div class="img-crop">
                                         <img src="/images/logo/footer/logo-playngo.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-xg.png" alt="">
                                     </div>
                                 </div>
                                 --%>
@@ -3683,15 +3691,15 @@
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="/images/logo/footer/logo-bti.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
                                         <img src="/images/logo/footer/logo-wm.png" alt="">
                                     </div>
                                 </div>
                                 <%-- 
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-bti.png" alt="">
+                                    </div>
+                                </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-netent.png" alt="">
