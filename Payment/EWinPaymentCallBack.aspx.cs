@@ -83,7 +83,7 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page {
             decimal RewardValue = 0;
             decimal DepositValue = 0;
             decimal PointValue = 0;
-
+             
             if (ret.ThresholdInfo.Length > 0) {
                 var MainCurrencyThresholdInfo = ret.ThresholdInfo.Where(x => x.CurrencyType == EWinWeb.MainCurrencyType).FirstOrDefault();
 
