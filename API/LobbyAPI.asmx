@@ -1635,7 +1635,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 var UserInfoResult = lobbyAPI.GetUserInfo(Token, SI.EWinSID, GUID);
                 if (UserInfoResult.Result == EWin.Lobby.enumResult.OK) {
                     var Wallet = UserInfoResult.WalletList.Where(x => x.CurrencyType == EWinWeb.MainCurrencyType).FirstOrDefault();
-
+                         
                     decimal OldThresholdValue = 0.0M;
                     if (UserInfoResult.ThresholdInfo.Length > 0) {
                         OldThresholdValue = UserInfoResult.ThresholdInfo[0].ThresholdValue;
