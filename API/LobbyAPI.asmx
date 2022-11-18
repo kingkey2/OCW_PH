@@ -1645,7 +1645,6 @@ public class LobbyAPI : System.Web.Services.WebService {
                         EWin.Lobby.APIResult CollecResult;
 
                         if (Collect.CollectAreaType == 2) {
-
                             CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, SI.EWinSID, GUID, CollectID);
 
                             if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
@@ -1671,13 +1670,25 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 R.Message = "Collect Failure";
                             }
                         } else {
+
+                            if (CheckResetThreshold(SI.LoginAccount)) {
+                                var ResetResult = lobbyAPI.AddThreshold(Token, System.Guid.NewGuid().ToString(), System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
+
+                                if (ResetResult.Result == EWin.Lobby.enumResult.OK) {
+                                    OldThresholdValue = 0;
+                                } else {
+                                    R.Result = EWin.Lobby.enumResult.ERR;
+                                    R.Message = "Reset Failure : " + ResetResult.Message;
+                                }
+                            }
+
                             EWin.Lobby.UserAccountPropertyResult UP = GetUserAccountProperty(WebSID, GUID, "JoinActivity");
 
                             if (OldThresholdValue == 0 || (UP.Result == EWin.Lobby.enumResult.ERR && UP.Message == "NoExist")) {
-
                                 CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, SI.EWinSID, GUID, CollectID);
 
                                 if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
+
                                     string JoinActivityCycle = "1";
                                     decimal ThresholdValue = 0;
                                     decimal PointValue = 0;
@@ -2272,6 +2283,42 @@ public class LobbyAPI : System.Web.Services.WebService {
         }
     }
 
+    public bool CheckResetThreshold(string LoginAccount) {
+        bool R = false;
+        EWin.FANTA.FANTA api = new EWin.FANTA.FANTA();
+        EWin.FANTA.UserThresholdInfo ret = new EWin.FANTA.UserThresholdInfo();
+
+        ret = api.GetUserThresholdInfo(GetToken(), System.Guid.NewGuid().ToString(), LoginAccount);
+
+        if (ret.ResultState == EWin.FANTA.enumResultState.OK) {
+            decimal RewardValue = 0;
+            decimal DepositValue = 0;
+            decimal PointValue = 0;
+
+            if (ret.ThresholdInfo.Length > 0) {
+                var MainCurrencyThresholdInfo = ret.ThresholdInfo.Where(x => x.CurrencyType == EWinWeb.MainCurrencyType).FirstOrDefault();
+
+                RewardValue = MainCurrencyThresholdInfo.RewardValue;
+                DepositValue = MainCurrencyThresholdInfo.DepositValue;
+            }
+
+            PointValue = DepositValue + RewardValue;
+
+            Newtonsoft.Json.Linq.JObject settingJObj = EWinWeb.GetSettingJObj();
+            decimal limitValue;
+
+            if (settingJObj != null) {
+                limitValue = (decimal)settingJObj["ThresholdBaseValue"];
+
+                if (limitValue >= PointValue) {
+                    R = true;
+                }
+            }
+
+        }
+
+        return R;
+    }
 
     private string GetToken() {
         string Token;
