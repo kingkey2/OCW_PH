@@ -47,6 +47,9 @@
   "支付方式": "Payment Method",
   "合約方式": "Contract Type",
   "出款錢包地址": "Withdrawal Wallet Address",
-  "出金確認": "Withdrawal confirmation"
-
+  "出金確認": "Withdrawal confirmation",
+  "銀行名稱": "Bank Name",
+  "持卡人卡號": "Card Number",
+  "持卡人姓名": "Cardholder's Name",
+  "銀行出款": "Bank withdrawal"
 }
