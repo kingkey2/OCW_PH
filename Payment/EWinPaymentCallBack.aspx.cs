@@ -74,11 +74,25 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page {
 
     public bool CheckResetThreshold(string LoginAccount) {
         bool R = false;
-        EWin.OCW.OCW ocwApi = new EWin.OCW.OCW();
-        var ocwApiResult = ocwApi.GetUserPointValue(GetToken(), System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
+        EWin.FANTA.FANTA api = new EWin.FANTA.FANTA();
+        EWin.FANTA.UserThresholdInfo ret = new EWin.FANTA.UserThresholdInfo();
 
-        if (ocwApiResult.ResultState == EWin.OCW.enumResultState.OK) {
-            decimal PointValue = decimal.Parse(ocwApiResult.Message);
+        ret = api.GetUserThresholdInfo(GetToken(), System.Guid.NewGuid().ToString(), LoginAccount);
+
+        if (ret.ResultState == EWin.FANTA.enumResultState.OK) {
+            decimal RewardValue = 0;
+            decimal DepositValue = 0;
+            decimal PointValue = 0;
+
+            if (ret.ThresholdInfo.Length > 0) {
+                var MainCurrencyThresholdInfo = ret.ThresholdInfo.Where(x => x.CurrencyType == EWinWeb.MainCurrencyType).FirstOrDefault();
+
+                RewardValue = MainCurrencyThresholdInfo.RewardValue;
+                DepositValue = MainCurrencyThresholdInfo.DepositValue;
+            }
+
+            PointValue = DepositValue + RewardValue;
+
             Newtonsoft.Json.Linq.JObject settingJObj = EWinWeb.GetSettingJObj();
             decimal limitValue;
 
