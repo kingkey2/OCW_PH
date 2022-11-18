@@ -661,16 +661,16 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md">
-                                <label class="form-title language_replace">姓(羅馬字)</label>
+                                <label class="form-title language_replace">姓</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
+                                    <input type="text" class="form-control custom-style" inputmode="email" name="Name1">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
                             <div class="form-group col-md">
-                                <label class="form-title language_replace">名(羅馬字)</label>
+                                <label class="form-title language_replace">名</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
+                                    <input type="text" class="form-control custom-style" inputmode="email" name="Name2">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
