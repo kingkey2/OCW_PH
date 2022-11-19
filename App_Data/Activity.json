@@ -188,6 +188,10 @@
     {
       "Name": "VIPBirthdayGift",
       "Path": "VIPSetting/VIPBirthdayGift.json"
+    },
+    {
+      "Name": "VipBuyChipGift",
+      "Path": "Common/VipBuyChipGift.json"
     }
   ],
   "All": [

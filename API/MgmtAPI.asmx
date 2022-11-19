@@ -321,6 +321,9 @@ public class MgmtAPI : System.Web.Services.WebService {
                             }
                         }
 
+                        //發放每日返水
+                        sendBuyChipGift(VIPSettingDetail);
+
                         R.Result = enumResult.OK;
 
                     } else {
@@ -650,9 +653,29 @@ public class MgmtAPI : System.Web.Services.WebService {
         EWin.FANTA.APIResult R = new EWin.FANTA.APIResult();
         EWin.FANTA.FANTA API = new EWin.FANTA.FANTA();
 
-        List<EWin.FANTA.VipBuyChipRateSetting>BuyChipAddRate = Newtonsoft.Json.JsonConvert.DeserializeObject<List<EWin.FANTA.VipBuyChipRateSetting>>(VIPSettingDetail[UserLevelIndex]["BuyChipAddRate"].ToString());
+        R = API.UpdateUserLevel(GetToken(), LoginAccount, UserLevelIndex);
 
-        R = API.UpdateUserLevel(GetToken(), LoginAccount, UserLevelIndex, BuyChipAddRate.ToArray());
+        return R;
+    }
+
+    private EWin.FANTA.APIResult sendBuyChipGift(JArray VIPSettingDetail) {
+        EWin.FANTA.APIResult R = new EWin.FANTA.APIResult();
+        EWin.FANTA.FANTA API = new EWin.FANTA.FANTA();
+        string ActivityName = "VipBuyChipGift";
+        int UserLevelIndex = 0;
+        DateTime n = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("yyyy/MM/dd 00:00:00"));
+        string CurrencyType = EWinWeb.MainCurrencyType;
+
+        for (int i = 0; i < VIPSettingDetail.Count; i++) {
+            var k = VIPSettingDetail[i];
+            List<EWin.FANTA.VipBuyChipRateSetting> BuyChipAddRate = Newtonsoft.Json.JsonConvert.DeserializeObject<List<EWin.FANTA.VipBuyChipRateSetting>>(k["BuyChipAddRate"].ToString());
+
+            if (BuyChipAddRate.Count > 0) {
+                UserLevelIndex = (int)k["UserLevelIndex"];
+
+                R = API.AddUserLevelBuyChip(GetToken(), UserLevelIndex, CurrencyType, n, BuyChipAddRate.ToArray());
+            }
+        }
 
         return R;
     }
