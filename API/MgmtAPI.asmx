@@ -673,7 +673,7 @@ public class MgmtAPI : System.Web.Services.WebService {
             if (BuyChipAddRate.Count > 0) {
                 UserLevelIndex = (int)k["UserLevelIndex"];
 
-                R = API.AddUserLevelBuyChip(GetToken(), UserLevelIndex, CurrencyType, n, BuyChipAddRate.ToArray());
+                R = API.AddUserLevelBuyChip(GetToken(), ActivityName, UserLevelIndex, CurrencyType, n, BuyChipAddRate.ToArray());
             }
         }
 
