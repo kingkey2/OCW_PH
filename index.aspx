@@ -208,6 +208,7 @@
     var LobbyGameList = {};
     var UserThisWeekTotalValidBetValueData = [];
     var SearchControll;
+    var clickCount=0;
     var PCode = "<%=PCode%>";
     var PageType = "<%=PageType%>";
 
@@ -2110,6 +2111,18 @@
         //mlpByGameBrand.loadLanguageByOtherFile(EWinWebInfo.EWinUrl + "/GameBrand.", c);      
     }
 
+
+    function chanegelang() {
+        clickCount++;
+
+        if (clickCount == 5) {
+            setLanguage("CHT");
+            $("#btn_PupLangClose").click();
+            clickCount = 0;
+        }
+        
+    }
+
     function switchLang(Lang, isReload) {
         API_ShowLoading();
         var LangText;
@@ -3422,7 +3435,7 @@
                             <li class="nav-item navbarMenu__catagory nav-lang">
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown "
-                                        onclick="showLangProp()">
+                                        onclick="chanegelang()">
                                         <a class="nav-link">
                                             <!-- icon-flag-JP/icon-flag-ZH 切換-->
                                             <i id="langIcon" class="icon icon-mask"></i>
@@ -3790,7 +3803,7 @@
                                     </div>
                                 </label>
                             </li>
-                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
+                            <li class="lang-item custom-control custom-radioValue-lang" onclick="">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
                                     <div class="custom-input radio-button">
