@@ -1,4 +1,12 @@
 ﻿{
+  "出金條件": "Withdrawal Req.",
+  "入金部份": "Deposit Amount",
+  "獎金部份": "Valid Bet Req.",
+  "禮金部份": "Gift",
+  "存入金額": "Deposit Amount",
+  "活動獎勵": "Event bounus",
+  "可得總額": "Total Amount",
+  "*獎金和禮金的出金流水在BOUNS箱領取後才會追加": "The withdrawal valid bet requirements of bonus and gift will be added after claiming BONUS",
   "請輸入金額": "please enter amount",
   "存款": "deposit",
   "輸入存款金額": "enter deposit amount",
@@ -14,9 +22,7 @@
   "下一步": "next",
   "存款細項": "deposit detail",
   "支付方式": "payment method",
-  "出金條件": "Payment Rolling",
   "收款項目": "deposit amount",
-  "存入金額": "point",
   "請輸入購買金額": "Enter the amount you want to buy",
   "訂單建立失敗": "order failed",
   "貨幣未設定匯率": "Currency has no exchange rate set",
@@ -27,8 +33,6 @@
   "請盡速完成交易": "Please complete the transaction as soon as possible",
   "訂單號碼": "order number",
   "交易限制時間": "Trade Limit Time",
-  "可得總額": "Total amount you can earn",
-  "活動獎勵": "Event bounus",
   "前往付款": "Proceed to payment",
   "OCoin為平台使用的專屬遊戲幣。": "OCoin is the exclusive game currency ",
   "請正確使用對應的錢包入款，否則可能造成您入款失敗。": "Please use the corresponding wallet to deposit money correctly, otherwise your deposit may fail.",
@@ -39,9 +43,5 @@
   "存款成功 !": "Successful deposit",
   "您可進入遊戲確認您本次的入金，以及對應的 Bouns 獎勵。": "You can enter the game to confirm your deposit and the corresponding Bouns reward.",
   "溫馨提醒": "remind",
-  "不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。": "Different deposit method may affect when the deposit amount reaches the player's wallet. One business day at the latest is a reasonable range.",
-  "入金部份": "Deposit part",
-  "獎金部份": "Bonus part",
-  "禮金部份": "Gift part",
-  "*獎金和禮金的出金流水在BOUNS箱領取後才會追加": "The withdrawal rolling of bonus and gift money will be added after the BOUNS box is claimed."
+  "不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。": "Different deposit method may affect when the deposit amount reaches the player's wallet. One business day at the latest is a reasonable range."
 }
