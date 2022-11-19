@@ -548,6 +548,7 @@
             return false;
         }
 
+        diabledBtn("btnStep2");
         if ($("#amount").val() != '') {
             var amount = parseFloat($("#amount").val());
             var selPaymentMethod = $("input[name=payment-crypto]:checked.PaymentCode");
@@ -682,7 +683,7 @@
 
         } else {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入購買金額"), function () {
-
+                $("#btnStep2").removeAttr("disabled");
             });
         }
     }
@@ -697,6 +698,7 @@
     }
     //完成訂單
     function ConfirmCryptoWithdrawal() {
+        diabledBtn("btnStep3");
         PaymentClient.ConfirmCryptoWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
@@ -727,6 +729,14 @@
         $('#idEthAddr').text(EthAddress);
         $('#idEthAddrInput').val(EthAddress);
         $('#cryptoimg').attr("src", `/GetQRCode.aspx?QRCode=${EthAddress}&Download=2`);
+    }
+
+    function diabledBtn(btnid) {
+        $("#" + btnid).attr("disabled", "true");
+
+        setTimeout(() => {
+            $("#" + btnid).removeAttr("disabled");
+        }, "3000");
     }
 
     window.onload = init;
@@ -1157,10 +1167,10 @@
                 </div>
 
                 <div class="btn-container mt-2">
-                    <button class="btn btn-primary" data-deposite="step2">
+                    <button class="btn btn-primary" data-deposite="step2" id="btnStep2">
                         <span class="language_replace">下一步</span>
                     </button>
-                    <button class="btn btn-primary" data-deposite="step3">
+                    <button class="btn btn-primary" data-deposite="step3" id="btnStep3">
                         <span class="language_replace">下一步</span>
                     </button>
                     <%--     <button class="btn btn-outline-primary" data-deposite="step4" href="index.aspx">

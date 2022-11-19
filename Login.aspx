@@ -360,6 +360,7 @@
     }
 
     function onBtnSendLogin() {
+        diabledBtn("btnLogin");
         var form = document.getElementById("idFormUserLogin");
 
         initValid(form);
@@ -455,6 +456,14 @@
                 event.currentTarget.value = "+" + value;
             }
         }
+    }
+
+    function diabledBtn(btnid) {
+        $("#" + btnid).attr("disabled", "true");
+
+        setTimeout(() => {
+            $("#" + btnid).removeAttr("disabled");
+        }, "3000");
     }
 
     window.onload = init;
@@ -558,7 +567,7 @@
 
 
                         <div class="btn-container mt-2">
-                            <button type="button" class="btn btn-primary" onclick="onBtnSendLogin()"><span class="language_replace">登入</span></button>
+                            <button type="button" class="btn btn-primary" onclick="onBtnSendLogin()" id="btnLogin"><span class="language_replace">登入</span></button>
                         </div>
                     </form>
                 </div>
