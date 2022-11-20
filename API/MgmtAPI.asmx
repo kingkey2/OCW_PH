@@ -661,7 +661,7 @@ public class MgmtAPI : System.Web.Services.WebService {
     private EWin.FANTA.APIResult sendBuyChipGift(JArray VIPSettingDetail) {
         EWin.FANTA.APIResult R = new EWin.FANTA.APIResult();
         EWin.FANTA.FANTA API = new EWin.FANTA.FANTA();
-        string ActivityName = "VipBuyChipGift";
+        string ActivityName;
         int UserLevelIndex = 0;
         DateTime n = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("yyyy/MM/dd 00:00:00"));
         string CurrencyType = EWinWeb.MainCurrencyType;
@@ -672,7 +672,7 @@ public class MgmtAPI : System.Web.Services.WebService {
 
             if (BuyChipAddRate.Count > 0) {
                 UserLevelIndex = (int)k["UserLevelIndex"];
-
+                ActivityName = "Vip" + UserLevelIndex + "BuyChipGift";
                 R = API.AddUserLevelBuyChip(GetToken(), ActivityName, UserLevelIndex, CurrencyType, n, BuyChipAddRate.ToArray());
             }
         }

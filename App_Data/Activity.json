@@ -190,8 +190,44 @@
       "Path": "VIPSetting/VIPBirthdayGift.json"
     },
     {
-      "Name": "VipBuyChipGift",
-      "Path": "Common/VipBuyChipGift.json"
+      "Name": "Vip0BuyChipGift",
+      "Path": "VipBuyChipGift/Vip0BuyChipGift.json"
+    },
+    {
+      "Name": "Vip1BuyChipGift",
+      "Path": "VipBuyChipGift/Vip1BuyChipGift.json"
+    },
+    {
+      "Name": "Vip2BuyChipGift",
+      "Path": "VipBuyChipGift/Vip2BuyChipGift.json"
+    },
+    {
+      "Name": "Vip3BuyChipGift",
+      "Path": "VipBuyChipGift/Vip3BuyChipGift.json"
+    },
+    {
+      "Name": "Vip4BuyChipGift",
+      "Path": "VipBuyChipGift/Vip4BuyChipGift.json"
+    },
+    {
+      "Name": "Vip5BuyChipGift",
+      "Path": "VipBuyChipGift/Vip5BuyChipGift.json"
+    },
+    {
+      "Name": "Vip6BuyChipGift",
+      "Path": "VipBuyChipGift/Vip6BuyChipGift.json"
+    },
+    {
+      "Name": "Vip7BuyChipGift",
+      "Path": "VipBuyChipGift/Vip7BuyChipGift.json"
+    },
+    {
+      "Name": "Vip8BuyChipGift",
+      "Path": "VipBuyChipGift/Vip8BuyChipGift.json"
+    },
+    {
+      "Name": "Vip9BuyChipGift",
+      "Path": "VipBuyChipGift/Vip9BuyChipGift.json"
     }
   ],
   "All": [
