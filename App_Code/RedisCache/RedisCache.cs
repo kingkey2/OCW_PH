@@ -1777,7 +1777,7 @@ public static class RedisCache {
             Key = XMLPath + ":LoginAccount:" + LoginAccount;
             for (int I = 0; I <= 3; I++) {
                 try {
-                    JsonStringWriteToRedis(DBIndex, JsonData, Key, 3600);
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, 300);
                     break;
                 } catch (Exception ex) {
                 }

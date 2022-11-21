@@ -3077,30 +3077,30 @@
                                         <tr class="tbody__tr">
                                             <td class="tbody__td language_replace">體育返水</td>
                                             <td class="tbody__td"> - </td>
-                                            <td class="tbody__td"> - </td>
-                                            <td class="tbody__td"> - </td>
-                                            <td class="tbody__td">1.50%</td>
-                                            <td class="tbody__td">2%</td>
-                                            <td class="tbody__td">2.50%</td>
-                                            <td class="tbody__td">3%</td>
-                                            <td class="tbody__td">3.50%</td>
-                                            <td class="tbody__td">4%</td>
-                                            <td class="tbody__td">4.50%</td>
-                                            <td class="tbody__td">5%</td>
+                                            <td class="tbody__td">0.50‰</td>
+                                            <td class="tbody__td">1.00‰</td>
+                                            <td class="tbody__td">1.50‰</td>
+                                            <td class="tbody__td">2‰</td>
+                                            <td class="tbody__td">2.50‰</td>
+                                            <td class="tbody__td">3‰</td>
+                                            <td class="tbody__td">3.50‰</td>
+                                            <td class="tbody__td">4‰</td>
+                                            <td class="tbody__td">4.50‰</td>
+                                            <td class="tbody__td">5‰</td>
                                         </tr>
                                         <tr class="tbody__tr">
                                             <td class="tbody__td language_replace">真人返水</td>
                                             <td class="tbody__td"> - </td>
                                             <td class="tbody__td"> - </td>
                                             <td class="tbody__td"> - </td>
-                                            <td class="tbody__td">1.50%</td>
-                                            <td class="tbody__td">2%</td>
-                                            <td class="tbody__td">2.50%</td>
-                                            <td class="tbody__td">3%</td>
-                                            <td class="tbody__td">3.50%</td>
-                                            <td class="tbody__td">4%</td>
-                                            <td class="tbody__td">4.50%</td>
-                                            <td class="tbody__td">5%</td>
+                                            <td class="tbody__td">1.50‰</td>
+                                            <td class="tbody__td">2‰</td>
+                                            <td class="tbody__td">2.50‰</td>
+                                            <td class="tbody__td">3‰</td>
+                                            <td class="tbody__td">3.50‰</td>
+                                            <td class="tbody__td">4‰</td>
+                                            <td class="tbody__td">4.50‰</td>
+                                            <td class="tbody__td">5‰</td>
                                         </tr>
                                         <tr class="tbody__tr">
                                             <td class="tbody__td language_replace">電子返水</td>
@@ -3108,13 +3108,13 @@
                                             <td class="tbody__td"> - </td>
                                             <td class="tbody__td"> - </td>
                                             <td class="tbody__td"> - </td>
-                                            <td class="tbody__td">2%</td>
-                                            <td class="tbody__td">2.50%</td>
-                                            <td class="tbody__td">3%</td>
-                                            <td class="tbody__td">3.50%</td>
-                                            <td class="tbody__td">4%</td>
-                                            <td class="tbody__td">4.50%</td>
-                                            <td class="tbody__td">5%</td>
+                                            <td class="tbody__td">2‰</td>
+                                            <td class="tbody__td">2.50‰</td>
+                                            <td class="tbody__td">3‰</td>
+                                            <td class="tbody__td">3.50‰</td>
+                                            <td class="tbody__td">4‰</td>
+                                            <td class="tbody__td">4.50‰</td>
+                                            <td class="tbody__td">5‰</td>
                                         </tr>
                                     </tbody>
                                 </table>

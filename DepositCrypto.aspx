@@ -615,6 +615,7 @@
 
     //建立訂單
     function CreateCryptoDeposit() {
+        diabledBtn("btnStep2");
         if ($("#amount").val() != '') {
             var amount = parseFloat($("#amount").val());
             var selePaymentMethodID = $("input[name=payment-crypto]:checked.PaymentCode").val();
@@ -703,7 +704,7 @@
         } else {
             window.parent.API_LoadingEnd(1);
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入購買金額"), function () {
-
+                $("#btnStep2").removeAttr("disabled");
             });
         }
     }
@@ -738,6 +739,7 @@
 
     //完成訂單
     function ConfirmCryptoDeposit() {
+        diabledBtn("btnstep3");
         PaymentClient.ConfirmCryptoDeposit(WebInfo.SID, Math.uuid(), OrderNumber, ActivityNames, function (success, o) {
             window.parent.API_LoadingEnd(1);
             if (success) {
@@ -913,6 +915,14 @@
 
             modal.toggle();
         }
+    }
+
+    function diabledBtn(btnid) {
+        $("#" + btnid).attr("disabled", "true");
+
+        setTimeout(() => {
+            $("#" + btnid).removeAttr("disabled");
+        }, "3000");
     }
 
     window.onload = init;
@@ -1341,10 +1351,10 @@
                 </div>
 
                 <div class="btn-container mt-2">
-                    <button class="btn btn-primary" data-deposite="step2">
+                    <button class="btn btn-primary" data-deposite="step2" id="btnstep2">
                         <span class="language_replace">下一步</span>
                     </button>
-                    <button class="btn btn-primary" data-deposite="step3">
+                    <button class="btn btn-primary" data-deposite="step3" id="btnstep3">
                         <span class="language_replace">下一步</span>
                     </button>
                     <%--    <button class="btn btn-outline-primary" data-deposite="step4" href="index.aspx">

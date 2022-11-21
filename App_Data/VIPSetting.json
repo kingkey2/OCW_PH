@@ -46,12 +46,12 @@
       "KeepValidBetValue": 18000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Live",
-          "BuyChipRateExt": 1.5
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 1.5
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipRateExt": 1.5
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 1.5
         }
       ]
     },
@@ -65,24 +65,24 @@
       "KeepValidBetValue": 60000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipRateExt": 2
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 2
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipRateExt": 2
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 2
         },
         {
-          "GameCategoryCode": "Sports",
+          "GameAccountingCode": "Sports",
           "BuyChipAddRate": 2
         },
         {
-          "GameCategoryCode": "Electron.Fish",
-          "BuyChipRateExt": 2
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 2
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipRateExt": 2
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 2
         }
       ]
     },
@@ -96,24 +96,24 @@
       "KeepValidBetValue": 250000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipRateExt": 2.5
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 2.5
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipRateExt": 2.5
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 2.5
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipRateExt": 2.5
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 2.5
         },
         {
-          "GameCategoryCode": "Electron.Fish",
-          "BuyChipRateExt": 2.5
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 2.5
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipRateExt": 2.5
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 2.5
         }
       ]
     },
@@ -127,24 +127,24 @@
       "KeepValidBetValue": 600000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipRateExt": 3
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 3
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipRateExt": 3
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 3
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipRateExt": 3
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 3
         },
         {
-          "GameCategoryCode": "Electron.Fish",
-          "BuyChipRateExt": 3
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 3
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipRateExt": 3
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 3
         }
       ]
     },
@@ -158,24 +158,24 @@
       "KeepValidBetValue": 1800000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipRateExt": 3.5
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 3.5
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipRateExt": 3.5
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 3.5
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipRateExt": 3.5
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 3.5
         },
         {
-          "GameCategoryCode": "Electron.Fish",
-          "BuyChipRateExt": 3.5
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 3.5
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipRateExt": 3.5
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 3.5
         }
       ]
     },
@@ -189,24 +189,24 @@
       "KeepValidBetValue": 6000000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipRateExt": 4
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 4
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipRateExt": 4
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 4
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipRateExt": 4
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 4
         },
         {
-          "GameCategoryCode": "Electron.Fish",
-          "BuyChipRateExt": 4
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 4
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipRateExt": 4
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 4
         }
       ]
     },
@@ -220,24 +220,24 @@
       "KeepValidBetValue": 25000000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipRateExt": 4.5
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 4.5
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipRateExt": 4.5
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 4.5
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipRateExt": 4.5
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 4.5
         },
         {
-          "GameCategoryCode": "Electron.Fish",
-          "BuyChipRateExt": 4.5
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 4.5
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipRateExt": 4.5
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 4.5
         }
       ]
     },
@@ -251,24 +251,24 @@
       "KeepValidBetValue": 50000000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipRateExt": 5
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 5
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipRateExt": 5
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 5
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipRateExt": 5
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 5
         },
         {
-          "GameCategoryCode": "Electron.Fish",
-          "BuyChipRateExt": 5
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 5
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipRateExt": 5
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 5
         }
       ]
     }

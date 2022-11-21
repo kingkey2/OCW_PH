@@ -358,9 +358,11 @@
 
     //建立訂單
     function CreateEPayWithdrawal() {
+        diabledBtn("btnStep2");
         if ($("#SearchCard").val() == '-1') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇 GCash 帳號"), function () { });
             window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
             return false;
         }
 
@@ -373,18 +375,21 @@
         if ($("#amount").val().trim() == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"), function () { });
             window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
             return false;
         }
 
         if (phoneNumber == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入電話"), function () { });
             window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
             return false;
         }
 
         if(!$('#CheckAward').prop("checked")){
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請勾選確認出金注意事項"), function () { });
             window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
             return false;
         }
 
@@ -394,6 +399,7 @@
         if (wallet.PointValue < amount) {
             window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("餘額不足"));
             window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
             return;
         }
 
@@ -505,6 +511,7 @@
 
     //完成訂單
     function ConfirmEPayWithdrawal() {
+        diabledBtn("btnStep3");
         var bankName = 'Gcash';
         var bankcarddata = BankCardData.find(w => w.BankCardGUID == $("#SearchCard").val());
 
@@ -536,6 +543,14 @@
                 });
             }
         })
+    }
+
+    function diabledBtn(btnid) {
+        $("#" + btnid).attr("disabled", "true");
+
+        setTimeout(() => {
+            $("#" + btnid).removeAttr("disabled");
+        }, "3000");
     }
 
     window.onload = init;
@@ -948,10 +963,10 @@
                 </div>
 
                 <div class="btn-container mt-4">
-                    <button class="btn btn-primary" data-deposite="step2">
+                    <button class="btn btn-primary" data-deposite="step2" id="btnStep2">
                         <span class="language_replace">下一步</span>
                     </button>
-                    <button class="btn btn-primary" data-deposite="step3">
+                    <button class="btn btn-primary" data-deposite="step3" id="btnStep3">
                         <span class="language_replace">下一步</span>
                     </button>
                     <%--     <button class="btn btn-outline-primary" data-deposite="step4" href="index.aspx">

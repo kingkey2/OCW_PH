@@ -331,9 +331,11 @@
 
     //建立訂單
     function CreateEPayWithdrawal() {
+        diabledBtn("btnStep2");
         if ($("#SearchCard").val() == '-1') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇銀行卡"), function () { });
             window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
             return false;
         }
 
@@ -346,18 +348,21 @@
         if ($("#amount").val().trim() == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"), function () { });
             window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
             return false;
         }
 
         if (idWalletPassword == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入錢包密碼"), function () { });
             window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
             return false;
         }
 
         if(!$('#CheckAward').prop("checked")){
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請勾選確認出金注意事項"), function () { });
             window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
             return false;
         }
 
@@ -519,6 +524,14 @@
                 });
             }
         })
+    }
+
+    function diabledBtn(btnid) {
+        $("#" + btnid).attr("disabled", "true");
+
+        setTimeout(() => {
+            $("#" + btnid).removeAttr("disabled");
+        }, "3000");
     }
 
     window.onload = init;
@@ -970,10 +983,10 @@
                 </div>
 
                 <div class="btn-container mt-4">
-                    <button class="btn btn-primary" data-deposite="step2">
+                    <button class="btn btn-primary" data-deposite="step2" id="btnStep2">
                         <span class="language_replace">下一步</span>
                     </button>
-                    <button class="btn btn-primary" data-deposite="step3">
+                    <button class="btn btn-primary" data-deposite="step3" id="btnStep3">
                         <span class="language_replace">下一步</span>
                     </button>
                     <%--     <button class="btn btn-outline-primary" data-deposite="step4" href="index.aspx">

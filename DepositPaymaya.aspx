@@ -163,6 +163,7 @@
 
     //建立訂單
     function CreatePayPalDeposit() {
+        diabledBtn("btnStep2");
         if ($("#amount").val() != '') {
             var amount = parseFloat($("#amount").val());
             var paymentID = PaymentMethod[0]["PaymentMethodID"];
@@ -212,7 +213,7 @@
         } else {
             window.parent.API_LoadingEnd(1);
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入購買金額"), function () {
-
+                $("#btnStep2").removeAttr("disabled");
             });
         }
     }
@@ -317,6 +318,7 @@
     }
 
     function ConfirmPayPalDeposit() {
+        diabledBtn("btnStep3");
         PaymentClient.ConfirmEPayDeposit(WebInfo.SID, Math.uuid(), OrderNumber, ActivityNames, lang,"EPay",0,function (success, o) {
             window.parent.API_LoadingEnd(1);
              if (success) {
@@ -378,6 +380,14 @@
 
     function supplement(nn) {
         return nn = nn < 10 ? '0' + nn : nn;
+    }
+
+    function diabledBtn(btnid) {
+        $("#" + btnid).attr("disabled", "true");
+
+        setTimeout(() => {
+            $("#" + btnid).removeAttr("disabled");
+        }, "3000");
     }
 
     window.onload = init;
@@ -648,10 +658,10 @@
                 </div>--%>
 
                 <div class="btn-container">
-                    <button class="btn btn-primary" data-deposite="step2">
+                    <button class="btn btn-primary" data-deposite="step2" id="btnStep2">
                         <span class="language_replace">下一步</span>
                     </button>
-                    <button class="btn btn-primary" data-deposite="step3">
+                    <button class="btn btn-primary" data-deposite="step3" id="btnStep3">
                         <span class="language_replace">下一步</span>
                     </button>
                     <%--<button class="btn btn-outline-primary" data-deposite="step4" onclick="goBack()" style="display: none">
