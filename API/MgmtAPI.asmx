@@ -256,7 +256,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                         if (IsUserAccountLevelDBHasData) {
                                             //等級有升級時再更新
                                             if (NewUserLevelIndex > UserLevelIndex) {
-                                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex, VIPSettingDetail);
+                                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
                                                 EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                             }
                                         } else {
@@ -277,7 +277,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                                 NewUserLevelIndex = UserLevelIndex - 1;
 
                                                 CheckUpgrade = false;
-                                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex, VIPSettingDetail);
+                                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
 
                                                 //更新會員等級資料
                                                 if (IsUserAccountLevelDBHasData) {
@@ -306,7 +306,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                                 if (NewUserLevelIndex > UserLevelIndex) {
                                                     //3以後才有禮物
                                                     SendUpgradeGift(LoginAccount);
-                                                    updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex, VIPSettingDetail);
+                                                    updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
                                                     EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
                                                 }
                                             } else {
@@ -486,6 +486,37 @@ public class MgmtAPI : System.Web.Services.WebService {
         }
     }
 
+    private void SendUpgradeGiftByUserLevelIndex(string LoginAccount, int UserLevelIndex) {
+        System.Data.DataTable DT;
+        string ActivityName = string.Empty;
+        JObject ActivityDetail;
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        ActivityDetail = GetActivityDetail("/App_Data/ActivityDetail/VIPSetting/VIPLev" + UserLevelIndex+".json");
+        if (ActivityDetail != null) {
+            ActivityName = (string)ActivityDetail["Name"];
+
+            DT = EWinWebDB.UserAccountEventBonusHistory.GetBonusHistoryByLoginAccountActivityName(LoginAccount, ActivityName);
+
+            if (DT != null && DT.Rows.Count > 0) {
+
+            } else {
+                List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+
+                string description =  ActivityDetail["Name"].ToString();
+                decimal ThresholdValue = (decimal)ActivityDetail["ThresholdValue"];
+                decimal BonusValue = (decimal)ActivityDetail["BonusValue"];
+                string JoinActivityCycle = "1";
+                string CollectAreaType =  ActivityDetail["CollectAreaType"].ToString() == null ? "2" :  ActivityDetail["CollectAreaType"].ToString();
+
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value =  ThresholdValue.ToString() });
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value =  BonusValue.ToString() });
+
+                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_UpgradeGift", LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, ThresholdValue, BonusValue);
+            }
+        }
+    }
+
     [WebMethod]
     public APIResult SendVIPMonthGift(string password) {
         APIResult R = new APIResult();
@@ -644,12 +675,76 @@ public class MgmtAPI : System.Web.Services.WebService {
         return R;
     }
 
-    public void updateEwinUserLevelInfo(string LoginAccount, int UserLevelIndex, JArray VIPSettingDetail) {
-        updateEwinUserLevel(LoginAccount, UserLevelIndex, VIPSettingDetail);
+    [WebMethod]
+    public APIResult ManualUserLevelAdjust(string Password, string LoginAccount, int NewUserLevelIndex) {
+        APIResult R = new APIResult() { Result = enumResult.ERR };
+        JObject VIPSetting;
+        JArray VIPSettingDetail;
+        int ActivityState = 1;
+        int KeepLevelDays = 30;
+        DateTime ActivityStartDate;
+        DateTime ActivityEndDate;
+        int UserLevelIndex_Now = 0;
+        System.Data.DataTable UTSDT = new System.Data.DataTable();
+        System.Data.DataTable DT = new System.Data.DataTable();
+        System.Data.DataTable UserLevDT = new System.Data.DataTable();
+
+        if (CheckPassword(Password)) {
+            VIPSetting = GetActivityDetail("../App_Data/VIPSetting.json");
+
+            if (VIPSetting != null) {
+                ActivityState = (int)VIPSetting["State"];
+                ActivityStartDate = DateTime.Parse(VIPSetting["StartDate"].ToString());
+                ActivityEndDate = DateTime.Parse(VIPSetting["EndDate"].ToString());
+                VIPSettingDetail = JArray.Parse(VIPSetting["VIPSetting"].ToString());
+                KeepLevelDays = (int)VIPSetting["KeepLevelDays"];
+
+                if (ActivityState == 0) {
+                    if (DateTime.Now >= ActivityStartDate && DateTime.Now < ActivityEndDate) {
+                        //取UserAccountTotalSummary資料 
+                        DT = EWinWebDB.UserAccount.GetUserAccount(LoginAccount);
+
+                        if (DT != null && DT.Rows.Count > 0) {
+                            UserLevelIndex_Now = (int)DT.Rows[0]["UserLevelIndex"];
+
+                            if (UserLevelIndex_Now != NewUserLevelIndex) {
+                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
+                                EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+                                //發升級禮物
+                                if (NewUserLevelIndex > UserLevelIndex_Now) {
+                                    for (int i = 1; i <= NewUserLevelIndex-UserLevelIndex_Now; i++) {
+                                        SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex_Now + i);
+                                    }
+                                }
+                                RedisCache.UserAccount.UpdateUserAccountByLoginAccount(LoginAccount);
+                                RedisCache.UserAccountVIPInfo.DeleteUserAccountVIPInfo(LoginAccount);
+                            }
+                        }
+
+                        R.Result = enumResult.OK;
+
+                    } else {
+                        SetResultException(R, "ActivityIsExpired");
+                    }
+                } else {
+                    SetResultException(R, "ActivityIsExpired");
+                }
+
+            } else {
+                SetResultException(R, "ActivityIsExpired");
+            }
+        } else {
+            SetResultException(R, "InvalidPassword");
+        }
+        return R;
+    }
+
+    public void updateEwinUserLevelInfo(string LoginAccount, int UserLevelIndex) {
+        updateEwinUserLevel(LoginAccount, UserLevelIndex);
         setUserAccountProperty(LoginAccount, System.Guid.NewGuid().ToString(), "UserLevelUpdateDate", DateTime.Now.ToString("yyyy/MM/dd"));
     }
 
-    private EWin.FANTA.APIResult updateEwinUserLevel(string LoginAccount, int UserLevelIndex, JArray VIPSettingDetail) {
+    private EWin.FANTA.APIResult updateEwinUserLevel(string LoginAccount, int UserLevelIndex) {
         EWin.FANTA.APIResult R = new EWin.FANTA.APIResult();
         EWin.FANTA.FANTA API = new EWin.FANTA.FANTA();
 
