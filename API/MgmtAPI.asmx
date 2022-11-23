@@ -474,13 +474,15 @@ public class MgmtAPI : System.Web.Services.WebService {
 
                 string description = activityData.ActivityName;
                 string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
+                string PromotionCode = "";
+                string PromotionCategoryCode = "";
                 CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 
                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_UpgradeGift" , LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_UpgradeGift", LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                 EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
             }
         }
@@ -505,13 +507,15 @@ public class MgmtAPI : System.Web.Services.WebService {
                 string description =  ActivityDetail["Name"].ToString();
                 decimal ThresholdValue = (decimal)ActivityDetail["ThresholdValue"];
                 decimal BonusValue = (decimal)ActivityDetail["BonusValue"];
+                string PromotionCode = "";
+                string PromotionCategoryCode = "";
                 string JoinActivityCycle = "1";
                 string CollectAreaType =  ActivityDetail["CollectAreaType"].ToString() == null ? "2" :  ActivityDetail["CollectAreaType"].ToString();
 
                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value =  ThresholdValue.ToString() });
                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value =  BonusValue.ToString() });
 
-                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_UpgradeGift", LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_UpgradeGift", LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                 EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, ThresholdValue, BonusValue);
             }
         }
@@ -528,6 +532,8 @@ public class MgmtAPI : System.Web.Services.WebService {
         int MinLevelIndex = 0;   //最低可取得月禮物的等級
         bool IsUserLevelIndexSupport = false;
         string LoginAccount;
+        string PromotionCode = "";
+        string PromotionCategoryCode = "";
         List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
 
@@ -572,7 +578,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
                                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                                        lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_" + System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                        lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_" + System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                                         EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, ThresholdValue, BonusValue);
 
                                     }
@@ -607,6 +613,8 @@ public class MgmtAPI : System.Web.Services.WebService {
         int MinLevelIndex = 0;   //最低可取得月禮物的等級
         bool IsUserLevelIndexSupport = false;
         string LoginAccount;
+        string PromotionCode = "";
+        string PromotionCategoryCode = "";
         List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
 
@@ -651,7 +659,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
                                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                                        lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_" + System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                        lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_" + System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                                         EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, ThresholdValue, BonusValue);
 
                                     }
@@ -1166,6 +1174,8 @@ public class MgmtAPI : System.Web.Services.WebService {
             decimal ThresholdValue = 0;
             decimal OneBonus = 1000;
             decimal AttendanceBonus = 3000;
+            string PromotionCode = "";
+            string PromotionCategoryCode = "";
 
             start = currentTime.AddDays(-7); //上禮拜5
             end = currentTime;
@@ -1197,7 +1207,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
 
-                        ret_AddPromotionCollect = lobbyAPI.AddPromotionCollect(GetToken(), PromotionCollectKey, LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
+                        ret_AddPromotionCollect = lobbyAPI.AddPromotionCollect(GetToken(), PromotionCollectKey, LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, 2, 90, description, PropertySets.ToArray());
 
                         if (ret_AddPromotionCollect.Result == EWin.Lobby.enumResult.OK) {
                             R.Result = enumResult.OK;
@@ -1233,11 +1243,13 @@ public class MgmtAPI : System.Web.Services.WebService {
         List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
         string description = ActivityName;
         string GUID = System.Guid.NewGuid().ToString();
+        string PromotionCode = "";
+        string PromotionCategoryCode = "";
 
         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
 
-        lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, CollectAreaType, 90, description, PropertySets.ToArray());
+        lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, CollectAreaType, 90, description, PropertySets.ToArray());
         //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, 1, decimal.Parse(ThresholdValue), decimal.Parse(BonusValue));
         //}
     }

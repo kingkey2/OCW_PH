@@ -5,6 +5,8 @@
     string GUID = System.Guid.NewGuid().ToString();
     string Token = GetToken();
     string PromotionCollectKey;
+    string PromotionCode = "";
+    string PromotionCategoryCode = "";
 
     if (CodingControl.FormSubmit()) {
         string PostBody = String.Empty;
@@ -61,7 +63,7 @@
                                         description = "Deposit, PaymentCode=" + tagInfoData.PaymentCode + ", Amount=" + BodyObj.Amount;
                                         ResetThreshold = CheckResetThreshold(BodyObj.LoginAccount);
                                         ThresholdValue = GetUserThresholdValue(BodyObj.LoginAccount);
-                                         
+
                                         if (ThresholdValue == 0) {
                                             lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinActivity");
                                         }
@@ -76,6 +78,8 @@
                                                     List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
                                                     description = activityData.ActivityName;
                                                     PromotionCollectKey = description + "_" + BodyObj.ClientOrderNumber;
+                                                    PromotionCode = "";
+                                                    PromotionCategoryCode = "";
                                                     JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
                                                     CollectAreaType = activityData.CollectAreaType == null ? "1" : activityData.CollectAreaType;
 
@@ -83,7 +87,7 @@
                                                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                                                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                                                    lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                                    lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                                                     EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
                                                 }
                                             }
@@ -109,6 +113,8 @@
                                                         List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
                                                         description = activityData.ActivityName;
                                                         PromotionCollectKey = description + "_" + BodyObj.ClientOrderNumber;
+                                                        PromotionCode = "";
+                                                        PromotionCategoryCode = "";
                                                         JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
                                                         CollectAreaType = activityData.CollectAreaType == null ? "1" : activityData.CollectAreaType;
 
@@ -116,7 +122,7 @@
                                                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                                                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                                                        lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, activityData.ParentLoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                                        lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, activityData.ParentLoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                                                         EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, 0, 0);
                                                     }
                                                 }
@@ -147,13 +153,15 @@
                                                             if (UserPointVal >= 200) {
                                                                 List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
                                                                 description = "BS001";
+                                                                PromotionCode = "";
+                                                                PromotionCategoryCode = "";
                                                                 PromotionCollectKey = description + "_" + BodyObj.LoginAccount;
 
                                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = "0" });
                                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = "200" });
                                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = "1" });
 
-                                                                lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
+                                                                lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, 2, 90, description, PropertySets.ToArray());
                                                             }
                                                         }
 
