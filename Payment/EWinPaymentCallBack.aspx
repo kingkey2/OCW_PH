@@ -161,6 +161,7 @@
                                                     }
 
                                                     R.Result = 0;
+                                                    RedisCache.UserAccountVIPInfo.DeleteUserAccountVIPInfo(BodyObj.LoginAccount);
                                                     RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
                                                     ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
                                                     RedisCache.UserAccount.UpdateUserAccountByLoginAccount(BodyObj.LoginAccount);
