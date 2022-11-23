@@ -519,6 +519,8 @@
             <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PromotionCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PromotionCategoryCode" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="CollectAreaType" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="ExpireDay" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
