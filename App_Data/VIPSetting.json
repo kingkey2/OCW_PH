@@ -47,11 +47,11 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 1.5
+          "BuyChipRate": 0.15
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 1.5
+          "BuyChipRate": 0.15
         }
       ]
     },
@@ -66,23 +66,23 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 2
+          "BuyChipRate": 0.2
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 2
+          "BuyChipRate": 0.2
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipAddRate": 2
+          "BuyChipAddRate": 0.2
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 2
+          "BuyChipRate": 0.2
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 2
+          "BuyChipRate": 0.2
         }
       ]
     },
@@ -97,23 +97,23 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 2.5
+          "BuyChipRate": 0.25
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 2.5
+          "BuyChipRate": 0.25
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 2.5
+          "BuyChipRate": 0.25
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 2.5
+          "BuyChipRate": 0.25
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 2.5
+          "BuyChipRate": 0.25
         }
       ]
     },
@@ -128,23 +128,23 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 3
+          "BuyChipRate": 0.3
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 3
+          "BuyChipRate": 0.3
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 3
+          "BuyChipRate": 0.3
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 3
+          "BuyChipRate": 0.3
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 3
+          "BuyChipRate": 0.3
         }
       ]
     },
@@ -159,23 +159,23 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 3.5
+          "BuyChipRate": 0.35
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 3.5
+          "BuyChipRate": 0.35
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 3.5
+          "BuyChipRate": 0.35
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 3.5
+          "BuyChipRate": 0.35
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 3.5
+          "BuyChipRate": 0.35
         }
       ]
     },
@@ -190,23 +190,23 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 4
+          "BuyChipRate": 0.4
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 4
+          "BuyChipRate": 0.4
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 4
+          "BuyChipRate": 0.4
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 4
+          "BuyChipRate": 0.4
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 4
+          "BuyChipRate": 0.4
         }
       ]
     },
@@ -221,23 +221,23 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 4.5
+          "BuyChipRate": 0.45
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 4.5
+          "BuyChipRate": 0.45
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 4.5
+          "BuyChipRate": 0.45
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 4.5
+          "BuyChipRate": 0.45
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 4.5
+          "BuyChipRate": 0.45
         }
       ]
     },
@@ -252,23 +252,23 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 5
+          "BuyChipRate": 0.5
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 5
+          "BuyChipRate": 0.5
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 5
+          "BuyChipRate": 0.5
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 5
+          "BuyChipRate": 0.5
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 5
+          "BuyChipRate": 0.5
         }
       ]
     }
