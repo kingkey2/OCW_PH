@@ -24,7 +24,13 @@
       "ValidBetMinValue": 3000,
       "ValidBetMaxValue": 12000,
       "KeepValidBetValue": 2000,
-      "BuyChipAddRate": []
+      "BuyChipAddRate": [
+        {
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 0.05,
+          "ThresholdRate": 3
+        }
+      ]
     },
     {
       "UserLevelIndex": 2,
@@ -34,7 +40,13 @@
       "ValidBetMinValue": 12000,
       "ValidBetMaxValue": 60000,
       "KeepValidBetValue": 5000,
-      "BuyChipAddRate": []
+      "BuyChipAddRate": [
+        {
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 0.1,
+          "ThresholdRate": 3
+        }
+      ]
     },
     {
       "UserLevelIndex": 3,
@@ -47,11 +59,13 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 0.15
+          "BuyChipRate": 0.15,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 0.15
+          "BuyChipRate": 0.15,
+          "ThresholdRate": 3
         }
       ]
     },
@@ -66,23 +80,28 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 0.2
+          "BuyChipRate": 0.2,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 0.2
+          "BuyChipRate": 0.2,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipAddRate": 0.2
+          "BuyChipAddRate": 0.2,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 0.2
+          "BuyChipRate": 0.2,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 0.2
+          "BuyChipRate": 0.2,
+          "ThresholdRate": 3
         }
       ]
     },
@@ -97,23 +116,28 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 0.25
+          "BuyChipRate": 0.25,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 0.25
+          "BuyChipRate": 0.25,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 0.25
+          "BuyChipRate": 0.25,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 0.25
+          "BuyChipRate": 0.25,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 0.25
+          "BuyChipRate": 0.25,
+          "ThresholdRate": 3
         }
       ]
     },
@@ -128,23 +152,28 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 0.3
+          "BuyChipRate": 0.3,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 0.3
+          "BuyChipRate": 0.3,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 0.3
+          "BuyChipRate": 0.3,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 0.3
+          "BuyChipRate": 0.3,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 0.3
+          "BuyChipRate": 0.3,
+          "ThresholdRate": 3
         }
       ]
     },
@@ -159,23 +188,28 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 0.35
+          "BuyChipRate": 0.35,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 0.35
+          "BuyChipRate": 0.35,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 0.35
+          "BuyChipRate": 0.35,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 0.35
+          "BuyChipRate": 0.35,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 0.35
+          "BuyChipRate": 0.35,
+          "ThresholdRate": 3
         }
       ]
     },
@@ -190,23 +224,28 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 0.4
+          "BuyChipRate": 0.4,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 0.4
+          "BuyChipRate": 0.4,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 0.4
+          "BuyChipRate": 0.4,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 0.4
+          "BuyChipRate": 0.4,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 0.4
+          "BuyChipRate": 0.4,
+          "ThresholdRate": 3
         }
       ]
     },
@@ -221,23 +260,28 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 0.45
+          "BuyChipRate": 0.45,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 0.45
+          "BuyChipRate": 0.45,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 0.45
+          "BuyChipRate": 0.45,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 0.45
+          "BuyChipRate": 0.45,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 0.45
+          "BuyChipRate": 0.45,
+          "ThresholdRate": 3
         }
       ]
     },
@@ -252,23 +296,28 @@
       "BuyChipAddRate": [
         {
           "GameAccountingCode": "Electron",
-          "BuyChipRate": 0.5
+          "BuyChipRate": 0.5,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Live",
-          "BuyChipRate": 0.5
+          "BuyChipRate": 0.5,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Sports",
-          "BuyChipRate": 0.5
+          "BuyChipRate": 0.5,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Electron.Fish",
-          "BuyChipRate": 0.5
+          "BuyChipRate": 0.5,
+          "ThresholdRate": 3
         },
         {
           "GameAccountingCode": "Slot",
-          "BuyChipRate": 0.5
+          "BuyChipRate": 0.5,
+          "ThresholdRate": 3
         }
       ]
     }
