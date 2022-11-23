@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ForegroundOperation.aspx.cs" Inherits="Backend_ForegroundOperation" %>
 
 <!doctype html>
 <html>
@@ -19,67 +19,63 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
-<script src="../Scripts/MgmtAPI.js"></script>
-<script src="../Scripts/SyncAPI.js"></script>
 <script>      
     var c = new common();
-    var s;
-    var m;
+    var ApiUrl = "ForegroundOperation.aspx";
 
     function init() {
-        m = new MgmtAPI("../API/MgmtAPI.asmx");
-        s = new SyncAPI("/API/SyncAPI.asmx");
+     
     }
 
     function onBtnUpdateCompanyCategory() {
-        if ($("#idPassWord").val() == "") {
-            alert("請輸入密碼");
-            return;
-        }
+        var postData = {
 
-        s.UpdateCompanyCategory($("#idPassWord").val(), (function (success, o) {
+        };
+
+        c.callService(ApiUrl + "/UpdateCompanyCategory", postData, function (success, o) {
             if (success) {
-                if (o.Result == 0) {
+                var obj = c.getJSON(o);
+                if (obj.Result == 0) {
                     alert("完成");
                 } else {
-                    alert(o.Message);
+                    alert(obj.Message);
                 }
             }
-        }));
+        });
     }
 
     function onBtnOpenWebSite() {
-        if ($("#idPassWord").val() == "") {
-            alert("請輸入密碼");
-            return;
-        }
+        var postData = {
 
-        m.OpenSite($("#idPassWord").val(), (function (success, o) {
+        };
+
+        c.callService(ApiUrl + "/OpenSite", postData, function (success, o) {
             if (success) {
-                if (o.Result == 0) {
+                var obj = c.getJSON(o);
+                if (obj.Result == 0) {
                     alert("完成");
                 } else {
-                    alert(o.Message);
+                    alert(obj.Message);
                 }
             }
-        }));
+        });
     }
 
     function onBtnCloseWebSite() {
-        if ($("#idPassWord").val() == "") {
-            alert("請輸入密碼");
-            return;
-        }
+        var postData = {
+            Message: $("#idCloseWebSiteTxt").val()
+        };
 
-        m.MaintainSite($("#idPassWord").val(), $("#idCloseWebSiteTxt").val(), (function (success, o) {
+        c.callService(ApiUrl + "/MaintainSite", postData, function (success, o) {
             if (success) {
-                if (o.Result == 0) {
+                var obj = c.getJSON(o);
+                if (obj.Result == 0) {
                     alert("完成");
                 } else {
-                    alert(o.Message);
+                    alert(obj.Message);
                 }
             }
-        }));
+        });
     }
     
     window.onload = init;
@@ -96,12 +92,6 @@
                 <!-- 簡易註冊 -->
                 <div id="contentStep1" class="form-content" data-form-group="registerStep1" style="padding:20px !important">
                     <form id="registerStep1">
-                        <div class="form-group mt-4">
-                            <label class="form-title language_replace">密碼</label>
-                            <div class="input-group">
-                                <input id="idPassWord" type="text" class="form-control custom-style"  style="width:100%"/>
-                            </div>
-                        </div>
                         <div class="form-group mt-4">
                             <label class="form-title language_replace">關站說明</label>
                             <div class="input-group">

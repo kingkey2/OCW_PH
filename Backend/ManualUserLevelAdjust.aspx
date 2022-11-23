@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ManualUserLevelAdjust.aspx.cs" Inherits="Backend_ManualUserLevelAdjust" %>
 
 <!doctype html>
 <html>
@@ -19,30 +19,30 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
-<script src="../Scripts/MgmtAPI.js"></script>
 <script>      
     var c = new common();
-    var m;
+    var ApiUrl = "ManualUserLevelAdjust.aspx";
 
     function init() {
-        m = new MgmtAPI("../API/MgmtAPI.asmx");
+    
     }
 
     function onBtnUpdateUserLevel() {
-        if ($("#idPassWord").val() == "") {
-            alert("請輸入密碼");
-            return;
-        }
+        var postData = {
+            LoginAccount: $("#idLoginAccount").val(),
+            NewUserLevelIndex: $("#idUserLevelIndex").val()
+        };
 
-        m.ManualUserLevelAdjust($("#idPassWord").val(), $("#idLoginAccount").val(), $("#idUserLevelIndex").val(), (function (success, o) {
+        c.callService(ApiUrl + "/ManualUserLevelAdjust", postData, function (success, o) {
             if (success) {
-                if (o.Result == 0) {
+                var obj = c.getJSON(o);
+                if (obj.Result == 0) {
                     alert("完成");
                 } else {
-                    alert(o.Message);
+                    alert(obj.Message);
                 }
             }
-        }));
+        });
     }
     
     window.onload = init;
@@ -60,23 +60,11 @@
                 <div id="contentStep1" class="form-content" data-form-group="registerStep1" style="padding:20px !important;width:100%">
                     <form id="registerStep1">
                         <div class="form-group mt-4">
-                            <label class="form-title language_replace">密碼</label>
-                            <div class="input-group">
-                                <input id="idPassWord" type="text" class="form-control custom-style"  style="width:100%"/>
-                            </div>
-                        </div>
-                        <div class="form-group mt-4">
                             <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
                                 <input id="idLoginAccount" type="text" class="form-control custom-style"  style="width:100%"/>
                             </div>
                         </div>
-                    <%--    <div class="form-group mt-4">
-                            <label class="form-title language_replace">等級</label>
-                            <div class="input-group">
-                                <input id="idUserLevelIndex" type="text" class="form-control custom-style"  style="width:100%"/>
-                            </div>
-                        </div>--%>
                         <div class="form-row">
                             <div class="form-group col">
                                 <label class="form-title language_replace" langkey="等級">等級</label>
