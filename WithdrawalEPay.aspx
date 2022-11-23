@@ -331,9 +331,11 @@
 
     //建立訂單
     function CreateEPayWithdrawal() {
+        diabledBtn("btnStep2");
         if ($("#SearchCard").val() == '-1') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇銀行卡"), function () { });
             window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
             return false;
         }
 
@@ -346,18 +348,21 @@
         if ($("#amount").val().trim() == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"), function () { });
             window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
             return false;
         }
 
         if (idWalletPassword == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入錢包密碼"), function () { });
             window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
             return false;
         }
 
         if(!$('#CheckAward').prop("checked")){
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請勾選確認出金注意事項"), function () { });
             window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
             return false;
         }
 
@@ -519,6 +524,14 @@
                 });
             }
         })
+    }
+
+    function diabledBtn(btnid) {
+        $("#" + btnid).attr("disabled", "true");
+
+        setTimeout(() => {
+            $("#" + btnid).removeAttr("disabled");
+        }, "3000");
     }
 
     window.onload = init;
@@ -970,10 +983,10 @@
                 </div>
 
                 <div class="btn-container mt-4">
-                    <button class="btn btn-primary" data-deposite="step2">
+                    <button class="btn btn-primary" data-deposite="step2" id="btnStep2">
                         <span class="language_replace">下一步</span>
                     </button>
-                    <button class="btn btn-primary" data-deposite="step3">
+                    <button class="btn btn-primary" data-deposite="step3" id="btnStep3">
                         <span class="language_replace">下一步</span>
                     </button>
                     <%--     <button class="btn btn-outline-primary" data-deposite="step4" href="index.aspx">
@@ -991,7 +1004,6 @@
                         <div class="text-wrap">
                             <p class="title language_replace">溫馨提醒</p>
                             <ul class="list-style-decimal">
-                                <li><span class="language_replace">OCoin為平台使用的專屬遊戲幣。</span></li>
                                 <li><span class="language_replace">請正確使用對應的錢包入款，否則可能造成您入款失敗。</span></li>
                                 <li><span class="language_replace">虛擬貨幣入款需經過區塊認證確認，可能需要數分鐘或者更久，完成時間並非由本網站決定，敬請知悉。</span></li>
                                 <li><span class="language_replace">實際入款遊戲幣為入款金額-手續費後之餘額進行換算。</span></li>

@@ -227,6 +227,8 @@
     }
 
     function onBtnUserRegisterStep1() {
+        diabledBtn("btnStep");
+
         if ($("#idValidateCode").val() == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
         } else {
@@ -520,6 +522,14 @@
         }
     }
 
+    function diabledBtn(btnid) {
+        $("#" + btnid).attr("disabled", "true");
+
+        setTimeout(() => {
+            $("#" + btnid).removeAttr("disabled");
+        }, "3000");
+    }
+
     window.onload = init;
 </script>
 <body>
@@ -661,16 +671,16 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md">
-                                <label class="form-title language_replace">姓(羅馬字)</label>
+                                <label class="form-title language_replace">姓</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
+                                    <input type="text" class="form-control custom-style" inputmode="email" name="Name1">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
                             <div class="form-group col-md">
-                                <label class="form-title language_replace">名(羅馬字)</label>
+                                <label class="form-title language_replace">名</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
+                                    <input type="text" class="form-control custom-style" inputmode="email" name="Name2">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
@@ -729,7 +739,7 @@
                         <p class="language_replace text-s">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在Lucky Sprite不能持有複數的帳號這個條件。</p>
                     </div>
                     <div class="btn-container pb-4">
-                        <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep1()">
+                        <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep1()" id="btnStep">
                             <span class="language_replace">註冊</span>
                         </button>
                     </div>

@@ -482,13 +482,15 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                     string description = activityData.ActivityName;
                     string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
+                    string PromotionCode = "";
+                    string PromotionCategoryCode = "";
                     CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                    lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount, LoginAccount, EWinWeb.BonusCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                    lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount, LoginAccount, EWinWeb.BonusCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                     EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
                 }
             }
@@ -516,13 +518,15 @@ public class LobbyAPI : System.Web.Services.WebService {
                             foreach (var activityData in GetRegisterToParentResult.Data) {
                                 string description = activityData.ActivityName;
                                 string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
+                                string PromotionCode = "";
+                                string PromotionCategoryCode = "";
                                 CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 
                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + ParentLoginAccount + "_From_" + LoginAccount, ParentLoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + ParentLoginAccount + "_From_" + LoginAccount, ParentLoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                                 EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(ParentLoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
                             }
                         }
@@ -1646,17 +1650,6 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                         if (Collect.CollectAreaType == 2) {
 
-                            if (Wallet.PointValue < CollectLimit) {
-                                var ResetResult = lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
-
-                                if (ResetResult.Result == EWin.Lobby.enumResult.OK) {
-
-                                } else {
-                                    R.Result = EWin.Lobby.enumResult.ERR;
-                                    R.Message = "Reset Failure : " + ResetResult.Message;
-                                }
-                            }
-
                             CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, SI.EWinSID, GUID, CollectID);
 
                             if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
@@ -1684,10 +1677,10 @@ public class LobbyAPI : System.Web.Services.WebService {
                         } else {
 
                             if (Wallet.PointValue < CollectLimit) {
-                                var ResetResult = lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
+                                var ResetResult = lobbyAPI.AddThreshold(Token, System.Guid.NewGuid().ToString(), System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
 
                                 if (ResetResult.Result == EWin.Lobby.enumResult.OK) {
-
+                                    OldThresholdValue = 0;
                                 } else {
                                     R.Result = EWin.Lobby.enumResult.ERR;
                                     R.Message = "Reset Failure : " + ResetResult.Message;
@@ -1697,51 +1690,45 @@ public class LobbyAPI : System.Web.Services.WebService {
                             EWin.Lobby.UserAccountPropertyResult UP = GetUserAccountProperty(WebSID, GUID, "JoinActivity");
 
                             if (OldThresholdValue == 0 || (UP.Result == EWin.Lobby.enumResult.ERR && UP.Message == "NoExist")) {
-                                var ResetResult = lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
 
-                                if (ResetResult.Result == EWin.Lobby.enumResult.OK) {
-                                    CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, SI.EWinSID, GUID, CollectID);
+                                CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, SI.EWinSID, GUID, CollectID);
 
-                                    if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
+                                if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
 
-                                        string JoinActivityCycle = "1";
-                                        decimal ThresholdValue = 0;
-                                        decimal PointValue = 0;
-                                        Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
+                                    string JoinActivityCycle = "1";
+                                    decimal ThresholdValue = 0;
+                                    decimal PointValue = 0;
+                                    Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
 
-                                        if (actioncontent["ActionList"] != null) {
-                                            Newtonsoft.Json.Linq.JArray actionlist = Newtonsoft.Json.Linq.JArray.Parse(actioncontent["ActionList"].ToString());
+                                    if (actioncontent["ActionList"] != null) {
+                                        Newtonsoft.Json.Linq.JArray actionlist = Newtonsoft.Json.Linq.JArray.Parse(actioncontent["ActionList"].ToString());
 
-                                            foreach (var item in actionlist) {
-                                                if (item["Field"].ToString() == "JoinActivityCycle") {
-                                                    JoinActivityCycle = item["Value"].ToString();
-                                                }
-                                                if (item["Field"].ToString() == "ThresholdValue") {
-                                                    ThresholdValue = decimal.Parse(item["Value"].ToString());
-                                                }
-                                                if (item["Field"].ToString() == "PointValue") {
-                                                    PointValue = decimal.Parse(item["Value"].ToString());
-                                                }
+                                        foreach (var item in actionlist) {
+                                            if (item["Field"].ToString() == "JoinActivityCycle") {
+                                                JoinActivityCycle = item["Value"].ToString();
+                                            }
+                                            if (item["Field"].ToString() == "ThresholdValue") {
+                                                ThresholdValue = decimal.Parse(item["Value"].ToString());
+                                            }
+                                            if (item["Field"].ToString() == "PointValue") {
+                                                PointValue = decimal.Parse(item["Value"].ToString());
                                             }
                                         }
-
-                                        dynamic o = new System.Dynamic.ExpandoObject();
-                                        o.ActivityName = Collect.Description;
-                                        o.ThresholdValue = ThresholdValue;
-                                        o.PointValue = PointValue;
-
-                                        lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, SI.LoginAccount, "JoinActivity", Newtonsoft.Json.JsonConvert.SerializeObject(o));
-
-                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, JoinActivityCycle, 0, 0, 0);
-                                        R.Result = EWin.Lobby.enumResult.OK;
-                                    } else {
-                                        lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, OldThresholdValue, "Undo ResetCollectPromotion. CollectID=" + CollectID.ToString(), true);
-                                        R.Result = EWin.Lobby.enumResult.ERR;
-                                        R.Message = "Collect Failure";
                                     }
+
+                                    dynamic o = new System.Dynamic.ExpandoObject();
+                                    o.ActivityName = Collect.Description;
+                                    o.ThresholdValue = ThresholdValue;
+                                    o.PointValue = PointValue;
+
+                                    lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, SI.LoginAccount, "JoinActivity", Newtonsoft.Json.JsonConvert.SerializeObject(o));
+
+                                    EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, JoinActivityCycle, 0, 0, 0);
+                                    R.Result = EWin.Lobby.enumResult.OK;
                                 } else {
+                                    lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, OldThresholdValue, "Undo ResetCollectPromotion. CollectID=" + CollectID.ToString(), true);
                                     R.Result = EWin.Lobby.enumResult.ERR;
-                                    R.Message = "Reset Failure : " + ResetResult.Message;
+                                    R.Message = "Collect Failure";
                                 }
                             } else {
                                 R.Result = EWin.Lobby.enumResult.ERR;
@@ -2174,8 +2161,10 @@ public class LobbyAPI : System.Web.Services.WebService {
         UserVIPResult R = new UserVIPResult() { Result = EWin.Lobby.enumResult.ERR, Data = new UserVIPResult.UserVIPInfo() };
         UserVIPResult.UserVIPInfo k = new UserVIPResult.UserVIPInfo();
         RedisCache.SessionContext.SIDInfo SI;
+        EWin.FANTA.FANTA api = new EWin.FANTA.FANTA();
         System.Data.DataTable UserLevDT = new System.Data.DataTable();
         System.Data.DataTable DT = new System.Data.DataTable();
+        EWin.FANTA.APIResult R1 = new EWin.FANTA.APIResult();
         Newtonsoft.Json.Linq.JObject VIPSetting;
         Newtonsoft.Json.Linq.JArray VIPSettingDetail;
         int UserLevelIndex = 0;
@@ -2184,6 +2173,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         int Setting_UserLevelIndex = 0;
         decimal DeposiAmount = 0;
         decimal ValidBetValue = 0;
+        decimal SelfValidBetValueFromSummaryByDate = 0;
         DateTime UserLevelUpdateDate = DateTime.Now;
         string RedisVIPInfo = string.Empty;
 
@@ -2230,6 +2220,11 @@ public class LobbyAPI : System.Web.Services.WebService {
                         }
                     }
 
+                    R1 = api.GetSelfValidBetValueFromSummaryByDate(GetToken(), System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.AddDays(1).ToString("yyyy/MM/dd"));
+                    if (R1.ResultState == EWin.FANTA.enumResultState.OK) {
+                        SelfValidBetValueFromSummaryByDate =decimal.Parse(R1.Message);
+                    }
+
                     DT = EWinWebDB.UserAccountSummary.GetUserAccountTotalValueSummaryData(SI.LoginAccount, UserLevelUpdateDate.ToString("yyyy/MM/dd"), UserLevelUpdateDate.AddDays(KeepLevelDays).ToString("yyyy/MM/dd"));
                     if (DT != null) {
                         if (DT.Rows.Count > 0) {
@@ -2242,7 +2237,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                     k.UserLevelIndex = UserLevelIndex;
                     k.KeepLevelDays = KeepLevelDays;
-                    k.ValidBetValue = ValidBetValue;
+                    k.ValidBetValue = ValidBetValue + SelfValidBetValueFromSummaryByDate;
                     k.DepositValue = DeposiAmount;
                     k.ElapsedDays = (int)UserLevelUpdatedays;
 

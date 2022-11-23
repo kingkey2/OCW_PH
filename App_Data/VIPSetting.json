@@ -46,14 +46,12 @@
       "KeepValidBetValue": 18000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Live",
-          "BuyChipAddRate": 1.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 0.15
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 1.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 0.15
         }
       ]
     },
@@ -67,29 +65,24 @@
       "KeepValidBetValue": 60000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 2,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 0.2
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipAddRate": 2,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 0.2
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 2,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Sports",
+          "BuyChipAddRate": 0.2
         },
         {
-          "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 2,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 0.2
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 2,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 0.2
         }
       ]
     },
@@ -103,29 +96,24 @@
       "KeepValidBetValue": 250000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 2.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 0.25
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipAddRate": 2.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 0.25
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 2.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 0.25
         },
         {
-          "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 2.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 0.25
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 2.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 0.25
         }
       ]
     },
@@ -139,29 +127,24 @@
       "KeepValidBetValue": 600000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 3,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 0.3
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipAddRate": 3,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 0.3
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 3,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 0.3
         },
         {
-          "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 3,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 0.3
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 3,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 0.3
         }
       ]
     },
@@ -175,29 +158,24 @@
       "KeepValidBetValue": 1800000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 3.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 0.35
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipAddRate": 3.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 0.35
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 3.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 0.35
         },
         {
-          "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 3.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 0.35
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 3.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 0.35
         }
       ]
     },
@@ -211,29 +189,24 @@
       "KeepValidBetValue": 6000000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 4,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 0.4
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipAddRate": 4,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 0.4
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 4,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 0.4
         },
         {
-          "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 4,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 0.4
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 4,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 0.4
         }
       ]
     },
@@ -247,29 +220,24 @@
       "KeepValidBetValue": 25000000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 4.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 0.45
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipAddRate": 4.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 0.45
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 4.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 0.45
         },
         {
-          "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 4.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 0.45
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 4.5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 0.45
         }
       ]
     },
@@ -283,29 +251,24 @@
       "KeepValidBetValue": 50000000,
       "BuyChipAddRate": [
         {
-          "GameCategoryCode": "Electron",
-          "BuyChipAddRate": 5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron",
+          "BuyChipRate": 0.5
         },
         {
-          "GameCategoryCode": "Live",
-          "BuyChipAddRate": 5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Live",
+          "BuyChipRate": 0.5
         },
         {
-          "GameCategoryCode": "Sports",
-          "BuyChipAddRate": 5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Sports",
+          "BuyChipRate": 0.5
         },
         {
-          "GameCategoryCode": "Fish",
-          "BuyChipAddRate": 5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Electron.Fish",
+          "BuyChipRate": 0.5
         },
         {
-          "GameCategoryCode": "Slot",
-          "BuyChipAddRate": 5,
-          "CurrencyType": "PHP"
+          "GameAccountingCode": "Slot",
+          "BuyChipRate": 0.5
         }
       ]
     }

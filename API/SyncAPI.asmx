@@ -152,6 +152,7 @@ public class SyncAPI : System.Web.Services.WebService
         return ret;
     }
 
+    // 若有修改 Backend/ForegroundOperation.aspx.cs 也要同步修改
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult UpdateCompanyCategory(string Key) {

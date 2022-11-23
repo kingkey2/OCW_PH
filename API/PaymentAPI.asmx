@@ -1379,12 +1379,13 @@ public class PaymentAPI : System.Web.Services.WebService
                                     }
                                     else
                                     {
-                                        SetResultException(R, "UpdateFailure");
+                                        SetResultException(R, "Error:1001");
                                     }
                                 }
                                 else
                                 {
-                                    SetResultException(R, "UpdateFailure");
+                                    EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, TempCommonData.ToInfo, paymentResult.PaymentSerial, "", PointValue, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData.ActivityDatas));
+                                    SetResultException(R,  "Error:1002");
                                 }
                             }
                             else
@@ -1395,7 +1396,6 @@ public class PaymentAPI : System.Web.Services.WebService
                                 TempCommonData.ActivityDatas = tagInfoData.ActivityDatas;
                                 TempCommonData.PointValue = PointValue;
                             }
-
                         }
                         else
                         {
