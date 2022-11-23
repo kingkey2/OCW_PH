@@ -24,7 +24,9 @@
     var ApiUrl = "ManualUserLevelAdjust.aspx";
 
     function init() {
-    
+        if (self == top) {
+            window.close();
+        }
     }
 
     function onBtnUpdateUserLevel() {

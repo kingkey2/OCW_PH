@@ -24,7 +24,9 @@
     var ApiUrl = "ForegroundOperation.aspx";
 
     function init() {
-     
+        if (self == top) {
+            window.close();
+        }
     }
 
     function onBtnUpdateCompanyCategory() {
