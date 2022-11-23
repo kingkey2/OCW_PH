@@ -152,6 +152,7 @@
 
     //建立訂單
     function CreatePayPalDeposit() {
+        diabledBtn("btnStep2");
         if ($("#amount").val() != '') {
             var amount = parseFloat($("#amount").val());
             var depositName;
@@ -162,12 +163,14 @@
             if (bankCardNameFirst == '') {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的姓"), function () { });
                 window.parent.API_LoadingEnd(1);
+                $("#btnStep2").removeAttr("disabled");
                 return false;
             }
 
             if (check_pKatakana(bankCardNameFirst)) {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的姓"), function () { });
                 window.parent.API_LoadingEnd(1);
+                $("#btnStep2").removeAttr("disabled");
                 return false;
             }
             
@@ -175,12 +178,14 @@
             if (bankCardNameSecond == '') {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的名"), function () { });
                 window.parent.API_LoadingEnd(1);
+                $("#btnStep2").removeAttr("disabled");
                 return false;
             }
 
             if (check_pKatakana(bankCardNameSecond)) {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的名"), function () { });
                 window.parent.API_LoadingEnd(1);
+                $("#btnStep2").removeAttr("disabled");
                 return false;
             }
 
@@ -208,6 +213,7 @@
                         GetDepositActivityInfoByOrderNumber(OrderNumber);
                     } else {
                         window.parent.API_LoadingEnd(1);
+                        $("#btnStep2").removeAttr("disabled");
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                         });
@@ -216,6 +222,7 @@
                 }
                 else {
                     window.parent.API_LoadingEnd(1);
+                    $("#btnStep2").removeAttr("disabled");
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
 
                     });
@@ -224,7 +231,7 @@
         } else {
             window.parent.API_LoadingEnd(1);
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入購買金額"), function () {
-
+                $("#btnStep2").removeAttr("disabled");
             });
         }
     }
@@ -330,6 +337,7 @@
     }
 
     function ConfirmPayPalDeposit() {
+        diabledBtn("btnStep3");
         PaymentClient.ConfirmEPayDeposit(WebInfo.SID, Math.uuid(), OrderNumber, ActivityNames, lang,"EPay",0,function (success, o) {
             window.parent.API_LoadingEnd(1);
              if (success) {
@@ -391,6 +399,14 @@
 
     function supplement(nn) {
         return nn = nn < 10 ? '0' + nn : nn;
+    }
+
+    function diabledBtn(btnid) {
+        $("#" + btnid).attr("disabled", "true");
+
+        setTimeout(() => {
+            $("#" + btnid).removeAttr("disabled");
+        }, "3000");
     }
 
     window.onload = init;
@@ -469,7 +485,7 @@
                             <form>
                                 <div class="form-group">
                                     <div class="btn-wrap btn-radio-wrap btn-radio-payment">
-                                        <div class="btn-radio btn-radio-coinType" >
+                                        <div class="btn-radio btn-radio-coinType">
                                             <input type="radio" name="amount" id="amount1" />
                                             <label class="btn btn-outline-primary" for="amount1" data-val="10000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
@@ -480,7 +496,18 @@
                                             </label>
                                         </div>
 
-                                        <div class="btn-radio btn-radio-coinType" >
+                                        <div class="btn-radio btn-radio-coinType">
+                                            <input type="radio" name="amount" id="amount3" />
+                                            <label class="btn btn-outline-primary" for="amount3" data-val="20000" onclick="CoinBtn_Click()">
+                                                <span class="coinType gameCoin">
+                                                    <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
+                                                    <span class="coinType-name">PHP</span>
+                                                    <span class="coinType-amount OcoinAmount">20,000</span>
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                        <div class="btn-radio btn-radio-coinType">
                                             <input type="radio" name="amount" id="amount2" />
                                             <label class="btn btn-outline-primary" for="amount2" data-val="50000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
@@ -490,16 +517,6 @@
                                             </label>
                                         </div>
 
-                                        <div class="btn-radio btn-radio-coinType" >
-                                            <input type="radio" name="amount" id="amount3" />
-                                            <label class="btn btn-outline-primary" for="amount3" data-val="100000" onclick="CoinBtn_Click()">
-                                                <span class="coinType gameCoin">
-                                                    <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                    <span class="coinType-name">PHP</span>
-                                                    <span class="coinType-amount OcoinAmount">100,000</span>
-                                                </span>
-                                            </label>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -672,10 +689,10 @@
                 </div>
 
                 <div class="btn-container">
-                    <button class="btn btn-primary" data-deposite="step2">
+                    <button class="btn btn-primary" data-deposite="step2" id="btnStep2">
                         <span class="language_replace">下一步</span>
                     </button>
-                    <button class="btn btn-primary" data-deposite="step3">
+                    <button class="btn btn-primary" data-deposite="step3" id="btnStep3">
                         <span class="language_replace">下一步</span>
                     </button>
                     <%--<button class="btn btn-outline-primary" data-deposite="step4" onclick="goBack()" style="display: none">

@@ -1200,6 +1200,23 @@ public static class EWinWebDB {
             return DT;
         }
 
+        public static System.Data.DataTable GetUserAccount(string LoginAccount) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT * " +
+                     " FROM UserAccountTable WITH (NOLOCK)" +
+                     " WHERE LoginAccount = @LoginAccount ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
         //當月壽星
         public static System.Data.DataTable GetBirthdayOfTheMonth(string month) {
             string SS;

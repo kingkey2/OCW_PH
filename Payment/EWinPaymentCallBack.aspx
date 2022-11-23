@@ -61,7 +61,7 @@
                                         description = "Deposit, PaymentCode=" + tagInfoData.PaymentCode + ", Amount=" + BodyObj.Amount;
                                         ResetThreshold = CheckResetThreshold(BodyObj.LoginAccount);
                                         ThresholdValue = GetUserThresholdValue(BodyObj.LoginAccount);
-
+                                         
                                         if (ThresholdValue == 0) {
                                             lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinActivity");
                                         }
