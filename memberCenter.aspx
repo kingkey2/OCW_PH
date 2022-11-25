@@ -1149,6 +1149,7 @@
                                             <span class="btn" data-toggle="modal" data-target="#ModalMemberLevel">
                                                 <img src="images/member/btn-member-level-popup.png" alt="">
                                             </span>
+                                            <a class="levelup" href="#">Level Up!!</a>
                                         </div>                                        
                                     </div>
                                     <span class="unit">PHP</span>
