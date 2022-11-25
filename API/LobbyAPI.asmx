@@ -2387,7 +2387,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                 string description = activityData.ActivityName;
                 string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
-                string PromotionCode = "";
+                string PromotionCode = "VIPLev";
                 string PromotionCategoryCode = "";
                 CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 
