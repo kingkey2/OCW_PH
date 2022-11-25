@@ -2337,7 +2337,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 }
                             }
                             //等級有變動再處裡
-                            if (UserLevelIndex != NewUserLevelIndex) {
+                            if (NewUserLevelIndex>UserLevelIndex) {
 
                                 foreach (var item in UserLevelUpgradeTempDatas) {
                                     if (item.NewLevelIndex == NewUserLevelIndex) {
