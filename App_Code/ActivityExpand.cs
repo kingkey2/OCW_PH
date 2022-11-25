@@ -881,7 +881,7 @@ public static class ActivityExpand {
                     if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
                         ActivityName = (string)ActivityDetail["Name"];
 
-                        DT = EWinWebDB.UserAccountEventBonusHistory.GetBonusHistoryByLoginAccountActivityName(LoginAccount, ActivityName);
+                        DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
 
                         if (DT != null && DT.Rows.Count > 0) {
                             SetResultException(R, "ActivityIsAlreadyJoin");
@@ -995,7 +995,7 @@ public static class ActivityExpand {
                     if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
                         ActivityName = (string)ActivityDetail["Name"];
 
-                        DT = EWinWebDB.UserAccountEventBonusHistory.GetBonusHistoryByLoginAccountActivityName(LoginAccount, ActivityName);
+                        DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
 
                         if (DT != null && DT.Rows.Count > 0) {
                             SetResultException(R, "ActivityIsAlreadyJoin");

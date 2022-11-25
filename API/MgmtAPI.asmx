@@ -445,7 +445,7 @@ public class MgmtAPI : System.Web.Services.WebService {
         if (ActivityDetail != null) {
             ActivityName = (string)ActivityDetail["Name"];
 
-            DT = EWinWebDB.UserAccountEventBonusHistory.GetBonusHistoryByLoginAccountActivityName(LoginAccount, ActivityName);
+            DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
 
             if (DT != null && DT.Rows.Count > 0) {
 
@@ -671,7 +671,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                                 //發升級禮物
                                 if (NewUserLevelIndex > UserLevelIndex_Now) {
                                     for (int i = 1; i <= NewUserLevelIndex-UserLevelIndex_Now; i++) {
-                                        SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex_Now + i);
+                                        SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex_Now);
                                     }
                                 }
                                 RedisCache.UserAccount.UpdateUserAccountByLoginAccount(LoginAccount);
@@ -861,7 +861,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                             }
                         }
                         //等級有變動再處裡
-                        if (UserLevelIndex != NewUserLevelIndex) {
+                        if (NewUserLevelIndex > UserLevelIndex) {
 
                             foreach (var item in UserLevelUpgradeTempDatas) {
                                 if (item.NewLevelIndex == NewUserLevelIndex) {
@@ -870,7 +870,11 @@ public class MgmtAPI : System.Web.Services.WebService {
                                 }
                             }
 
-                            SendUpgradeGift(LoginAccount);
+                            //發升級禮物
+                            for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex; i++) {
+                                SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex);
+                            }
+
                             updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
                             EWinWebDB.UserAccount.UserAccountLevelIndexChange(LoginAccount, 1, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, UserLevelAccumulationDepositAmount, UserLevelAccumulationValidBetValue, "SystemAutoCheckUserLevel", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
 
