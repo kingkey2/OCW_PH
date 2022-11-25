@@ -494,7 +494,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
                 }
             }
-            //test
+           
             var GetRegisterToParentResult = ActivityCore.GetRegisterToParentResult();
 
             if (GetRegisterToParentResult.Result == ActivityCore.enumActResult.OK) {
