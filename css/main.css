@@ -1503,7 +1503,7 @@ hr.line {
   }
 }
 #chat-widget-container {
-  z-index: 1 !important;
+  z-index: 3 !important;
 }
 
 .search-bar.desktop {
