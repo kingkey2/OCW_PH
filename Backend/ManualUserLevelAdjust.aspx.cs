@@ -124,7 +124,7 @@ public partial class Backend_ManualUserLevelAdjust : System.Web.UI.Page {
                 decimal ThresholdValue = (decimal)ActivityDetail["ThresholdValue"];
                 decimal BonusValue = (decimal)ActivityDetail["BonusValue"];
                 string JoinActivityCycle = "1";
-                string PromotionCode = "";
+                string PromotionCode = "VIPLev";
                 string PromotionCategoryCode = "";
                 string CollectAreaType = ActivityDetail["CollectAreaType"].ToString() == null ? "2" : ActivityDetail["CollectAreaType"].ToString();
 
