@@ -805,7 +805,7 @@ public class MgmtAPI : System.Web.Services.WebService {
 
         VIPSetting = GetActivityDetail("../App_Data/VIPSetting.json");
         if (VIPSetting != null) {
-            UserDT = EWinWebDB.UserAccount.GetNeedCheckVipUpgradeUser(DateTime.Now.AddMinutes(-1));
+            UserDT = EWinWebDB.UserAccount.GetNeedCheckVipUpgradeUser(DateTime.Now.AddMinutes(-5));
 
             if (UserDT != null && UserDT.Rows.Count > 0) {
                 VIPSettingDetail = JArray.Parse(VIPSetting["VIPSetting"].ToString());
