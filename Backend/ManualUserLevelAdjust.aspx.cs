@@ -113,7 +113,7 @@ public partial class Backend_ManualUserLevelAdjust : System.Web.UI.Page {
         if (ActivityDetail != null) {
             ActivityName = (string)ActivityDetail["Name"];
 
-            DT = EWinWebDB.UserAccountEventBonusHistory.GetBonusHistoryByLoginAccountActivityName(LoginAccount, ActivityName);
+            DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
 
             if (DT != null && DT.Rows.Count > 0) {
 
