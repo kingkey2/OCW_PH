@@ -176,9 +176,9 @@ public class Payment {
             }
         }
 
-        public static APIResult CreateEPayDeposite(string OrderID, decimal OrderAmount, string Type, string UserName,string ContactPhoneNumber,string ServiceType)
+        public static DepositResult CreateEPayDeposite(string OrderID, decimal OrderAmount, string Type, string UserName,string ContactPhoneNumber,string ServiceType)
         {
-            APIResult R = new APIResult() { ResultState = APIResult.enumResultCode.ERR };
+            DepositResult R = new DepositResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject sendData = new JObject();
             string URL;
             string ReturnURL;
@@ -334,6 +334,7 @@ public class Payment {
                 {
                     R.ResultState = APIResult.enumResultCode.OK;
                     R.Message = returnResult["Message"].ToString();
+                    R.ProviderCode = returnResult["ProviderCode"].ToString();
                     return R;
                 }
                 else
@@ -634,5 +635,10 @@ public class Payment {
         public enumResultCode ResultState { get; set; }
         public string GUID { get; set; }
         public string Message { get; set; }
+    }
+
+    public class DepositResult:APIResult
+    {
+        public string ProviderCode { get; set; }
     }
 }
