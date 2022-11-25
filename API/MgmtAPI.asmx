@@ -760,6 +760,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                         }
 
                         RedisCache.UserAccount.UpdateUserAccountByLoginAccount(LoginAccount);
+                        RedisCache.UserAccountVIPInfo.DeleteUserAccountVIPInfo(LoginAccount);
                     }
                 }
 
