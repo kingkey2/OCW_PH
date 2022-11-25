@@ -185,7 +185,7 @@ public class MgmtAPI : System.Web.Services.WebService {
     }
 
     /// <summary>
-    /// 會員VIP升級降級
+    /// 會員VIP降級及發放返水
     /// </summary>
     /// <returns></returns>
     [WebMethod]
@@ -224,7 +224,6 @@ public class MgmtAPI : System.Web.Services.WebService {
                                 int UserLevelIndex = 0;
                                 int NewUserLevelIndex = 0;
                                 DateTime UserLevelUpdateDate = DateTime.Now;
-                                bool IsUserAccountLevelDBHasData = false;
 
                                 foreach (System.Data.DataRow dr in UTSDT.Rows) {
                                     LoginAccount = (string)dr["LoginAccount"];
@@ -237,85 +236,29 @@ public class MgmtAPI : System.Web.Services.WebService {
                                         if (UserLevDT.Rows.Count > 0) {
                                             UserLevelIndex = (int)UserLevDT.Rows[0]["UserLevelIndex"];
                                             UserLevelUpdateDate = (DateTime)UserLevDT.Rows[0]["UserLevelUpdateDate"];
+                                            DeposiAmount = (decimal)UserLevDT.Rows[0]["UserLevelAccumulationDepositAmount"];
+                                            ValidBetValue = (decimal)UserLevDT.Rows[0]["UserLevelAccumulationValidBetValue"];
 
-                                            IsUserAccountLevelDBHasData = true;
                                         }
                                     }
 
-                                    DT = EWinWebDB.UserAccountSummary.GetUserAccountTotalValueSummaryData(LoginAccount, UserLevelUpdateDate.ToString("yyyy/MM/dd"), UserLevelUpdateDate.AddDays(KeepLevelDays).ToString("yyyy/MM/dd"));
-                                    if (DT != null) {
-                                        if (DT.Rows.Count > 0) {
-                                            ValidBetValue = (decimal)DT.Rows[0]["ValidBetValue"];
-                                            DeposiAmount = (decimal)DT.Rows[0]["DepositAmount"];
-                                        }
-                                    }
-
-                                    //最初級沒有降級問題直接確認升級
                                     if (UserLevelIndex == 0) {
-                                        NewUserLevelIndex = CheckUserLevelUpgrade(UserLevelIndex, DeposiAmount, ValidBetValue, VIPSettingDetail);
-
-                                        //更新會員等級資料
-                                        if (IsUserAccountLevelDBHasData) {
-                                            //等級有升級時再更新
-                                            if (NewUserLevelIndex > UserLevelIndex) {
-                                                EWinWebDB.UserAccountLevelLog.InsertUserAccountLevelLog(LoginAccount, 1, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, "SystemAutoCheckUserLevel");
-                                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
-                                                EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
-                                            }
-                                        } else {
-                                            EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
-                                        }
 
                                     } else {
-                                        //會員等級變更時間超過1個月 先檢查保級再檢查升級
-                                        //會員等級變更時間未達1個月 檢查升級
-
+                                        //會員等級變更時間超過1個月 
                                         double UserLevelUpdatedays = DateTime.Now.Date.Subtract(UserLevelUpdateDate).TotalDays;
-                                        bool CheckUpgrade = true;
-
                                         //等級變動時間超過30天，檢查保級
                                         if (UserLevelUpdatedays >= KeepLevelDays) {
                                             //保級失敗
                                             if (!CheckUserLevelDowngrade(LoginAccount, UserLevelIndex, ValidBetValue, VIPSettingDetail)) {
                                                 NewUserLevelIndex = UserLevelIndex - 1;
 
-                                                CheckUpgrade = false;
                                                 updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
-                                                EWinWebDB.UserAccountLevelLog.InsertUserAccountLevelLog(LoginAccount, 0, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, "SystemAutoCheckUserLevel");
-
-                                                //更新會員等級資料
-                                                if (IsUserAccountLevelDBHasData) {
-                                                    EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
-                                                } else {
-                                                    EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
-                                                }
+                                                EWinWebDB.UserAccount.UserAccountLevelIndexChange(LoginAccount, 0, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, 0, 0, "SystemAutoCheckUserLevel", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
 
                                             } else { //保級成功時間重新計算
                                                      //更新會員等級資料
-                                                if (IsUserAccountLevelDBHasData) {
-                                                    EWinWebDB.UserAccount.UpdateUserAccountLevel(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
-                                                } else {
-                                                    EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
-                                                }
-                                            }
-                                        }
-
-                                        //保級成功或等級變動未超過30天，檢查升級
-                                        if (CheckUpgrade) {
-                                            NewUserLevelIndex = CheckUserLevelUpgrade(UserLevelIndex, DeposiAmount, ValidBetValue, VIPSettingDetail);
-
-                                            //更新會員等級資料
-                                            if (IsUserAccountLevelDBHasData) {
-                                                //等級有升級時再更新
-                                                if (NewUserLevelIndex > UserLevelIndex) {
-                                                    //3以後才有禮物
-                                                    SendUpgradeGift(LoginAccount);
-                                                    updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
-                                                    EWinWebDB.UserAccountLevelLog.InsertUserAccountLevelLog(LoginAccount, 1, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, "SystemAutoCheckUserLevel");
-                                                    EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
-                                                }
-                                            } else {
-                                                EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.ToString("yyyy/MM/dd"));
+                                                EWinWebDB.UserAccount.UpdateUserAccountLevel(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
                                             }
                                         }
                                     }
