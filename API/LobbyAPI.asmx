@@ -2248,6 +2248,182 @@ public class LobbyAPI : System.Web.Services.WebService {
         return R;
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.APIResult UserManualUpgradeVipLevel(string WebSID, string GUID) {
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR, Message = "Not eligible for upgrade" };
+        RedisCache.SessionContext.SIDInfo SI;
+        System.Data.DataTable DT = new System.Data.DataTable();
+        System.Data.DataTable UserDT = new System.Data.DataTable();
+        Newtonsoft.Json.Linq.JObject VIPSetting;
+        Newtonsoft.Json.Linq.JArray VIPSettingDetail;
+        int UserLevelIndex = 0;
+        int NewUserLevelIndex = 0;
+        string LoginAccount = string.Empty;
+        decimal UserLevelAccumulationDepositAmount = 0; //下一級累積入金金額(若有晉級，當前累積要扣除升級所需條件，再更新至資料表中讓使用者繼續累積下一等級)
+        decimal UserLevelAccumulationValidBetValue = 0;    //下一級累積有效投注(若有晉級，當前累積要扣除升級所需條件，再更新至資料表中讓使用者繼續累積下一等級)
+        decimal DeposiAmount = 0;
+        decimal ValidBetValue = 0;
+        int Setting_UserLevelIndex = 0;
+        decimal Setting_DepositMinValue = 0;
+        decimal Setting_DepositMaxValue = 0;
+        decimal Setting_ValidBetMinValue = 0;
+        decimal Setting_ValidBetMaxValue = 0;
+        int DepositLevel = 0;    //儲值符合等級
+        int ValidBetLevel = 0;   //流水符合等級
+        bool CheckDeposit = true;
+        bool CheckValidBet = true;
+        List<UserLevelUpgradeTempData> UserLevelUpgradeTempDatas = new List<UserLevelUpgradeTempData>();
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+
+            VIPSetting = GetActivityDetail("../App_Data/VIPSetting.json");
+            if (VIPSetting != null) {
+                UserDT = EWinWebDB.UserAccount.GetUserAccount(SI.LoginAccount);
+
+                if (UserDT != null && UserDT.Rows.Count > 0) {
+                    VIPSettingDetail =  Newtonsoft.Json.Linq.JArray.Parse(VIPSetting["VIPSetting"].ToString());
+                    foreach (System.Data.DataRow dr in UserDT.Rows) {
+                        UserLevelIndex = (int)dr["UserLevelIndex"];
+                        LoginAccount = (string)dr["LoginAccount"];
+                        UserLevelAccumulationDepositAmount = (decimal)dr["UserLevelAccumulationDepositAmount"];
+                        UserLevelAccumulationValidBetValue = (decimal)dr["UserLevelAccumulationValidBetValue"];
+                        DeposiAmount = UserLevelAccumulationDepositAmount;
+                        ValidBetValue = UserLevelAccumulationValidBetValue;
+
+                        //最高等時不處理
+                        if (UserLevelIndex != VIPSettingDetail.Count - 1) {
+                            for (int i = UserLevelIndex; i < VIPSettingDetail.Count; i++) {
+                                Setting_UserLevelIndex = (int)VIPSettingDetail[i]["UserLevelIndex"];
+                                Setting_DepositMinValue += (decimal)VIPSettingDetail[i]["DepositMinValue"];
+                                Setting_DepositMaxValue += (decimal)VIPSettingDetail[i]["DepositMaxValue"];
+                                Setting_ValidBetMinValue += (decimal)VIPSettingDetail[i]["ValidBetMinValue"];
+                                Setting_ValidBetMaxValue += (decimal)VIPSettingDetail[i]["ValidBetMaxValue"];
+
+                                UserLevelUpgradeTempData k = new UserLevelUpgradeTempData() {
+                                    NewLevelIndex = Setting_UserLevelIndex,
+                                    DepositMinValue = Setting_DepositMinValue,
+                                    ValidBetMinValue = Setting_ValidBetMinValue
+                                };
+
+                                UserLevelUpgradeTempDatas.Add(k);
+
+                                if (CheckDeposit) {
+                                    if (DeposiAmount < Setting_DepositMaxValue) {
+                                        if (DeposiAmount >= Setting_DepositMinValue) {
+                                            DepositLevel = Setting_UserLevelIndex;
+                                            CheckDeposit = false;
+                                        }
+                                    }
+                                }
+
+                                if (CheckValidBet) {
+                                    if (ValidBetValue < Setting_ValidBetMaxValue) {
+                                        if (ValidBetValue >= Setting_ValidBetMinValue) {
+                                            ValidBetLevel = Setting_UserLevelIndex;
+                                            CheckValidBet = false;
+                                        }
+                                    }
+                                }
+
+                                if (DepositLevel == ValidBetLevel) {
+                                    NewUserLevelIndex = DepositLevel;
+                                } else if (DepositLevel < ValidBetLevel) {
+                                    NewUserLevelIndex = DepositLevel;
+                                } else {
+                                    NewUserLevelIndex = ValidBetLevel;
+                                }
+                            }
+                            //等級有變動再處裡
+                            if (UserLevelIndex != NewUserLevelIndex) {
+
+                                foreach (var item in UserLevelUpgradeTempDatas) {
+                                    if (item.NewLevelIndex == NewUserLevelIndex) {
+                                        UserLevelAccumulationDepositAmount = UserLevelAccumulationDepositAmount - item.DepositMinValue;
+                                        UserLevelAccumulationValidBetValue = UserLevelAccumulationValidBetValue - item.ValidBetMinValue;
+                                    }
+                                }
+
+                                SendUpgradeGift(LoginAccount);
+                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
+                                EWinWebDB.UserAccount.UserAccountLevelIndexChange(LoginAccount, 1, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, UserLevelAccumulationDepositAmount, UserLevelAccumulationValidBetValue, "SystemAutoCheckUserLevel", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+
+                                RedisCache.UserAccount.UpdateUserAccountByLoginAccount(LoginAccount);
+                                RedisCache.UserAccountVIPInfo.DeleteUserAccountVIPInfo(LoginAccount);
+
+                                R.Message = "Upgrade Success";
+                                R.Result = EWin.Lobby.enumResult.OK;
+                            } else {
+                                R.Message = "Not eligible for upgrade";
+                                R.Result = EWin.Lobby.enumResult.ERR;
+                            }
+                        } else {
+                            R.Message = "Not eligible for upgrade";
+                            R.Result = EWin.Lobby.enumResult.ERR;
+                        }
+
+                    }
+                }
+            }
+
+        } else {
+            R.Result = EWin.Lobby.enumResult.ERR;
+            R.Message = "InvalidWebSID";
+        }
+        return R;
+    }
+
+    private void SendUpgradeGift(string LoginAccount) {
+        var UpgradeBonusResult = ActivityCore.GetVIPUpgradeBonusResult(LoginAccount);
+
+        if (UpgradeBonusResult.Result == ActivityCore.enumActResult.OK) {
+            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+            List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+            string CollectAreaType;
+
+            foreach (var activityData in UpgradeBonusResult.Data) {
+
+                string description = activityData.ActivityName;
+                string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
+                string PromotionCode = "";
+                string PromotionCategoryCode = "";
+                CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
+
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
+
+                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_UpgradeGift", LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
+            }
+        }
+    }
+
+    private void updateEwinUserLevelInfo(string LoginAccount, int UserLevelIndex) {
+        updateEwinUserLevel(LoginAccount, UserLevelIndex);
+        setUserAccountProperty(LoginAccount, System.Guid.NewGuid().ToString(), "UserLevelUpdateDate", DateTime.Now.ToString("yyyy/MM/dd"));
+    }
+
+    private EWin.FANTA.APIResult updateEwinUserLevel(string LoginAccount, int UserLevelIndex) {
+        EWin.FANTA.APIResult R = new EWin.FANTA.APIResult();
+        EWin.FANTA.FANTA API = new EWin.FANTA.FANTA();
+
+        R = API.UpdateUserLevel(GetToken(), LoginAccount, UserLevelIndex);
+
+        return R;
+    }
+
+    private EWin.Lobby.APIResult setUserAccountProperty(string LoginAccount, string GUID, string PropertyName, string PropertyValue) {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult();
+
+        R = lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, PropertyName, PropertyValue);
+
+        return R;
+    }
+
     private static Newtonsoft.Json.Linq.JObject GetActivityDetail(string Path) {
         Newtonsoft.Json.Linq.JObject o = null;
         string Filename;
@@ -2500,5 +2676,11 @@ public class LobbyAPI : System.Web.Services.WebService {
             public decimal ValidBetMaxValue { get; set; }
             public decimal KeepValidBetValue { get; set; }
         }
+    }
+
+    public class UserLevelUpgradeTempData {
+        public int NewLevelIndex { get; set; }
+        public decimal DepositMinValue { get; set; }
+        public decimal ValidBetMinValue { get; set; }
     }
 }
