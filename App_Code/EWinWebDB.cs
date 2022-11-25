@@ -1319,7 +1319,7 @@ public static class EWinWebDB {
 
             return DT;
         }
-
+         
         public static int UpdateUserVipValidBetValueInfo(string LoginAccount, decimal ValidBetValueFromSummary, decimal UserLevelAccumulationValidBetValue, DateTime LastValidBetValueSummaryDate) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
