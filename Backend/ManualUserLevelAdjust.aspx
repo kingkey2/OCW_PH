@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ForegroundOperation.aspx.cs" Inherits="Backend_ForegroundOperation" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ManualUserLevelAdjust.aspx.cs" Inherits="Backend_ManualUserLevelAdjust" %>
 
 <!doctype html>
 <html>
@@ -21,7 +21,7 @@
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script>      
     var c = new common();
-    var ApiUrl = "ForegroundOperation.aspx";
+    var ApiUrl = "ManualUserLevelAdjust.aspx";
 
     function init() {
         if (self == top) {
@@ -29,46 +29,13 @@
         }
     }
 
-    function onBtnUpdateCompanyCategory() {
+    function onBtnUpdateUserLevel() {
         var postData = {
-
+            LoginAccount: $("#idLoginAccount").val(),
+            NewUserLevelIndex: $("#idUserLevelIndex").val()
         };
 
-        c.callService(ApiUrl + "/UpdateCompanyCategory", postData, function (success, o) {
-            if (success) {
-                var obj = c.getJSON(o);
-                if (obj.Result == 0) {
-                    alert("完成");
-                } else {
-                    alert(obj.Message);
-                }
-            }
-        });
-    }
-
-    function onBtnOpenWebSite() {
-        var postData = {
-
-        };
-
-        c.callService(ApiUrl + "/OpenSite", postData, function (success, o) {
-            if (success) {
-                var obj = c.getJSON(o);
-                if (obj.Result == 0) {
-                    alert("完成");
-                } else {
-                    alert(obj.Message);
-                }
-            }
-        });
-    }
-
-    function onBtnCloseWebSite() {
-        var postData = {
-            Message: $("#idCloseWebSiteTxt").val()
-        };
-
-        c.callService(ApiUrl + "/MaintainSite", postData, function (success, o) {
+        c.callService(ApiUrl + "/ManualUserLevelAdjust", postData, function (success, o) {
             if (success) {
                 var obj = c.getJSON(o);
                 if (obj.Result == 0) {
@@ -92,23 +59,37 @@
         <div class="main-panel">
             <div id="idRegister" class="form-container cashflowCard-wrapper">
                 <!-- 簡易註冊 -->
-                <div id="contentStep1" class="form-content" data-form-group="registerStep1" style="padding:20px !important">
+                <div id="contentStep1" class="form-content" data-form-group="registerStep1" style="padding:20px !important;width:100%">
                     <form id="registerStep1">
                         <div class="form-group mt-4">
-                            <label class="form-title language_replace">關站說明</label>
+                            <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
-                                <input id="idCloseWebSiteTxt" type="text" class="form-control custom-style"  style="width:100%"/>
+                                <input id="idLoginAccount" type="text" class="form-control custom-style"  style="width:100%"/>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label class="form-title language_replace" langkey="等級">等級</label>
+                                <div class="input-group">
+                                    <select id="idUserLevelIndex" class="form-control custom-style" name="UserLevelIndex" >
+                                        <option value="0" selected="">VIP0</option>
+                                        <option value="1">青銅</option>
+                                        <option value="2">白銀</option>
+                                        <option value="3">勇士</option>
+                                        <option value="4">白金</option>
+                                        <option value="5">鑽石</option>
+                                        <option value="6">精英</option>
+                                        <option value="7">金鑽</option>
+                                        <option value="8">大師</option>
+                                        <option value="9">宗師</option>
+                                        <option value="10">史詩</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="btn-container register my-3" id="divSendValidateCodeBtn">
-                            <button type="button" class=" btn-primary " onclick="onBtnUpdateCompanyCategory()">
-                                <span class="language_replace">同步遊戲</span>
-                            </button>
-                            <button type="button" class=" btn-primary " onclick="onBtnOpenWebSite()">
-                                <span class="language_replace">開站</span>
-                            </button>
-                            <button type="button" class=" btn-primary " onclick="onBtnCloseWebSite()">
-                                <span class="language_replace">關站</span>
+                            <button type="button" class=" btn-primary " onclick="onBtnUpdateUserLevel()">
+                                <span class="language_replace">升級</span>
                             </button>
                         </div>
                     </form>
