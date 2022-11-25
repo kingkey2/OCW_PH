@@ -423,7 +423,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                 string description = activityData.ActivityName;
                 string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
                 string PromotionCode = "VIPLev";
-                string PromotionCategoryCode = "";
+                string PromotionCategoryCode = "AAA";
                 CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 
                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
