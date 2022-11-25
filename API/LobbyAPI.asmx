@@ -494,7 +494,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
                 }
             }
-           
+
             var GetRegisterToParentResult = ActivityCore.GetRegisterToParentResult();
 
             if (GetRegisterToParentResult.Result == ActivityCore.enumActResult.OK) {
@@ -2284,7 +2284,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 UserDT = EWinWebDB.UserAccount.GetUserAccount(SI.LoginAccount);
 
                 if (UserDT != null && UserDT.Rows.Count > 0) {
-                    VIPSettingDetail =  Newtonsoft.Json.Linq.JArray.Parse(VIPSetting["VIPSetting"].ToString());
+                    VIPSettingDetail = Newtonsoft.Json.Linq.JArray.Parse(VIPSetting["VIPSetting"].ToString());
                     foreach (System.Data.DataRow dr in UserDT.Rows) {
                         UserLevelIndex = (int)dr["UserLevelIndex"];
                         LoginAccount = (string)dr["LoginAccount"];
@@ -2292,10 +2292,12 @@ public class LobbyAPI : System.Web.Services.WebService {
                         UserLevelAccumulationValidBetValue = (decimal)dr["UserLevelAccumulationValidBetValue"];
                         DeposiAmount = UserLevelAccumulationDepositAmount;
                         ValidBetValue = UserLevelAccumulationValidBetValue;
+                        DepositLevel = UserLevelIndex;
+                        ValidBetLevel = UserLevelIndex;
 
                         //最高等時不處理
                         if (UserLevelIndex != VIPSettingDetail.Count - 1) {
-                            for (int i = UserLevelIndex; i < VIPSettingDetail.Count; i++) {
+                            for (int i = UserLevelIndex + 1; i < VIPSettingDetail.Count; i++) {
                                 Setting_UserLevelIndex = (int)VIPSettingDetail[i]["UserLevelIndex"];
                                 Setting_DepositMinValue += (decimal)VIPSettingDetail[i]["DepositMinValue"];
                                 Setting_DepositMaxValue += (decimal)VIPSettingDetail[i]["DepositMaxValue"];
@@ -2327,17 +2329,18 @@ public class LobbyAPI : System.Web.Services.WebService {
                                         }
                                     }
                                 }
-
-                                if (DepositLevel == ValidBetLevel) {
-                                    NewUserLevelIndex = DepositLevel;
-                                } else if (DepositLevel < ValidBetLevel) {
-                                    NewUserLevelIndex = DepositLevel;
-                                } else {
-                                    NewUserLevelIndex = ValidBetLevel;
-                                }
                             }
+
+                            if (DepositLevel == ValidBetLevel) {
+                                NewUserLevelIndex = DepositLevel;
+                            } else if (DepositLevel < ValidBetLevel) {
+                                NewUserLevelIndex = DepositLevel;
+                            } else {
+                                NewUserLevelIndex = ValidBetLevel;
+                            }
+
                             //等級有變動再處裡
-                            if (NewUserLevelIndex>UserLevelIndex) {
+                            if (NewUserLevelIndex > UserLevelIndex) {
 
                                 foreach (var item in UserLevelUpgradeTempDatas) {
                                     if (item.NewLevelIndex == NewUserLevelIndex) {
@@ -2345,7 +2348,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                                         UserLevelAccumulationValidBetValue = UserLevelAccumulationValidBetValue - item.ValidBetMinValue;
                                     }
                                 }
-                                
+
                                 //發升級禮物
                                 if (NewUserLevelIndex > UserLevelIndex) {
                                     for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex; i++) {

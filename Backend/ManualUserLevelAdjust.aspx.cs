@@ -57,7 +57,7 @@ public partial class Backend_ManualUserLevelAdjust : System.Web.UI.Page {
                             //發升級禮物
                             if (NewUserLevelIndex > UserLevelIndex_Now) {
                                 for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex_Now; i++) {
-                                    SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex_Now);
+                                    SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex_Now+i);
                                 }
                             }
                         }

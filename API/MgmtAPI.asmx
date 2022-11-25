@@ -670,8 +670,8 @@ public class MgmtAPI : System.Web.Services.WebService {
                                 EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
                                 //發升級禮物
                                 if (NewUserLevelIndex > UserLevelIndex_Now) {
-                                    for (int i = 1; i <= NewUserLevelIndex-UserLevelIndex_Now; i++) {
-                                        SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex_Now);
+                                    for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex_Now; i++) {
+                                        SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex_Now + i);
                                     }
                                 }
                                 RedisCache.UserAccount.UpdateUserAccountByLoginAccount(LoginAccount);
@@ -816,10 +816,12 @@ public class MgmtAPI : System.Web.Services.WebService {
                     UserLevelAccumulationValidBetValue = (decimal)dr["UserLevelAccumulationValidBetValue"];
                     DeposiAmount = UserLevelAccumulationDepositAmount;
                     ValidBetValue = UserLevelAccumulationValidBetValue;
+                    DepositLevel = UserLevelIndex;
+                    ValidBetLevel = UserLevelIndex;
 
                     //最高等時不處理
                     if (UserLevelIndex != VIPSettingDetail.Count - 1) {
-                        for (int i = UserLevelIndex; i < VIPSettingDetail.Count; i++) {
+                        for (int i = UserLevelIndex + 1; i < VIPSettingDetail.Count; i++) {
                             Setting_UserLevelIndex = (int)VIPSettingDetail[i]["UserLevelIndex"];
                             Setting_DepositMinValue += (decimal)VIPSettingDetail[i]["DepositMinValue"];
                             Setting_DepositMaxValue += (decimal)VIPSettingDetail[i]["DepositMaxValue"];
@@ -851,15 +853,16 @@ public class MgmtAPI : System.Web.Services.WebService {
                                     }
                                 }
                             }
-
-                            if (DepositLevel == ValidBetLevel) {
-                                NewUserLevelIndex = DepositLevel;
-                            } else if (DepositLevel < ValidBetLevel) {
-                                NewUserLevelIndex = DepositLevel;
-                            } else {
-                                NewUserLevelIndex = ValidBetLevel;
-                            }
                         }
+
+                        if (DepositLevel == ValidBetLevel) {
+                            NewUserLevelIndex = DepositLevel;
+                        } else if (DepositLevel < ValidBetLevel) {
+                            NewUserLevelIndex = DepositLevel;
+                        } else {
+                            NewUserLevelIndex = ValidBetLevel;
+                        }
+
                         //等級有變動再處裡
                         if (NewUserLevelIndex > UserLevelIndex) {
 
@@ -872,7 +875,7 @@ public class MgmtAPI : System.Web.Services.WebService {
 
                             //發升級禮物
                             for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex; i++) {
-                                SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex);
+                                SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex + 1);
                             }
 
                             updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
