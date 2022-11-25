@@ -57,7 +57,7 @@ public partial class Backend_ManualUserLevelAdjust : System.Web.UI.Page {
                             //發升級禮物
                             if (NewUserLevelIndex > UserLevelIndex_Now) {
                                 for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex_Now; i++) {
-                                    SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex_Now + i);
+                                    SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex_Now);
                                 }
                             }
                         }
@@ -113,7 +113,7 @@ public partial class Backend_ManualUserLevelAdjust : System.Web.UI.Page {
         if (ActivityDetail != null) {
             ActivityName = (string)ActivityDetail["Name"];
 
-            DT = EWinWebDB.UserAccountEventBonusHistory.GetBonusHistoryByLoginAccountActivityName(LoginAccount, ActivityName);
+            DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
 
             if (DT != null && DT.Rows.Count > 0) {
 

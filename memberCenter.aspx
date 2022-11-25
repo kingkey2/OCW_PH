@@ -1070,6 +1070,10 @@
                     window.parent.showMessageOK(mlp.getLanguageKey(""), o.Message, function () {
                         getVIPInfo();
                     });
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey(""), o.Message, function () {
+
+                    });
                 }
             } else {
                 if (o == "Timeout") {

@@ -751,11 +751,11 @@ public class MgmtAPI : System.Web.Services.WebService {
                         //非跨日資料，若 ValidBetValue == ValidBetValueFromSummary => 資料沒異動 Break
                         //                        若 ValidBetValue != ValidBetValueFromSummary  => ValidBetValueFromSummary = ValidBetValue，UserLevelAccumulationValidBetValue = UserLevelAccumulationValidBetValue + (ValidBetValue - ValidBetValueFromSummary)
 
-                        if (LastValidBetValueSummaryDate == DateTime.Parse(SummaryDate)) {
+                        if (DateTime.Parse(LastValidBetValueSummaryDate.ToString("yyyy/MM/dd 00:00:00")) == DateTime.Parse(SummaryDate)) {
                             if (ValidBetValueFromSummary != ValidBetValue) {
                                 EWinWebDB.UserAccount.UpdateUserVipValidBetValueInfo(LoginAccount, ValidBetValue, ValidBetValue - ValidBetValueFromSummary, DateTime.Parse(SummaryDate));
                             }
-                        } else if (LastValidBetValueSummaryDate < DateTime.Parse(SummaryDate)) {
+                        } else if (DateTime.Parse(LastValidBetValueSummaryDate.ToString("yyyy/MM/dd 00:00:00")) < DateTime.Parse(SummaryDate)) {
                             EWinWebDB.UserAccount.UpdateUserVipValidBetValueInfo(LoginAccount, ValidBetValue, ValidBetValue, DateTime.Parse(SummaryDate));
                         }
 
