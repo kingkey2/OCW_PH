@@ -799,6 +799,7 @@ public class MgmtAPI : System.Web.Services.WebService {
         int ValidBetLevel = 0;   //流水符合等級
         bool CheckDeposit = true;
         bool CheckValidBet = true;
+        List<UserLevelUpgradeTempData> UserLevelUpgradeTempDatas = new List<UserLevelUpgradeTempData>();
 
         VIPSetting = GetActivityDetail("../App_Data/VIPSetting.json");
         if (VIPSetting != null) {
@@ -823,11 +824,18 @@ public class MgmtAPI : System.Web.Services.WebService {
                             Setting_ValidBetMinValue += (decimal)VIPSettingDetail[i]["ValidBetMinValue"];
                             Setting_ValidBetMaxValue += (decimal)VIPSettingDetail[i]["ValidBetMaxValue"];
 
+                            UserLevelUpgradeTempData k = new UserLevelUpgradeTempData() {
+                                NewLevelIndex = Setting_UserLevelIndex,
+                                DepositMinValue = Setting_DepositMinValue,
+                                ValidBetMinValue = Setting_ValidBetMinValue
+                            };
+
+                            UserLevelUpgradeTempDatas.Add(k);
+
                             if (CheckDeposit) {
                                 if (DeposiAmount < Setting_DepositMaxValue) {
                                     if (DeposiAmount >= Setting_DepositMinValue) {
                                         DepositLevel = Setting_UserLevelIndex;
-                                        UserLevelAccumulationDepositAmount = UserLevelAccumulationDepositAmount - Setting_DepositMinValue;
                                         CheckDeposit = false;
                                     }
                                 }
@@ -837,7 +845,6 @@ public class MgmtAPI : System.Web.Services.WebService {
                                 if (ValidBetValue < Setting_ValidBetMaxValue) {
                                     if (ValidBetValue >= Setting_ValidBetMinValue) {
                                         ValidBetLevel = Setting_UserLevelIndex;
-                                        UserLevelAccumulationValidBetValue = UserLevelAccumulationValidBetValue - Setting_ValidBetMinValue;
                                         CheckValidBet = false;
                                     }
                                 }
@@ -850,16 +857,23 @@ public class MgmtAPI : System.Web.Services.WebService {
                             } else {
                                 NewUserLevelIndex = ValidBetLevel;
                             }
-                            //等級有變動再處裡
-                            if (UserLevelIndex != NewUserLevelIndex) {
-                                SendUpgradeGift(LoginAccount);
-                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
-                                EWinWebDB.UserAccount.UserAccountLevelIndexChange(LoginAccount, 1, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, UserLevelAccumulationDepositAmount, UserLevelAccumulationValidBetValue, "SystemAutoCheckUserLevel", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+                        }
+                        //等級有變動再處裡
+                        if (UserLevelIndex != NewUserLevelIndex) {
 
-                                RedisCache.UserAccount.UpdateUserAccountByLoginAccount(LoginAccount);
-                                RedisCache.UserAccountVIPInfo.DeleteUserAccountVIPInfo(LoginAccount);
+                            foreach (var item in UserLevelUpgradeTempDatas) {
+                                if (item.NewLevelIndex == NewUserLevelIndex) {
+                                    UserLevelAccumulationDepositAmount = UserLevelAccumulationDepositAmount - item.DepositMinValue;
+                                    UserLevelAccumulationValidBetValue = UserLevelAccumulationValidBetValue - item.ValidBetMinValue;
+                                }
                             }
 
+                            SendUpgradeGift(LoginAccount);
+                            updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
+                            EWinWebDB.UserAccount.UserAccountLevelIndexChange(LoginAccount, 1, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, UserLevelAccumulationDepositAmount, UserLevelAccumulationValidBetValue, "SystemAutoCheckUserLevel", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+
+                            RedisCache.UserAccount.UpdateUserAccountByLoginAccount(LoginAccount);
+                            RedisCache.UserAccountVIPInfo.DeleteUserAccountVIPInfo(LoginAccount);
                         }
                     }
 
@@ -1619,5 +1633,11 @@ public class MgmtAPI : System.Web.Services.WebService {
         public string CategoryName { get; set; }
         public int SortIndex { get; set; }
         public int State { get; set; }
+    }
+
+    public class UserLevelUpgradeTempData {
+        public int NewLevelIndex { get; set; }
+        public decimal DepositMinValue { get; set; }
+        public decimal ValidBetMinValue { get; set; }
     }
 }
