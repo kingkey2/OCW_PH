@@ -692,7 +692,7 @@
         }
 
         if (boolChecked) {
-            p.AddUserBankCard(WebInfo.SID, Math.uuid(), WebInfo.MainCurrencyType, 4, "GCash", PhonePrefix, PhoneNumber, GCashAccount, "", "", "", function (success, o) {
+            p.AddUserBankCard(WebInfo.SID, Math.uuid(), WebInfo.MainCurrencyType, 4, "GCash", "", PhoneNumber, GCashAccount, "", "", "", function (success, o) {
                 if (success) {
                     if (o.Result == 0) {
                         getUserBankCard();
