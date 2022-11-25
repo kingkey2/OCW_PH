@@ -181,5 +181,7 @@
   "個人錢包": "Personal wallet",
   "錢包資訊": "Wallet information",
   "請綁定 銀行卡 或 GCash": "Please bind bank card or GCash",
-  "最多只能新增10張卡片": "You can only have most 10 card."
+  "最多只能新增10張卡片": "You can only have most 10 card.",
+  "電話號碼必須以0開頭": "Phone number must start with 0.",
+  "電話號碼長度為11碼": "Phone number length is 11"
 }
