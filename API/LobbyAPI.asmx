@@ -75,15 +75,9 @@ public class LobbyAPI : System.Web.Services.WebService {
     public EWin.Lobby.APIResult AddUserBankCard(string WebSID, string GUID, string CurrencyType, int PaymentMethod, string BankName, string BranchName, string BankNumber, string AccountName, string BankProvince, string BankCity, string Description) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
-        TelPhoneNormalize telPhoneNormalize;
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            if (PaymentMethod == 4)
-            {
-                telPhoneNormalize = new TelPhoneNormalize(BranchName, BankNumber);
-                BankNumber = telPhoneNormalize.PhonePrefix + telPhoneNormalize.PhoneNumber;
-            }
             return lobbyAPI.AddUserBankCard(GetToken(), SI.EWinSID, GUID, CurrencyType, PaymentMethod, BankName, BranchName, BankNumber, AccountName, BankProvince, BankCity, Description);
         } else {
             var R = new EWin.Lobby.APIResult() {
