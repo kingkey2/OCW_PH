@@ -482,7 +482,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                     string description = activityData.ActivityName;
                     string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
-                    string PromotionCode = "";
+                    string PromotionCode = description;
                     string PromotionCategoryCode = "";
                     CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 
@@ -518,7 +518,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                             foreach (var activityData in GetRegisterToParentResult.Data) {
                                 string description = activityData.ActivityName;
                                 string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
-                                string PromotionCode = "";
+                                string PromotionCode = description;
                                 string PromotionCategoryCode = "";
                                 CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 

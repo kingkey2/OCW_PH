@@ -422,7 +422,7 @@ public class MgmtAPI : System.Web.Services.WebService {
 
                 string description = activityData.ActivityName;
                 string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
-                string PromotionCode = "";
+                string PromotionCode = "VIPLev";
                 string PromotionCategoryCode = "";
                 CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 
@@ -455,7 +455,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                 string description =  ActivityDetail["Name"].ToString();
                 decimal ThresholdValue = (decimal)ActivityDetail["ThresholdValue"];
                 decimal BonusValue = (decimal)ActivityDetail["BonusValue"];
-                string PromotionCode = "";
+                string PromotionCode = "VIPLev";
                 string PromotionCategoryCode = "";
                 string JoinActivityCycle = "1";
                 string CollectAreaType =  ActivityDetail["CollectAreaType"].ToString() == null ? "2" :  ActivityDetail["CollectAreaType"].ToString();
@@ -519,6 +519,7 @@ public class MgmtAPI : System.Web.Services.WebService {
 
                                     if (IsUserLevelIndexSupport) {
                                         string description = (string)ActivityDetail["Name"];
+                                        PromotionCode = description;
                                         string JoinActivityCycle = "1";
                                         string CollectAreaType = ActivityDetail["CollectAreaType"].ToString() == null ? "2" : ActivityDetail["CollectAreaType"].ToString();
 
@@ -600,6 +601,7 @@ public class MgmtAPI : System.Web.Services.WebService {
 
                                     if (IsUserLevelIndexSupport) {
                                         string description = (string)ActivityDetail["Name"];
+                                        PromotionCode = description;
                                         string JoinActivityCycle = "1";
                                         string CollectAreaType = ActivityDetail["CollectAreaType"].ToString() == null ? "2" : ActivityDetail["CollectAreaType"].ToString();
 
@@ -1305,7 +1307,7 @@ public class MgmtAPI : System.Web.Services.WebService {
 
             JoinActivityCycle = start.ToString("yyyy/MM/dd") + "-" + end.ToString("yyyy/MM/dd");
             description = "Act003";
-
+            PromotionCode = description;
             ret = OCWAPI.GetSummaryDateByDateForSeventDateBonus(GetToken(), start.ToString("yyyy/MM/dd"), end.ToString("yyyy/MM/dd"));
 
             if (ret.ResultState == EWin.OCW.enumResultState.OK) {
@@ -1366,7 +1368,7 @@ public class MgmtAPI : System.Web.Services.WebService {
         List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
         string description = ActivityName;
         string GUID = System.Guid.NewGuid().ToString();
-        string PromotionCode = "";
+        string PromotionCode = description;
         string PromotionCategoryCode = "";
 
         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
