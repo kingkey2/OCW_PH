@@ -2349,7 +2349,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 //發升級禮物
                                 if (NewUserLevelIndex > UserLevelIndex) {
                                     for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex; i++) {
-                                        SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex + i);
+                                        SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex);
                                     }
                                 }
 
@@ -2416,7 +2416,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         if (ActivityDetail != null) {
             ActivityName = (string)ActivityDetail["Name"];
 
-            DT = EWinWebDB.UserAccountEventBonusHistory.GetBonusHistoryByLoginAccountActivityName(LoginAccount, ActivityName);
+            DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
 
             if (DT != null && DT.Rows.Count > 0) {
 
