@@ -2173,7 +2173,6 @@ public class LobbyAPI : System.Web.Services.WebService {
         int Setting_UserLevelIndex = 0;
         decimal DeposiAmount = 0;
         decimal ValidBetValue = 0;
-        decimal SelfValidBetValueFromSummaryByDate = 0;
         DateTime UserLevelUpdateDate = DateTime.Now;
         string RedisVIPInfo = string.Empty;
 
@@ -2195,6 +2194,8 @@ public class LobbyAPI : System.Web.Services.WebService {
                         if (UserLevDT.Rows.Count > 0) {
                             UserLevelIndex = (int)UserLevDT.Rows[0]["UserLevelIndex"];
                             UserLevelUpdateDate = (DateTime)UserLevDT.Rows[0]["UserLevelUpdateDate"];
+                            DeposiAmount = (decimal)UserLevDT.Rows[0]["UserLevelAccumulationDepositAmount"];
+                            ValidBetValue = (decimal)UserLevDT.Rows[0]["UserLevelAccumulationValidBetValue"];
                         }
                     }
 
@@ -2220,24 +2221,11 @@ public class LobbyAPI : System.Web.Services.WebService {
                         }
                     }
 
-                    R1 = api.GetSelfValidBetValueFromSummaryByDate(GetToken(), System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.AddDays(1).ToString("yyyy/MM/dd"));
-                    if (R1.ResultState == EWin.FANTA.enumResultState.OK) {
-                        SelfValidBetValueFromSummaryByDate =decimal.Parse(R1.Message);
-                    }
-
-                    DT = EWinWebDB.UserAccountSummary.GetUserAccountTotalValueSummaryData(SI.LoginAccount, UserLevelUpdateDate.ToString("yyyy/MM/dd"), UserLevelUpdateDate.AddDays(KeepLevelDays).ToString("yyyy/MM/dd"));
-                    if (DT != null) {
-                        if (DT.Rows.Count > 0) {
-                            ValidBetValue = (decimal)DT.Rows[0]["ValidBetValue"];
-                            DeposiAmount = (decimal)DT.Rows[0]["DepositAmount"];
-                        }
-                    }
-
                     double UserLevelUpdatedays = DateTime.Now.Date.Subtract(UserLevelUpdateDate).TotalDays;
 
                     k.UserLevelIndex = UserLevelIndex;
                     k.KeepLevelDays = KeepLevelDays;
-                    k.ValidBetValue = ValidBetValue + SelfValidBetValueFromSummaryByDate;
+                    k.ValidBetValue = ValidBetValue;
                     k.DepositValue = DeposiAmount;
                     k.ElapsedDays = (int)UserLevelUpdatedays;
 

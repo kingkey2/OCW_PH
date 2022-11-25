@@ -26,8 +26,11 @@ public partial class Backend_ManualUserLevelAdjust : System.Web.UI.Page {
         int UserLevelIndex_Now = 0;
         System.Data.DataTable UTSDT = new System.Data.DataTable();
         System.Data.DataTable DT = new System.Data.DataTable();
+        System.Data.DataTable DT1 = new System.Data.DataTable();
         System.Data.DataTable UserLevDT = new System.Data.DataTable();
-        
+        decimal ValidBetValue = 0;
+        decimal DeposiAmount = 0;
+
         VIPSetting = GetActivityDetail("../App_Data/VIPSetting.json");
 
         if (VIPSetting != null) {
@@ -44,10 +47,13 @@ public partial class Backend_ManualUserLevelAdjust : System.Web.UI.Page {
 
                     if (DT != null && DT.Rows.Count > 0) {
                         UserLevelIndex_Now = (int)DT.Rows[0]["UserLevelIndex"];
+                        ValidBetValue = (decimal)DT.Rows[0]["ValidBetValue"];
+                        DeposiAmount = (decimal)DT.Rows[0]["DepositAmount"];
 
                         if (UserLevelIndex_Now != NewUserLevelIndex) {
                             updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
-                            EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+                            EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+                            EWinWebDB.UserAccountLevelLog.InsertUserAccountLevelLog(LoginAccount, 1, UserLevelIndex_Now, NewUserLevelIndex, DeposiAmount, ValidBetValue, "ManualAdjustUserLevel");
                             //發升級禮物
                             if (NewUserLevelIndex > UserLevelIndex_Now) {
                                 for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex_Now; i++) {

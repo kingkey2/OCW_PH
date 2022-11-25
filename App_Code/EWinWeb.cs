@@ -153,6 +153,25 @@ public static class EWinWeb {
         return o;
     }
 
+    public static Newtonsoft.Json.Linq.JObject GetCheckVIPUpgradeSettingJObj() {
+        Newtonsoft.Json.Linq.JObject o = null;
+        string Filename;
+
+        Filename = HttpContext.Current.Server.MapPath("/App_Data/CheckVIPUpgradeSetting.json");
+
+        if (System.IO.File.Exists(Filename)) {
+            string SettingContent;
+
+            SettingContent = System.IO.File.ReadAllText(Filename);
+
+            if (string.IsNullOrEmpty(SettingContent) == false) {
+                try { o = Newtonsoft.Json.Linq.JObject.Parse(SettingContent); } catch (Exception ex) { }
+            }
+        }
+
+        return o;
+    }
+
     public static bool IsInMaintain() {
         bool RetValue = false;
         string Filename;
