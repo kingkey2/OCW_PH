@@ -1363,7 +1363,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                 var CreateEPayDepositeReturn = Payment.EPay.CreateEPayDeposite(paymentResult.PaymentSerial, TempCommonData.Amount, PaymentType, TempCommonData.ToInfo, userInfoResult.ContactPhoneNumber, ServiceType);
                                 if (CreateEPayDepositeReturn.ResultState == Payment.APIResult.enumResultCode.OK)
                                 {
-                                    paymentAPI.UpdateTagInfo(GetToken(), GUID, paymentResult.PaymentSerial, CreateEPayDepositeReturn.ProviderCode);
+                                    paymentAPI.UpdatePaymentTypeTag(GetToken(), GUID, paymentResult.PaymentSerial, CreateEPayDepositeReturn.ProviderCode);
 
                                     int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, TempCommonData.ToInfo, paymentResult.PaymentSerial, "", PointValue, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData.ActivityDatas));
 
