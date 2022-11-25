@@ -2345,8 +2345,14 @@ public class LobbyAPI : System.Web.Services.WebService {
                                         UserLevelAccumulationValidBetValue = UserLevelAccumulationValidBetValue - item.ValidBetMinValue;
                                     }
                                 }
+                                
+                                //發升級禮物
+                                if (NewUserLevelIndex > UserLevelIndex) {
+                                    for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex; i++) {
+                                        SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex + i);
+                                    }
+                                }
 
-                                SendUpgradeGift(LoginAccount);
                                 updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
                                 EWinWebDB.UserAccount.UserAccountLevelIndexChange(LoginAccount, 1, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, UserLevelAccumulationDepositAmount, UserLevelAccumulationValidBetValue, "SystemAutoCheckUserLevel", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
 
@@ -2397,6 +2403,39 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                 lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_UpgradeGift", LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                 EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
+            }
+        }
+    }
+
+    private void SendUpgradeGiftByUserLevelIndex(string LoginAccount, int UserLevelIndex) {
+        System.Data.DataTable DT;
+        string ActivityName = string.Empty;
+        Newtonsoft.Json.Linq.JObject ActivityDetail;
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        ActivityDetail = GetActivityDetail("/App_Data/ActivityDetail/VIPSetting/VIPLev" + UserLevelIndex + ".json");
+        if (ActivityDetail != null) {
+            ActivityName = (string)ActivityDetail["Name"];
+
+            DT = EWinWebDB.UserAccountEventBonusHistory.GetBonusHistoryByLoginAccountActivityName(LoginAccount, ActivityName);
+
+            if (DT != null && DT.Rows.Count > 0) {
+
+            } else {
+                List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+
+                string description = ActivityDetail["Name"].ToString();
+                decimal ThresholdValue = (decimal)ActivityDetail["ThresholdValue"];
+                decimal BonusValue = (decimal)ActivityDetail["BonusValue"];
+                string PromotionCode = "VIPLev";
+                string PromotionCategoryCode = "";
+                string JoinActivityCycle = "1";
+                string CollectAreaType = ActivityDetail["CollectAreaType"].ToString() == null ? "2" : ActivityDetail["CollectAreaType"].ToString();
+
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
+
+                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_UpgradeGift", LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, ThresholdValue, BonusValue);
             }
         }
     }

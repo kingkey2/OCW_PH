@@ -870,7 +870,13 @@ public class MgmtAPI : System.Web.Services.WebService {
                                 }
                             }
 
-                            SendUpgradeGift(LoginAccount);
+                            //發升級禮物
+                            if (NewUserLevelIndex > UserLevelIndex) {
+                                for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex; i++) {
+                                    SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex + i);
+                                }
+                            }
+                            
                             updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
                             EWinWebDB.UserAccount.UserAccountLevelIndexChange(LoginAccount, 1, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, UserLevelAccumulationDepositAmount, UserLevelAccumulationValidBetValue, "SystemAutoCheckUserLevel", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
 
