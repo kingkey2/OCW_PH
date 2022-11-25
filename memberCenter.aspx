@@ -1073,6 +1073,26 @@
         });
     }
 
+    function userManualUpgradeVipLevel() {
+        p.UserManualUpgradeVipLevel(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    window.parent.showMessageOK(mlp.getLanguageKey(""), o.Message, function () {
+                        getVIPInfo();
+                    });
+                }
+            } else {
+                if (o == "Timeout") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o.Message, function () {
+                        getVIPInfo();
+                    });
+                }
+            }
+        });
+    }
+
     function closeBankModal() {
         $('.resultShow.success').hide();
         $('.resultShow.fail').hide();
@@ -1149,7 +1169,7 @@
                                             <span class="btn" data-toggle="modal" data-target="#ModalMemberLevel">
                                                 <img src="images/member/btn-member-level-popup.png" alt="">
                                             </span>
-                                            <a class="levelup" href="#">Level Up!!</a>
+                                            <a class="levelup" onclick="userManualUpgradeVipLevel()">Level Up!!</a>
                                         </div>                                        
                                     </div>
                                     <span class="unit">PHP</span>
