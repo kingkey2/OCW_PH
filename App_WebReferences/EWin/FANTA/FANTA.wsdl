@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://tempuri.org/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:element name="GetAccountingDetailBySummaryDate">
@@ -222,10 +222,50 @@
           <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetUserSelfValidBetValueFromSummaryByDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserSelfValidBetValueFromSummaryByDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserSelfValidBetValueFromSummaryByDateResult" type="tns:SelfValidBetResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SelfValidBetResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="SelfValidBetList" type="tns:ArrayOfSelfValidBet" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSelfValidBet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SelfValidBet" nillable="true" type="tns:SelfValidBet" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SelfValidBet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SummaryDate" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="AgentAccountingResult" nillable="true" type="tns:AgentAccountingResult" />
       <s:element name="ChildUserResult" nillable="true" type="tns:ChildUserResult" />
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
       <s:element name="UserThresholdInfo" nillable="true" type="tns:UserThresholdInfo" />
+      <s:element name="SelfValidBetResult" nillable="true" type="tns:SelfValidBetResult" />
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetAccountingDetailBySummaryDateSoapIn">
@@ -275,6 +315,12 @@
   </wsdl:message>
   <wsdl:message name="GetUserThresholdInfoSoapOut">
     <wsdl:part name="parameters" element="tns:GetUserThresholdInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserSelfValidBetValueFromSummaryByDate" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserSelfValidBetValueFromSummaryByDateResponse" />
   </wsdl:message>
   <wsdl:message name="GetAccountingDetailBySummaryDateHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
@@ -340,6 +386,16 @@
   <wsdl:message name="GetUserThresholdInfoHttpGetOut">
     <wsdl:part name="Body" element="tns:UserThresholdInfo" />
   </wsdl:message>
+  <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateHttpGetOut">
+    <wsdl:part name="Body" element="tns:SelfValidBetResult" />
+  </wsdl:message>
   <wsdl:message name="GetAccountingDetailBySummaryDateHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -404,6 +460,16 @@
   <wsdl:message name="GetUserThresholdInfoHttpPostOut">
     <wsdl:part name="Body" element="tns:UserThresholdInfo" />
   </wsdl:message>
+  <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateHttpPostOut">
+    <wsdl:part name="Body" element="tns:SelfValidBetResult" />
+  </wsdl:message>
   <wsdl:portType name="FANTASoap">
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
       <wsdl:input message="tns:GetAccountingDetailBySummaryDateSoapIn" />
@@ -437,6 +503,10 @@
       <wsdl:input message="tns:GetUserThresholdInfoSoapIn" />
       <wsdl:output message="tns:GetUserThresholdInfoSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDate">
+      <wsdl:input message="tns:GetUserSelfValidBetValueFromSummaryByDateSoapIn" />
+      <wsdl:output message="tns:GetUserSelfValidBetValueFromSummaryByDateSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="FANTAHttpGet">
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
@@ -467,6 +537,10 @@
       <wsdl:input message="tns:GetUserThresholdInfoHttpGetIn" />
       <wsdl:output message="tns:GetUserThresholdInfoHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDate">
+      <wsdl:input message="tns:GetUserSelfValidBetValueFromSummaryByDateHttpGetIn" />
+      <wsdl:output message="tns:GetUserSelfValidBetValueFromSummaryByDateHttpGetOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="FANTAHttpPost">
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
@@ -496,6 +570,10 @@
     <wsdl:operation name="GetUserThresholdInfo">
       <wsdl:input message="tns:GetUserThresholdInfoHttpPostIn" />
       <wsdl:output message="tns:GetUserThresholdInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDate">
+      <wsdl:input message="tns:GetUserSelfValidBetValueFromSummaryByDateHttpPostIn" />
+      <wsdl:output message="tns:GetUserSelfValidBetValueFromSummaryByDateHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="FANTASoap" type="tns:FANTASoap">
@@ -565,6 +643,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserThresholdInfo">
       <soap:operation soapAction="http://tempuri.org/GetUserThresholdInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDate">
+      <soap:operation soapAction="http://tempuri.org/GetUserSelfValidBetValueFromSummaryByDate" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -647,6 +734,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDate">
+      <soap12:operation soapAction="http://tempuri.org/GetUserSelfValidBetValueFromSummaryByDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="FANTAHttpGet" type="tns:FANTAHttpGet">
     <http:binding verb="GET" />
@@ -713,6 +809,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDate">
+      <http:operation location="/GetUserSelfValidBetValueFromSummaryByDate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="FANTAHttpPost" type="tns:FANTAHttpPost">
     <http:binding verb="POST" />
@@ -772,6 +877,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserThresholdInfo">
       <http:operation location="/GetUserThresholdInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDate">
+      <http:operation location="/GetUserSelfValidBetValueFromSummaryByDate" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

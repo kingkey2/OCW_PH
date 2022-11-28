@@ -78,7 +78,7 @@
                                                     List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
                                                     description = activityData.ActivityName;
                                                     PromotionCollectKey = description + "_" + BodyObj.ClientOrderNumber;
-                                                    PromotionCode = "";
+                                                    PromotionCode = description;
                                                     PromotionCategoryCode = "";
                                                     JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
                                                     CollectAreaType = activityData.CollectAreaType == null ? "1" : activityData.CollectAreaType;
@@ -113,7 +113,7 @@
                                                         List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
                                                         description = activityData.ActivityName;
                                                         PromotionCollectKey = description + "_" + BodyObj.ClientOrderNumber;
-                                                        PromotionCode = "";
+                                                        PromotionCode = description;
                                                         PromotionCategoryCode = "";
                                                         JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
                                                         CollectAreaType = activityData.CollectAreaType == null ? "1" : activityData.CollectAreaType;
@@ -153,7 +153,7 @@
                                                             if (UserPointVal >= 200) {
                                                                 List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
                                                                 description = "BS001";
-                                                                PromotionCode = "";
+                                                                PromotionCode = description;
                                                                 PromotionCategoryCode = "";
                                                                 PromotionCollectKey = description + "_" + BodyObj.LoginAccount;
 

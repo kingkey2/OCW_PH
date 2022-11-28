@@ -75,15 +75,9 @@ public class LobbyAPI : System.Web.Services.WebService {
     public EWin.Lobby.APIResult AddUserBankCard(string WebSID, string GUID, string CurrencyType, int PaymentMethod, string BankName, string BranchName, string BankNumber, string AccountName, string BankProvince, string BankCity, string Description) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
-        TelPhoneNormalize telPhoneNormalize;
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            if (PaymentMethod == 4)
-            {
-                telPhoneNormalize = new TelPhoneNormalize(BranchName, BankNumber);
-                BankNumber = telPhoneNormalize.PhonePrefix + telPhoneNormalize.PhoneNumber;
-            }
             return lobbyAPI.AddUserBankCard(GetToken(), SI.EWinSID, GUID, CurrencyType, PaymentMethod, BankName, BranchName, BankNumber, AccountName, BankProvince, BankCity, Description);
         } else {
             var R = new EWin.Lobby.APIResult() {
@@ -482,7 +476,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                     string description = activityData.ActivityName;
                     string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
-                    string PromotionCode = "";
+                    string PromotionCode = description;
                     string PromotionCategoryCode = "";
                     CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 
@@ -518,7 +512,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                             foreach (var activityData in GetRegisterToParentResult.Data) {
                                 string description = activityData.ActivityName;
                                 string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
-                                string PromotionCode = "";
+                                string PromotionCode = description;
                                 string PromotionCategoryCode = "";
                                 CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
 
@@ -2173,7 +2167,6 @@ public class LobbyAPI : System.Web.Services.WebService {
         int Setting_UserLevelIndex = 0;
         decimal DeposiAmount = 0;
         decimal ValidBetValue = 0;
-        decimal SelfValidBetValueFromSummaryByDate = 0;
         DateTime UserLevelUpdateDate = DateTime.Now;
         string RedisVIPInfo = string.Empty;
 
@@ -2195,6 +2188,8 @@ public class LobbyAPI : System.Web.Services.WebService {
                         if (UserLevDT.Rows.Count > 0) {
                             UserLevelIndex = (int)UserLevDT.Rows[0]["UserLevelIndex"];
                             UserLevelUpdateDate = (DateTime)UserLevDT.Rows[0]["UserLevelUpdateDate"];
+                            DeposiAmount = (decimal)UserLevDT.Rows[0]["UserLevelAccumulationDepositAmount"];
+                            ValidBetValue = (decimal)UserLevDT.Rows[0]["UserLevelAccumulationValidBetValue"];
                         }
                     }
 
@@ -2220,24 +2215,11 @@ public class LobbyAPI : System.Web.Services.WebService {
                         }
                     }
 
-                    R1 = api.GetSelfValidBetValueFromSummaryByDate(GetToken(), System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, DateTime.Now.ToString("yyyy/MM/dd"), DateTime.Now.AddDays(1).ToString("yyyy/MM/dd"));
-                    if (R1.ResultState == EWin.FANTA.enumResultState.OK) {
-                        SelfValidBetValueFromSummaryByDate =decimal.Parse(R1.Message);
-                    }
-
-                    DT = EWinWebDB.UserAccountSummary.GetUserAccountTotalValueSummaryData(SI.LoginAccount, UserLevelUpdateDate.ToString("yyyy/MM/dd"), UserLevelUpdateDate.AddDays(KeepLevelDays).ToString("yyyy/MM/dd"));
-                    if (DT != null) {
-                        if (DT.Rows.Count > 0) {
-                            ValidBetValue = (decimal)DT.Rows[0]["ValidBetValue"];
-                            DeposiAmount = (decimal)DT.Rows[0]["DepositAmount"];
-                        }
-                    }
-
                     double UserLevelUpdatedays = DateTime.Now.Date.Subtract(UserLevelUpdateDate).TotalDays;
 
                     k.UserLevelIndex = UserLevelIndex;
                     k.KeepLevelDays = KeepLevelDays;
-                    k.ValidBetValue = ValidBetValue + SelfValidBetValueFromSummaryByDate;
+                    k.ValidBetValue = ValidBetValue;
                     k.DepositValue = DeposiAmount;
                     k.ElapsedDays = (int)UserLevelUpdatedays;
 
@@ -2257,6 +2239,224 @@ public class LobbyAPI : System.Web.Services.WebService {
             R.Result = EWin.Lobby.enumResult.ERR;
             R.Message = "InvalidWebSID";
         }
+        return R;
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.APIResult UserManualUpgradeVipLevel(string WebSID, string GUID) {
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR, Message = "Not eligible for upgrade" };
+        RedisCache.SessionContext.SIDInfo SI;
+        System.Data.DataTable DT = new System.Data.DataTable();
+        System.Data.DataTable UserDT = new System.Data.DataTable();
+        Newtonsoft.Json.Linq.JObject VIPSetting;
+        Newtonsoft.Json.Linq.JArray VIPSettingDetail;
+        int UserLevelIndex = 0;
+        int NewUserLevelIndex = 0;
+        string LoginAccount = string.Empty;
+        decimal UserLevelAccumulationDepositAmount = 0; //下一級累積入金金額(若有晉級，當前累積要扣除升級所需條件，再更新至資料表中讓使用者繼續累積下一等級)
+        decimal UserLevelAccumulationValidBetValue = 0;    //下一級累積有效投注(若有晉級，當前累積要扣除升級所需條件，再更新至資料表中讓使用者繼續累積下一等級)
+        decimal DeposiAmount = 0;
+        decimal ValidBetValue = 0;
+        int Setting_UserLevelIndex = 0;
+        decimal Setting_DepositMinValue = 0;
+        decimal Setting_DepositMaxValue = 0;
+        decimal Setting_ValidBetMinValue = 0;
+        decimal Setting_ValidBetMaxValue = 0;
+        int DepositLevel = 0;    //儲值符合等級
+        int ValidBetLevel = 0;   //流水符合等級
+        bool CheckDeposit = true;
+        bool CheckValidBet = true;
+        List<UserLevelUpgradeTempData> UserLevelUpgradeTempDatas = new List<UserLevelUpgradeTempData>();
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+
+            VIPSetting = GetActivityDetail("../App_Data/VIPSetting.json");
+            if (VIPSetting != null) {
+                UserDT = EWinWebDB.UserAccount.GetUserAccount(SI.LoginAccount);
+
+                if (UserDT != null && UserDT.Rows.Count > 0) {
+                    VIPSettingDetail = Newtonsoft.Json.Linq.JArray.Parse(VIPSetting["VIPSetting"].ToString());
+                    foreach (System.Data.DataRow dr in UserDT.Rows) {
+                        UserLevelIndex = (int)dr["UserLevelIndex"];
+                        LoginAccount = (string)dr["LoginAccount"];
+                        UserLevelAccumulationDepositAmount = (decimal)dr["UserLevelAccumulationDepositAmount"];
+                        UserLevelAccumulationValidBetValue = (decimal)dr["UserLevelAccumulationValidBetValue"];
+                        DeposiAmount = UserLevelAccumulationDepositAmount;
+                        ValidBetValue = UserLevelAccumulationValidBetValue;
+                        DepositLevel = UserLevelIndex;
+                        ValidBetLevel = UserLevelIndex;
+
+                        //最高等時不處理
+                        if (UserLevelIndex != VIPSettingDetail.Count - 1) {
+                            for (int i = UserLevelIndex + 1; i < VIPSettingDetail.Count; i++) {
+                                Setting_UserLevelIndex = (int)VIPSettingDetail[i]["UserLevelIndex"];
+                                Setting_DepositMinValue += (decimal)VIPSettingDetail[i]["DepositMinValue"];
+                                Setting_DepositMaxValue += (decimal)VIPSettingDetail[i]["DepositMaxValue"];
+                                Setting_ValidBetMinValue += (decimal)VIPSettingDetail[i]["ValidBetMinValue"];
+                                Setting_ValidBetMaxValue += (decimal)VIPSettingDetail[i]["ValidBetMaxValue"];
+
+                                UserLevelUpgradeTempData k = new UserLevelUpgradeTempData() {
+                                    NewLevelIndex = Setting_UserLevelIndex,
+                                    DepositMinValue = Setting_DepositMinValue,
+                                    ValidBetMinValue = Setting_ValidBetMinValue
+                                };
+
+                                UserLevelUpgradeTempDatas.Add(k);
+
+                                if (CheckDeposit) {
+                                    if (DeposiAmount < Setting_DepositMaxValue) {
+                                        if (DeposiAmount >= Setting_DepositMinValue) {
+                                            DepositLevel = Setting_UserLevelIndex;
+                                            CheckDeposit = false;
+                                        }
+                                    }
+                                }
+
+                                if (CheckValidBet) {
+                                    if (ValidBetValue < Setting_ValidBetMaxValue) {
+                                        if (ValidBetValue >= Setting_ValidBetMinValue) {
+                                            ValidBetLevel = Setting_UserLevelIndex;
+                                            CheckValidBet = false;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (DepositLevel == ValidBetLevel) {
+                                NewUserLevelIndex = DepositLevel;
+                            } else if (DepositLevel < ValidBetLevel) {
+                                NewUserLevelIndex = DepositLevel;
+                            } else {
+                                NewUserLevelIndex = ValidBetLevel;
+                            }
+
+                            //等級有變動再處裡
+                            if (NewUserLevelIndex > UserLevelIndex) {
+
+                                foreach (var item in UserLevelUpgradeTempDatas) {
+                                    if (item.NewLevelIndex == NewUserLevelIndex) {
+                                        UserLevelAccumulationDepositAmount = UserLevelAccumulationDepositAmount - item.DepositMinValue;
+                                        UserLevelAccumulationValidBetValue = UserLevelAccumulationValidBetValue - item.ValidBetMinValue;
+                                    }
+                                }
+
+                                //發升級禮物
+                                if (NewUserLevelIndex > UserLevelIndex) {
+                                    for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex; i++) {
+                                        SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex);
+                                    }
+                                }
+
+                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
+                                EWinWebDB.UserAccount.UserAccountLevelIndexChange(LoginAccount, 1, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, UserLevelAccumulationDepositAmount, UserLevelAccumulationValidBetValue, "SystemAutoCheckUserLevel", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+
+                                RedisCache.UserAccount.UpdateUserAccountByLoginAccount(LoginAccount);
+                                RedisCache.UserAccountVIPInfo.DeleteUserAccountVIPInfo(LoginAccount);
+
+                                R.Message = "Upgrade Success";
+                                R.Result = EWin.Lobby.enumResult.OK;
+                            } else {
+                                R.Message = "Not eligible for upgrade";
+                                R.Result = EWin.Lobby.enumResult.ERR;
+                            }
+                        } else {
+                            R.Message = "Not eligible for upgrade";
+                            R.Result = EWin.Lobby.enumResult.ERR;
+                        }
+
+                    }
+                }
+            }
+
+        } else {
+            R.Result = EWin.Lobby.enumResult.ERR;
+            R.Message = "InvalidWebSID";
+        }
+        return R;
+    }
+
+    private void SendUpgradeGift(string LoginAccount) {
+        var UpgradeBonusResult = ActivityCore.GetVIPUpgradeBonusResult(LoginAccount);
+
+        if (UpgradeBonusResult.Result == ActivityCore.enumActResult.OK) {
+            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+            List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+            string CollectAreaType;
+
+            foreach (var activityData in UpgradeBonusResult.Data) {
+
+                string description = activityData.ActivityName;
+                string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
+                string PromotionCode = "VIPLev";
+                string PromotionCategoryCode = "";
+                CollectAreaType = activityData.CollectAreaType == null ? "2" : activityData.CollectAreaType;
+
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
+
+                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_UpgradeGift", LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
+            }
+        }
+    }
+
+    private void SendUpgradeGiftByUserLevelIndex(string LoginAccount, int UserLevelIndex) {
+        System.Data.DataTable DT;
+        string ActivityName = string.Empty;
+        Newtonsoft.Json.Linq.JObject ActivityDetail;
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        ActivityDetail = GetActivityDetail("/App_Data/ActivityDetail/VIPSetting/VIPLev" + UserLevelIndex + ".json");
+        if (ActivityDetail != null) {
+            ActivityName = (string)ActivityDetail["Name"];
+
+            DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
+
+            if (DT != null && DT.Rows.Count > 0) {
+
+            } else {
+                List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+
+                string description = ActivityDetail["Name"].ToString();
+                decimal ThresholdValue = (decimal)ActivityDetail["ThresholdValue"];
+                decimal BonusValue = (decimal)ActivityDetail["BonusValue"];
+                string PromotionCode = "VIPLev";
+                string PromotionCategoryCode = "";
+                string JoinActivityCycle = "1";
+                string CollectAreaType = ActivityDetail["CollectAreaType"].ToString() == null ? "2" : ActivityDetail["CollectAreaType"].ToString();
+
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
+
+                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_UpgradeGift", LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, ThresholdValue, BonusValue);
+            }
+        }
+    }
+
+    private void updateEwinUserLevelInfo(string LoginAccount, int UserLevelIndex) {
+        updateEwinUserLevel(LoginAccount, UserLevelIndex);
+        setUserAccountProperty(LoginAccount, System.Guid.NewGuid().ToString(), "UserLevelUpdateDate", DateTime.Now.ToString("yyyy/MM/dd"));
+    }
+
+    private EWin.FANTA.APIResult updateEwinUserLevel(string LoginAccount, int UserLevelIndex) {
+        EWin.FANTA.APIResult R = new EWin.FANTA.APIResult();
+        EWin.FANTA.FANTA API = new EWin.FANTA.FANTA();
+
+        R = API.UpdateUserLevel(GetToken(), LoginAccount, UserLevelIndex);
+
+        return R;
+    }
+
+    private EWin.Lobby.APIResult setUserAccountProperty(string LoginAccount, string GUID, string PropertyName, string PropertyValue) {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult();
+
+        R = lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, PropertyName, PropertyValue);
+
         return R;
     }
 
@@ -2512,5 +2712,11 @@ public class LobbyAPI : System.Web.Services.WebService {
             public decimal ValidBetMaxValue { get; set; }
             public decimal KeepValidBetValue { get; set; }
         }
+    }
+
+    public class UserLevelUpgradeTempData {
+        public int NewLevelIndex { get; set; }
+        public decimal DepositMinValue { get; set; }
+        public decimal ValidBetMinValue { get; set; }
     }
 }

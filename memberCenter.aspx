@@ -365,7 +365,6 @@
             $('#idGCashAccountErrorMessage').text('');
             $('#idPhoneNumber').val('');
             $('#idPhoneNumberErrorMessage').text('');
-            $('#idPhonePrefixErrorMessage').text('');
             $('#stepFadeInUpGCash').show();
             $('#ModalGCash').modal('show');
         }
@@ -651,7 +650,6 @@
 
     function GCashSave() {
         var GCashAccount = $('#idGCashAccount').val().trim();
-        var PhonePrefix = $('#idPhonePrefix').val().trim();
         var PhoneNumber = $('#idPhoneNumber').val().trim();
 
         var boolChecked = true;
@@ -662,13 +660,6 @@
             $('#idGCashAccountErrorMessage').text(mlp.getLanguageKey(""));
         }
 
-        if (PhonePrefix == '') {
-            $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey("尚未輸入國碼"));
-            boolChecked = false;
-        } else {
-            $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey(""));
-        }
-
         if (PhoneNumber == '') {
             $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("尚未輸入電話號碼"));
             boolChecked = false;
@@ -676,33 +667,32 @@
             $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey(""));
         }
 
-        var phoneValue = PhonePrefix + PhoneNumber;
-        var phoneObj;
-
-        try {
-            phoneObj = PhoneNumberUtil.parse(phoneValue);
-
-            var type = PhoneNumberUtil.getNumberType(phoneObj);
-
-            if (type != libphonenumber.PhoneNumberType.MOBILE && type != libphonenumber.PhoneNumberType.FIXED_LINE_OR_MOBILE) {
-                $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
-                $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
-                boolChecked = false;
-
-            } else {
-                $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey(""));
-                $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey(""));
-            }
+        if (PhoneNumber[0] != "0") {
+            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話號碼必須以0開頭"));
+            boolChecked = false;
+        } else {
+            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey(""));
         }
-        catch (e) {
 
-            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
-            $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
+
+        if (PhoneNumber[0] != "0") {
+            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話號碼必須以0開頭"));
+            boolChecked = false;
+        } else {
+            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey(""));
+        }
+
+
+        if (PhoneNumber.length == 11) {
+            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey(""));
+           
+        } else {
+            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話號碼長度為11碼"));
             boolChecked = false;
         }
 
         if (boolChecked) {
-            p.AddUserBankCard(WebInfo.SID, Math.uuid(), WebInfo.MainCurrencyType, 4, "GCash", PhonePrefix, PhoneNumber, GCashAccount, "", "", "", function (success, o) {
+            p.AddUserBankCard(WebInfo.SID, Math.uuid(), WebInfo.MainCurrencyType, 4, "GCash", "", PhoneNumber, GCashAccount, "", "", "", function (success, o) {
                 if (success) {
                     if (o.Result == 0) {
                         getUserBankCard();
@@ -1073,6 +1063,30 @@
         });
     }
 
+    function userManualUpgradeVipLevel() {
+        p.UserManualUpgradeVipLevel(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    window.parent.showMessageOK(mlp.getLanguageKey(""), o.Message, function () {
+                        getVIPInfo();
+                    });
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey(""), o.Message, function () {
+
+                    });
+                }
+            } else {
+                if (o == "Timeout") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o.Message, function () {
+                        getVIPInfo();
+                    });
+                }
+            }
+        });
+    }
+
     function closeBankModal() {
         $('.resultShow.success').hide();
         $('.resultShow.fail').hide();
@@ -1149,7 +1163,7 @@
                                             <span class="btn" data-toggle="modal" data-target="#ModalMemberLevel">
                                                 <img src="images/member/btn-member-level-popup.png" alt="">
                                             </span>
-                                            <a class="levelup" href="#">Level Up!!</a>
+                                            <a class="levelup" onclick="userManualUpgradeVipLevel()" style="cursor:pointer">Level Up!!</a>
                                         </div>                                        
                                     </div>
                                     <span class="unit">PHP</span>
@@ -3350,17 +3364,11 @@
                                             <div class="invalid-feedback language_replace" id="idGCashAccountErrorMessage"></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="form-title language_replace">國碼</label>
-                                        <div class="input-group">
-                                            <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+63" inputmode="decimal" value="+63">
-                                            <div class="invalid-feedback language_replace" id="idPhonePrefixErrorMessage"></div>
-                                        </div>
-                                    </div>
+                                 
                                     <div class="form-group">
                                         <label class="form-title language_replace">手機電話號碼</label>
                                         <div class="input-group">
-                                            <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-000-0000" inputmode="decimal">
+                                            <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="0906-123-4567" inputmode="decimal">
                                             <div class="invalid-feedback language_replace" id="idPhoneNumberErrorMessage"></div>
                                         </div>
                                     </div>

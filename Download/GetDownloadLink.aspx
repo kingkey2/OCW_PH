@@ -33,11 +33,11 @@
     }
 
     if (UserDeviceType == 0) {
-        //Response.Redirect((string)DT.Rows[0]["PCLink"]);
+        Response.Redirect(EWinWeb.CasinoWorldUrl + "/Download/LuckySprite.apk");
     } else if (UserDeviceType == 1) {
-        Response.Redirect(EWinWeb.CasinoWorldUrl + "/Download/MaharajaAgent.apk");
+        Response.Redirect(EWinWeb.CasinoWorldUrl + "/Download/LuckySprite.apk");
     } else if (UserDeviceType == 2) {
-        Response.Redirect("https://erff.top:10121/896ac6d9");
+        Response.Redirect(EWinWeb.CasinoWorldUrl + "/ios/WebClip.mobileprovision");
     }
 %>
 <html>
