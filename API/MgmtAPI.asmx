@@ -132,7 +132,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                 bool IsDBHasData1 = false;
                 string SummaryGUID = string.Empty;
 
-                var GameOrderList = callResult.SummaryList.Where(x => x.ValidBetValue > 0).GroupBy(x => new { x.CurrencyType, x.LoginAccount, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
+                var GameOrderList = callResult.SummaryList.Where(x => x.ValidBetValue > 0 && x.CurrencyType == EWinWeb.MainCurrencyType).GroupBy(x => new { x.CurrencyType, x.LoginAccount, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
                     TotalValidBetValue = sum.Sum(y => y.ValidBetValue),
                     CurrencyType = key.CurrencyType,
                     LoginAccount = key.LoginAccount,
