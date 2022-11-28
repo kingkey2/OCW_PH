@@ -30,6 +30,7 @@
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/libphonenumber.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
 <script>
     if (self != top) {
         window.parent.API_LoadingStart();
@@ -72,23 +73,89 @@
                                        
                                         break;
                                     case "EPAY.Gcash":
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.DepositAmountMin!=0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
+                                        }
+
+                                        if (channel.DepositAmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
+                                        }
+
+                                        $('#idDepositGCash').find('.limit').text(minAmount + "~" + maxAmount);
                                         $('#idDepositGCash').show();
                                         break;
                                     case "EPAY.GcashDirect":
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.DepositAmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
+                                        }
+
+                                        if (channel.DepositAmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
+                                        }
+
+                                        $('#idDepositGCashDirect').find('.limit').text(minAmount + "~" + maxAmount);
                                         $('#idDepositGCashDirect').show();
                                     case "EPAY.GcashQRcode":
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.DepositAmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
+                                        }
+
+                                        if (channel.DepositAmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
+                                        }
+
+                                        $('#idDepositGcashQRcode').find('.limit').text(minAmount + "~" + maxAmount);
                                         $('#idDepositGcashQRcode').show();
                                         break;
                                     case "EPAY.Grabpay":
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.DepositAmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
+                                        }
+
+                                        if (channel.DepositAmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
+                                        }
+
+                                        $('#idDepositGrabpay').find('.limit').text(minAmount + "~" + maxAmount);
                                         $('#idDepositGrabpay').show();
                                         break;
                                     case "EPAY.Paymaya":
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.DepositAmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
+                                        }
+
+                                        if (channel.DepositAmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
+                                        }
+
+                                        $('#idDepositPaymaya').find('.limit').text(minAmount + "~" + maxAmount);
                                         $('#idDepositPaymaya').show();
                                         break;
                                     default:
                                 }
 
                                 if (channel.PaymentBrand == "BlockChain") {
+                                    var minAmount = "unlimited";
+                                    var maxAmount = "unlimited";
+                                    if (channel.DepositAmountMin != 0) {
+                                        minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
+                                    }
+
+                                    if (channel.DepositAmountMax != 0) {
+                                        maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
+                                    }
+
+                                    $('#idDepositCrypto').find('.limit').text(minAmount + "~" + maxAmount);
                                     $('#idDepositCrypto').show();
                                 }
                             }
@@ -97,6 +164,14 @@
                 } 
             }
         })
+    }
+
+    function toCurrency(num) {
+
+        num = parseFloat(Number(num).toFixed(2));
+        var parts = num.toString().split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return parts.join('.');
     }
 
     function OpenPage(title, url) {
@@ -199,8 +274,8 @@
                                     <span onclick="window.open('instructions-crypto.html')" class="language_replace">使用說明</span>
                                 </div>                                -->
                                 <div class="quota">
-                                    <i>限額:</i>
-                                    <span>100.00 ~ 10,000.00</span>
+                                    <i class="language_replace">限額:</i>
+                                    <span class="limit">100.00 ~ 10,000.00</span>
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
@@ -219,8 +294,8 @@
                                     <img src="images/assets/card-surface/icon-logo-GCash.svg">
                                 </div>
                                 <div class="quota">
-                                    <i>限額:</i>
-                                    <span>100.00 ~ 10,000.00</span>
+                                    <i class="language_replace">限額:</i>
+                                    <span class="limit">100.00 ~ 10,000.00</span>
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
@@ -240,8 +315,8 @@
                                     <img src="images/assets/card-surface/icon-logo-GCash.svg">
                                 </div>
                                 <div class="quota">
-                                    <i>限額:</i>
-                                    <span>100.00 ~ 10,000.00</span>
+                                    <i class="language_replace">限額:</i>
+                                    <span class="limit">100.00 ~ 10,000.00</span>
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
@@ -260,8 +335,8 @@
                                     <img src="images/assets/card-surface/icon-logo-PayMaya.svg">
                                 </div>
                                 <div class="quota">
-                                    <i>限額:</i>
-                                    <span>100.00 ~ 10,000.00</span>
+                                    <i class="language_replace">限額:</i>
+                                    <span class="limit">100.00 ~ 10,000.00</span>
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-11.svg" class="card-item-bg">
@@ -280,8 +355,8 @@
                                     <img src="images/assets/card-surface/icon-logo-GrabPay.svg">
                                 </div>
                                 <div class="quota">
-                                    <i>限額:</i>
-                                    <span>100.00 ~ 10,000.00</span>
+                                    <i class="language_replace">限額:</i>
+                                    <span class="limit">100.00 ~ 10,000.00</span>
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
@@ -299,8 +374,8 @@
                                     <img src="images/assets/card-surface/icon-logo-GCash.svg">
                                 </div>
                                 <div class="quota">
-                                    <i>限額:</i>
-                                    <span>100.00 ~ 10,000.00</span>
+                                    <i class="language_replace">限額:</i>
+                                    <span class="limit">100.00 ~ 10,000.00</span>
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">

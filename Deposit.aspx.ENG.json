@@ -8,5 +8,6 @@
   "電子錢包": "Wallet",
   "使用說明": "How to use",
   "檢視存款紀錄": "View Deposit History",
-  "OneOrderInProgress": "Can only have one order in progress."
+  "OneOrderInProgress": "Can only have one order in progress.",
+  "限額:": "Deposit limit:"
 }
