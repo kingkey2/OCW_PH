@@ -2653,7 +2653,9 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
 .layout-full-screen .logo:hover {
   opacity: 0.75;
 }
-
+#system-msg .layout-full-screen .logo {
+  width: 300px;
+}
 .form-container {
   margin: auto;
   max-width: 540px;
