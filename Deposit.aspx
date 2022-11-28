@@ -198,6 +198,10 @@
                                     <i class="icon-info_circle_outline"></i>
                                     <span onclick="window.open('instructions-crypto.html')" class="language_replace">使用說明</span>
                                 </div>                                -->
+                                <div class="quota">
+                                    <i>限額:</i>
+                                    <span>100.00 ~ 10,000.00</span>
+                                </div>
                             </div>
                             <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
                         </a>
@@ -213,6 +217,10 @@
                                 <div class="logo vertical-center text-center"> 
                                     <!-- <span class="text language_replace">銀行振込</span> -->
                                     <img src="images/assets/card-surface/icon-logo-GCash.svg">
+                                </div>
+                                <div class="quota">
+                                    <i>限額:</i>
+                                    <span>100.00 ~ 10,000.00</span>
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
@@ -231,6 +239,10 @@
                                     <!-- <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg"> -->
                                     <img src="images/assets/card-surface/icon-logo-GCash.svg">
                                 </div>
+                                <div class="quota">
+                                    <i>限額:</i>
+                                    <span>100.00 ~ 10,000.00</span>
+                                </div>
                             </div>
                             <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
                         </a>
@@ -246,6 +258,10 @@
                                 <div class="logo vertical-center text-center"> 
                                     <!-- <span class="text language_replace">銀行振込</span> -->
                                     <img src="images/assets/card-surface/icon-logo-PayMaya.svg">
+                                </div>
+                                <div class="quota">
+                                    <i>限額:</i>
+                                    <span>100.00 ~ 10,000.00</span>
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-11.svg" class="card-item-bg">
@@ -263,6 +279,10 @@
                                     <!-- <span class="text language_replace">銀行振込</span> -->
                                     <img src="images/assets/card-surface/icon-logo-GrabPay.svg">
                                 </div>
+                                <div class="quota">
+                                    <i>限額:</i>
+                                    <span>100.00 ~ 10,000.00</span>
+                                </div>
                             </div>
                             <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
                         </a>
@@ -277,6 +297,10 @@
                                 <div class="logo vertical-center text-center"> 
                                     <!-- <span class="text language_replace">銀行振込</span> -->
                                     <img src="images/assets/card-surface/icon-logo-GCash.svg">
+                                </div>
+                                <div class="quota">
+                                    <i>限額:</i>
+                                    <span>100.00 ~ 10,000.00</span>
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
