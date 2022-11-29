@@ -2346,7 +2346,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 //發升級禮物
                                 if (NewUserLevelIndex > UserLevelIndex) {
                                     for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex; i++) {
-                                        SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex);
+                                        SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex + 1);
                                     }
                                 }
 
