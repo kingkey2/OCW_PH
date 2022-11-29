@@ -86,12 +86,12 @@
                     window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("WithdrawlTemporaryMaintenance"), function () {
                         window.parent.API_Reload();
                     });
+                } else {
+                    getUserBankCard();
+                    GetPaymentMethod();
+                    GetEPayBankSelect();
                 }
             }
-
-            getUserBankCard();
-            GetPaymentMethod();
-            GetEPayBankSelect();
         },"PaymentAPI");
 
     
