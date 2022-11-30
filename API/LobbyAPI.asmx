@@ -1670,7 +1670,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                             }
                         } else {
 
-                            if (Wallet.PointValue < CollectLimit) {
+                            if (Wallet.PointValue <= CollectLimit) {
                                 var ResetResult = lobbyAPI.AddThreshold(Token, System.Guid.NewGuid().ToString(), System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
 
                                 if (ResetResult.Result == EWin.Lobby.enumResult.OK) {
