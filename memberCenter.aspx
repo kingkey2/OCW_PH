@@ -148,7 +148,7 @@
         $("#idAmount").text(new BigNumber(parseFloat(wallet.PointValue).toFixed(1)).toFormat());
         $("#PersonCode").text(WebInfo.UserInfo.PersonCode);
         $("#idCopyPersonCode").text(`${"<%=EWinWeb.CasinoWorldUrl %>"}/Index.aspx?PCode=${WebInfo.UserInfo.PersonCode}`);
-        $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"<%=EWinWeb.CasinoWorldUrl %>"}/registerForQrCode.aspx?P=${WebInfo.UserInfo.PersonCode}&Download=2`);
+        $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"<%=EWinWeb.CasinoWorldUrl %>"}/Index.aspx?PCode=${WebInfo.UserInfo.PersonCode}&Download=2`);
 
         var ThresholdInfos = WebInfo.UserInfo.ThresholdInfo;
         if (ThresholdInfos && ThresholdInfos.length > 0) {
