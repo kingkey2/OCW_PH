@@ -1670,7 +1670,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                             }
                         } else {
 
-                            if (Wallet.PointValue < CollectLimit) {
+                            if (Wallet.PointValue <= CollectLimit) {
                                 var ResetResult = lobbyAPI.AddThreshold(Token, System.Guid.NewGuid().ToString(), System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
 
                                 if (ResetResult.Result == EWin.Lobby.enumResult.OK) {
@@ -2346,7 +2346,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 //發升級禮物
                                 if (NewUserLevelIndex > UserLevelIndex) {
                                     for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex; i++) {
-                                        SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex);
+                                        SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex + 1);
                                     }
                                 }
 

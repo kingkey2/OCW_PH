@@ -88,8 +88,8 @@
                             c.setClassText(RecordDom_M, "StartDate_m", null, k.StartDate.split("-")[1]);
                             c.setClassText(RecordDom_M, "StartDate_d", null, k.StartDate.split("-")[2]);
                             c.setClassText(RecordDom_M, "EndDate_y", null, k.EndDate.split("-")[0]);
-                            c.setClassText(RecordDom_M, "EndDate_m", null, k.EndDate.split("-")[0]);
-                            c.setClassText(RecordDom_M, "EndDate_d", null, k.EndDate.split("-")[0]);
+                            c.setClassText(RecordDom_M, "EndDate_m", null, k.EndDate.split("-")[1]);
+                            c.setClassText(RecordDom_M, "EndDate_d", null, k.EndDate.split("-")[2]);
                             c.setClassText(RecordDom_M, "LoginAccount", null, k.LoginAccount);
                             c.setClassText(RecordDom_M, "AccountingName", null, k.AccountingName);
                             c.setClassText(RecordDom_M, "UserCommissionProfit", null, new BigNumber(k.UserCommissionProfit).toFixed(2));
@@ -486,14 +486,14 @@
                 <div class="record-table-cell td-date">
                     <span class="date-period">
                         <span class="date-start">
-                            <span class="year">2022</span>
-                            <span class="month">06</span>
-                            <span class="day">14</span>
+                            <span class="year StartDate_y">2022</span>
+                            <span class="month StartDate_m">06</span>
+                            <span class="day StartDate_d">14</span>
                         </span>
                         <span class="date-end">
-                            <span class="year">2022</span>
-                            <span class="month">06</span>
-                            <span class="day">14</span>
+                            <span class="year EndDate_y">2022</span>
+                            <span class="month EndDate_m">06</span>
+                            <span class="day EndDate_d">14</span>
                         </span>
                     </span>
                 </div>

@@ -66,6 +66,8 @@
 
                                         if (ThresholdValue == 0) {
                                             lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinActivity");
+                                        } else if (ResetThreshold) {
+                                            lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinActivity");
                                         }
 
                                         addThresholdResult = lobbyAPI.AddThreshold(Token, GUID, transactionCode, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, tagInfoData.ThresholdValue, description, ResetThreshold);
