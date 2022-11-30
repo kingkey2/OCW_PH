@@ -201,7 +201,7 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
 
-        copyToClipboard(copyText.textContent)
+        copyToClipboard(copyText.value)
             .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
             .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
     }
