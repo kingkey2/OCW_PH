@@ -201,7 +201,7 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
 
-        copyToClipboard(copyText.textContent)
+        copyToClipboard(copyText.value)
             .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
             .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
     }
@@ -580,7 +580,7 @@
 
         $(".ThresholdValue_" + CollectAreaType).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CollectAreaType).text()) + ThresholdValue));
         $("#idBonusValue").text(FormatNumber(ReFormatNumber($("#idBonusValue").text()) + BonusValue));
-        $("#idTotalReceiveValue").text(FormatNumber(ReFormatNumber($("#idTotalReceiveValue").text()) + BonusValue));
+        $("#idTotalReceiveValue").text(new BigNumber(ReFormatNumber($("#idTotalReceiveValue").text())).plus(BonusValue).toString());
 
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].addEventListener("change", function (e) {
             let THV = $(e.target).data("thresholdvalue");
