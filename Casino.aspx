@@ -1239,11 +1239,38 @@
         //GCB.InitPromise.then(() => {
         //});
 
+        var heroLobby = new Swiper("#hero-slider-lobby", {
+            loop: true,
+            // slidesPerView: 1,
+            slidesPerView: "auto",
+            centeredSlides: true,
+            // freeMode: true,
+            // spaceBetween: 20,  
+            speed: 1000, //Duration of transition between slides (in ms)
+            // autoplay: {
+            //     delay: 3500,
+            //     disableOnInteraction: false,
+            // },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+
+        });
+
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             if (p != null) {
-                getBanner();
+                //getBanner();
                 getCompanyGameCode();
+
+                if (WebInfo.DeviceType_B == 1) {
+                    $(".casinobanner_m").show();
+                } else {
+                    $(".casinobanner_p").show();
+                }
+
+                window.parent.API_LoadingEnd();
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -1339,7 +1366,7 @@
                 lang = param;
 
                 mlp.loadLanguage(lang, function () {
-                    getBanner();
+                    //getBanner();
                     window.parent.API_LoadingEnd(1);
                     resetCategory(selectedCategoryCode);
                 });
@@ -1397,6 +1424,9 @@
                                         resolve();
                                     }).bind(RecordDom2)
                                 });
+
+
+
                             });
 
                             promiseAll.push(promise);
@@ -1442,7 +1472,72 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper" id="divBanner">
-                  
+
+                  <div class="swiper-slide">
+                          <div class="hero-item">
+                            <div class="hero-item-box mobile casinobanner_m" style="display:none">
+                                <img src="images/casinobanner/CasinoBanner1_M.jpg" />
+                            </div>
+                            <div class="hero-item-box desktop casinobanner_p" style="display:none">
+                                <div class="img-wrap">
+                                    <img src="images/casinobanner/CasinoBanner1_P.jpg" class="bg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <div class="hero-item-box mobile casinobanner_m" style="display:none">
+                                <img src="images/casinobanner/CasinoBanner2_M.jpg" />
+                            </div>
+                            <div class="hero-item-box desktop casinobanner_p" style="display:none">
+                                <div class="img-wrap">
+                                    <img src="images/casinobanner/CasinoBanner2_P.jpg" class="bg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <div class="hero-item-box mobile casinobanner_m" style="display:none">
+                                <img src="images/casinobanner/CasinoBanner3_M.jpg" />
+                            </div>
+                            <div class="hero-item-box desktop casinobanner_p" style="display:none">
+                                <div class="img-wrap">
+                                    <img src="images/casinobanner/CasinoBanner3_P.jpg" class="bg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <div class="hero-item-box mobile casinobanner_m" style="display:none">
+                                <img src="images/casinobanner/CasinoBanner4_M.jpg" />
+                            </div>
+                            <div class="hero-item-box desktop casinobanner_p" style="display:none">
+                                <div class="img-wrap">
+                                    <img src="images/casinobanner/CasinoBanner4_P.jpg" class="bg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <div class="hero-item-box mobile casinobanner_m" style="display:none">
+                                <img src="images/casinobanner/CasinoBanner5_M.jpg" />
+                            </div>
+                            <div class="hero-item-box desktop casinobanner_p" style="display:none">
+                                <div class="img-wrap">
+                                    <img src="images/casinobanner/CasinoBanner5_P.jpg" class="bg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
