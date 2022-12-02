@@ -40,7 +40,7 @@
     var mlp;
     var v = "<%:Version%>";
     var lobby;
-
+    var isAddedCrypto = false;
     function init() {
 
         if (self == top) {
@@ -68,25 +68,73 @@
                             var channel = o.ChannelList[i];
                             //UserLevelIndex
                             if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType && channel.AllowDeposit==true) {
+
+      
+                                var doc = "";
                                 switch (channel.PaymentChannelCode) {
-                                    case "EPAY.Bank":
-                                       
-                                        break;
-                                    case "EPAY.Gcash":
+                                    case "EPAY.Gcash.Feibao":
+                                    case "EPAY.GcashDirect.FIFIPay":
+                                    case "EPAY.GcashQRcode.DiDiPay":
+                                    case "EPAY.GcashQRcode.YuHong":
+                                    case "EPAY.Gcash.DiDiPay":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.DepositAmountMin!=0) {
                                             minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
                                         }
+                                      
+                                        if (channel.DepositAmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
+                                        }
+
+                                    doc = ` <div class="card-item sd-09">
+                                            <a class="card-item-link" onclick="OpenPage('DepositEPay','DepositEPay.aspx?PaymentChannelCode=${channel.PaymentChannelCode}')">
+                                                <div class="card-item-inner">
+                                                    <div class="title">
+                                                        <span class="language_replace">${channel.PaymentName}</span>
+                                                    </div>
+                                                    <div class="logo vertical-center text-center">
+                                                        <img src="images/assets/card-surface/icon-logo-GCash.svg">
+                                                    </div>
+                                                    <div class="quota">
+                                                        <i class="language_replace">${mlp.getLanguageKey("限額:")}</i>
+                                                        <span class="limit">${minAmount} ~ ${maxAmount}</span>
+                                                    </div>
+                                                </div>
+                                                <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
+                                            </a>
+                                        </div>`;
+                                        break; 
+                                    case "EPAY.Grabpay.Feibao":
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.DepositAmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
+                                        }
 
                                         if (channel.DepositAmountMax != 0) {
                                             maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
                                         }
 
-                                        $('#idDepositGCash').find('.limit').text(minAmount + "~" + maxAmount);
-                                        $('#idDepositGCash').show();
+                                        doc = ` <div class="card-item sd-10">
+                                            <a class="card-item-link" onclick="OpenPage('DepositEPay','DepositEPay.aspx?PaymentChannelCode=${channel.PaymentChannelCode}')">
+                                                <div class="card-item-inner">
+                                                    <div class="title">
+                                                        <span class="language_replace">${channel.PaymentName}</span>
+                                                    </div>
+                                                    <div class="logo vertical-center text-center">
+                                                         <img src="images/assets/card-surface/icon-logo-GrabPay.svg">
+                                                    </div>
+                                                    <div class="quota">
+                                                        <i class="language_replace">${mlp.getLanguageKey("限額:")}</i>
+                                                        <span class="limit">${minAmount} ~ ${maxAmount}</span>
+                                                    </div>
+                                                </div>
+                                                 <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
+                                            </a>
+                                        </div>`;
                                         break;
-                                    case "EPAY.GcashDirect":
+                                    case "EPAY.Paymaya.Feibao":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.DepositAmountMin != 0) {
@@ -97,68 +145,79 @@
                                             maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
                                         }
 
-                                        $('#idDepositGCashDirect').find('.limit').text(minAmount + "~" + maxAmount);
-                                        $('#idDepositGCashDirect').show();
-                                    case "EPAY.GcashQRcode":
-                                        var minAmount = "unlimited";
-                                        var maxAmount = "unlimited";
-                                        if (channel.DepositAmountMin != 0) {
-                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
-                                        }
-
-                                        if (channel.DepositAmountMax != 0) {
-                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
-                                        }
-
-                                        $('#idDepositGcashQRcode').find('.limit').text(minAmount + "~" + maxAmount);
-                                        $('#idDepositGcashQRcode').show();
-                                        break;
-                                    case "EPAY.Grabpay":
-                                        var minAmount = "unlimited";
-                                        var maxAmount = "unlimited";
-                                        if (channel.DepositAmountMin != 0) {
-                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
-                                        }
-
-                                        if (channel.DepositAmountMax != 0) {
-                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
-                                        }
-
-                                        $('#idDepositGrabpay').find('.limit').text(minAmount + "~" + maxAmount);
-                                        $('#idDepositGrabpay').show();
-                                        break;
-                                    case "EPAY.Paymaya":
-                                        var minAmount = "unlimited";
-                                        var maxAmount = "unlimited";
-                                        if (channel.DepositAmountMin != 0) {
-                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
-                                        }
-
-                                        if (channel.DepositAmountMax != 0) {
-                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
-                                        }
-
-                                        $('#idDepositPaymaya').find('.limit').text(minAmount + "~" + maxAmount);
-                                        $('#idDepositPaymaya').show();
+                                        doc = ` <div class="card-item sd-11">
+                                            <a class="card-item-link" onclick="OpenPage('DepositEPay','DepositEPay.aspx?PaymentChannelCode=${channel.PaymentChannelCode}')">
+                                                <div class="card-item-inner">
+                                                    <div class="title">
+                                                        <span class="language_replace">${channel.PaymentName}</span>
+                                                    </div>
+                                                    <div class="logo vertical-center text-center">
+                                                        <img src="images/assets/card-surface/icon-logo-PayMaya.svg">
+                                                    </div>
+                                                    <div class="quota">
+                                                        <i class="language_replace">${mlp.getLanguageKey("限額:")}</i>
+                                                        <span class="limit">${minAmount} ~ ${maxAmount}</span>
+                                                    </div>
+                                                </div>
+                                                 <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
+                                            </a>
+                                        </div>`;
                                         break;
                                     default:
+
                                 }
+                                if (!isAddedCrypto) {
+                                    if (channel.PaymentBrand == "BlockChain") {
+                                        isAddedCrypto = true;
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.DepositAmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
+                                        }
 
-                                if (channel.PaymentBrand == "BlockChain") {
-                                    var minAmount = "unlimited";
-                                    var maxAmount = "unlimited";
-                                    if (channel.DepositAmountMin != 0) {
-                                        minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
+                                        if (channel.DepositAmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
+                                        }
+
+                                        doc = `<div class="card-item sd-02">
+                                            <a class="card-item-link" onclick="OpenPage('DepositCrypto','DepositCrypto.aspx')">
+                                                <div class="card-item-inner">
+                                                    <div class="title">
+                                                        <span>Crypto Wallet</span>
+                                                    </div>
+                                                    <div class="title vertical-center">
+                                                        <span class="language_replace">${mlp.getLanguageKey("虛擬貨幣")}</span>
+                                                    </div>
+                                                    <!-- <div class="desc">
+                                                        <b>30</b> € -  <b>5,000</b> € No Fee
+                                                    </div> -->
+                                                    <div class="logo">
+                                                        <i class="icon-logo-usdt"></i>
+                                                        <!-- <i class="icon-logo-eth-o"></i> -->
+                                                        <!-- <i class="icon-logo-nissin"></i> -->
+                                                        <i class="icon-logo-eth"></i>
+                                                        <i class="icon-logo-btc"></i>
+
+                                                        <!-- <i class="icon-logo-doge"></i> -->
+                                                        <!-- <i class="icon-logo-tron"></i> -->
+                                                    </div>
+                                                    <div class="quota">
+                                                        <i class="language_replace">${mlp.getLanguageKey("限額:")}</i>
+                                                        <span class="limit">${minAmount} ~ ${maxAmount}</span>
+                                                    </div>
+                                                </div>
+                                                <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
+                                            </a>
+                                        </div>`;
                                     }
-
-                                    if (channel.DepositAmountMax != 0) {
-                                        maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
-                                    }
-
-                                    $('#idDepositCrypto').find('.limit').text(minAmount + "~" + maxAmount);
-                                    $('#idDepositCrypto').show();
+                                }
+                              
+                                if (doc!="") {
+                                    $('#card-container').append(doc);
                                 }
                             }
+
+                        
                         }
                     }
                 } 
@@ -244,143 +303,8 @@
                 </div>
 
                 <!-- 選擇存款管道  -->
-                <div class="card-container">
-                
-                    <!-- 虛擬錢包 -->
-                    <div class="card-item sd-02" id="idDepositCrypto" style="display:none;">
-                        <a class="card-item-link" onclick="OpenPage('DepositCrypto','DepositCrypto.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span>Crypto Wallet</span>
-                                </div>
-                                <div class="title vertical-center">
-                                    <span class="language_replace">虛擬貨幣</span>
-                                </div>
-                                <!-- <div class="desc">
-                                    <b>30</b> € -  <b>5,000</b> € No Fee                                   
-                                </div> -->
-                                <div class="logo">
-                                    <i class="icon-logo-usdt"></i>
-                                    <!-- <i class="icon-logo-eth-o"></i> -->
-                                    <!-- <i class="icon-logo-nissin"></i> -->
-                                    <i class="icon-logo-eth"></i>
-                                    <i class="icon-logo-btc"></i>
-                                    
-                                    <!-- <i class="icon-logo-doge"></i> -->
-                                    <!-- <i class="icon-logo-tron"></i> -->
-                                </div>
-                                <!-- <div class="instructions-crypto">
-                                    <i class="icon-info_circle_outline"></i>
-                                    <span onclick="window.open('instructions-crypto.html')" class="language_replace">使用說明</span>
-                                </div>                                -->
-                                <div class="quota">
-                                    <i class="language_replace">限額:</i>
-                                    <span class="limit">100.00 ~ 10,000.00</span>
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
-                        </a>
-                    </div>
-                    <!-- GCash -->
-                    <div class="card-item sd-09" id="idDepositGCash" style="display:none;">
-                        <a class="card-item-link" onclick="OpenPage('DepositGCash','DepositGCash.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">GCash</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center text-center"> 
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
-                                </div>
-                                <div class="quota">
-                                    <i class="language_replace">限額:</i>
-                                    <span class="limit">100.00 ~ 10,000.00</span>
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
-                        </a>
-                    </div>
-                     <!-- EPay -->
-                    <div class="card-item sd-09" id="idDepositGcashQRcode" style="display:none;">
-                        <a class="card-item-link" onclick="OpenPage('DepositGcashQRcode','DepositGcashQRcode.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">Gcash(QRcode)</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center text-center"> 
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <!-- <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg"> -->
-                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
-                                </div>
-                                <div class="quota">
-                                    <i class="language_replace">限額:</i>
-                                    <span class="limit">100.00 ~ 10,000.00</span>
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
-                        </a>
-                    </div>
-                     <!-- Paymaya -->
-                    <div class="card-item sd-11" id="idDepositPaymaya" style="display:none;">
-                        <a class="card-item-link" onclick="OpenPage('DepositPaymaya','DepositPaymaya.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">Paymaya</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center text-center"> 
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-PayMaya.svg">
-                                </div>
-                                <div class="quota">
-                                    <i class="language_replace">限額:</i>
-                                    <span class="limit">100.00 ~ 10,000.00</span>
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-11.svg" class="card-item-bg">
-                        </a>
-                    </div>
-                     <!-- Grabpay -->
-                    <div class="card-item sd-10" id="idDepositGrabpay" style="display:none;">
-                        <a class="card-item-link" onclick="OpenPage('DepositGrabpay','DepositGrabpay.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">Grabpay</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center text-center"> 
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-GrabPay.svg">
-                                </div>
-                                <div class="quota">
-                                    <i class="language_replace">限額:</i>
-                                    <span class="limit">100.00 ~ 10,000.00</span>
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
-                        </a>
-                    </div>
-                    <div class="card-item sd-09" id="idDepositGCashDirect" style="display:none;">
-                        <a class="card-item-link" onclick="OpenPage('DepositGCashDirect','DepositGCashDirect.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">GCash(Direct)</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center text-center"> 
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
-                                </div>
-                                <div class="quota">
-                                    <i class="language_replace">限額:</i>
-                                    <span class="limit">100.00 ~ 10,000.00</span>
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
-                        </a>
-                    </div>
+                <div id="card-container" class="card-container">
+      
                 </div>
                 <!-- 存款紀錄 -->
                 <div class="notice-container mt-5">

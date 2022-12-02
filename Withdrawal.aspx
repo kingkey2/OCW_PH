@@ -118,28 +118,28 @@
                             //UserLevelIndex
                             if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType && channel.AllowWithdrawal == true) {
                                 switch (channel.PaymentChannelCode) {
-                                    case "EPAY.Bank":
+                                    case "EPAY.BANK.Withdrawal":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
-                                        if (channel.DepositAmountMin != 0) {
+                                        if (channel.WithdrawalAmountMin != 0) {
                                             minAmount = toCurrency(new BigNumber(Math.abs(channel.WithdrawalAmountMin)));
                                         }
 
-                                        if (channel.DepositAmountMax != 0) {
+                                        if (channel.WithdrawalAmountMax != 0) {
                                             maxAmount = toCurrency(new BigNumber(Math.abs(channel.WithdrawalAmountMax)));
                                         }
 
                                         $('#idWithdrawalBankCard').find('.limit').text(minAmount + "~" + maxAmount);
                                         $('#idWithdrawalBankCard').show();
                                         break;
-                                    case "EPAY.Gcash":
+                                    case "EPAY.Gcash.Withdrawal":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
-                                        if (channel.DepositAmountMin != 0) {
+                                        if (channel.WithdrawalAmountMin != 0) {
                                             minAmount = toCurrency(new BigNumber(Math.abs(channel.WithdrawalAmountMin)));
                                         }
 
-                                        if (channel.DepositAmountMax != 0) {
+                                        if (channel.WithdrawalAmountMax != 0) {
                                             maxAmount = toCurrency(new BigNumber(Math.abs(channel.WithdrawalAmountMax)));
                                         }
 

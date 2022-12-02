@@ -176,7 +176,7 @@ public class Payment {
             }
         }
 
-        public static EPayDepositPaymentResult CreateEPayDeposite(string OrderID, decimal OrderAmount, string Type, string UserName,string ContactPhoneNumber,string ServiceType)
+        public static EPayDepositPaymentResult CreateEPayDeposite(string OrderID, decimal OrderAmount, string Type, string UserName,string ContactPhoneNumber,string ServiceType,string ProviderCode)
         {
             EPayDepositPaymentResult R = new EPayDepositPaymentResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject sendData = new JObject();
@@ -194,6 +194,18 @@ public class Payment {
             decimal JPYRate = 0;
             dynamic EPAYSetting = null;
             JObject returnResult;
+
+            if (ProviderCode== "Feibao")
+            {
+                if (ServiceType == "PHP01")
+                {
+                    ProviderCode = "FeibaoPay";
+                } else if (ServiceType == "PHP02") {
+                    ProviderCode = "FeibaoPayGrabpay";
+                } else if (ServiceType == "PHP03") {
+                    ProviderCode = "FeibaoPayPaymaya";
+                }
+            }
 
             if (EWinWeb.IsTestSite)
             {
@@ -222,25 +234,9 @@ public class Payment {
                 return R;
             }
 
-            URL = (string)EPAYSetting.ApiUrl + "RequirePayingReturnUrl";
-            if (Type == "EPayJKC")
-            {
-                DT = RedisCache.PaymentMethod.GetPaymentMethodByCategory("EPAYJKC");
-                var MultiCurrencyInfo = (string)DT.Select("PaymentCategoryCode='" + "EPAYJKC" + "'")[0]["MultiCurrencyInfo"];
-                Newtonsoft.Json.Linq.JArray MultiCurrency = Newtonsoft.Json.Linq.JArray.Parse(MultiCurrencyInfo);
-                for (int i = 0; i < MultiCurrency.Count; i++)
-                {
-                    if ((string)MultiCurrency[i]["Currency"] == "JPY")
-                    {
-                        JPYRate = (decimal)MultiCurrency[i]["Rate"];
-                    }
-                }
-                ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/JKCPaymentCallback.aspx";
-            }
-            else
-            {
-                ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/PaymentCallback.aspx";
-            }
+            URL = (string)EPAYSetting.ApiUrl + "RequirePayingReturnUrl2";
+        
+            ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/PaymentCallback.aspx";
 
             CompanyCode = (string)EPAYSetting.CompanyCode;
             CurrencyType = (string)EPAYSetting.CyrrencyType;
@@ -251,17 +247,9 @@ public class Payment {
             sendData.Add("CustomerIP", CodingControl.GetUserIP());
             sendData.Add("OrderID", OrderID);
             sendData.Add("OrderDate", OrderDate.ToString("yyyy-MM-dd HH:mm:ss"));
-            if (Type == "EPayJKC")
-            {
-                Sign = GetEPayDepositSign(OrderID, OrderAmount * JPYRate, OrderDate, ServiceType, CurrencyType, CompanyCode, CompanyKey);
-                sendData.Add("OrderAmount", (OrderAmount * JPYRate).ToString("#.##"));
-            }
-            else
-            {
-                Sign = GetEPayDepositSign(OrderID, OrderAmount, OrderDate, ServiceType, CurrencyType, CompanyCode, CompanyKey);
-                sendData.Add("OrderAmount", OrderAmount.ToString("#.##"));
-            }
-
+            Sign = GetEPayDepositSign(OrderID, OrderAmount, OrderDate, ServiceType, CurrencyType, CompanyCode, CompanyKey);
+            sendData.Add("OrderAmount", OrderAmount.ToString("#.##"));
+            sendData.Add("ProviderCode", ProviderCode);
             sendData.Add("RevolveURL", ReturnURL);
             sendData.Add("UserName", UserName);
             sendData.Add("State", ContactPhoneNumber);
@@ -303,12 +291,10 @@ public class Payment {
                             {
                                 // 取得呼叫完成 API 後的回報內容
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-
                             }
                             else
                             {
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-
                             }
                         }
                         else

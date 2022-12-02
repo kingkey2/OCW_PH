@@ -97,6 +97,7 @@
     function setAmount() {
         $("input[name=amount]").prop("checked", false);
         var amount = $("#amount").val().replace(/[^\-?\d.]/g, '');
+        var amount = $("#amount").val().replace('.', '');
         $("#amount").val(amount);
 
     }

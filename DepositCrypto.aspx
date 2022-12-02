@@ -462,20 +462,20 @@
                     } else {
                         window.parent.API_LoadingEnd(1);
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                            window.location.href = "index.aspx"
+                            window.parent.location.href = "index.aspx"
                         });
                     }
                 } else {
                     window.parent.API_LoadingEnd(1);
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                        window.location.href = "index.aspx"
+                        window.parent.location.href = "index.aspx"
                     });
                 }
             }
             else {
                 window.parent.API_LoadingEnd(1);
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
-                    window.location.href = "index.aspx"
+                    window.parent.location.href = "index.aspx"
                 });
             }
 

@@ -1233,8 +1233,8 @@ public class PaymentAPI : System.Web.Services.WebService
         decimal PointValue;
         string ReceiveCurrencyType;
         string Decription = "";
-        dynamic o = null;
-        decimal JPYRate = 0;
+        string ProviderCode = "";
+        string ServiceCode = "";
         string ServiceType = "";
         System.Data.DataTable DT;
         EWin.Payment.PaymentDetailInheritsBase[] p;
@@ -1256,23 +1256,34 @@ public class PaymentAPI : System.Web.Services.WebService
                 PointValue = TempCommonData.Amount;
                 ReceiveCurrencyType = TempCommonData.ReceiveCurrencyType;
 
-                if (tagInfoData.PaymentCode == "EPAY.GcashQRcode")
+                var splitPaymentCode = tagInfoData.PaymentCode.Split('.');
+
+                if (splitPaymentCode.Length == 3)
+                {
+                    ProviderCode = splitPaymentCode[2];
+                    ServiceCode = splitPaymentCode[1];
+                }
+                else { 
+                    SetResultException(R, "PaymentMethodNotExist");
+                }
+
+                if (ServiceCode == "GcashQRcode")
                 {
                     ServiceType = "PHP04";
                 }
-                else if (tagInfoData.PaymentCode == "EPAY.GcashDirect")
+                else if (ServiceCode == "GcashDirect")
                 {
                     ServiceType = "PHP05";
                 }
-                else if (tagInfoData.PaymentCode == "EPAY.Gcash")
+                else if (ServiceCode == "Gcash")
                 {
                     ServiceType = "PHP01";
                 }
-                else if (tagInfoData.PaymentCode == "EPAY.Paymaya")
+                else if (ServiceCode == "Paymaya")
                 {
                     ServiceType = "PHP03";
                 }
-                else if (tagInfoData.PaymentCode == "EPAY.Grabpay")
+                else if (ServiceCode == "Grabpay")
                 {
                     ServiceType = "PHP02";
                 }
@@ -1360,7 +1371,7 @@ public class PaymentAPI : System.Web.Services.WebService
                             {
                                 EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
                                 EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
-                                var CreateEPayDepositeReturn = Payment.EPay.CreateEPayDeposite(paymentResult.PaymentSerial, TempCommonData.Amount, PaymentType, TempCommonData.ToInfo, userInfoResult.ContactPhoneNumber, ServiceType);
+                                var CreateEPayDepositeReturn = Payment.EPay.CreateEPayDeposite(paymentResult.PaymentSerial, TempCommonData.Amount, PaymentType, TempCommonData.ToInfo, userInfoResult.ContactPhoneNumber, ServiceType,ProviderCode);
                                 if (CreateEPayDepositeReturn.ResultState == Payment.APIResult.enumResultCode.OK)
                                 {
                                     paymentAPI.UpdatePaymentTypeTag(GetToken(), GUID, paymentResult.PaymentSerial, CreateEPayDepositeReturn.ProviderCode);
