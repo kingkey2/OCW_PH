@@ -162,6 +162,9 @@
                         if (startDate.substring(0, startDate.length - 3) == Date.today().moveToFirstDayOfMonth().toString("yyyy/MM")) {
                             $("#Game_O_1").text(new BigNumber(totalOrderValue).toFixed(2));
                             $("#Game_R_1").text(new BigNumber(totalRewardValue).toFixed(2));
+                        } else if (startDate.substring(0, startDate.length - 3) == Date.today().addMonths(-1).moveToFirstDayOfMonth().toString("yyyy/MM")) {
+                            $("#Game_O_0").text(new BigNumber(totalOrderValue).toFixed(2));
+                            $("#Game_R_0").text(new BigNumber(totalRewardValue).toFixed(2));
                         }
 
                         window.parent.API_CloseLoading();

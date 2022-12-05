@@ -1995,7 +1995,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                 if (GameRet.Result == EWin.Lobby.enumResult.OK) {
                     if (GameRet.SummaryList.Length > 0) {
-                        G = GameRet.SummaryList.GroupBy(x => new { x.CurrencyType }, x => x, (key, sum) => new UserTwoMonthSummaryResult.Game {
+                        G = GameRet.SummaryList.GroupBy(x => new { x.LoginAccount }, x => x, (key, sum) => new UserTwoMonthSummaryResult.Game {
                             ValidBetValue = sum.Sum(y => y.ValidBetValue),
                             RewardValue = sum.Sum(y => y.RewardValue),
                             OrderValue = sum.Sum(y => y.OrderValue),
