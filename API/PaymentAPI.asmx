@@ -1258,9 +1258,9 @@ public class PaymentAPI : System.Web.Services.WebService
 
                 var splitPaymentCode = tagInfoData.PaymentCode.Split('.');
 
-                if (splitPaymentCode.Length == 3)
+                if (splitPaymentCode.Length == 2)
                 {
-                    ProviderCode = splitPaymentCode[2];
+                    ProviderCode = splitPaymentCode[0];
                     ServiceCode = splitPaymentCode[1];
                 }
                 else { 
