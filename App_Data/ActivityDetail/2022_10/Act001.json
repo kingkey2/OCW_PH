@@ -85,7 +85,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.Grabpay.Feibao",
+      "PaymentCode": "Feibao.Grabpay",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -93,7 +93,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.GcashQRcode.DiDiPay",
+      "PaymentCode": "DiDiPay.GcashQRcode",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -101,7 +101,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.Paymaya.Feibao",
+      "PaymentCode": "Feibao.Paymaya",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -109,7 +109,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.GcashDirect.FIFIPay",
+      "PaymentCode": "FIFIPay.GcashDirect",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -117,7 +117,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.Gcash.Feibao",
+      "PaymentCode": "Feibao.Gcash",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -125,7 +125,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.Gcash.DiDiPay",
+      "PaymentCode": "DiDiPay.Gcash",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -133,7 +133,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.GcashQRcode.YuHong",
+      "PaymentCode": "YuHong.GcashQRcode",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -215,7 +215,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.Grabpay.Feibao",
+      "PaymentCode": "Feibao.Grabpay",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -223,7 +223,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.GcashQRcode.DiDiPay",
+      "PaymentCode": "DiDiPay.GcashQRcode",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -231,7 +231,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.Paymaya.Feibao",
+      "PaymentCode": "Feibao.Paymaya",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -239,7 +239,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.GcashDirect.FIFIPay",
+      "PaymentCode": "FIFIPay.GcashDirect",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -247,7 +247,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.Gcash.Feibao",
+      "PaymentCode": "Feibao.Gcash",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -255,7 +255,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.Gcash.DiDiPay",
+      "PaymentCode": "DiDiPay.Gcash",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -263,7 +263,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.GcashQRcode.YuHong",
+      "PaymentCode": "YuHong.GcashQRcode",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -345,7 +345,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.Grabpay.Feibao",
+      "PaymentCode": "Feibao.Grabpay",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -353,7 +353,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.GcashQRcode.DiDiPay",
+      "PaymentCode": "DiDiPay.GcashQRcode",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -361,7 +361,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.Paymaya.Feibao",
+      "PaymentCode": "Feibao.Paymaya",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -369,7 +369,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.GcashDirect.FIFIPay",
+      "PaymentCode": "FIFIPay.GcashDirect",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -377,7 +377,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.Gcash.Feibao",
+      "PaymentCode": "Feibao.Gcash",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -385,7 +385,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.GcashQRcode.YuHong",
+      "PaymentCode": "YuHong.GcashQRcode",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -393,7 +393,7 @@
       "BonusRate": 0.1
     },
     {
-      "PaymentCode": "EPAY.Gcash.DiDiPay",
+      "PaymentCode": "DiDiPay.Gcash",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,

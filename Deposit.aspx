@@ -72,11 +72,11 @@
       
                                 var doc = "";
                                 switch (channel.PaymentChannelCode) {
-                                    case "EPAY.Gcash.Feibao":
-                                    case "EPAY.GcashDirect.FIFIPay":
-                                    case "EPAY.GcashQRcode.DiDiPay":
-                                    case "EPAY.GcashQRcode.YuHong":
-                                    case "EPAY.Gcash.DiDiPay":
+                                    case "Feibao.Gcash":
+                                    case "FIFIPay.GcashDirect":
+                                    case "DiDiPay.GcashQRcode":
+                                    case "YuHong.GcashQRcode":
+                                    case "DiDiPay.Gcash":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.DepositAmountMin!=0) {
@@ -105,7 +105,7 @@
                                             </a>
                                         </div>`;
                                         break; 
-                                    case "EPAY.Grabpay.Feibao":
+                                    case "Feibao.Grabpay":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.DepositAmountMin != 0) {
@@ -134,7 +134,7 @@
                                             </a>
                                         </div>`;
                                         break;
-                                    case "EPAY.Paymaya.Feibao":
+                                    case "Feibao.Paymaya":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.DepositAmountMin != 0) {
