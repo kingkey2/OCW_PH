@@ -531,7 +531,8 @@
 
     function setAmount() {
         $("input[name=amount]").prop("checked", false);
-        var amount = $("#amount").val().replace(/[^\-?\d.]/g, '')
+        var amount = $("#amount").val().replace(/[^\-?\d.]/g, '');
+        amount = amount.replace('.', '');
         $("#amount").val(amount);
         //$("#ExchangeVal").text(amount);
         ReSetPaymentAmount(false, amount);
