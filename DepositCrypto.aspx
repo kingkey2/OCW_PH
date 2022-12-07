@@ -570,18 +570,18 @@
         var ActivityDom = c.getTemplate("templateActivity");
         c.setClassText(ActivityDom, "ActivityTitle", null, ActivityTitle);
         c.setClassText(ActivityDom, "ActivitySubTitle", null, ActivitySubTitle);
-        ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-checked", "true");
+        //ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-checked", "true");
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-ActivityName", ActivityName);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-thresholdvalue", ThresholdValue);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-bonusvalue", BonusValue);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-collectareatype", CollectAreaType);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].id = "award-bonus" + ActivityCount;
-        ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("checked", "true");
+        //ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("checked", "true");
         ActivityDom.getElementsByClassName("custom-control-label")[0].setAttribute("for", "award-bonus" + ActivityCount);
 
-        $(".ThresholdValue_" + CollectAreaType).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CollectAreaType).text()) + ThresholdValue));
-        $("#idBonusValue").text(FormatNumber(ReFormatNumber($("#idBonusValue").text()) + BonusValue));
-        $("#idTotalReceiveValue").text(new BigNumber(ReFormatNumber($("#idTotalReceiveValue").text())).plus(BonusValue).toString());
+        //$(".ThresholdValue_" + CollectAreaType).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CollectAreaType).text()) + ThresholdValue));
+        //$("#idBonusValue").text(FormatNumber(ReFormatNumber($("#idBonusValue").text()) + BonusValue));
+        //$("#idTotalReceiveValue").text(new BigNumber(ReFormatNumber($("#idTotalReceiveValue").text())).plus(BonusValue).toString());
 
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].addEventListener("change", function (e) {
             let THV = $(e.target).data("thresholdvalue");
