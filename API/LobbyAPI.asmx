@@ -490,7 +490,6 @@ public class LobbyAPI : System.Web.Services.WebService {
             }
 
             var GetRegisterToParentResult = ActivityCore.GetRegisterToParentResult();
-
             if (GetRegisterToParentResult.Result == ActivityCore.enumActResult.OK) {
                 List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
 
@@ -506,7 +505,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     if (DT.Rows.Count > 0) {
                         decimal DepositAmount = (decimal)DT.Rows[0]["DepositAmount"];
 
-                        if (DepositAmount > 500) {
+                        if (DepositAmount >= 500) {
                             PropertySets = new List<EWin.Lobby.PropertySet>();
 
                             foreach (var activityData in GetRegisterToParentResult.Data) {

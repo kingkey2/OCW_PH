@@ -111,7 +111,7 @@
                                                         }
                                                     }
 
-                                                    if (ParentDepositAmount > 500) {
+                                                    if (ParentDepositAmount >= 500) {
                                                         List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
                                                         description = activityData.ActivityName;
                                                         PromotionCollectKey = description + "_" + BodyObj.ClientOrderNumber;
