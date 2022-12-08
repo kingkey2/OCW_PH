@@ -572,6 +572,123 @@
           <s:element minOccurs="0" maxOccurs="1" name="ChildDetail" type="tns:ArrayOfAccountingDetail" />
         </s:sequence>
       </s:complexType>
+      <s:element name="QueryCurrentUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryCurrentUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryCurrentUserInfoResult" type="tns:UserInfoResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserInfoResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="RealName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PersonCode" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsLendChipAccount" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="AllowPayment" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AllowServiceChat" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AllowBet" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="WalletList" type="tns:ArrayOfWallet" />
+              <s:element minOccurs="0" maxOccurs="1" name="QBetLimitList" type="tns:ArrayOfBetLimit" />
+              <s:element minOccurs="0" maxOccurs="1" name="NBetLimitList" type="tns:ArrayOfBetLimit" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfWallet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Wallet" nillable="true" type="tns:Wallet" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Wallet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValueType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointState" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalCreditValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyQBetLimitCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyNBetLimitCount" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBetLimit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BetLimit" nillable="true" type="tns:BetLimit" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BetLimit">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="BetLimitID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserHasBetLimit" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BetLimitType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserBalance" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinBetPlayer" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinBetBanker" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxBet" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinBetTie" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxBetTie" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinBetPair" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxBetPair" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AssignType" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CheckAccountExist">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckAccountExistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckAccountExistResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserField" type="tns:ArrayOfPropertySet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPropertySet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PropertySet" nillable="true" type="tns:PropertySet" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PropertySet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateUserInfoResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="AgentSessionResult" nillable="true" type="tns:AgentSessionResult" />
       <s:element name="ChidUserData" nillable="true" type="tns:ChidUserData" />
       <s:element name="OrderSummaryResult" nillable="true" type="tns:OrderSummaryResult" />
@@ -580,6 +697,8 @@
       <s:element name="AgentTotalSummaryResult" nillable="true" type="tns:AgentTotalSummaryResult" />
       <s:element name="AccountingResult" nillable="true" type="tns:AccountingResult" />
       <s:element name="AgentAccountingDetailResult" nillable="true" type="tns:AgentAccountingDetailResult" />
+      <s:element name="UserInfoResult" nillable="true" type="tns:UserInfoResult" />
+      <s:element name="APIResult" nillable="true" type="tns:APIResult" />
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetAgentSessionByIDSoapIn">
@@ -647,6 +766,24 @@
   </wsdl:message>
   <wsdl:message name="GetAgentAccountingDetailSoapOut">
     <wsdl:part name="parameters" element="tns:GetAgentAccountingDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryCurrentUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryCurrentUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckAccountExist" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckAccountExistResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateUserInfoResponse" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpGetIn">
     <wsdl:part name="ASID" type="s:string" />
@@ -748,6 +885,19 @@
   <wsdl:message name="GetAgentAccountingDetailHttpGetOut">
     <wsdl:part name="Body" element="tns:AgentAccountingDetailResult" />
   </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:UserInfoResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpPostIn">
     <wsdl:part name="ASID" type="s:string" />
   </wsdl:message>
@@ -848,6 +998,19 @@
   <wsdl:message name="GetAgentAccountingDetailHttpPostOut">
     <wsdl:part name="Body" element="tns:AgentAccountingDetailResult" />
   </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:UserInfoResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:portType name="SpriteAgentSoap">
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDSoapIn" />
@@ -892,6 +1055,18 @@
     <wsdl:operation name="GetAgentAccountingDetail">
       <wsdl:input message="tns:GetAgentAccountingDetailSoapIn" />
       <wsdl:output message="tns:GetAgentAccountingDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <wsdl:input message="tns:QueryCurrentUserInfoSoapIn" />
+      <wsdl:output message="tns:QueryCurrentUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <wsdl:input message="tns:CheckAccountExistSoapIn" />
+      <wsdl:output message="tns:CheckAccountExistSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateUserInfo">
+      <wsdl:input message="tns:CreateUserInfoSoapIn" />
+      <wsdl:output message="tns:CreateUserInfoSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="SpriteAgentHttpGet">
@@ -939,6 +1114,14 @@
       <wsdl:input message="tns:GetAgentAccountingDetailHttpGetIn" />
       <wsdl:output message="tns:GetAgentAccountingDetailHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <wsdl:input message="tns:QueryCurrentUserInfoHttpGetIn" />
+      <wsdl:output message="tns:QueryCurrentUserInfoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <wsdl:input message="tns:CheckAccountExistHttpGetIn" />
+      <wsdl:output message="tns:CheckAccountExistHttpGetOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="SpriteAgentHttpPost">
     <wsdl:operation name="GetAgentSessionByID">
@@ -984,6 +1167,14 @@
     <wsdl:operation name="GetAgentAccountingDetail">
       <wsdl:input message="tns:GetAgentAccountingDetailHttpPostIn" />
       <wsdl:output message="tns:GetAgentAccountingDetailHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <wsdl:input message="tns:QueryCurrentUserInfoHttpPostIn" />
+      <wsdl:output message="tns:QueryCurrentUserInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <wsdl:input message="tns:CheckAccountExistHttpPostIn" />
+      <wsdl:output message="tns:CheckAccountExistHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SpriteAgentSoap" type="tns:SpriteAgentSoap">
@@ -1080,6 +1271,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetAgentAccountingDetail">
       <soap:operation soapAction="http://tempuri.org/GetAgentAccountingDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <soap:operation soapAction="http://tempuri.org/QueryCurrentUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <soap:operation soapAction="http://tempuri.org/CheckAccountExist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUserInfo">
+      <soap:operation soapAction="http://tempuri.org/CreateUserInfo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1189,6 +1407,33 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/QueryCurrentUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <soap12:operation soapAction="http://tempuri.org/CheckAccountExist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/CreateUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SpriteAgentHttpGet" type="tns:SpriteAgentHttpGet">
     <http:binding verb="GET" />
@@ -1291,6 +1536,24 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <http:operation location="/QueryCurrentUserInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <http:operation location="/CheckAccountExist" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SpriteAgentHttpPost" type="tns:SpriteAgentHttpPost">
     <http:binding verb="POST" />
@@ -1386,6 +1649,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetAgentAccountingDetail">
       <http:operation location="/GetAgentAccountingDetail" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <http:operation location="/QueryCurrentUserInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <http:operation location="/CheckAccountExist" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

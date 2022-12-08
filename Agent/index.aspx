@@ -1078,7 +1078,7 @@
                                             <!--下拉 dropdown-menu 選單 -->
                                             <ul class="dropdown-menu" aria-labelledby="navbar_Member">
                                                 <li id="idCreateAccount" class="nav-item" style="display: none">
-                                                    <a class="nav-link icon icon-ewin-default-n-user-add language_replace " onclick="API_NewWindow(mlp.getLanguageKey('新增下線'), 'UserAccount_Add.aspx')" target="mainiframe">新增下線</a>
+                                                    <a class="nav-link icon icon-ewin-default-n-user-add language_replace " onclick="API_NewWindow(mlp.getLanguageKey('新增下線'), 'UserAccount_Add_Casino.aspx')" target="mainiframe">新增下線</a>
                                                 </li>
                                                 <li id="idMyQRCode" class="nav-item">
                                                     <a class="nav-link icon icon-ewin-default-myQrCode language_replace" onclick="API_MainWindow(mlp.getLanguageKey('我的推廣碼'), 'UserAccount_Edit_MySelf.aspx?t=qrcode')" target="mainiframe">我的推廣碼</a>
