@@ -149,7 +149,7 @@
                                     default:
                                 }
 
-                                if (channel.PaymentBrand == "BlockChain") {
+                                if (channel.PaymentChannelCode.includes("BlockChain")) {
                                     var minAmount = "unlimited";
                                     var maxAmount = "unlimited";
                                     if (channel.DepositAmountMin != 0) {

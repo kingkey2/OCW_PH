@@ -694,7 +694,7 @@
     }
 
     function API_OpenGame(GameBrand, GameName, LangName) {
-        openGame(GameBrand, GameName, LangName);
+        openGame(GameBrand, GameName, LangName.replace("'", "‘"));
     }
 
     function API_GetUserTotalSummary(cb) {
@@ -991,8 +991,8 @@
         popupMoblieGameInfo.find('.GameName').text(GameLangName);
         $('.headerGameName').text(GameLangName);
 
-        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName + "')");
-        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName + "')");
+        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName.replace("'", "‘") + "')");
+        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName.replace("'", "‘") + "')");
         GCB.GetFavo(function (data) {
             favoriteGames.push(data);
         }, function (data) {
@@ -2489,7 +2489,7 @@
 
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
                                             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("即將開啟") + ":" + openGameBeforeLogin.GameLangName, function () {
-                                                openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
+                                                openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName.replace("'", "‘"));
                                             });
                                         } else {
                                             var srcPage = window.sessionStorage.getItem("SrcPage");
@@ -2793,7 +2793,7 @@
 
                         var RTP = "--";
                         var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
-                        lang_gamename = lang_gamename.replace("'", "");
+                        lang_gamename = lang_gamename.replace("'", "‘");
                         if (gameItem.RTPInfo) {
                             RTP = JSON.parse(gameItem.RTPInfo).RTP;
                         }
@@ -2804,7 +2804,7 @@
 
                         GI = c.getTemplate("tmpSearchGameItem");
                         let GI1 = $(GI);
-                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
+                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename.replace("'", "‘") + "')");
 
                         GI1.addClass("group" + parseInt(gameItemCount / 60));
                         gameItemCount++;
@@ -3147,7 +3147,7 @@
 
                 var RTP = "--";
                 var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
-                lang_gamename = lang_gamename.replace("'", "");
+                lang_gamename = lang_gamename.replace("'", "‘");
                 if (gameItem.RTPInfo) {
                     RTP = JSON.parse(gameItem.RTPInfo).RTP;
                 }
@@ -3158,7 +3158,7 @@
 
                 GI = c.getTemplate("tmpSearchGameItem");
                 let GI1 = $(GI);
-                GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
+                GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename.replace("'", "\'") + "')");
 
                 var GI_img = GI.querySelector(".gameimg");
                 if (GI_img != null) {

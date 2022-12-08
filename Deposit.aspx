@@ -167,7 +167,7 @@
 
                                 }
                                 if (!isAddedCrypto) {
-                                    if (channel.PaymentBrand == "BlockChain") {
+                                    if (channel.PaymentChannelCode.includes("BlockChain")) {
                                         isAddedCrypto = true;
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
