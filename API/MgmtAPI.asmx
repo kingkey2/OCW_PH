@@ -876,7 +876,7 @@ public class MgmtAPI : System.Web.Services.WebService {
 
                             //發升級禮物
                             for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex; i++) {
-                                SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex + 1);
+                                SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex + i);
                             }
 
                             updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
