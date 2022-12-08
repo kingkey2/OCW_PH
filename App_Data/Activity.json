@@ -18,8 +18,8 @@
     {
       "Name": "DepositBounsToParent",
       "Path": "Common/DepositBounsToParent.json",
-      "MethodName": "OpenIntroBonusToParent",
-      "InfoMethodName": "OpenIntroBonusToParent"
+      "MethodName": "DepositBounsToParent",
+      "InfoMethodName": "DepositBounsToParent"
     }
   ],
   "Register": [
@@ -120,8 +120,8 @@
     {
       "Name": "DepositBounsToParent",
       "Path": "Common/DepositBounsToParent.json",
-      "MethodName": "OpenIntroBonusToParent",
-      "InfoMethodName": "OpenIntroBonusToParent"
+      "MethodName": "DepositBounsToParent",
+      "InfoMethodName": "DepositBounsToParent"
     },
     {
       "Name": "Act001",

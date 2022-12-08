@@ -94,7 +94,7 @@
                                                 }
                                             }
 
-                                            var allParentBonusAfterDepositResult = ActivityCore.GetAllParentBonusAfterDepositResult(BodyObj.LoginAccount);
+                                            var allParentBonusAfterDepositResult = ActivityCore.GetAllParentBonusAfterDepositResult(BodyObj.LoginAccount,  BodyObj.Amount);
 
                                             if (allParentBonusAfterDepositResult.Result == ActivityCore.enumActResult.OK) {
                                                 System.Data.DataTable ParentPaymentDT = null;

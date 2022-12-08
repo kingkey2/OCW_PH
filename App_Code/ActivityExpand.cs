@@ -803,7 +803,7 @@ public static class ActivityExpand {
     }
 
     public static class ParentBonusAfterDeposit {
-        public static ActivityCore.ActResult<ActivityCore.IntroActivity> OpenIntroBonusToParent(string DetailPath, string LoginAccount) {
+        public static ActivityCore.ActResult<ActivityCore.IntroActivity> OpenIntroBonusToParent(string DetailPath, string LoginAccount, decimal Amount) {
             ActivityCore.ActResult<ActivityCore.IntroActivity> R = new ActivityCore.ActResult<ActivityCore.IntroActivity>() { Result = ActivityCore.enumActResult.ERR };
             EWin.OCW.OCW ocwAPI = new EWin.OCW.OCW();
             var ocwResult = ocwAPI.GetParentUserAccountInfo(EWinWeb.GetToken(), LoginAccount);
@@ -857,6 +857,70 @@ public static class ActivityExpand {
                 }
             } else {
                 SetResultException(R, ocwResult.Message);
+            }
+
+            return R;
+        }
+
+        public static ActivityCore.ActResult<ActivityCore.IntroActivity> DepositBounsToParent(string DetailPath, string LoginAccount, decimal Amount) {
+            ActivityCore.ActResult<ActivityCore.IntroActivity> R = new ActivityCore.ActResult<ActivityCore.IntroActivity>() { Result = ActivityCore.enumActResult.ERR };
+            EWin.OCW.OCW ocwAPI = new EWin.OCW.OCW();
+
+            if (Amount >= 100) {
+                var ocwResult = ocwAPI.GetParentUserAccountInfo(EWinWeb.GetToken(), LoginAccount);
+
+                if (ocwResult.ResultState == EWin.OCW.enumResultState.OK) {
+                    JObject ActivityDetail;
+                    System.Data.DataTable UserAccountTotalValueDT;
+                    int DepositCount = 0;
+
+                    ActivityDetail = GetActivityDetail(DetailPath);
+
+                    UserAccountTotalValueDT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityDetail["Name"].ToString());
+
+                    if (UserAccountTotalValueDT != null && UserAccountTotalValueDT.Rows.Count > 0) {
+                        DepositCount = (int)UserAccountTotalValueDT.Rows[0]["JoinCount"];
+                    } else {
+                        DepositCount = 0;
+                    }
+
+
+                    if (ActivityDetail != null) {
+                        DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
+                        DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
+
+
+                        if ((int)ActivityDetail["State"] == 0) {
+                            if (DepositCount == 0) {
+                                if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
+                                    var RetData = new ActivityCore.IntroActivity() {
+                                        BonusValue = (decimal)ActivityDetail["Parent"]["BonusValue"],
+                                        ThresholdValue = (decimal)ActivityDetail["Parent"]["ThresholdValue"],
+                                        LoginAccount = LoginAccount,
+                                        ParentLoginAccount = ocwResult.ParentLoginAccount,
+                                        ActivityName = ActivityDetail["Name"].ToString(),
+                                        CollectAreaType = ActivityDetail["CollectAreaType"].ToString()
+                                    };
+
+                                    R.Data = RetData;
+                                    R.Result = ActivityCore.enumActResult.OK;
+                                } else {
+                                    SetResultException(R, "ActivityIsExpired");
+                                }
+                            } else {
+                                SetResultException(R, "ActivityIsExpired");
+                            }
+                        } else {
+                            SetResultException(R, "ActivityIsExpired");
+                        }
+                    } else {
+                        SetResultException(R, "ActivityIsExpired");
+                    }
+                } else {
+                    SetResultException(R, ocwResult.Message);
+                }
+            } else {
+                SetResultException(R, "ActivityIsExpired");
             }
 
             return R;
