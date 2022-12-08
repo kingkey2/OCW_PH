@@ -1,0 +1,23 @@
+{
+  "帳號": "Account",
+  "幣別": "Currency",
+  "佣金結算細節": "Commission Settlement Details",
+  "確認":"Send",
+  "帳戶類型": "Type",
+  "股東": "Shareholder",
+  "代理": "Agent",
+  "一般帳戶": "Member",
+  "帳戶佔成率": "Sharing Rate",
+  "總上下數": "Total Win/Lose",
+  "總洗碼數": "Total Rolling",
+  "總洗碼佣金": "Total Rolling Commission",
+  "總紅利": "Total Bonus",
+  "總費用": "Total Cost",
+  "總 NGR": "Total NGR",
+  "總線佣金": "Line Total Commission",
+  "個人已付佣金": "Personal Paid Commission",
+  "代理已付佣金": "Agent Paid Commission",
+  "上線洗碼佣金提供": "Upline Rolling Commission Offer",
+  "個人洗碼佣金利潤": "Personal Rolling Commission Profit",
+  "代理個人佣金": "Due commission"
+}

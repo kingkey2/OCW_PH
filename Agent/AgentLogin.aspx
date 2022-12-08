@@ -8,15 +8,14 @@
     EWin.Agent.AgentAPI agentAPI = new EWin.Agent.AgentAPI();
     EWin.Login.LoginAPI loginAPI = new EWin.Login.LoginAPI();
 
-    if (CodingControl.FormSubmit())
-    {
+    if (CodingControl.FormSubmit()) {
 
         EWin.Agent.LoginResult ASS = null;
         string CompanyCode = Request["CompanyCode"];
         string LoginType = Request["LoginType"];  //0=主帳戶登入/1=助手登入
         string LoginAccount = Request["LoginAccount"];
         string LoginPassword = Request["LoginPassword"];
-        string LoginGUID  = string.Empty;
+        string LoginGUID = string.Empty;
         string Token;
         int RValue;
         Random R = new Random();
@@ -33,22 +32,12 @@
             ASS = agentAPI.AgentLogin(LoginGUID, System.Guid.NewGuid().ToString(), EWin.Agent.enumLoginType.AgentLogin, LoginAccount, LoginPassword, MainAccount, CodingControl.GetUserIP());
         }
 
-        if (ASS != null)
-        {
-            if (ASS.ResultState == EWin.Agent.enumResultState.OK)
-            {
-                //Session["_AgentLogined"] = ASS;
+        if (ASS != null) {
+            if (ASS.ResultState == EWin.Agent.enumResultState.OK) {
                 Response.SetCookie(new HttpCookie("ASID", ASS.AID));
-                var aa = EWinWeb.EWinAgentUrl + "/agent/AgentLoginFromWeb.aspx?DefaultCompany=" + DefaultCompany + "&ASID=" + System.Web.HttpUtility.UrlEncode(ASS.AID) + "&Lang=" + Lang;
-                if (string.IsNullOrEmpty(DefaultCompany) == false)
-                    Response.Redirect(EWinWeb.EWinAgentUrl + "/agent/AgentLoginFromWeb.aspx?DefaultCompany=" + DefaultCompany + "&ASID=" + System.Web.HttpUtility.UrlEncode(ASS.AID)+ "&Lang=" + Lang);
-                else
-                    Response.Redirect(EWinWeb.EWinAgentUrl + "/agent/AgentLoginFromWeb.aspx?Lang="+ Lang);
-            }
-            else
-            {
-                switch (ASS.Message)
-                {
+                Response.Redirect("Index.aspx?DefaultCompany=" + DefaultCompany);
+            } else {
+                switch (ASS.Message) {
                     case "AccountIsLocked":
                         showMsg = true;
                         msgContent = "帳號鎖定,請等待10分鐘後再嘗試登入";
@@ -63,21 +52,14 @@
                         break;
                 }
             }
-        }
-        else
-        {
+        } else {
             showMsg = true;
             msgContent = "登入失敗";
         }
-    }
-    else
-    {
-        if (string.IsNullOrEmpty(DefaultCompany) == false)
-        {
+    } else {
+        if (string.IsNullOrEmpty(DefaultCompany) == false) {
             Response.Redirect("login.aspx?C=" + DefaultCompany);
-        }
-        else
-        {
+        } else {
             Response.Redirect("login.aspx");
         }
     }
