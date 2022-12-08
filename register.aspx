@@ -63,7 +63,7 @@
         let sec = 0;
 
         let countInterval = setInterval(function () {
-            let BtnSend = document.getElementById("divSendValidateCodeBtn");
+            let BtnSend = document.getElementById("btnSendValidateCode");
 
             //min = parseInt(secondsRemaining / 60);
             //sec = parseInt(secondsRemaining % 60);
@@ -221,7 +221,7 @@
     }
 
     function SetBtnSend() {
-        let BtnSend = document.getElementById("divSendValidateCodeBtn");
+        let BtnSend = document.getElementById("btnSendValidateCode");
         BtnSend.querySelector("span").innerText = mlp.getLanguageKey("傳送驗證碼");
         isSent = false;
     }
