@@ -2,7 +2,7 @@
   "帳號": "Account",
   "幣別": "Currency",
   "佣金結算細節": "Commission Settlement Details",
-  "確認":"Send",
+  "確認": "Send",
   "帳戶類型": "Type",
   "股東": "Shareholder",
   "代理": "Agent",
@@ -19,5 +19,9 @@
   "代理已付佣金": "Agent Paid Commission",
   "上線洗碼佣金提供": "Upline Rolling Commission Offer",
   "個人洗碼佣金利潤": "Personal Rolling Commission Profit",
-  "代理個人佣金": "Due commission"
+  "代理個人佣金": "Due commission",
+  "應付傭金": "Total RebateAmount",
+  "總轉碼": "Total rolling",
+  "總輸贏": "Total Win/Lose",
+  "團隊投注筆數": "Line Order Count"
 }
