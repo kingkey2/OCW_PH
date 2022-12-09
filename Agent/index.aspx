@@ -785,6 +785,12 @@
     function updateBaseInfo() {
 
     }
+
+    function searchInfo() {
+        var idSearchInfo = document.getElementById("idSearchInfo");
+
+        API_MainWindow(mlp.getLanguageKey('下線列表') + "_" + idSearchInfo.value, "UserAccount_Search_Casino.aspx");
+    }
     
     function KeepAIDAndRefreshInfo(cb) {
         api.KeepAID(EWinInfo.ASID, Math.uuid(), function (success, o) {
@@ -1072,6 +1078,11 @@
                             <div class="header_loginInUser">
                                 <div class="offset">
                                     <ul class="nav">
+                                        
+                                        <li id="idSearchButton" class="navbar-search nav-item ">
+                                            <a href="#" class="btn btn-search btn-round nav-link" role="button" onclick="searchInfo()"></a>
+                                        </li>
+
                                         <li id="btnCreateAccount" class="navbar-member nav-item submenu dropdown" style="display: none">
                                             <!-- 下拉 MEMBER LINK -->
                                             <a href="#" onclick="dataToggleDropdown(this)" class="btn btn-user btn-round nav-link btnDropDown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id=""></a>
