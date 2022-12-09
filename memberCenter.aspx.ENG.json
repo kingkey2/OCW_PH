@@ -145,7 +145,7 @@
   "VIP 會員級數說明": "VIP Details",
   "等級": "VIP Level",
   "每月流水": "Monthly Valid Bet",
-  "錢包密碼": "WalletPassword",
+  "錢包密碼": "Wallet password",
   "新增成功": "Success",
   "新增失敗": "Error",
   "分行": "Bank branch name",
@@ -183,5 +183,9 @@
   "請綁定 銀行卡 或 GCash": "Please bind bank card or GCash",
   "最多只能新增10張卡片": "You can only have most 10 card.",
   "電話號碼必須以0開頭": "Phone number must start with 0.",
-  "電話號碼長度為11碼": "Phone number length is 11"
+  "電話號碼長度為11碼": "Phone number length is 11",
+  "請輸入錢包密碼": "Please enter wallet password.",
+  "尚未輸入錢包密碼": "Wallet password has not been entered.",
+  "尚未輸入電話號碼": "Phone number has not been entered.",
+  "刪除卡片": "Delete card"
 }
