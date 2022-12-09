@@ -78,52 +78,10 @@
         return count;
     }
 
-    function getNBetLimitCount(currencyType) {
-        var NBetLimitList = document.getElementById("NBetLimitList");
-        var div_CurrencyType;
-        var elInputList;
-        var count = 0;
-        var canAssignType = false;
-
-        elInputList = NBetLimitList.getElementsByClassName("BetLimitID")
-        div_CurrencyType = NBetLimitList.getElementsByClassName("div_CurrencyType");
-        for (var i = 0; i < elInputList.length; i++) {
-            var el = elInputList[i];
-            canAssignType = false;
-
-            switch (uType) {
-                case 0:
-                    if (div_CurrencyType[i].getAttribute("assigntype") == "0") {
-                        canAssignType = true;
-                    }
-                    break;
-                case 1:
-                    if (div_CurrencyType[i].getAttribute("assigntype") == "0" || div_CurrencyType[i].getAttribute("assigntype") == "1") {
-                        canAssignType = true;
-                    }
-                    break;
-            }
-
-            if (canAssignType == true) {
-                if (el.tagName.toUpperCase() == "INPUT".toUpperCase()) {
-                    if (el.checked == true) {
-                        if (el.getAttribute("CurrencyType") == currencyType) {
-                            count++;
-                        }
-                    }
-                }
-            }
-
-        }
-
-        return count;
-    }
-
     function checkFormData() {
         var retValue = true;
         var chkMessage = "";
         var form = document.forms[0];
-        var eWinBACPoint = false;
 
         if (form.LoginPassword.value != "") {
             if (form.LoginPassword.value != form.LoginPassword2.value) {
@@ -135,238 +93,108 @@
         // 檢查所有錢包數值
         for (var i = 0; i < idPointList.children.length; i++) {
             var el = idPointList.children[i];
-            
+
             if (el.hasAttribute("currencyType")) {
                 var btnPointNew = c.getFirstClassElement(el, "btnPointNew");
+                //其它遊戲
+                var currencyType = el.getAttribute("currencyType");
+                var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
+                var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
+                var agentGameUserRate = 0;
+                var agentGameBuyChipRate = 0;
 
-                //有啟用錢包
-                if (btnPointNew.getAttribute("btnType") == "cancel") {
-                    //eWin百家樂
-                    if (btnPointNew.getAttribute("btnGameCode") == "eWinBAC") {
-                        var currencyType = el.getAttribute("currencyType");
-                        //var pointState = c.getFirstClassElement(el, "PointState");
-                        var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
-                        var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
+                if (isNaN(pointUserRate.value) == true || isNaN(pointBuyChipRate.value) == true) {
+                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("佔成/轉碼請輸入正確數字"));
+                    retValue = false;
+                    break;
+                }
 
-                        //if (pointState.options[pointState.selectedIndex].value == "0") {
-                        var agentWallet = window.parent.API_GetCurrencyType(currencyType);
-
-                        eWinBACPoint = true;
-                        if (isNaN(pointUserRate.value) == true || isNaN(pointBuyChipRate.value) == true) {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("佔成/轉碼請輸入正確數字"));
-                            retValue = false;
-                            break;
+                for (var j = 0; j < EWinInfo.UserInfo.GameCodeList.length; j++) {
+                    if (EWinInfo.UserInfo.GameCodeList[j].CurrencyType == currencyType) {
+                        if (EWinInfo.UserInfo.GameCodeList[j].GameAccountingCode == btnPointNew.getAttribute("btnGameCode")) {
+                            agentGameUserRate = EWinInfo.UserInfo.GameCodeList[j].UserRate;
+                            agentGameBuyChipRate = EWinInfo.UserInfo.GameCodeList[j].BuyChipRate;
                         }
+                    }
+                }
 
+                if ((pointUserRate.value != "") && (pointUserRate.value != null)) {
+                    if ((Number(pointUserRate.value) > agentGameUserRate) || Number(pointUserRate.value) < 0) {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("佔成可接受範圍為") + " 0 - " + agentGameUserRate);
+                        retValue = false;
+                        break;
+                    }
+                } else {
+                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("佔成率不可空白"));
+                    retValue = false;
+                    break;
+                }
 
-                        if ((pointUserRate.value != "") && (pointUserRate.value != null)) {
-                            if ((Number(pointUserRate.value) > agentWallet.UserRate) || Number(pointUserRate.value) < 0) {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("佔成可接受範圍為") + " 0 - " + agentWallet.UserRate);
-                                retValue = false;
-                                break;
-                            }
-
-                        } else {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("佔成率不可空白"));
-                            retValue = false;
-                            break;
-                        }
-
-                        if ((pointBuyChipRate.value != "") || (pointBuyChipRate.value != null)) {
-                            if (Number(pointBuyChipRate.value) < 0) {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("轉碼不可負數"));
-                                retValue = false;
-                                break;
-                            }
-                            else {
-                                switch (EWinInfo.CompanyInfo.DownlineBuyChipRateType) {
-                                    case 0:
-                                        //不允許下線轉碼率設定高於上線
-                                        if (Number(agentWallet.BuyChipRate) < Number(pointBuyChipRate.value)) {
-                                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("下線轉碼率不可高於上線"));
-                                            retValue = false;
-                                            break;
-                                        }
-                                        break;
-                                    case 1:
-                                        //允許設定高於上線
-                                        if (Number(agentWallet.BuyChipRate) < Number(pointBuyChipRate.value)) {
-                                            if (chkMessage == "") {
-                                                chkMessage = currencyType + " " + mlp.getLanguageKey("轉碼數超過上線,用戶須自行承擔差額,確定要繼續嗎?");
-                                            }
-                                            else {
-                                                chkMessage = chkMessage + "<br/>" + currencyType + " " + mlp.getLanguageKey("轉碼數超過上線,用戶須自行承擔差額,確定要繼續嗎?");
-                                            }
-                                            break;
-                                        }
-                                        break;
-                                    case 2:
-                                        //代理佔成時才允許下線碼佣高於代理
-                                        if (Number(agentWallet.UserRate) > 0) {
-                                            if (Number(agentWallet.BuyChipRate) < Number(pointBuyChipRate.value)) {
-                                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("下線轉碼率不可高於上線"));
-                                                retValue = false;
-                                                break;
-                                            }
-                                        }
-                                        break;
-                                }
-                            }
-
-                        } else {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("轉碼率不可空白"));
-                            retValue = false;
-                            break;
-                        }
-                        //}
-
-                        if ((EWinInfo.CompanyInfo.BetLimitCount > 0) || (EWinInfo.CompanyInfo.BetLimitMin > 0)) {
-                            //if (UserObj.UserAccountType == 0) {
-                            //確認公司是否有快速電投限紅
-                            if (parentObj.WalletList) {
-                                for (var j = 0; j < parentObj.WalletList.length; j++) {
-                                    if (parentObj.WalletList[j].CurrencyType == currencyType) {
-                                        if (parentObj.WalletList[j].CompanyQBetLimitCount > 0) {
-                                            if (((getQBetLimitCount(currencyType) >= EWinInfo.CompanyInfo.BetLimitMin) && (EWinInfo.CompanyInfo.BetLimitMin != 0)) && ((getQBetLimitCount(currencyType) <= EWinInfo.CompanyInfo.BetLimitCount) && (EWinInfo.CompanyInfo.BetLimitCount != 0))) {
-                                                //Nothing;
-                                            }
-                                            else {
-                                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("快速電投限紅可選擇的數量") + ":" + " " + EWinInfo.CompanyInfo.BetLimitMin + "~" + EWinInfo.CompanyInfo.BetLimitCount);
-                                                retValue = false;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            //確認公司是否有網投限紅
-                            if (parentObj.WalletList) {
-                                for (var j = 0; j < parentObj.WalletList.length; j++) {
-                                    if (parentObj.WalletList[j].CurrencyType == currencyType) {
-                                        if (parentObj.WalletList[j].CompanyNBetLimitCount > 0) {
-                                            if (((getNBetLimitCount(currencyType) >= EWinInfo.CompanyInfo.BetLimitMin) && (EWinInfo.CompanyInfo.BetLimitMin != 0)) && ((getNBetLimitCount(currencyType) <= EWinInfo.CompanyInfo.BetLimitCount) && (EWinInfo.CompanyInfo.BetLimitCount != 0))) {
-                                                //Nothing
-                                            }
-                                            else {
-                                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("網投限紅可選擇的數量") + ":" + " " + EWinInfo.CompanyInfo.BetLimitMin + "~" + EWinInfo.CompanyInfo.BetLimitCount);
-                                                retValue = false;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            //}
-                        }                       
+                if ((pointBuyChipRate.value != "") || (pointBuyChipRate.value != null)) {
+                    if (Number(pointBuyChipRate.value) < 0) {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼不可負數"));
+                        retValue = false;
+                        break;
                     }
                     else {
-                        //其它遊戲
-                        var currencyType = el.getAttribute("currencyType");
-                        var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
-                        var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
-                        var agentGameUserRate = 0;
-                        var agentGameBuyChipRate = 0;
-
-                        if (isNaN(pointUserRate.value) == true || isNaN(pointBuyChipRate.value) == true) {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("佔成/轉碼請輸入正確數字"));
-                            retValue = false;
-                            break;
-                        }
-
-                        for (var j = 0; j < EWinInfo.UserInfo.GameCodeList.length; j++) {
-                            if (EWinInfo.UserInfo.GameCodeList[j].CurrencyType == currencyType) {
-                                if (EWinInfo.UserInfo.GameCodeList[j].GameAccountingCode == btnPointNew.getAttribute("btnGameCode")) {
-                                    agentGameUserRate = EWinInfo.UserInfo.GameCodeList[j].UserRate;
-                                    agentGameBuyChipRate = EWinInfo.UserInfo.GameCodeList[j].BuyChipRate;
+                        switch (EWinInfo.CompanyInfo.DownlineBuyChipRateType) {
+                            case 0:
+                                //不允許下線轉碼率設定高於上線
+                                if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
+                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("下線轉碼率不可高於上線"));
+                                    retValue = false;
+                                    break;
                                 }
-                            }
-                        }
-
-                        if ((pointUserRate.value != "") && (pointUserRate.value != null)) {
-                            if ((Number(pointUserRate.value) > agentGameUserRate) || Number(pointUserRate.value) < 0) {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("佔成可接受範圍為") + " 0 - " + agentGameUserRate);
-                                retValue = false;
                                 break;
-                            }
-                        } else {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("佔成率不可空白"));
-                            retValue = false;
-                            break;
-                        }
-
-                        if ((pointBuyChipRate.value != "") || (pointBuyChipRate.value != null)) {
-                            if (Number(pointBuyChipRate.value) < 0) {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼不可負數"));
-                                retValue = false;
-                                break;
-                            }
-                            else {
-                                switch (EWinInfo.CompanyInfo.DownlineBuyChipRateType) {
-                                    case 0:
-                                        //不允許下線轉碼率設定高於上線
-                                        if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
-                                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("下線轉碼率不可高於上線"));
-                                            retValue = false;
-                                            break;
-                                        }
-                                        break;
-                                    case 1:
-                                        //允許設定高於上線
-                                        if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
-                                            if (chkMessage == "") {
-                                                chkMessage = btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼數超過上線,用戶須自行承擔差額,確定要繼續嗎?");
-                                            }
-                                            else {
-                                                chkMessage = chkMessage + "<br/>" + btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼數超過上線,用戶須自行承擔差額,確定要繼續嗎?");
-                                            }
-                                            break;
-                                        }
-                                        break;
-                                    case 2:
-                                        //代理佔成時才允許下線碼佣高於代理
-                                        if (Number(agentGameUserRate) > 0) {
-                                            if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
-                                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("下線轉碼率不可高於上線"));
-                                                retValue = false;
-                                                break;
-                                            }
-                                        }
-                                        break;
+                            case 1:
+                                //允許設定高於上線
+                                if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
+                                    if (chkMessage == "") {
+                                        chkMessage = btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼數超過上線,用戶須自行承擔差額,確定要繼續嗎?");
+                                    }
+                                    else {
+                                        chkMessage = chkMessage + "<br/>" + btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼數超過上線,用戶須自行承擔差額,確定要繼續嗎?");
+                                    }
+                                    break;
                                 }
-                            }
-
-                        } else {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼率不可空白"));
-                            retValue = false;
-                            break;
+                                break;
+                            case 2:
+                                //代理佔成時才允許下線碼佣高於代理
+                                if (Number(agentGameUserRate) > 0) {
+                                    if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
+                                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("下線轉碼率不可高於上線"));
+                                        retValue = false;
+                                        break;
+                                    }
+                                }
+                                break;
                         }
                     }
+
+                } else {
+                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼率不可空白"));
+                    retValue = false;
+                    break;
                 }
             }
         }
 
         if (retValue == true) {
-            if (eWinBACPoint == true) {
-                checkAccountExist(form.LoginAccount.value, function (accountExist) {
-                    if (accountExist == true) {
-                        if (chkMessage != "") {
-                            window.parent.API_ShowMessage(mlp.getLanguageKey("警告"), chkMessage, function () {
-                                updateUserInfo();
-                            }, null);
-                        }
-                        else {
+            checkAccountExist(form.LoginAccount.value, function (accountExist) {
+                if (accountExist == true) {
+                    if (chkMessage != "") {
+                        window.parent.API_ShowMessage(mlp.getLanguageKey("警告"), chkMessage, function () {
                             updateUserInfo();
-                        }
-
-                    } else {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("登入帳號已存在"));
+                        }, null);
                     }
-                });
-            }
-            else {
-                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("至少需新增一組Ewin百家樂錢包"));
-            }
+                    else {
+                        updateUserInfo();
+                    }
+
+                } else {
+                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("登入帳號已存在"));
+                }
+            });
         }
     }
 
@@ -473,23 +301,14 @@
         var userList = [];
         var postObj;
         var idPointList = document.getElementById("idPointList");
-        var QBetLimitList = document.getElementById("QBetLimitList");
-        var NBetLimitList = document.getElementById("NBetLimitList");
-        //var UserAccountType = document.getElementsByName("UserAccountType");
-        //var iUserAccountType = 0;
         var AllowPayment = 0;
         var AllowServiceChat = 0;
-
-        //if (UserAccountType[0].checked == true)
-        //    iUserAccountType = 1;
 
         if (processing == false) {
 
             // 建立用戶更新物件
             if ((form.LoginPassword.value != "") && (form.LoginPassword.value != null))
                 userList[userList.length] = { Name: "LoginPassword", Value: form.LoginPassword.value };
-
-            //userList[userList.length] = { Name: "UserAccountType", Value: iUserAccountType };
             userList[userList.length] = { Name: "UserAccountType", Value: uType };
             userList[userList.length] = { Name: "UserAccountState", Value: 0 };
             userList[userList.length] = { Name: "RealName", Value: form.RealName.value };
@@ -520,22 +339,20 @@
 
             userList[userList.length] = { Name: "AllowPayment", Value: AllowPayment };
             userList[userList.length] = { Name: "AllowServiceChat", Value: AllowServiceChat };
-
-
-
-            //if (form.AllowPayment.checked == true) {
-            //    userList[userList.length] = { Name: "AllowPayment", Value: "1" };
-            //} else {
-            //    userList[userList.length] = { Name: "AllowPayment", Value: "0" };
-            //}
-
-            //if (form.AllowServiceChat.checked == true) {
-            //    userList[userList.length] = { Name: "AllowServiceChat", Value: "1" };
-            //} else {
-            //    userList[userList.length] = { Name: "AllowServiceChat", Value: "0" };
-            //}
-
+            
             userList[userList.length] = { Name: "AllowBet", Value: 3 };
+
+            let k = {
+                CurrencyType: EWinInfo.CurrencyType,
+                PointState: 0,
+                UserRate: 0,
+                BuyChipRate: 0
+            };
+
+            userList[userList.length] = {
+                Name: "Wallet",
+                Value: JSON.stringify(k)
+            };
 
             // 建立錢包更新物件
             for (var i = 0; i < idPointList.children.length; i++) {
@@ -543,122 +360,26 @@
 
                 if (el.hasAttribute("currencyType")) {
                     var btnPointNew = c.getFirstClassElement(el, "btnPointNew");
-                    if (btnPointNew.getAttribute("btnType") == "cancel") {
-                        if (btnPointNew.getAttribute("btnGameCode") == "eWinBAC") {
-                            var currencyType = el.getAttribute("currencyType");
-                            //var pointState = c.getFirstClassElement(el, "PointState");
-                            var PointStateSelect;
-                            var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
-                            var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
-                            var w;
-
-                            //錢包預設為開啟
-                            //PointStateSelect = pointState.options[pointState.selectedIndex].value
-                            PointStateSelect = 0;
-
-                            w = {
-                                CurrencyType: currencyType,
-                                PointState: PointStateSelect,
-                                UserRate: pointUserRate.value,
-                                BuyChipRate: pointBuyChipRate.value
-                            }
-
-                            userList[userList.length] = {
-                                Name: "Wallet",
-                                Value: JSON.stringify(w)
-                            };
-                        }
-                        else {
-                            var currencyType = el.getAttribute("currencyType");
-                            var PointStateSelect = 0;
-                            var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
-                            var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
-                            var g;
+                    var currencyType = el.getAttribute("currencyType");
+                    var PointStateSelect = 0;
+                    var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
+                    var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
+                    var g;
 
 
-                            g = {
-                                CurrencyType: currencyType,
-                                PointState: PointStateSelect,
-                                UserRate: pointUserRate.value,
-                                BuyChipRate: pointBuyChipRate.value,
-                                GameAccountingCode: btnPointNew.getAttribute("btnGameCode")
-                            }
-
-                            userList[userList.length] = {
-                                Name: "GameCodeList",
-                                Value: JSON.stringify(g)
-                            };
-                        }
-                    }
-                }
-            }
-
-            // 建立限紅物件
-            for (var i = 0; i < QBetLimitList.children.length; i++) {
-                var el = QBetLimitList.children[i];
-
-                if (el.hasAttribute("BetLimitID")) {
-                    var assignType = el.getAttribute("assigntype");
-                    var betLimitID = c.getFirstClassElement(el, "BetLimitID");
-
-                    if (betLimitID.checked == true) {
-                        var canAssignType = false;
-
-                        switch (uType) {
-                            case 0:
-                                if (assignType == "0") {
-                                    canAssignType = true;
-                                }
-                                break;
-                            case 1:
-                                if (assignType == "0" || assignType == "1") {
-                                    canAssignType = true;
-                                }
-                                break;
-                        }
-
-                        if (canAssignType == true) {
-                            userList[userList.length] = {
-                                Name: "QBetLimit",
-                                Value: betLimitID.value
-                            };
-                        }
+                    g = {
+                        CurrencyType: currencyType,
+                        PointState: PointStateSelect,
+                        UserRate: pointUserRate.value,
+                        BuyChipRate: pointBuyChipRate.value,
+                        GameAccountingCode: btnPointNew.getAttribute("btnGameCode")
                     }
 
-                }
-            }
+                    userList[userList.length] = {
+                        Name: "GameCodeList",
+                        Value: JSON.stringify(g)
+                    };
 
-            for (var i = 0; i < NBetLimitList.children.length; i++) {
-                var el = NBetLimitList.children[i];
-
-                if (el.hasAttribute("BetLimitID")) {
-                    var assignType = el.getAttribute("assigntype");
-                    var betLimitID = c.getFirstClassElement(el, "BetLimitID");
-
-                    if (betLimitID.checked == true) {
-                        var canAssignType = false;
-
-                        switch (uType) {
-                            case 0:
-                                if (assignType == "0") {
-                                    canAssignType = true;
-                                }
-                                break;
-                            case 1:
-                                if (assignType == "0" || assignType == "1") {
-                                    canAssignType = true;
-                                }
-                                break;
-                        }
-
-                        if (canAssignType == true) {
-                            userList[userList.length] = {
-                                Name: "NBetLimit",
-                                Value: betLimitID.value
-                            };
-                        }
-
-                    }
                 }
             }
 
@@ -703,25 +424,14 @@
 
 
     function updateBaseInfo(o) {
-        var UserAccountState0 = document.getElementById("UserAccountState0");
-        var UserAccountState1 = document.getElementById("UserAccountState1");
-        var IsLendChipAccount = document.getElementById("IsLendChipAccount");
-        var AllowPayment = document.getElementById("AllowPayment");
-        var AllowBet = document.getElementById("AllowBet");
-        var AllowServiceChat = document.getElementById("AllowServiceChat");
-        var RealName = document.getElementById("RealName");
         var t;
         var btnPointNew;
-        var pointUserRate;
-        var pointBuyChipRate;
-        var btnBitLimit;
-
+        
 
         if (o != null) {
             c.setElementText("idCompanyCode", null, o.CompanyCode);
             c.setElementText("ParentLoginAccount", null, o.LoginAccount);
-
-
+            
             if (o.IsLendChipAccount) {
                 c.setElementText("IsLendChipAccount", null, mlp.getLanguageKey("此帳戶為配碼帳戶"));
                 idLendChipAccount.style.display = "block";
@@ -739,310 +449,40 @@
                         continue;
                     }
                     var w = o.WalletList[i];
-                    t = c.getTemplate("templateWalletItem");
-                    btnPointNew = c.getFirstClassElement(t, "btnPointNew");
-                    //var pointState = c.getFirstClassElement(t, "PointState");
-                    pointUserRate = c.getFirstClassElement(t, "PointUserRate");
-                    pointBuyChipRate = c.getFirstClassElement(t, "PointBuyChipRate");
-                    btnBitLimit = c.getFirstClassElement(t, "btnBitLimit");
-
-                    t.setAttribute("currencyType", w.CurrencyType);
-                    t.classList.add("eWinBAC");
-                    t.classList.add("div_GameCode");
-                    c.setClassText(t, "PointCurrencyType", null, w.CurrencyType);
-
-
-                    // pointUserRate.style.display = "none";
-                    // pointBuyChipRate.style.display = "none";
-                    pointUserRate.classList.add("input-hidden-default");
-                    pointBuyChipRate.classList.add("input-hidden-default");
-
-
-                    // btnPointNew.style.display = "block";
-                    //pointState.style.display = "none";
-                    btnBitLimit.style.display = "none";
-
-                    //btnPointNew.setAttribute("btnCurrencyType", w.CurrencyType);
-                    btnPointNew.setAttribute("btnGameCode", "eWinBAC");
-                    btnPointNew.onclick = new Function("createWallet(this, '" + w.CurrencyType + "')");
-
-                    idPointList.appendChild(t);
-
+                    
                     //多遊戲設定
                     if (EWinInfo.UserInfo.GameCodeList.length > 0) {
                         for (var j = 0; j < EWinInfo.UserInfo.GameCodeList.length; j++) {
                             if (EWinInfo.UserInfo.GameCodeList[j].CurrencyType == w.CurrencyType) {
                                 t = c.getTemplate("templateWalletItem");
-                                t.style.display = "none";
+                                // t.style.display = "none";
                                 btnPointNew = c.getFirstClassElement(t, "btnPointNew");
                                 pointUserRate = c.getFirstClassElement(t, "PointUserRate");
                                 pointBuyChipRate = c.getFirstClassElement(t, "PointBuyChipRate");
-                                btnBitLimit = c.getFirstClassElement(t, "btnBitLimit");
 
                                 t.setAttribute("currencyType", w.CurrencyType);
                                 t.classList.add(EWinInfo.UserInfo.GameCodeList[j].GameAccountingCode);
                                 t.classList.add("div_GameCode");
                                 c.setClassText(t, "PointCurrencyType", null, w.CurrencyType);
+                                c.setClassText(t, "GameAccountingCode", null, EWinInfo.UserInfo.GameCodeList[j].GameAccountingCode);
 
-                                pointUserRate.classList.add("input-hidden-default");
-                                pointBuyChipRate.classList.add("input-hidden-default");
-
-                                btnBitLimit.style.display = "none";
+                                c.setClassText(t, "parentBuyChipRate", null, EWinInfo.UserInfo.GameCodeList[j].BuyChipRate);
+                                c.setClassText(t, "parentUserRate", null, EWinInfo.UserInfo.GameCodeList[j].UserRate);
 
                                 btnPointNew.setAttribute("btnGameCode", EWinInfo.UserInfo.GameCodeList[j].GameAccountingCode);
                                 btnPointNew.setAttribute("btnUserRate", EWinInfo.UserInfo.GameCodeList[j].UserRate);
                                 btnPointNew.setAttribute("btnBuyChipRate", EWinInfo.UserInfo.GameCodeList[j].BuyChipRate);
-                                btnPointNew.onclick = new Function("createWallet(this, '" + w.CurrencyType + "')");
+                          
                                 idPointList.appendChild(t);
-                            } 
+                            }
                         }
                     }
 
 
                 } 
             }
-
-            if (o.QBetLimitList != null) {
-                var QBetLimitList = document.getElementById("QBetLimitList");
-                var div = document.createElement("DIV");
-
-                c.clearChildren(QBetLimitList);
-
-                div.innerHTML = mlp.getLanguageKey("無數據");
-                div.style.display = "none";
-                div.classList.add("td__content", "td__hasNoData");
-                QBetLimitList.classList.add("tbody__hasNoData");
-                QBetLimitList.appendChild(div);
-
-                for (var i = 0; i < o.QBetLimitList.length; i++) {
-                    var bl = o.QBetLimitList[i];
-                    var t = c.getTemplate("templateQBetLimit");
-                    var bID;
-
-                    t.setAttribute("BetLimitID", bl.BetLimitID);
-                    t.setAttribute("AssignType", bl.AssignType);
-
-                    bID = c.getFirstClassElement(t, "BetLimitID");
-                    bID.value = bl.BetLimitID;
-                    bID.setAttribute("CurrencyType", bl.CurrencyType);
-                    bID.setAttribute("BetLimitType", bl.BetLimitType);
-                    bID.classList.add("BetLimitID_" + bl.BetLimitID);
-
-                    bID.onclick = function () {
-                        if (this.getAttribute("BetLimitType") == "2") {
-                            bCheckBtn = document.getElementsByClassName("BetLimitID_" + this.value);
-                            for (i = 0; i < bCheckBtn.length; i++) {
-                                bCheckBtn[i].checked = this.checked;
-                            }
-                        }
-                    }
-
-                    t.setAttribute("CurrencyType", bl.CurrencyType);
-
-                    c.setClassText(t, "CurrencyType", null, bl.CurrencyType + ": " + bl.UserBalance);
-                    c.setClassText(t, "BetLimitB", null, bl.MinBetBanker + " - " + bl.MaxBet);
-                    c.setClassText(t, "BetLimitP", null, bl.MinBetPlayer + " - " + bl.MaxBet);
-                    c.setClassText(t, "BetLimitT", null, bl.MinBetTie + " - " + bl.MaxBetTie);
-                    c.setClassText(t, "BetLimitPair", null, bl.MinBetPair + " - " + bl.MaxBetPair);
-
-                    QBetLimitList.appendChild(t);
-                }
-            }
-
-
-            if (o.NBetLimitList != null) {
-                var NBetLimitList = document.getElementById("NBetLimitList");
-                var div = document.createElement("DIV");
-
-                c.clearChildren(NBetLimitList);
-
-                div.innerHTML = mlp.getLanguageKey("無數據");
-                div.style.display = "none";
-                div.classList.add("td__content", "td__hasNoData");
-                NBetLimitList.classList.add("tbody__hasNoData");
-                NBetLimitList.appendChild(div);
-
-
-                for (var i = 0; i < o.NBetLimitList.length; i++) {
-                    var bl = o.NBetLimitList[i];
-                    var t = c.getTemplate("templateNBetLimit");
-                    var bID;
-
-                    t.setAttribute("BetLimitID", bl.BetLimitID);
-                    t.setAttribute("AssignType", bl.AssignType);
-
-                    bID = c.getFirstClassElement(t, "BetLimitID");
-                    bID.value = bl.BetLimitID;
-                    bID.setAttribute("CurrencyType", bl.CurrencyType);
-                    bID.setAttribute("BetLimitType", bl.BetLimitType);
-                    bID.classList.add("BetLimitID_" + bl.BetLimitID);
-
-                    bID.onclick = function () {
-                        if (this.getAttribute("BetLimitType") == "2") {
-                            bCheckBtn = document.getElementsByClassName("BetLimitID_" + this.value);
-                            for (i = 0; i < bCheckBtn.length; i++) {
-                                bCheckBtn[i].checked = this.checked;
-                            }
-                        }
-                    }
-
-                    t.setAttribute("CurrencyType", bl.CurrencyType);
-
-                    c.setClassText(t, "CurrencyType", null, bl.CurrencyType + ": " + bl.UserBalance);
-                    c.setClassText(t, "BetLimitB", null, bl.MinBetBanker + " - " + bl.MaxBet);
-                    c.setClassText(t, "BetLimitP", null, bl.MinBetPlayer + " - " + bl.MaxBet);
-                    c.setClassText(t, "BetLimitT", null, bl.MinBetTie + " - " + bl.MaxBetTie);
-                    c.setClassText(t, "BetLimitPair", null, bl.MinBetPair + " - " + bl.MaxBetPair);
-
-                    NBetLimitList.appendChild(t);
-                }
-            }
         }
 
-    }
-
-    function createWallet(o, currencyType) {
-        var idPointList = document.getElementById("idPointList");
-        var agentWallet = window.parent.API_GetCurrencyType(currencyType);
-        var myPointList;
-
-        if (agentWallet != null) {
-            myPointList = idPointList.getElementsByClassName(o.getAttribute("btnGameCode"));
-            for (var i = 0; i < myPointList.length; i++) {
-                var el = myPointList[i];
-                if (el.hasAttribute("currencyType")) {
-                    if (el.getAttribute("currencyType").toUpperCase() == currencyType.toUpperCase()) {
-                        var btnPointNew = c.getFirstClassElement(el, "btnPointNew");
-                        //var pointState = c.getFirstClassElement(el, "PointState");
-                        var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
-                        var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
-                        var btnBitLimit = c.getFirstClassElement(el, "btnBitLimit");
-                        var span_parentUserRate = c.getFirstClassElement(el, "span_parentUserRate");
-                        var span_parentBuyChipRate = c.getFirstClassElement(el, "span_parentBuyChipRate");
-
-                        if (btnPointNew.getAttribute("btnType") == "create") {
-                            btnPointNew.setAttribute("btnType", "cancel");
-                            btnPointNew.getElementsByClassName("btnText")[0].innerText = mlp.getLanguageKey("取消");
-
-                            // pointUserRate.style.display = "block";
-                            // pointBuyChipRate.style.display = "block";
-                            pointUserRate.classList.remove("input-hidden-default");
-                            pointBuyChipRate.classList.remove("input-hidden-default");
-
-                            if (o.getAttribute("btnGameCode") == "eWinBAC") {
-                                btnBitLimit.style.display = "block";
-                                c.setClassText(el, "parentBuyChipRate", null, agentWallet.BuyChipRate);
-                                c.setClassText(el, "parentUserRate", null, agentWallet.UserRate);
-                            }
-                            else {
-                                c.setClassText(el, "parentBuyChipRate", null, o.getAttribute("btnBuyChipRate"));
-                                c.setClassText(el, "parentUserRate", null, o.getAttribute("btnUserRate"));
-                            }
-                            // span_parentUserRate.style.display = "block";
-                            // span_parentBuyChipRate.style.display = "block";
-
-                            //pointUserRate.value = agentWallet.UserRate;
-                            //pointBuyChipRate.value = agentWallet.BuyChipRate;
-                            pointUserRate.value = 0;
-                            pointBuyChipRate.value = 0;
-
-                        }
-                        else {
-                            btnPointNew.setAttribute("btnType", "create");
-                            btnPointNew.getElementsByClassName("btnText")[0].innerText = mlp.getLanguageKey("新增");
-
-                            // pointUserRate.style.display = "none";
-                            // pointBuyChipRate.style.display = "none";
-                            pointUserRate.classList.add("input-hidden-default");
-                            pointBuyChipRate.classList.add("input-hidden-default");
-
-                            btnBitLimit.style.display = "none";
-                            // span_parentUserRate.style.display = "none";
-                            // span_parentBuyChipRate.style.display = "none";
-                        }
-
-                        //btnPointNew.style.display = "none";
-                        //pointState.style.display = "block";
-
-                        btnBitLimit.onclick = new Function("setBitLimit('" + currencyType.toUpperCase() + "')");
-                        break;
-                    }
-                }
-            }
-        } else {
-            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("無法取得代理錢包資訊"));
-        }
-    }
-
-    function setBitLimit(currencyType) {
-        var messageContent;
-        var div_CurrencyType = document.getElementsByClassName("div_CurrencyType");
-        var idMessageText = document.getElementById("idMessageText");
-        var bitLimitDIV = document.getElementsByClassName("bitLimitDIV");
-        var divUserAccountType = document.getElementById("divUserAccountType");
-        var QBetLimitList = document.getElementById("QBetLimitList");
-        var NBetLimitList = document.getElementById("NBetLimitList");
-        var QBetLimitArr;
-        var NBetLimitArr;
-        var hadData;
-
-        for (var i = 0; i < div_CurrencyType.length; i++) {
-            div_CurrencyType[i].style.display = "none";
-            if (div_CurrencyType[i].getAttribute("CurrencyType") == currencyType) {
-                switch (uType) {
-                    case 0:
-                        if (div_CurrencyType[i].getAttribute("assigntype") == "0") {
-                            div_CurrencyType[i].style.display = "";
-                        }
-                        break;
-                    case 1:
-                        if (div_CurrencyType[i].getAttribute("assigntype") == "0" || div_CurrencyType[i].getAttribute("assigntype") == "1") {
-                            div_CurrencyType[i].style.display = "";
-                        }
-                        break;
-                }
-
-            }
-        }
-
-        //加入NoData
-        hadData = false;
-        QBetLimitList.getElementsByClassName("td__hasNoData")[0].style.display = "none";
-        QBetLimitArr = QBetLimitList.getElementsByClassName("div_CurrencyType");
-        for (var i = 0; i < QBetLimitArr.length; i++) {
-            if (QBetLimitArr[i].style.display != "none") {
-                hadData = true;
-                break;
-            }
-        }
-
-        if (hadData == false) {
-            QBetLimitList.getElementsByClassName("td__hasNoData")[0].style.display = "";            
-        }
-
-        hadData = false;
-        NBetLimitList.getElementsByClassName("td__hasNoData")[0].style.display = "none";
-        NBetLimitArr = NBetLimitList.getElementsByClassName("div_CurrencyType");
-        for (var i = 0; i < NBetLimitArr.length; i++) {
-            if (NBetLimitArr[i].style.display != "none") {
-                hadData = true;
-                break;
-            }
-        }
-
-        if (hadData == false) {
-            NBetLimitList.getElementsByClassName("td__hasNoData")[0].style.display = "";
-        }
-        //加入NoData
-
-        divUserAccountType.style.display = "none";
-
-        idMessageText.appendChild(bitLimitDIV[0]);
-        bitLimitDIV[0].style.display = "";
-
-        showBox(mlp.getLanguageKey("限紅設定") + " " + currencyType, "", true, function () {
-
-        })
     }
 
     function setUserAccountType() {
@@ -1078,42 +518,7 @@
 
     }
 
-    function showGame() {
-        var idGameList = document.getElementById("idGameList");
-
-        idGameList.classList.add("show");
-
-    }
-
-    function chgGameCode(el) {
-        var spanGameName = c.getFirstClassElement(el, "spanGameName");
-        var iptGameCode = c.getFirstClassElement(el, "iptGameCode");
-        var revenue;
-        var div_GameCode;
-
-
-        GameAccountingCode = iptGameCode.getAttribute("GameCode");
-        document.getElementById("idGameName").innerText = spanGameName.innerText;
-        document.getElementById("btnGameListClose").click();
-
-        div_GameCode = document.getElementsByClassName("div_GameCode");
-        for (var i = 0; i < div_GameCode.length; i++) {
-            div_GameCode[i].style.display = "none";
-        }
-
-        div_GameCode = document.getElementsByClassName(GameAccountingCode);
-        for (var i = 0; i < div_GameCode.length; i++) {
-            div_GameCode[i].style.display = "";
-        }
-
-    }
-
-
     function init() {
-        var temp;
-        var gameAccountingCodeArr = new Array();
-        var idGameInfoList = document.getElementById("idGameInfoList");
-
         lang = window.localStorage.getItem("agent_lang");
 
         mlp = new multiLanguage();
@@ -1130,31 +535,6 @@
                 option.text =  mlp.getLanguageKey("+63 菲律賓");
                 option.value = "+63";
                 select.appendChild(option);
-            }
-
-            if (EWinInfo.UserInfo.GameCodeList.length > 0) {
-                for (var i = 0; i < EWinInfo.UserInfo.GameCodeList.length; i++) {
-                    temp = c.getTemplate("templateGameInfo");
-                    if (temp != null) {
-                        if (gameAccountingCodeArr[EWinInfo.UserInfo.GameCodeList[i].GameAccountingCode] == null) {
-                            c.setClassText(temp, "spanGameName", null, EWinInfo.UserInfo.GameCodeList[i].GameAccountingCode);
-                            c.getFirstClassElement(temp, "iptGameCode").setAttribute("GameCode", EWinInfo.UserInfo.GameCodeList[i].GameAccountingCode);
-                            idGameInfoList.appendChild(temp);
-
-                            gameAccountingCodeArr[EWinInfo.UserInfo.GameCodeList[i].GameAccountingCode] = EWinInfo.UserInfo.GameCodeList[i].GameAccountingCode;
-                        }
-
-                    }
-                }
-                document.getElementById("idGameCodeList").style.display = "";
-            }
-
-            GetCompanyPermissionGroup = window.parent.API_GetCompanyPermissionGroup();
-
-            if (GetCompanyPermissionGroup) {
-                if (GetCompanyPermissionGroup.includes("Casino")) {
-                    document.getElementById("btncreateuser").hidden = true;
-                }
             }
         });
 
@@ -1195,15 +575,6 @@
                             </div>
                             <div class="step__title"><span class="language_replace">錢包設定</span></div>
                         </div>
-                        <%--<div class="step__flow flow-3 " onclick="previousStep(this)" data-step="3" aria-checked="uncheck">
-                            <div class="step__status">
-                                <span class="number">3</span>
-                                <span class="icon icon-ico-wallet"></span>
-                                <span class="chedcked"></span>
-                            </div>
-                            <div class="step__title"><span class="language_replace">限紅設定</span></div>
-                        </div>--%>
-
                         <div class="progress_inner__bar"></div>
                         <div class="progress_inner__bar--base"></div>
 
@@ -1222,20 +593,6 @@
                         <fieldset class="dataFieldset">
                             <legend class="dataFieldset-title language_replace hidden shown-lg">基本資料</legend>
                             <div class="row">
-
-                                <%--<div class="col-12 form-group">
-                                    <label class="title">
-                                        <span class="language_replace">公司代碼</span>
-                                    </label>
-                                    <span class="language_replace" id="idCompanyCode"></span>
-                                </div>
-                                <div class="col-12 form-group">
-                                    <label class="title">
-                                        <span class="language_replace">上線代理</span>
-                                    </label>
-                                    <span class="language_replace" id="ParentLoginAccount"></span>
-                                </div>
-                                --%>
 
                                 <div class="col-12 col-smd-12 col-md-6 col-lg-12 form-group row no-gutters">
                                     <div class="col-12">
@@ -1268,69 +625,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <%--
-                                <div class="col-12 col-smd-6 col-md-6 col-lg-6 form-group row no-gutters">
-                                    <div class="col-12">
-                                        <label class="title"><i class="icon icon-ewin-default-accountType icon-s icon-before"></i><span class="language_replace">帳戶類型</span></label>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="custom-control custom-radioValue custom-control-inline">
-                                            <label class="custom-label">
-                                                <input type="radio" name="UserAccountType" id="UserAccountType1" class="custom-control-input-hidden" value="1" />
-                                                <div class="custom-input radio-button"><span class="language_replace">代理</span></div>
-                                            </label>
-                                        </div>
-                                        <div class="custom-control custom-radioValue custom-control-inline">
-                                            <label class="custom-label">
-                                                <input type="radio" name="UserAccountType" id="UserAccountType0" class="custom-control-input-hidden" value="0" checked />
-                                                <div class="custom-input radio-button"><span class="language_replace">一般帳戶</span></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                --%>
 
                                 <div class="col-12 col-md-6 form-group" id="idLendChipAccount">
                                     <label class="title"><span class="title_name"><i class="icon icon-ewin-default-accountType icon-s icon-before"></i><span class="language_replace">配碼帳戶</span></span></label>
                                     <span class="language_replace" id="IsLendChipAccount"></span>
                                 </div>
-
-                                <%--
-                               <div class="col-12 form-group">
-                                <label class="title"><span class="title_name"><i class="icon icon-ewin-default-paymentSystem icon-s icon-before"></i><span class="language_replace">允許使用支付系統</span></span>                           </label>                      <div class="custom-control custom-checkboxSwitchValue custom-control-inline">
-                                    <label class="custom-label">
-                                        <span class="custom-switch-text-left"><span class="language_replace">關</span></span>
-                                        <input type="checkbox" name="AllowPayment" id="AllowPayment" class="custom-control-input-hidden" value="1" checked />
-                                        <div class="custom-input toggle-button"></div>
-                                        <span class="custom-switch-text-right"><span class="language_replace">開</span></span>
-                                    </label>
-                                </div>
-                                </div>
-                                <div class="col-12 col-md-6 form-group">
-                                    <label class="title"><span class="title_name"><i class="icon icon-ewin-default-callCenter icon-s icon-before"></i><span class="language_replace">允許使用線上客服系統</span></span></label>
-                                    <div class="custom-control custom-checkboxSwitchValue custom-control-inline">
-                                        <label class="custom-label">
-                                            <span class="custom-switch-text-left"><span class="language_replace">關</span></span>
-                                            <input type="checkbox" name="AllowServiceChat" id="AllowServiceChat" class="custom-control-input-hidden" value="1" checked />
-                                            <div class="custom-input toggle-button"></div>
-                                            <span class="custom-switch-text-right"><span class="language_replace">開</span></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-6 form-group row no-gutters">                                    <div class="col-12">                <label class="title"><span class="title_name"><i class="icon icon-ewin-default-accountName icon-s icon-before"></i> <span class="language_replace">允許投注類型</span></span></label>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-control-underline custom-control-inline mr-1">
-                                            <select name="AllowBet" id="AllowBet" class="custom-select">
-                                                <option class="language_replace" value="0">不允許投注</option>
-                                                <option class="language_replace" value="1">傳統電投</option>
-                                                <option class="language_replace" value="2">網投/快速</option>
-                                                <option class="language_replace" selected value="3">全部允許</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                --%>
 
                                 <div class="col-12 col-smd-12 col-md-12 form-group row no-gutters">
                                     <div class="col-12">
@@ -1418,16 +717,9 @@
                         <fieldset class="dataFieldset">
                             <legend class="dataFieldset-title language_replace hidden shown-lg">錢包管理</legend>
 
-                            <div id="idGameCodeList" class="gameNameSettingWrapper mb-0 mb-smd-2 mb-lg-3 fixed" style="display:none ">
-                                <div class="gameNameSetting btn_gameNameSetting" onclick="showGame()">
-                                    <div class="gameName"><span id="idGameName" class="language_replace">eWin百家樂</span></div>
-                                    <div class="has-arrow"><i class="arrow"></i></div>
-                                </div>
-                            </div>
-
                             <div class="MT__tableDiv">
                                 <!-- 自訂表格 -->
-                                <div class="MT__table MT__table--Sub table-col-7">
+                                <div class="MT__table MT__table--Sub table-col-7" style="padding-bottom:20px">
                                     <!-- 標題項目  -->
                                     <div class="thead">
                                         <!--標題項目單行 -->
@@ -1435,19 +727,14 @@
                                             <div class="thead__th">
                                                 <span class="language_replace">貨幣</span>
                                             </div>
-                                            <%--
                                             <div class="thead__th">
-                                                <span class="language_replace">狀態</span>
+                                                <span class="language_replace">遊戲</span>
                                             </div>
-                                            --%>
                                             <div class="thead__th">
                                                 <span class="language_replace">佔成率(%)</span>
                                             </div>
                                             <div class="thead__th">
                                                 <span class="language_replace">轉碼率(%)</span>
-                                            </div>
-                                            <div class="thead__th">
-                                                <span class="language_replace">限紅</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1462,32 +749,22 @@
                                                 </span>
                                                 <span class="td__content">
                                                     <span class="language_replace PointCurrencyType"></span>
-                                                    <span class="btnPointNew" btntype="create">
+                                                    <span class="btnPointNew" btntype="create" style="display:none">
                                                         <button type="button" class="btn btn-s btn-outline-main "><i class="icon"></i><span class="language_replace btnText">新增</span></button>
                                                     </span>
                                                 </span>
                                             </div>
-                                            <%--
-                                            <div class="tbody__td">
-                                                <span class="td__title"><span class="language_replace">狀態</span></span>
+                                            <div class="tbody__td td-3 td-vertical">
+                                                <span class="td__title">
+                                                    <span class="language_replace">遊戲</span>
+                                                </span>
                                                 <span class="td__content">
-                                                    
-                                                        <button type="button" class="btn btn-full-main PointNew"><span class="language_replace">新增</span></button>
-                                                        <select class="custom-select PointState">
-                                                            <option class="language_replace" value="0">使用中</option>
-                                                            <option class="language_replace" value="1">停用</option>
-                                                        </select>
-                                                   
+                                                     <span class="language_replace GameAccountingCode"></span>
                                                 </span>
                                             </div>
-                                            --%>
                                             <div class="tbody__td td-3 td-vertical">
                                                 <span class="td__title">
                                                     <span class="language_replace">佔成率(%)</span>
-                                                    <!-- <span class="span_parentUserRate num-negative" style="display:none">
-                                                    <i class="icon icon2020-members"></i><span class="language_replace">上線</span>
-                                                    <span><span class="parentUserRate"></span>%</span>
-                                                   </span> -->
                                                 </span>
                                                 <span class="td__content">
                                                     <div class="form-control-hidden ADJ_userRate">
@@ -1502,7 +779,6 @@
                                             <div class="tbody__td td-3 td-vertical">
                                                 <span class="td__title">
                                                     <span class="language_replace">轉碼率(%)</span>
-                                                    <!-- <span class="span_parentBuyChipRate num-negative" style="position:relative;top:25px;left:40px;display:none"><i class="icon icon2020-members"></i><span class="language_replace">上線</span><span><span class="parentBuyChipRate"></span>%</span></span> -->
                                                 </span>
                                                 <span class="td__content">
                                                     <div class="form-control-hidden ADJ_userRate">
@@ -1513,16 +789,6 @@
                                                         </label>
                                                     </div>
                                                 </span>
-                                            </div>
-                                            <div class="tbody__td nonTitle td-function-execute td-100">
-                                                <span class="td__title"><span class="language_replace">限紅</span></span>
-                                                <span class="td__content ">
-                                                    <span class="btnBitLimit">
-                                                        <button type="button" class="btn btn-full-main"><i class="icon icon-before icon-ewin-input-chip"></i><span class="language_replace">限紅設定1</span></button>
-                                                    </span>
-
-                                                </span>
-
                                             </div>
                                         </div>
                                     </div>
@@ -1556,165 +822,6 @@
                             <li class="tab-slide"></li>
                         </ul>
 
-                        <div class="tab-content">
-                            <div id="tab-1" class="BetLimitTabContent tab-pane fade show active">
-                                <!-- mobile 版 Title + 全選 -->
-                                <%--<div class="form-group form-group-s2 hidden-smd">
-                                    <div class="title"><span class="language_replace">組別</span></div>
-                                    <div class="content">
-                                        <div class="custom-control custom-checkboxValue custom-control-inline check-all">
-                                            <label class="custom-label">
-                                                <input type="checkbox" name="chkCurrencyType" class="custom-control-input-hidden" onclick="" value="all">
-                                                <div class="custom-input checkbox"><span class="language_replace">全選</span></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>--%>
-
-                                <div class="MT__tableDiv MT__table--checkbox ">
-                                    <div class="MT__table MT__table--Sub table-col-5">
-                                        <div class="thead">
-                                            <div class="thead__tr">
-                                                <div class="thead__th">
-                                                    <span class="custom-control custom-checkboxValue custom-control-inline" style="display: none;">
-                                                        <label class="custom-label">
-                                                            <input type="checkbox" name="BetLimitID" class="custom-control-input-hidden BetLimitID" value="18">
-                                                            <span class="custom-input checkbox"><span class="language_replace" langkey=""></span></span>
-                                                        </label>
-                                                    </span>
-                                                </div>
-                                                <div class="thead__th">
-                                                    <span class="language_replace">庄</span>
-                                                </div>
-                                                <div class="thead__th">
-                                                    <span class="language_replace">闲</span>
-                                                </div>
-                                                <div class="thead__th">
-                                                    <span class="language_replace">和</span>
-                                                </div>
-                                                <div class="thead__th">
-                                                    <span class="language_replace">對子</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="templateQBetLimit" style="display: none">
-                                            <div class="tbody__tr div_CurrencyType td-non-underline-last-2">
-                                                <div class="tbody__td floatT-left floatT-checkbox">
-                                                    <span class="td__title"></span>
-                                                    <span class="td__content">
-                                                        <span class="custom-control custom-checkboxValue custom-control-inline">
-                                                            <label class="custom-label">
-                                                                <input type="checkbox" name="BetLimitID" class="custom-control-input-hidden BetLimitID" value="18">
-                                                                <span class="custom-input checkbox"><span class="language_replace" langkey=""></span></span>
-                                                            </label>
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                                <div class="tbody__td td-3">
-                                                    <span class="td__title"><span class="language_replace">庄</span></span>
-                                                    <span class="td__content"><span class="BetLimitB">0.02 - 2</span></span>
-                                                </div>
-                                                <div class="tbody__td td-3">
-                                                    <span class="td__title"><span class="language_replace">闲</span></span>
-                                                    <span class="td__content"><span class="BetLimitP">0.02 - 2</span></span>
-                                                </div>
-                                                <div class="tbody__td td-3">
-                                                    <span class="td__title"><span class="language_replace">和</span></span>
-                                                    <span class="td__content"><span class="BetLimitT">0.01 - 0.25</span></span>
-                                                </div>
-                                                <div class="tbody__td td-3">
-                                                    <span class="td__title"><span class="language_replace">對子</span></span>
-                                                    <span class="td__content"><span class="BetLimitPair">0.01 - 0.18</span></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- 原本的寫法 寫在 tbody裡-->
-                                        <!-- <div id="QBetLimitList"></div> -->
-                                        <div class="tbody" id="QBetLimitList">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="tab-2" class="BetLimitTabContent tab-pane fade">
-                                <!-- mobile 版 Title + 全選 -->
-                                <%--<div class="form-group form-group-s2 hidden-smd">
-                                    <div class="title"><span class="language_replace">組別</span></div>
-                                    <div class="content">
-                                        <div class="custom-control custom-checkboxValue custom-control-inline check-all">
-                                            <label class="custom-label">
-                                                <input type="checkbox" name="chkCurrencyType" class="custom-control-input-hidden" onclick="" value="all">
-                                                <div class="custom-input checkbox"><span class="language_replace">全選</span></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>--%>
-
-                                <div class="MT__tableDiv MT__table--checkbox">
-                                    <div class="MT__table MT__table--Sub table-col-5">
-                                        <div class="thead">
-                                            <div class="thead__tr">
-                                                <div class="thead__th">
-                                                    <span class="custom-control custom-checkboxValue custom-control-inline" style="display: none;">
-                                                        <label class="custom-label">
-                                                            <input type="checkbox" name="BetLimitID" class="custom-control-input-hidden BetLimitID" value="18">
-                                                            <span class="custom-input checkbox"><span class="language_replace" langkey=""></span></span>
-                                                        </label>
-                                                    </span>
-                                                </div>
-                                                <div class="thead__th">
-                                                    <span class="language_replace">庄</span>
-                                                </div>
-                                                <div class="thead__th">
-                                                    <span class="language_replace">闲</span>
-                                                </div>
-                                                <div class="thead__th">
-                                                    <span class="language_replace">和</span>
-                                                </div>
-                                                <div class="thead__th">
-                                                    <span class="language_replace">對子</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="templateNBetLimit" style="display: none">
-                                            <div class="tbody__tr div_CurrencyType td-non-underline-last-2">
-                                                <div class="tbody__td floatT-left floatT-checkbox">
-                                                    <span class="td__title"></span>
-                                                    <span class="td__content">
-                                                        <span class="custom-control custom-checkboxValue custom-control-inline">
-                                                            <label class="custom-label">
-                                                                <input type="checkbox" name="BetLimitID" class="custom-control-input-hidden BetLimitID" value="18">
-                                                                <span class="custom-input checkbox"><span class="language_replace" langkey=""></span></span>
-                                                            </label>
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                                <div class="tbody__td td-3">
-                                                    <span class="td__title"><span class="language_replace">庄</span></span>
-                                                    <span class="td__content"><span class="BetLimitB">0.02 - 2</span></span>
-                                                </div>
-                                                <div class="tbody__td td-3">
-                                                    <span class="td__title"><span class="language_replace">闲</span></span>
-                                                    <span class="td__content"><span class="BetLimitP">0.02 - 2</span></span>
-                                                </div>
-                                                <div class="tbody__td td-3">
-                                                    <span class="td__title"><span class="language_replace">和</span></span>
-                                                    <span class="td__content"><span class="BetLimitT">0.01 - 0.25</span></span>
-                                                </div>
-                                                <div class="tbody__td td-3">
-                                                    <span class="td__title"><span class="language_replace">對子</span></span>
-                                                    <span class="td__content"><span class="BetLimitPair">0.01 - 0.18</span></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- 原本的寫法 寫在 tbody裡-->
-                                        <!-- <div id="NBetLimitList"></div> -->
-                                        <div class="tbody" id="NBetLimitList">
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -1727,60 +834,10 @@
                         <span class="text"><span class="language_replace">代理</span></span>
                     </div>
                 </div>
-                <div class="user-item UserAccountType__normal" id="btncreateuser" onclick="setUType('UserAccount')">
-                    <div class="content">
-                        <span class="icon"></span>
-                        <span class="text"><span class="language_replace">一般帳戶</span></span>
-                    </div>
-                </div>
             </div>
         </form>
 
     </main>
-
-    <!-- 遊戲設定 popUp - popUp 跳出加 show-->
-     <div id="idGameList" class="popUp">
-            <div class="popUpWrapper">
-                <div id="btnGameListClose" class="popUp__close btn btn-close" onclick="ac.closePopUp(this)"></div>
-                <div class="popUp__title"><span class="language_replace">選擇遊戲</span></div>
-                <div class="popUp__content">
-                    <div class="popUp__GameNameSetting">
-                        <form class="search__wrapper" action="">
-                            <%--<div class="form-group-search">
-                                <input id="" type="search" class="form-control custom-search" name="search" language_replace="placeholder" placeholder="遊戲名稱">
-                                <label for="search" class="form-label"><span class="language_replace">遊戲名稱</span></label>
-                                <button type="reset" class="btn btnReset"><i class="icon icon-ewin-input-reset"></i></button>
-                            </div>--%>
-                        </form>
-                        <div id="idGameInfoList" class="content__GameNameSetting">
-                            <div class="game-item col-6 col-sm-6 col-smd-4 custom-control custom-radioValue-button" onclick="chgGameCode(this)">
-                                <label class="custom-label">
-                                    <input type="radio" name="rdoGameCode" class="custom-control-input-hidden iptGameCode" gamecode="eWinBAC" checked>
-                                    <div class="custom-input-icon radio-button">
-                                        <span class="icon icon-before icon-circle icon-ico-selected"></span>
-                                        <span class="radioText language_replace spanGameName">eWin百家樂</span>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                        <div id="templateGameInfo" style="display: none">
-                            <div class="game-item col-6 col-sm-6 col-smd-4 custom-control custom-radioValue-button" onclick="chgGameCode(this)">
-                                <label class="custom-label">
-                                    <input type="radio" name="rdoGameCode" class="custom-control-input-hidden iptGameCode" gamecode="radio-game">
-                                    <div class="custom-input-icon radio-button">
-                                        <span class="icon icon-before icon-circle icon-ico-selected"></span>
-                                        <span class="radioText language_replace spanGameName">--</span>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-        </div>
-        <!-- mask_overlay 半透明遮罩-->
-        <div id="mask_overlay_popup" class="mask_overlay_popup" onclick="ac.MaskPopUp(this)"></div>
-    </div>
 
     <!-- 
         popUp MessageBOX=================================
