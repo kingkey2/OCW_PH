@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/activity.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
@@ -55,7 +55,7 @@
             window.parent.API_LoadingEnd();
 
             if (LobbyClient != null) {
-                getAllActivityFromJson();
+                //getAllActivityFromJson();
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -64,7 +64,7 @@
         });
     }
 
-  function showPopup(DocNumber) {
+    function showPopup(DocNumber) {
         $.ajax({
             url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + DocNumber,
             success: function (res) {
@@ -207,6 +207,78 @@
 
     }
 
+    function showPropUp(activityName) {
+        if (WebInfo.DeviceType == 0) {
+            if (activityName == 'ReferFriendAndGetBonus') {
+        
+                var html = `<p><span style="font-family: 'arial black', sans-serif;"><img title="Refer a friend and get bonus" src="images/activity/ReferafriendandgetbonusPhone.jpg" /></span></p>
+<p class="MsoNormal" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-pagination: widow-orphan;"><span style="font-size: 16px;"><strong><span lang="EN-US" style="font-family: Arial, 'sans-serif'; color: black;">Activity details:</span></strong></span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">Anyone who is a SPRITE player and who refers a friend to join can claim a bonus to get 0.5</span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">(PHP). Notify your friends as soon as possible so you can get great rewards together.</span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">&nbsp;</span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">The more referrals you have, the more bonus you can get, for example you have 200&nbsp;referrals *0.5= $ 100 (PHP).</span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">event:</span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">1. Referrers must deposit 500 (PHP) or more to participate.</span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">2. There is no limit to the number of referrals for each referrer, and the same promotion URL&nbsp;is limited to only one referrer.</span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">3. You must complete 3 times the valid bet before you can withdraw.</span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">&nbsp;</span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;"> Anyone who uses the link to share with others to register, can get 0.5 (PHP) after&nbsp;completing the registration, unlimited claim, and quickly notify friends to make high bonuses&nbsp;together.</span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">The more referrals you have, the more bonus you can get, for example you referred 10&nbsp;people to register 10 *0.5=5 $(PHP).</span></p>
+<p class="MsoNormal" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-pagination: widow-orphan;"><span style="font-size: 16px;"><strong><span lang="EN-US" style="font-family: Arial, 'sans-serif'; color: black;">&nbsp;</span></strong></span></p>
+<p class="MsoNormal" style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-pagination: widow-orphan;"><span style="font-size: 16px;"><strong><span lang="EN-US" style="font-family: Arial, 'sans-serif'; color: black;">Event rules and terms:</span></strong></span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">1. This promotion is limited to a single player, a single account, a single contact information, a single payment account, a single IP and a single computer environment to participate in. Anyone who gains the bonus by illegal means, the LUCKYSPRITE organizer has the right to adjust the content of the event.</span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">2.All games must have a win or loss calculation. Any cancelled events, games and risk-free bets will not be counted as valid bets for this event.</span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">3. LUCKYSPRITE has the right to adjust the content of the event, and can modify and stop this promotion at any time without prior notice. If the member is found to have violated the promotion rules or used any improper means to obtain the promotion, the member can cancel the distribution of the award, and claim back the profit generated by the award.</span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span style="font-size: 16px;"><span lang="EN-US" style="font-family: Arial, 'sans-serif'; color: black;">4.Risk-free bets are void bets, and the following are void bets. Casino: In the same round of Baccarat, Sic Bo or Roulette, bet Banker and Player at the same time, Odd and Even/Black and Red. Stadium: Betting on two teams at the same time on the same match. (</span><span style="font-family: 新細明體, 'serif'; color: black;">※</span><span lang="EN-US" style="font-family: Arial, 'sans-serif'; color: black;"> Cross-level is not included in the effective amount), Colored balls: bet on odd/even/big/big/small/single-double/ball color combination at the same time at the same time.</span></span></p>
+<p class="MsoNormal" style="mso-pagination: widow-orphan;"><span lang="EN-US" style="font-size: 16px; font-family: Arial, 'sans-serif'; color: black;">5.LUCKYSPRITE discounts are only distributed by this website. Members are requested to check the promotions on the official website. If there are disputes arising from the discounts obtained through other channels, the company will not be responsible for it!</span></p>`;
+                $('#TempModal .activity-popup-detail-inner').html(html);
+                $('#TempModal').modal('show');
+            }
+            else if (activityName == 'NewPlayerFirstTimeDepositEvent') {
+                showPopup('202210-PpDgUOoP');
+            } else if (activityName == 'ReferFriendsAndPlay') {
+                showPopup('202211-4EDgZ584');
+            } else if (activityName == 'DepositSpecialBonus') {
+                showPopup('202211-LRDgYp0L');
+            } else if (activityName == 'SignUpBonus') {
+                showPopup('202211-5HDga7e5');
+            }
+        }
+        else {
+            if (activityName == 'ReferFriendAndGetBonus') {
+                var html =`<p><span style="font-family: 'arial black', sans-serif;"><img width="400" height="126" title="Refer a friend and get bonus" src="images/activity/ReferafriendandgetbonusPhone.jpg" /></span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;"><strong style="mso-bidi-font-weight: normal;">Activity details:</strong></span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">⦁ Anyone who is a SPRITE player and who refers a friend to join can claim a bonus to get 0.5</span><span style="font-family: arial, helvetica, sans-serif;">(PHP). Notify your friends as soon as possible so you can get great rewards together.</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">The more referrals you have, the more bonus you can get, for example you have 200 </span><span style="font-family: arial, helvetica, sans-serif;">referrals *0.5= $ 100 (PHP).</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">event:</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">1. Referrers must deposit 500 (PHP) or more to participate.</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">2. There is no limit to the number of referrals for each referrer, and the same promotion URL </span><span style="font-family: arial, helvetica, sans-serif;">is limited to only one referrer.</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">3. You must complete 3 times the valid bet before you can withdraw.</span></p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">⦁ Anyone who uses the link to share with others to register, can get 0.5 (PHP) after </span><span style="font-family: arial, helvetica, sans-serif;">completing the registration, unlimited claim, and quickly notify friends to make high bonuses </span><span style="font-family: arial, helvetica, sans-serif;">together.</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">The more referrals you have, the more bonus you can get, for example you referred 10 </span><span style="font-family: arial, helvetica, sans-serif;">people to register 10 *0.5=5 $(PHP).</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">&nbsp;</span></p>
+<p class="MsoNormal"><strong><span style="font-family: arial, helvetica, sans-serif;">Event rules and terms:</span></strong></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">1. This promotion is limited to a single player, a single account, a single contact information, a single payment account, a single IP and a single computer environment to participate in. Anyone who gains the bonus by illegal means, the LUCKYSPRITE organizer has the right to adjust the content of the event. </span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">2.All games must have a win or loss calculation. Any cancelled events, games and risk-free bets will not be counted as valid bets for this event.</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">3. LUCKYSPRITE has the right to adjust the content of the event, and can modify and stop this promotion at any time without prior notice. If the member is found to have violated the promotion rules or used any improper means to obtain the promotion, the member can cancel the distribution of the award, and claim back the profit generated by the award.</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">4.Risk-free bets are void bets, and the following are void bets. Casino: In the same round of Baccarat, Sic Bo or Roulette, bet Banker and Player at the same time, Odd and Even/Black and Red. Stadium: Betting on two teams at the same time on the same match. (※ Cross-level is not included in the effective amount), Colored balls: bet on odd/even/big/big/small/single-double/ball color combination at the same time at the same time. </span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">5.LUCKYSPRITE discounts are only distributed by this website. Members are requested to check the promotions on the official website. If there are disputes arising from the discounts obtained through other channels, the company will not be responsible for it!</span></p>`;
+                $('#TempModal .activity-popup-detail-inner').html(html);
+                $('#TempModal').modal('show');
+            } else if (activityName == 'NewPlayerFirstTimeDepositEvent') {
+                showPopup('202210-0YDgUew0');
+            } else if (activityName == 'ReferFriendsAndPlay') {
+                showPopup('202211-XfDgXmUX');
+            } else if (activityName == 'DepositSpecialBonus') {
+                showPopup('202211-ruDgYYsr');
+            } else if (activityName == 'SignUpBonus') {
+                showPopup('202211-snDgZrWs');
+            }
+        }
+    }
+
     function ChangeActivity(type) {
         $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_activity" + type).addClass("active");
@@ -256,16 +328,128 @@
                 </nav>
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group" id="divProcessing">
-        
+                        <figure class="activity-item" onclick="showPropUp('SignUpBonus')">
+                            <div class="activity-item-inner">
+
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap activityPicture">
+                                             <p>
+                                                <img title="Sign Up Bonus" src="images/activity/SignUpBonus.jpg?a=1" />
+                                             </p>
+                                       
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace activityTitle" langkey="">
+                                                <p class="MsoNormal" style="text-align: left;" align="center"><span style="font-family: 'arial black', sans-serif; font-size: 16px;"><strong style="mso-bidi-font-weight: normal;">Sign Up Bonus</strong></span></p>
+                                            </div>
+                                        </div>
+
+
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace" langkey="立即確認">View</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item" onclick="showPropUp('ReferFriendAndGetBonus')">
+                            <div class="activity-item-inner">
+
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap activityPicture">
+                                           <p>
+                                               <img title="Refer A Friend And Get Bonus" src="images/activity/ReferFriendAndGetBonus.jpg?a=1" />
+                                             </p>
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace activityTitle" langkey="">
+                                                <p><span style="font-family: 'arial black', sans-serif; font-size: 18px; color: #000000;"><strong><span style="line-height: 115%;">Refer a friend and get bonus</span></strong></span></p>
+                                            </div>
+                                        </div>
+
+
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace" langkey="立即確認">View</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item" onclick="showPropUp('NewPlayerFirstTimeDepositEvent')">
+                            <div class="activity-item-inner">
+
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap activityPicture">
+                                            <p>
+                                                   <img title="New Player First Time Deposit Event!" src="images/activity/NewPlayerFirstTimeDepositEvent.jpg?a=1" />
+                                             </p>
+                                      
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace activityTitle" langkey="">
+                                                <p class="MsoNormal" style="text-align: left;" align="center"><span style="font-family: 'arial black', sans-serif; font-size: 16px; color: #000000;"><strong style="mso-bidi-font-weight: normal;">New Player First Time Deposit Event!</strong></span></p>
+                                            </div>
+                                        </div>
+
+
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace" langkey="立即確認">View</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item" onclick="showPropUp('ReferFriendsAndPlay')">
+                            <div class="activity-item-inner">
+
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap activityPicture">
+                                            <p>
+                                                <img title="Refer friends and play" src="images/activity/ReferFriendsAndPlay.jpg?a=1" />
+                                            </p>
+                                               
+                                                        
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace activityTitle" langkey="">
+                                                <p class="MsoNormal" style="text-align: left;" align="center"><strong><span style="font-family: 'arial black', sans-serif; font-size: 16px;">Refer friends and play</span></strong></p>
+                                            </div>
+                                        </div>
+
+
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace" langkey="立即確認">View</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item" onclick="showPropUp('DepositSpecialBonus')">
+                            <div class="activity-item-inner">
+
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap activityPicture">
+                                              <p>
+                                                  <img title="Refer friends and play" src="images/activity/DepositSpecialBonus.jpg?a=1" />
+                                            </p>
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace activityTitle" langkey="">
+                                                <p><span style="font-family: 'arial black', sans-serif; font-size: 16px;"><strong><span style="line-height: 115%;">Deposit Special Bonus</span></strong></span></p>
+                                            </div>
+                                        </div>
+
+
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace" langkey="立即確認">View</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
                     </div>
-                    <div class="activity-item-group" id="divFinish" style="display:none">
-        
+                    <div class="activity-item-group" id="divFinish" style="display: none">
                     </div>
                 </section>
             </div>
         </div>
     </main>
-    
+
     <!-- Modal -->
     <div class="modal fade footer-center" id="ModalTest" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -283,7 +467,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-   
+
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('Prize','Prize.aspx')">領取獎勵</button>
 
@@ -305,7 +489,7 @@
                 </div>
                 <div class="modal-body">
                     <article class="activity-popup-detail-wrapper">
-                        <div class="activity-popup-detail-inner" >
+                        <div class="activity-popup-detail-inner">
                         </div>
                     </article>
                 </div>
@@ -391,29 +575,29 @@
         </div>
     </div>
 
-    <div style="display:none" id="tmpActivity">
+    <div style="display: none" id="tmpActivity">
         <figure class="activity-item">
-             <div class="activity-item-inner"><%-- onclick="GoActivityDetail(14,'/Activity/event/ne-rt/202210/index-jp.html')"--%>
-                 <!-- 活動連結 -->
-                 <div class="activity-item-link" data-toggle="modal">
-                     <div class="img-wrap activityPicture">
-                         <%--<img src="Activity/event/ne-rt/202210/img/JP-img-act.jpg">--%>
-                     </div>
-                     <div class="info">
-                         <div class="detail">
-                             <div class="desc language_replace activityTitle"></div>
-                         </div>
-                         <!-- 活動詳情 Popup-->
-                         <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                         <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                     </div>
-                 </div>
-             </div>
-         </figure>
+            <div class="activity-item-inner">
+                <%-- onclick="GoActivityDetail(14,'/Activity/event/ne-rt/202210/index-jp.html')"--%>
+                <!-- 活動連結 -->
+                <div class="activity-item-link" data-toggle="modal">
+                    <div class="img-wrap activityPicture">
+                        <%--<img src="Activity/event/ne-rt/202210/img/JP-img-act.jpg">--%>
+                    </div>
+                    <div class="info">
+                        <div class="detail">
+                            <div class="desc language_replace activityTitle"></div>
+                        </div>
+                        <!-- 活動詳情 Popup-->
+                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                    </div>
+                </div>
+            </div>
+        </figure>
     </div>
 
-    <div style="display:none" id="tmpActivityDetail">
-
+    <div style="display: none" id="tmpActivityDetail">
     </div>
 
 </body>
