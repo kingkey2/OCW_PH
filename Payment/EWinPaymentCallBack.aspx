@@ -295,7 +295,16 @@
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
                         } else if (BodyObj.Action == "Accept") {
-                            R.Result = 0;
+                            //R.Result = 0;
+                            //var TempCryptoData = RedisCache.PaymentContent.GetPaymentContent<PaymentCommonData>(paymentResult.ClientOrderNumber);
+                            //if (TempCryptoData != null)
+                            //{
+                            //           var CreateEPayWithdrawalReturn = Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial, TempCryptoData.ReceiveTotalAmount, paymentResult.CreateDate, BankCard, BankCardName, BankName, BankBranchCode, PhoneNumber);
+                            //}
+                            //else { 
+                            // SetResultException(R, "OrderNotExist");
+                            //}
+
                             //int FinishPaymentRet;
 
                             //FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Accept, BodyObj.PaymentSerial);

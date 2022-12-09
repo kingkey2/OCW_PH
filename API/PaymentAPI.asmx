@@ -1263,7 +1263,7 @@ public class PaymentAPI : System.Web.Services.WebService
                     ProviderCode = splitPaymentCode[0];
                     ServiceCode = splitPaymentCode[1];
                 }
-                else { 
+                else {
                     SetResultException(R, "PaymentMethodNotExist");
                 }
 
