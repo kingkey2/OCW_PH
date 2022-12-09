@@ -502,7 +502,7 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency CurrencyType">代理</span>
+                                    <span class="currency CurrencyType language_replace" >代理</span>
                                 </div>
                             </div>
                             <div class="currencyWallet__currencyFocus">
@@ -529,7 +529,7 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency CurrencyType">會員</span>
+                                    <span class="currency CurrencyType language_replace">會員</span>
                                 </div>
                             </div>
                             <div class="currencyWallet__currencyFocus">

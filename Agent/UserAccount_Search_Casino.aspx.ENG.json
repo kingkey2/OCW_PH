@@ -43,5 +43,8 @@
   "帳戶停用失敗": "Account disable failed, please try again.",
   "下線總額度": "Downline Wallet Total",
   "無此錢包": "The account does not have this wallet.",
-  "投注": "Record"
+  "投注": "Record",
+  "帳號": "LoginAccount",
+  "搜尋": "Search",
+  "返水率": "Commission"
 }

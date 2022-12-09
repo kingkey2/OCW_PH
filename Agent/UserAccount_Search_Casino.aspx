@@ -4,16 +4,7 @@
 <%
     string ASID = Request["ASID"];
     string Timezone = string.Empty;
-    System.Data.DataTable AgentDT = null;
 
-    RedisCache.AgentSession.AgentSessionInfo ASI = null;
-
-    ASI = RedisCache.AgentSession.GetAgentSessionByID(ASID);
-    if (ASI == null) {
-
-    } else {
-        AgentDT = RedisCache.UserAccount.GetUserAccountByID(ASI.UserAccountID);
-    }
 %>
 <!doctype html>
 <html lang="zh-Hant-TW" class="innerHtml">
@@ -221,7 +212,7 @@
                             <div class="input-group form-control-underline iconCheckAnim placeholder-move-right zIndex_overMask_SafariFix">
                                 <input type="text" class="form-control" id="loginAccount" value="">
                                 <div class="input-group-append">
-                                    <span onclick="searchUser()" class="input-group-text" style="cursor: pointer; color: #C9AE7F; background-color: #2d3244; border: none">搜尋</span>
+                                    <span onclick="searchUser()" class="input-group-text language_replace" style="cursor: pointer; color: #C9AE7F; background-color: #2d3244; border: none">搜尋</span>
                                 </div>
                             </div>
 
