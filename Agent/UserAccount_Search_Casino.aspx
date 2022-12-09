@@ -6,14 +6,14 @@
     string Timezone = string.Empty;
     System.Data.DataTable AgentDT = null;
 
-    RedisCache.AgentSession.AgentSessionInfo ASI = null;
+    //RedisCache.AgentSession.AgentSessionInfo ASI = null;
 
-    ASI = RedisCache.AgentSession.GetAgentSessionByID(ASID);
-    if (ASI == null) {
+    //ASI = RedisCache.AgentSession.GetAgentSessionByID(ASID);
+    //if (ASI == null) {
 
-    } else {
-        AgentDT = RedisCache.UserAccount.GetUserAccountByID(ASI.UserAccountID);
-    }
+    //} else {
+    //    AgentDT = RedisCache.UserAccount.GetUserAccountByID(ASI.UserAccountID);
+    //}
 %>
 <!doctype html>
 <html lang="zh-Hant-TW" class="innerHtml">

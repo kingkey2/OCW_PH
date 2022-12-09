@@ -138,13 +138,13 @@
 
     function GetPaymentMethod() {
         var splitPaymentChannelCode= PaymentChannelCode.split('.');
-        if (splitPaymentChannelCode.length != 2) {
+        if (splitPaymentChannelCode.length != 3) {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
                 window.parent.location.href = "index.aspx"
             });
         } else {
             var serivce = splitPaymentChannelCode[1];
-            var serivceName = PaymentChannelCode;
+            var serivceName = PaymentChannelCode[1] + "." + PaymentChannelCode[2];
             if (serivce.includes('Gcash')) {
                 $('#GCashPic').show();
                 $('#GCashPic').find('.serivceName').text(serivceName);

@@ -72,11 +72,11 @@
       
                                 var doc = "";
                                 switch (channel.PaymentChannelCode) {
-                                    case "Feibao.Gcash":
-                                    case "FIFIPay.GcashDirect":
-                                    case "DiDiPay.GcashQRcode":
-                                    case "YuHong.GcashQRcode":
-                                    case "DiDiPay.Gcash":
+                                    case "EPAY.Feibao.Gcash":
+                                    case "EPAY.FIFIPay.GcashDirect":
+                                    case "EPAY.DiDiPay.GcashQRcode":
+                                    case "EPAY.YuHong.GcashQRcode":
+                                    case "EPAY.DiDiPay.Gcash":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.DepositAmountMin!=0) {
@@ -105,7 +105,7 @@
                                             </a>
                                         </div>`;
                                         break; 
-                                    case "Feibao.Grabpay":
+                                    case "EPAY.Feibao.Grabpay":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.DepositAmountMin != 0) {
@@ -134,7 +134,7 @@
                                             </a>
                                         </div>`;
                                         break;
-                                    case "Feibao.Paymaya":
+                                    case "EPAY.Feibao.Paymaya":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.DepositAmountMin != 0) {
@@ -167,7 +167,7 @@
 
                                 }
                                 if (!isAddedCrypto) {
-                                    if (channel.PaymentChannelCode.includes("BlockChain")) {
+                                    if (channel.PaymentChannelCode == ".ERC-HLN" || channel.PaymentChannelCode == ".ERC-ETH" ||channel.PaymentChannelCode == ".BTC-BTC" || channel.PaymentChannelCode == ".ERC-USDC" || channel.PaymentChannelCode == ".ERC-USDT" || channel.PaymentChannelCode == ".TRC-USDC" || channel.PaymentChannelCode == ".TRC-USDT" || channel.PaymentChannelCode == ".XRP-XRP") {
                                         isAddedCrypto = true;
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
