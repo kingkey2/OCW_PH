@@ -728,7 +728,7 @@
                                                 <span class="language_replace">貨幣</span>
                                             </div>
                                             <div class="thead__th">
-                                                <span class="language_replace">遊戲</span>
+                                                <span class="language_replace">遊戲代碼</span>
                                             </div>
                                             <div class="thead__th">
                                                 <span class="language_replace">佔成率(%)</span>
@@ -756,7 +756,7 @@
                                             </div>
                                             <div class="tbody__td td-3 td-vertical">
                                                 <span class="td__title">
-                                                    <span class="language_replace">遊戲</span>
+                                                    <span class="language_replace">遊戲代碼</span>
                                                 </span>
                                                 <span class="td__content">
                                                      <span class="language_replace GameAccountingCode"></span>

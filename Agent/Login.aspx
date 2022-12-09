@@ -410,7 +410,7 @@
                             <label for="password" class="form-label ico-before-lock"><span class="language_replace">登入密碼</span></label>
                         </div>
                     </div>
-                    <div id="idMainAccountField" class="form-group">
+                    <div id="idMainAccountField" class="form-group" style="display: none">
                         <div class="form-control-underline form-input-icon">
                             <input type="text" class="form-control" name="MainAccount" required>
                             <label for="member" class="form-label ico-before-member"><span class="language_replace">主戶口帳號</span></label>

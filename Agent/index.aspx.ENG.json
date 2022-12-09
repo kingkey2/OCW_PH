@@ -47,7 +47,19 @@
   "出入金報表": "Deposit/Withdrawal Record",
   "出入金每日統計": "Daily Deposit/Withdrawal Statistics",
   "錢包點數異動記錄": "Wallet Point Transaction Record",
-  "轉帳紀錄": "Transfer Record"
-
+  "轉帳紀錄": "Transfer Record",
+  "團隊": "Team",
+  "團隊會員": "Team Member",
+  "會員": "Line Member",
+  "團隊代理": "Team Agent",
+  "代理": "Line Agent",
+  "團隊代理(測試)": "Team Agent(Test)",
+  "團隊投注數據_測試": "Line Order Report_Test",
+  "團隊投注數據(測試)": "Line Order Report(Test)",
+  "團隊投注數據": "Line Order Report",
+  "會員投注數據": "Bet Logs",
+  "團隊出入金數據": "Line Deposit/Withdrawal Report",
+  "會員出入金數據": "Member Deposit/Withdrawal Report",
+  "傭金結算查詢": "Commission Settlement"
 
 }

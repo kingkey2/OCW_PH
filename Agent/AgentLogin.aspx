@@ -35,7 +35,7 @@
         if (ASS != null) {
             if (ASS.ResultState == EWin.Agent.enumResultState.OK) {
                 Response.SetCookie(new HttpCookie("ASID", ASS.AID));
-                Response.Redirect("Index.aspx?DefaultCompany=" + DefaultCompany);
+                Response.Redirect("Index.aspx?DefaultCompany=" + DefaultCompany + "&Lang=" + Lang);
             } else {
                 switch (ASS.Message) {
                     case "AccountIsLocked":

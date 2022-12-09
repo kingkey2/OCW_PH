@@ -5,6 +5,7 @@
     string ASID = Request["ASID"];
     string LoginAccount = Request["LoginAccount"];
     string AgentURL = Request["AgentURL"];
+    string Lang = Request["Lang"];
     EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
     EWin.SpriteAgent.AgentSessionResult ASR = null;
     EWin.SpriteAgent.AgentSessionInfo ASI = null;
@@ -1080,7 +1081,7 @@
                                     <ul class="nav">
                                         
                                         <li id="idSearchButton" class="navbar-search nav-item ">
-                                            <a href="#" class="btn btn-search btn-round nav-link" role="button" onclick="searchInfo()"></a>
+                                            <a href="#" class="btn btn-search btn-round nav-link" role="button" onclick="API_MainWindow(mlp.getLanguageKey('下線列表'), 'UserAccount_Search_Casino.aspx?');"></a>
                                         </li>
 
                                         <li id="btnCreateAccount" class="navbar-member nav-item submenu dropdown" style="display: none">
