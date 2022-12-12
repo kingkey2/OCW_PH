@@ -377,6 +377,9 @@
                             <label class="custom-control-label" for="rdoLoginType1"><span class="language_replace">助手登入</span></label>
                         </div>
                     </div>
+                    <div>
+                        <p><span class="language_replace">語系</span></p>
+                    </div>
                     <div class="form-group form-group-lang">
                         <div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('CHS')">
                             <input type="radio" id="lang1" name="lang" class="custom-control-input-hidden" value="CHS" >
