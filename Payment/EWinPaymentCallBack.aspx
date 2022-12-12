@@ -254,152 +254,187 @@
                         }
                     }
                     else if (BodyObj.DirectionType == "Withdrawal") {
-                        if (BodyObj.Action == "Create") {
+                        if (BodyObj.Action == "Create")
+                        {
                             R.Result = 0;
-                        } else if (BodyObj.Action == "Finished") {
+                        }
+                        else if (BodyObj.Action == "Finished")
+                        {
                             int FinishPaymentRet;
 
                             FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Success, BodyObj.PaymentSerial);
 
-                            if (FinishPaymentRet == 0) {
+                            if (FinishPaymentRet == 0)
+                            {
                                 R.Result = 0;
                                 RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
                                 ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
                                 RedisCache.UserAccount.UpdateUserAccountByLoginAccount(BodyObj.LoginAccount);
                                 RedisCache.UserAccountSummary.UpdateUserAccountSummary(BodyObj.LoginAccount, DateTime.Now.Date);
-                            } else {
+                            }
+                            else
+                            {
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
-                        } else if (BodyObj.Action == "Cancel") {
+                        }
+                        else if (BodyObj.Action == "Cancel")
+                        {
                             int FinishPaymentRet;
 
                             FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Cancel, BodyObj.PaymentSerial);
 
-                            if (FinishPaymentRet == 0) {
+                            if (FinishPaymentRet == 0)
+                            {
                                 R.Result = 0;
                                 RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
                                 ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
-                            } else {
+                            }
+                            else
+                            {
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
-                        } else if (BodyObj.Action == "Reject") {
+                        }
+                        else if (BodyObj.Action == "Reject")
+                        {
 
                             int FinishPaymentRet;
 
                             FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Reject, BodyObj.PaymentSerial);
 
-                            if (FinishPaymentRet == 0) {
+                            if (FinishPaymentRet == 0)
+                            {
                                 R.Result = 0;
                                 RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
                                 ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
-                            } else {
+                            }
+                            else
+                            {
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
-                        } else if (BodyObj.Action == "Accept") {
-                            Newtonsoft.Json.Linq.JObject BankData = null;
-                            try { BankData = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(BodyObj.Description); }
-                            catch (Exception ex)
+                        }
+                        else if (BodyObj.Action == "Accept")
+                        {
+                            if (!string.IsNullOrEmpty(BodyObj.PaymentProvider))
                             {
-                                BankData = null;
-                            }
-                            string ProviderCode = "";
-                            var splitPaymentChannelCode = BodyObj.PaymentChannelCode.Split('.');
-                            string UnderProvider = "";
-                            string ServiceCode = "";
-                            if (splitPaymentChannelCode.Length != 3)
-                            {
-                                SetResultException(R, "PaymentChannelCode Error");
-                            }
-                            else {
-                                UnderProvider = splitPaymentChannelCode[1];
-                                ServiceCode= splitPaymentChannelCode[2];
-                                if (UnderProvider == "Feibao")
+                                Newtonsoft.Json.Linq.JObject BankData = null;
+                                try { BankData = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(BodyObj.Description); }
+                                catch (Exception ex)
                                 {
-                                    if (ServiceCode == "Gcash")
+                                    BankData = null;
+                                }
+                                string ProviderCode = "";
+                                var splitPaymentChannelCode = BodyObj.PaymentChannelCode.Split('.');
+                                string UnderProvider = "";
+                                string ServiceCode = "";
+                                if (splitPaymentChannelCode.Length != 3)
+                                {
+                                    SetResultException(R, "PaymentChannelCode Error");
+                                }
+                                else
+                                {
+                                    UnderProvider = splitPaymentChannelCode[1];
+                                    ServiceCode = splitPaymentChannelCode[2];
+                                    if (UnderProvider == "Feibao")
                                     {
-                                        ProviderCode = "FeibaoPay";
+                                        if (ServiceCode == "Gcash")
+                                        {
+                                            ProviderCode = "FeibaoPay";
+                                        }
+                                        else if (ServiceCode == "Grabpay")
+                                        {
+                                            ProviderCode = "FeibaoPayGrabpay";
+                                        }
+                                        else if (ServiceCode == "Paymaya")
+                                        {
+                                            ProviderCode = "FeibaoPayPaymaya";
+                                        }
+                                        else
+                                        {
+                                            SetResultException(R, "Feibao PaymentChannelCode Error");
+                                        }
+
                                     }
-                                    else if (ServiceCode == "Grabpay")
-                                    {
-                                        ProviderCode = "FeibaoPayGrabpay";
-                                    }
-                                    else if (ServiceCode == "Paymaya")
-                                    {
-                                        ProviderCode = "FeibaoPayPaymaya";
-                                    }
+                                    else if (UnderProvider == "YuHong") { ProviderCode = "YuHong"; }
+                                    else if (UnderProvider == "DiDiPay") { ProviderCode = "DiDiPay"; }
+                                    else if (UnderProvider == "FIFIPay") { ProviderCode = "FIFIPay"; }
                                     else
                                     {
                                         SetResultException(R, "Feibao PaymentChannelCode Error");
                                     }
 
-                                }
-                                else if (UnderProvider == "YuHong") { ProviderCode = "YuHong"; }
-                                else if (UnderProvider == "DiDiPay") { ProviderCode = "DiDiPay"; }
-                                else if (UnderProvider == "FIFIPay") { ProviderCode = "FIFIPay"; }
-                                else { 
-                                    SetResultException(R, "Feibao PaymentChannelCode Error");
-                                }
-
-                                if (BankData != null)
-                                {
-
-                                    var CreateEPayWithdrawalReturn = Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial,decimal.Parse(BankData["ReceiveAmount"].ToString()), paymentResult.CreateDate, BankData["BankCard"].ToString(), BankData["BankCardName"].ToString(), BankData["BankName"].ToString(), "BankBranchCode", BankData["BankCard"].ToString(),ProviderCode);
-                                    if (CreateEPayWithdrawalReturn.ResultState == Payment.APIResult.enumResultCode.OK)
+                                    if (BankData != null)
                                     {
-                                        R.Result = 0;
+
+                                        var CreateEPayWithdrawalReturn = Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial, decimal.Parse(BankData["ReceiveAmount"].ToString()), paymentResult.CreateDate, BankData["BankCard"].ToString(), BankData["BankCardName"].ToString(), BankData["BankName"].ToString(), "BankBranchCode", BankData["BankCard"].ToString(), ProviderCode);
+                                        if (CreateEPayWithdrawalReturn.ResultState == Payment.APIResult.enumResultCode.OK)
+                                        {
+                                            R.Result = 0;
+                                        }
+                                        else
+                                        {
+                                            SetResultException(R, "Create Withdrawal Fail:" + CreateEPayWithdrawalReturn.Message);
+                                        }
                                     }
                                     else
                                     {
-                                        SetResultException(R, "Create Withdrawal Fail");
+                                        SetResultException(R, "BankDataNotExist");
                                     }
                                 }
-                                else {
-                                    SetResultException(R, "BankDataNotExist");
-                                }
-                            } else if (BodyObj.Action == "CancelResume") {
-                                int FinishPaymentRet;
-
-                                FinishPaymentRet = EWinWebDB.UserAccountPayment.ResumePaymentFlowStatus(BodyObj.ClientOrderNumber, BodyObj.PaymentSerial);
-
-
-                                if (FinishPaymentRet == 0) {
-                                    R.Result = 0;
-                                    var DT = EWinWebDB.UserAccountPayment.GetPaymentByOrderNumber(BodyObj.ClientOrderNumber);
-                                    var Data = CovertFromRow(DT.Rows[0]);
-                                    ReportSystem.UserAccountPayment.ResetUserAccountPayment(BodyObj.LoginAccount, DateTime.Now.Date);
-                                    RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(Data), Data.OrderNumber, Data.ExpireSecond);
-                                    RedisCache.PaymentContent.KeepPaymentContents(Data, BodyObj.LoginAccount);
-                                } else {
-                                    SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
-                                }
-                            } else {
-                                SetResultException(R, "UnknownAction");
                             }
-                        } else {
-                            SetResultException(R, "UnknownDirectionType");
+                            else { 
+                                  R.Result = 0;
+                            }
+                        }
+                        else if (BodyObj.Action == "CancelResume")
+                        {
+                            int FinishPaymentRet;
+
+                            FinishPaymentRet = EWinWebDB.UserAccountPayment.ResumePaymentFlowStatus(BodyObj.ClientOrderNumber, BodyObj.PaymentSerial);
+
+
+                            if (FinishPaymentRet == 0)
+                            {
+                                R.Result = 0;
+                                var DT = EWinWebDB.UserAccountPayment.GetPaymentByOrderNumber(BodyObj.ClientOrderNumber);
+                                var Data = CovertFromRow(DT.Rows[0]);
+                                ReportSystem.UserAccountPayment.ResetUserAccountPayment(BodyObj.LoginAccount, DateTime.Now.Date);
+                                RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(Data), Data.OrderNumber, Data.ExpireSecond);
+                                RedisCache.PaymentContent.KeepPaymentContents(Data, BodyObj.LoginAccount);
+                            }
+                            else
+                            {
+                                SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
+                            }
+                        }
+                        else
+                        {
+                            SetResultException(R, "UnknownAction");
                         }
                     } else {
-                        SetResultException(R, "NoExist");
+                        SetResultException(R, "UnknownDirectionType");
                     }
-
-
                 } else {
-                    SetResultException(R, "BodyFormatError");
+                    SetResultException(R, "NoExist");
                 }
+
+
             } else {
-                SetResultException(R, "NoBody");
+                SetResultException(R, "BodyFormatError");
             }
         } else {
-            SetResultException(R, "NotPost");
+            SetResultException(R, "NoBody");
         }
+    } else {
+        SetResultException(R, "NotPost");
+    }
 
 
-        if (R != null) {
-            Response.Write(Newtonsoft.Json.JsonConvert.SerializeObject(R));
-            Response.ContentType = "application/json";
-            Response.Flush();
-            Response.End();
-        }
+    if (R != null) {
+        Response.Write(Newtonsoft.Json.JsonConvert.SerializeObject(R));
+        Response.ContentType = "application/json";
+        Response.Flush();
+        Response.End();
+    }
 %>
 
 <!DOCTYPE html>
