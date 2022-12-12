@@ -20,7 +20,7 @@ public class Payment {
     public static class EPay
     {
         public static string SettingFile = "EPaySetting.json";
-        public static APIResult CreateEPayWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName,string BankBranchCode,string PhoneNumber)
+        public static APIResult CreateEPayWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName,string BankBranchCode,string PhoneNumber,string ProviderCode)
         {
             APIResult R = new APIResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject sendData = new JObject();
@@ -63,7 +63,7 @@ public class Payment {
                 return R;
             }
 
-            URL = (string)EPAYSetting.ApiUrl + "RequireWithdraw2";
+            URL = (string)EPAYSetting.ApiUrl + "RequireWithdraw3";
             ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/WithdrawalCallback.aspx";
             CompanyCode = (string)EPAYSetting.CompanyCode;
             CurrencyType = (string)EPAYSetting.CyrrencyType;
