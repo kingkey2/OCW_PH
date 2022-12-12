@@ -5,6 +5,7 @@
     string Lang;
     string DefaultCompany = EWinWeb.CompanyCode;
     string Version=EWinWeb.Version;
+    string AgentVersion = EWinWeb.AgentVersion;
     if (string.IsNullOrEmpty(Request["Lang"]))
     {
         string userLang = CodingControl.GetDefaultLanguage();
@@ -44,9 +45,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>代理網登入</title>
     <meta id="extViewportMeta" name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">     
-    <link rel="stylesheet" href="css/basic.min.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/main.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/login.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
+    <link rel="stylesheet" href="css/basic.min.css?<%:AgentVersion%>">
+    <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">
+    <link rel="stylesheet" href="css/login.css?<%:AgentVersion%>">
 </head>
 <script src="/Scripts/Common.js"></script>
 <script src="/Scripts/bignumber.min.js"></script>
@@ -63,7 +64,7 @@
     var clickCount = 0;
     var companyCodeTimer;
     var companyCodeclickCount = 0;
-    var v ="<%:Version%>";
+    var v ="<%:AgentVersion%>";
     function setLanguage(v) {
         var form = document.forms[0];
 
@@ -365,7 +366,7 @@
                 <input type="hidden" name="Lang" value="<%=Lang %>" />
                 
                 <div class="loginForm__left">
-                    <div class="form-group form-group-loginUser">
+                    <div class="form-group form-group-loginUser" style="display: none;">
                        
                         <div class="custom-control custom-radio custom-control-inline">
                             <input onclick="onLoginType()" type="radio" name="LoginType" id="rdoLoginType0" value="0" class="custom-control-input-hidden" checked>

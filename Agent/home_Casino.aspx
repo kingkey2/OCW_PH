@@ -5,7 +5,7 @@
     string DefaultCompany = "";
     string DefaultCurrencyType = "";
     int UserAccountID = 0;
-    string Version = EWinWeb.Version;
+    string AgentVersion = EWinWeb.AgentVersion;
     EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
     EWin.SpriteAgent.AgentSessionResult ASR = null;
     EWin.SpriteAgent.AgentSessionInfo ASI = null;
@@ -33,10 +33,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>代理網</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/basic.min.css?<%=Version %>">
-    <link rel="stylesheet" href="css/main.css?<%=Version %>">
-    <link rel="stylesheet" href="css/index.css?<%=Version %>">
-    <link rel="stylesheet" href="css/config/config_<%=DefaultCompany %>.css?<%=Version %>">
+    <link rel="stylesheet" href="css/basic.min.css?<%=AgentVersion %>">
+    <link rel="stylesheet" href="css/main2.css?<%=AgentVersion %>">
+    <link rel="stylesheet" href="css/index.css?<%=AgentVersion %>">
     <script type="text/javascript" src="/Scripts/Common.js"></script>
     <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>

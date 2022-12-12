@@ -5,6 +5,7 @@
     string msgContent = null;
     string DefaultCompany = Request["CompanyCode"];
     string Lang = Request.Form.GetValues("Lang")[0];
+    string AgentVersion = EWinWeb.AgentVersion;
     EWin.Agent.AgentAPI agentAPI = new EWin.Agent.AgentAPI();
     EWin.Login.LoginAPI loginAPI = new EWin.Login.LoginAPI();
 
@@ -70,8 +71,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/basic.min.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/main.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
+    <link rel="stylesheet" href="css/basic.min.css?<%:AgentVersion%>">
+    <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">
 </head>
 <script src="/Scripts/Common.js"></script>
 <script src="/Scripts/bignumber.min.js"></script>

@@ -6,6 +6,7 @@
     string LoginAccount = Request["LoginAccount"];
     string AgentURL = Request["AgentURL"];
     string Lang = Request["Lang"];
+    string AgentVersion = EWinWeb.AgentVersion;
     EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
     EWin.SpriteAgent.AgentSessionResult ASR = null;
     EWin.SpriteAgent.AgentSessionInfo ASI = null;
@@ -38,9 +39,8 @@
     <meta name="apple-touch-fullscreen" content="yes">
     <meta id="extViewportMeta" name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
-    <link rel="stylesheet" href="css/basic.min.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/main.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/config/config_<%=DefaultCompany %>.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
+    <link rel="stylesheet" href="css/basic.min.css?<%:AgentVersion%>">
+    <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">
 
     <style type="text/css">
         :root {
