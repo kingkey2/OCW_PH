@@ -1914,6 +1914,7 @@ public class PaymentAPI : System.Web.Services.WebService
         decimal PointValue;
         string Token = GetToken();
         Newtonsoft.Json.Linq.JObject BankDatas = new Newtonsoft.Json.Linq.JObject();
+        Newtonsoft.Json.Linq.JObject BankDecription = new Newtonsoft.Json.Linq.JObject();
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
         System.Data.DataTable PaymentMethodDT;
         decimal ProviderHandingFeeRate;
@@ -1925,6 +1926,9 @@ public class PaymentAPI : System.Web.Services.WebService
             {
                 R.Message = "PhoneNumber Empty";
                 return R;
+            }
+            else {
+                BankCard = PhoneNumber;
             }
         }
         else
@@ -1948,8 +1952,6 @@ public class PaymentAPI : System.Web.Services.WebService
             R.Message = "BankName Empty";
             return R;
         }
-
-
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
@@ -1999,7 +2001,8 @@ public class PaymentAPI : System.Web.Services.WebService
                                     List<EWin.Payment.PaymentDetailBankCard> paymentDetailBankCards = new List<EWin.Payment.PaymentDetailBankCard>();
 
                                     //Description待實際測試後調整
-                                    string Decription = "ReceiveAmount:" + TempCryptoData.ReceiveTotalAmount + ",Card Number:" + BankCard + ",Name:" + BankCardName + ",BankName:" + BankName + ",BankBranchCode:" + BankBranchCode;
+
+                                    string Decription = BankDatas.ToString();
 
                                     EWin.Payment.PaymentDetailBankCard paymentDetailWallet = new EWin.Payment.PaymentDetailBankCard()
                                     {
