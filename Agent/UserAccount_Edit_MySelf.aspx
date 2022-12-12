@@ -6,6 +6,7 @@
     string r = Request["r"];
     string t = Request["t"];
     string ASID = Request["ASID"];
+    string AgentVersion = EWinWeb.AgentVersion;
     Boolean AllowQRCodeShow = false;
     Boolean isLogIn = true;
     EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
@@ -30,8 +31,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>代理網</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/basic.min.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/main.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
+    <link rel="stylesheet" href="css/basic.min.css?<%:AgentVersion%>">
+    <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">
 </head>
 <script type="text/javascript" src="js/AgentCommon.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js?20191127"></script>
