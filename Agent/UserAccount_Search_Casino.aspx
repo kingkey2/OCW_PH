@@ -158,50 +158,57 @@
                     }
                 }
 
+                for (var l = 0; l < k.GameCodeList.length; l++) {
+                    let kk = k.GameCodeList[l];
+                    let t = c.getTemplate("tempGameAccountingCode");
 
+                    c.setClassText(t, "GameAccountingCode", null, kk.GameAccountingCode);
+                    c.setClassText(t, "UserRate", null, c.toCurrency(kk.UserRate));
+                    c.setClassText(t, "BuyChipRate", null, c.toCurrency(kk.BuyChipRate));
+
+                    $(temp).children().find(".GameAccountingCodeList").append(t);
+                }
+
+                $(temp).find('.ModifyRemarkBtn').click(function () {
+                    var d = this;
+                    $(d).find('.mtRemark').hide();
+                    $(d).find('.inputRemark').val(k.Tag);
+                    $(d).find('.inputRemark').show();
+                    $(d).find('.divRemarkBtn').show();
+                    //$(this).show();
+                }.bind(temp));
+
+                $(temp).find('.ModifyRemarkSaveBtn').click(function () {
+                    var dd = this;
+                    updateTag($(dd).find('.inputRemark'), $(dd).find(".divRemarkBtn"), $(dd).find('.mtRemark'), k.UserAccountID);
+                }.bind(temp));
+
+                $(temp).find('.ModifyRemarkCancelBtn').click(function () {
+                    var ddd = this;
+                    $(ddd).find(".divRemarkBtn").hide();
+                    $(ddd).find(".mtRemark").show();
+                }.bind(temp));
+
+
+                if (k.GameCodeList.length == 0) {
+                    $(temp).find('.btnOpen').hide();
+                    $(temp).find('.btnClose').hide();
+                } else {
+                    $(temp).find('.btnOpen').click(function () {
+                        var a = this;
+                        $(a).find(".GameAccountingCodeList").show();
+                    }.bind(temp));
+
+                    $(temp).find('.btnClose').click(function () {
+                        var b = this;
+                        $(b).find(".GameAccountingCodeList").hide();
+                    }.bind(temp));
+                }
 
                 if (k.UserAccountType == 0) {
-
-
                     $("#idUserList").append(temp);
                 } else {
-                    for (var l = 0; l < k.GameCodeList.length; l++) {
-                        let kk = k.GameCodeList[l];
-                        let t = c.getTemplate("tempGameAccountingCode");
-
-                        c.setClassText(t, "GameAccountingCode", null, kk.GameAccountingCode);
-                        c.setClassText(t, "UserRate", null, c.toCurrency(kk.UserRate));
-                        c.setClassText(t, "BuyChipRate", null, c.toCurrency(kk.BuyChipRate));
-
-                        $(temp).children().find(".GameAccountingCodeList").append(t);
-                    }
-
-                    $(temp).find('.ModifyRemarkBtn').click(function () {
-                        var d = this;
-                        $(d).find('.mtRemark').hide();
-                        $(d).find('.inputRemark').val(k.Tag);
-                        $(d).find('.inputRemark').show();
-                        $(d).find('.divRemarkBtn').show();
-                        //$(this).show();
-                    }.bind(temp));
-
-                    $(temp).find('.ModifyRemarkSaveBtn').click(function () {
-                        var dd = this;
-                        updateTag($(dd).find('.inputRemark'), $(dd).find(".divRemarkBtn"), $(dd).find('.mtRemark'), k.UserAccountID);
-                    }.bind(temp));
-
-                    $(temp).find('.ModifyRemarkCancelBtn').click(function () {
-                        var ddd = this;
-                        $(ddd).find(".divRemarkBtn").hide();
-                        $(ddd).find(".mtRemark").show();
-                    }.bind(temp));
-
-                    if (k.UserAccountType == 0) {
-                        $("#idUserList").append(temp);
-                    } else {
-                        $("#idAgentList").append(temp);
-                    }
-
+                    $("#idAgentList").append(temp);
                 }
             }
         }
@@ -380,7 +387,13 @@
                             </div>
 
                         </div>
-
+                        
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                                <div class="form-group wrapper_center dataList-process">
+                                    <button class="btn btn-outline-main language_replace btnOpen">展開</button>
+                                    <button class="btn btn-outline-main language_replace btnClose">收合</button>
+                                </div>
+                            </div>
                         <div class="GameAccountingCodeList">
                         </div>
 
