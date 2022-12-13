@@ -997,7 +997,7 @@
                     <div class="navbarMenu collapse navbar-menu navbar-collapse offset" id="navbarMenu">
                         <ul class="nav navbar-nav menu_nav no-gutters">
                             <li class="nav-item navbarMenu__catagory">
-                                <span class="catagory-item"><span class="language_replace">團隊</span></span>
+                                <span class="catagory-item"><span class="language_replace">團隊管理</span></span>
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('團隊會員'), 'UserAccount_Maint2_Casino.aspx');ItemClick(this);">
@@ -1012,7 +1012,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item navbarMenu__catagory">
-                                <span class="catagory-item"><span class="language_replace">管理</span></span>
+                                <span class="catagory-item"><span class="language_replace">數據查詢</span></span>
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('團隊投注數據'), 'GetAgentTotalSummary_Casino.aspx');ItemClick(this);">
@@ -1037,7 +1037,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item navbarMenu__catagory">
-                                <span class="catagory-item"><span class="language_replace">報表</span></span>
+                                <span class="catagory-item"><span class="language_replace">結算查詢</span></span>
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('傭金結算查詢'), 'GetAgentAccounting_Casino.aspx');ItemClick(this);">

@@ -36,6 +36,11 @@
     <link rel="stylesheet" href="css/basic.min.css?<%=AgentVersion %>">
     <link rel="stylesheet" href="css/main2.css?<%=AgentVersion %>">
     <link rel="stylesheet" href="css/index.css?<%=AgentVersion %>">
+    <style>
+        .data {
+            color: rgba(255, 238, 210, 0.8);
+        }
+    </style>
     <script type="text/javascript" src="/Scripts/Common.js"></script>
     <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>

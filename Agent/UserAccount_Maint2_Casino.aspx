@@ -271,15 +271,20 @@
                 c.setClassText(t, "InsideLevel", null, item.DealUserAccountInsideLevel);
                 c.setClassText(t, "ParentLoginAccount", null, item.ParentLoginAccount);
                 c.setClassText(t, "CurrencyType", null, item.CurrencyType);
-                c.setClassText(t, "AgentCount", null, item.AgentCount);
-                c.setClassText(t, "PlayerCount", null, item.PlayerCount);
-                c.setClassText(t, "NewUserCount", null, item.NewUserCount);
-                c.setClassText(t, "SelfNewUserCount", null, item.SelfNewUserCount);
+                //c.setClassText(t, "AgentCount", null, item.AgentCount);
+                //c.setClassText(t, "PlayerCount", null, item.PlayerCount);
+                //c.setClassText(t, "NewUserCount", null, item.NewUserCount);
+                //c.setClassText(t, "SelfNewUserCount", null, item.SelfNewUserCount);
                 c.setClassText(t, "PointValue", null, c.toCurrency(item.PointValue));
+
+                var stateDom = t.querySelector(".UserAccountState");
+
                 if (item.UserAccountState == 0) {
-                    c.setClassText(t, "UserAccountState", null, mlp.getLanguageKey("正常"));
+                    stateDom.innerText = mlp.getLanguageKey("正常");
+                    stateDom.style.color = "aqua";
                 } else {
-                    c.setClassText(t, "UserAccountState", null, mlp.getLanguageKey("停用"));
+                    stateDom.innerText = mlp.getLanguageKey("停用");
+                    stateDom.style.color = "red";
                 }              
                 c.setClassText(t, "LastLoginDate", null, item.LastLoginDate);
                 c.setClassText(t, "CreateDate", null, item.CreateDate);
@@ -649,7 +654,7 @@
                                 <span class="td__title"><span class="language_replace">貨幣</span></span>
                                 <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="CurrencyType"></span></span>
                             </div>
-                            <div class="tbody__td td-number td-3 td-vertical">
+<%--                            <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-totalWinLose icon-s icon-before"></i><span class="language_replace">團隊代理數</span></span>
                                 <span class="td__content"><span class="AgentCount"></span></span>
                             </div>
@@ -664,7 +669,7 @@
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-accountWinLose icon-s icon-before"></i><span class="language_replace">期間個人新增會員數</span></span>
                                 <span class="td__content"><span class="SelfNewUserCount">CON4</span></span>
-                            </div>
+                            </div>--%>
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-accountRolling icon-s icon-before"></i><span class="language_replace">錢包餘額</span></span>
                                 <span class="td__content"><span class="PointValue">CON4</span></span>
@@ -691,10 +696,10 @@
                             <div class="thead__th"><span class="language_replace">層級</span></div>
                               <div class="thead__th"><span class="language_replace">上線帳號</span></div>
                             <div class="thead__th"><span class="language_replace">貨幣</span></div>
-                            <div class="thead__th"><span class="language_replace">團隊代理數</span></div>
+<%--                            <div class="thead__th"><span class="language_replace">團隊代理數</span></div>
                             <div class="thead__th"><span class="language_replace">團隊會員數</span></div>
                             <div class="thead__th"><span class="language_replace">期間團隊新增下線數</span></div>
-                            <div class="thead__th"><span class="language_replace">期間個人新增會員數</span></div>
+                            <div class="thead__th"><span class="language_replace">期間個人新增會員數</span></div>--%>
                             <div class="thead__th"><span class="language_replace">錢包餘額</span></div>
                             <div class="thead__th"><span class="language_replace">狀態</span></div>
                              <div class="thead__th"><span class="language_replace">最後登入時間</span></div>

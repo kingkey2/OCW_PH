@@ -176,32 +176,33 @@
                         $(temp).children().find(".GameAccountingCodeList").append(t);
                     }
 
-                $(temp).find('.ModifyRemarkBtn').click(function () {
-                    var d = this;
-                    $(d).find('.mtRemark').hide();
-                    $(d).find('.inputRemark').val(k.Tag);
-                    $(d).find('.inputRemark').show();
-                    $(d).find('.divRemarkBtn').show();
-                    //$(this).show();
-                }.bind(temp));
+                    $(temp).find('.ModifyRemarkBtn').click(function () {
+                        var d = this;
+                        $(d).find('.mtRemark').hide();
+                        $(d).find('.inputRemark').val(k.Tag);
+                        $(d).find('.inputRemark').show();
+                        $(d).find('.divRemarkBtn').show();
+                        //$(this).show();
+                    }.bind(temp));
 
-                $(temp).find('.ModifyRemarkSaveBtn').click(function () {
-                    var dd = this;
-                    updateTag($(dd).find('.inputRemark'), $(dd).find(".divRemarkBtn"), $(dd).find('.mtRemark'), k.UserAccountID);
-                }.bind(temp));
+                    $(temp).find('.ModifyRemarkSaveBtn').click(function () {
+                        var dd = this;
+                        updateTag($(dd).find('.inputRemark'), $(dd).find(".divRemarkBtn"), $(dd).find('.mtRemark'), k.UserAccountID);
+                    }.bind(temp));
 
-                $(temp).find('.ModifyRemarkCancelBtn').click(function () {
-                    var ddd = this;
-                    $(ddd).find(".divRemarkBtn").hide();
-                    $(ddd).find(".mtRemark").show();
-                }.bind(temp));
+                    $(temp).find('.ModifyRemarkCancelBtn').click(function () {
+                        var ddd = this;
+                        $(ddd).find(".divRemarkBtn").hide();
+                        $(ddd).find(".mtRemark").show();
+                    }.bind(temp));
 
-                if (k.UserAccountType == 0) {
-                    $("#idUserList").append(temp);
-                } else {
-                    $("#idAgentList").append(temp);
+                    if (k.UserAccountType == 0) {
+                        $("#idUserList").append(temp);
+                    } else {
+                        $("#idAgentList").append(temp);
+                    }
+
                 }
-
             }
         }
 
@@ -398,11 +399,11 @@
 
             <div class="detailItem">
                 <span class="title-s"><i class="icon icon-ewin-default-periodWinLose icon-s icon-before"></i><span class="language_replace">佔成率</span></span>
-                <span><span class="data UserRate">0</span> <span class="">%</span></span>
+                <span><span class="data UserRate">0</span> <span style="color:rgba(200, 219, 234, 0.8);">%</span></span>
             </div>
             <div class="detailItem">
                 <span class="title-s"><i class="icon icon-ewin-default-periodRolling icon-s icon-before"></i><span class="language_replace">返水率</span></span>
-                <span><span class="data BuyChipRate">0</span> <span class="">%</span></span>
+                <span><span class="data BuyChipRate">0</span> <span style="color:rgba(200, 219, 234, 0.8);">%</span></span>
             </div>
         </div>
     </div>

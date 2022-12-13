@@ -276,10 +276,14 @@
                 c.setClassText(t, "NewUserCount", null, item.NewUserCount);
                 c.setClassText(t, "SelfNewUserCount", null, item.SelfNewUserCount);
                 c.setClassText(t, "PointValue", null, c.toCurrency(item.PointValue));
+                var stateDom = t.querySelector(".UserAccountState");
+
                 if (item.UserAccountState == 0) {
-                    c.setClassText(t, "UserAccountState", null, mlp.getLanguageKey("正常"));
+                    stateDom.innerText = mlp.getLanguageKey("正常");
+                    stateDom.style.color = "aqua";
                 } else {
-                    c.setClassText(t, "UserAccountState", null, mlp.getLanguageKey("停用"));
+                    stateDom.innerText = mlp.getLanguageKey("停用");
+                    stateDom.style.color = "red";
                 }
                 c.setClassText(t, "LastLoginDate", null, item.LastLoginDate);
                 c.setClassText(t, "CreateDate", null, item.CreateDate);
