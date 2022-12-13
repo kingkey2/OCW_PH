@@ -838,20 +838,28 @@ public class MgmtAPI : System.Web.Services.WebService {
                             UserLevelUpgradeTempDatas.Add(k);
 
                             if (CheckDeposit) {
-                                if (DeposiAmount < Setting_DepositMaxValue) {
-                                    if (DeposiAmount >= Setting_DepositMinValue) {
+                                if (DeposiAmount >= Setting_DepositMinValue) {
+                                    if (DeposiAmount < Setting_DepositMaxValue) {
                                         DepositLevel = Setting_UserLevelIndex;
                                         CheckDeposit = false;
+                                    } else {
+                                        DepositLevel = Setting_UserLevelIndex;
                                     }
+                                } else {
+                                    CheckDeposit = false;
                                 }
                             }
 
                             if (CheckValidBet) {
-                                if (ValidBetValue < Setting_ValidBetMaxValue) {
-                                    if (ValidBetValue >= Setting_ValidBetMinValue) {
+                                if (ValidBetValue >= Setting_ValidBetMinValue) {
+                                    if (ValidBetValue < Setting_ValidBetMaxValue) {
                                         ValidBetLevel = Setting_UserLevelIndex;
                                         CheckValidBet = false;
+                                    } else {
+                                        ValidBetLevel = Setting_UserLevelIndex;
                                     }
+                                } else {
+                                    CheckValidBet = false;
                                 }
                             }
                         }
