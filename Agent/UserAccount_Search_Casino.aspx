@@ -3,6 +3,7 @@
 
 <%
     string ASID = Request["ASID"];
+    string AgentVersion = EWinWeb.AgentVersion;
     string Timezone = string.Empty;
 
 %>
@@ -13,10 +14,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>代理網</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/basic.min.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/main2.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/downline.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-
+    <link rel="stylesheet" href="css/basic.min.css?<%:AgentVersion%>">
+    <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">
+    <link rel="stylesheet" href="css/downline.css?<%:AgentVersion%>">
     <script type="text/javascript" src="js/AgentCommon.js?20210316"></script>
     <script type="text/javascript" src="/Scripts/Common.js"></script>
     <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
@@ -52,6 +52,7 @@
         }
 
         function searchUser() {
+            window.parent.API_ShowLoading();
             let searchUser = $("#loginAccount").val();
             let postData;
             if (searchUser == "") {
@@ -59,6 +60,7 @@
                     AID: EWinInfo.ASID
                 };
                 c.callService(ApiUrl + "/QueryChildUserInfo", postData, function (success, obj) {
+                    window.parent.API_CloseLoading();
                     if (success) {
                         var o = c.getJSON(obj);
 
@@ -81,13 +83,14 @@
                     LoginAccount: searchUser
                 };
                 c.callService(ApiUrl + "/QueryCurrentUserInfo", postData, function (success, obj) {
+                    window.parent.API_CloseLoading();
                     if (success) {
                         var o = c.getJSON(obj);
 
                         if (o.Result == 0) {
                             setItem(o.Datas);
                         } else {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                         }
                     } else {
                         if (o == "Timeout") {
@@ -114,7 +117,7 @@
 
                 c.setClassText(temp, "mtLoginAccount", null, k.LoginAccount);
                 c.setClassText(temp, "mtRealName", null, k.RealName);
-
+                c.setClassText(temp, "mtRemark", null, k.Tag);
                 mtUserAccountType = temp.getElementsByClassName("mtUserAccountType");
                 if (mtUserAccountType) {
                     switch (k.UserAccountType) {
@@ -173,10 +176,71 @@
                         $(temp).children().find(".GameAccountingCodeList").append(t);
                     }
 
+                $(temp).find('.ModifyRemarkBtn').click(function () {
+                    var d = this;
+                    $(d).find('.mtRemark').hide();
+                    $(d).find('.inputRemark').val(k.Tag);
+                    $(d).find('.inputRemark').show();
+                    $(d).find('.divRemarkBtn').show();
+                    //$(this).show();
+                }.bind(temp));
+
+                $(temp).find('.ModifyRemarkSaveBtn').click(function () {
+                    var dd = this;
+                    updateTag($(dd).find('.inputRemark'), $(dd).find(".divRemarkBtn"), $(dd).find('.mtRemark'), k.UserAccountID);
+                }.bind(temp));
+
+                $(temp).find('.ModifyRemarkCancelBtn').click(function () {
+                    var ddd = this;
+                    $(ddd).find(".divRemarkBtn").hide();
+                    $(ddd).find(".mtRemark").show();
+                }.bind(temp));
+
+                if (k.UserAccountType == 0) {
+                    $("#idUserList").append(temp);
+                } else {
                     $("#idAgentList").append(temp);
                 }
 
             }
+        }
+
+        function updateTag(docInputRemark, docModifyRemarkSaveBtn, docmtRemark, userAccountID) {
+            window.parent.API_ShowLoading();
+            var tag = docInputRemark.val();
+
+            if (tag == "") {
+                window.parent.API_ShowMessageOK("", mlp.getLanguageKey("請輸入備註"));
+                window.parent.API_CloseLoading();
+                return;
+            }
+
+            postData = {
+                AID: EWinInfo.ASID,
+                UserAccountID: userAccountID,
+                Tag: tag
+            };
+            c.callService(ApiUrl + "/UpdateTag", postData, function (success, obj) {
+                window.parent.API_CloseLoading();
+                if (success) {
+                    var o = c.getJSON(obj);
+
+                    if (o.Result == 0) {
+                        docModifyRemarkSaveBtn.hide();
+                        docmtRemark.text(tag);
+                        docmtRemark.show();
+                        docInputRemark.hide();
+                    } else {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
+                    }
+                } else {
+                    if (o == "Timeout") {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                    } else {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    }
+                }
+            });
         }
 
         function init() {
@@ -187,7 +251,10 @@
             mlp = new multiLanguage();
             mlp.loadLanguage(lang, function () {
 
-                $("#idParentPath").text(EWinInfo.LoginAccount);
+                //$("#idParentPath").text(EWinInfo.LoginAccount);
+
+                searchUser();
+
                 window.parent.API_CloseLoading();
 
             });
@@ -208,7 +275,7 @@
         <div class="loginUserInfo">
             <div class="container-fluid">
                 <div class="breadcrumb__userAccount row">
-                    <div id="idParentPath" class="loginUserInfo__accountID heading-1 col">--</div>
+                    <div id="idParentPath" class="loginUserInfo__accountID heading-1 col language_replace">直屬階層管理</div>
                 </div>
 
             </div>
@@ -219,7 +286,7 @@
                 <div class="row">
                     <div id="idSearchButton" class="col-12 col-md-4">
                         <div class="form-group form-group-s2 ">
-                            <div class="title hidden shown-md"><span class="language_replace">帳號</span></div>
+                            <div class="title hidden shown-md"><span class="language_replace">直屬帳號</span></div>
                             <div class="input-group form-control-underline iconCheckAnim placeholder-move-right zIndex_overMask_SafariFix">
                                 <input type="text" class="form-control" id="loginAccount" value="">
                                 <div class="input-group-append">
@@ -268,11 +335,12 @@
                         </div>
                         <div class="mask"></div>
                     </div>
-                    <div class="downline__header">
+                    <div class="downline__header" style="padding-right:0px !important">
                         <span class="downline__account">
                             <i class="icon icon-ewin-default-downlineuser"></i>
                             <span class=" mtLoginAccount">--</span>
                         </span>
+                        <button class="btn btn-outline-main language_replace ModifyRemarkBtn">修改備註</button>
                     </div>
                     <div class="downline__info">
                         <div class="account">
@@ -282,6 +350,21 @@
 
                         <!-- 帳戶啟用 狀態加入 class="status-active" -->
                         <div class="downline__accountStatus-s"><i class="icon icon-ewin-default-accountStatus"></i><span class="language_replace mtUserAccountState">啟用</span></div>
+                    </div>
+                    <div class="downline__info">
+                        <div class="account">
+                            <div class="role "><i class="icon icon-ewin-default-user-s"></i><span class="language_replace">備註</span></div>
+                            <div class="name">
+                                <span class="language_replace mtRemark"></span>
+                                <div style="display: none;" class="divRemarkBtn input-group form-control-underline iconCheckAnim placeholder-move-right zIndex_overMask_SafariFix">
+                                    <input type="text" class="form-control inputRemark" value="">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text ModifyRemarkSaveBtn language_replace" style="cursor: pointer; color: #C9AE7F; background-color: #2d3244; border: none; margin-right:5px">確認</span>
+                                        <span class="input-group-text ModifyRemarkCancelBtn language_replace" style="cursor: pointer; color: #C9AE7F; background-color: #2d3244; border: none">取消</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="mtCurrencyDetailList">
 

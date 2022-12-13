@@ -326,6 +326,8 @@
                                 var splitPaymentChannelCode = BodyObj.PaymentChannelCode.Split('.');
                                 string UnderProvider = "";
                                 string ServiceCode = "";
+                                string ServiceType = "";
+                                bool CheckUnderProvider = true;
                                 if (splitPaymentChannelCode.Length != 3)
                                 {
                                     SetResultException(R, "PaymentChannelCode Error");
@@ -350,7 +352,7 @@
                                         }
                                         else
                                         {
-                                            SetResultException(R, "Feibao PaymentChannelCode Error");
+                                            CheckUnderProvider = false;
                                         }
 
                                     }
@@ -359,30 +361,58 @@
                                     else if (UnderProvider == "FIFIPay") { ProviderCode = "FIFIPay"; }
                                     else
                                     {
-                                        SetResultException(R, "Feibao PaymentChannelCode Error");
+                                        CheckUnderProvider = false;
                                     }
 
-                                    if (BankData != null)
+                                    if (ServiceCode == "GcashQRcode")
                                     {
+                                        ServiceType = "PHP04";
+                                    }
+                                    else if (ServiceCode == "GcashDirect")
+                                    {
+                                        ServiceType = "PHP05";
+                                    }
+                                    else if (ServiceCode == "Gcash")
+                                    {
+                                        ServiceType = "PHP01";
+                                    }
+                                    else if (ServiceCode == "Paymaya")
+                                    {
+                                        ServiceType = "PHP03";
+                                    }
+                                    else if (ServiceCode == "Grabpay")
+                                    {
+                                        ServiceType = "PHP02";
+                                    }
 
-                                        var CreateEPayWithdrawalReturn = Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial, decimal.Parse(BankData["ReceiveAmount"].ToString()), paymentResult.CreateDate, BankData["BankCard"].ToString(), BankData["BankCardName"].ToString(), BankData["BankName"].ToString(), "BankBranchCode", BankData["BankCard"].ToString(), ProviderCode);
-                                        if (CreateEPayWithdrawalReturn.ResultState == Payment.APIResult.enumResultCode.OK)
+                                    if (CheckUnderProvider)
+                                    {
+                                        if (BankData != null)
                                         {
-                                            R.Result = 0;
+
+                                            var CreateEPayWithdrawalReturn = Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial, decimal.Parse(BankData["ReceiveAmount"].ToString()), paymentResult.CreateDate, BankData["BankCard"].ToString(), BankData["BankCardName"].ToString(), BankData["BankName"].ToString(), "BankBranchCode", BankData["BankCard"].ToString(), ProviderCode, ServiceType);
+                                            if (CreateEPayWithdrawalReturn.ResultState == Payment.APIResult.enumResultCode.OK)
+                                            {
+                                                R.Result = 0;
+                                            }
+                                            else
+                                            {
+                                                SetResultException(R, "Create Withdrawal Fail:" + CreateEPayWithdrawalReturn.Message);
+                                            }
                                         }
                                         else
                                         {
-                                            SetResultException(R, "Create Withdrawal Fail:" + CreateEPayWithdrawalReturn.Message);
+                                            SetResultException(R, "BankDataNotExist");
                                         }
                                     }
                                     else
                                     {
-                                        SetResultException(R, "BankDataNotExist");
+                                        SetResultException(R, "UnderProviderCode Error");
                                     }
                                 }
                             }
-                            else { 
-                                  R.Result = 0;
+                            else {
+                                R.Result = 0;
                             }
                         }
                         else if (BodyObj.Action == "CancelResume")

@@ -2022,41 +2022,33 @@ public class PaymentAPI : System.Web.Services.WebService
                                     paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, paymentDetailWallet.TaxFeeValue, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, "", CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
-                                        var CreateEPayWithdrawalReturn = Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial, TempCryptoData.ReceiveTotalAmount, paymentResult.CreateDate, BankCard, BankCardName, BankName, BankBranchCode, PhoneNumber);
-                                        if (CreateEPayWithdrawalReturn.ResultState == Payment.APIResult.enumResultCode.OK)
+                                        int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, BankDatas.ToString(), paymentResult.PaymentSerial, PointValue, "");
+
+                                        if (UpdateRet == 1)
                                         {
-                                            int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, BankDatas.ToString(), paymentResult.PaymentSerial, PointValue, "");
+                                            R.Result = enumResult.OK;
+                                            R.Message = paymentResult.PaymentSerial;
+                                            TempCryptoData.PaymentSerial = paymentResult.PaymentSerial;
+                                            TempCryptoData.PointValue = PointValue;
+                                            //RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(TempCryptoData), OrderNumber, TempCryptoData.ExpireSecond);
+                                            //RedisCache.PaymentContent.KeepPaymentContents(TempCryptoData, SI.LoginAccount);
 
-                                            if (UpdateRet == 1)
+                                            //清除獎金
+                                            //取得可領獎金資料
+                                            var PromotionCollectResult = lobbyAPI.GetPromotionCollectAvailable(Token, SI.EWinSID, GUID);
+
+                                            if (PromotionCollectResult.Result == EWin.Lobby.enumResult.OK)
                                             {
-                                                R.Result = enumResult.OK;
-                                                R.Message = paymentResult.PaymentSerial;
-                                                TempCryptoData.PaymentSerial = paymentResult.PaymentSerial;
-                                                TempCryptoData.PointValue = PointValue;
-                                                //RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(TempCryptoData), OrderNumber, TempCryptoData.ExpireSecond);
-                                                //RedisCache.PaymentContent.KeepPaymentContents(TempCryptoData, SI.LoginAccount);
 
-                                                //清除獎金
-                                                //取得可領獎金資料
-                                                var PromotionCollectResult = lobbyAPI.GetPromotionCollectAvailable(Token, SI.EWinSID, GUID);
+                                                EWin.Lobby.APIResult R1 = new EWin.Lobby.APIResult() { GUID = GUID, Result = EWin.Lobby.enumResult.ERR };
+                                                var collectList = PromotionCollectResult.CollectList.Where(x => x.CollectAreaType == 1).ToList();
 
-                                                if (PromotionCollectResult.Result == EWin.Lobby.enumResult.OK)
+                                                foreach (var item in collectList)
                                                 {
-
-                                                    EWin.Lobby.APIResult R1 = new EWin.Lobby.APIResult() { GUID = GUID, Result = EWin.Lobby.enumResult.ERR };
-                                                    var collectList = PromotionCollectResult.CollectList.Where(x => x.CollectAreaType == 1).ToList();
-
-                                                    foreach (var item in collectList)
-                                                    {
-                                                        R1 = lobbyAPI.SetExpireUserAccountPromotionByID(Token, SI.EWinSID, GUID, item.CollectID);
-                                                    }
+                                                    R1 = lobbyAPI.SetExpireUserAccountPromotionByID(Token, SI.EWinSID, GUID, item.CollectID);
                                                 }
+                                            }
 
-                                            }
-                                            else
-                                            {
-                                                SetResultException(R, "UpdateFailure");
-                                            }
                                         }
                                         else
                                         {

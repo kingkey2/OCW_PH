@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="UserAccount_Add_Casino.aspx.cs" Inherits="UserAccount_Add_Casino" %>
 
 <%
+    string AgentVersion = EWinWeb.AgentVersion;
 %>
 <!doctype html>
 <html lang="zh-Hant-TW" class="innerHtml">
@@ -9,9 +10,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>代理網</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/basic.min.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/main.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/layoutADJ.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
+    <link rel="stylesheet" href="css/basic.min.css?<%:AgentVersion%>">
+    <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">
+    <link rel="stylesheet" href="css/layoutADJ.css?<%:AgentVersion%>">
 </head>
 <script type="text/javascript" src="/Scripts/Common.js?20191127"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
@@ -525,20 +526,20 @@
         mlp.loadLanguage(lang, function () {
             EWinInfo = window.parent.EWinInfo;
             queryCurrentUserInfo();
-            setUserAccountType();
-            
+            //setUserAccountType();
+            uType = 1;
+            document.getElementById("idUserAccountType").innerText = mlp.getLanguageKey("代理");
+
             if (EWinInfo.CompanyCode.toUpperCase() == "fanta".toUpperCase()) {
                 var select = document.getElementById("ContactPhonePrefix");
                 select.innerHTML = "";
 
                 var option = document.createElement("option");
-                option.text =  mlp.getLanguageKey("+63 菲律賓");
+                option.text = mlp.getLanguageKey("+63 菲律賓");
                 option.value = "+63";
                 select.appendChild(option);
             }
         });
-
-
     }
 
     window.onload = init;
@@ -600,7 +601,7 @@
                                     </div>
                                     <div class="col-12 form-line d-flex justify-content-between align-items-center">
                                         <span class="language_replace" id="idUserAccountType"></span>
-                                        <button type="button" class="btn btn-icon btn-s btn-outline-main btn-roundcorner" onclick="setUserAccountType()"><i class="icon icon-ewin-input-setUserAccountType icon-before icon-line-vertical"></i><span class="language_replace">狀態變更</span></button>
+                                        <button type="button" style="display:none" class="btn btn-icon btn-s btn-outline-main btn-roundcorner" onclick="setUserAccountType()"><i class="icon icon-ewin-input-setUserAccountType icon-before icon-line-vertical"></i><span class="language_replace">狀態變更</span></button>
                                     </div>
                                 </div>
                                 <div class="col-12 col-smd-12 col-md-6 col-lg-12 form-group row no-gutters">
@@ -719,7 +720,7 @@
 
                             <div class="MT__tableDiv">
                                 <!-- 自訂表格 -->
-                                <div class="MT__table MT__table--Sub table-col-7" style="padding-bottom:20px">
+                                <div class="MT__table MT__table--Sub table-col-7" >
                                     <!-- 標題項目  -->
                                     <div class="thead">
                                         <!--標題項目單行 -->
@@ -728,7 +729,7 @@
                                                 <span class="language_replace">貨幣</span>
                                             </div>
                                             <div class="thead__th">
-                                                <span class="language_replace">遊戲代碼</span>
+                                                <span class="language_replace">遊戲類型</span>
                                             </div>
                                             <div class="thead__th">
                                                 <span class="language_replace">佔成率(%)</span>

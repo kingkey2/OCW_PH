@@ -7,6 +7,7 @@
     string SearchCurrencyType = "";
     string AccountingID = Request["AccountingID"];
     string CurrencyType = Request["CurrencyType"];
+    string AgentVersion = EWinWeb.AgentVersion;
 
 %>
 <!doctype html>
@@ -16,9 +17,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>投注記錄</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/basic.min.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/main.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/config/config_<%=DefaultCompany %>.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
+    <link rel="stylesheet" href="css/basic.min.css?<%:AgentVersion%>">
+    <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">
 </head>
 <!-- <script type="text/javascript" src="js/AgentCommon.js"></script> -->
 <script type="text/javascript" src="js/AgentCommon.js"></script>

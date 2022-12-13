@@ -46,5 +46,12 @@
   "投注": "Record",
   "帳號": "LoginAccount",
   "搜尋": "Search",
-  "返水率": "Commission"
+  "返水率": "Commission",
+  "確認": "Confirm",
+  "備註": "Note",
+  "請輸入備註": "Please enter a note",
+  "修改備註": "Edit notes",
+  "直屬階層管理": "Immediate Hierarchy Management",
+  "取消": "Cancel",
+  "直屬帳號": "Direct Account"
 }

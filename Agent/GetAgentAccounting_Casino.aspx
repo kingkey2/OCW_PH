@@ -2,6 +2,7 @@
 <%
     string LoginAccount = Request["LoginAccount"];
     string ASID = Request["ASID"];
+    string AgentVersion = EWinWeb.AgentVersion;
     EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
     EWin.SpriteAgent.AgentSessionResult ASR = null;
     EWin.SpriteAgent.AgentSessionInfo ASI = null;
@@ -22,9 +23,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>傭金結算查詢</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/basic.min.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/main.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">   
-        <link rel="stylesheet" href="css/config/config_<%=EWinWeb.CompanyCode %>.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
+    <link rel="stylesheet" href="css/basic.min.css?<%:AgentVersion%>">
+    <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">   
 
 </head>
 <!-- <script type="text/javascript" src="js/AgentCommon.js"></script> -->
