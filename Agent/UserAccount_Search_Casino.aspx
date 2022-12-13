@@ -158,16 +158,23 @@
                     }
                 }
 
-                for (var l = 0; l < k.GameCodeList.length; l++) {
-                    let kk = k.GameCodeList[l];
-                    let t = c.getTemplate("tempGameAccountingCode");
 
-                    c.setClassText(t, "GameAccountingCode", null, kk.GameAccountingCode);
-                    c.setClassText(t, "UserRate", null, c.toCurrency(kk.UserRate));
-                    c.setClassText(t, "BuyChipRate", null, c.toCurrency(kk.BuyChipRate));
 
-                    $(temp).children().find(".GameAccountingCodeList").append(t);
-                }
+                if (k.UserAccountType == 0) {
+
+
+                    $("#idUserList").append(temp);
+                } else {
+                    for (var l = 0; l < k.GameCodeList.length; l++) {
+                        let kk = k.GameCodeList[l];
+                        let t = c.getTemplate("tempGameAccountingCode");
+
+                        c.setClassText(t, "GameAccountingCode", null, kk.GameAccountingCode);
+                        c.setClassText(t, "UserRate", null, c.toCurrency(kk.UserRate));
+                        c.setClassText(t, "BuyChipRate", null, c.toCurrency(kk.BuyChipRate));
+
+                        $(temp).children().find(".GameAccountingCodeList").append(t);
+                    }
 
                 $(temp).find('.ModifyRemarkBtn').click(function () {
                     var d = this;
@@ -256,6 +263,12 @@
         window.onload = init;
 
     </script>
+
+    <style>
+        .MemberList .item .mtCurrencyDetailList {
+            min-height: 0px;
+        }
+    </style>
 </head>
 <body class="innerBody">
     <main class="innerMain">
@@ -268,10 +281,10 @@
             </div>
         </div>
 
-        <div id="WrapperFilterGame_UserAccountMaint" class="fixed Filter__Wrapper">
+        <div id="WrapperFilterGame_UserAccountMaint" class="dataList fixed Filter__Wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div id="idSearchButton" class="col-12 col-md-2">
+                    <div id="idSearchButton" class="col-12 col-md-4">
                         <div class="form-group form-group-s2 ">
                             <div class="title hidden shown-md"><span class="language_replace">直屬帳號</span></div>
                             <div class="input-group form-control-underline iconCheckAnim placeholder-move-right zIndex_overMask_SafariFix">
@@ -289,13 +302,13 @@
             <div class="totalWalletList tab-scroller">
                 <div class="tab-scroller__area">
                     <div id="idParentWalletList" class="tab-scroller__content">
-                        <span class="tab-item walletList_item itemCurrencyType active" id="tab1" onclick="changeTab(1)">
+                        <span class="tab-item-half walletList_item itemCurrencyType active" id="tab1" onclick="changeTab(1)">
                             <a class="language_replace mtCurrencyType">代理</a>
                         </span>
-                        <span class="tab-item walletList_item itemCurrencyType" id="tab0" onclick="changeTab(0)">
+                        <span class="tab-item-half walletList_item itemCurrencyType" id="tab0" onclick="changeTab(0)">
                             <a class="language_replace mtCurrencyType">會員</a>
                         </span>
-                        <div id="divTabSlide" class="tab-slide"></div>
+                        <div id="divTabSlide" class="tab-slide-half"></div>
                     </div>
                 </div>
             </div>
@@ -380,16 +393,16 @@
     <div id="tempGameAccountingCode" style="display: none">
         <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15)">
             <div class="detailItem">
-                <span class="title-s"><span class="language_replace GameAccountingCode">期間上下數</span></span>
+                <span><span class="language_replace GameAccountingCode">期間上下數</span></span>
             </div>
 
             <div class="detailItem">
                 <span class="title-s"><i class="icon icon-ewin-default-periodWinLose icon-s icon-before"></i><span class="language_replace">佔成率</span></span>
-                <span class="data UserRate">0</span>
+                <span><span class="data UserRate">0</span> <span class="">%</span></span>
             </div>
             <div class="detailItem">
                 <span class="title-s"><i class="icon icon-ewin-default-periodRolling icon-s icon-before"></i><span class="language_replace">返水率</span></span>
-                <span class="data BuyChipRate">0</span>
+                <span><span class="data BuyChipRate">0</span> <span class="">%</span></span>
             </div>
         </div>
     </div>
