@@ -1009,6 +1009,11 @@
                                             <i class="icon icon-mask icon-ewin-user"></i>
                                             <span class="language_replace">代理</span></a>
                                     </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('下線列表'), 'UserAccount_Search_Casino.aspx?');ItemClick(this);">
+                                            <i class="icon icon-mask icon-ewin-user"></i>
+                                            <span class="language_replace">下線列表</span></a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-item navbarMenu__catagory">
@@ -1081,7 +1086,7 @@
                                     <ul class="nav">
                                         
                                         <li id="idSearchButton" class="navbar-search nav-item ">
-                                            <a href="#" class="btn btn-search btn-round nav-link" role="button" onclick="API_MainWindow(mlp.getLanguageKey('下線列表'), 'UserAccount_Search_Casino.aspx?');"></a>
+                                            <a href="#" class="btn btn-search btn-round nav-link" role="button" onclick="API_NewWindow(mlp.getLanguageKey('下線列表'), 'UserAccount_Search_Casino.aspx?');"></a>
                                         </li>
 
                                         <li id="btnCreateAccount" class="navbar-member nav-item submenu dropdown" style="display: none">
