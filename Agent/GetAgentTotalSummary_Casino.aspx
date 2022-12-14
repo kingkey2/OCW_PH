@@ -586,7 +586,7 @@
 
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-4">
+                             <div class="col-12 col-md-12 col-lg-12 col-xl-5">
                                 <div id="idTabMainContent">
                                     <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
                                         <li class="nav-item">
@@ -655,7 +655,7 @@
                 <div class="MT2__table table-col-8 w-200">
                     <div id="templateTableItem" style="display: none">
                         <div class="tbody__tr td-non-underline-last-2">
-                            <div class="tbody__td date td-100 nonTitle">
+                            <div class="tbody__td date td-100 nonTitle expand_tr">
                                 <span class="td__title"><span class="language_replace">帳號</span></span>
                                 <span class="td__content Space">
                                     <span class="noChild" style="padding: 0px 12px; display: none"></span>

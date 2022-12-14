@@ -5311,7 +5311,7 @@ i {
     background: #393d50;
     max-width: 768px;
     margin: 10px auto;
-    height: 2.25rem;
+    height: 3rem;
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;
     border: none;
@@ -5340,7 +5340,7 @@ i {
 
 @media (min-width: 768px) {
     .nav-tabs-block.nav-tabs {
-        height: 2.375rem;
+        height: 2.25rem;
     }
 }
 
@@ -9776,6 +9776,10 @@ select:-webkit-autofill:focus {
         align-items: center;
         justify-content: center;
         text-align: center;
+    }
+
+    .MT2__table .tbody .tbody__td.expand_tr {
+        text-align: left;
     }
 
         .MT2__table .tbody .tbody__td:not(:last-child) .td__content::after {

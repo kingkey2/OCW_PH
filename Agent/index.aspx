@@ -855,13 +855,19 @@
         mlp.loadLanguage(lang, function () {
             api = new AgentAPI(apiUrl);
 
+            getCompanyInfo(function (success) {
+                if (success) {
+                    queryUserInfo();                        
+                 }
+             });
+
             window.setInterval(function () {
                 if (EWinInfo.ASID != null && EWinInfo.ASID != "") {
                     getCompanyInfo(function (success) {
                         if (success) {
                             queryUserInfo(function (success) {
                                 if (success) {
-                             
+
                                 } else {
                                     window.top.location.href = "Refresh.aspx?login.aspx?C=<%=DefaultCompany%>";
                                 }
@@ -873,7 +879,7 @@
                 } else {
                     window.top.location.href = "Refresh.aspx?login.aspx?C=<%=DefaultCompany%>";
                 }
-            }, 1000);
+            }, 60000);
             
             window.setInterval(function () {
                 if (EWinInfo.ASID != null && EWinInfo.ASID != "") {

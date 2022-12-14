@@ -10,9 +10,12 @@
 
     ASR = api.GetAgentSessionByID(ASID);
 
-    if (ASR.Result != EWin.SpriteAgent.enumResult.OK) {
+    if (ASR.Result != EWin.SpriteAgent.enumResult.OK)
+    {
         Response.Redirect("login.aspx");
-    } else {
+    }
+    else
+    {
         ASI = ASR.AgentSessionInfo;
     }
 
@@ -30,7 +33,7 @@
         .tree-btn {
             padding: 0px 12px;
             border: none;
-            display: inline-block;         
+            display: inline-block;
             vertical-align: middle;
             overflow: hidden;
             text-decoration: none;
@@ -47,14 +50,13 @@
         }
 
         .agentPlus {
-           padding: 0px 10px;
+            padding: 0px 10px;
         }
-            .tree-btn:hover {
-                color: #fff;
-                background-color: rgba(227, 195, 141, 0.8);
-            }
 
-
+        .tree-btn:hover {
+            color: #fff;
+            background-color: rgba(227, 195, 141, 0.8);
+        }
     </style>
 </head>
 <!-- <script type="text/javascript" src="js/AgentCommon.js"></script> -->
@@ -152,7 +154,7 @@
 
         if (o) {
             if (o.SummaryList && o.SummaryList.length > 0) {
-                hasData = true;         
+                hasData = true;
             }
         }
 
@@ -163,7 +165,7 @@
             for (var i = 0; i < o.SummaryList.length; i++) {
                 var item = o.SummaryList[i];
                 var t = c.getTemplate("templateTableItem");
-       
+
                 c.setClassText(t, "LoginAccount", null, item.LoginAccount);
                 c.setClassText(t, "ParentLoginAccount", null, item.ParentLoginAccount);
                 c.setClassText(t, "CurrencyType", null, item.CurrencyType);
@@ -408,7 +410,7 @@
 
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-4">
+                             <div class="col-12 col-md-12 col-lg-12 col-xl-5">
                                 <div id="idTabMainContent">
                                     <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
                                         <li class="nav-item">
@@ -478,7 +480,7 @@
                                     <span class="LoginAccount">CON5</span>
                                 </span>
                             </div>
-                             <div class="tbody__td date td-100 nonTitle">
+                            <div class="tbody__td date td-100 nonTitle">
                                 <span class="td__title"><span class="language_replace">上線帳號</span></span>
                                 <span class="td__content Space">
                                     <span class="ParentLoginAccount">CON5</span>
