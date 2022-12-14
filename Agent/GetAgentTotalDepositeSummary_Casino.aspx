@@ -10,9 +10,12 @@
 
     ASR = api.GetAgentSessionByID(ASID);
 
-    if (ASR.Result != EWin.SpriteAgent.enumResult.OK) {
+    if (ASR.Result != EWin.SpriteAgent.enumResult.OK)
+    {
         Response.Redirect("login.aspx");
-    } else {
+    }
+    else
+    {
         ASI = ASR.AgentSessionInfo;
     }
 
@@ -583,7 +586,7 @@
 
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-4">
+                            <div class="col-12 col-md-12 col-lg-12 col-xl-5">
                                 <div id="idTabMainContent">
                                     <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
                                         <li class="nav-item">
@@ -653,7 +656,7 @@
                 <div class="MT2__table table-col-8 w-200">
                     <div id="templateTableItem" style="display: none">
                         <div class="tbody__tr td-non-underline-last-2">
-                            <div class="tbody__td date td-100 nonTitle">
+                            <div class="tbody__td date td-100 nonTitle expand_tr">
                                 <span class="td__title"><span class="language_replace">帳號</span></span>
                                 <span class="td__content Space">
                                     <span class="noChild" style="padding: 0px 12px; display: none"></span>
@@ -665,7 +668,7 @@
                                 <span class="td__title"><span class="language_replace">上線帳號</span></span>
                                 <span class="td__content"><i class="icon icon-s icon-before"></i><span class="ParentLoginAccount"></span></span>
                             </div>
-                             <div class="tbody__td td-3 nonTitle">
+                            <div class="tbody__td td-3 nonTitle">
                                 <span class="td__title"><span class="language_replace">層級</span></span>
                                 <span class="td__content"><i class="icon icon-s icon-before"></i><span class="InsideLevel"></span></span>
                             </div>
