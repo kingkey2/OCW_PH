@@ -164,7 +164,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="PaymentChannelCode" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="PaymentProvider" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="PaymentName" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="UserLevelIndex" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="ChannelStatus" type="tns:enumChannelStatus" />

@@ -10,9 +10,12 @@
 
     ASR = api.GetAgentSessionByID(ASID);
 
-    if (ASR.Result != EWin.SpriteAgent.enumResult.OK) {
+    if (ASR.Result != EWin.SpriteAgent.enumResult.OK)
+    {
         Response.Redirect("login.aspx");
-    } else {
+    }
+    else
+    {
         ASI = ASR.AgentSessionInfo;
     }
 
@@ -375,6 +378,7 @@
             document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
             idList.classList.add("tbody__hasNoData");
             idList.appendChild(div);
+            window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("無數據"));
         }
     }
 
@@ -580,7 +584,7 @@
 
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-4">
+                            <div class="col-12 col-md-12 col-lg-12 col-xl-5">
                                 <div id="idTabMainContent">
                                     <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
                                         <li class="nav-item">
@@ -649,7 +653,7 @@
                 <div class="MT2__table table-col-8 w-200">
                     <div id="templateTableItem" style="display: none">
                         <div class="tbody__tr td-non-underline-last-2">
-                            <div class="tbody__td date td-100 nonTitle">
+                            <div class="tbody__td date td-100 nonTitle expand_tr">
                                 <span class="td__title"><span class="language_replace">帳號</span></span>
                                 <span class="td__content Space">
                                     <span class="noChild" style="padding: 0px 12px; display: none"></span>
@@ -693,11 +697,11 @@
                                 <span class="td__title"><i class="icon icon-ewin-default-accountRolling icon-s icon-before"></i><span class="language_replace">狀態</span></span>
                                 <span class="td__content"><span class="UserAccountState">CON4</span></span>
                             </div>
-                                      <div class="tbody__td td-number td-3 td-vertical">
+                            <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-accountRolling icon-s icon-before"></i><span class="language_replace">最後登入時間</span></span>
                                 <span class="td__content"><span class="LastLoginDate">CON4</span></span>
                             </div>
-                                      <div class="tbody__td td-number td-3 td-vertical">
+                            <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-accountRolling icon-s icon-before"></i><span class="language_replace">建立時間</span></span>
                                 <span class="td__content"><span class="CreateDate">CON4</span></span>
                             </div>
@@ -709,7 +713,7 @@
                         <div class="thead__tr">
                             <div class="thead__th"><span class="language_replace">帳號</span></div>
                             <div class="thead__th"><span class="language_replace">層級</span></div>
-                              <div class="thead__th"><span class="language_replace">上線帳號</span></div>
+                            <div class="thead__th"><span class="language_replace">上線帳號</span></div>
                             <div class="thead__th"><span class="language_replace">貨幣</span></div>
                             <div class="thead__th"><span class="language_replace">團隊代理數</span></div>
                             <div class="thead__th"><span class="language_replace">團隊會員數</span></div>
@@ -717,8 +721,8 @@
                             <div class="thead__th"><span class="language_replace">期間個人新增會員數</span></div>
                             <div class="thead__th"><span class="language_replace">錢包餘額</span></div>
                             <div class="thead__th"><span class="language_replace">狀態</span></div>
-                             <div class="thead__th"><span class="language_replace">最後登入時間</span></div>
-                             <div class="thead__th"><span class="language_replace">建立時間</span></div>
+                            <div class="thead__th"><span class="language_replace">最後登入時間</span></div>
+                            <div class="thead__th"><span class="language_replace">建立時間</span></div>
                         </div>
                     </div>
                     <!-- 表格上下滑動框 -->

@@ -71,5 +71,12 @@
   "eWin百家樂": "eWin Baccarat",
   "至少需新增一組Ewin百家樂錢包": "Please add at least one Ewin Baccarat wallet, thank you！",
   "無數據": "There is no any information so far.",
-  "遊戲類型": "Game Type"
+  "遊戲類型": "Game",
+  "佔成率上限": "Share % Limit",
+  "轉碼率上限": "Rebate % Limit",
+  "Electron": "Egame",
+  "Electron.Fish": "FIsh",
+  "Live.FightChicken": "CockFight",
+  "Live": "Stream"
+
 }

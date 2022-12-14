@@ -577,7 +577,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-12 col-md-3 col-lg-3 col-gx-2 col-xl-2">
+                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -590,7 +590,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-3 col-lg-3 col-gx-2 col-xl-2">
+                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -603,7 +603,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-3 col-lg-3 col-gx-2 col-xl-2">
+                               <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -616,7 +616,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-3 col-lg-3 col-gx-2 col-xl-2" style="display: none">
+                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3" style="display: none">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -629,7 +629,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-3 col-lg-3 col-gx-2 col-xl-2">
+                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -642,7 +642,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-3 col-lg-3 col-gx-2 col-xl-2">
+                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -655,7 +655,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-3 col-lg-3 col-gx-2 col-xl-2">
+                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -668,7 +668,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-3 col-lg-3 col-gx-2 col-xl-2">
+                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -681,7 +681,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-3 col-lg-3 col-gx-2 col-xl-2">
+                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -694,7 +694,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-3 col-lg-3 col-gx-2 col-xl-2">
+                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -721,7 +721,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-3 col-lg-3 col-gx-2 col-xl-2">
+                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -740,7 +740,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-3 col-lg-3 col-gx-2 col-xl-2">
+                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">

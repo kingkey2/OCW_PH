@@ -465,7 +465,7 @@
                                 t.classList.add(EWinInfo.UserInfo.GameCodeList[j].GameAccountingCode);
                                 t.classList.add("div_GameCode");
                                 c.setClassText(t, "PointCurrencyType", null, w.CurrencyType);
-                                c.setClassText(t, "GameAccountingCode", null, EWinInfo.UserInfo.GameCodeList[j].GameAccountingCode);
+                                c.setClassText(t, "GameAccountingCode", null, mlp.getLanguageKey(EWinInfo.UserInfo.GameCodeList[j].GameAccountingCode));
 
                                 c.setClassText(t, "parentBuyChipRate", null, EWinInfo.UserInfo.GameCodeList[j].BuyChipRate);
                                 c.setClassText(t, "parentUserRate", null, EWinInfo.UserInfo.GameCodeList[j].UserRate);

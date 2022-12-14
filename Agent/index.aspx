@@ -59,6 +59,7 @@
 <script type="text/javascript" src="/Scripts/qcode-decoder.min.js"></script>
 <script type="text/javascript" src="js/AgentAPI.js"></script>
 <script type="text/javascript" src="js/AppBridge.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
     var AppBridge = new AppBridge("JsBridge", "iosJsBridge", "");
     var c = new common();
@@ -854,6 +855,12 @@
 
         mlp.loadLanguage(lang, function () {
             api = new AgentAPI(apiUrl);
+            
+            getCompanyInfo(function (success) {
+                if (success) {
+                    queryUserInfo();                        
+                 }
+             });
 
             window.setInterval(function () {
                 if (EWinInfo.ASID != null && EWinInfo.ASID != "") {
@@ -861,7 +868,7 @@
                         if (success) {
                             queryUserInfo(function (success) {
                                 if (success) {
-                             
+
                                 } else {
                                     window.top.location.href = "Refresh.aspx?login.aspx?C=<%=DefaultCompany%>";
                                 }
@@ -873,7 +880,7 @@
                 } else {
                     window.top.location.href = "Refresh.aspx?login.aspx?C=<%=DefaultCompany%>";
                 }
-            }, 1000);
+            }, 60000);
             
             window.setInterval(function () {
                 if (EWinInfo.ASID != null && EWinInfo.ASID != "") {
@@ -966,6 +973,36 @@
         idPageMain.style.width = scr.width + "px";
         
         refreshWindow(false);
+    }
+
+    function showQRCode() {
+        $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${EWinInfo.CompanyInfo.QRCodeURL}?PCode=${EWinInfo.UserInfo.PersonCode}&Download=2`);
+
+        document.getElementsByClassName("account__member")[0].innerText = EWinInfo.UserInfo.LoginAccount
+        document.getElementsByClassName("promotionCode")[0].innerText = EWinInfo.UserInfo.PersonCode;
+        document.getElementsByClassName("spanUrlLink")[0].innerText = EWinInfo.CompanyInfo.QRCodeURL + "?PCode=" + EWinInfo.UserInfo.PersonCode;
+        $("#idPopUpMyQRCord").addClass("show");
+    }
+
+    function closeQRCode() {
+        $("#idPopUpMyQRCord").removeClass("show");
+    }
+
+    function toastShow(className, idToastCopied) {
+        var TextRange = document.createRange();
+        var sel;
+
+        TextRange.selectNode(document.getElementsByClassName(className)[0]);
+        sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(TextRange);
+        document.execCommand("copy");
+        sel.removeAllRanges();
+
+        idToastCopied.classList.add("show");
+
+        setTimeout(function () { idToastCopied.classList.remove("show"); }, 3000);
+
     }
 
     window.onload = init;
@@ -1098,7 +1135,7 @@
                                                     <a class="nav-link icon icon-ewin-default-n-user-add language_replace " onclick="API_NewWindow(mlp.getLanguageKey('新增下線'), 'UserAccount_Add_Casino.aspx')" target="mainiframe">新增下線</a>
                                                 </li>
                                                 <li id="idMyQRCode" class="nav-item">
-                                                    <a class="nav-link icon icon-ewin-default-myQrCode language_replace" onclick="API_MainWindow(mlp.getLanguageKey('我的推廣碼'), 'UserAccount_Edit_MySelf.aspx?t=qrcode')" target="mainiframe">我的推廣碼</a>
+                                                    <a class="nav-link icon icon-ewin-default-myQrCode language_replace" onclick="showQRCode()" target="mainiframe">我的推廣碼</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -1125,6 +1162,59 @@
     </header>
     <div class="main_area" id="idPageMain" style="position: fixed">
         <!-- <div class="main_area" id="idPageMain" style=""> -->
+    </div>
+
+    <div class="popUp " id="idPopUpMyQRCord">
+        <div class="popUpWrapper">
+            <div class="popUp__close btn btn-close" onclick="closeQRCode()"></div>
+            <div class="popUp__title"><span class="language_replace">我的二維碼</span></div>
+            <div class="popUp__content">
+                <div class="sectionMyQRCord">
+                    <!-- 帳號 -->
+                    <div class="account__memberID">
+                        <i class="icon icon-ewin-default-downlineuser icon-before"></i>
+                        <div class="account__member">--</div>
+                    </div>
+                    <!-- 二維碼 -->
+                    <div class="account__qrcode">
+                        <div class="Img_qrCode"><img id="QRCodeimg" alt=""></div>
+                    </div>
+                    <!-- 我的推廣碼 -->
+                    <div class="wrapper__myPromotionCode">
+                        <span class="title">
+                            <span class="language_replace">推廣碼</span>
+                            </span>
+                        <div class="content">
+                            <span class="promotionCode">--</span>
+                        <div class="wrapper__toast">
+                            <!-- 按下時，出現 Toast元件-->
+                            <button type="button" class="btn btn-transparent btn-copy" onclick="toastShow('promotionCode',PopUPtoastCopied)"><i class="icon icon-ewin-default-copy  icon-before"></i></button>
+                            <!--Toast元件 要出現時 加入 class=> show -->
+                            <div id="PopUPtoastCopied" class="toastCopied">
+                            <span class="language_replace">已複製</span>
+                            </div>
+                        </div>
+                        </div>
+                    </div> 
+                    <!-- 推廣連結按鈕 -->
+                    <div class="urlLinkDiv">
+                        <span class="spanUrlLink"></span>
+                    </div>
+                    <div class="wrapper__myPromotionLink">
+                        <div class="PromotionLinkBtn" onclick="toastShow('spanUrlLink',PopUPtoastCopied2)">
+                            <img src="Images/icon_urlLink.svg" alt="copy link">
+                            <span class="language_replace">複製推廣連結</span>
+                            <!--Toast元件 要出現時 加入 class=> show -->
+                            <div id="PopUPtoastCopied2" class="toastCopied">
+                                <span class="language_replace">已複製</span>
+                            </div>
+                        </div>
+                    </div>
+               </div> 
+            </div>
+        </div>
+        <!-- mask_overlay 半透明遮罩-->
+        <div id="mask_overlay_popup" class="mask_overlay_popup opacityAdj" onclick="ac.MaskPopUp(this)"></div>
     </div>
 
     <!-- Loading PopUp 要放在 message 及 toast 前面  -->

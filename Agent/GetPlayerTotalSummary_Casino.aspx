@@ -10,9 +10,12 @@
 
     ASR = api.GetAgentSessionByID(ASID);
 
-    if (ASR.Result != EWin.SpriteAgent.enumResult.OK) {
+    if (ASR.Result != EWin.SpriteAgent.enumResult.OK)
+    {
         Response.Redirect("login.aspx");
-    } else {
+    }
+    else
+    {
         ASI = ASR.AgentSessionInfo;
     }
 
@@ -30,7 +33,7 @@
         .tree-btn {
             padding: 0px 12px;
             border: none;
-            display: inline-block;         
+            display: inline-block;
             vertical-align: middle;
             overflow: hidden;
             text-decoration: none;
@@ -47,14 +50,13 @@
         }
 
         .agentPlus {
-           padding: 0px 10px;
+            padding: 0px 10px;
         }
-            .tree-btn:hover {
-                color: #fff;
-                background-color: rgba(227, 195, 141, 0.8);
-            }
 
-
+        .tree-btn:hover {
+            color: #fff;
+            background-color: rgba(227, 195, 141, 0.8);
+        }
     </style>
 </head>
 <!-- <script type="text/javascript" src="js/AgentCommon.js"></script> -->
@@ -152,7 +154,7 @@
 
         if (o) {
             if (o.SummaryList && o.SummaryList.length > 0) {
-                hasData = true;         
+                hasData = true;
             }
         }
 
@@ -163,22 +165,22 @@
             for (var i = 0; i < o.SummaryList.length; i++) {
                 var item = o.SummaryList[i];
                 var t = c.getTemplate("templateTableItem");
-       
+
                 c.setClassText(t, "LoginAccount", null, item.LoginAccount);
                 c.setClassText(t, "ParentLoginAccount", null, item.ParentLoginAccount);
                 c.setClassText(t, "CurrencyType", null, item.CurrencyType);
 
-                if (parseFloat(item.TotalRewardValue) < 0) {
-                    t.getElementsByClassName("RewardValue")[0].classList.add("num-negative");
-                }
-                c.setClassText(t, "RewardValue", null, c.toCurrency(item.RewardValue));
+                //if (parseFloat(item.TotalRewardValue) < 0) {
+                //    t.getElementsByClassName("RewardValue")[0].classList.add("num-negative");
+                //}
+                //c.setClassText(t, "RewardValue", null, c.toCurrency(item.RewardValue));
 
-                if (parseFloat(item.TotalValidBetValue) < 0) {
-                    t.getElementsByClassName("ValidBetValue")[0].classList.add("num-negative");
-                }
-                c.setClassText(t, "ValidBetValue", null, c.toCurrency(item.ValidBetValue));
+                //if (parseFloat(item.TotalValidBetValue) < 0) {
+                //    t.getElementsByClassName("ValidBetValue")[0].classList.add("num-negative");
+                //}
+                //c.setClassText(t, "ValidBetValue", null, c.toCurrency(item.ValidBetValue));
 
-                c.setClassText(t, "OrderCount", null, c.toCurrency(item.OrderCount));
+                //c.setClassText(t, "OrderCount", null, c.toCurrency(item.OrderCount));
 
                 if (parseFloat(item.RewardValue) < 0) {
                     t.getElementsByClassName("SelfRewardValue")[0].classList.add("num-negative");
@@ -203,6 +205,7 @@
             document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
             idList.classList.add("tbody__hasNoData");
             idList.appendChild(div);
+            window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("無數據"));
         }
     }
 
@@ -408,7 +411,7 @@
 
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-4">
+                             <div class="col-12 col-md-12 col-lg-12 col-xl-5">
                                 <div id="idTabMainContent">
                                     <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
                                         <li class="nav-item">
@@ -478,7 +481,7 @@
                                     <span class="LoginAccount">CON5</span>
                                 </span>
                             </div>
-                             <div class="tbody__td date td-100 nonTitle">
+                            <div class="tbody__td date td-100 nonTitle">
                                 <span class="td__title"><span class="language_replace">上線帳號</span></span>
                                 <span class="td__content Space">
                                     <span class="ParentLoginAccount">CON5</span>
@@ -488,7 +491,7 @@
                                 <span class="td__title"><span class="language_replace">貨幣</span></span>
                                 <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="CurrencyType">CON3</span></span>
                             </div>
-                            <div class="tbody__td td-number td-3 td-vertical">
+ <%--                           <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-totalWinLose icon-s icon-before"></i><span class="language_replace">團隊輸贏數</span></span>
                                 <span class="td__content"><span class="RewardValue">CON4</span></span>
                             </div>
@@ -499,7 +502,7 @@
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-totalRolling icon-s icon-before"></i><span class="language_replace">團隊投注筆數</span></span>
                                 <span class="td__content"><span class="OrderCount">CON4</span></span>
-                            </div>
+                            </div>--%>
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-accountWinLose icon-s icon-before"></i><span class="language_replace">個人輸贏數</span></span>
                                 <span class="td__content"><span class="SelfRewardValue">CON4</span></span>
@@ -521,9 +524,9 @@
                             <div class="thead__th"><span class="language_replace">帳號</span></div>
                             <div class="thead__th"><span class="language_replace">上線帳號</span></div>
                             <div class="thead__th"><span class="language_replace">貨幣</span></div>
-                            <div class="thead__th"><span class="language_replace">團隊輸贏數</span></div>
+<%--                            <div class="thead__th"><span class="language_replace">團隊輸贏數</span></div>
                             <div class="thead__th"><span class="language_replace">團隊有效注額</span></div>
-                            <div class="thead__th"><span class="language_replace">團隊投注筆數</span></div>
+                            <div class="thead__th"><span class="language_replace">團隊投注筆數</span></div>--%>
                             <div class="thead__th"><span class="language_replace">個人輸贏數</span></div>
                             <div class="thead__th"><span class="language_replace">個人有效注額</span></div>
                             <div class="thead__th"><span class="language_replace">個人投注筆數</span></div>

@@ -360,6 +360,8 @@
             document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
             idList.classList.add("tbody__hasNoData");
             idList.appendChild(div);
+
+            window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("無數據"));
         }
     }
 
@@ -565,7 +567,7 @@
 
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-4">
+                          <div class="col-12 col-md-12 col-lg-12 col-xl-5">
                                 <div id="idTabMainContent">
                                     <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
                                         <li class="nav-item">
