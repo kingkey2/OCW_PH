@@ -167,14 +167,14 @@
                 c.setClassText(t, "ParentLoginAccount", null, item.ParentLoginAccount);
                 c.setClassText(t, "InsideLevel", null, item.DealUserAccountInsideLevel);
                 c.setClassText(t, "CurrencyType", null, item.CurrencyType);
-                c.setClassText(t, "DepositValue", null, c.toCurrency(item.DepositValue));
-                c.setClassText(t, "FirstDepositValue", null, c.toCurrency(item.FirstDepositValue));;
-                c.setClassText(t, "DepositPaymentCount", null, item.DepositPaymentCount);
-                c.setClassText(t, "FirstDepositPaymentCount", null, item.FirstDepositPaymentCount);
-                c.setClassText(t, "WithdrawValue", null, c.toCurrency(item.WithdrawValue));
-                c.setClassText(t, "FirstWithdrawValue", null, c.toCurrency(item.FirstWithdrawValue));
-                c.setClassText(t, "WithdrawPaymentCount", null, item.WithdrawPaymentCount);
-                c.setClassText(t, "FirstWithdrawPaymentCount", null, item.FirstWithdrawPaymentCount);
+                //c.setClassText(t, "DepositValue", null, c.toCurrency(item.DepositValue));
+                //c.setClassText(t, "FirstDepositValue", null, c.toCurrency(item.FirstDepositValue));;
+                //c.setClassText(t, "DepositPaymentCount", null, item.DepositPaymentCount);
+                //c.setClassText(t, "FirstDepositPaymentCount", null, item.FirstDepositPaymentCount);
+                //c.setClassText(t, "WithdrawValue", null, c.toCurrency(item.WithdrawValue));
+                //c.setClassText(t, "FirstWithdrawValue", null, c.toCurrency(item.FirstWithdrawValue));
+                //c.setClassText(t, "WithdrawPaymentCount", null, item.WithdrawPaymentCount);
+                //c.setClassText(t, "FirstWithdrawPaymentCount", null, item.FirstWithdrawPaymentCount);
                 c.setClassText(t, "SelfDepositValue", null, c.toCurrency(item.SelfDepositValue));
                 c.setClassText(t, "SelfFirstDepositValue", null, c.toCurrency(item.SelfFirstDepositValue));
                 c.setClassText(t, "SelfDepositPaymentCount", null, item.SelfDepositPaymentCount);
@@ -252,6 +252,8 @@
             document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
             idList.classList.add("tbody__hasNoData");
             idList.appendChild(div);
+
+            window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("無數據"));
         }
     }
 
@@ -543,7 +545,7 @@
                                 <span class="td__title"><span class="language_replace">貨幣</span></span>
                                 <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="CurrencyType"></span></span>
                             </div>
-                            <div class="tbody__td td-number td-3 td-vertical">
+<%--                            <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-totalWinLose icon-s icon-before"></i><span class="language_replace">團隊入金/出金</span></span>
                                 <span class="td__content"><span class="DepositValue"></span><span class="splitIcon">/</span><span class="WithdrawValue num-negative"></span></span>
                             </div>
@@ -558,7 +560,7 @@
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-totalRolling icon-s icon-before"></i><span class="language_replace">團隊首次入金/出金筆數</span></span>
                                 <span class="td__content"><span class="FirstDepositPaymentCount"></span><span class="splitIcon">/</span><span class="FirstWithdrawPaymentCount num-negative"></span></span>
-                            </div>
+                            </div>--%>
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-totalRolling icon-s icon-before"></i><span class="language_replace">個人入金/出金</span></span>
                                 <span class="td__content"><span class="SelfDepositValue"></span><span class="splitIcon">/</span><span class="SelfWithdrawValue num-negative"></span></span>
@@ -581,10 +583,10 @@
                             <div class="thead__th"><span class="language_replace">上線帳號</span></div>
                             <div class="thead__th"><span class="language_replace">層級</span></div>
                             <div class="thead__th"><span class="language_replace">貨幣</span></div>
-                            <div class="thead__th"><span class="language_replace">團隊入金/出金</span></div>
+<%--                            <div class="thead__th"><span class="language_replace">團隊入金/出金</span></div>
                             <div class="thead__th"><span class="language_replace">團隊首次入金/出金</span></div>
                             <div class="thead__th"><span class="language_replace">團隊入金/出金筆數</span></div>
-                            <div class="thead__th"><span class="language_replace">團隊首次入金/出金筆數</span></div>
+                            <div class="thead__th"><span class="language_replace">團隊首次入金/出金筆數</span></div>--%>
                             <div class="thead__th"><span class="language_replace">個人入金/出金</span></div>
                             <div class="thead__th"><span class="language_replace">個人首次入金/出金</span></div>
                             <div class="thead__th"><span class="language_replace">個人入金/出金筆數</span></div>
