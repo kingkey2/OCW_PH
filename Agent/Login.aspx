@@ -385,13 +385,13 @@
                                 <span
                                     class="language_replace">简体中文</span></label>
                         </div>
-                        <div class="custom-control  custom-control-inline custom-radio-lang" onclick="setLanguage('CHT')">
+                        <div class="custom-control  custom-control-inline custom-radio-lang" style="width:25% !important" onclick="setLanguage('CHT')">
                             <input type="radio" id="lang2" name="lang" class="custom-control-input-hidden" value="CHT">
                             <label class="custom-control-label-lang ico-before-hk" for="lang2">
                                 <span
                                     class="language_replace">繁體中文</span></label>
                         </div>
-                        <div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('ENG')">
+                        <div class="custom-control custom-radio-lang custom-control-inline" style="width:25% !important" onclick="setLanguage('ENG')">
                             <input type="radio" id="lang3" name="lang" class="custom-control-input-hidden" value="ENG" checked>
                             <label class="custom-control-label-lang ico-before-en" for="lang3">
                                 <span

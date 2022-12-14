@@ -7790,9 +7790,9 @@ select:-webkit-autofill:focus {
     }
 
         .custom-radio-lang .custom-control-label-lang .language_replace {
-            color: transparent;
+            /*color: transparent;
             width: 0;
-            height: 0;
+            height: 0;*/
         }
 
             .custom-radio-lang .custom-control-label-lang .language_replace::-webkit-selection {
