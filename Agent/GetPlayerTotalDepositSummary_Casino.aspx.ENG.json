@@ -4,7 +4,7 @@
   "結束日期不可小於起起始日期": "The end date must be greater than start date.",
   "請至少選擇一個幣別!!": "Please select at least one currency.",
   "無數據": "There is currently no any data.",
-  "會員出入金數據": "Member Deposit/Withdrawal Report",
+  "會員出入金數據": "Member Deposit/Withdrawal Logs",
   "帳號": "Account",
   "起始日期": "Start Date",
   "結束日期": "End Date",
@@ -19,11 +19,11 @@
   "上線帳號": "Upline",
   "層級": "Level",
   "貨幣": "Currency",
-  "團隊入金/出金": "Team's Deposit/Withdrawal Amount",
-  "團隊首次入金/出金": "Team's First Deposit/Withdrawal Amount",
-  "團隊入金/出金筆數": "Team's Deposit/Withdrawal Times",
-  "團隊首次入金/出金筆數": "Team's First Deposit/Withdrawal Times",
-  "個人入金/出金": "Personal Deposit/Withdrawal Amount",
-  "個人首次入金/出金": "User's First Deposit/Withdrawal Amount",
-  "個人入金/出金筆數": "User's Deposit/Withdrawal Times"
+  "團隊入金/出金": "Team's D/W Amount",
+  "團隊首次入金/出金": "Team's First D/W Amount",
+  "團隊入金/出金筆數": "Team's D/W Times",
+  "團隊首次入金/出金筆數": "Team's First D/W Times",
+  "個人入金/出金": "Personal D/W Amount",
+  "個人首次入金/出金": "Personal First D/W Amount",
+  "個人入金/出金筆數": "Personal D/W Times"
 }
