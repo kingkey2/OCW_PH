@@ -325,8 +325,7 @@
                                 string ProviderCode = "";
                                 var splitPaymentChannelCode = BodyObj.PaymentChannelCode.Split('.');
                                 string UnderProvider = "";
-                                string ServiceCode = "";
-                                string ServiceType = "";
+                                string ServiceType = "PHPBANK";
                                 bool CheckUnderProvider = true;
                                 if (splitPaymentChannelCode.Length != 2)
                                 {
@@ -335,7 +334,6 @@
                                 else
                                 {
                                     UnderProvider = splitPaymentChannelCode[0];
-                                    ServiceCode = splitPaymentChannelCode[1];
                                     if (UnderProvider == "FeibaoPaymaya")
                                     {
                                         ProviderCode = "FeibaoPayPaymaya";
@@ -349,27 +347,6 @@
                                     else
                                     {
                                         CheckUnderProvider = false;
-                                    }
-
-                                    if (ServiceCode == "GcashQRcode")
-                                    {
-                                        ServiceType = "PHP04";
-                                    }
-                                    else if (ServiceCode == "GcashDirect")
-                                    {
-                                        ServiceType = "PHP05";
-                                    }
-                                    else if (ServiceCode == "Gcash")
-                                    {
-                                        ServiceType = "PHP01";
-                                    }
-                                    else if (ServiceCode == "Paymaya")
-                                    {
-                                        ServiceType = "PHP03";
-                                    }
-                                    else if (ServiceCode == "Grabpay")
-                                    {
-                                        ServiceType = "PHP02";
                                     }
 
                                     if (CheckUnderProvider)

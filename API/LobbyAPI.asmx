@@ -36,7 +36,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            return lobbyAPI.ListPaymentChannel(GetToken(), SI.EWinSID, GUID,EWinWeb.ConvertCurrencyType,(EWin.Lobby.enumPaymentDirectionType)DirectionType);
+            return lobbyAPI.ListPaymentChannel(GetToken(), SI.EWinSID, GUID,EWinWeb.MainCurrencyType,(EWin.Lobby.enumPaymentDirectionType)DirectionType);
         } else {
             var R = new EWin.Lobby.PaymentChannelResult() {
                 Result = EWin.Lobby.enumResult.ERR,

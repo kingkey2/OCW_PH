@@ -116,9 +116,9 @@
                         for (var i = 0; i < o.ChannelList.length; i++) {
                             var channel = o.ChannelList[i];
                             //UserLevelIndex
-                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType && channel.AllowWithdrawal == true) {
+                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType) {
                                 switch (channel.PaymentChannelCode) {
-                                    case "Withdrawal.BANK":
+                                    case ".Withdrawal.BANK":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.WithdrawalAmountMin != 0) {
@@ -132,7 +132,7 @@
                                         $('#idWithdrawalBankCard').find('.limit').text(minAmount + "~" + maxAmount);
                                         $('#idWithdrawalBankCard').show();
                                         break;
-                                    case "Withdrawal.Gcash":
+                                    case ".Withdrawal.Gcash":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.WithdrawalAmountMin != 0) {

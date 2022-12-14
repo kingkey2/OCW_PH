@@ -147,7 +147,7 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public PaymentMethodResult GetPaymentMethodByPaymentCodeFilterPaymentChannel(string WebSID, string GUID, string PaymentCategoryCode, int PaymentType, string PaymentCode, int UserLevel)
+    public PaymentMethodResult GetPaymentMethodByPaymentCodeFilterPaymentChannel(string WebSID, string GUID, string PaymentCategoryCode, int PaymentType, string PaymentCode, int UserLevel,int DirectionType)
     {
         RedisCache.SessionContext.SIDInfo SI;
         PaymentMethodResult R = new PaymentMethodResult() { GUID = GUID, Result = enumResult.ERR, PaymentMethodResults = new List<PaymentMethod>() };
@@ -160,7 +160,7 @@ public class PaymentAPI : System.Web.Services.WebService
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
-            PaymentChannelResult = lobbyAPI.ListPaymentChannel(GetToken(), SI.EWinSID, GUID);
+            PaymentChannelResult = lobbyAPI.ListPaymentChannel(GetToken(), SI.EWinSID, GUID,EWinWeb.MainCurrencyType,(EWin.Lobby.enumPaymentDirectionType)DirectionType);
             if (PaymentChannelResult.Result == EWin.Lobby.enumResult.OK)
             {
                 if (DT != null)
@@ -169,11 +169,11 @@ public class PaymentAPI : System.Web.Services.WebService
                     {
                         if (PaymentType == 0)
                         {
-                            Channel = PaymentChannelResult.ChannelList.Where(w => w.ChannelStatus == 0 && w.CurrencyType == EWinWeb.MainCurrencyType && w.AllowDeposit == true && w.PaymentChannelCode == PaymentCode && w.UserLevelIndex <= UserLevel).FirstOrDefault();
+                            Channel = PaymentChannelResult.ChannelList.Where(w =>  w.CurrencyType == EWinWeb.MainCurrencyType && w.ChannelStatus ==  EWin.Lobby.enumChannelStatus.Available&& w.PaymentChannelCode == PaymentCode && w.UserLevelIndex <= UserLevel).FirstOrDefault();
                         }
                         else if (PaymentType == 1)
                         {
-                            Channel = PaymentChannelResult.ChannelList.Where(w => w.ChannelStatus == 0 && w.CurrencyType == EWinWeb.MainCurrencyType && w.AllowWithdrawal == true && w.PaymentChannelCode == PaymentCode && w.UserLevelIndex <= UserLevel).FirstOrDefault();
+                            Channel = PaymentChannelResult.ChannelList.Where(w =>  w.CurrencyType == EWinWeb.MainCurrencyType && w.ChannelStatus ==  EWin.Lobby.enumChannelStatus.Available&& w.PaymentChannelCode == PaymentCode && w.UserLevelIndex <= UserLevel).FirstOrDefault();
                         }
 
                         if (Channel != null)
@@ -211,7 +211,7 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public PaymentMethodResult GetPaymentMethodCryptoFilterPaymentChannel(string WebSID, string GUID, string PaymentCategoryCode, int PaymentType, int UserLevel)
+    public PaymentMethodResult GetPaymentMethodCryptoFilterPaymentChannel(string WebSID, string GUID, string PaymentCategoryCode, int PaymentType, int UserLevel,int DirectionType)
     {
         RedisCache.SessionContext.SIDInfo SI;
         PaymentMethodResult R = new PaymentMethodResult() { GUID = GUID, Result = enumResult.ERR, PaymentMethodResults = new List<PaymentMethod>() };
@@ -225,7 +225,7 @@ public class PaymentAPI : System.Web.Services.WebService
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
-            PaymentChannelResult = lobbyAPI.ListPaymentChannel(GetToken(), SI.EWinSID, GUID);
+            PaymentChannelResult = lobbyAPI.ListPaymentChannel(GetToken(), SI.EWinSID, GUID,EWinWeb.MainCurrencyType,(EWin.Lobby.enumPaymentDirectionType)DirectionType);
             if (PaymentChannelResult.Result == EWin.Lobby.enumResult.OK)
             {
                 if (DT != null)
@@ -238,9 +238,9 @@ public class PaymentAPI : System.Web.Services.WebService
                         {
                             var Channel = PaymentChannelResult.ChannelList[i];
 
-                            if (PaymentType == 0)
+                            if (DirectionType == 0)
                             {
-                                if (Channel.ChannelStatus == 0 && Channel.CurrencyType == EWinWeb.MainCurrencyType && Channel.AllowDeposit == true && Channel.UserLevelIndex <= UserLevel)
+                                if ( Channel.CurrencyType == EWinWeb.MainCurrencyType && Channel.ChannelStatus ==  EWin.Lobby.enumChannelStatus.Available && Channel.UserLevelIndex <= UserLevel)
                                 {
                                     if (TmpPaymentMethodResults.Where(f => f.PaymentCode == Channel.PaymentChannelCode).Count() == 0)
                                     {
@@ -252,9 +252,9 @@ public class PaymentAPI : System.Web.Services.WebService
                                     }
                                 }
                             }
-                            else if (PaymentType == 1)
+                            else if (DirectionType == 1)
                             {
-                                if (Channel.ChannelStatus == 0 && Channel.CurrencyType == EWinWeb.MainCurrencyType && Channel.AllowWithdrawal == true && Channel.UserLevelIndex <= UserLevel)
+                                if (Channel.CurrencyType == EWinWeb.MainCurrencyType && Channel.ChannelStatus ==  EWin.Lobby.enumChannelStatus.Available&& Channel.UserLevelIndex <= UserLevel)
                                 {
                                     if (TmpPaymentMethodResults.Where(f => f.PaymentCode == Channel.PaymentChannelCode).Count() == 0)
                                     {
@@ -1279,6 +1279,8 @@ public class PaymentAPI : System.Web.Services.WebService
                 else {
                     SetResultException(R, "PaymentMethodNotExist");
                 }
+
+                ServiceCode = ServiceCode.Substring(0, ServiceCode.Length - 1);
 
                 if (ServiceCode == "GcashQRcode")
                 {

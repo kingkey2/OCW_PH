@@ -150,10 +150,10 @@
             if (serivce.includes('Gcash')) {
                 $('#GCashPic').show();
                 $('#GCashPic').find('.serivceName').text(serivceName);
-            } else if (serivce == 'Grabpay') {
+            } else if (serivce.includes('Grabpay')) {
                 $('#GrabPayPic').show();
                 $('#GrabPayPic').find('.serivceName').text(serivceName);
-            } else if (serivce == 'Paymaya') {
+            } else if (serivce.includes('Paymaya')) {
                 $('#PayMayaPic').show();
                 $('#PayMayaPic').find('.serivceName').text(serivceName);
             }
@@ -162,7 +162,7 @@
                 providerCode = "Feibao";
             }
 
-            PaymentClient.GetPaymentMethodByPaymentCodeFilterPaymentChannel(WebInfo.SID, Math.uuid(), providerCode, 0, PaymentChannelCode, WebInfo.UserInfo.UserLevel, function (success, o) {
+            PaymentClient.GetPaymentMethodByPaymentCodeFilterPaymentChannel(WebInfo.SID, Math.uuid(), providerCode, 0, PaymentChannelCode, WebInfo.UserInfo.UserLevel,0, function (success, o) {
                 if (success) {
                     if (o.Result == 0) {
                         if (o.PaymentMethodResults.length > 0) {

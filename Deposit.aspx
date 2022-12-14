@@ -67,11 +67,13 @@
                         for (var i = 0; i < o.ChannelList.length; i++) {
                             var channel = o.ChannelList[i];
                             //UserLevelIndex
-                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType && channel.AllowDeposit==true) {
-
-      
+                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType) {
                                 var doc = "";
-                                switch (channel.PaymentChannelCode) {
+                                var PaymentChannelCode = channel.PaymentChannelCode;
+                                if (channel.PaymentProvider != '') {
+                                    PaymentChannelCode = PaymentChannelCode.substring(0, PaymentChannelCode.length - 1);
+                                }
+                                switch (PaymentChannelCode) {
                                     case "FeibaoGcash.Gcash":
                                     case "FIFIPay.GcashDirect":
                                     case "DiDiPay.GcashQRcode":

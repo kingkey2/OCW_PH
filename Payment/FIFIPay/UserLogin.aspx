@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" EnableSessionState="False" CodeFile="Common.cs" Inherits="Common" %>
+﻿<%--<%@ Page Language="C#" EnableSessionState="False" CodeFile="Common.cs" Inherits="Common" %>
 
 <%
     /*
@@ -210,4 +210,4 @@
 </head>
 <body style="width: 100%">
 </body>
-</html>
+</html>--%>
