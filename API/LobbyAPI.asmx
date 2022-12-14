@@ -30,13 +30,13 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.PaymentChannelResult ListPaymentChannel(string WebSID, string GUID) {
+    public EWin.Lobby.PaymentChannelResult ListPaymentChannel(string WebSID, string GUID,int DirectionType) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            return lobbyAPI.ListPaymentChannel(GetToken(), SI.EWinSID, GUID);
+            return lobbyAPI.ListPaymentChannel(GetToken(), SI.EWinSID, GUID,EWinWeb.ConvertCurrencyType,(EWin.Lobby.enumPaymentDirectionType)DirectionType);
         } else {
             var R = new EWin.Lobby.PaymentChannelResult() {
                 Result = EWin.Lobby.enumResult.ERR,

@@ -133,6 +133,8 @@
             <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DirectionType" type="tns:enumPaymentDirectionType" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -166,14 +168,9 @@
           <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="UserLevelIndex" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="ChannelStatus" type="tns:enumChannelStatus" />
-          <s:element minOccurs="1" maxOccurs="1" name="AllowDeposit" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="DepositAmountMin" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="DepositAmountMax" type="s:decimal" />
-          <s:element minOccurs="0" maxOccurs="1" name="DepositAvailableTime" type="tns:PaymentTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="AllowWithdrawal" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalAmountMin" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalAmountMax" type="s:decimal" />
-          <s:element minOccurs="0" maxOccurs="1" name="WithdrawalAvailableTime" type="tns:PaymentTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="AmountMin" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AmountMax" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="AvailableTime" type="tns:PaymentTime" />
         </s:sequence>
       </s:complexType>
       <s:simpleType name="enumChannelStatus">
@@ -2790,6 +2787,8 @@
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
   </wsdl:message>
   <wsdl:message name="ListPaymentChannelHttpGetOut">
     <wsdl:part name="Body" element="tns:PaymentChannelResult" />
@@ -3472,6 +3471,8 @@
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
   </wsdl:message>
   <wsdl:message name="ListPaymentChannelHttpPostOut">
     <wsdl:part name="Body" element="tns:PaymentChannelResult" />

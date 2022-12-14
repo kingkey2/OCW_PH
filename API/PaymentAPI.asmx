@@ -1262,6 +1262,19 @@ public class PaymentAPI : System.Web.Services.WebService
                 {
                     ProviderCode = splitPaymentCode[0];
                     ServiceCode = splitPaymentCode[1];
+
+                    if (ProviderCode == "FeibaoGrabpay")
+                    {
+                        ProviderCode = "FeibaoPayGrabpay";
+                    }
+                    else if (ProviderCode == "FeibaoPaymaya")
+                    {
+                        ProviderCode = "FeibaoPayPaymaya";
+                    }
+                    else if (ProviderCode == "FeibaoGcash")
+                    {
+                        ProviderCode = "FeibaoPay";
+                    }
                 }
                 else {
                     SetResultException(R, "PaymentMethodNotExist");

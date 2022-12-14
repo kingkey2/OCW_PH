@@ -138,13 +138,15 @@
 
     function GetPaymentMethod() {
         var splitPaymentChannelCode= PaymentChannelCode.split('.');
-        if (splitPaymentChannelCode.length != 3) {
+        if (splitPaymentChannelCode.length != 2) {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
                 window.parent.location.href = "index.aspx"
             });
         } else {
             var serivce = splitPaymentChannelCode[1];
-            var serivceName = PaymentChannelCode[1] + "." + PaymentChannelCode[2];
+            var providerCode = splitPaymentChannelCode[0];
+            var serivceName = PaymentChannelCode;
+
             if (serivce.includes('Gcash')) {
                 $('#GCashPic').show();
                 $('#GCashPic').find('.serivceName').text(serivceName);
@@ -156,7 +158,11 @@
                 $('#PayMayaPic').find('.serivceName').text(serivceName);
             }
 
-            PaymentClient.GetPaymentMethodByPaymentCodeFilterPaymentChannel(WebInfo.SID, Math.uuid(), "EPAY", 0, PaymentChannelCode, WebInfo.UserInfo.UserLevel, function (success, o) {
+            if (providerCode.includes("Feibao")) {
+                providerCode = "Feibao";
+            }
+
+            PaymentClient.GetPaymentMethodByPaymentCodeFilterPaymentChannel(WebInfo.SID, Math.uuid(), providerCode, 0, PaymentChannelCode, WebInfo.UserInfo.UserLevel, function (success, o) {
                 if (success) {
                     if (o.Result == 0) {
                         if (o.PaymentMethodResults.length > 0) {

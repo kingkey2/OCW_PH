@@ -21,13 +21,14 @@
         });
     };
 
-    this.ListPaymentChannel = function (WebSID, GUID, cb) {
+    this.ListPaymentChannel = function (WebSID, GUID, DirectionType, cb) {
         var url = APIUrl + "/ListPaymentChannel";
         var postData;
 
         postData = {
             WebSID: WebSID,
-            GUID: GUID
+            GUID: GUID,
+            DirectionType: DirectionType
         };
 
         callService(url, postData, 10000, function (success, text) {

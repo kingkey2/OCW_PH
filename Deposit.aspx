@@ -59,7 +59,7 @@
     }
 
     function GetListPaymentChannel() {
-        lobby.ListPaymentChannel(WebInfo.SID, Math.uuid(), function (success, o) {
+        lobby.ListPaymentChannel(WebInfo.SID, Math.uuid(),0 ,function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.ChannelList && o.ChannelList.length > 0) {
@@ -72,11 +72,11 @@
       
                                 var doc = "";
                                 switch (channel.PaymentChannelCode) {
-                                    case "EPAY.Feibao.Gcash":
-                                    case "EPAY.FIFIPay.GcashDirect":
-                                    case "EPAY.DiDiPay.GcashQRcode":
-                                    case "EPAY.YuHong.GcashQRcode":
-                                    case "EPAY.DiDiPay.Gcash":
+                                    case "FeibaoGcash.Gcash":
+                                    case "FIFIPay.GcashDirect":
+                                    case "DiDiPay.GcashQRcode":
+                                    case "YuHong.GcashQRcode":
+                                    case "DiDiPay.Gcash":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.DepositAmountMin!=0) {
@@ -105,7 +105,7 @@
                                             </a>
                                         </div>`;
                                         break; 
-                                    case "EPAY.Feibao.Grabpay":
+                                    case "FeibaoGrabpay.Grabpay":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.DepositAmountMin != 0) {
@@ -134,7 +134,7 @@
                                             </a>
                                         </div>`;
                                         break;
-                                    case "EPAY.Feibao.Paymaya":
+                                    case "FeibaoPaymaya.Paymaya":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.DepositAmountMin != 0) {

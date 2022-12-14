@@ -108,7 +108,7 @@
     }
 
     function GetListPaymentChannel() {
-        lobbyClient.ListPaymentChannel(WebInfo.SID, Math.uuid(), function (success, o) {
+        lobbyClient.ListPaymentChannel(WebInfo.SID, Math.uuid(),1,function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.ChannelList && o.ChannelList.length > 0) {

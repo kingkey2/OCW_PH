@@ -170,6 +170,7 @@
               <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
               <s:element minOccurs="1" maxOccurs="1" name="BeforeBalance" type="s:decimal" />
               <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="AuditDescription" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="TagInfo" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="UserIP" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="FinishedUserIP" type="s:string" />
