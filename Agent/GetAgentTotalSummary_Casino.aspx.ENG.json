@@ -20,11 +20,11 @@
   "上線帳號": "Upline",
   "層級": "Level",
   "貨幣": "Currency",
-  "團隊輸贏數": "Team's Win/Loss Amount",
-  "團隊有效注額": "Team's Amount of Valid Bets",
+  "團隊輸贏數": "Team's W/L",
+  "團隊有效注額": "Team's Valid Bets",
   "團隊投注筆數": "Team's Bet Count",
-  "個人輸贏數": "User's Win/loss",
-  "個人有效注額": "User's Amount of Valid Bet",
-  "個人投注筆數": "User's Bet Count",
+  "個人輸贏數": "Personal W/L",
+  "個人有效注額": "Personal Valid Bet",
+  "個人投注筆數": "Personal Bet Count",
   "確認": "Send"
 }

@@ -4,7 +4,7 @@
   "會員轉帳": "Transfer Service",
   "下線回收": "Account Wallet Management",
   "區塊鏈": "Blockchain Transaction",
-  "下線列表": "Downline Information",
+  "下線列表": "Indirect Downline",
   "下線出款申請": "Cash-Out Application Review",
   "出款申請": "My Cash-Out",
   "助手維護": "Assistant Management",
@@ -50,16 +50,18 @@
   "轉帳紀錄": "Transfer Record",
   "團隊": "Team",
   "團隊會員": "Team Member",
-  "會員": "Member",
+  "會員": "Team Member",
   "團隊代理": "Team Agent",
-  "代理": "Agent",
+  "代理": "Team Agent",
   "團隊代理(測試)": "Team Agent(Test)",
   "團隊投注數據_測試": "Team's Bet Logs_Test",
   "團隊投注數據(測試)": "Team's Bet Logs(Test)",
   "團隊投注數據": "Team's Bet Logs",
-  "會員投注數據": "Bet Logs",
+  "會員投注數據": "Member's Bet Logs",
   "團隊出入金數據": "Team's Deposit/Withdrawal Logs",
-  "會員出入金數據": "User's Deposit/Withdrawal Logs",
-  "傭金結算查詢": "Commission Settlement"
-
+  "會員出入金數據": "Member's Deposit/Withdrawal Logs",
+  "傭金結算查詢": "Commission Settlement",
+  "團隊管理": "Team Management",
+  "數據查詢": "Logs Query",
+  "結算查詢": "Settlement Query"
 }
