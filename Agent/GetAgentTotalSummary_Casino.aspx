@@ -633,8 +633,8 @@
                             </div>
                             <div id="expandDiv" style="display: none" class="col-12 col-md-6 col-lg-4 col-xl-auto">
                                 <div class="form-group wrapper_center dataList-process">
-                                    <button class="btn btn-outline-main" onclick="toggleAllRow(true)">展開</button>
-                                    <button class="btn btn-outline-main" onclick="toggleAllRow(false)">收合</button>
+                                    <button class="btn btn-outline-main language_replace" onclick="toggleAllRow(true)">展開</button>
+                                    <button class="btn btn-outline-main language_replace" onclick="toggleAllRow(false)">收合</button>
                                 </div>
                             </div>
                             <div class="col-12">
