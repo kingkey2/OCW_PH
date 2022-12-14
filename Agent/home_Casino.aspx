@@ -571,7 +571,7 @@
                                     <span class="currency language_replace">總返水</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace" style="font-weight:bold">9999</span>
+                                    <span class="language_replace data">9999</span>
                                 </div>
                             </div>
                         </div>
@@ -584,7 +584,7 @@
                                     <span class="currency language_replace">總收益</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace UserRebate" style="font-weight:bold">0</span>
+                                    <span class="language_replace UserRebate data">0</span>
                                 </div>
                             </div>
                         </div>
@@ -597,7 +597,7 @@
                                     <span class="currency language_replace">有效投注</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace TotalValidBetValue" style="font-weight:bold">9999</span>
+                                    <span class="language_replace TotalValidBetValue data">9999</span>
                                 </div>
                             </div>
                         </div>
@@ -610,7 +610,7 @@
                                     <span class="currency language_replace">會員輸贏</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace RewardValue" style="font-weight:bold">9999</span>
+                                    <span class="language_replace RewardValue data">9999</span>
                                 </div>
                             </div>
                         </div>
@@ -623,7 +623,7 @@
                                     <span class="currency language_replace">總佔成</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace " style="font-weight:bold">9999</span>
+                                    <span class="language_replace data ">9999</span>
                                 </div>
                             </div>
                         </div>
@@ -636,7 +636,7 @@
                                     <span class="currency language_replace">優惠成本</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace PreferentialCost" style="font-weight:bold">0</span>
+                                    <span class="language_replace PreferentialCost data">0</span>
                                 </div>
                             </div>
                         </div>
@@ -649,7 +649,7 @@
                                     <span class="currency language_replace">投注筆數</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace TotalOrderCount" style="font-weight:bold">0</span>
+                                    <span class="language_replace TotalOrderCount data">0</span>
                                 </div>
                             </div>
                         </div>
@@ -662,7 +662,7 @@
                                     <span class="currency language_replace">新用戶數</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace NewUserCount" style="font-weight:bold">0</span>
+                                    <span class="language_replace NewUserCount data">0</span>
                                 </div>
                             </div>
                         </div>
@@ -675,7 +675,7 @@
                                     <span class="currency language_replace">首存人數</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace FirstDepositCount" style="font-weight:bold">0</span>
+                                    <span class="language_replace FirstDepositCount data">0</span>
                                 </div>
                             </div>
                         </div>
@@ -688,7 +688,7 @@
                                     <span class="currency language_replace">複存人數</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace NotFirstDepositCount" style="font-weight:bold">0</span>
+                                    <span class="language_replace NotFirstDepositCount data">0</span>
                                 </div>
                             </div>
                         </div>
@@ -701,7 +701,7 @@
                                     <span class="currency language_replace">提現金額</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace WithdrawalValue" style="font-weight:bold">0</span>
+                                    <span class="language_replace WithdrawalValue data">0</span>
                                 </div>
                             </div>
                             <div class="wrapper_revenueAmount">
@@ -728,7 +728,7 @@
                                     <span class="currency language_replace">充值金額</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace DepositValue" style="font-weight:bold">0</span>
+                                    <span class="language_replace DepositValue data">0</span>
                                 </div>
                             </div>
                             <div class="wrapper_revenueAmount">
@@ -747,7 +747,7 @@
                                     <span class="currency language_replace">首存金額</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace FirstDepositValue" style="font-weight:bold">0</span>
+                                    <span class="language_replace FirstDepositValue data">0</span>
                                 </div>
                             </div>
                             <div class="wrapper_revenueAmount">
