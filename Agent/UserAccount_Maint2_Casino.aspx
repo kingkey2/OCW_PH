@@ -360,6 +360,8 @@
             document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
             idList.classList.add("tbody__hasNoData");
             idList.appendChild(div);
+
+            window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("無數據"));
         }
     }
 
