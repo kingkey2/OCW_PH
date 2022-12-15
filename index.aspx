@@ -211,6 +211,7 @@
     var clickCount=0;
     var PCode = "<%=PCode%>";
     var PageType = "<%=PageType%>";
+    var JoinActivitys;
 
     //#region TOP API
     function API_GetGCB() {
@@ -2398,14 +2399,6 @@
                 }, false);
             }
 
-            if (EWinWebInfo.DeviceType == 1) {
-                // $(".searchFilter-item").eq(0).css("flex-grow", "0");
-                // $(".searchFilter-item").eq(0).css("flex-shrink","0");
-                // $(".searchFilter-item").eq(0).css("flex-basis","100%");
-                // $(".searchFilter-item").eq(1).css("margin-left", "0");
-                //$(".searchFilter-item").eq(2).css("margin-left","0");
-            }
-
             var dstPage = c.getParameter("DstPage");
             var closeGameBtn = $('#closeGameBtn');
             lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
@@ -2437,6 +2430,9 @@
             }
             else {
                 if (EWinWebInfo.SID != "") {
+                     API_GetUserAccountProperty("JoinActivity", function (d) {
+                         JoinActivitys = d;
+                    });
                     API_Casino();
                 } else {
                     if (PageType != null && PageType != "" && PageType == "OpenSumo") {
@@ -2665,6 +2661,11 @@
                                 if (wallet.PointValue <= 100) {
                                     boolCheck = true;
                                     break;
+                                } else {
+                                    if (JoinActivitys == "") {
+                                        boolCheck = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
