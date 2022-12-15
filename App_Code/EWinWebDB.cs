@@ -585,7 +585,7 @@ public static class EWinWebDB {
                "FROM UserAccountPayment AS P WITH (NOLOCK) " +
                "LEFT JOIN PaymentMethod AS PM WITH (NOLOCK) ON P.forPaymentMethodID = PM.PaymentMethodID " +
                "LEFT JOIN PaymentCategory AS PC WITH (NOLOCK) ON PM.PaymentCategoryCode = PC.PaymentCategoryCode " +
-               "WHERE P.LoginAccount=@LoginAccount AND P.FlowStatus =1 AND DATEADD(ss,PM.ExpireSecond,CreateDate) > GETDATE() ";
+               "WHERE P.LoginAccount=@LoginAccount AND (P.FlowStatus =1 OR P.FlowStatus =9) AND DATEADD(ss,PM.ExpireSecond,CreateDate) > GETDATE() ";
 
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
@@ -691,6 +691,40 @@ public static class EWinWebDB {
             return Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
         }
 
+        public static int SetPaymentFlowStatusByProviderProcessing(string OrderNumber)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+
+            SS = "spSetPaymentFlowStatusByProviderProcessing";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            DBCmd.Parameters.Add("@OrderNumber", System.Data.SqlDbType.VarChar).Value = OrderNumber;
+            DBCmd.Parameters.Add("@FlowStatus", System.Data.SqlDbType.Int).Value = 9;
+            DBCmd.Parameters.Add("@RETURN", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
+            DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
+        }
+
+        public static int SetCancelPaymentFlowStatusByProviderProcessing(string OrderNumber)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+
+            SS = "spSetCancelPaymentFlowStatusByProviderProcessing";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            DBCmd.Parameters.Add("@OrderNumber", System.Data.SqlDbType.VarChar).Value = OrderNumber;
+            DBCmd.Parameters.Add("@FlowStatus", System.Data.SqlDbType.Int).Value = 1;
+            DBCmd.Parameters.Add("@RETURN", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
+            DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
+        }
+
         /// <summary>
         /// 取得當天進行中與完成的訂單
         /// </summary>
@@ -707,7 +741,7 @@ public static class EWinWebDB {
                       " WHERE  LoginAccount = @LoginAccount " +
                       "        AND CreateDate >= dbo.Getreportdate(Getdate()) " +
                       "        AND CreateDate < dbo.Getreportdate(Dateadd (day, 1, Getdate())) " +
-                      "        AND FlowStatus IN ( 1, 2 ) " +
+                      "        AND FlowStatus IN ( 1, 2, 9 ) " +
                       "        AND PaymentType = @PaymentType ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
@@ -727,7 +761,7 @@ public static class EWinWebDB {
             SS = " SELECT *, convert(varchar,CreateDate,120) CreateDate1  " +
                       " FROM   UserAccountPayment " +
                       " WHERE  LoginAccount = @LoginAccount " +
-                      "        AND FlowStatus = 1 " +
+                      "        AND (FlowStatus = 1 OR FlowStatus = 9) " +
                       "        AND PaymentType = @PaymentType ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
@@ -747,7 +781,7 @@ public static class EWinWebDB {
             SS = " SELECT *, convert(varchar,CreateDate,126) CreateDate1  " +
                       " FROM   UserAccountPayment " +
                       " WHERE  LoginAccount = @LoginAccount " +
-                      "        AND FlowStatus = 1 " +
+                      "        AND (FlowStatus = 1 OR FlowStatus = 9) " +
                       "        AND PaymentType = @PaymentType " +
                       "        AND forPaymentMethodID = @PaymentMethodID ";
             DBCmd = new System.Data.SqlClient.SqlCommand();

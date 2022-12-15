@@ -309,6 +309,7 @@
                             }
                             else
                             {
+
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
                         }
@@ -353,15 +354,32 @@
                                     {
                                         if (BankData != null)
                                         {
-                                            var CreateEPayWithdrawalReturn = Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial, decimal.Parse(BankData["ReceiveAmount"].ToString()), paymentResult.CreateDate, BankData["BankCard"].ToString(), BankData["BankCardName"].ToString(), BankData["BankName"].ToString(), "BankBranchCode", BankData["BankCard"].ToString(), ProviderCode, ServiceType);
-                                            if (CreateEPayWithdrawalReturn.ResultState == Payment.APIResult.enumResultCode.OK)
+                                            int setPaymentFlowStatusByProviderProcessing= EWinWebDB.UserAccountPayment.SetPaymentFlowStatusByProviderProcessing(BodyObj.ClientOrderNumber);
+
+                                            if (setPaymentFlowStatusByProviderProcessing == 0)
                                             {
-                                                R.Result = 0;
+                                                var CreateEPayWithdrawalReturn = Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial, decimal.Parse(BankData["ReceiveAmount"].ToString()), paymentResult.CreateDate, BankData["BankCard"].ToString(), BankData["BankCardName"].ToString(), BankData["BankName"].ToString(), "BankBranchCode", BankData["BankCard"].ToString(), ProviderCode, ServiceType);
+                                                if (CreateEPayWithdrawalReturn.ResultState == Payment.APIResult.enumResultCode.OK)
+                                                {
+                                                    R.Result = 0;
+                                                }
+                                                else
+                                                {
+                                                    int setCancelPaymentFlowStatusByProviderProcessing= EWinWebDB.UserAccountPayment.SetCancelPaymentFlowStatusByProviderProcessing(BodyObj.ClientOrderNumber);
+                                                    if (setCancelPaymentFlowStatusByProviderProcessing == 0)
+                                                    {
+                                                        SetResultException(R, "Create Withdrawal Fail:" + CreateEPayWithdrawalReturn.Message);
+                                                    }
+                                                    else { 
+                                                       SetResultException(R, "Create Withdrawal Fail:" + CreateEPayWithdrawalReturn.Message+",Order FlowStatus Error CancelPaymentFlowStatusByProviderProcessing:"+setCancelPaymentFlowStatusByProviderProcessing);
+                                                    }
+
+                                                }
                                             }
-                                            else
-                                            {
-                                                SetResultException(R, "Create Withdrawal Fail:" + CreateEPayWithdrawalReturn.Message);
+                                            else {
+                                                SetResultException(R, "Order FlowStatus Error PaymentFlowStatusByProviderProcessing:"+setPaymentFlowStatusByProviderProcessing);
                                             }
+
                                         }
                                         else
                                         {
@@ -383,7 +401,6 @@
                             int FinishPaymentRet;
 
                             FinishPaymentRet = EWinWebDB.UserAccountPayment.ResumePaymentFlowStatus(BodyObj.ClientOrderNumber, BodyObj.PaymentSerial);
-
 
                             if (FinishPaymentRet == 0)
                             {
