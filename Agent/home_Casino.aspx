@@ -197,7 +197,7 @@
                                     }
 
                                     try {
-                                        if (w.CurrencyType.toUpperCase() ==  EWinInfo.MainCurrencyType.toUpperCase()) {
+                                        if (w.CurrencyType.toUpperCase() == EWinInfo.MainCurrencyType.toUpperCase()) {
                                             //公司預設錢包會插在最上面
                                             idUserWalletInfo.insertAdjacentElement("afterbegin", temp);
                                         }
@@ -212,6 +212,31 @@
                                 }
                             }
 
+                        }
+
+
+                        if (o.GameCodeList != null) {
+                            for (var l = 0; l < o.GameCodeList.length; l++) {
+                                let kk = o.GameCodeList[l];
+                                let t = c.getTemplate("tempGameAccountingCode");
+
+                                c.setClassText(t, "GameAccountingCode", null, mlp.getLanguageKey(kk.GameAccountingCode));
+                                c.setClassText(t, "UserRate", null, c.toCurrency(kk.UserRate));
+                                c.setClassText(t, "BuyChipRate", null, c.toCurrency(kk.BuyChipRate));
+
+                                $(".GameAccountingCodeList").append(t);
+                            }
+
+                            $('.btnOpen').click(function () {
+                                $(".GameAccountingCodeList").show();
+                            });
+
+                            $('.btnClose').click(function () {
+                                $(".GameAccountingCodeList").hide();
+                            });
+                        } else {
+                            $('.btnOpen').hide();
+                            $('.btnClose').hide();
                         }
 
                         queryAccountingData();
@@ -256,7 +281,7 @@
             $(".RewardValue").text(0);
             $(".NotFirstDepositCount").text(0);
             $(".PreferentialCost").text(0);
-            
+
             postData = {
                 AID: EWinInfo.ASID,
                 QueryBeginDate: startDate,
@@ -499,14 +524,14 @@
             </div>
         </div>
 
-        <div class="currencyWalletList" style="margin-top:5px">
+        <div class="currencyWalletList" style="margin-top: 5px">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6 col-gx-4 col-xl-4 divCurrencyType">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency CurrencyType language_replace" >代理</span>
+                                    <span class="currency CurrencyType language_replace">代理</span>
                                 </div>
                             </div>
                             <div class="currencyWallet__currencyFocus">
@@ -560,7 +585,7 @@
             </div>
         </div>
 
-        <div class="currencyWalletList" style="margin-top:5px">
+        <div class="currencyWalletList" style="margin-top: 5px">
             <div class="container-fluid">
                 <div id="idUserInfo" class="row">
 
@@ -576,7 +601,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
@@ -603,7 +628,7 @@
                         </div>
                     </div>
 
-                               <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -782,8 +807,19 @@
                             <span class="title-s"><span class="language_replace">可用餘額</span></span>
                             <span class="data WalletBalance">0</span>
                         </div>
-                       
+
                     </div>
+
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                        <div class="form-group wrapper_center dataList-process">
+                            <button class="btn btn-outline-main language_replace btnOpen">展開</button>
+                            <button class="btn btn-outline-main language_replace btnClose">收合</button>
+                        </div>
+                    </div>
+
+                    <div class="GameAccountingCodeList">
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -798,6 +834,36 @@
                     <span class="title-s"><span class="language_replace">轉碼率</span></span>
                     <span class="data"><span class="data BuyChipRate">0</span>%</span>
                 </span>
+            </div>
+        </div>
+
+
+        <div id="tempGameAccountingCode" style="display: none">
+            <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15)">
+                <div class="detailItem">
+                    <span><span class="language_replace GameAccountingCode"></span></span>
+                </div>
+
+                <div class="detailItem">
+                    <span class="title-s">
+                        <i class="icon icon-ewin-default-periodWinLose icon-s icon-before"></i>
+                        <span class="language_replace">佔成率</span>
+                    </span>
+                    <span class="title-s" style="float: right">
+                        <span class="data UserRate">0</span>
+                        <span style="color: rgba(200, 219, 234, 0.8);">%</span>
+                    </span>
+                </div>
+                <div class="detailItem">
+                    <span class="title-s">
+                        <i class="icon icon-ewin-default-periodRolling icon-s icon-before"></i>
+                        <span class="language_replace">轉碼率</span>
+                    </span>
+                    <span class="title-s" style="float: right">
+                        <span class="data BuyChipRate">0</span>
+                        <span style="color: rgba(200, 219, 234, 0.8);">%</span>
+                    </span>
+                </div>
             </div>
         </div>
 

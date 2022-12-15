@@ -162,7 +162,7 @@
                     let kk = k.GameCodeList[l];
                     let t = c.getTemplate("tempGameAccountingCode");
 
-                    c.setClassText(t, "GameAccountingCode", null, kk.GameAccountingCode);
+                    c.setClassText(t, "GameAccountingCode", null, mlp.getLanguageKey(kk.GameAccountingCode));
                     c.setClassText(t, "UserRate", null, c.toCurrency(kk.UserRate));
                     c.setClassText(t, "BuyChipRate", null, c.toCurrency(kk.BuyChipRate));
 
@@ -415,7 +415,7 @@
                 <span><span class="data UserRate">0</span> <span style="color:rgba(200, 219, 234, 0.8);">%</span></span>
             </div>
             <div class="detailItem">
-                <span class="title-s"><i class="icon icon-ewin-default-periodRolling icon-s icon-before"></i><span class="language_replace">返水率</span></span>
+                <span class="title-s"><i class="icon icon-ewin-default-periodRolling icon-s icon-before"></i><span class="language_replace">轉碼率</span></span>
                 <span><span class="data BuyChipRate">0</span> <span style="color:rgba(200, 219, 234, 0.8);">%</span></span>
             </div>
         </div>

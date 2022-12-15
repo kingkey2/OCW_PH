@@ -35,6 +35,14 @@
   "首存金額": "First Deposit Amount",
   "啟用": "Enable",
   "可用餘額": "Balance",
-  "佔成率": "Share%",
-  "轉碼率": "Rebate%"
+  "佔成率": "Share %",
+  "轉碼率": "Rebate %",
+  "展開": "Expand",
+  "收合": "Close",
+  "Electron": "Egame",
+  "Electron.Fish": "FIsh",
+  "Live.FightChicken": "CockFight",
+  "Live": "Stream",
+  "Sport": "Sport",
+  "Slot": "Slot"
 }

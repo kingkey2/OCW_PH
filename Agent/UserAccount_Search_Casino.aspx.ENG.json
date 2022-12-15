@@ -53,5 +53,13 @@
   "修改備註": "Note Edit",
   "直屬階層管理": "Indirect Downline Management",
   "取消": "Cancel",
-  "直屬帳號": "Direct Account"
+  "直屬帳號": "Direct Account",
+  "展開": "Expand",
+  "收合": "Close",
+  "Electron": "Egame",
+  "Electron.Fish": "FIsh",
+  "Live.FightChicken": "CockFight",
+  "Live": "Stream",
+  "Sport": "Sport",
+  "Slot": "Slot"
 }
