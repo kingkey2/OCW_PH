@@ -346,7 +346,7 @@
 
     <div id="templateTableItem" style="display: none">
         <div class="col-12 col-md-6 col-lg-6 col-gx-4 col-xl-4 div_UserAccountInfo">
-            <div class="item">
+            <div class="item" style="border-bottom:hidden">
                 <div class="downline__overview">
                     <div class="tab-scroller" style="display: none">
                         <div class="downline__walletList tab-scroller__area">
@@ -417,7 +417,7 @@
     </div>
 
     <div id="tempGameAccountingCode" style="display: none">
-        <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15)">
+        <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15);width:48%;float:left;padding-left:5px;">
             <div class="detailItem">
                 <span><span class="language_replace GameAccountingCode">期間上下數</span></span>
             </div>
