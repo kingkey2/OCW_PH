@@ -218,7 +218,7 @@
     }
 
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByPaymentCodeFilterPaymentChannel(WebInfo.SID, Math.uuid(), "EPAY", 1, "Withdrawal.Gcash", WebInfo.UserInfo.UserLevel, function (success, o) {
+        PaymentClient.GetPaymentMethodByPaymentCodeFilterPaymentChannel(WebInfo.SID, Math.uuid(), "EPAY", 1, ".Withdrawal.Gcash", WebInfo.UserInfo.UserLevel,1, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {

@@ -414,7 +414,7 @@
     }
 
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodCryptoFilterPaymentChannel(WebInfo.SID, Math.uuid(), "Crypto", 1, WebInfo.UserInfo.UserLevel, function (success, o) {
+        PaymentClient.GetPaymentMethodCryptoFilterPaymentChannel(WebInfo.SID, Math.uuid(), "Crypto", 1, WebInfo.UserInfo.UserLevel,1, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {

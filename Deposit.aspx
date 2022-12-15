@@ -59,7 +59,7 @@
     }
 
     function GetListPaymentChannel() {
-        lobby.ListPaymentChannel(WebInfo.SID, Math.uuid(), function (success, o) {
+        lobby.ListPaymentChannel(WebInfo.SID, Math.uuid(),0 ,function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.ChannelList && o.ChannelList.length > 0) {
@@ -67,24 +67,26 @@
                         for (var i = 0; i < o.ChannelList.length; i++) {
                             var channel = o.ChannelList[i];
                             //UserLevelIndex
-                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType && channel.AllowDeposit==true) {
-
-      
+                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType) {
                                 var doc = "";
-                                switch (channel.PaymentChannelCode) {
-                                    case "EPAY.Feibao.Gcash":
-                                    case "EPAY.FIFIPay.GcashDirect":
-                                    case "EPAY.DiDiPay.GcashQRcode":
-                                    case "EPAY.YuHong.GcashQRcode":
-                                    case "EPAY.DiDiPay.Gcash":
+                                var PaymentChannelCode = channel.PaymentChannelCode;
+                                if (channel.PaymentProvider != '') {
+                                    PaymentChannelCode = PaymentChannelCode.substring(0, PaymentChannelCode.length - 1);
+                                }
+                                switch (PaymentChannelCode) {
+                                    case "FeibaoGcash.Gcash":
+                                    case "FIFIPay.GcashDirect":
+                                    case "DiDiPay.GcashQRcode":
+                                    case "YuHong.GcashQRcode":
+                                    case "DiDiPay.Gcash":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
-                                        if (channel.DepositAmountMin!=0) {
-                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
+                                        if (channel.AmountMin!=0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
                                         }
                                       
-                                        if (channel.DepositAmountMax != 0) {
-                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
+                                        if (channel.AmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
                                         }
 
                                     doc = ` <div class="card-item sd-09">
@@ -105,15 +107,15 @@
                                             </a>
                                         </div>`;
                                         break; 
-                                    case "EPAY.Feibao.Grabpay":
+                                    case "FeibaoGrabpay.Grabpay":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
-                                        if (channel.DepositAmountMin != 0) {
-                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
+                                        if (channel.AmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
                                         }
 
-                                        if (channel.DepositAmountMax != 0) {
-                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
+                                        if (channel.AmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
                                         }
 
                                         doc = ` <div class="card-item sd-10">
@@ -134,15 +136,15 @@
                                             </a>
                                         </div>`;
                                         break;
-                                    case "EPAY.Feibao.Paymaya":
+                                    case "FeibaoPaymaya.Paymaya":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
-                                        if (channel.DepositAmountMin != 0) {
-                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
+                                        if (channel.AmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
                                         }
 
-                                        if (channel.DepositAmountMax != 0) {
-                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
+                                        if (channel.AmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
                                         }
 
                                         doc = ` <div class="card-item sd-11">
@@ -171,12 +173,12 @@
                                         isAddedCrypto = true;
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
-                                        if (channel.DepositAmountMin != 0) {
-                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMin)));
+                                        if (channel.AmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
                                         }
 
-                                        if (channel.DepositAmountMax != 0) {
-                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.DepositAmountMax)));
+                                        if (channel.AmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
                                         }
 
                                         doc = `<div class="card-item sd-02">

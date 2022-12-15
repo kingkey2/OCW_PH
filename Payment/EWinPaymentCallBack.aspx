@@ -325,37 +325,22 @@
                                 string ProviderCode = "";
                                 var splitPaymentChannelCode = BodyObj.PaymentChannelCode.Split('.');
                                 string UnderProvider = "";
-                                string ServiceCode = "";
-                                string ServiceType = "";
+                                string ServiceType = "PHPBANK";
                                 bool CheckUnderProvider = true;
-                                if (splitPaymentChannelCode.Length != 3)
+                                if (splitPaymentChannelCode.Length != 2)
                                 {
                                     SetResultException(R, "PaymentChannelCode Error");
                                 }
                                 else
                                 {
-                                    UnderProvider = splitPaymentChannelCode[1];
-                                    ServiceCode = splitPaymentChannelCode[2];
-                                    if (UnderProvider == "Feibao")
+                                    UnderProvider = splitPaymentChannelCode[0];
+                                    if (UnderProvider == "FeibaoPaymaya")
                                     {
-                                        if (ServiceCode == "Gcash")
-                                        {
-                                            ProviderCode = "FeibaoPay";
-                                        }
-                                        else if (ServiceCode == "Grabpay")
-                                        {
-                                            ProviderCode = "FeibaoPayGrabpay";
-                                        }
-                                        else if (ServiceCode == "Paymaya")
-                                        {
-                                            ProviderCode = "FeibaoPayPaymaya";
-                                        }
-                                        else
-                                        {
-                                            CheckUnderProvider = false;
-                                        }
-
+                                        ProviderCode = "FeibaoPayPaymaya";
                                     }
+                                    else if (UnderProvider == "FeibaoGrabpay") { ProviderCode = "FeibaoPayGrabpay"; }
+                                    else if (UnderProvider == "FeibaoGcash") { ProviderCode = "FeibaoPay"; }
+                                    else if (UnderProvider == "FIFIPay") { ProviderCode = "FIFIPay"; }
                                     else if (UnderProvider == "YuHong") { ProviderCode = "YuHong"; }
                                     else if (UnderProvider == "DiDiPay") { ProviderCode = "DiDiPay"; }
                                     else if (UnderProvider == "FIFIPay") { ProviderCode = "FIFIPay"; }
@@ -364,32 +349,10 @@
                                         CheckUnderProvider = false;
                                     }
 
-                                    if (ServiceCode == "GcashQRcode")
-                                    {
-                                        ServiceType = "PHP04";
-                                    }
-                                    else if (ServiceCode == "GcashDirect")
-                                    {
-                                        ServiceType = "PHP05";
-                                    }
-                                    else if (ServiceCode == "Gcash")
-                                    {
-                                        ServiceType = "PHP01";
-                                    }
-                                    else if (ServiceCode == "Paymaya")
-                                    {
-                                        ServiceType = "PHP03";
-                                    }
-                                    else if (ServiceCode == "Grabpay")
-                                    {
-                                        ServiceType = "PHP02";
-                                    }
-
                                     if (CheckUnderProvider)
                                     {
                                         if (BankData != null)
                                         {
-
                                             var CreateEPayWithdrawalReturn = Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial, decimal.Parse(BankData["ReceiveAmount"].ToString()), paymentResult.CreateDate, BankData["BankCard"].ToString(), BankData["BankCardName"].ToString(), BankData["BankName"].ToString(), "BankBranchCode", BankData["BankCard"].ToString(), ProviderCode, ServiceType);
                                             if (CreateEPayWithdrawalReturn.ResultState == Payment.APIResult.enumResultCode.OK)
                                             {
