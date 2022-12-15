@@ -789,9 +789,9 @@
         </div>
 
         <div id="templateWalletInfo" style="display: none">
-            <div class="col-12 col-md-12 col-lg-12 col-gx-12 col-xl-12"> <%----%>
+            <div class="col-12 col-md-12 col-lg-12 col-gx-12 col-xl-12">
                 <div class="item row" style="border-bottom: hidden">
-                    <div class="col-md-4 col-lg-4 col-gx-4 col-xl-4"><%----%>
+                    <div class="col-md-4 col-lg-4 col-gx-4 col-xl-4">
                         <div class="currencyWallet__type">
                             <div class="wallet__type">
                                 <span class="title"><i class="icon icon2020-ico-coin-o"></i><span class="language_replace"></span></span>
@@ -810,7 +810,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8 col-lg-8 col-gx-8 col-xl-8"><%--col-md-3 col-lg-2 col-gx-2 col-xl-2--%>
+                    <div class="col-md-8 col-lg-8 col-gx-8 col-xl-8">
                         <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
                             <div class="form-group wrapper_center dataList-process">
                                 <button class="btn btn-outline-main language_replace btnOpen">展開</button>
@@ -836,7 +836,6 @@
                 </span>
             </div>
         </div>
-
 
         <div id="tempGameAccountingCode" style="display: none">
             <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15); width: 48%; float: left; padding-left:10px">
