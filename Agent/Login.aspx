@@ -290,21 +290,16 @@
             //    }
             //}
         }
-
-        langTmp = window.localStorage.getItem("agent_lang");
-        if ((langTmp != null) && (langTmp != "")) {
-            //lang = langTmp;
-            //document.getElementsByName("Lang")[0].value = lang;
-            for (var i = 0; i < langel.length; i++) {
-                if (lang == langel[i].value) {
-                    langel[i].checked = true;
-                    break;
-                }
+        
+        for (var i = 0; i < langel.length; i++) {
+            if (lang == langel[i].value) {
+                langel[i].checked = true;
+                break;
             }
-        } else {
-            window.localStorage.setItem("agent_lang", lang);
         }
 
+        window.localStorage.setItem("agent_lang", lang);
+        
         onLoginType();
 
         mlp = new multiLanguage(v);

@@ -304,7 +304,7 @@
                             $(".PreferentialCost").text(toCurrency(data.BonusPointValue + data.CostValue));
                             $(".TotalOrderCount").text(toCurrency(data.TotalOrderCount));
                             if (data.NewUserCount > 0) {
-                                $(".NewUserCount").text(toCurrency(data.NewUserCount - 1));
+                                $(".NewUserCount").text(toCurrency(data.NewUserCount));
                             } else {
                                 $(".NewUserCount").text(0);
                             }
