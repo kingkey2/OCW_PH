@@ -121,12 +121,12 @@
                                     case ".Withdrawal.BANK":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
-                                        if (channel.WithdrawalAmountMin != 0) {
-                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.WithdrawalAmountMin)));
+                                        if (channel.AmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
                                         }
 
-                                        if (channel.WithdrawalAmountMax != 0) {
-                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.WithdrawalAmountMax)));
+                                        if (channel.AmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
                                         }
 
                                         $('#idWithdrawalBankCard').find('.limit').text(minAmount + "~" + maxAmount);
@@ -135,12 +135,12 @@
                                     case ".Withdrawal.Gcash":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
-                                        if (channel.WithdrawalAmountMin != 0) {
-                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.WithdrawalAmountMin)));
+                                        if (channel.AmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
                                         }
 
-                                        if (channel.WithdrawalAmountMax != 0) {
-                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.WithdrawalAmountMax)));
+                                        if (channel.AmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
                                         }
 
                                         $('#idWithdrawalGCASH').find('.limit').text(minAmount + "~" + maxAmount);
@@ -152,12 +152,12 @@
                                 if (channel.PaymentChannelCode.includes("BlockChain")) {
                                     var minAmount = "unlimited";
                                     var maxAmount = "unlimited";
-                                    if (channel.DepositAmountMin != 0) {
-                                        minAmount = toCurrency(new BigNumber(Math.abs(channel.WithdrawalAmountMin)));
+                                    if (channel.AmountMin != 0) {
+                                        minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
                                     }
 
-                                    if (channel.DepositAmountMax != 0) {
-                                        maxAmount = toCurrency(new BigNumber(Math.abs(channel.WithdrawalAmountMax)));
+                                    if (channel.AmountMax != 0) {
+                                        maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
                                     }
 
                                     $('#idWithdrawalCrypto').find('.limit').text(minAmount + "~" + maxAmount);
