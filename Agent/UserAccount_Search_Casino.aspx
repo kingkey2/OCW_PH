@@ -114,10 +114,21 @@
             for (var i = 0; i < item.length; i++) {
                 let k = item[i];
                 var temp = c.getTemplate("templateTableItem");
+                var UserAccountNote = "";
+
+                if (k.ExtraData) {
+                    var ExtraData = JSON.parse(k.ExtraData);
+
+                    for (var j = 0; j < ExtraData.length; j++) {
+                        if (ExtraData[j].Name == "UserAccountNote") {
+                            UserAccountNote = ExtraData[j].Value;
+                        }
+                    }
+                }
 
                 c.setClassText(temp, "mtLoginAccount", null, k.LoginAccount);
                 c.setClassText(temp, "mtRealName", null, k.RealName);
-                c.setClassText(temp, "mtRemark", null, k.Tag);
+                c.setClassText(temp, "mtRemark", null, UserAccountNote);
                 mtUserAccountType = temp.getElementsByClassName("mtUserAccountType");
                 if (mtUserAccountType) {
                     switch (k.UserAccountType) {
@@ -171,8 +182,9 @@
 
                 $(temp).find('.ModifyRemarkBtn').click(function () {
                     var d = this;
+
                     $(d).find('.mtRemark').hide();
-                    $(d).find('.inputRemark').val(k.Tag);
+                    //$(d).find('.inputRemark').val(UserAccountNote);
                     $(d).find('.inputRemark').show();
                     $(d).find('.divRemarkBtn').show();
                     //$(this).show();
@@ -215,9 +227,9 @@
 
         function updateTag(docInputRemark, docModifyRemarkSaveBtn, docmtRemark, userAccountID) {
             window.parent.API_ShowLoading();
-            var tag = docInputRemark.val();
+            var userAccountNote = docInputRemark.val();
 
-            if (tag == "") {
+            if (userAccountNote == "") {
                 window.parent.API_ShowMessageOK("", mlp.getLanguageKey("請輸入備註"));
                 window.parent.API_CloseLoading();
                 return;
@@ -226,16 +238,16 @@
             postData = {
                 AID: EWinInfo.ASID,
                 UserAccountID: userAccountID,
-                Tag: tag
+                UserAccountNote: userAccountNote
             };
-            c.callService(ApiUrl + "/UpdateTag", postData, function (success, obj) {
+            c.callService(ApiUrl + "/UpdateUserAccountNote", postData, function (success, obj) {
                 window.parent.API_CloseLoading();
                 if (success) {
                     var o = c.getJSON(obj);
 
                     if (o.Result == 0) {
                         docModifyRemarkSaveBtn.hide();
-                        docmtRemark.text(tag);
+                        docmtRemark.text(userAccountNote);
                         docmtRemark.show();
                         docInputRemark.hide();
                     } else {
@@ -334,7 +346,7 @@
 
     <div id="templateTableItem" style="display: none">
         <div class="col-12 col-md-6 col-lg-6 col-gx-4 col-xl-4 div_UserAccountInfo">
-            <div class="item">
+            <div class="item" style="border-bottom:hidden">
                 <div class="downline__overview">
                     <div class="tab-scroller" style="display: none">
                         <div class="downline__walletList tab-scroller__area">
@@ -405,7 +417,7 @@
     </div>
 
     <div id="tempGameAccountingCode" style="display: none">
-        <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15)">
+        <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15);width:48%;float:left;padding-left:5px;">
             <div class="detailItem">
                 <span><span class="language_replace GameAccountingCode">期間上下數</span></span>
             </div>

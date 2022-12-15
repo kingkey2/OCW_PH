@@ -33,51 +33,6 @@
     var uType;
     var processing = false;
     var GetCompanyPermissionGroup;
-    //function btnSubmit() {
-    //    checkFormData(function () {
-    //        updateUserInfo();
-    //    });
-    //}
-
-    function getQBetLimitCount(currencyType) {
-        var QBetLimitList = document.getElementById("QBetLimitList");
-        var div_CurrencyType;
-        var elInputList;
-        var count = 0;
-        var canAssignType = false;
-
-        elInputList = QBetLimitList.getElementsByClassName("BetLimitID");
-        div_CurrencyType = QBetLimitList.getElementsByClassName("div_CurrencyType");
-        for (var i = 0; i < elInputList.length; i++) {
-            var el = elInputList[i];
-            canAssignType = false;
-
-            switch (uType) {
-                case 0:
-                    if (div_CurrencyType[i].getAttribute("assigntype") == "0") {
-                        canAssignType = true;
-                    }
-                    break;
-                case 1:
-                    if (div_CurrencyType[i].getAttribute("assigntype") == "0" || div_CurrencyType[i].getAttribute("assigntype") == "1") {
-                        canAssignType = true;
-                    }
-                    break;
-            }
-
-            if (canAssignType == true) {
-                if (el.tagName.toUpperCase() == "INPUT".toUpperCase()) {
-                    if (el.checked == true) {
-                        if (el.getAttribute("CurrencyType") == currencyType) {
-                            count++;
-                        }
-                    }
-                }
-            }
-        }
-
-        return count;
-    }
 
     function checkFormData() {
         var retValue = true;
@@ -308,8 +263,9 @@
         if (processing == false) {
 
             // 建立用戶更新物件
-            if ((form.LoginPassword.value != "") && (form.LoginPassword.value != null))
+            if ((form.LoginPassword.value != "") && (form.LoginPassword.value != null)) {
                 userList[userList.length] = { Name: "LoginPassword", Value: form.LoginPassword.value };
+            }
             userList[userList.length] = { Name: "UserAccountType", Value: uType };
             userList[userList.length] = { Name: "UserAccountState", Value: 0 };
             userList[userList.length] = { Name: "RealName", Value: form.RealName.value };
@@ -344,7 +300,7 @@
             userList[userList.length] = { Name: "AllowBet", Value: 3 };
 
             let k = {
-                CurrencyType: EWinInfo.CurrencyType,
+                CurrencyType: EWinInfo.MainCurrencyType,
                 PointState: 0,
                 UserRate: 0,
                 BuyChipRate: 0
@@ -422,8 +378,7 @@
             window.parent.API_ShowToastMessage(mlp.getLanguageKey("作業進行中"));
         }
     }
-
-
+    
     function updateBaseInfo(o) {
         var t;
         var btnPointNew;

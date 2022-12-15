@@ -304,7 +304,7 @@
                             $(".PreferentialCost").text(toCurrency(data.BonusPointValue + data.CostValue));
                             $(".TotalOrderCount").text(toCurrency(data.TotalOrderCount));
                             if (data.NewUserCount > 0) {
-                                $(".NewUserCount").text(toCurrency(data.NewUserCount - 1));
+                                $(".NewUserCount").text(toCurrency(data.NewUserCount));
                             } else {
                                 $(".NewUserCount").text(0);
                             }
@@ -789,37 +789,37 @@
         </div>
 
         <div id="templateWalletInfo" style="display: none">
-            <div class="col-12 col-md-6 col-lg-6 col-gx-4 col-xl-4">
-                <div class="item">
-                    <div class="currencyWallet__type">
-                        <div class="wallet__type">
-                            <span class="title"><i class="icon icon2020-ico-coin-o"></i><span class="language_replace"></span></span>
-                            <span class="currency CurrencyType">CNY</span>
+            <div class="col-12 col-md-12 col-lg-12 col-gx-12 col-xl-12">
+                <div class="item row" style="border-bottom: hidden">
+                    <div class="col-md-4 col-lg-4 col-gx-4 col-xl-4">
+                        <div class="currencyWallet__type">
+                            <div class="wallet__type">
+                                <span class="title"><i class="icon icon2020-ico-coin-o"></i><span class="language_replace"></span></span>
+                                <span class="currency CurrencyType">CNY</span>
+                            </div>
+                            <!-- 錢包啟用 狀態加入 class="status-active" -->
+                            <div class="wallet__status status-active" style="display: none">
+                                <i class="icon icon-ewin-default-walletStatus"></i>
+                                <span class="language_replace mtWalletState">啟用</span>
+                            </div>
                         </div>
-                        <!-- 錢包啟用 狀態加入 class="status-active" -->
-                        <div class="wallet__status status-active" style="display: none">
-                            <i class="icon icon-ewin-default-walletStatus"></i>
-                            <span class="language_replace mtWalletState">啟用</span>
-                        </div>
-                    </div>
-                    <div class="currencyWallet__currencyFocus divWalletList" style="border-bottom: none">
-                        <div class="balance">
-                            <span class="title-s"><span class="language_replace">可用餘額</span></span>
-                            <span class="data WalletBalance">0</span>
-                        </div>
-
-                    </div>
-
-                    <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
-                        <div class="form-group wrapper_center dataList-process">
-                            <button class="btn btn-outline-main language_replace btnOpen">展開</button>
-                            <button class="btn btn-outline-main language_replace btnClose">收合</button>
+                        <div class="currencyWallet__currencyFocus divWalletList" style="border-bottom: none">
+                            <div class="balance">
+                                <span class="title-s"><span class="language_replace">可用餘額</span></span>
+                                <span class="data WalletBalance">0</span>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="GameAccountingCodeList">
+                    <div class="col-md-8 col-lg-8 col-gx-8 col-xl-8">
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div class="form-group wrapper_center dataList-process">
+                                <button class="btn btn-outline-main language_replace btnOpen">展開</button>
+                                <button class="btn btn-outline-main language_replace btnClose">收合</button>
+                            </div>
+                        </div>
+                        <div class="GameAccountingCodeList">
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -837,9 +837,8 @@
             </div>
         </div>
 
-
         <div id="tempGameAccountingCode" style="display: none">
-            <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15)">
+            <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15); width: 48%; float: left; padding-left:10px">
                 <div class="detailItem">
                     <span><span class="language_replace GameAccountingCode"></span></span>
                 </div>
