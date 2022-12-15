@@ -499,7 +499,7 @@
             </div>
         </div>
 
-        <div class="currencyWalletList" >
+        <div class="currencyWalletList" style="margin-top:5px">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6 col-gx-4 col-xl-4 divCurrencyType">
@@ -560,148 +560,148 @@
             </div>
         </div>
 
-        <div class="currencyWalletList" >
+        <div class="currencyWalletList" style="margin-top:5px">
             <div class="container-fluid">
                 <div id="idUserInfo" class="row">
 
-                    <div class="col-12 col-md-6 col-lg-6 col-gx-6 col-xl-6" style="display: none">
+                    <div class="col-6 col-md-6 col-lg-6 col-gx-6 col-xl-6" style="display: none">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
                                     <span class="currency language_replace">總返水</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace" style="font-weight:bold">9999</span>
+                                    <span class="language_replace data">9999</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
                                     <span class="currency language_replace">總收益</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace UserRebate" style="font-weight:bold">0</span>
+                                    <span class="language_replace UserRebate data">0</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
                                     <span class="currency language_replace">有效投注</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace TotalValidBetValue" style="font-weight:bold">9999</span>
+                                    <span class="language_replace TotalValidBetValue data">9999</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                               <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                               <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
                                     <span class="currency language_replace">會員輸贏</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace RewardValue" style="font-weight:bold">9999</span>
+                                    <span class="language_replace RewardValue data">9999</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3" style="display: none">
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3" style="display: none">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
                                     <span class="currency language_replace">總佔成</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace " style="font-weight:bold">9999</span>
+                                    <span class="language_replace data ">9999</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
                                     <span class="currency language_replace">優惠成本</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace PreferentialCost" style="font-weight:bold">0</span>
+                                    <span class="language_replace PreferentialCost data">0</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
                                     <span class="currency language_replace">投注筆數</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace TotalOrderCount" style="font-weight:bold">0</span>
+                                    <span class="language_replace TotalOrderCount data">0</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
                                     <span class="currency language_replace">新用戶數</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace NewUserCount" style="font-weight:bold">0</span>
+                                    <span class="language_replace NewUserCount data">0</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
                                     <span class="currency language_replace">首存人數</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace FirstDepositCount" style="font-weight:bold">0</span>
+                                    <span class="language_replace FirstDepositCount data">0</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
                                     <span class="currency language_replace">複存人數</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace NotFirstDepositCount" style="font-weight:bold">0</span>
+                                    <span class="language_replace NotFirstDepositCount data">0</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
                                     <span class="currency language_replace">提現金額</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace WithdrawalValue" style="font-weight:bold">0</span>
+                                    <span class="language_replace WithdrawalValue data">0</span>
                                 </div>
                             </div>
                             <div class="wrapper_revenueAmount">
@@ -721,14 +721,14 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
                                     <span class="currency language_replace">充值金額</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace DepositValue" style="font-weight:bold">0</span>
+                                    <span class="language_replace DepositValue data">0</span>
                                 </div>
                             </div>
                             <div class="wrapper_revenueAmount">
@@ -740,14 +740,14 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
                                     <span class="currency language_replace">首存金額</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace FirstDepositValue" style="font-weight:bold">0</span>
+                                    <span class="language_replace FirstDepositValue data">0</span>
                                 </div>
                             </div>
                             <div class="wrapper_revenueAmount">

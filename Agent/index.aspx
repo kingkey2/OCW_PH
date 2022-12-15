@@ -858,7 +858,11 @@
             
             getCompanyInfo(function (success) {
                 if (success) {
-                    queryUserInfo();                        
+                    queryUserInfo(function (success) {
+                        if (success) {
+                            API_MainWindow("Main", "home_Casino.aspx");
+                        }                        
+                    });                        
                  }
              });
 
@@ -948,9 +952,7 @@
                         window.localStorage.setItem("UpdateDeviceInfo", "true");
                     }
                 }
-            }
-            
-            API_MainWindow("Main", "home_Casino.aspx");
+            }                     
         });
 
         resize();
