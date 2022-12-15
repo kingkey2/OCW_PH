@@ -114,10 +114,21 @@
             for (var i = 0; i < item.length; i++) {
                 let k = item[i];
                 var temp = c.getTemplate("templateTableItem");
+                var UserAccountNote = "";
+
+                if (k.ExtraData) {
+                    var ExtraData = JSON.parse(k.ExtraData);
+
+                    for (var j = 0; j < ExtraData.length; j++) {
+                        if (ExtraData[j].Name == "UserAccountNote") {
+                            UserAccountNote = ExtraData[j].Value;
+                        }
+                    }
+                }
 
                 c.setClassText(temp, "mtLoginAccount", null, k.LoginAccount);
                 c.setClassText(temp, "mtRealName", null, k.RealName);
-                c.setClassText(temp, "mtRemark", null, k.Tag);
+                c.setClassText(temp, "mtRemark", null, UserAccountNote);
                 mtUserAccountType = temp.getElementsByClassName("mtUserAccountType");
                 if (mtUserAccountType) {
                     switch (k.UserAccountType) {
@@ -171,8 +182,9 @@
 
                 $(temp).find('.ModifyRemarkBtn').click(function () {
                     var d = this;
+
                     $(d).find('.mtRemark').hide();
-                    $(d).find('.inputRemark').val(k.Tag);
+                    //$(d).find('.inputRemark').val(UserAccountNote);
                     $(d).find('.inputRemark').show();
                     $(d).find('.divRemarkBtn').show();
                     //$(this).show();
@@ -215,9 +227,9 @@
 
         function updateTag(docInputRemark, docModifyRemarkSaveBtn, docmtRemark, userAccountID) {
             window.parent.API_ShowLoading();
-            var tag = docInputRemark.val();
+            var userAccountNote = docInputRemark.val();
 
-            if (tag == "") {
+            if (userAccountNote == "") {
                 window.parent.API_ShowMessageOK("", mlp.getLanguageKey("請輸入備註"));
                 window.parent.API_CloseLoading();
                 return;
@@ -226,16 +238,16 @@
             postData = {
                 AID: EWinInfo.ASID,
                 UserAccountID: userAccountID,
-                Tag: tag
+                UserAccountNote: userAccountNote
             };
-            c.callService(ApiUrl + "/UpdateTag", postData, function (success, obj) {
+            c.callService(ApiUrl + "/UpdateUserAccountNote", postData, function (success, obj) {
                 window.parent.API_CloseLoading();
                 if (success) {
                     var o = c.getJSON(obj);
 
                     if (o.Result == 0) {
                         docModifyRemarkSaveBtn.hide();
-                        docmtRemark.text(tag);
+                        docmtRemark.text(userAccountNote);
                         docmtRemark.show();
                         docInputRemark.hide();
                     } else {

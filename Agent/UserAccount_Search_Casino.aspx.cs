@@ -34,11 +34,11 @@ public partial class Agent_UserAccount_Search_Casino : System.Web.UI.Page {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.SpriteAgent.APIResult UpdateTag(string AID, int UserAccountID, string Tag) {
+    public static EWin.SpriteAgent.APIResult UpdateUserAccountNote(string AID, int UserAccountID, string UserAccountNote) {
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
         EWin.SpriteAgent.APIResult RetValue = new EWin.SpriteAgent.APIResult();
 
-        RetValue = api.UpdateTag(AID, UserAccountID, Tag);
+        RetValue = api.UpdateUserAccountNote(AID, UserAccountID, UserAccountNote);
 
         return RetValue;
     }

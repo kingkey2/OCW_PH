@@ -268,8 +268,6 @@
           <s:element minOccurs="1" maxOccurs="1" name="PointValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="AgentCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="PlayerCount" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="SelfBonusPointValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="LastLoginDate" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
@@ -730,6 +728,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="RealName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExtraData" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Tag" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="WalletList" type="tns:ArrayOfWallet1" />
           <s:element minOccurs="0" maxOccurs="1" name="GameCodeList" type="tns:ArrayOfGameInfo" />
@@ -794,33 +793,19 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="QueryCurrentUserInfoForUserEditPage">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="QueryCurrentUserInfoForUserEditPageResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="QueryCurrentUserInfoForUserEditPageResult" type="tns:UserInfoResult" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="UpdateTag">
+      <s:element name="UpdateUserAccountNote">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="Tag" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserAccountNote" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="UpdateTagResponse">
+      <s:element name="UpdateUserAccountNoteResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="UpdateTagResult" type="tns:APIResult" />
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateUserAccountNoteResult" type="tns:APIResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -939,17 +924,11 @@
   <wsdl:message name="UpdateUserInfoSoapOut">
     <wsdl:part name="parameters" element="tns:UpdateUserInfoResponse" />
   </wsdl:message>
-  <wsdl:message name="QueryCurrentUserInfoForUserEditPageSoapIn">
-    <wsdl:part name="parameters" element="tns:QueryCurrentUserInfoForUserEditPage" />
+  <wsdl:message name="UpdateUserAccountNoteSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUserAccountNote" />
   </wsdl:message>
-  <wsdl:message name="QueryCurrentUserInfoForUserEditPageSoapOut">
-    <wsdl:part name="parameters" element="tns:QueryCurrentUserInfoForUserEditPageResponse" />
-  </wsdl:message>
-  <wsdl:message name="UpdateTagSoapIn">
-    <wsdl:part name="parameters" element="tns:UpdateTag" />
-  </wsdl:message>
-  <wsdl:message name="UpdateTagSoapOut">
-    <wsdl:part name="parameters" element="tns:UpdateTagResponse" />
+  <wsdl:message name="UpdateUserAccountNoteSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserAccountNoteResponse" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpGetIn">
     <wsdl:part name="ASID" type="s:string" />
@@ -1077,18 +1056,12 @@
   <wsdl:message name="QueryCurrentUserInfoForSearchPageHttpGetOut">
     <wsdl:part name="Body" element="tns:ChildUserInfoResult" />
   </wsdl:message>
-  <wsdl:message name="QueryCurrentUserInfoForUserEditPageHttpGetIn">
-    <wsdl:part name="AID" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="QueryCurrentUserInfoForUserEditPageHttpGetOut">
-    <wsdl:part name="Body" element="tns:UserInfoResult" />
-  </wsdl:message>
-  <wsdl:message name="UpdateTagHttpGetIn">
+  <wsdl:message name="UpdateUserAccountNoteHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="UserAccountID" type="s:string" />
-    <wsdl:part name="Tag" type="s:string" />
+    <wsdl:part name="UserAccountNote" type="s:string" />
   </wsdl:message>
-  <wsdl:message name="UpdateTagHttpGetOut">
+  <wsdl:message name="UpdateUserAccountNoteHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpPostIn">
@@ -1217,18 +1190,12 @@
   <wsdl:message name="QueryCurrentUserInfoForSearchPageHttpPostOut">
     <wsdl:part name="Body" element="tns:ChildUserInfoResult" />
   </wsdl:message>
-  <wsdl:message name="QueryCurrentUserInfoForUserEditPageHttpPostIn">
-    <wsdl:part name="AID" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="QueryCurrentUserInfoForUserEditPageHttpPostOut">
-    <wsdl:part name="Body" element="tns:UserInfoResult" />
-  </wsdl:message>
-  <wsdl:message name="UpdateTagHttpPostIn">
+  <wsdl:message name="UpdateUserAccountNoteHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="UserAccountID" type="s:string" />
-    <wsdl:part name="Tag" type="s:string" />
+    <wsdl:part name="UserAccountNote" type="s:string" />
   </wsdl:message>
-  <wsdl:message name="UpdateTagHttpPostOut">
+  <wsdl:message name="UpdateUserAccountNoteHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:portType name="SpriteAgentSoap">
@@ -1300,13 +1267,9 @@
       <wsdl:input message="tns:UpdateUserInfoSoapIn" />
       <wsdl:output message="tns:UpdateUserInfoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="QueryCurrentUserInfoForUserEditPage">
-      <wsdl:input message="tns:QueryCurrentUserInfoForUserEditPageSoapIn" />
-      <wsdl:output message="tns:QueryCurrentUserInfoForUserEditPageSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdateTag">
-      <wsdl:input message="tns:UpdateTagSoapIn" />
-      <wsdl:output message="tns:UpdateTagSoapOut" />
+    <wsdl:operation name="UpdateUserAccountNote">
+      <wsdl:input message="tns:UpdateUserAccountNoteSoapIn" />
+      <wsdl:output message="tns:UpdateUserAccountNoteSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="SpriteAgentHttpGet">
@@ -1370,13 +1333,9 @@
       <wsdl:input message="tns:QueryCurrentUserInfoForSearchPageHttpGetIn" />
       <wsdl:output message="tns:QueryCurrentUserInfoForSearchPageHttpGetOut" />
     </wsdl:operation>
-    <wsdl:operation name="QueryCurrentUserInfoForUserEditPage">
-      <wsdl:input message="tns:QueryCurrentUserInfoForUserEditPageHttpGetIn" />
-      <wsdl:output message="tns:QueryCurrentUserInfoForUserEditPageHttpGetOut" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdateTag">
-      <wsdl:input message="tns:UpdateTagHttpGetIn" />
-      <wsdl:output message="tns:UpdateTagHttpGetOut" />
+    <wsdl:operation name="UpdateUserAccountNote">
+      <wsdl:input message="tns:UpdateUserAccountNoteHttpGetIn" />
+      <wsdl:output message="tns:UpdateUserAccountNoteHttpGetOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="SpriteAgentHttpPost">
@@ -1440,13 +1399,9 @@
       <wsdl:input message="tns:QueryCurrentUserInfoForSearchPageHttpPostIn" />
       <wsdl:output message="tns:QueryCurrentUserInfoForSearchPageHttpPostOut" />
     </wsdl:operation>
-    <wsdl:operation name="QueryCurrentUserInfoForUserEditPage">
-      <wsdl:input message="tns:QueryCurrentUserInfoForUserEditPageHttpPostIn" />
-      <wsdl:output message="tns:QueryCurrentUserInfoForUserEditPageHttpPostOut" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdateTag">
-      <wsdl:input message="tns:UpdateTagHttpPostIn" />
-      <wsdl:output message="tns:UpdateTagHttpPostOut" />
+    <wsdl:operation name="UpdateUserAccountNote">
+      <wsdl:input message="tns:UpdateUserAccountNoteHttpPostIn" />
+      <wsdl:output message="tns:UpdateUserAccountNoteHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SpriteAgentSoap" type="tns:SpriteAgentSoap">
@@ -1604,17 +1559,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="QueryCurrentUserInfoForUserEditPage">
-      <soap:operation soapAction="http://tempuri.org/QueryCurrentUserInfoForUserEditPage" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateTag">
-      <soap:operation soapAction="http://tempuri.org/UpdateTag" style="document" />
+    <wsdl:operation name="UpdateUserAccountNote">
+      <soap:operation soapAction="http://tempuri.org/UpdateUserAccountNote" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1778,17 +1724,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="QueryCurrentUserInfoForUserEditPage">
-      <soap12:operation soapAction="http://tempuri.org/QueryCurrentUserInfoForUserEditPage" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateTag">
-      <soap12:operation soapAction="http://tempuri.org/UpdateTag" style="document" />
+    <wsdl:operation name="UpdateUserAccountNote">
+      <soap12:operation soapAction="http://tempuri.org/UpdateUserAccountNote" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1934,17 +1871,8 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="QueryCurrentUserInfoForUserEditPage">
-      <http:operation location="/QueryCurrentUserInfoForUserEditPage" />
-      <wsdl:input>
-        <http:urlEncoded />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateTag">
-      <http:operation location="/UpdateTag" />
+    <wsdl:operation name="UpdateUserAccountNote">
+      <http:operation location="/UpdateUserAccountNote" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -2090,17 +2018,8 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="QueryCurrentUserInfoForUserEditPage">
-      <http:operation location="/QueryCurrentUserInfoForUserEditPage" />
-      <wsdl:input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateTag">
-      <http:operation location="/UpdateTag" />
+    <wsdl:operation name="UpdateUserAccountNote">
+      <http:operation location="/UpdateUserAccountNote" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
