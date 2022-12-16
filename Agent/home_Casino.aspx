@@ -239,6 +239,11 @@
                             $('.btnClose').hide();
                         }
 
+                        if ($("#idUserWalletInfo .GameAccountingCodeList").children().length == 0) {
+                            $('.btnOpen').hide();
+                            $('.btnClose').hide();
+                        }
+
                         queryAccountingData();
 
                         if (cb)
