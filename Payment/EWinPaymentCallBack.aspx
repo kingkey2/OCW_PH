@@ -393,7 +393,7 @@
                                 }
                             }
                             else {
-                                R.Result = 0;
+                              SetResultException(R, "PaymentProvider Empty.");
                             }
                         }
                         else if (BodyObj.Action == "CancelResume")

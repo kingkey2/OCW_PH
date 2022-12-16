@@ -2034,7 +2034,16 @@ public class PaymentAPI : System.Web.Services.WebService
                                         TaxFeeValue = TempCryptoData.Amount - TempCryptoData.ReceiveTotalAmount
                                     };
                                     paymentDetailBankCards.Add(paymentDetailWallet);
-                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, paymentDetailWallet.TaxFeeValue, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, "", CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
+                                    string PaymentCode = "";
+                                    if (TempCryptoData.PaymentCode == ".Withdrawal.Gcash")
+                                    {
+                                        PaymentCode = "@2";
+                                    }
+                                    else
+                                    {
+                                        PaymentCode = "@1";
+                                    }
+                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, paymentDetailWallet.TaxFeeValue, Decription, true, PointValue * -1, PaymentCode, "", CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
                                         int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, BankDatas.ToString(), paymentResult.PaymentSerial, PointValue, "");
