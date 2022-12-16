@@ -1137,8 +1137,9 @@
                                     <i class="icon-info_circle_outline"></i>
                                     <div class="text-wrap">
                                         <p class="title language_replace">溫馨提醒</p>
-                                        <p class="language_replace">匯率波動以交易所為主，匯率可能不定時更新。</p>
-                                        <p class="language_replace">燃料費由存款者負擔。</p>
+                                        <p class="language_replace">1.交易所轉帳可能內含手續費，請務必確認數位貨幣實際到帳數量和訂單數量相符，否則將無法上分。</p>
+                                        <p class="language_replace">2.數位貨幣入款需要經過區塊認證確認，可能需要數分鐘或者更久，完成時間並非由本網站決定，敬請知悉。</p>
+                                         <p class="language_replace">3.匯率可能隨時變動中，所有交易以本網站的匯率為準，轉帳後若有變動，將以實際入帳時的匯率撥給遊戲幣。建議您可於入款前重整匯率資訊，確保您同意目前的匯率後進行入款。</p>
                                     </div>
                                 </div>
                             </div>
