@@ -60,7 +60,7 @@
     RValue = R.Next(100000, 9999999);
     Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
     var CompanySite = lobbyAPI.GetCompanySite(Token, Guid.NewGuid().ToString());
-
+    
     RegisterType = CompanySite.RegisterType;
     RegisterParentPersonCode = CompanySite.RegisterParentPersonCode;
     if (string.IsNullOrEmpty(Request["Lang"])) {

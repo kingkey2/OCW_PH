@@ -41,6 +41,7 @@
     var v = "<%:Version%>";
     var lobby;
     var isAddedCrypto = false;
+    var TimeZone = 8;
     function init() {
 
         if (self == top) {
@@ -214,7 +215,19 @@
                                     }
                                 }
                               
-                                if (doc!="") {
+                                if (doc != "") {
+
+                                    var startTime= Date.parse("2022/12/19 " + channel.AvailableTime.StartTime);
+                                    var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime);
+                                    startTime = startTime+ (TimeZone * 60 * 60 * 1000);
+                                    endTime = endTime + (TimeZone * 60 * 60 * 1000);
+
+                                    startTimetext = startTime.toTimeString();
+                                    startTimetext = startTimetext.split(' ')[0];
+                                    console.log(startTimetext);
+                                    endTimetext = endTimetext.toTimeString();
+                                    endTimetext = endTimetext.split(' ')[0];
+                                    console.log(endTimetext);
                                     $('#card-container').append(doc);
                                 }
                             }
@@ -225,6 +238,13 @@
                 } 
             }
         })
+    }
+
+    function compareDate(time1,time2) {
+        var date = new Date();
+        var a = time1.split(":");
+        var b = time2.split(":");
+        return date.setHours(a[0], a[1]) < date.setHours(b[0], b[1]);
     }
 
     function toCurrency(num) {

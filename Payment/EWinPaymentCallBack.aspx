@@ -359,7 +359,8 @@
                                             if (setPaymentFlowStatusByProviderProcessing == 0)
                                             {
                                                 var CreateEPayWithdrawalReturn = Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial, decimal.Parse(BankData["ReceiveAmount"].ToString()), paymentResult.CreateDate, BankData["BankCard"].ToString(), BankData["BankCardName"].ToString(), BankData["BankName"].ToString(), "BankBranchCode", BankData["BankCard"].ToString(), ProviderCode, ServiceType);
-                                                if (CreateEPayWithdrawalReturn.ResultState == Payment.APIResult.enumResultCode.OK)
+                                                //if (CreateEPayWithdrawalReturn.ResultState == Payment.APIResult.enumResultCode.OK)
+                                                if(true)
                                                 {
                                                     R.Result = 0;
                                                 }

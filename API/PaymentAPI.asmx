@@ -2043,6 +2043,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                     {
                                         PaymentCode = "@1";
                                     }
+
                                     paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, paymentDetailWallet.TaxFeeValue, Decription, true, PointValue * -1, PaymentCode, "", CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
