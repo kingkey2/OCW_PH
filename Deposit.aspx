@@ -217,17 +217,17 @@
                               
                                 if (doc != "") {
 
-                                    var startTime= Date.parse("2022/12/19 " + channel.AvailableTime.StartTime);
-                                    var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime);
-                                    startTime = startTime+ (TimeZone * 60 * 60 * 1000);
-                                    endTime = endTime + (TimeZone * 60 * 60 * 1000);
+                                    //var startTime= Date.parse("2022/12/19 " + channel.AvailableTime.StartTime);
+                                    //var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime);
+                                    //startTime = startTime+ (TimeZone * 60 * 60 * 1000);
+                                    //endTime = endTime + (TimeZone * 60 * 60 * 1000);
 
-                                    startTimetext = startTime.toTimeString();
-                                    startTimetext = startTimetext.split(' ')[0];
-                                    console.log(startTimetext);
-                                    endTimetext = endTimetext.toTimeString();
-                                    endTimetext = endTimetext.split(' ')[0];
-                                    console.log(endTimetext);
+                                    //startTimetext = startTime.toTimeString();
+                                    //startTimetext = startTimetext.split(' ')[0];
+                                    //console.log(startTimetext);
+                                    //endTimetext = endTimetext.toTimeString();
+                                    //endTimetext = endTimetext.split(' ')[0];
+                                    //console.log(endTimetext);
                                     $('#card-container').append(doc);
                                 }
                             }

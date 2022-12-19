@@ -1370,7 +1370,7 @@ public class PaymentAPI : System.Web.Services.WebService
                     };
 
                     paymentDetailBankCard.CashAmount = TempCommonData.Amount;
-                    paymentDetailBankCard.TaxFeeValue = TempCommonData.Amount * TempCommonData.ProviderHandingFeeRate;
+                    paymentDetailBankCard.TaxFeeValue = TempCommonData.Amount * TempCommonData.HandingFeeRate;
 
                     p = new EWin.Payment.PaymentDetailInheritsBase[1];
                     p[0] = paymentDetailBankCard;
