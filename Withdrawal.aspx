@@ -130,7 +130,20 @@
                                         }
 
                                         $('#idWithdrawalBankCard').find('.limit').text(minAmount + "~" + maxAmount);
-                                        $('#idWithdrawalBankCard').show();
+
+                                        var startTime = Date.parse("2022/12/19 " + channel.AvailableTime.StartTime);
+                                        var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime);
+                                        startTime = startTime + (TimeZone * 60 * 60 * 1000);
+                                        endTime = endTime + (TimeZone * 60 * 60 * 1000);
+
+                                        startTimetext = new Date(startTime).toTimeString();
+                                        startTimetext = startTimetext.split(' ')[0];
+                                        endTimetext = new Date(endTime).toTimeString();
+                                        endTimetext = endTimetext.split(' ')[0];
+                                        if (compareDate(startTimetext, endTimetext)) {
+                                            $('#idWithdrawalBankCard').show();
+                                        }
+
                                         break;
                                     case ".Withdrawal.Gcash":
                                         var minAmount = "unlimited";
@@ -144,7 +157,21 @@
                                         }
 
                                         $('#idWithdrawalGCASH').find('.limit').text(minAmount + "~" + maxAmount);
-                                        $('#idWithdrawalGCASH').show();
+
+                                        var startTime = Date.parse("2022/12/19 " + channel.AvailableTime.StartTime);
+                                        var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime);
+                                        startTime = startTime + (TimeZone * 60 * 60 * 1000);
+                                        endTime = endTime + (TimeZone * 60 * 60 * 1000);
+
+                                        startTimetext = new Date(startTime).toTimeString();
+                                        startTimetext = startTimetext.split(' ')[0];
+                                        endTimetext = new Date(endTime).toTimeString();
+                                        endTimetext = endTimetext.split(' ')[0];
+                                        if (compareDate(startTimetext, endTimetext)) {
+                                            $('#idWithdrawalGCASH').show();
+                                        }
+
+                                     
                                         break;
                                     default:
                                 }
@@ -161,7 +188,22 @@
                                     }
 
                                     $('#idWithdrawalCrypto').find('.limit').text(minAmount + "~" + maxAmount);
-                                    $('#idWithdrawalCrypto').show();
+
+
+                                    var startTime = Date.parse("2022/12/19 " + channel.AvailableTime.StartTime);
+                                    var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime);
+                                    startTime = startTime + (TimeZone * 60 * 60 * 1000);
+                                    endTime = endTime + (TimeZone * 60 * 60 * 1000);
+
+                                    startTimetext = new Date(startTime).toTimeString();
+                                    startTimetext = startTimetext.split(' ')[0];
+                                    endTimetext = new Date(endTime).toTimeString();
+                                    endTimetext = endTimetext.split(' ')[0];
+                                    if (compareDate(startTimetext, endTimetext)) {
+                                        $('#idWithdrawalCrypto').show();
+                                    }
+
+                       
                                 }
                             }
                         }
