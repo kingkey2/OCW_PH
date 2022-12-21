@@ -218,13 +218,15 @@
                         if (o.GameCodeList != null) {
                             for (var l = 0; l < o.GameCodeList.length; l++) {
                                 let kk = o.GameCodeList[l];
-                                let t = c.getTemplate("tempGameAccountingCode");
+                                if (kk.CurrencyType == EWinInfo.MainCurrencyType) {
+                                    let t = c.getTemplate("tempGameAccountingCode");
 
-                                c.setClassText(t, "GameAccountingCode", null, mlp.getLanguageKey(kk.GameAccountingCode));
-                                c.setClassText(t, "UserRate", null, c.toCurrency(kk.UserRate));
-                                c.setClassText(t, "BuyChipRate", null, c.toCurrency(kk.BuyChipRate));
+                                    c.setClassText(t, "GameAccountingCode", null, mlp.getLanguageKey(kk.GameAccountingCode));
+                                    c.setClassText(t, "UserRate", null, c.toCurrency(kk.UserRate));
+                                    c.setClassText(t, "BuyChipRate", null, c.toCurrency(kk.BuyChipRate));
 
-                                $(".GameAccountingCodeList").append(t);
+                                    $(".GameAccountingCodeList").append(t);
+                                }
                             }
 
                             $('.btnOpen').click(function () {

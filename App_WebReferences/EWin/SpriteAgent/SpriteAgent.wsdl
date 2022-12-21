@@ -268,6 +268,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="PointValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="AgentCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="PlayerCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfBonusPointValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="LastLoginDate" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
