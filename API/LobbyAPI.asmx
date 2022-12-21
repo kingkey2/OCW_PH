@@ -50,6 +50,26 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.PaymentChannelResult GetPaymentChannelByGroupIndex(string WebSID, string GUID,int DirectionType,int GroupIndex,decimal Amount) {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            return lobbyAPI.GetPaymentChannelByGroupIndex(GetToken(), SI.EWinSID, GUID,EWinWeb.MainCurrencyType,(EWin.Lobby.enumPaymentDirectionType)DirectionType,GroupIndex,Amount);
+        } else {
+            var R = new EWin.Lobby.PaymentChannelResult() {
+                Result = EWin.Lobby.enumResult.ERR,
+                Message = "InvalidWebSID",
+                GUID = GUID
+            };
+
+            return R;
+        }
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult CheckPaymentChannelAmount(string WebSID, string GUID, string CurrencyType, int DirectionType,decimal Amount,string PaymentChannelCode) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;

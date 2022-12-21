@@ -68,7 +68,7 @@
                         for (var i = 0; i < o.ChannelList.length; i++) {
                             var channel = o.ChannelList[i];
                             //UserLevelIndex
-                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType) {
+                            if (channel.CurrencyType == WebInfo.MainCurrencyType) {
                                 var doc = "";
                                 var PaymentChannelCode = channel.PaymentChannelCode;
                                 if (channel.PaymentProvider != '') {
@@ -217,18 +217,18 @@
                               
                                 if (doc != "") {
 
-                                    //var startTime= Date.parse("2022/12/19 " + channel.AvailableTime.StartTime);
-                                    //var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime);
-                                    //startTime = startTime+ (TimeZone * 60 * 60 * 1000);
-                                    //endTime = endTime + (TimeZone * 60 * 60 * 1000);
+                                    var startTime= Date.parse("2022/12/19 " + channel.AvailableTime.StartTime);
+                                    var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime);
+                                    startTime = startTime+ (TimeZone * 60 * 60 * 1000);
+                                    endTime = endTime + (TimeZone * 60 * 60 * 1000);
 
-                                    //startTimetext = startTime.toTimeString();
-                                    //startTimetext = startTimetext.split(' ')[0];
-                                    //console.log(startTimetext);
-                                    //endTimetext = endTimetext.toTimeString();
-                                    //endTimetext = endTimetext.split(' ')[0];
-                                    //console.log(endTimetext);
-                                    $('#card-container').append(doc);
+                                    startTimetext = new Date(startTime).toTimeString();
+                                    startTimetext = startTimetext.split(' ')[0];
+                                    endTimetext = new Date(endTime).toTimeString();
+                                    endTimetext = endTimetext.split(' ')[0];
+                                    if (compareDate(startTimetext, endTimetext)) {
+                                        $('#card-container').append(doc);
+                                    }    
                                 }
                             }
 
@@ -242,9 +242,10 @@
 
     function compareDate(time1,time2) {
         var date = new Date();
+        var nowdate = new Date();
         var a = time1.split(":");
         var b = time2.split(":");
-        return date.setHours(a[0], a[1]) < date.setHours(b[0], b[1]);
+        return date.setHours(a[0], a[1], a[2]) <= nowdate && nowdate <= date.setHours(b[0], b[1], b[2]);
     }
 
     function toCurrency(num) {

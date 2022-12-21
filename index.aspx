@@ -2012,17 +2012,27 @@
             }
 
             selectedWallet = wallet;
+         
 
             if (wallet.CurrencyType == EWinWebInfo.BonusCurrencyType) {
+                if (EWinWebInfo.UserInfo.UserAccountType != 0) {
+                    $("#liWithdrawalAgent").hide();
+                }
                 $("#liWithdrawal").hide();
             } else {
                 if (wallet.PointValue > 0) {
+                    if (EWinWebInfo.UserInfo.UserAccountType != 0) {
+                       $("#liWithdrawalAgent").show();
+                    }
                     $("#liWithdrawal").show();
                 } else {
+                    if (EWinWebInfo.UserInfo.UserAccountType != 0) {
+                       $("#liWithdrawalAgent").hide();
+                    }
                     $("#liWithdrawal").hide();
                 }
             }
-
+            $("#liWithdrawalAgent").show();
             // 已登入
             idMenuLogin.classList.remove("is-hide");
             idLoginBtn.classList.add("is-hide");
@@ -3363,7 +3373,11 @@
                                                 <i class="icon icon-mask icon-withdarw"></i>
                                                 <span class="title language_replace">出款</span></a>
                                         </li>
-
+                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx', true)" id="liWithdrawalAgent" style="display: none">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-withdarw"></i>
+                                                <span class="title language_replace">出款</span></a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item navbarMenu__catagory">
