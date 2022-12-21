@@ -44,6 +44,31 @@
         });
     };
 
+    this.GetPaymentChannelByGroupIndex = function (WebSID, GUID, DirectionType, GroupIndex, amount, cb) {
+        var url = APIUrl + "/GetPaymentChannelByGroupIndex";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            DirectionType: DirectionType,
+            GroupIndex: GroupIndex,
+            Amount: amount
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.CheckPaymentChannelAmount = function (WebSID, GUID, CurrencyType, DirectionType, Amount, PaymentChannelCode, cb) {
         var url = APIUrl + "/CheckPaymentChannelAmount";
         var postData;

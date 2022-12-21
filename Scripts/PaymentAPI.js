@@ -462,6 +462,33 @@
         });
     };
 
+    
+    this.CreateEPayWithdrawalAgent = function (WebSID, GUID, Amount, PaymentMethodID, PaymentChannelCode, cb) {
+        var url = APIUrl + "/CreateEPayWithdrawalAgent";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            Amount: Amount,
+            PaymentMethodID: PaymentMethodID,
+            PaymentChannelCode: PaymentChannelCode
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+
     this.CreateEPayWithdrawal = function (WebSID, GUID, Amount, PaymentMethodID, cb) {
         var url = APIUrl + "/CreateEPayWithdrawal";
         var postData;

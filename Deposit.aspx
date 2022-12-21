@@ -68,7 +68,7 @@
                         for (var i = 0; i < o.ChannelList.length; i++) {
                             var channel = o.ChannelList[i];
                             //UserLevelIndex
-                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType) {
+                            if (channel.CurrencyType == WebInfo.MainCurrencyType) {
                                 var doc = "";
                                 var PaymentChannelCode = channel.PaymentChannelCode;
                                 if (channel.PaymentProvider != '') {
@@ -242,9 +242,10 @@
 
     function compareDate(time1,time2) {
         var date = new Date();
+        var nowdate = new Date();
         var a = time1.split(":");
         var b = time2.split(":");
-        return date.setHours(a[0], a[1], a[2]) <= date && date <= date.setHours(b[0], b[1], b[2]);
+        return date.setHours(a[0], a[1], a[2]) <= nowdate && nowdate <= date.setHours(b[0], b[1], b[2]);
     }
 
     function toCurrency(num) {

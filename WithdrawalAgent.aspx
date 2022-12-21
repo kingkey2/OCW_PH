@@ -109,6 +109,13 @@
     }
 
     function GetListPaymentChannel() {
+
+        var boolGcashExist = false;
+        var GcashMaxAmount = "unlimited";
+        var GcashMinAmount = "unlimited";
+        var boolBankExist = false;
+        var BankMaxAmount = "unlimited";
+        var BankMinAmount = "unlimited";
         lobbyClient.ListPaymentChannel(WebInfo.SID, Math.uuid(),1,function (success, o) {
             if (success) {
                 if (o.Result == 0) {
@@ -117,80 +124,8 @@
                         for (var i = 0; i < o.ChannelList.length; i++) {
                             var channel = o.ChannelList[i];
                             //UserLevelIndex
-                            if (channel.CurrencyType == WebInfo.MainCurrencyType) {
-                                switch (channel.PaymentChannelCode) {
-                                    case ".Withdrawal.BANK":
-                                        var minAmount = "unlimited";
-                                        var maxAmount = "unlimited";
-                                        if (channel.AmountMin != 0) {
-                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
-                                        }
-
-                                        if (channel.AmountMax != 0) {
-                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
-                                        }
-
-                                        $('#idWithdrawalBankCard').find('.limit').text(minAmount + "~" + maxAmount);
-
-                                        var startTime = Date.parse("2022/12/19 " + channel.AvailableTime.StartTime);
-                                        var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime);
-                                        startTime = startTime + (TimeZone * 60 * 60 * 1000);
-                                        endTime = endTime + (TimeZone * 60 * 60 * 1000);
-
-                                        startTimetext = new Date(startTime).toTimeString();
-                                        startTimetext = startTimetext.split(' ')[0];
-                                        endTimetext = new Date(endTime).toTimeString();
-                                        endTimetext = endTimetext.split(' ')[0];
-                                        if (compareDate(startTimetext, endTimetext)) {
-                                            $('#idWithdrawalBankCard').show();
-                                        }
-
-                                        break;
-                                    case ".Withdrawal.Gcash":
-                                        var minAmount = "unlimited";
-                                        var maxAmount = "unlimited";
-                                        if (channel.AmountMin != 0) {
-                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
-                                        }
-
-                                        if (channel.AmountMax != 0) {
-                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
-                                        }
-
-                                        $('#idWithdrawalGCASH').find('.limit').text(minAmount + "~" + maxAmount);
-
-                                        var startTime = Date.parse("2022/12/19 " + channel.AvailableTime.StartTime);
-                                        var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime);
-                                        startTime = startTime + (TimeZone * 60 * 60 * 1000);
-                                        endTime = endTime + (TimeZone * 60 * 60 * 1000);
-
-                                        startTimetext = new Date(startTime).toTimeString();
-                                        startTimetext = startTimetext.split(' ')[0];
-                                        endTimetext = new Date(endTime).toTimeString();
-                                        endTimetext = endTimetext.split(' ')[0];
-                                        if (compareDate(startTimetext, endTimetext)) {
-                                            $('#idWithdrawalGCASH').show();
-                                        }
-
-                                     
-                                        break;
-                                    default:
-                                }
-
-                                if (channel.PaymentChannelCode.includes("BlockChain")) {
-                                    var minAmount = "unlimited";
-                                    var maxAmount = "unlimited";
-                                    if (channel.AmountMin != 0) {
-                                        minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
-                                    }
-
-                                    if (channel.AmountMax != 0) {
-                                        maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
-                                    }
-
-                                    $('#idWithdrawalCrypto').find('.limit').text(minAmount + "~" + maxAmount);
-
-
+                            if ( channel.CurrencyType == WebInfo.MainCurrencyType) {
+                                if (channel.PaymentProvider != '') {
                                     var startTime = Date.parse("2022/12/19 " + channel.AvailableTime.StartTime);
                                     var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime);
                                     startTime = startTime + (TimeZone * 60 * 60 * 1000);
@@ -201,12 +136,42 @@
                                     endTimetext = new Date(endTime).toTimeString();
                                     endTimetext = endTimetext.split(' ')[0];
                                     if (compareDate(startTimetext, endTimetext)) {
-                                        $('#idWithdrawalCrypto').show();
-                                    }
+                                        var ChannelCode = channel.PaymentChannelCode.split('.')[1];
+                                        if (channel.GroupIndex == 2) {
+                                             //Gcash
+                                            boolGcashExist = true;
+                                            if (channel.AmountMin != 0) {
+                                                GcashMinAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
+                                            }
 
-                       
+                                            if (channel.AmountMax != 0) {
+                                                GcashMaxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
+                                            }
+                                        }
+                                        else if (channel.GroupIndex == 1) {
+                                            //Bank
+                                            boolBankExist = true;
+                                            if (channel.AmountMin != 0) {
+                                                BankMinAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
+                                            }
+
+                                            if (channel.AmountMax != 0) {
+                                                BankMaxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
+                                            }
+                                        }
+                                    }
                                 }
                             }
+                        }
+
+                        if (boolGcashExist) {
+                            $('#idWithdrawalGCASH').find('.limit').text(GcashMinAmount + "~" + GcashMaxAmount);
+                            $('#idWithdrawalGCASH').show();
+                        }
+
+                        if (boolBankExist) {
+                            $('#idWithdrawalBankCard').find('.limit').text(BankMinAmount + "~" + BankMaxAmount);
+                            $('#idWithdrawalBankCard').show();
                         }
                     }
                 }
@@ -342,41 +307,9 @@
                         </a>      
 
                     </div>--%>
-                    <!-- 虛擬錢包 -->
-                    <div class="card-item sd-02" id="idWithdrawalCrypto" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalCrypto','WithdrawalCrypto.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span>Crypto Wallet</span>
-                                </div>
-                                <div class="title vertical-center">
-                                    <span class="language_replace">虛擬貨幣</span>
-                                </div>
-                                <!-- <div class="desc">
-                                    <b>30</b> € -  <b>5,000</b> € No Fee                                   
-                                </div> -->
-                                <div class="logo">
-                                    <i class="icon-logo-usdt"></i>
-                                    <!-- <i class="icon-logo-eth-o"></i> -->
-                                    <i class="icon-logo-eth"></i>
-                                    <i class="icon-logo-btc"></i>
-                                    <!-- <i class="icon-logo-doge"></i> -->
-                                    <!-- <i class="icon-logo-tron"></i> -->
-                                </div>
-                                <!-- <div class="instructions-crypto">
-                                    <i class="icon-info_circle_outline"></i>
-                                    <span onclick="window.open('instructions-crypto.html')" class="language_replace">使用說明</span>
-                                </div>                                -->
-                                  <div class="quota">
-                                    <i class="language_replace">限額:</i>
-                                    <span class="limit">100.00 ~ 10,000.00</span>
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
-                        </a>
-                    </div>
+                  
                     <!-- EPay -->
-                    <div id="idWithdrawalBankCard" style="display:none;" class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalEPay.aspx')">
+                    <div id="idWithdrawalBankCard" style="display:none;" class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalBankAgent','WithdrawalBankAgent.aspx')">
                         <a class="card-item-link ">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -395,7 +328,7 @@
                         </a>
                            <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
-                       <div id="idWithdrawalGCASH" style="display:none;" class="card-item sd-09 tempCard" onclick="window.parent.API_LoadPage('WithdrawalGCASH','WithdrawalGCASH.aspx')">
+                       <div id="idWithdrawalGCASH" style="display:none;" class="card-item sd-09 tempCard" onclick="window.parent.API_LoadPage('WithdrawalGCASHAgent','WithdrawalGCASHAgent.aspx')">
                         <a class="card-item-link ">
                             <div class="card-item-inner">
                                 <div class="title">
