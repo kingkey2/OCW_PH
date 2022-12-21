@@ -3505,9 +3505,6 @@
                 <div class="container">
 
                     <ul class="company-info row">
-                        <%--      <li class="info-item col">
-                           <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
-                        </li>--%>
 
                         <li class="info-item col">
                             <a id="Footer_ResponsibleGaming" onclick="window.parent.API_ShowPartialHtml('', 'ResponsibleGambling_ENG', false, null)">

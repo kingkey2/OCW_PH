@@ -86,12 +86,12 @@
                     window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("WithdrawlTemporaryMaintenance"), function () {
                         window.parent.API_Reload();
                     });
+                } else {
+                    getUserBankCard();
+                    GetPaymentMethod();
+                    GetEPayBankSelect();
                 }
             }
-
-            getUserBankCard();
-            GetPaymentMethod();
-            GetEPayBankSelect();
         },"PaymentAPI");
 
     
@@ -218,7 +218,7 @@
     }
 
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByPaymentCodeFilterPaymentChannel(WebInfo.SID, Math.uuid(), "EPAY", 1, "EPAY.Gcash", WebInfo.UserInfo.UserLevel, function (success, o) {
+        PaymentClient.GetPaymentMethodByPaymentCodeFilterPaymentChannel(WebInfo.SID, Math.uuid(), "EPAY", 1, ".Withdrawal.Gcash", WebInfo.UserInfo.UserLevel,1, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
@@ -303,6 +303,7 @@
 
     function setAmount() {
         var amount = $("#amount").val().replace(/[^\-?\d.]/g, '')
+        amount = amount.replace('.', '');
         $("#amount").val(amount);
 
     }

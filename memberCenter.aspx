@@ -148,7 +148,7 @@
         $("#idAmount").text(new BigNumber(parseFloat(wallet.PointValue).toFixed(1)).toFormat());
         $("#PersonCode").text(WebInfo.UserInfo.PersonCode);
         $("#idCopyPersonCode").text(`${"<%=EWinWeb.CasinoWorldUrl %>"}/Index.aspx?PCode=${WebInfo.UserInfo.PersonCode}`);
-        $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"<%=EWinWeb.CasinoWorldUrl %>"}/registerForQrCode.aspx?P=${WebInfo.UserInfo.PersonCode}&Download=2`);
+        $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"<%=EWinWeb.CasinoWorldUrl %>"}/Index.aspx?PCode=${WebInfo.UserInfo.PersonCode}&Download=2`);
 
         var ThresholdInfos = WebInfo.UserInfo.ThresholdInfo;
         if (ThresholdInfos && ThresholdInfos.length > 0) {
@@ -198,8 +198,16 @@
         //}
     }
 
-    function memberInit() {
-
+    function CheckWalletPassword(password, cb) {
+        p.CheckPassword(WebInfo.SID, Math.uuid(), 1, password, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    cb(true, '');
+                } else {
+                    cb(false, o.Message);
+                }
+            }
+        })
     }
 
     function getUserBankCard() {
@@ -246,7 +254,7 @@
                                                                     <h4 class="name">${data.AccountName}</h4>
                                                                 </div>
                                                             </div>
-                                                            <button type="button" class="btn btn-transparent btn-delete" onclick="setUserBankCardState('${data.BankCardGUID}')"><i class="icon icon-mask icon-trash"></i></button>
+                                                            <button type="button" class="btn btn-transparent btn-delete" onclick="showModelDeleteCard('${data.BankCardGUID}')"><i class="icon icon-mask icon-trash"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -280,7 +288,7 @@
                                                                 <h4 class="mail">${data.AccountName}</h4>
                                                             </div>
                                                         </div>
-                                                        <button type="button" class="btn btn-transparent btn-delete" onclick="setUserBankCardState('${data.BankCardGUID}')"><i class="icon icon-mask icon-trash"></i></button>
+                                                        <button type="button" class="btn btn-transparent btn-delete" onclick="showModelDeleteCard('${data.BankCardGUID}')"><i class="icon icon-mask icon-trash"></i></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -323,25 +331,48 @@
         });
     }
 
-    function setUserBankCardState(BankCardGUID) {
-        window.parent.showMessage("", mlp.getLanguageKey("確認刪除此卡片?"), function () {
-            p.SetUserBankCardState(WebInfo.SID, Math.uuid(), BankCardGUID, 1, function (success, o) {
-                if (success) {
-                    if (o.Result == 0) {
-                        getUserBankCard();
-                    } else {
-               
-                    }
+    function setUserBankCardState() {
+        var BankCardGUID = $('#idDeleteCardGuid').val();
+        var WalletPassword = $('#idWalletPassword3').val().trim();
+        var boolChecked = true;
+        if (WalletPassword == '') {
+            $('#idWalletPasswordErrorMessage3').text(mlp.getLanguageKey("尚未輸入錢包密碼"));
+            boolChecked = false;
+        } else {
+            $('#idWalletPasswordErrorMessage3').text(mlp.getLanguageKey(""));
+        }
+
+        if (boolChecked) {
+            CheckWalletPassword(WalletPassword, function (s2, message2) {
+                if (s2) {
+            
+                    window.parent.showMessage("", mlp.getLanguageKey("確認刪除此卡片?"), function () {
+                        p.SetUserBankCardState(WebInfo.SID, Math.uuid(), BankCardGUID, 1, function (success, o) {
+                            if (success) {
+                                if (o.Result == 0) {
+                                    $('#ModelDeleteCard').modal('hide');
+                                    getUserBankCard();
+                                } else {
+
+                                }
+                            } else {
+                                if (o == "Timeout") {
+
+                                } else {
+
+                                }
+                            }
+                        });
+                    });
                 } else {
-                    if (o == "Timeout") {
-                        
-                    } else {
-                    
+                    window.parent.API_LoadingEnd(1);
+                    if (message2 == 'InvalidPassword') {
+                        message2 = 'InvalidWalletPassword';
                     }
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(message2));
                 }
             });
-        });
-
+        }
     }
 
     function showAddCardModal() {
@@ -365,7 +396,6 @@
             $('#idGCashAccountErrorMessage').text('');
             $('#idPhoneNumber').val('');
             $('#idPhoneNumberErrorMessage').text('');
-            $('#idPhonePrefixErrorMessage').text('');
             $('#stepFadeInUpGCash').show();
             $('#ModalGCash').modal('show');
         }
@@ -592,6 +622,7 @@
 
         var BankCardName = $('#idBankCardName').val().trim();
         var BankCard = $('#idBankCard').val().trim();
+        var WalletPassword = $('#idWalletPassword').val().trim();
         var BankBranch = $('#idBankBranch').val().trim();
         var Bank = $('#selectedBank').val();
         var boolChecked = true;
@@ -623,26 +654,44 @@
             $('#idBankErrorMessage').text(mlp.getLanguageKey(""));
         }
 
+        if (WalletPassword == '') {
+            $('#idWalletPasswordErrorMessage').text(mlp.getLanguageKey("尚未輸入錢包密碼"));
+            boolChecked = false;
+        } else {
+            $('#idWalletPasswordErrorMessage').text(mlp.getLanguageKey(""));
+        }
+
         if (boolChecked) {
-            p.AddUserBankCard(WebInfo.SID, Math.uuid(), WebInfo.MainCurrencyType, 0, Bank, BankBranch, BankCard, BankCardName,"","","",function (success, o) {
-                if (success) {
-                    if (o.Result == 0) {
-                        getUserBankCard();
-                        $('#showSuccessMessageBank').show();
-                        $('#stepFadeInUpBank').hide();
-                        $('#showErrorMessageBank').hide();
-                    } else {
-                        $('#showErrorMessageBank').find('.verify_resultTitle>span').eq(0).text(mlp.getLanguageKey(o.Message));
-                        $('#showErrorMessageBank').show();
-                        $('#stepFadeInUpBank').hide();
-                        $('#showSuccessMessageBank').hide();
-                    }
+
+            CheckWalletPassword(WalletPassword, function (s2, message2) {
+                if (s2) {
+                    p.AddUserBankCard(WebInfo.SID, Math.uuid(), WebInfo.MainCurrencyType, 0, Bank, BankBranch, BankCard, BankCardName, "", "", "", function (success, o) {
+                        if (success) {
+                            if (o.Result == 0) {
+                                getUserBankCard();
+                                $('#showSuccessMessageBank').show();
+                                $('#stepFadeInUpBank').hide();
+                                $('#showErrorMessageBank').hide();
+                            } else {
+                                $('#showErrorMessageBank').find('.verify_resultTitle>span').eq(0).text(mlp.getLanguageKey(o.Message));
+                                $('#showErrorMessageBank').show();
+                                $('#stepFadeInUpBank').hide();
+                                $('#showSuccessMessageBank').hide();
+                            }
+                        } else {
+                            if (o == "Timeout") {
+                                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                            } else {
+                                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                            }
+                        }
+                    });
                 } else {
-                    if (o == "Timeout") {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
-                    } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    window.parent.API_LoadingEnd(1);
+                    if (message2 == 'InvalidPassword') {
+                        message2 = 'InvalidWalletPassword';
                     }
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(message2));
                 }
             });
         }
@@ -651,8 +700,8 @@
 
     function GCashSave() {
         var GCashAccount = $('#idGCashAccount').val().trim();
-        var PhonePrefix = $('#idPhonePrefix').val().trim();
         var PhoneNumber = $('#idPhoneNumber').val().trim();
+        var WalletPassword = $('#idWalletPassword2').val().trim();
 
         var boolChecked = true;
         if (GCashAccount == '') {
@@ -662,70 +711,64 @@
             $('#idGCashAccountErrorMessage').text(mlp.getLanguageKey(""));
         }
 
-        if (PhonePrefix == '') {
-            $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey("尚未輸入國碼"));
-            boolChecked = false;
-        } else {
-            $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey(""));
-        }
-
         if (PhoneNumber == '') {
             $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("尚未輸入電話號碼"));
             boolChecked = false;
-        } else {
+        }
+        else if (PhoneNumber[0] != "0") {
+            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話號碼必須以0開頭"));
+            boolChecked = false;
+        } else if (PhoneNumber.length != 11) {
+            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話號碼長度為11碼"));
+            boolChecked = false;
+        }else {
             $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey(""));
         }
 
-        var phoneValue = PhonePrefix + PhoneNumber;
-        var phoneObj;
 
-        try {
-            phoneObj = PhoneNumberUtil.parse(phoneValue);
-
-            var type = PhoneNumberUtil.getNumberType(phoneObj);
-
-            if (type != libphonenumber.PhoneNumberType.MOBILE && type != libphonenumber.PhoneNumberType.FIXED_LINE_OR_MOBILE) {
-                $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
-                $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
-                boolChecked = false;
-
-            } else {
-                $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey(""));
-                $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey(""));
-            }
-        }
-        catch (e) {
-
-            $('#idPhoneNumberErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
-            $('#idPhonePrefixErrorMessage').text(mlp.getLanguageKey("電話格式有誤"));
+        if (WalletPassword == '') {
+            $('#idWalletPasswordErrorMessage2').text(mlp.getLanguageKey("尚未輸入錢包密碼"));
             boolChecked = false;
+        } else {
+            $('#idWalletPasswordErrorMessage2').text(mlp.getLanguageKey(""));
         }
 
         if (boolChecked) {
-            p.AddUserBankCard(WebInfo.SID, Math.uuid(), WebInfo.MainCurrencyType, 4, "GCash", PhonePrefix, PhoneNumber, GCashAccount, "", "", "", function (success, o) {
-                if (success) {
-                    if (o.Result == 0) {
-                        getUserBankCard();
-                        $('#showSuccessMessageGCash').show();
-                        $('#showErrorMessageGCash').hide();
-                        $('#stepFadeInUpGCash').hide();
-                    } else {
-                        if (o.Message == "BankNumberExist") {
-                            $('#showErrorMessageGCash').find('.verify_resultTitle>span').eq(0).text(mlp.getLanguageKey("電話號碼已存在"));
+            CheckWalletPassword(WalletPassword, function (s2, message2) {
+                if (s2) {
+
+                    p.AddUserBankCard(WebInfo.SID, Math.uuid(), WebInfo.MainCurrencyType, 4, "GCash", "", PhoneNumber, GCashAccount, "", "", "", function (success, o) {
+                        if (success) {
+                            if (o.Result == 0) {
+                                getUserBankCard();
+                                $('#showSuccessMessageGCash').show();
+                                $('#showErrorMessageGCash').hide();
+                                $('#stepFadeInUpGCash').hide();
+                            } else {
+                                if (o.Message == "BankNumberExist") {
+                                    $('#showErrorMessageGCash').find('.verify_resultTitle>span').eq(0).text(mlp.getLanguageKey("電話號碼已存在"));
+                                } else {
+                                    $('#showErrorMessageGCash').find('.verify_resultTitle>span').eq(0).text(mlp.getLanguageKey(o.Message));
+                                }
+
+                                $('#showErrorMessageGCash').show();
+                                $('#showSuccessMessageGCash').hide();
+                                $('#stepFadeInUpGCash').hide();
+                            }
                         } else {
-                            $('#showErrorMessageGCash').find('.verify_resultTitle>span').eq(0).text(mlp.getLanguageKey(o.Message));
+                            if (o == "Timeout") {
+                                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                            } else {
+                                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                            }
                         }
-                 
-                        $('#showErrorMessageGCash').show();
-                        $('#showSuccessMessageGCash').hide();
-                        $('#stepFadeInUpGCash').hide();
-                    }
+                    });
                 } else {
-                    if (o == "Timeout") {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
-                    } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    window.parent.API_LoadingEnd(1);
+                    if (message2 == 'InvalidPassword') {
+                        message2 = 'InvalidWalletPassword';
                     }
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(message2));
                 }
             });
         }
@@ -797,7 +840,6 @@
 
         AdjustDate();
 
-        memberInit();
         //changeAvatar(getCookie("selectAvatar"));
         
 
@@ -1073,6 +1115,36 @@
         });
     }
 
+    function showModelDeleteCard(cradguid) {
+        $('#idDeleteCardGuid').val(cradguid);
+        $('#idWalletPassword3').val('');
+        $('#ModelDeleteCard').modal('show');
+    }
+
+    function userManualUpgradeVipLevel() {
+        p.UserManualUpgradeVipLevel(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    window.parent.showMessageOK(mlp.getLanguageKey(""), o.Message, function () {
+                        getVIPInfo();
+                    });
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey(""), o.Message, function () {
+
+                    });
+                }
+            } else {
+                if (o == "Timeout") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o.Message, function () {
+                        getVIPInfo();
+                    });
+                }
+            }
+        });
+    }
+
     function closeBankModal() {
         $('.resultShow.success').hide();
         $('.resultShow.fail').hide();
@@ -1149,6 +1221,7 @@
                                             <span class="btn" data-toggle="modal" data-target="#ModalMemberLevel">
                                                 <img src="images/member/btn-member-level-popup.png" alt="">
                                             </span>
+                                            <a class="levelup" onclick="userManualUpgradeVipLevel()" style="cursor:pointer">Level Up!!</a>
                                         </div>                                        
                                     </div>
                                     <span class="unit">PHP</span>
@@ -3266,6 +3339,14 @@
                                             <div class="invalid-feedback language_replace" id="idBankBranchErrorMessage"></div>
                                         </div>
                                     </div>
+                                     <div class="form-group">
+                                        <label class="form-title language_replace">錢包密碼</label>
+                                        <div class="input-group">
+                                            <input id="idWalletPassword" name="WalletPassword" type="password" language_replace="placeholder"
+                                                class="form-control custom-style" placeholder="請輸入錢包密碼" inputmode="idWalletPassword">
+                                            <div class="invalid-feedback language_replace" id="idWalletPasswordErrorMessage"></div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="wrapper_center">
                                     <button class="btn btn-primary btn-roundcorner" type="button" onclick="BankCardSave()">
@@ -3349,24 +3430,131 @@
                                             <div class="invalid-feedback language_replace" id="idGCashAccountErrorMessage"></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="form-title language_replace">國碼</label>
-                                        <div class="input-group">
-                                            <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+63" inputmode="decimal" value="+63">
-                                            <div class="invalid-feedback language_replace" id="idPhonePrefixErrorMessage"></div>
-                                        </div>
-                                    </div>
+                                 
                                     <div class="form-group">
                                         <label class="form-title language_replace">手機電話號碼</label>
                                         <div class="input-group">
-                                            <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-000-0000" inputmode="decimal">
+                                            <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="0906-123-4567" inputmode="decimal">
                                             <div class="invalid-feedback language_replace" id="idPhoneNumberErrorMessage"></div>
+                                        </div>
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label class="form-title language_replace">錢包密碼</label>
+                                        <div class="input-group">
+                                            <input id="idWalletPassword2" name="WalletPassword2" type="password" language_replace="placeholder"
+                                                class="form-control custom-style" placeholder="請輸入錢包密碼" inputmode="idWalletPassword2">
+                                            <div class="invalid-feedback language_replace" id="idWalletPasswordErrorMessage2"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="wrapper_center">
                                     <button class="btn btn-primary btn-roundcorner" type="button" onclick="GCashSave()">
                                         <span class="language_replace">新增</span>
+                                    </button>
+                                </div>
+                    
+                            </div>
+
+                            <%--
+                            <!-- Step 2 收取驗證碼 先取消-->
+                            <div class="VerificationCode-wrapper stepFadeInUp">
+                                <p class="text">請至<span class="member-email ">xxxx@xxx.com</span>收取驗證碼</p>
+                                <div class="form-group">
+                                    <label class="form-title language_replace">驗證碼</label>
+                                    <div class="input-group">
+                                        <input id="idEmail" name="Email" type="text" language_replace="placeholder"
+                                            class="form-control custom-style" placeholder="請輸入驗證碼
+                                                            " inputmode="email">
+                                        <div class="invalid-feedback language_replace">提示</div>
+                                    </div>
+                                </div>
+                                <div class="wrapper_center">
+                                    <button class="btn btn-primary btn-roundcorner" type="button" onclick="">
+                                        <span class="language_replace">確認</span>
+                                    </button>
+                                </div>
+                            </div>
+                            --%>
+                    
+                            <!-- Step 3 新增結果-->
+                            <div class="verifyResult-wrapper">
+                                <!-- 成功 -->
+                                <div class="resultShow success stepFadeInUp" id="showSuccessMessageGCash" style="display:none;">
+                                    <div class="verifyResult-inner">
+                                        <div class="verify_resultShow">
+                                            <div class="verify_resultDisplay">
+                                                <div class="icon-symbol"></div>
+                                            </div>
+                                            <!-- 新增卡片文字 -->
+                                            <p class="verify_resultTitle"><span class="language_replace">新增成功</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="wrapper_center">
+                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeGCashModal()">
+                                            <span class="language_replace">確認</span>
+                                        </button>
+                                    </div>
+                                </div>
+                    
+                                <!-- 失敗 -->
+                                <div class="resultShow fail stepFadeInUp" id="showErrorMessageGCash" style="display:none;">
+                                    <div class="verifyResult-inner">
+                                        <div class="verify_resultShow">
+                                            <div class="verify_resultDisplay">
+                                                <div class="icon-symbol"></div>
+                                            </div>
+                                            <!-- 新增卡片文字 -->
+                                            <p class="verify_resultTitle"><span class="language_replace">新增失敗</span></p>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="wrapper_center">
+                                        <!-- 返回新增卡片popup -->
+                                        <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeGCashModal()">
+                                            <span class="language_replace">確認</span>
+                                        </button>
+                                    </div>
+                                </div>
+                    
+                            </div>                    
+                        </form>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade footer-center" id="ModelDeleteCard" tabindex="-1" aria-hidden="true" style="">
+        <input style="display:none;" id="idDeleteCardGuid" />
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable cashCard">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="sec-title-container">
+                        <h5 class="modal-title language_replace">刪除卡片</h5>
+                    </div>                    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="GCash-popup-wrapper popup-wrapper">
+                        <form id="">
+                            <!-- Step 1 欄位填寫-->
+                            <div class="data-wrapper stepFadeInUp" id="">
+                                <div class="GCash-popup-inner">
+                                     <div class="form-group">
+                                        <label class="form-title language_replace">錢包密碼</label>
+                                        <div class="input-group">
+                                            <input id="idWalletPassword3" name="WalletPassword2" type="password" language_replace="placeholder"
+                                                class="form-control custom-style" placeholder="請輸入錢包密碼" inputmode="idWalletPassword3">
+                                            <div class="invalid-feedback language_replace" id="idWalletPasswordErrorMessage3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wrapper_center">
+                                    <button class="btn btn-primary btn-roundcorner" type="button" onclick="setUserBankCardState()">
+                                        <span class="language_replace">確認</span>
                                     </button>
                                 </div>
                     

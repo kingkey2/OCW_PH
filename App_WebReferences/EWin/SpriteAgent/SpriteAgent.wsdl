@@ -1,0 +1,2047 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetAgentSessionByID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ASID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAgentSessionByIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAgentSessionByIDResult" type="tns:AgentSessionResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AgentSessionResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AgentSessionInfo" type="tns:AgentSessionInfo" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="APIResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Result" type="tns:enumResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="enumResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="OK" />
+          <s:enumeration value="ERR" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="AgentSessionInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AgentSessionID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LoginType" type="tns:enumLoginType" />
+          <s:element minOccurs="1" maxOccurs="1" name="Permission" type="tns:enumPermission" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentLoginID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="AgentLoginAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CashUnit" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Timezone" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="enumLoginType">
+        <s:restriction base="s:string">
+          <s:enumeration value="MainAccount" />
+          <s:enumeration value="AgentLogin" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="enumPermission">
+        <s:restriction base="s:string">
+          <s:enumeration value="Owner" />
+          <s:enumeration value="Admin" />
+          <s:enumeration value="ViewOnly" />
+          <s:enumeration value="ViewAndTransfer" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetChildUserData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetChildUserDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetChildUserDataResult" type="tns:ChidUserData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ChidUserData">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="AgentCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AgentCount_Under" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="UserCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="UserCount_Under" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetOrderSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderSummaryResult" type="tns:OrderSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OrderSummaryResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="AgentItemList" type="tns:ArrayOfAgentItem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfAgentItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AgentItem" nillable="true" type="tns:AgentItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AgentItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Summary" type="tns:UserSummaryItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParentLoginAccount" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserSummaryItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NodeID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RealName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountingType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserAccountSortKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountInsideLevel" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserLevelIndex" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRateExt" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRateExt" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="DepositCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstDepositCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstDepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawalCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawalValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="NewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfNewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UplineCommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaidCommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CostValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CostUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfRewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalGGRUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalOrderCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalOrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalRewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalGGR" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalNGR" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusPointCost" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserCommissionProfit" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRebate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaidOPValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActiveUser" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinValidBet" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinDepositValue" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="SummaryValueList" type="tns:ArrayOfSummaryValue" />
+          <s:element minOccurs="0" maxOccurs="1" name="ChildUser" type="tns:ArrayOfUserSummaryItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSummaryValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SummaryValue" nillable="true" type="tns:SummaryValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SummaryValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GameAccountingCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProfitValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RealValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderCount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfRewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpLineCommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="GGRUserRateValue" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUserSummaryItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserSummaryItem" nillable="true" type="tns:UserSummaryItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetUserAccountSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountSummaryResult" type="tns:UserAccountSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserAccountSummaryResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SearchParentSortKeys" type="tns:ArrayOfString" />
+              <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfUserAccountSummary" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUserAccountSummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserAccountSummary" nillable="true" type="tns:UserAccountSummary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserAccountSummary">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ParentUserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParentLoginAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfNewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PlayerCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfBonusPointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastLoginDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DealUserAccountSortKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DealUserAccountInsideLevel" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasChild" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsTarget" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetUserAccountSummary_Agent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountSummary_AgentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountSummary_AgentResult" type="tns:UserAccountSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAgentTotalOrderSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAgentTotalOrderSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAgentTotalOrderSummaryResult" type="tns:TotalSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TotalSummaryResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SearchParentSortKeys" type="tns:ArrayOfString" />
+              <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfTotalSummary" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfTotalSummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TotalSummary" nillable="true" type="tns:TotalSummary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TotalSummary">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParentLoginAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfRewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasChild" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="DealUserAccountSortKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DealUserAccountInsideLevel" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsTarget" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetTotalOrderSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TargetLoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTotalOrderSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTotalOrderSummaryResult" type="tns:TotalSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAgentTotalOrderDepositeSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAgentTotalOrderDepositeSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAgentTotalOrderDepositeSummaryResult" type="tns:AgentTotalSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AgentTotalSummaryResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SearchParentSortKeys" type="tns:ArrayOfString" />
+              <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfAgentTotalSummary" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfAgentTotalSummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AgentTotalSummary" nillable="true" type="tns:AgentTotalSummary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AgentTotalSummary">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParentLoginAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstDepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="DepositPaymentCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstDepositPaymentCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="WithdrawValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="WithdrawPaymentCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawPaymentCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfDepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfFirstDepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfDepositPaymentCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfWithdrawValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfFirstWithdrawValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfWithdrawPaymentCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasChild" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="DealUserAccountSortKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DealUserAccountInsideLevel" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsTarget" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPlayerTotalDepositSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TargetLoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlayerTotalDepositSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPlayerTotalDepositSummaryResult" type="tns:AgentTotalSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccountingItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccountingItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAccountingItemResult" type="tns:AccountingResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AccountingResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AccountingList" type="tns:ArrayOfAccountingItem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfAccountingItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AccountingItem" nillable="true" type="tns:AccountingItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccountingItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AccountingID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountingName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountingOPValue" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAgentAccountingDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="AccountingID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAgentAccountingDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAgentAccountingDetailResult" type="tns:AgentAccountingDetailResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AgentAccountingDetailResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ADList" type="tns:ArrayOfAccountingDetail" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfAccountingDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AccountingDetail" nillable="true" type="tns:AccountingDetail" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccountingDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AccountingDetailGUID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RealName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountingType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentRebatePayoutType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserAccountSortKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountInsideLevel" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRateExt" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRateExt" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="DepositCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstDepositCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstDepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawalCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawalValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="NewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfNewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UplineCommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaidCommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserCommissionProfit" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CostValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CostUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusPointUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaidOPValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountingOPValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalGGR" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalGGRUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalNGR" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalRebate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRebate" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="ChildDetail" type="tns:ArrayOfAccountingDetail" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="QueryCurrentUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryCurrentUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryCurrentUserInfoResult" type="tns:UserInfoResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserInfoResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ParentLoginAccount" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="RealName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PersonCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EthWalletAddress" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsLendChipAccount" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="AllowPayment" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AllowServiceChat" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AllowBet" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="ContactPhonePrefix" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ContactPhoneNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="WalletList" type="tns:ArrayOfWallet" />
+              <s:element minOccurs="0" maxOccurs="1" name="QBetLimitList" type="tns:ArrayOfBetLimit" />
+              <s:element minOccurs="0" maxOccurs="1" name="NBetLimitList" type="tns:ArrayOfBetLimit" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfWallet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Wallet" nillable="true" type="tns:Wallet" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Wallet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValueType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointState" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalCreditValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyQBetLimitCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyNBetLimitCount" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBetLimit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BetLimit" nillable="true" type="tns:BetLimit" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BetLimit">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="BetLimitID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserHasBetLimit" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BetLimitType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserBalance" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinBetPlayer" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinBetBanker" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxBet" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinBetTie" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxBetTie" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinBetPair" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxBetPair" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AssignType" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CheckAccountExist">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckAccountExistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckAccountExistResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserField" type="tns:ArrayOfPropertySet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPropertySet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PropertySet" nillable="true" type="tns:PropertySet" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PropertySet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateUserInfoResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryChildUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryChildUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryChildUserInfoResult" type="tns:ChildUserInfoResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ChildUserInfoResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Datas" type="tns:ArrayOfChildInfoResult" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfChildInfoResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ChildInfoResult" nillable="true" type="tns:ChildInfoResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ChildInfoResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RealName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExtraData" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tag" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WalletList" type="tns:ArrayOfWallet1" />
+          <s:element minOccurs="0" maxOccurs="1" name="GameCodeList" type="tns:ArrayOfGameInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfWallet1">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Wallet1" nillable="true" type="tns:Wallet1" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Wallet1">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValueType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointState" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalCreditValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRate" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfGameInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GameInfo" nillable="true" type="tns:GameInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GameInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GameAccountingCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRate" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="QueryCurrentUserInfoForSearchPage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryCurrentUserInfoForSearchPageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryCurrentUserInfoForSearchPageResult" type="tns:ChildUserInfoResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserField" type="tns:ArrayOfPropertySet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateUserInfoResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserAccountNote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserAccountNote" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserAccountNoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateUserAccountNoteResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgentSessionResult" nillable="true" type="tns:AgentSessionResult" />
+      <s:element name="ChidUserData" nillable="true" type="tns:ChidUserData" />
+      <s:element name="OrderSummaryResult" nillable="true" type="tns:OrderSummaryResult" />
+      <s:element name="UserAccountSummaryResult" nillable="true" type="tns:UserAccountSummaryResult" />
+      <s:element name="TotalSummaryResult" nillable="true" type="tns:TotalSummaryResult" />
+      <s:element name="AgentTotalSummaryResult" nillable="true" type="tns:AgentTotalSummaryResult" />
+      <s:element name="AccountingResult" nillable="true" type="tns:AccountingResult" />
+      <s:element name="AgentAccountingDetailResult" nillable="true" type="tns:AgentAccountingDetailResult" />
+      <s:element name="UserInfoResult" nillable="true" type="tns:UserInfoResult" />
+      <s:element name="APIResult" nillable="true" type="tns:APIResult" />
+      <s:element name="ChildUserInfoResult" nillable="true" type="tns:ChildUserInfoResult" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetAgentSessionByIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAgentSessionByID" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentSessionByIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAgentSessionByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetChildUserData" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetChildUserDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAccountSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAccountSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountSummary_AgentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAccountSummary_Agent" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountSummary_AgentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAccountSummary_AgentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalOrderSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetAgentTotalOrderSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalOrderSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetAgentTotalOrderSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTotalOrderSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetTotalOrderSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetTotalOrderSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetTotalOrderSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalOrderDepositeSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetAgentTotalOrderDepositeSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalOrderDepositeSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetAgentTotalOrderDepositeSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerTotalDepositSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetPlayerTotalDepositSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerTotalDepositSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetPlayerTotalDepositSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingItemSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAccountingItem" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingItemSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAccountingItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentAccountingDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAgentAccountingDetail" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentAccountingDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAgentAccountingDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryCurrentUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryCurrentUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckAccountExist" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckAccountExistResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryChildUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryChildUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="QueryChildUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryChildUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoForSearchPageSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryCurrentUserInfoForSearchPage" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoForSearchPageSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryCurrentUserInfoForSearchPageResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountNoteSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUserAccountNote" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountNoteSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserAccountNoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentSessionByIDHttpGetIn">
+    <wsdl:part name="ASID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentSessionByIDHttpGetOut">
+    <wsdl:part name="Body" element="tns:AgentSessionResult" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserDataHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:ChidUserData" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryHttpGetOut">
+    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountSummaryHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountSummaryHttpGetOut">
+    <wsdl:part name="Body" element="tns:UserAccountSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountSummary_AgentHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountSummary_AgentHttpGetOut">
+    <wsdl:part name="Body" element="tns:UserAccountSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalOrderSummaryHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalOrderSummaryHttpGetOut">
+    <wsdl:part name="Body" element="tns:TotalSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetTotalOrderSummaryHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTotalOrderSummaryHttpGetOut">
+    <wsdl:part name="Body" element="tns:TotalSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalOrderDepositeSummaryHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalOrderDepositeSummaryHttpGetOut">
+    <wsdl:part name="Body" element="tns:AgentTotalSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerTotalDepositSummaryHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerTotalDepositSummaryHttpGetOut">
+    <wsdl:part name="Body" element="tns:AgentTotalSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingItemHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingItemHttpGetOut">
+    <wsdl:part name="Body" element="tns:AccountingResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentAccountingDetailHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="AccountingID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentAccountingDetailHttpGetOut">
+    <wsdl:part name="Body" element="tns:AgentAccountingDetailResult" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:UserInfoResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="QueryChildUserInfoHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryChildUserInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:ChildUserInfoResult" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoForSearchPageHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoForSearchPageHttpGetOut">
+    <wsdl:part name="Body" element="tns:ChildUserInfoResult" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountNoteHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="UserAccountID" type="s:string" />
+    <wsdl:part name="UserAccountNote" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountNoteHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentSessionByIDHttpPostIn">
+    <wsdl:part name="ASID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentSessionByIDHttpPostOut">
+    <wsdl:part name="Body" element="tns:AgentSessionResult" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserDataHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:ChidUserData" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryHttpPostOut">
+    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountSummaryHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountSummaryHttpPostOut">
+    <wsdl:part name="Body" element="tns:UserAccountSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountSummary_AgentHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountSummary_AgentHttpPostOut">
+    <wsdl:part name="Body" element="tns:UserAccountSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalOrderSummaryHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalOrderSummaryHttpPostOut">
+    <wsdl:part name="Body" element="tns:TotalSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetTotalOrderSummaryHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTotalOrderSummaryHttpPostOut">
+    <wsdl:part name="Body" element="tns:TotalSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalOrderDepositeSummaryHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalOrderDepositeSummaryHttpPostOut">
+    <wsdl:part name="Body" element="tns:AgentTotalSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerTotalDepositSummaryHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPlayerTotalDepositSummaryHttpPostOut">
+    <wsdl:part name="Body" element="tns:AgentTotalSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingItemHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingItemHttpPostOut">
+    <wsdl:part name="Body" element="tns:AccountingResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentAccountingDetailHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="AccountingID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentAccountingDetailHttpPostOut">
+    <wsdl:part name="Body" element="tns:AgentAccountingDetailResult" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:UserInfoResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="QueryChildUserInfoHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryChildUserInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:ChildUserInfoResult" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoForSearchPageHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryCurrentUserInfoForSearchPageHttpPostOut">
+    <wsdl:part name="Body" element="tns:ChildUserInfoResult" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountNoteHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="UserAccountID" type="s:string" />
+    <wsdl:part name="UserAccountNote" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountNoteHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:portType name="SpriteAgentSoap">
+    <wsdl:operation name="GetAgentSessionByID">
+      <wsdl:input message="tns:GetAgentSessionByIDSoapIn" />
+      <wsdl:output message="tns:GetAgentSessionByIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserData">
+      <wsdl:input message="tns:GetChildUserDataSoapIn" />
+      <wsdl:output message="tns:GetChildUserDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummary">
+      <wsdl:input message="tns:GetOrderSummarySoapIn" />
+      <wsdl:output message="tns:GetOrderSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary">
+      <wsdl:input message="tns:GetUserAccountSummarySoapIn" />
+      <wsdl:output message="tns:GetUserAccountSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary_Agent">
+      <wsdl:input message="tns:GetUserAccountSummary_AgentSoapIn" />
+      <wsdl:output message="tns:GetUserAccountSummary_AgentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderSummary">
+      <wsdl:input message="tns:GetAgentTotalOrderSummarySoapIn" />
+      <wsdl:output message="tns:GetAgentTotalOrderSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalOrderSummary">
+      <wsdl:input message="tns:GetTotalOrderSummarySoapIn" />
+      <wsdl:output message="tns:GetTotalOrderSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
+      <wsdl:input message="tns:GetAgentTotalOrderDepositeSummarySoapIn" />
+      <wsdl:output message="tns:GetAgentTotalOrderDepositeSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerTotalDepositSummary">
+      <wsdl:input message="tns:GetPlayerTotalDepositSummarySoapIn" />
+      <wsdl:output message="tns:GetPlayerTotalDepositSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItem">
+      <wsdl:input message="tns:GetAccountingItemSoapIn" />
+      <wsdl:output message="tns:GetAccountingItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetail">
+      <wsdl:input message="tns:GetAgentAccountingDetailSoapIn" />
+      <wsdl:output message="tns:GetAgentAccountingDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <wsdl:input message="tns:QueryCurrentUserInfoSoapIn" />
+      <wsdl:output message="tns:QueryCurrentUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <wsdl:input message="tns:CheckAccountExistSoapIn" />
+      <wsdl:output message="tns:CheckAccountExistSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateUserInfo">
+      <wsdl:input message="tns:CreateUserInfoSoapIn" />
+      <wsdl:output message="tns:CreateUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryChildUserInfo">
+      <wsdl:input message="tns:QueryChildUserInfoSoapIn" />
+      <wsdl:output message="tns:QueryChildUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfoForSearchPage">
+      <wsdl:input message="tns:QueryCurrentUserInfoForSearchPageSoapIn" />
+      <wsdl:output message="tns:QueryCurrentUserInfoForSearchPageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserInfo">
+      <wsdl:input message="tns:UpdateUserInfoSoapIn" />
+      <wsdl:output message="tns:UpdateUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountNote">
+      <wsdl:input message="tns:UpdateUserAccountNoteSoapIn" />
+      <wsdl:output message="tns:UpdateUserAccountNoteSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SpriteAgentHttpGet">
+    <wsdl:operation name="GetAgentSessionByID">
+      <wsdl:input message="tns:GetAgentSessionByIDHttpGetIn" />
+      <wsdl:output message="tns:GetAgentSessionByIDHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserData">
+      <wsdl:input message="tns:GetChildUserDataHttpGetIn" />
+      <wsdl:output message="tns:GetChildUserDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummary">
+      <wsdl:input message="tns:GetOrderSummaryHttpGetIn" />
+      <wsdl:output message="tns:GetOrderSummaryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary">
+      <wsdl:input message="tns:GetUserAccountSummaryHttpGetIn" />
+      <wsdl:output message="tns:GetUserAccountSummaryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary_Agent">
+      <wsdl:input message="tns:GetUserAccountSummary_AgentHttpGetIn" />
+      <wsdl:output message="tns:GetUserAccountSummary_AgentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderSummary">
+      <wsdl:input message="tns:GetAgentTotalOrderSummaryHttpGetIn" />
+      <wsdl:output message="tns:GetAgentTotalOrderSummaryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalOrderSummary">
+      <wsdl:input message="tns:GetTotalOrderSummaryHttpGetIn" />
+      <wsdl:output message="tns:GetTotalOrderSummaryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
+      <wsdl:input message="tns:GetAgentTotalOrderDepositeSummaryHttpGetIn" />
+      <wsdl:output message="tns:GetAgentTotalOrderDepositeSummaryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerTotalDepositSummary">
+      <wsdl:input message="tns:GetPlayerTotalDepositSummaryHttpGetIn" />
+      <wsdl:output message="tns:GetPlayerTotalDepositSummaryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItem">
+      <wsdl:input message="tns:GetAccountingItemHttpGetIn" />
+      <wsdl:output message="tns:GetAccountingItemHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetail">
+      <wsdl:input message="tns:GetAgentAccountingDetailHttpGetIn" />
+      <wsdl:output message="tns:GetAgentAccountingDetailHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <wsdl:input message="tns:QueryCurrentUserInfoHttpGetIn" />
+      <wsdl:output message="tns:QueryCurrentUserInfoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <wsdl:input message="tns:CheckAccountExistHttpGetIn" />
+      <wsdl:output message="tns:CheckAccountExistHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryChildUserInfo">
+      <wsdl:input message="tns:QueryChildUserInfoHttpGetIn" />
+      <wsdl:output message="tns:QueryChildUserInfoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfoForSearchPage">
+      <wsdl:input message="tns:QueryCurrentUserInfoForSearchPageHttpGetIn" />
+      <wsdl:output message="tns:QueryCurrentUserInfoForSearchPageHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountNote">
+      <wsdl:input message="tns:UpdateUserAccountNoteHttpGetIn" />
+      <wsdl:output message="tns:UpdateUserAccountNoteHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SpriteAgentHttpPost">
+    <wsdl:operation name="GetAgentSessionByID">
+      <wsdl:input message="tns:GetAgentSessionByIDHttpPostIn" />
+      <wsdl:output message="tns:GetAgentSessionByIDHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserData">
+      <wsdl:input message="tns:GetChildUserDataHttpPostIn" />
+      <wsdl:output message="tns:GetChildUserDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummary">
+      <wsdl:input message="tns:GetOrderSummaryHttpPostIn" />
+      <wsdl:output message="tns:GetOrderSummaryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary">
+      <wsdl:input message="tns:GetUserAccountSummaryHttpPostIn" />
+      <wsdl:output message="tns:GetUserAccountSummaryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary_Agent">
+      <wsdl:input message="tns:GetUserAccountSummary_AgentHttpPostIn" />
+      <wsdl:output message="tns:GetUserAccountSummary_AgentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderSummary">
+      <wsdl:input message="tns:GetAgentTotalOrderSummaryHttpPostIn" />
+      <wsdl:output message="tns:GetAgentTotalOrderSummaryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalOrderSummary">
+      <wsdl:input message="tns:GetTotalOrderSummaryHttpPostIn" />
+      <wsdl:output message="tns:GetTotalOrderSummaryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
+      <wsdl:input message="tns:GetAgentTotalOrderDepositeSummaryHttpPostIn" />
+      <wsdl:output message="tns:GetAgentTotalOrderDepositeSummaryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerTotalDepositSummary">
+      <wsdl:input message="tns:GetPlayerTotalDepositSummaryHttpPostIn" />
+      <wsdl:output message="tns:GetPlayerTotalDepositSummaryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItem">
+      <wsdl:input message="tns:GetAccountingItemHttpPostIn" />
+      <wsdl:output message="tns:GetAccountingItemHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetail">
+      <wsdl:input message="tns:GetAgentAccountingDetailHttpPostIn" />
+      <wsdl:output message="tns:GetAgentAccountingDetailHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <wsdl:input message="tns:QueryCurrentUserInfoHttpPostIn" />
+      <wsdl:output message="tns:QueryCurrentUserInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <wsdl:input message="tns:CheckAccountExistHttpPostIn" />
+      <wsdl:output message="tns:CheckAccountExistHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryChildUserInfo">
+      <wsdl:input message="tns:QueryChildUserInfoHttpPostIn" />
+      <wsdl:output message="tns:QueryChildUserInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfoForSearchPage">
+      <wsdl:input message="tns:QueryCurrentUserInfoForSearchPageHttpPostIn" />
+      <wsdl:output message="tns:QueryCurrentUserInfoForSearchPageHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountNote">
+      <wsdl:input message="tns:UpdateUserAccountNoteHttpPostIn" />
+      <wsdl:output message="tns:UpdateUserAccountNoteHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SpriteAgentSoap" type="tns:SpriteAgentSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAgentSessionByID">
+      <soap:operation soapAction="http://tempuri.org/GetAgentSessionByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserData">
+      <soap:operation soapAction="http://tempuri.org/GetChildUserData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummary">
+      <soap:operation soapAction="http://tempuri.org/GetOrderSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary">
+      <soap:operation soapAction="http://tempuri.org/GetUserAccountSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary_Agent">
+      <soap:operation soapAction="http://tempuri.org/GetUserAccountSummary_Agent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderSummary">
+      <soap:operation soapAction="http://tempuri.org/GetAgentTotalOrderSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalOrderSummary">
+      <soap:operation soapAction="http://tempuri.org/GetTotalOrderSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
+      <soap:operation soapAction="http://tempuri.org/GetAgentTotalOrderDepositeSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerTotalDepositSummary">
+      <soap:operation soapAction="http://tempuri.org/GetPlayerTotalDepositSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItem">
+      <soap:operation soapAction="http://tempuri.org/GetAccountingItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetail">
+      <soap:operation soapAction="http://tempuri.org/GetAgentAccountingDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <soap:operation soapAction="http://tempuri.org/QueryCurrentUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <soap:operation soapAction="http://tempuri.org/CheckAccountExist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUserInfo">
+      <soap:operation soapAction="http://tempuri.org/CreateUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryChildUserInfo">
+      <soap:operation soapAction="http://tempuri.org/QueryChildUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfoForSearchPage">
+      <soap:operation soapAction="http://tempuri.org/QueryCurrentUserInfoForSearchPage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserInfo">
+      <soap:operation soapAction="http://tempuri.org/UpdateUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountNote">
+      <soap:operation soapAction="http://tempuri.org/UpdateUserAccountNote" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SpriteAgentSoap12" type="tns:SpriteAgentSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAgentSessionByID">
+      <soap12:operation soapAction="http://tempuri.org/GetAgentSessionByID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserData">
+      <soap12:operation soapAction="http://tempuri.org/GetChildUserData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummary">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary">
+      <soap12:operation soapAction="http://tempuri.org/GetUserAccountSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary_Agent">
+      <soap12:operation soapAction="http://tempuri.org/GetUserAccountSummary_Agent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderSummary">
+      <soap12:operation soapAction="http://tempuri.org/GetAgentTotalOrderSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalOrderSummary">
+      <soap12:operation soapAction="http://tempuri.org/GetTotalOrderSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
+      <soap12:operation soapAction="http://tempuri.org/GetAgentTotalOrderDepositeSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerTotalDepositSummary">
+      <soap12:operation soapAction="http://tempuri.org/GetPlayerTotalDepositSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItem">
+      <soap12:operation soapAction="http://tempuri.org/GetAccountingItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetail">
+      <soap12:operation soapAction="http://tempuri.org/GetAgentAccountingDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/QueryCurrentUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <soap12:operation soapAction="http://tempuri.org/CheckAccountExist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/CreateUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryChildUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/QueryChildUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfoForSearchPage">
+      <soap12:operation soapAction="http://tempuri.org/QueryCurrentUserInfoForSearchPage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/UpdateUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountNote">
+      <soap12:operation soapAction="http://tempuri.org/UpdateUserAccountNote" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SpriteAgentHttpGet" type="tns:SpriteAgentHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetAgentSessionByID">
+      <http:operation location="/GetAgentSessionByID" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserData">
+      <http:operation location="/GetChildUserData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummary">
+      <http:operation location="/GetOrderSummary" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary">
+      <http:operation location="/GetUserAccountSummary" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary_Agent">
+      <http:operation location="/GetUserAccountSummary_Agent" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderSummary">
+      <http:operation location="/GetAgentTotalOrderSummary" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalOrderSummary">
+      <http:operation location="/GetTotalOrderSummary" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
+      <http:operation location="/GetAgentTotalOrderDepositeSummary" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerTotalDepositSummary">
+      <http:operation location="/GetPlayerTotalDepositSummary" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItem">
+      <http:operation location="/GetAccountingItem" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetail">
+      <http:operation location="/GetAgentAccountingDetail" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <http:operation location="/QueryCurrentUserInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <http:operation location="/CheckAccountExist" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryChildUserInfo">
+      <http:operation location="/QueryChildUserInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfoForSearchPage">
+      <http:operation location="/QueryCurrentUserInfoForSearchPage" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountNote">
+      <http:operation location="/UpdateUserAccountNote" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SpriteAgentHttpPost" type="tns:SpriteAgentHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetAgentSessionByID">
+      <http:operation location="/GetAgentSessionByID" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserData">
+      <http:operation location="/GetChildUserData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummary">
+      <http:operation location="/GetOrderSummary" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary">
+      <http:operation location="/GetUserAccountSummary" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountSummary_Agent">
+      <http:operation location="/GetUserAccountSummary_Agent" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderSummary">
+      <http:operation location="/GetAgentTotalOrderSummary" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalOrderSummary">
+      <http:operation location="/GetTotalOrderSummary" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
+      <http:operation location="/GetAgentTotalOrderDepositeSummary" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerTotalDepositSummary">
+      <http:operation location="/GetPlayerTotalDepositSummary" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItem">
+      <http:operation location="/GetAccountingItem" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetail">
+      <http:operation location="/GetAgentAccountingDetail" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfo">
+      <http:operation location="/QueryCurrentUserInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExist">
+      <http:operation location="/CheckAccountExist" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryChildUserInfo">
+      <http:operation location="/QueryChildUserInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryCurrentUserInfoForSearchPage">
+      <http:operation location="/QueryCurrentUserInfoForSearchPage" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccountNote">
+      <http:operation location="/UpdateUserAccountNote" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SpriteAgent">
+    <wsdl:port name="SpriteAgentSoap" binding="tns:SpriteAgentSoap">
+      <soap:address location="https://ewin.dev.mts.idv.tw/API/Partner/SpriteAgent.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SpriteAgentSoap12" binding="tns:SpriteAgentSoap12">
+      <soap12:address location="https://ewin.dev.mts.idv.tw/API/Partner/SpriteAgent.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SpriteAgentHttpGet" binding="tns:SpriteAgentHttpGet">
+      <http:address location="https://ewin.dev.mts.idv.tw/API/Partner/SpriteAgent.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SpriteAgentHttpPost" binding="tns:SpriteAgentHttpPost">
+      <http:address location="https://ewin.dev.mts.idv.tw/API/Partner/SpriteAgent.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

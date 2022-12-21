@@ -140,7 +140,7 @@
         });
     };
 
-    this.GetPaymentMethodCryptoFilterPaymentChannel = function (WebSID, GUID, PaymentCategoryCode, PaymentType, UserLevel, cb) {
+    this.GetPaymentMethodCryptoFilterPaymentChannel = function (WebSID, GUID, PaymentCategoryCode, PaymentType, UserLevel, DirectionType, cb) {
         var url = APIUrl + "/GetPaymentMethodCryptoFilterPaymentChannel";
         var postData;
 
@@ -149,7 +149,8 @@
             GUID: GUID,
             PaymentCategoryCode: PaymentCategoryCode,
             PaymentType: PaymentType,
-            UserLevel: UserLevel
+            UserLevel: UserLevel,
+            DirectionType: DirectionType
         };
 
         callService(url, postData, 10000, function (success, text) {
@@ -165,7 +166,7 @@
         });
     };
 
-    this.GetPaymentMethodByPaymentCodeFilterPaymentChannel = function (WebSID, GUID, PaymentCategoryCode, PaymentType, PaymentCode, UserLevel, cb) {
+    this.GetPaymentMethodByPaymentCodeFilterPaymentChannel = function (WebSID, GUID, PaymentCategoryCode, PaymentType, PaymentCode, UserLevel, DirectionType, cb) {
         var url = APIUrl + "/GetPaymentMethodByPaymentCodeFilterPaymentChannel";
         var postData;
 
@@ -175,7 +176,8 @@
             PaymentCategoryCode: PaymentCategoryCode,
             PaymentType: PaymentType,
             PaymentCode: PaymentCode,
-            UserLevel: UserLevel
+            UserLevel: UserLevel,
+            DirectionType: DirectionType
         };
 
         callService(url, postData, 10000, function (success, text) {

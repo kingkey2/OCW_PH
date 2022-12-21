@@ -5,7 +5,7 @@
     string CompanyCode = Request["C"];
     string PersonCodeA1;  // 北村帳號 (結算帳戶 B 會放在此處)
     string PersonCodeL3;  // L3 帳號 (實際大老鷹的帳戶會掛在下線)
-    string Lang = "JPN";
+    string Lang = "ENG";
     bool CreateBigEagle = false;
     string Version = EWinWeb.Version;
     string IsFromIndex = string.Empty;
@@ -48,8 +48,8 @@
         } else if (userLang.ToUpper() == "ko".ToUpper()) {
             Lang = "ENG";
         } else if (userLang.ToUpper() == "ja".ToUpper()) {
-            Lang = "JPN";
-        } else { Lang = "JPN"; }
+            Lang = "ENG";
+        } else { Lang = "ENG"; }
     } else {
         Lang = Request["Lang"];
     }
@@ -74,23 +74,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucky Sprite</title>
-
-    <meta name='keywords' content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
-    <meta name='description' content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
-    <meta property="og:site_name" content="マハラジャ" />
-
-    <meta property="og:title" content="一番人気なオンラインカジノアミューズメント - マハラジャ" />
-    <meta property="og:Keyword" content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
-    <meta property="og:description" content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
-
-    <meta property="og:url" content="https://casino-maharaja.com/" />
-    <!--日文圖片-->
-    <meta property="og:image" content="https://casino-maharaja.com/images/share_pic.png" />
+       <title>Lucky Sprite - Most popular online casino</title>
+    <meta name='keywords' content="Casino、Slot、Amusement、Game、Auto Fast Deposits and Withdrawals" />
+    <meta name='description' content="Partners with a wide variety of well-known game brands, we provide fast deposit and withdrawal options, so you can play and have fun whenever you want!" />
+    <meta property="og:site_name" content="Lucky Sprite" />
+    <meta property="og:title" content="Most popular online casino - Lucky Sprite" />
+    <meta property="og:type" content="website" />
+    <meta property="og:Keyword" content="Auto Fast Deposits and Withdrawals" />
+    <meta property="og:description" content="Partners with a wide variety of well-known game brands, we provide fast deposit and withdrawal options, so you can play and have fun whenever you want!" />
     <meta property="og:type" content="website" />
     <!-- Share image -->
     <!--日文圖片-->
-    <link rel="image_src" href="https://casino-maharaja.com/images/share_pic.png">
     <link rel="shortcut icon" href="images/share_pic.png">
 
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
@@ -466,7 +460,7 @@
     function init() {
 
         p = new LobbyAPI("/API/LobbyAPI.asmx");
-        lang="JPN"
+        lang="ENG"
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
 
@@ -684,7 +678,7 @@
             <!-- 註冊 -->
             <div id="idRegister" class="form-container">
                 <div class="img-register img-crop" style="border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
-                    <img onclick="goIndex()" style="cursor:pointer" src="images/register-banner.jpg" alt="" id="img1">
+                    <img onclick="goIndex()" style="cursor:pointer" src="" alt="" id="img1">
                 </div>
                 <div class="heading-title">
                     <h3 class="language_replace" style="font-size: 1.35em; text-align: center;">創建新帳號</h3>

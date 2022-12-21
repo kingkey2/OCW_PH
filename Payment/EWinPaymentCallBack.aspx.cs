@@ -170,6 +170,8 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page {
         public decimal PointValue { get; set; }
         public string UserIP { get; set; }
         public string CreateDate { get; set; }
+        public string PaymentChannelCode { get; set; }
+        public string PaymentProvider { get; set; }
     }
 
     public class EWinTagInfoData {

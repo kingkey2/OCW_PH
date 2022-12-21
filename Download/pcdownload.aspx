@@ -61,10 +61,10 @@
                         <div class="dlP_AppName"><span>Lucky Sprite game APP</span></div>
                     </div>
                     <div class="dlP_ConAppQrcode">
-                        <img class="img" src="images/MaharajaAgentDownLoad.png" alt="qrcode" />
+                        <img class="img" src="images/221016190555.png" alt="qrcode" />
                     </div>
                     <div class="dlP_ConBtnDiv">
-                        <div class="dlP_ConBtn" onclick="javascript:location.href='https://game.ewin-soft.com/GetDownloadLink.aspx?Tag=MDBE0B1K'">
+                        <div class="dlP_ConBtn" onclick="javascript:location.href='https://backend.ewin888.com/GetDownloadLink.aspx?Tag=A0NQP51Y'">
                             <img src="images/APPSTOREICON.png">
                             <img src="images/APPSTOREICON2.png">
                             <span>Download</span>

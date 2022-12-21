@@ -1,7 +1,9 @@
 ﻿using Microsoft.CSharp.RuntimeBinder;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -20,7 +22,7 @@ public class Payment {
     public static class EPay
     {
         public static string SettingFile = "EPaySetting.json";
-        public static APIResult CreateEPayWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName,string BankBranchCode,string PhoneNumber)
+        public static APIResult CreateEPayWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName,string BankBranchCode,string PhoneNumber,string ProviderCode,string ServiceType)
         {
             APIResult R = new APIResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject sendData = new JObject();
@@ -63,7 +65,7 @@ public class Payment {
                 return R;
             }
 
-            URL = (string)EPAYSetting.ApiUrl + "RequireWithdraw2";
+            URL = (string)EPAYSetting.ApiUrl + "RequireWithdraw3";
             ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/WithdrawalCallback.aspx";
             CompanyCode = (string)EPAYSetting.CompanyCode;
             CurrencyType = (string)EPAYSetting.CyrrencyType;
@@ -86,7 +88,8 @@ public class Payment {
             sendData.Add("Currency", CurrencyType);
             sendData.Add("OrderAmount", OrderAmount);
             sendData.Add("BankName", BankName);
-
+            sendData.Add("ProviderCode", ProviderCode);
+            sendData.Add("ServiceType", ServiceType);
             sendData.Add("OwnProvince", "OwnProvince");
             sendData.Add("OwnCity", "OwnCity");
             sendData.Add("OrderID", OrderID);
@@ -176,9 +179,9 @@ public class Payment {
             }
         }
 
-        public static APIResult CreateEPayDeposite(string OrderID, decimal OrderAmount, string Type, string UserName,string ContactPhoneNumber,string ServiceType)
+        public static EPayDepositPaymentResult CreateEPayDeposite(string OrderID, decimal OrderAmount, string Type, string UserName,string ContactPhoneNumber,string ServiceType,string ProviderCode)
         {
-            APIResult R = new APIResult() { ResultState = APIResult.enumResultCode.ERR };
+            EPayDepositPaymentResult R = new EPayDepositPaymentResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject sendData = new JObject();
             string URL;
             string ReturnURL;
@@ -194,6 +197,18 @@ public class Payment {
             decimal JPYRate = 0;
             dynamic EPAYSetting = null;
             JObject returnResult;
+
+            if (ProviderCode== "Feibao")
+            {
+                if (ServiceType == "PHP01")
+                {
+                    ProviderCode = "FeibaoPay";
+                } else if (ServiceType == "PHP02") {
+                    ProviderCode = "FeibaoPayGrabpay";
+                } else if (ServiceType == "PHP03") {
+                    ProviderCode = "FeibaoPayPaymaya";
+                }
+            }
 
             if (EWinWeb.IsTestSite)
             {
@@ -222,25 +237,9 @@ public class Payment {
                 return R;
             }
 
-            URL = (string)EPAYSetting.ApiUrl + "RequirePayingReturnUrl";
-            if (Type == "EPayJKC")
-            {
-                DT = RedisCache.PaymentMethod.GetPaymentMethodByCategory("EPAYJKC");
-                var MultiCurrencyInfo = (string)DT.Select("PaymentCategoryCode='" + "EPAYJKC" + "'")[0]["MultiCurrencyInfo"];
-                Newtonsoft.Json.Linq.JArray MultiCurrency = Newtonsoft.Json.Linq.JArray.Parse(MultiCurrencyInfo);
-                for (int i = 0; i < MultiCurrency.Count; i++)
-                {
-                    if ((string)MultiCurrency[i]["Currency"] == "JPY")
-                    {
-                        JPYRate = (decimal)MultiCurrency[i]["Rate"];
-                    }
-                }
-                ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/JKCPaymentCallback.aspx";
-            }
-            else
-            {
-                ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/PaymentCallback.aspx";
-            }
+            URL = (string)EPAYSetting.ApiUrl + "RequirePayingReturnUrl2";
+        
+            ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/PaymentCallback.aspx";
 
             CompanyCode = (string)EPAYSetting.CompanyCode;
             CurrencyType = (string)EPAYSetting.CyrrencyType;
@@ -251,17 +250,9 @@ public class Payment {
             sendData.Add("CustomerIP", CodingControl.GetUserIP());
             sendData.Add("OrderID", OrderID);
             sendData.Add("OrderDate", OrderDate.ToString("yyyy-MM-dd HH:mm:ss"));
-            if (Type == "EPayJKC")
-            {
-                Sign = GetEPayDepositSign(OrderID, OrderAmount * JPYRate, OrderDate, ServiceType, CurrencyType, CompanyCode, CompanyKey);
-                sendData.Add("OrderAmount", (OrderAmount * JPYRate).ToString("#.##"));
-            }
-            else
-            {
-                Sign = GetEPayDepositSign(OrderID, OrderAmount, OrderDate, ServiceType, CurrencyType, CompanyCode, CompanyKey);
-                sendData.Add("OrderAmount", OrderAmount.ToString("#.##"));
-            }
-
+            Sign = GetEPayDepositSign(OrderID, OrderAmount, OrderDate, ServiceType, CurrencyType, CompanyCode, CompanyKey);
+            sendData.Add("OrderAmount", OrderAmount.ToString("#.##"));
+            sendData.Add("ProviderCode", ProviderCode);
             sendData.Add("RevolveURL", ReturnURL);
             sendData.Add("UserName", UserName);
             sendData.Add("State", ContactPhoneNumber);
@@ -303,12 +294,10 @@ public class Payment {
                             {
                                 // 取得呼叫完成 API 後的回報內容
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-
                             }
                             else
                             {
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-
                             }
                         }
                         else
@@ -334,6 +323,7 @@ public class Payment {
                 {
                     R.ResultState = APIResult.enumResultCode.OK;
                     R.Message = returnResult["Message"].ToString();
+                    R.ProviderCode= returnResult["Code"].ToString();
                     return R;
                 }
                 else
@@ -380,6 +370,399 @@ public class Payment {
         }
 
     }
+    public static class FIFIPAY
+    {
+        public static string SettingFile = "FIFIPay.json";
+
+        public static EPayDepositPaymentResult CreateDeposite(string OrderID, decimal OrderAmount,string UserName, string ContactPhoneNumber, string ServiceType)
+        {
+            Common.ProviderSetting SettingData = Common.GetProverderSetting(SettingFile);
+            EPayDepositPaymentResult R = new EPayDepositPaymentResult() { ResultState = APIResult.enumResultCode.ERR };
+            string result;
+            string sign;
+            string signStr = "";
+            Dictionary<string, string> sendDic = new Dictionary<string, string>();
+            Int32 unixTimestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+
+            sendDic.Add("pay_customer_id", SettingData.MerchantCode);//
+            sendDic.Add("pay_apply_date", unixTimestamp.ToString());//
+            sendDic.Add("pay_order_id", OrderID);//
+            sendDic.Add("pay_notify_url", SettingData.NotifyAsyncUrl);//
+            sendDic.Add("pay_amount", OrderAmount.ToString("#.##"));//
+            sendDic.Add("pay_channel_id", "1747");//
+
+            sendDic = Common.AsciiDictionary(sendDic);
+
+            foreach (KeyValuePair<string, string> item in sendDic)
+            {
+                signStr += item.Key + "=" + item.Value + "&";
+            }
+
+            signStr = signStr + "key=" + SettingData.MerchantKey;
+
+            sign = CodingControl.GetMD5(signStr, false).ToUpper();
+
+            sendDic.Add("pay_md5_sign", sign);
+
+            Common.InsertPaymentTransferLog("(充值單)建立訂單:" + JsonConvert.SerializeObject(sendDic), SettingData.ProviderCode, OrderID);
+
+            using (HttpClientHandler handler = new HttpClientHandler())
+            {
+                using (HttpClient client = new HttpClient(handler))
+                {
+                    try
+                    {
+                        #region 呼叫遠端 Web API
+
+                        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, SettingData.ProviderUrl);
+                        HttpResponseMessage response = null;
+
+                        #region  設定相關網址內容
+
+                        // Accept 用於宣告客戶端要求服務端回應的文件型態 (底下兩種方法皆可任選其一來使用)
+                        //client.DefaultRequestHeaders.Accept.TryParseAdd("application/json");
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        // Content-Type 用於宣告遞送給對方的文件型態
+                        //client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+
+
+                        // 將 data 轉為 json
+                        string json = JsonConvert.SerializeObject(sendDic);
+                        request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                        response = client.SendAsync(request).GetAwaiter().GetResult();
+
+                        #endregion
+                        #endregion
+
+                        #region 處理呼叫完成 Web API 之後的回報結果
+                        if (response != null)
+                        {
+                            if (response.IsSuccessStatusCode == true)
+                            {
+                                // 取得呼叫完成 API 後的回報內容
+                                result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                            }
+                            else
+                            {
+                                result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                            }
+                        }
+                        else
+                        {
+                            R.Message = "Create Order Fail";
+                            Common.InsertPaymentTransferLog("(充值單)供應商回傳為空值", SettingData.ProviderCode, OrderID);
+                            return R;
+                        }
+                        #endregion
+
+                    }
+                    catch (Exception ex)
+                    {
+                        R.Message = "Create Order Fail";
+                        Common.InsertPaymentTransferLog("(充值單)呼叫供應商API失敗:" + ex.Message, SettingData.ProviderCode, OrderID);
+                        return R;
+                    }
+                }
+            }
+
+            try
+            {
+                if (!string.IsNullOrEmpty(result))
+                {
+                    JObject revjsonObj = JObject.Parse(result);
+
+                    if (revjsonObj != null && revjsonObj["code"].ToString() == "0" && revjsonObj["message"].ToString().ToLower() == "success")
+                    {
+                        R.ResultState = APIResult.enumResultCode.OK;
+                        R.Message = revjsonObj["data"]["view_url"].ToString().Replace("\\", "");
+                        R.ProviderCode = SettingData.ProviderCode;
+
+                        Common.InsertPaymentTransferLog("(充值單)申請完成:" + result,SettingData.ProviderCode, OrderID);
+                        return R;
+                    }
+                    else
+                    {
+                        Common.InsertPaymentTransferLog("(充值單)供應商回傳有誤:" + result,SettingData.ProviderCode, OrderID);
+                        return R;
+                    }
+                }
+                else
+                {
+                    return R;
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.InsertPaymentTransferLog("(充值單)系統錯誤:" + ex.Message,SettingData.ProviderCode, OrderID);
+                return R;
+            }
+        }
+
+        public static Common.PaymentByProvider QueryPayment(string OrderID)
+        {
+            Common.ProviderSetting SettingData = Common.GetProverderSetting(SettingFile);
+
+            Common.PaymentByProvider Ret = new Common.PaymentByProvider() { IsQuerySuccess=false,IsPaymentSuccess=false, ProviderCode= SettingData.ProviderCode };
+
+            string sign;
+            string result;
+            string signStr = "";
+            Int32 unixTimestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            Dictionary<string, string> sendDic = new Dictionary<string, string>();
+
+            sendDic.Add("pay_customer_id", SettingData.MerchantCode);//
+            sendDic.Add("pay_apply_date", unixTimestamp.ToString());//
+            sendDic.Add("pay_order_id", OrderID);//
+
+            sendDic = Common.AsciiDictionary(sendDic);
+
+            foreach (KeyValuePair<string, string> item in sendDic)
+            {
+                signStr += item.Key + "=" + item.Value + "&";
+            }
+
+            signStr = signStr + "key=" + SettingData.MerchantKey;
+
+            sign = CodingControl.GetMD5(signStr, false).ToUpper();
+
+            sendDic.Add("pay_md5_sign", sign);
+
+            using (HttpClientHandler handler = new HttpClientHandler())
+            {
+                using (HttpClient client = new HttpClient(handler))
+                {
+                    try
+                    {
+                        #region 呼叫遠端 Web API
+
+                        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, SettingData.QueryOrderUrl);
+                        HttpResponseMessage response = null;
+
+                        #region  設定相關網址內容
+
+                        // Accept 用於宣告客戶端要求服務端回應的文件型態 (底下兩種方法皆可任選其一來使用)
+                        //client.DefaultRequestHeaders.Accept.TryParseAdd("application/json");
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        // Content-Type 用於宣告遞送給對方的文件型態
+                        //client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+
+
+                        // 將 data 轉為 json
+                        string json = JsonConvert.SerializeObject(sendDic);
+                        request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                        response = client.SendAsync(request).GetAwaiter().GetResult();
+
+                        #endregion
+                        #endregion
+
+                        #region 處理呼叫完成 Web API 之後的回報結果
+                        if (response != null)
+                        {
+                            if (response.IsSuccessStatusCode == true)
+                            {
+                                // 取得呼叫完成 API 後的回報內容
+                                result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                                Ret.IsQuerySuccess=true;
+                            }
+                            else
+                            {
+                                result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                            }
+                        }
+                        else
+                        {
+      
+                            Common.InsertPaymentTransferLog("(充值單查詢)供應商回傳為空值", SettingData.ProviderCode, OrderID);
+                            return Ret;
+                        }
+                        #endregion
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Common.InsertPaymentTransferLog("(充值單查詢)呼叫供應商API失敗:" + ex.Message, SettingData.ProviderCode, OrderID);
+                        return Ret;
+                    }
+                }
+            }
+
+            try
+            {
+                if (!string.IsNullOrEmpty(result))
+                {
+                    JObject revjsonObj = JObject.Parse(result);
+
+                    if (revjsonObj != null && revjsonObj["code"].ToString() == "0" && revjsonObj["message"].ToString().ToLower() == "success")
+                    {
+                        if (revjsonObj["data"]["status"].ToString().ToUpper() == "1" || revjsonObj["data"]["status"].ToString().ToUpper() == "2")
+                        {
+                            Common.InsertPaymentTransferLog("(充值單查詢)成功",SettingData.ProviderCode, OrderID);
+                            Ret.IsPaymentSuccess = true;
+                        }
+                        else
+                        {
+                            Common.InsertPaymentTransferLog("(充值單查詢)處理中",SettingData.ProviderCode, OrderID);
+                            Ret.IsPaymentSuccess = false;
+                        }
+
+                        return Ret;
+
+                    }
+                    else
+                    {
+                        Common.InsertPaymentTransferLog("(充值單查詢)訂單狀態不符:" + result,SettingData.ProviderCode, OrderID);
+                        Ret.IsPaymentSuccess = false;
+                        return Ret;
+                    }
+                }
+                else
+                {
+                    Common.InsertPaymentTransferLog("(充值單查詢)回傳為空值", SettingData.ProviderCode, OrderID);
+                    Ret.IsPaymentSuccess = false;
+                    return Ret;
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.InsertPaymentTransferLog("(充值單查詢)系統錯誤:" + ex.Message,SettingData.ProviderCode, OrderID);
+                Ret.IsPaymentSuccess = false;
+                return Ret;
+            }
+        }
+
+        public static Common.ReturnWithdrawByProvider CreateWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName, string BankBranchCode, string PhoneNumber, string ProviderCode, string ServiceType)
+        {
+            Common.ProviderSetting SettingData = Common.GetProverderSetting(SettingFile);
+            Common.ReturnWithdrawByProvider R = new Common.ReturnWithdrawByProvider() { ReturnResult = "", UpOrderID = "", SendStatus= 0 };
+            Dictionary<string, string> sendDic = new Dictionary<string, string>();
+            string result;
+            string sign;
+            string signStr = "";
+            Int32 unixTimestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            try
+            {
+                sendDic.Add("pay_customer_id", SettingData.MerchantCode);//
+                sendDic.Add("pay_apply_date", unixTimestamp.ToString());//
+                sendDic.Add("pay_order_id", OrderID);//
+                sendDic.Add("pay_notify_url", SettingData.WithdrawNotifyAsyncUrl);//
+                sendDic.Add("pay_amount", OrderAmount.ToString("#.##"));//
+                sendDic.Add("pay_account_name", BankCardName);//
+                sendDic.Add("pay_card_no", BankCard);//
+                sendDic.Add("pay_bank_name", BankName);//
+
+                sendDic = Common.AsciiDictionary(sendDic);
+
+                foreach (KeyValuePair<string, string> item in sendDic)
+                {
+                    signStr += item.Key + "=" + item.Value + "&";
+                }
+
+                signStr = signStr + "key=" + SettingData.MerchantKey;
+
+                sign = CodingControl.GetMD5(signStr, false).ToUpper();
+
+                sendDic.Add("pay_md5_sign", sign);
+
+
+                Common.InsertPaymentTransferLog("(提現單)建立訂單:" + JsonConvert.SerializeObject(sendDic),SettingData.ProviderCode,OrderID);
+
+                using (HttpClientHandler handler = new HttpClientHandler())
+                {
+                    using (HttpClient client = new HttpClient(handler))
+                    {
+                        try
+                        {
+                            #region 呼叫遠端 Web API
+
+                            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, SettingData.WithdrawUrl);
+                            HttpResponseMessage response = null;
+
+                            #region  設定相關網址內容
+
+                            // Accept 用於宣告客戶端要求服務端回應的文件型態 (底下兩種方法皆可任選其一來使用)
+                            //client.DefaultRequestHeaders.Accept.TryParseAdd("application/json");
+                            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                            // Content-Type 用於宣告遞送給對方的文件型態
+                            //client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+
+
+                            // 將 data 轉為 json
+                            string json = JsonConvert.SerializeObject(sendDic);
+                            request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                            response = client.SendAsync(request).GetAwaiter().GetResult();
+
+                            #endregion
+                            #endregion
+
+                            #region 處理呼叫完成 Web API 之後的回報結果
+                            if (response != null)
+                            {
+                                if (response.IsSuccessStatusCode == true)
+                                {
+                                    // 取得呼叫完成 API 後的回報內容
+                                    result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                                }
+                                else
+                                {
+                                    result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                                }
+                            }
+                            else
+                            {
+                                Common.InsertPaymentTransferLog("(提現單)供應商回傳為空值", SettingData.ProviderCode, OrderID);
+                                return R;
+                            }
+                            #endregion
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Common.InsertPaymentTransferLog("(提現單)呼叫供應商API失敗:" + ex.Message, SettingData.ProviderCode, OrderID);
+                            return R;
+                        }
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(result))
+                {
+
+                    JObject revjsonObj = JObject.Parse(result);
+                    if (revjsonObj != null && revjsonObj["code"].ToString() == "0" && revjsonObj["message"].ToString().ToLower() == "success")
+                    {
+                        R.SendStatus = 1;
+                        R.UpOrderID = "";
+                        R.WithdrawSerial = OrderID;
+                        R.ReturnResult = result;
+                        Common.InsertPaymentTransferLog("(提現單)申請完成:"+result,SettingData.ProviderCode, OrderID);
+                    }
+                    else
+                    {
+
+                        Common.InsertPaymentTransferLog("(提現單)回傳有誤:"+result, SettingData.ProviderCode, OrderID);
+                        R.ReturnResult = result;
+                        R.SendStatus = 0;
+                    }
+
+                }
+                else
+                {
+    
+                    Common.InsertPaymentTransferLog("(提現單)回傳為空值", SettingData.ProviderCode, OrderID);
+                    R.ReturnResult = "";
+                    R.SendStatus = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.InsertPaymentTransferLog("(提現單)系統錯誤:" + ex.Message, SettingData.ProviderCode, OrderID);
+                R.ReturnResult = ex.Message;
+                R.SendStatus = 0;
+            }
+            return R;
+        }
+
+    }
+
     public static class PayPal {
         public static string SettingFile = "PayPalSetting.json";
 
@@ -625,6 +1008,141 @@ public class Payment {
 
     }
 
+    public static class Common {
+        public static ProviderSetting GetProverderSetting(string SettingFile)
+        {
+            ProviderSetting RetValue;
+            //初始化設定檔資料
+            string Path;
+
+
+            if (EWinWeb.IsTestSite)
+            {
+                Path = HttpContext.Current.Server.MapPath("/App_Data/ProviderSetting/Test/" + SettingFile);
+            }
+            else
+            {
+                Path = HttpContext.Current.Server.MapPath("/App_Data/ProviderSetting/Official/" + SettingFile);
+            }
+
+            string jsonContent;
+            using (FileStream stream = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                using (StreamReader sr = new StreamReader(stream))
+                {
+                    jsonContent = sr.ReadToEnd();
+                }
+            }
+
+            RetValue = JsonConvert.DeserializeObject<ProviderSetting>(jsonContent);
+            return RetValue;
+        }
+
+        public static void InsertPaymentTransferLog(string Content, string ProviderCode,string OrderID)
+        {
+            ReportSystem.CreatePaymentContent(Content, ProviderCode, OrderID);
+
+        }
+
+        public static Dictionary<string, string> AsciiDictionary(Dictionary<string, string> sArray)
+        {
+            Dictionary<string, string> asciiDic = new Dictionary<string, string>();
+            string[] arrKeys = sArray.Keys.ToArray();
+            Array.Sort(arrKeys, string.CompareOrdinal);
+            foreach (var key in arrKeys)
+            {
+                string value = sArray[key];
+                asciiDic.Add(key, value);
+            }
+            return asciiDic;
+        }
+
+        public class ProviderSetting : Provider
+        {
+            public string QueryOrderUrl { get; set; }
+            public List<string> ProviderIP { get; set; }
+            public string NotifyAsyncIP { get; set; }
+            public string QueryBalanceUrl { get; set; }
+            public string WithdrawUrl { get; set; }
+            public string QueryWithdrawUrl { get; set; }
+            public string RequestWithdrawIP { get; set; }
+            public string ProviderPublicKey { get; set; }
+            public string Charset { get; set; }
+            public string CallBackUrl { get; set; }
+            public ProviderRequestType RequestType { get; set; }
+            public List<ServiceSetting> ServiceSettings { get; set; }
+            public List<BankCodeSetting> CityCodeSettings { get; set; }
+            public List<BankCodeSetting> ProvinceCodeSettings { get; set; }
+            public List<BankCodeSetting> BankCodeSettings { get; set; }
+            public List<CurrencyTypeSetting> CurrencyTypeSettings { get; set; }
+            public List<string> OtherDatas { get; set; }
+
+            public class ServiceSetting
+            {
+                public string ServiceType { get; set; }
+                public string TradeType { get; set; }
+                public string UrlType { get; set; }
+            }
+
+            public class BankCodeSetting
+            {
+                public string BankCode { get; set; }
+                public string ProviderBankCode { get; set; }
+            }
+
+            public class CurrencyTypeSetting
+            {
+                public string CurrencyType { get; set; }
+                public string ProviderCurrencyType { get; set; }
+            }
+
+            public enum ProviderRequestType
+            {
+                FormData = 0,
+                Json = 1,
+                RedirectUrl = 2
+            }
+
+        }
+
+        public class Provider
+        {
+            public string ProviderCode { get; set; }
+            public string ProviderName { get; set; }
+            public string Introducer { get; set; }
+            public string ProviderUrl { get; set; }
+            public int ProviderAPIType { get; set; }
+            public int CollectType { get; set; }
+            public string MerchantCode { get; set; }
+            public string MerchantKey { get; set; }
+            public string NotifyAsyncUrl { get; set; }
+            public string WithdrawNotifyAsyncUrl { get; set; }
+            public string NotifySyncUrl { get; set; }
+            public int ProviderState { get; set; }
+
+        }
+
+        public class PaymentByProvider
+        {
+            public string ProviderCode { get; set; }
+            public string ProviderReturn { get; set; }
+            public decimal OrderAmount { get; set; }
+            public bool IsPaymentSuccess { get; set; }
+            public bool IsQuerySuccess { get; set; }
+        }
+
+        public class ReturnWithdrawByProvider
+        {
+
+            public string UpOrderID;
+            public int SendStatus;//0=申請失敗/1=申請成功/2=交易已完成
+            public decimal DidAmount;
+            public decimal Balance;
+            public string WithdrawSerial;
+            public string ReturnResult;
+        }
+    }
+
     public class APIResult {
         public enum enumResultCode {
             OK = 0,
@@ -634,5 +1152,10 @@ public class Payment {
         public enumResultCode ResultState { get; set; }
         public string GUID { get; set; }
         public string Message { get; set; }
+    }
+
+    public class EPayDepositPaymentResult: APIResult
+    {
+        public string ProviderCode { get; set; }
     }
 }

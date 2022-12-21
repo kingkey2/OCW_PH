@@ -197,7 +197,7 @@ public static class ActivityCore {
 
     //上線獎勵(下線儲值完成，強制參加)
     //初期先LoginAccount(可能會有該LoginAccount貢獻等等)，高機率上下線資訊都需要，再以LoginAccount去撈取
-    public static ActResult<List<IntroActivity>> GetAllParentBonusAfterDepositResult(string LoginAccount) {
+    public static ActResult<List<IntroActivity>> GetAllParentBonusAfterDepositResult(string LoginAccount, decimal Amount) {
         ActResult<List<IntroActivity>> R = new ActResult<List<IntroActivity>>() {
             Data = new List<IntroActivity>()
         };
@@ -212,7 +212,7 @@ public static class ActivityCore {
             DetailPath = InProgressActivity["BasicPath"] + item["Path"].ToString();
             MethodName = item["MethodName"].ToString();
 
-            DataReslut = (ActResult<IntroActivity>)(typeof(ActivityExpand.ParentBonusAfterDeposit).GetMethod(MethodName).Invoke(null, new object[] { DetailPath, LoginAccount }));
+            DataReslut = (ActResult<IntroActivity>)(typeof(ActivityExpand.ParentBonusAfterDeposit).GetMethod(MethodName).Invoke(null, new object[] { DetailPath, LoginAccount, Amount }));
 
 
             if (DataReslut.Result == enumActResult.OK) {

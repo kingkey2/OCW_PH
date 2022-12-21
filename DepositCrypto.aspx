@@ -201,7 +201,7 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
 
-        copyToClipboard(copyText.textContent)
+        copyToClipboard(copyText.value)
             .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
             .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
     }
@@ -449,7 +449,7 @@
     }
 
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodCryptoFilterPaymentChannel(WebInfo.SID, Math.uuid(), "Crypto", 0, WebInfo.UserInfo.UserLevel, function (success, o) {
+        PaymentClient.GetPaymentMethodCryptoFilterPaymentChannel(WebInfo.SID, Math.uuid(), "Crypto", 0, WebInfo.UserInfo.UserLevel,0 ,function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
@@ -462,20 +462,20 @@
                     } else {
                         window.parent.API_LoadingEnd(1);
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                            window.location.href = "index.aspx"
+                            window.parent.location.href = "index.aspx"
                         });
                     }
                 } else {
                     window.parent.API_LoadingEnd(1);
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                        window.location.href = "index.aspx"
+                        window.parent.location.href = "index.aspx"
                     });
                 }
             }
             else {
                 window.parent.API_LoadingEnd(1);
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
-                    window.location.href = "index.aspx"
+                    window.parent.location.href = "index.aspx"
                 });
             }
 
@@ -531,7 +531,8 @@
 
     function setAmount() {
         $("input[name=amount]").prop("checked", false);
-        var amount = $("#amount").val().replace(/[^\-?\d.]/g, '')
+        var amount = $("#amount").val().replace(/[^\-?\d.]/g, '');
+        amount = amount.replace('.', '');
         $("#amount").val(amount);
         //$("#ExchangeVal").text(amount);
         ReSetPaymentAmount(false, amount);
@@ -569,18 +570,18 @@
         var ActivityDom = c.getTemplate("templateActivity");
         c.setClassText(ActivityDom, "ActivityTitle", null, ActivityTitle);
         c.setClassText(ActivityDom, "ActivitySubTitle", null, ActivitySubTitle);
-        ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-checked", "true");
+        //ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-checked", "true");
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-ActivityName", ActivityName);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-thresholdvalue", ThresholdValue);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-bonusvalue", BonusValue);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-collectareatype", CollectAreaType);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].id = "award-bonus" + ActivityCount;
-        ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("checked", "true");
+        //ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("checked", "true");
         ActivityDom.getElementsByClassName("custom-control-label")[0].setAttribute("for", "award-bonus" + ActivityCount);
 
-        $(".ThresholdValue_" + CollectAreaType).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CollectAreaType).text()) + ThresholdValue));
-        $("#idBonusValue").text(FormatNumber(ReFormatNumber($("#idBonusValue").text()) + BonusValue));
-        $("#idTotalReceiveValue").text(FormatNumber(ReFormatNumber($("#idTotalReceiveValue").text()) + BonusValue));
+        //$(".ThresholdValue_" + CollectAreaType).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CollectAreaType).text()) + ThresholdValue));
+        //$("#idBonusValue").text(FormatNumber(ReFormatNumber($("#idBonusValue").text()) + BonusValue));
+        //$("#idTotalReceiveValue").text(new BigNumber(ReFormatNumber($("#idTotalReceiveValue").text())).plus(BonusValue).toString());
 
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].addEventListener("change", function (e) {
             let THV = $(e.target).data("thresholdvalue");
@@ -1061,6 +1062,17 @@
                                 <div class="form-group mb-3 mb-md-4">
                                     <div class="btn-wrap btn-radio-wrap btn-radio-payment">
                                         <div class="btn-radio btn-radio-coinType">
+                                            <input type="radio" name="amount" id="amount2" />
+                                            <label class="btn btn-outline-primary" for="amount2" data-val="5000" onclick="CoinBtn_Click()">
+                                                <span class="coinType gameCoin">
+                                                    <%-- <span class="coinType-title language_replace">遊戲幣</span>--%>
+                                                    <span class="coinType-title">PHP</span>
+                                                    <span class="coinType-amount OcoinAmount">5,000</span>
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                        <div class="btn-radio btn-radio-coinType">
                                             <input type="radio" name="amount" id="amount1" />
                                             <label class="btn btn-outline-primary" for="amount1" data-val="10000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
@@ -1078,16 +1090,6 @@
                                                     <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
                                                     <span class="coinType-name">PHP</span>
                                                     <span class="coinType-amount OcoinAmount">20,000</span>
-                                                </span>
-                                            </label>
-                                        </div>
-
-                                        <div class="btn-radio btn-radio-coinType">
-                                            <input type="radio" name="amount" id="amount2" />
-                                            <label class="btn btn-outline-primary" for="amount2" data-val="50000" onclick="CoinBtn_Click()">
-                                                <span class="coinType gameCoin">
-                                                    <span class="coinType-name">PHP</span>
-                                                    <span class="coinType-amount OcoinAmount">50,000</span>
                                                 </span>
                                             </label>
                                         </div>
@@ -1135,8 +1137,9 @@
                                     <i class="icon-info_circle_outline"></i>
                                     <div class="text-wrap">
                                         <p class="title language_replace">溫馨提醒</p>
-                                        <p class="language_replace">匯率波動以交易所為主，匯率可能不定時更新。</p>
-                                        <p class="language_replace">燃料費由存款者負擔。</p>
+                                        <p class="language_replace">1.交易所轉帳可能內含手續費，請務必確認數位貨幣實際到帳數量和訂單數量相符，否則將無法上分。</p>
+                                        <p class="language_replace">2.數位貨幣入款需要經過區塊認證確認，可能需要數分鐘或者更久，完成時間並非由本網站決定，敬請知悉。</p>
+                                         <p class="language_replace">3.匯率可能隨時變動中，所有交易以本網站的匯率為準，轉帳後若有變動，將以實際入帳時的匯率撥給遊戲幣。建議您可於入款前重整匯率資訊，確保您同意目前的匯率後進行入款。</p>
                                     </div>
                                 </div>
                             </div>

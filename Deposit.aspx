@@ -30,6 +30,7 @@
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/libphonenumber.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
 <script>
     if (self != top) {
         window.parent.API_LoadingStart();
@@ -39,7 +40,8 @@
     var mlp;
     var v = "<%:Version%>";
     var lobby;
-
+    var isAddedCrypto = false;
+    var TimeZone = 8;
     function init() {
 
         if (self == top) {
@@ -58,7 +60,7 @@
     }
 
     function GetListPaymentChannel() {
-        lobby.ListPaymentChannel(WebInfo.SID, Math.uuid(), function (success, o) {
+        lobby.ListPaymentChannel(WebInfo.SID, Math.uuid(),0 ,function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.ChannelList && o.ChannelList.length > 0) {
@@ -66,37 +68,191 @@
                         for (var i = 0; i < o.ChannelList.length; i++) {
                             var channel = o.ChannelList[i];
                             //UserLevelIndex
-                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType && channel.AllowDeposit==true) {
-                                switch (channel.PaymentChannelCode) {
-                                    case "EPAY.Bank":
-                                       
+                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType) {
+                                var doc = "";
+                                var PaymentChannelCode = channel.PaymentChannelCode;
+                                if (channel.PaymentProvider != '') {
+                                    PaymentChannelCode = PaymentChannelCode.substring(0, PaymentChannelCode.length - 1);
+                                }
+                                switch (PaymentChannelCode) {
+                                    case "FeibaoGcash.Gcash":
+                                    case "FIFIPay.GcashDirect":
+                                    case "DiDiPay.GcashQRcode":
+                                    case "YuHong.GcashQRcode":
+                                    case "DiDiPay.Gcash":
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.AmountMin!=0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
+                                        }
+                                      
+                                        if (channel.AmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
+                                        }
+
+                                    doc = ` <div class="card-item sd-09">
+                                            <a class="card-item-link" onclick="OpenPage('DepositEPay','DepositEPay.aspx?PaymentChannelCode=${channel.PaymentChannelCode}')">
+                                                <div class="card-item-inner">
+                                                    <div class="title">
+                                                        <span class="language_replace">${channel.PaymentName}</span>
+                                                    </div>
+                                                    <div class="logo vertical-center text-center">
+                                                        <img src="images/assets/card-surface/icon-logo-GCash.svg">
+                                                    </div>
+                                                    <div class="quota">
+                                                        <i class="language_replace">${mlp.getLanguageKey("限額:")}</i>
+                                                        <span class="limit">${minAmount} ~ ${maxAmount}</span>
+                                                    </div>
+                                                </div>
+                                                <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
+                                            </a>
+                                        </div>`;
+                                        break; 
+                                    case "FeibaoGrabpay.Grabpay":
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.AmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
+                                        }
+
+                                        if (channel.AmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
+                                        }
+
+                                        doc = ` <div class="card-item sd-10">
+                                            <a class="card-item-link" onclick="OpenPage('DepositEPay','DepositEPay.aspx?PaymentChannelCode=${channel.PaymentChannelCode}')">
+                                                <div class="card-item-inner">
+                                                    <div class="title">
+                                                        <span class="language_replace">${channel.PaymentName}</span>
+                                                    </div>
+                                                    <div class="logo vertical-center text-center">
+                                                         <img src="images/assets/card-surface/icon-logo-GrabPay.svg">
+                                                    </div>
+                                                    <div class="quota">
+                                                        <i class="language_replace">${mlp.getLanguageKey("限額:")}</i>
+                                                        <span class="limit">${minAmount} ~ ${maxAmount}</span>
+                                                    </div>
+                                                </div>
+                                                 <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
+                                            </a>
+                                        </div>`;
                                         break;
-                                    case "EPAY.Gcash":
-                                        $('#idDepositGCash').show();
-                                        break;
-                                    case "EPAY.GcashDirect":
-                                        $('#idDepositGCashDirect').show();
-                                    case "EPAY.GcashQRcode":
-                                        $('#idDepositGcashQRcode').show();
-                                        break;
-                                    case "EPAY.Grabpay":
-                                        $('#idDepositGrabpay').show();
-                                        break;
-                                    case "EPAY.Paymaya":
-                                        $('#idDepositPaymaya').show();
+                                    case "FeibaoPaymaya.Paymaya":
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.AmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
+                                        }
+
+                                        if (channel.AmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
+                                        }
+
+                                        doc = ` <div class="card-item sd-11">
+                                            <a class="card-item-link" onclick="OpenPage('DepositEPay','DepositEPay.aspx?PaymentChannelCode=${channel.PaymentChannelCode}')">
+                                                <div class="card-item-inner">
+                                                    <div class="title">
+                                                        <span class="language_replace">${channel.PaymentName}</span>
+                                                    </div>
+                                                    <div class="logo vertical-center text-center">
+                                                        <img src="images/assets/card-surface/icon-logo-PayMaya.svg">
+                                                    </div>
+                                                    <div class="quota">
+                                                        <i class="language_replace">${mlp.getLanguageKey("限額:")}</i>
+                                                        <span class="limit">${minAmount} ~ ${maxAmount}</span>
+                                                    </div>
+                                                </div>
+                                                 <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
+                                            </a>
+                                        </div>`;
                                         break;
                                     default:
-                                }
 
-                                if (channel.PaymentBrand == "BlockChain") {
-                                    $('#idDepositCrypto').show();
+                                }
+                                if (!isAddedCrypto) {
+                                    if (channel.PaymentChannelCode == ".ERC-HLN" || channel.PaymentChannelCode == ".ERC-ETH" ||channel.PaymentChannelCode == ".BTC-BTC" || channel.PaymentChannelCode == ".ERC-USDC" || channel.PaymentChannelCode == ".ERC-USDT" || channel.PaymentChannelCode == ".TRC-USDC" || channel.PaymentChannelCode == ".TRC-USDT" || channel.PaymentChannelCode == ".XRP-XRP") {
+                                        isAddedCrypto = true;
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.AmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
+                                        }
+
+                                        if (channel.AmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
+                                        }
+
+                                        doc = `<div class="card-item sd-02">
+                                            <a class="card-item-link" onclick="OpenPage('DepositCrypto','DepositCrypto.aspx')">
+                                                <div class="card-item-inner">
+                                                    <div class="title">
+                                                        <span>Crypto Wallet</span>
+                                                    </div>
+                                                    <div class="title vertical-center">
+                                                        <span class="language_replace">${mlp.getLanguageKey("虛擬貨幣")}</span>
+                                                    </div>
+                                                    <!-- <div class="desc">
+                                                        <b>30</b> € -  <b>5,000</b> € No Fee
+                                                    </div> -->
+                                                    <div class="logo">
+                                                        <i class="icon-logo-usdt"></i>
+                                                        <!-- <i class="icon-logo-eth-o"></i> -->
+                                                        <!-- <i class="icon-logo-nissin"></i> -->
+                                                        <i class="icon-logo-eth"></i>
+                                                        <i class="icon-logo-btc"></i>
+
+                                                        <!-- <i class="icon-logo-doge"></i> -->
+                                                        <!-- <i class="icon-logo-tron"></i> -->
+                                                    </div>
+                                                    <div class="quota">
+                                                        <i class="language_replace">${mlp.getLanguageKey("限額:")}</i>
+                                                        <span class="limit">${minAmount} ~ ${maxAmount}</span>
+                                                    </div>
+                                                </div>
+                                                <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
+                                            </a>
+                                        </div>`;
+                                    }
+                                }
+                              
+                                if (doc != "") {
+
+                                    //var startTime= Date.parse("2022/12/19 " + channel.AvailableTime.StartTime);
+                                    //var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime);
+                                    //startTime = startTime+ (TimeZone * 60 * 60 * 1000);
+                                    //endTime = endTime + (TimeZone * 60 * 60 * 1000);
+
+                                    //startTimetext = startTime.toTimeString();
+                                    //startTimetext = startTimetext.split(' ')[0];
+                                    //console.log(startTimetext);
+                                    //endTimetext = endTimetext.toTimeString();
+                                    //endTimetext = endTimetext.split(' ')[0];
+                                    //console.log(endTimetext);
+                                    $('#card-container').append(doc);
                                 }
                             }
+
+                        
                         }
                     }
                 } 
             }
         })
+    }
+
+    function compareDate(time1,time2) {
+        var date = new Date();
+        var a = time1.split(":");
+        var b = time2.split(":");
+        return date.setHours(a[0], a[1]) < date.setHours(b[0], b[1]);
+    }
+
+    function toCurrency(num) {
+
+        num = parseFloat(Number(num).toFixed(2));
+        var parts = num.toString().split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return parts.join('.');
     }
 
     function OpenPage(title, url) {
@@ -169,119 +325,8 @@
                 </div>
 
                 <!-- 選擇存款管道  -->
-                <div class="card-container">
-                
-                    <!-- 虛擬錢包 -->
-                    <div class="card-item sd-02" id="idDepositCrypto" style="display:none;">
-                        <a class="card-item-link" onclick="OpenPage('DepositCrypto','DepositCrypto.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span>Crypto Wallet</span>
-                                </div>
-                                <div class="title vertical-center">
-                                    <span class="language_replace">虛擬貨幣</span>
-                                </div>
-                                <!-- <div class="desc">
-                                    <b>30</b> € -  <b>5,000</b> € No Fee                                   
-                                </div> -->
-                                <div class="logo">
-                                    <i class="icon-logo-usdt"></i>
-                                    <!-- <i class="icon-logo-eth-o"></i> -->
-                                    <!-- <i class="icon-logo-nissin"></i> -->
-                                    <i class="icon-logo-eth"></i>
-                                    <i class="icon-logo-btc"></i>
-                                    
-                                    <!-- <i class="icon-logo-doge"></i> -->
-                                    <!-- <i class="icon-logo-tron"></i> -->
-                                </div>
-                                <!-- <div class="instructions-crypto">
-                                    <i class="icon-info_circle_outline"></i>
-                                    <span onclick="window.open('instructions-crypto.html')" class="language_replace">使用說明</span>
-                                </div>                                -->
-                            </div>
-                            <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
-                        </a>
-                    </div>
-                    <!-- GCash -->
-                    <div class="card-item sd-09" id="idDepositGCash" style="display:none;">
-                        <a class="card-item-link" onclick="OpenPage('DepositGCash','DepositGCash.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">GCash</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center text-center"> 
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
-                        </a>
-                    </div>
-                     <!-- EPay -->
-                    <div class="card-item sd-09" id="idDepositGcashQRcode" style="display:none;">
-                        <a class="card-item-link" onclick="OpenPage('DepositGcashQRcode','DepositGcashQRcode.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">Gcash(QRcode)</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center text-center"> 
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <!-- <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg"> -->
-                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
-                        </a>
-                    </div>
-                     <!-- Paymaya -->
-                    <div class="card-item sd-11" id="idDepositPaymaya" style="display:none;">
-                        <a class="card-item-link" onclick="OpenPage('DepositPaymaya','DepositPaymaya.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">Paymaya</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center text-center"> 
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-PayMaya.svg">
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-11.svg" class="card-item-bg">
-                        </a>
-                    </div>
-                     <!-- Grabpay -->
-                    <div class="card-item sd-10" id="idDepositGrabpay" style="display:none;">
-                        <a class="card-item-link" onclick="OpenPage('DepositGrabpay','DepositGrabpay.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">Grabpay</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center text-center"> 
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-GrabPay.svg">
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
-                        </a>
-                    </div>
-                    <div class="card-item sd-09" id="idDepositGCashDirect" style="display:none;">
-                        <a class="card-item-link" onclick="OpenPage('DepositGCashDirect','DepositGCashDirect.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">GCash(Direct)</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center text-center"> 
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-GCash.svg">
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
-                        </a>
-                    </div>
+                <div id="card-container" class="card-container">
+      
                 </div>
                 <!-- 存款紀錄 -->
                 <div class="notice-container mt-5">

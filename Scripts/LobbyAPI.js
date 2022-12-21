@@ -21,13 +21,14 @@
         });
     };
 
-    this.ListPaymentChannel = function (WebSID, GUID, cb) {
+    this.ListPaymentChannel = function (WebSID, GUID, DirectionType, cb) {
         var url = APIUrl + "/ListPaymentChannel";
         var postData;
 
         postData = {
             WebSID: WebSID,
-            GUID: GUID
+            GUID: GUID,
+            DirectionType: DirectionType
         };
 
         callService(url, postData, 10000, function (success, text) {
@@ -1637,6 +1638,28 @@
 
     this.GetUserVIPData = function (WebSID, GUID, cb) {
         var url = APIUrl + "/GetUserVIPData";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.UserManualUpgradeVipLevel = function (WebSID, GUID, cb) {
+        var url = APIUrl + "/UserManualUpgradeVipLevel";
         var postData;
 
         postData = {

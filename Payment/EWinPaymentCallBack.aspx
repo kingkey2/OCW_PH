@@ -5,6 +5,8 @@
     string GUID = System.Guid.NewGuid().ToString();
     string Token = GetToken();
     string PromotionCollectKey;
+    string PromotionCode = "";
+    string PromotionCategoryCode = "";
 
     if (CodingControl.FormSubmit()) {
         string PostBody = String.Empty;
@@ -61,8 +63,10 @@
                                         description = "Deposit, PaymentCode=" + tagInfoData.PaymentCode + ", Amount=" + BodyObj.Amount;
                                         ResetThreshold = CheckResetThreshold(BodyObj.LoginAccount);
                                         ThresholdValue = GetUserThresholdValue(BodyObj.LoginAccount);
-                                         
+
                                         if (ThresholdValue == 0) {
+                                            lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinActivity");
+                                        } else if (ResetThreshold) {
                                             lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinActivity");
                                         }
 
@@ -76,6 +80,8 @@
                                                     List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
                                                     description = activityData.ActivityName;
                                                     PromotionCollectKey = description + "_" + BodyObj.ClientOrderNumber;
+                                                    PromotionCode = description;
+                                                    PromotionCategoryCode = "";
                                                     JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
                                                     CollectAreaType = activityData.CollectAreaType == null ? "1" : activityData.CollectAreaType;
 
@@ -83,12 +89,12 @@
                                                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                                                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                                                    lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                                    lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                                                     EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
                                                 }
                                             }
 
-                                            var allParentBonusAfterDepositResult = ActivityCore.GetAllParentBonusAfterDepositResult(BodyObj.LoginAccount);
+                                            var allParentBonusAfterDepositResult = ActivityCore.GetAllParentBonusAfterDepositResult(BodyObj.LoginAccount,  BodyObj.Amount);
 
                                             if (allParentBonusAfterDepositResult.Result == ActivityCore.enumActResult.OK) {
                                                 System.Data.DataTable ParentPaymentDT = null;
@@ -105,10 +111,12 @@
                                                         }
                                                     }
 
-                                                    if (ParentDepositAmount > 500) {
+                                                    if (ParentDepositAmount >= 500) {
                                                         List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
                                                         description = activityData.ActivityName;
                                                         PromotionCollectKey = description + "_" + BodyObj.ClientOrderNumber;
+                                                        PromotionCode = description;
+                                                        PromotionCategoryCode = "";
                                                         JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
                                                         CollectAreaType = activityData.CollectAreaType == null ? "1" : activityData.CollectAreaType;
 
@@ -116,7 +124,7 @@
                                                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                                                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                                                        lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, activityData.ParentLoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                                        lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, activityData.ParentLoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                                                         EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, 0, 0);
                                                     }
                                                 }
@@ -147,13 +155,15 @@
                                                             if (UserPointVal >= 200) {
                                                                 List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
                                                                 description = "BS001";
+                                                                PromotionCode = description;
+                                                                PromotionCategoryCode = "";
                                                                 PromotionCollectKey = description + "_" + BodyObj.LoginAccount;
 
                                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = "0" });
                                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = "200" });
                                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = "1" });
 
-                                                                lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
+                                                                lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, 2, 90, description, PropertySets.ToArray());
                                                             }
                                                         }
 
@@ -161,6 +171,7 @@
                                                     }
 
                                                     R.Result = 0;
+                                                    RedisCache.UserAccountVIPInfo.DeleteUserAccountVIPInfo(BodyObj.LoginAccount);
                                                     RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
                                                     ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
                                                     RedisCache.UserAccount.UpdateUserAccountByLoginAccount(BodyObj.LoginAccount);
@@ -241,76 +252,173 @@
                         } else {
                             SetResultException(R, "UnknownAction");
                         }
-                    } else if (BodyObj.DirectionType == "Withdrawal") {
-                        if (BodyObj.Action == "Create") {
+                    }
+                    else if (BodyObj.DirectionType == "Withdrawal") {
+                        if (BodyObj.Action == "Create")
+                        {
                             R.Result = 0;
-                        } else if (BodyObj.Action == "Finished") {
+                        }
+                        else if (BodyObj.Action == "Finished")
+                        {
                             int FinishPaymentRet;
 
                             FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Success, BodyObj.PaymentSerial);
 
-                            if (FinishPaymentRet == 0) {
+                            if (FinishPaymentRet == 0)
+                            {
                                 R.Result = 0;
                                 RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
                                 ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
                                 RedisCache.UserAccount.UpdateUserAccountByLoginAccount(BodyObj.LoginAccount);
                                 RedisCache.UserAccountSummary.UpdateUserAccountSummary(BodyObj.LoginAccount, DateTime.Now.Date);
-                            } else {
+                            }
+                            else
+                            {
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
-                        } else if (BodyObj.Action == "Cancel") {
+                        }
+                        else if (BodyObj.Action == "Cancel")
+                        {
                             int FinishPaymentRet;
 
                             FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Cancel, BodyObj.PaymentSerial);
 
-                            if (FinishPaymentRet == 0) {
+                            if (FinishPaymentRet == 0)
+                            {
                                 R.Result = 0;
                                 RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
                                 ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
-                            } else {
+                            }
+                            else
+                            {
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
-                        } else if (BodyObj.Action == "Reject") {
+                        }
+                        else if (BodyObj.Action == "Reject")
+                        {
 
                             int FinishPaymentRet;
 
                             FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Reject, BodyObj.PaymentSerial);
 
-                            if (FinishPaymentRet == 0) {
+                            if (FinishPaymentRet == 0)
+                            {
                                 R.Result = 0;
                                 RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
                                 ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
-                            } else {
+                            }
+                            else
+                            {
+
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
-                        } else if (BodyObj.Action == "Accept") {
-                            R.Result = 0;
-                            //int FinishPaymentRet;
+                        }
+                        else if (BodyObj.Action == "Accept")
+                        {
+                            if (!string.IsNullOrEmpty(BodyObj.PaymentProvider))
+                            {
+                                Newtonsoft.Json.Linq.JObject BankData = null;
+                                try { BankData = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(BodyObj.Description); }
+                                catch (Exception ex)
+                                {
+                                    BankData = null;
+                                }
+                                string ProviderCode = "";
+                                var splitPaymentChannelCode = BodyObj.PaymentChannelCode.Split('.');
+                                string UnderProvider = "";
+                                string ServiceType = "PHPBANK";
+                                bool CheckUnderProvider = true;
+                                if (splitPaymentChannelCode.Length != 2)
+                                {
+                                    SetResultException(R, "PaymentChannelCode Error");
+                                }
+                                else
+                                {
+                                    UnderProvider = splitPaymentChannelCode[0];
+                                    if (UnderProvider == "FeibaoPaymaya")
+                                    {
+                                        ProviderCode = "FeibaoPayPaymaya";
+                                    }
+                                    else if (UnderProvider == "FeibaoGrabpay") { ProviderCode = "FeibaoPayGrabpay"; }
+                                    else if (UnderProvider == "FeibaoGcash") { ProviderCode = "FeibaoPay"; }
+                                    else if (UnderProvider == "FIFIPay") { ProviderCode = "FIFIPay"; }
+                                    else if (UnderProvider == "YuHong") { ProviderCode = "YuHong"; }
+                                    else if (UnderProvider == "DiDiPay") { ProviderCode = "DiDiPay"; }
+                                    else if (UnderProvider == "FIFIPay") { ProviderCode = "FIFIPay"; }
+                                    else
+                                    {
+                                        CheckUnderProvider = false;
+                                    }
 
-                            //FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Accept, BodyObj.PaymentSerial);
+                                    if (CheckUnderProvider)
+                                    {
+                                        if (BankData != null)
+                                        {
+                                            int setPaymentFlowStatusByProviderProcessing= EWinWebDB.UserAccountPayment.SetPaymentFlowStatusByProviderProcessing(BodyObj.ClientOrderNumber);
 
-                            //if (FinishPaymentRet == 0) {
-                            //    R.Result = 0;
-                            //} else {
-                            //    SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
-                            //}
-                        } else if (BodyObj.Action == "CancelResume") {
+                                            if (setPaymentFlowStatusByProviderProcessing == 0)
+                                            {
+                                                var CreateEPayWithdrawalReturn = Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial, decimal.Parse(BankData["ReceiveAmount"].ToString()), paymentResult.CreateDate, BankData["BankCard"].ToString(), BankData["BankCardName"].ToString(), BankData["BankName"].ToString(), "BankBranchCode", BankData["BankCard"].ToString(), ProviderCode, ServiceType);
+                                                //if (CreateEPayWithdrawalReturn.ResultState == Payment.APIResult.enumResultCode.OK)
+                                                if(true)
+                                                {
+                                                    R.Result = 0;
+                                                }
+                                                else
+                                                {
+                                                    int setCancelPaymentFlowStatusByProviderProcessing= EWinWebDB.UserAccountPayment.SetCancelPaymentFlowStatusByProviderProcessing(BodyObj.ClientOrderNumber);
+                                                    if (setCancelPaymentFlowStatusByProviderProcessing == 0)
+                                                    {
+                                                        SetResultException(R, "Create Withdrawal Fail:" + CreateEPayWithdrawalReturn.Message);
+                                                    }
+                                                    else { 
+                                                       SetResultException(R, "Create Withdrawal Fail:" + CreateEPayWithdrawalReturn.Message+",Order FlowStatus Error CancelPaymentFlowStatusByProviderProcessing:"+setCancelPaymentFlowStatusByProviderProcessing);
+                                                    }
+
+                                                }
+                                            }
+                                            else {
+                                                SetResultException(R, "Order FlowStatus Error PaymentFlowStatusByProviderProcessing:"+setPaymentFlowStatusByProviderProcessing);
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            SetResultException(R, "BankDataNotExist");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        SetResultException(R, "UnderProviderCode Error");
+                                    }
+                                }
+                            }
+                            else {
+                              SetResultException(R, "PaymentProvider Empty.");
+                            }
+                        }
+                        else if (BodyObj.Action == "CancelResume")
+                        {
                             int FinishPaymentRet;
 
                             FinishPaymentRet = EWinWebDB.UserAccountPayment.ResumePaymentFlowStatus(BodyObj.ClientOrderNumber, BodyObj.PaymentSerial);
 
-
-                            if (FinishPaymentRet == 0) {
+                            if (FinishPaymentRet == 0)
+                            {
                                 R.Result = 0;
                                 var DT = EWinWebDB.UserAccountPayment.GetPaymentByOrderNumber(BodyObj.ClientOrderNumber);
                                 var Data = CovertFromRow(DT.Rows[0]);
                                 ReportSystem.UserAccountPayment.ResetUserAccountPayment(BodyObj.LoginAccount, DateTime.Now.Date);
                                 RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(Data), Data.OrderNumber, Data.ExpireSecond);
                                 RedisCache.PaymentContent.KeepPaymentContents(Data, BodyObj.LoginAccount);
-                            } else {
+                            }
+                            else
+                            {
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
-                        } else {
+                        }
+                        else
+                        {
                             SetResultException(R, "UnknownAction");
                         }
                     } else {

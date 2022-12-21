@@ -42,6 +42,7 @@
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/libphonenumber.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
 <script>      
     if (self != top) {
         window.parent.API_LoadingStart();
@@ -73,10 +74,14 @@
                     window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("WithdrawlTemporaryMaintenance"), function () {
                         window.parent.API_Reload();
                     });
+                } else {
+                    checkWalletPassword();
                 }
             }
-            checkWalletPassword();
+       
         }, "PaymentAPI");
+
+        GetListPaymentChannel();
     }
 
     function checkWalletPassword() {
@@ -94,8 +99,16 @@
         });
     }
 
+    function toCurrency(num) {
+
+        num = parseFloat(Number(num).toFixed(2));
+        var parts = num.toString().split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return parts.join('.');
+    }
+
     function GetListPaymentChannel() {
-        lobby.ListPaymentChannel(WebInfo.SID, Math.uuid(), function (success, o) {
+        lobbyClient.ListPaymentChannel(WebInfo.SID, Math.uuid(),1,function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.ChannelList && o.ChannelList.length > 0) {
@@ -103,18 +116,51 @@
                         for (var i = 0; i < o.ChannelList.length; i++) {
                             var channel = o.ChannelList[i];
                             //UserLevelIndex
-                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType && channel.AllowWithdrawal == true) {
+                            if (channel.ChannelStatus == 0 && channel.CurrencyType == WebInfo.MainCurrencyType) {
                                 switch (channel.PaymentChannelCode) {
-                                    case "EPAY.Bank":
+                                    case ".Withdrawal.BANK":
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.AmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
+                                        }
+
+                                        if (channel.AmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
+                                        }
+
+                                        $('#idWithdrawalBankCard').find('.limit').text(minAmount + "~" + maxAmount);
                                         $('#idWithdrawalBankCard').show();
                                         break;
-                                    case "EPAY.Gcash":
+                                    case ".Withdrawal.Gcash":
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.AmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
+                                        }
+
+                                        if (channel.AmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
+                                        }
+
+                                        $('#idWithdrawalGCASH').find('.limit').text(minAmount + "~" + maxAmount);
                                         $('#idWithdrawalGCASH').show();
                                         break;
                                     default:
                                 }
 
-                                if (channel.PaymentBrand == "BlockChain") {
+                                if (channel.PaymentChannelCode.includes("BlockChain")) {
+                                    var minAmount = "unlimited";
+                                    var maxAmount = "unlimited";
+                                    if (channel.AmountMin != 0) {
+                                        minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
+                                    }
+
+                                    if (channel.AmountMax != 0) {
+                                        maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
+                                    }
+
+                                    $('#idWithdrawalCrypto').find('.limit').text(minAmount + "~" + maxAmount);
                                     $('#idWithdrawalCrypto').show();
                                 }
                             }
@@ -246,7 +292,7 @@
 
                     </div>--%>
                     <!-- 虛擬錢包 -->
-                    <div class="card-item sd-02" id="idWithdrawalCrypto">
+                    <div class="card-item sd-02" id="idWithdrawalCrypto" style="display:none;">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalCrypto','WithdrawalCrypto.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -270,12 +316,16 @@
                                     <i class="icon-info_circle_outline"></i>
                                     <span onclick="window.open('instructions-crypto.html')" class="language_replace">使用說明</span>
                                 </div>                                -->
+                                  <div class="quota">
+                                    <i class="language_replace">限額:</i>
+                                    <span class="limit">100.00 ~ 10,000.00</span>
+                                </div>
                             </div>
                             <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
                         </a>
                     </div>
                     <!-- EPay -->
-                    <div id="idWithdrawalBankCard" class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalEPay.aspx')">
+                    <div id="idWithdrawalBankCard" style="display:none;" class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalEPay.aspx')">
                         <a class="card-item-link ">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -286,11 +336,15 @@
                                     <!-- <span class="text language_replace">銀行振込</span> -->
                                     <img src="images/assets/card-surface/icon-logo-bankcard.png">
                                 </div>
+                                  <div class="quota">
+                                    <i class="language_replace">限額:</i>
+                                    <span class="limit">100.00 ~ 10,000.00</span>
+                                </div>
                             </div>
                         </a>
                            <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
-                       <div id="idWithdrawalGCASH" class="card-item sd-09 tempCard" onclick="window.parent.API_LoadPage('WithdrawalGCASH','WithdrawalGCASH.aspx')">
+                       <div id="idWithdrawalGCASH" style="display:none;" class="card-item sd-09 tempCard" onclick="window.parent.API_LoadPage('WithdrawalGCASH','WithdrawalGCASH.aspx')">
                         <a class="card-item-link ">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -300,6 +354,10 @@
                                 <div class="logo vertical-center text-center">
                                     <!-- <span class="text language_replace">銀行振込</span> -->
                                     <img src="images/assets/card-surface/icon-logo-GCash.svg">
+                                </div>
+                                    <div class="quota">
+                                    <i class="language_replace">限額:</i>
+                                    <span class="limit">100.00 ~ 10,000.00</span>
                                 </div>
                             </div>
                         </a>

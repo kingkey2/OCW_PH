@@ -1,12 +1,1 @@
-{
-  "InMaintenance": 0,
-  "ThresholdBaseValue": 100,
-  "WithdrawalStartTime": "09:00:00",
-  "WithdrawlEndTime": "23:59:59",
-  "MaintainMessage": "Maintenance time: 11:00-13:00",
-  "WithdrawlTemporaryMaintenance": 0,
-  "LoginMessage": {
-    "Message": "",
-    "Version": 1
-  }
-}
+{"InMaintenance":0,"ThresholdBaseValue":100,"WithdrawalStartTime":"00:00:00","WithdrawlEndTime":"23:59:59","MaintainMessage":"Maintenance time: 11:00-13:00","WithdrawlTemporaryMaintenance":0,"LoginMessage":{"Message":"","Version":1}}

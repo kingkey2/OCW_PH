@@ -162,6 +162,9 @@
                         if (startDate.substring(0, startDate.length - 3) == Date.today().moveToFirstDayOfMonth().toString("yyyy/MM")) {
                             $("#Game_O_1").text(new BigNumber(totalOrderValue).toFixed(2));
                             $("#Game_R_1").text(new BigNumber(totalRewardValue).toFixed(2));
+                        } else if (startDate.substring(0, startDate.length - 3) == Date.today().addMonths(-1).moveToFirstDayOfMonth().toString("yyyy/MM")) {
+                            $("#Game_O_0").text(new BigNumber(totalOrderValue).toFixed(2));
+                            $("#Game_R_0").text(new BigNumber(totalRewardValue).toFixed(2));
                         }
 
                         window.parent.API_CloseLoading();
@@ -180,6 +183,7 @@
                 window.parent.API_CloseLoading();
             }
         });
+        resize();
     }
 
     function getGameOrderDetail(Dom, QueryDate, cb) {
@@ -570,6 +574,7 @@
                 // 忽略 timeout 
             }
         });
+        resize();
     }
     //#endregion
 
@@ -592,6 +597,7 @@
             } else {
             }
         });
+        resize();
     }
 
     function showRecord(type) {
@@ -709,8 +715,7 @@
             el.src = WebInfo.ImageUrl + "/default.png";
         }
     }
-
-
+    
     function EWinEventNotify(eventName, isDisplay, param) {
         switch (eventName) {
             case "LoginState":
@@ -741,6 +746,25 @@
         }
     }
 
+    function resize() {
+        var scr;
+
+        scr = c.getScreenSize();
+
+        if (scr.width > 991) {
+            $("#divPayment").show();
+            $("#divGame").show();
+            $("#divPayment_M").hide();
+            $("#divGame_M").hide();
+        } else {
+            $("#divPayment").hide();
+            $("#divGame").hide();
+            $("#divPayment_M").show();
+            $("#divGame_M").show();
+        }
+        
+    }
+
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
@@ -769,6 +793,7 @@
     }
 
     window.onload = init;
+    window.onresize = resize;
 </script>
 <body class="innerBody">
     <main class="innerMain">

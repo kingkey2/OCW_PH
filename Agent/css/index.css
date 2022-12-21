@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*=================== fonts ====================*/
 @import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
 /* animation =================================
@@ -54,7 +54,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     justify-content: center;
     margin-right: 5px; }
   .currencyWalletList .currencyWallet__type .wallet__type .currency {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: bold; }
   .currencyWalletList .currencyWallet__type .wallet__status {
     display: -webkit-inline-box;

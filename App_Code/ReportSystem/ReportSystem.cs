@@ -550,4 +550,14 @@ public static class ReportSystem {
         AppendAllText(Filename, Content);
     }
 
+    public static void CreatePaymentContent(string Content,string ProviderCode,string OrderID)
+    {
+        string Folder;
+        string Filename;
+
+        Folder = PrepareReportFolder("/"+ ProviderCode+"/"+ DateTime.Now.ToString("yyyy-MM-dd"));
+        Filename = Folder + "\\"  + OrderID + ".json";
+        AppendAllText(Filename, Content + "\r\n");
+    }
+
 }

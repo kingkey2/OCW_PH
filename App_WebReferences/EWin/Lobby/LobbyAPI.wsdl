@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://tempuri.org/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:element name="HeartBeat">
@@ -30,6 +30,77 @@
           <s:enumeration value="ERR" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="GetRank">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="RankSummaryDays" type="tns:enumRankSummaryDays" />
+            <s:element minOccurs="1" maxOccurs="1" name="RankType" type="tns:enumRankType" />
+            <s:element minOccurs="1" maxOccurs="1" name="SortType" type="tns:enumSortType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="enumRankSummaryDays">
+        <s:restriction base="s:string">
+          <s:enumeration value="Days1" />
+          <s:enumeration value="Days3" />
+          <s:enumeration value="Days7" />
+          <s:enumeration value="Days14" />
+          <s:enumeration value="Days30" />
+          <s:enumeration value="ThisWeek" />
+          <s:enumeration value="ThisMonth" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="enumRankType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Electron" />
+          <s:enumeration value="Live" />
+          <s:enumeration value="Sport" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="enumSortType">
+        <s:restriction base="s:string">
+          <s:enumeration value="BetCount" />
+          <s:enumeration value="OrderValue" />
+          <s:enumeration value="RewardValue" />
+          <s:enumeration value="ValidBetValue" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetRankResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRankResult" type="tns:RankInfoResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RankInfoResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="List" type="tns:ArrayOfRankInfo" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfRankInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RankInfo" nillable="true" type="tns:RankInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RankInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RankNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BetCount" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValidBetValue" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="CheckPaymentChannelAmount">
         <s:complexType>
           <s:sequence>
@@ -56,19 +127,23 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ListPaymentChannel">
+      <s:element name="GetPaymentChannelByGroupIndex">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DirectionType" type="tns:enumPaymentDirectionType" />
+            <s:element minOccurs="1" maxOccurs="1" name="GroupIndex" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ListPaymentChannelResponse">
+      <s:element name="GetPaymentChannelByGroupIndexResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ListPaymentChannelResult" type="tns:PaymentChannelResult" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetPaymentChannelByGroupIndexResult" type="tns:PaymentChannelResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -89,34 +164,44 @@
       <s:complexType name="PaymentChannel">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="PaymentChannelCode" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="PaymentBrand" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentProvider" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="PaymentName" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="UserLevelIndex" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="ChannelStatus" type="tns:enumChannelStatus" />
-          <s:element minOccurs="1" maxOccurs="1" name="AllowDeposit" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="DepositAmountMin" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="DepositAmountMax" type="s:decimal" />
-          <s:element minOccurs="0" maxOccurs="1" name="DepositAvailableTime" type="tns:PaymentTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="AllowWithdrawal" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalAmountMin" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalAmountMax" type="s:decimal" />
-          <s:element minOccurs="0" maxOccurs="1" name="WithdrawalAvailableTime" type="tns:PaymentTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="GroupIndex" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="WeightIndex" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AvailableCreditValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AmountMin" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AmountMax" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalCreditValueDay" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreditValueDay" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="AvailableTime" type="tns:PaymentTime" />
         </s:sequence>
       </s:complexType>
-      <s:simpleType name="enumChannelStatus">
-        <s:restriction base="s:string">
-          <s:enumeration value="Available" />
-          <s:enumeration value="ChannelDisabled" />
-        </s:restriction>
-      </s:simpleType>
       <s:complexType name="PaymentTime">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ListPaymentChannel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DirectionType" type="tns:enumPaymentDirectionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListPaymentChannelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListPaymentChannelResult" type="tns:PaymentChannelResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RemoveUserAccountAddRate">
         <s:complexType>
           <s:sequence>
@@ -519,6 +604,8 @@
             <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PromotionCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PromotionCategoryCode" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="CollectAreaType" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="ExpireDay" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
@@ -2209,6 +2296,7 @@
         </s:sequence>
       </s:complexType>
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
+      <s:element name="RankInfoResult" nillable="true" type="tns:RankInfoResult" />
       <s:element name="PaymentChannelResult" nillable="true" type="tns:PaymentChannelResult" />
       <s:element name="UserAccountAddRateList" nillable="true" type="tns:UserAccountAddRateList" />
       <s:element name="PromotionJoinListResult" nillable="true" type="tns:PromotionJoinListResult" />
@@ -2244,11 +2332,23 @@
   <wsdl:message name="HeartBeatSoapOut">
     <wsdl:part name="parameters" element="tns:HeartBeatResponse" />
   </wsdl:message>
+  <wsdl:message name="GetRankSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRank" />
+  </wsdl:message>
+  <wsdl:message name="GetRankSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRankResponse" />
+  </wsdl:message>
   <wsdl:message name="CheckPaymentChannelAmountSoapIn">
     <wsdl:part name="parameters" element="tns:CheckPaymentChannelAmount" />
   </wsdl:message>
   <wsdl:message name="CheckPaymentChannelAmountSoapOut">
     <wsdl:part name="parameters" element="tns:CheckPaymentChannelAmountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentChannelByGroupIndexSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPaymentChannelByGroupIndex" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentChannelByGroupIndexSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPaymentChannelByGroupIndexResponse" />
   </wsdl:message>
   <wsdl:message name="ListPaymentChannelSoapIn">
     <wsdl:part name="parameters" element="tns:ListPaymentChannel" />
@@ -2683,6 +2783,17 @@
   <wsdl:message name="HeartBeatHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="GetRankHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="RankSummaryDays" type="s:string" />
+    <wsdl:part name="RankType" type="s:string" />
+    <wsdl:part name="SortType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRankHttpGetOut">
+    <wsdl:part name="Body" element="tns:RankInfoResult" />
+  </wsdl:message>
   <wsdl:message name="CheckPaymentChannelAmountHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -2695,10 +2806,24 @@
   <wsdl:message name="CheckPaymentChannelAmountHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="GetPaymentChannelByGroupIndexHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
+    <wsdl:part name="GroupIndex" type="s:string" />
+    <wsdl:part name="Amount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentChannelByGroupIndexHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentChannelResult" />
+  </wsdl:message>
   <wsdl:message name="ListPaymentChannelHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
   </wsdl:message>
   <wsdl:message name="ListPaymentChannelHttpGetOut">
     <wsdl:part name="Body" element="tns:PaymentChannelResult" />
@@ -3354,6 +3479,17 @@
   <wsdl:message name="HeartBeatHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="GetRankHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="RankSummaryDays" type="s:string" />
+    <wsdl:part name="RankType" type="s:string" />
+    <wsdl:part name="SortType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRankHttpPostOut">
+    <wsdl:part name="Body" element="tns:RankInfoResult" />
+  </wsdl:message>
   <wsdl:message name="CheckPaymentChannelAmountHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -3366,10 +3502,24 @@
   <wsdl:message name="CheckPaymentChannelAmountHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="GetPaymentChannelByGroupIndexHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
+    <wsdl:part name="GroupIndex" type="s:string" />
+    <wsdl:part name="Amount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentChannelByGroupIndexHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentChannelResult" />
+  </wsdl:message>
   <wsdl:message name="ListPaymentChannelHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
   </wsdl:message>
   <wsdl:message name="ListPaymentChannelHttpPostOut">
     <wsdl:part name="Body" element="tns:PaymentChannelResult" />
@@ -4023,9 +4173,17 @@
       <wsdl:input message="tns:HeartBeatSoapIn" />
       <wsdl:output message="tns:HeartBeatSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetRank">
+      <wsdl:input message="tns:GetRankSoapIn" />
+      <wsdl:output message="tns:GetRankSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="CheckPaymentChannelAmount">
       <wsdl:input message="tns:CheckPaymentChannelAmountSoapIn" />
       <wsdl:output message="tns:CheckPaymentChannelAmountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <wsdl:input message="tns:GetPaymentChannelByGroupIndexSoapIn" />
+      <wsdl:output message="tns:GetPaymentChannelByGroupIndexSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ListPaymentChannel">
       <wsdl:input message="tns:ListPaymentChannelSoapIn" />
@@ -4317,9 +4475,17 @@
       <wsdl:input message="tns:HeartBeatHttpGetIn" />
       <wsdl:output message="tns:HeartBeatHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetRank">
+      <wsdl:input message="tns:GetRankHttpGetIn" />
+      <wsdl:output message="tns:GetRankHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="CheckPaymentChannelAmount">
       <wsdl:input message="tns:CheckPaymentChannelAmountHttpGetIn" />
       <wsdl:output message="tns:CheckPaymentChannelAmountHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <wsdl:input message="tns:GetPaymentChannelByGroupIndexHttpGetIn" />
+      <wsdl:output message="tns:GetPaymentChannelByGroupIndexHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="ListPaymentChannel">
       <wsdl:input message="tns:ListPaymentChannelHttpGetIn" />
@@ -4595,9 +4761,17 @@
       <wsdl:input message="tns:HeartBeatHttpPostIn" />
       <wsdl:output message="tns:HeartBeatHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetRank">
+      <wsdl:input message="tns:GetRankHttpPostIn" />
+      <wsdl:output message="tns:GetRankHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="CheckPaymentChannelAmount">
       <wsdl:input message="tns:CheckPaymentChannelAmountHttpPostIn" />
       <wsdl:output message="tns:CheckPaymentChannelAmountHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <wsdl:input message="tns:GetPaymentChannelByGroupIndexHttpPostIn" />
+      <wsdl:output message="tns:GetPaymentChannelByGroupIndexHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="ListPaymentChannel">
       <wsdl:input message="tns:ListPaymentChannelHttpPostIn" />
@@ -4879,8 +5053,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetRank">
+      <soap:operation soapAction="http://tempuri.org/GetRank" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CheckPaymentChannelAmount">
       <soap:operation soapAction="http://tempuri.org/CheckPaymentChannelAmount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <soap:operation soapAction="http://tempuri.org/GetPaymentChannelByGroupIndex" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5539,8 +5731,26 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetRank">
+      <soap12:operation soapAction="http://tempuri.org/GetRank" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CheckPaymentChannelAmount">
       <soap12:operation soapAction="http://tempuri.org/CheckPaymentChannelAmount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <soap12:operation soapAction="http://tempuri.org/GetPaymentChannelByGroupIndex" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -6199,8 +6409,26 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetRank">
+      <http:operation location="/GetRank" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CheckPaymentChannelAmount">
       <http:operation location="/CheckPaymentChannelAmount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <http:operation location="/GetPaymentChannelByGroupIndex" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -6823,8 +7051,26 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetRank">
+      <http:operation location="/GetRank" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CheckPaymentChannelAmount">
       <http:operation location="/CheckPaymentChannelAmount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <http:operation location="/GetPaymentChannelByGroupIndex" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

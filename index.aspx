@@ -60,7 +60,7 @@
     RValue = R.Next(100000, 9999999);
     Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
     var CompanySite = lobbyAPI.GetCompanySite(Token, Guid.NewGuid().ToString());
-
+    
     RegisterType = CompanySite.RegisterType;
     RegisterParentPersonCode = CompanySite.RegisterParentPersonCode;
     if (string.IsNullOrEmpty(Request["Lang"])) {
@@ -211,6 +211,7 @@
     var clickCount=0;
     var PCode = "<%=PCode%>";
     var PageType = "<%=PageType%>";
+    var JoinActivitys;
 
     //#region TOP API
     function API_GetGCB() {
@@ -694,7 +695,7 @@
     }
 
     function API_OpenGame(GameBrand, GameName, LangName) {
-        openGame(GameBrand, GameName, LangName);
+        openGame(GameBrand, GameName, LangName.replace("'", "‘"));
     }
 
     function API_GetUserTotalSummary(cb) {
@@ -991,8 +992,8 @@
         popupMoblieGameInfo.find('.GameName').text(GameLangName);
         $('.headerGameName').text(GameLangName);
 
-        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName + "')");
-        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName + "')");
+        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName.replace("'", "‘") + "')");
+        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName.replace("'", "‘") + "')");
         GCB.GetFavo(function (data) {
             favoriteGames.push(data);
         }, function (data) {
@@ -2075,7 +2076,7 @@
                         });
                     } else {
                         EWinWebInfo.UserLogined = false;
-                        showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請重新登入") + ":" + mlp.getLanguageKey(obj.Message), function () {
+                        showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請重新登入") + " " + mlp.getLanguageKey(obj.Message), function () {
                             API_Logout(true);
                         });
 
@@ -2398,14 +2399,6 @@
                 }, false);
             }
 
-            if (EWinWebInfo.DeviceType == 1) {
-                // $(".searchFilter-item").eq(0).css("flex-grow", "0");
-                // $(".searchFilter-item").eq(0).css("flex-shrink","0");
-                // $(".searchFilter-item").eq(0).css("flex-basis","100%");
-                // $(".searchFilter-item").eq(1).css("margin-left", "0");
-                //$(".searchFilter-item").eq(2).css("margin-left","0");
-            }
-
             var dstPage = c.getParameter("DstPage");
             var closeGameBtn = $('#closeGameBtn');
             lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
@@ -2437,6 +2430,9 @@
             }
             else {
                 if (EWinWebInfo.SID != "") {
+                     API_GetUserAccountProperty("JoinActivity", function (d) {
+                         JoinActivitys = d;
+                    });
                     API_Casino();
                 } else {
                     if (PageType != null && PageType != "" && PageType == "OpenSumo") {
@@ -2489,7 +2485,7 @@
 
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
                                             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("即將開啟") + ":" + openGameBeforeLogin.GameLangName, function () {
-                                                openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
+                                                openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName.replace("'", "‘"));
                                             });
                                         } else {
                                             var srcPage = window.sessionStorage.getItem("SrcPage");
@@ -2665,6 +2661,11 @@
                                 if (wallet.PointValue <= 100) {
                                     boolCheck = true;
                                     break;
+                                } else {
+                                    if (JoinActivitys == "") {
+                                        boolCheck = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -2793,7 +2794,7 @@
 
                         var RTP = "--";
                         var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
-                        lang_gamename = lang_gamename.replace("'", "");
+                        lang_gamename = lang_gamename.replace("'", "‘");
                         if (gameItem.RTPInfo) {
                             RTP = JSON.parse(gameItem.RTPInfo).RTP;
                         }
@@ -2804,7 +2805,7 @@
 
                         GI = c.getTemplate("tmpSearchGameItem");
                         let GI1 = $(GI);
-                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
+                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename.replace("'", "‘") + "')");
 
                         GI1.addClass("group" + parseInt(gameItemCount / 60));
                         gameItemCount++;
@@ -3147,7 +3148,7 @@
 
                 var RTP = "--";
                 var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
-                lang_gamename = lang_gamename.replace("'", "");
+                lang_gamename = lang_gamename.replace("'", "‘");
                 if (gameItem.RTPInfo) {
                     RTP = JSON.parse(gameItem.RTPInfo).RTP;
                 }
@@ -3158,7 +3159,7 @@
 
                 GI = c.getTemplate("tmpSearchGameItem");
                 let GI1 = $(GI);
-                GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
+                GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename.replace("'", "\'") + "')");
 
                 var GI_img = GI.querySelector(".gameimg");
                 if (GI_img != null) {
@@ -3583,9 +3584,6 @@
                 <div class="container">
 
                     <ul class="company-info row">
-                        <%--      <li class="info-item col">
-                           <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
-                        </li>--%>
 
                         <li class="info-item col">
                             <a id="Footer_ResponsibleGaming" onclick="window.parent.API_ShowPartialHtml('', 'ResponsibleGambling_ENG', false, null)">
@@ -3760,8 +3758,9 @@
                     </div>
 
                     <div class="company-detail">
-                        <div class="company-license" style="display:none">
-                            <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
+                  <%--      --%>
+                        <div class="company-license">
+                            <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;" ></iframe>
                         </div>
                         <div class="company-address">
                             <p class="address language_replace">Lucky Sprite由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
