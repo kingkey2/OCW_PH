@@ -2017,22 +2017,27 @@
             if (wallet.CurrencyType == EWinWebInfo.BonusCurrencyType) {
                 if (EWinWebInfo.UserInfo.UserAccountType != 0) {
                     $("#liWithdrawalAgent").hide();
+                } else {
+                    $("#liWithdrawal").hide();
                 }
-                $("#liWithdrawal").hide();
+               
             } else {
                 if (wallet.PointValue > 0) {
                     if (EWinWebInfo.UserInfo.UserAccountType != 0) {
-                       $("#liWithdrawalAgent").show();
+                        $("#liWithdrawalAgent").show();
+                    } else {
+                        $("#liWithdrawal").show();
                     }
-                    $("#liWithdrawal").show();
+                   
                 } else {
                     if (EWinWebInfo.UserInfo.UserAccountType != 0) {
-                       $("#liWithdrawalAgent").hide();
+                        $("#liWithdrawalAgent").hide();
+                    } else {
+                        $("#liWithdrawal").hide();
                     }
-                    $("#liWithdrawal").hide();
+
                 }
             }
-            $("#liWithdrawalAgent").show();
             // 已登入
             idMenuLogin.classList.remove("is-hide");
             idLoginBtn.classList.add("is-hide");
@@ -3376,7 +3381,7 @@
                                         <li class="nav-item submenu dropdown" onclick="API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx', true)" id="liWithdrawalAgent" style="display: none">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-withdarw"></i>
-                                                <span class="title language_replace">出款</span></a>
+                                                <span class="title language_replace">代理出款</span></a>
                                         </li>
                                     </ul>
                                 </li>

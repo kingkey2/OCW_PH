@@ -60,6 +60,7 @@
     var IsOpenTime = "<%:InOpenTime%>";
     var IsWithdrawlTemporaryMaintenance = "<%:IsWithdrawlTemporaryMaintenance%>";
     var BankCardData;
+    var PaymentChannelCode;
 
     function init() {
         if (self == top) {
@@ -211,7 +212,7 @@
                 if (o.Result == 0) {
                     cb(true, o.ChannelList[0].PaymentChannelCode);
                 } else {
-                    cb(false, o.Message);
+                    cb(false, mlp.getLanguageKey("貨幣未設定匯率"));
                 }
             }
         })
@@ -406,8 +407,9 @@
 
         CheckWalletPassword(idWalletPassword, function (s2, message2) {
             if (s2) {
-                GetPaymentChannelByGroupIndex(amount, function (s, message) {
+                GetPaymentChannelByGroupIndex(amount, function (s, paymentChannelCode) {
                     if (s) {
+                        PaymentChannelCode = paymentChannelCode;
                         PaymentClient.GetInProgressPaymentByLoginAccount(WebInfo.SID, Math.uuid(), WebInfo.UserInfo.LoginAccount, 1, function (success, o) {
                             if (success) {
                                 window.parent.API_LoadingEnd(1);

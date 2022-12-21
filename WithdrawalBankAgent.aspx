@@ -240,7 +240,7 @@
                 if (o.Result == 0) {
                     cb(true, o.ChannelList[0].PaymentChannelCode);
                 } else {
-                    cb(false, o.Message);
+                    cb(false, mlp.getLanguageKey("貨幣未設定匯率"));
                 }
             }
         })
@@ -458,7 +458,7 @@
                         })
                     } else {
                         window.parent.API_LoadingEnd(1);
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(message));
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), paymentChannelCode);
                     }
                 });
             } else {

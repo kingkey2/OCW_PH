@@ -50,15 +50,71 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.PaymentChannelResult GetPaymentChannelByGroupIndex(string WebSID, string GUID,int DirectionType,int GroupIndex,decimal Amount) {
+    public EWin.Lobby.PaymentChannelResult GetPaymentChannelByGroupIndex(string WebSID, string GUID, int DirectionType, int GroupIndex, decimal Amount)
+    {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+        System.Data.DataTable DT = new System.Data.DataTable();
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+        {
+            var GetPaymentChannelResult = lobbyAPI.GetPaymentChannelByGroupIndex(GetToken(), SI.EWinSID, GUID, EWinWeb.MainCurrencyType, (EWin.Lobby.enumPaymentDirectionType)DirectionType, GroupIndex, Amount);
+            if (GetPaymentChannelResult.Result == EWin.Lobby.enumResult.OK)
+            {
+                return GetPaymentChannelResult;
+            }
+            else
+            {
+                var ListPaymentChannelResult = lobbyAPI.ListPaymentChannel(GetToken(), SI.EWinSID, GUID, EWinWeb.MainCurrencyType, (EWin.Lobby.enumPaymentDirectionType)DirectionType);
+                if (ListPaymentChannelResult.Result == EWin.Lobby.enumResult.OK)
+                {
 
-        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            return lobbyAPI.GetPaymentChannelByGroupIndex(GetToken(), SI.EWinSID, GUID,EWinWeb.MainCurrencyType,(EWin.Lobby.enumPaymentDirectionType)DirectionType,GroupIndex,Amount);
-        } else {
-            var R = new EWin.Lobby.PaymentChannelResult() {
+                    ListPaymentChannelResult.ChannelList = ListPaymentChannelResult.ChannelList.Where(w=>w.GroupIndex==GroupIndex&&w.CurrencyType==EWinWeb.MainCurrencyType).OrderByDescending(o => o.GroupIndex).ThenByDescending(o => o.WeightIndex).ThenByDescending(o => o.UserLevelIndex).ToArray();
+
+               
+                    if (ListPaymentChannelResult.ChannelList.Length>0)
+                    {
+                        var ChannelList = new EWin.Lobby.PaymentChannel[1];
+                        ChannelList[0] = new EWin.Lobby.PaymentChannel() { PaymentChannelCode = ListPaymentChannelResult.ChannelList[0].PaymentChannelCode };
+                        var R = new EWin.Lobby.PaymentChannelResult()
+                        {
+                            Result = EWin.Lobby.enumResult.OK,
+                            ChannelList = ChannelList,
+                            Message = "",
+                            GUID = GUID
+                        };
+
+                        return R;
+                    }
+                    else
+                    {
+                        var R = new EWin.Lobby.PaymentChannelResult()
+                        {
+                            Result = EWin.Lobby.enumResult.ERR,
+                            Message = "InvalidWebSID",
+                            GUID = GUID
+                        };
+
+                        return R;
+                    }
+                }
+                else
+                {
+                    var R = new EWin.Lobby.PaymentChannelResult()
+                    {
+                        Result = EWin.Lobby.enumResult.ERR,
+                        Message = "InvalidWebSID",
+                        GUID = GUID
+                    };
+
+                    return R;
+                }
+            }
+        }
+        else
+        {
+            var R = new EWin.Lobby.PaymentChannelResult()
+            {
                 Result = EWin.Lobby.enumResult.ERR,
                 Message = "InvalidWebSID",
                 GUID = GUID
