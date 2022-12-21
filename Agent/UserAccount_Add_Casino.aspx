@@ -299,17 +299,7 @@
             
             userList[userList.length] = { Name: "AllowBet", Value: 3 };
 
-            let k = {
-                CurrencyType: EWinInfo.MainCurrencyType,
-                PointState: 0,
-                UserRate: 0,
-                BuyChipRate: 0
-            };
 
-            userList[userList.length] = {
-                Name: "Wallet",
-                Value: JSON.stringify(k)
-            };
 
             // 建立錢包更新物件
             for (var i = 0; i < idPointList.children.length; i++) {
@@ -335,6 +325,24 @@
                     userList[userList.length] = {
                         Name: "GameCodeList",
                         Value: JSON.stringify(g)
+                    };
+
+                } else if (el.hasAttribute("default")) {
+                    var currencyType = el.getAttribute("default");
+                    var PointStateSelect = 0;
+                    var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
+                    var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
+
+                    let k = {
+                        CurrencyType: EWinInfo.MainCurrencyType,
+                        PointState: PointStateSelect,
+                        UserRate: pointUserRate.value,
+                        BuyChipRate: pointBuyChipRate.value,
+                    };
+
+                    userList[userList.length] = {
+                        Name: "Wallet",
+                        Value: JSON.stringify(k)
                     };
 
                 }
@@ -405,7 +413,28 @@
                         continue;
                     }
                     var w = o.WalletList[i];
+
+                    t = c.getTemplate("templateWalletItem");
+                    // t.style.display = "none";
+                    btnPointNew = c.getFirstClassElement(t, "btnPointNew");
+                    pointUserRate = c.getFirstClassElement(t, "PointUserRate");
+                    pointBuyChipRate = c.getFirstClassElement(t, "PointBuyChipRate");
                     
+                    t.setAttribute("default", w.CurrencyType);
+                    t.classList.add(w.CurrencyType);
+                    t.classList.add("div_GameCode");
+                    c.setClassText(t, "PointCurrencyType", null, w.CurrencyType);
+                    c.setClassText(t, "GameAccountingCode", null, "Default");
+
+                    c.setClassText(t, "parentBuyChipRate", null, w.BuyChipRate);
+                    c.setClassText(t, "parentUserRate", null, w.UserRate);
+
+                    btnPointNew.setAttribute("btnGameCode",  w.CurrencyType);
+                    btnPointNew.setAttribute("btnUserRate", w.UserRate);
+                    btnPointNew.setAttribute("btnBuyChipRate", w.BuyChipRate);
+
+                    idPointList.appendChild(t);
+
                     //多遊戲設定
                     if (EWinInfo.UserInfo.GameCodeList.length > 0) {
                         for (var j = 0; j < EWinInfo.UserInfo.GameCodeList.length; j++) {
@@ -428,14 +457,14 @@
                                 btnPointNew.setAttribute("btnGameCode", EWinInfo.UserInfo.GameCodeList[j].GameAccountingCode);
                                 btnPointNew.setAttribute("btnUserRate", EWinInfo.UserInfo.GameCodeList[j].UserRate);
                                 btnPointNew.setAttribute("btnBuyChipRate", EWinInfo.UserInfo.GameCodeList[j].BuyChipRate);
-                          
+
                                 idPointList.appendChild(t);
                             }
                         }
                     }
 
 
-                } 
+                }
             }
         }
 
