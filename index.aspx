@@ -2015,28 +2015,18 @@
          
 
             if (wallet.CurrencyType == EWinWebInfo.BonusCurrencyType) {
-                if (EWinWebInfo.UserInfo.UserAccountType != 0) {
-                    $("#liWithdrawalAgent").hide();
-                } else {
-                    $("#liWithdrawal").hide();
-                }
+                $("#liWithdrawal").hide();
                
             } else {
                 if (wallet.PointValue > 0) {
-                    if (EWinWebInfo.UserInfo.UserAccountType != 0) {
-                        $("#liWithdrawalAgent").show();
-                    } else {
-                        $("#liWithdrawal").show();
-                    }
-                   
+                    $("#liWithdrawal").show();
                 } else {
-                    if (EWinWebInfo.UserInfo.UserAccountType != 0) {
-                        $("#liWithdrawalAgent").hide();
-                    } else {
-                        $("#liWithdrawal").hide();
-                    }
-
+                    $("#liWithdrawal").hide();
                 }
+            }
+
+            if (EWinWebInfo.UserInfo.UserAccountType != 0) {
+                $("#liWithdrawalAgent").show();
             }
             // 已登入
             idMenuLogin.classList.remove("is-hide");
@@ -3378,11 +3368,6 @@
                                                 <i class="icon icon-mask icon-withdarw"></i>
                                                 <span class="title language_replace">出款</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx', true)" id="liWithdrawalAgent" style="display: none">
-                                            <a class="nav-link">
-                                                <i class="icon icon-mask icon-withdarw"></i>
-                                                <span class="title language_replace">代理出款</span></a>
-                                        </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item navbarMenu__catagory">
@@ -3445,6 +3430,11 @@
                                     </ul>
                                 </li>
                                 --%>
+                            <li class="nav-item submenu dropdown" onclick="API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx', true)" id="liWithdrawalAgent" style="display: none">
+                                    <a class="nav-link">
+                                        <i class="icon icon-mask icon-withdarw"></i>
+                                        <span class="title language_replace">代理出款</span></a>
+                                </li>
                                 <li class="nav-item submenu dropdown" id="idLogoutItem">
                                     <a class="nav-link" onclick="API_Logout(true)">
                                         <!-- <i class="icon icon2020-ico-login"></i> -->
