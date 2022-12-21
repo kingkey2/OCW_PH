@@ -587,6 +587,12 @@
                                 </div>
 
                             </div>
+                            <div id="expandDiv" style="display: none" class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                                <div class="form-group wrapper_center dataList-process">
+                                    <button class="btn btn-outline-main language_replace" onclick="toggleAllRow(true)">展開</button>
+                                    <button class="btn btn-outline-main language_replace" onclick="toggleAllRow(false)">收合</button>
+                                </div>
+                            </div>
 
                              <div class="col-12 col-md-12 col-lg-12 col-xl-5">
                                 <div id="idTabMainContent">
@@ -614,7 +620,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto" style="display: none">
                                 <!-- 幣別 -->
                                 <div class="form-group form-group-s2 ">
                                     <div class="title"><span class="language_replace">幣別</span></div>
@@ -629,12 +635,6 @@
                                             <div class="custom-input checkbox"><span class="language_replace tempName">Non</span></div>
                                         </label>
                                     </div>
-                                </div>
-                            </div>
-                            <div id="expandDiv" style="display: none" class="col-12 col-md-6 col-lg-4 col-xl-auto">
-                                <div class="form-group wrapper_center dataList-process">
-                                    <button class="btn btn-outline-main language_replace" onclick="toggleAllRow(true)">展開</button>
-                                    <button class="btn btn-outline-main language_replace" onclick="toggleAllRow(false)">收合</button>
                                 </div>
                             </div>
                             <div class="col-12">
