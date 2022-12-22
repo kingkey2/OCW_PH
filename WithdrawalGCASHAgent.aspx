@@ -207,7 +207,7 @@
     }
 
     function GetPaymentChannelByGroupIndex(amount, cb) {
-        lobbyClient.GetPaymentChannelByGroupIndex(WebInfo.SID, Math.uuid(), 1, 1, amount, function (success, o) {
+        lobbyClient.GetPaymentChannelByGroupIndex(WebInfo.SID, Math.uuid(), 1, 2, amount, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     cb(true, o.ChannelList[0].PaymentChannelCode);
@@ -424,7 +424,7 @@
                                     } else {
                                         var selPaymentMethodID = PaymentMethod[0].PaymentMethodID;
 
-                                        PaymentClient.CreateEPayWithdrawal(WebInfo.SID, Math.uuid(), amount, selPaymentMethodID, function (success, o) {
+                                        PaymentClient.CreateEPayWithdrawalAgent(WebInfo.SID, Math.uuid(), amount, selPaymentMethodID, PaymentChannelCode, function (success, o) {
                                             if (success) {
                                                 let data = o.Data;
 

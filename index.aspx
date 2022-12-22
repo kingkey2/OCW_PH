@@ -3434,8 +3434,8 @@
                                 </li>
                                 --%>
                             <li class="nav-item submenu dropdown" onclick="API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx', true)" id="liWithdrawalAgent" style="display: none">
-                                    <a class="nav-link">
-                                        <i class="icon icon-mask icon-withdarw"></i>
+                                    <a class="nav-link">   
+                                         <i class="icon icon-mask icon-coin"></i>
                                         <span class="title language_replace">代理出款</span></a>
                                 </li>
                                 <li class="nav-item submenu dropdown" id="idLogoutItem">
