@@ -752,13 +752,9 @@
         scr = c.getScreenSize();
 
         if (scr.width > 991) {
-            $("#divPayment").show();
-            $("#divGame").show();
             $("#divPayment_M").hide();
             $("#divGame_M").hide();
         } else {
-            $("#divPayment").hide();
-            $("#divGame").hide();
             $("#divPayment_M").show();
             $("#divGame_M").show();
         }
