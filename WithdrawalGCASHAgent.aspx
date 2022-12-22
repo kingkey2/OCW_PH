@@ -424,7 +424,7 @@
                                     } else {
                                         var selPaymentMethodID = PaymentMethod[0].PaymentMethodID;
 
-                                        PaymentClient.CreateEPayWithdrawal(WebInfo.SID, Math.uuid(), amount, selPaymentMethodID, function (success, o) {
+                                        PaymentClient.CreateEPayWithdrawalAgent(WebInfo.SID, Math.uuid(), amount, selPaymentMethodID, PaymentChannelCode, function (success, o) {
                                             if (success) {
                                                 let data = o.Data;
 
