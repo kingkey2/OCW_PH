@@ -411,12 +411,13 @@
                     if (s) {
                         PaymentChannelCode = paymentChannelCode;
                         PaymentClient.GetInProgressPaymentByLoginAccount(WebInfo.SID, Math.uuid(), WebInfo.UserInfo.LoginAccount, 1, function (success, o) {
+                            //if (true) {
                             if (success) {
                                 window.parent.API_LoadingEnd(1);
                                 let UserAccountPayments = o.UserAccountPayments;
                                 if (o.Result == 0) {
-                                    //if (UserAccountPayments.length == 0) {
-                                    if (UserAccountPayments.length > 0) {
+                                    if (false) {
+                                    //if (UserAccountPayments.length > 0) {
                                         window.parent.API_LoadingEnd(1);
                                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能有一筆進行中之訂單"), function () {
 
