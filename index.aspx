@@ -2586,6 +2586,9 @@
 
         API_changeAvatarImg(getCookie("selectAvatar"));
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
+
+        $(".company-license").append(`<iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;" ></iframe>`);
+
         //resize();
     }
 
@@ -3769,7 +3772,7 @@
                     <div class="company-detail">
                   <%--      --%>
                         <div class="company-license">
-                            <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;" ></iframe>
+                            
                         </div>
                         <div class="company-address">
                             <p class="address language_replace">Lucky Sprite由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
