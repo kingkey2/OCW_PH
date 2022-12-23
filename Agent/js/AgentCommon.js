@@ -35,36 +35,45 @@
 
                 // Collapse Button Setting 
                 if (aria_Expanded == 'false') {
+                    var topH = (collapseTargetContent.clientHeight + 65) + "px";
 
                     o.setAttribute("aria-expanded", "true");
 
                     if (tabWrapper__TopCollapse) {
 
                         if (tabWrapper__TopCollapse.length > 0) {
+
                             for (var i = 0; i < tabWrapper__TopCollapse.length; i++) {
-                                tabWrapper__TopCollapse[i].classList.remove("top_collapse");
+                                tabWrapper__TopCollapse[i].style.setProperty('height', 'calc(100% - ' + topH + ')');
+                                tabWrapper__TopCollapse[i].style.setProperty('top', topH);
                             }
                         }
                     }
 
                     if (wrapper__TopCollapse) {
                         if (wrapper__TopCollapse.length > 0) {
-
+                            
                             for (var i = 0; i < wrapper__TopCollapse.length; i++) {
-                                wrapper__TopCollapse[i].classList.remove("top_collapse");
+                                wrapper__TopCollapse[i].style.setProperty('height', 'calc(100% - ' + topH + ')');
+                                wrapper__TopCollapse[i].style.setProperty('top', topH);
                             }
 
                         }
                     }
                 }
+
                 if (aria_Expanded == 'true') {
                     o.setAttribute("aria-expanded", "false");
+                    var topH = "65px";
 
                     if (tabWrapper__TopCollapse) {
                         if (tabWrapper__TopCollapse.length > 0) {
+                           
+
 
                             for (var i = 0; i < tabWrapper__TopCollapse.length; i++) {
-                                tabWrapper__TopCollapse[i].classList.add("top_collapse");
+                                tabWrapper__TopCollapse[i].style.setProperty('height', 'calc(100% - ' + topH + ')');
+                                tabWrapper__TopCollapse[i].style.setProperty('top', topH);
                             }
                         }
                     }
@@ -72,7 +81,8 @@
                     if (wrapper__TopCollapse) {
                         if (wrapper__TopCollapse.length > 0) {
                             for (var i = 0; i < wrapper__TopCollapse.length; i++) {
-                                wrapper__TopCollapse[i].classList.add("top_collapse");
+                                wrapper__TopCollapse[i].style.setProperty('height', 'calc(100% - ' + topH + ')');
+                                wrapper__TopCollapse[i].style.setProperty('top', topH);
                             }
                         }
                     }
@@ -99,7 +109,7 @@
 
                             collapseTargetContent.classList.add("show");
                             collapseTargetContent.classList.add("desktop-show");
-                            collapseTargetContent.style.maxHeight = collapseTargetContent.scrollHeight + "px";
+                            //collapseTargetContent.style.maxHeight = collapseTargetContent.scrollHeight + "px";
                         }
 
                         // Collapse Button Setting 
@@ -122,7 +132,7 @@
                         o.setAttribute("aria-mobile-expanded", "true");
 
                         collapseTargetContent.classList.add("show");
-                        collapseTargetContent.style.maxHeight = collapseTargetContent.scrollHeight + "px";
+                        //collapseTargetContent.style.maxHeight = collapseTargetContent.scrollHeight + "px";
 
                         if (aria_desktop_expanded) {
                             o.setAttribute("aria-desktop-expanded", "true");
@@ -135,7 +145,7 @@
                         o.setAttribute("aria-mobile-expanded", "false");
 
                         collapseTargetContent.classList.remove("show");
-                        collapseTargetContent.style.maxHeight = null;
+                        //collapseTargetContent.style.maxHeight = null;
 
 
                         if (aria_desktop_expanded) {
@@ -170,6 +180,37 @@
 
     };
 
+    this.dataToggleCollapseInit = function () {
+        var collapseTargetContent = document.getElementsByClassName("collapse-content")[0];
+        var tabWrapper__TopCollapse = document.getElementsByClassName("tabWrapper__TopCollapse");
+        var wrapper__TopCollapse = document.getElementsByClassName("wrapper__TopCollapse");
+
+
+        var topH = (collapseTargetContent.clientHeight + 65) + "px";
+
+        if (tabWrapper__TopCollapse) {
+
+            if (tabWrapper__TopCollapse.length > 0) {
+
+                for (var i = 0; i < tabWrapper__TopCollapse.length; i++) {
+                    tabWrapper__TopCollapse[i].style.setProperty('height', 'calc(100% - ' + topH + ')');
+                    tabWrapper__TopCollapse[i].style.setProperty('top', topH);
+                }
+            }
+        }
+
+        if (wrapper__TopCollapse) {
+            if (wrapper__TopCollapse.length > 0) {
+
+                for (var i = 0; i < wrapper__TopCollapse.length; i++) {
+                    wrapper__TopCollapse[i].style.setProperty('height', 'calc(100% - ' + topH + ')');
+                    wrapper__TopCollapse[i].style.setProperty('top', topH);
+                }
+
+            }
+        }
+
+    }
 
     this.dataTogglePopup = function (o) {
         var data_toggle = o.dataset.toggle;

@@ -163,7 +163,17 @@
         mlp = new multiLanguage();
         mlp.loadLanguage(lang, function () {
             setSearchFrame();
+            ac.dataToggleCollapseInit();
         });
+    }
+
+    function EWinEventNotify(eventName, isDisplay, param) {
+        switch (eventName) {
+            case "WindowFocus":
+                //updateBaseInfo();
+                ac.dataToggleCollapseInit();
+                break;
+        }
     }
 
     function setSearchFrame() {

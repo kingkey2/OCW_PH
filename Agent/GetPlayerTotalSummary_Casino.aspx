@@ -44,13 +44,13 @@
             white-space: nowrap;
             user-select: none;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 14px;
             font-weight: bold;
             border: 3px solid rgba(227, 195, 141, 0.8);
         }
 
         .agentPlus {
-            padding: 0px 10px;
+            padding: 0px 7px;
         }
 
         .tree-btn:hover {
@@ -355,8 +355,18 @@
             //queryOrderSummary(qYear, qMon);
             window.parent.API_CloseLoading();
             queryData(EWinInfo.UserInfo.LoginAccount);
+            ac.dataToggleCollapseInit();
 
         });
+    }
+
+    function EWinEventNotify(eventName, isDisplay, param) {
+        switch (eventName) {
+            case "WindowFocus":
+                //updateBaseInfo();
+                ac.dataToggleCollapseInit();
+                break;
+        }
     }
 
     window.onload = init;
