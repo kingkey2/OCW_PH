@@ -1759,28 +1759,28 @@ body {
 @media screen and (min-width: 360px) {
     html,
     body {
-        font-size: 15px;
+        font-size: 12px;
     }
 }
 
 @media (min-width: 375px) {
     html,
     body {
-        font-size: 16px;
+        font-size: 12px;
     }
 }
 
 @media (min-width: 576px) {
     html,
     body {
-        font-size: 16px;
+        font-size: 12px;
     }
 }
 
 @media (min-width: 768px) {
     html,
     body {
-        font-size: 16px;
+        font-size: 12px;
     }
 }
 
@@ -2231,6 +2231,14 @@ a.ttIMG {
         .wrapper_center .btn.btn-outline-main:hover, .wrapper_center .btn.btn-full-main {
             background: linear-gradient(170deg, #d3b485, #c1a678, #aa916b);
         }
+
+    .wrapper_center .btn2 {
+        margin: 3px 3px 3px 3px;
+        padding: 3px 0px 3px 0px;
+        font-weight: 500;
+        transition: background-color 0.3s ease-in;
+        max-width:160px;
+    }
 
     .wrapper_center .icon-ewin-input-transfer {
         font-size: 1.5625rem;
