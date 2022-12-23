@@ -546,7 +546,7 @@
                     <!-- collapse內容 由此開始 ========== -->
                     <div id="searchList" class="collapse-content collapse show">
                         <div id="divSearchContent" class="row searchListContent">
-                            <div id="idSearchButton" class="col-12 col-md-4 col-lg-2 col-xl-auto">
+                            <div id="idSearchButton" class="col-12 col-md-6 col-lg-4 col-xl-auto">
                                 <div class="form-group form-group-s2 ">
                                     <div class="title hidden shown-md"><span class="language_replace">帳號</span></div>
 
@@ -557,7 +557,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-12 col-md-5 col-lg-4 col-xl-auto">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
                                 <!-- 起始日期 / 結束日期 -->
                                 <div class="form-group search_date">
                                     <div class="starDate">
@@ -584,7 +584,7 @@
 
                             </div>
 
-                            <div id="expandDiv" style="display: none" class="col-12 col-md-3 col-lg-1 col-xl-auto">
+                            <div id="expandDiv" style="display: block;" class="col-12 col-md-3 col-lg-1 col-xl-auto">
                                 <div class="form-group wrapper_center row">
                                     <button class="btn2 btn-outline-main language_replace col-6 col-md-12 col-lg-12" onclick="toggleAllRow(true)">展開</button>
                                     <button class="btn2 btn-outline-main language_replace col-6 col-md-12 col-lg-12" onclick="toggleAllRow(false)">收合</button>
