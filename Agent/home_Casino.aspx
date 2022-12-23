@@ -12,13 +12,19 @@
 
     ASR = api.GetAgentSessionByID(ASID);
 
-    if (ASR.Result != EWin.SpriteAgent.enumResult.OK) {
-        if (string.IsNullOrEmpty(DefaultCompany) == false) {
+    if (ASR.Result != EWin.SpriteAgent.enumResult.OK)
+    {
+        if (string.IsNullOrEmpty(DefaultCompany) == false)
+        {
             Response.Redirect("login.aspx?C=" + DefaultCompany);
-        } else {
+        }
+        else
+        {
             Response.Redirect("login.aspx");
         }
-    } else {
+    }
+    else
+    {
         ASI = ASR.AgentSessionInfo;
         DefaultCompany = EWinWeb.CompanyCode;
         DefaultCurrencyType = EWinWeb.MainCurrencyType;
@@ -818,11 +824,9 @@
                         </div>
                     </div>
                     <div class="col-md-8 col-lg-8 col-gx-8 col-xl-8">
-                        <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
-                            <div class="form-group wrapper_center dataList-process">
-                                <button class="btn btn-outline-main language_replace btnOpen">展開</button>
-                                <button class="btn btn-outline-main language_replace btnClose">收合</button>
-                            </div>
+                        <div class="form-group wrapper_center dataList-process">
+                            <button class="btn btn-outline-main language_replace btnOpen">展開</button>
+                            <button class="btn btn-outline-main language_replace btnClose">收合</button>
                         </div>
                         <div class="GameAccountingCodeList">
                         </div>
@@ -845,7 +849,7 @@
         </div>
 
         <div id="tempGameAccountingCode" style="display: none">
-            <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15); width: 48%; float: left; padding-left:10px">
+            <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15); width: 48%; float: left; padding-left: 10px">
                 <div class="detailItem">
                     <span><span class="language_replace GameAccountingCode"></span></span>
                 </div>

@@ -346,7 +346,7 @@
 
     <div id="templateTableItem" style="display: none">
         <div class="col-12 col-md-6 col-lg-6 col-gx-4 col-xl-4 div_UserAccountInfo">
-            <div class="item" style="border-bottom:hidden">
+            <div class="item" style="border-bottom: hidden">
                 <div class="downline__overview">
                     <div class="tab-scroller" style="display: none">
                         <div class="downline__walletList tab-scroller__area">
@@ -355,7 +355,7 @@
                         </div>
                         <div class="mask"></div>
                     </div>
-                    <div class="downline__header" style="padding-right:0px !important">
+                    <div class="downline__header" style="padding-right: 0px !important">
                         <span class="downline__account">
                             <i class="icon icon-ewin-default-downlineuser"></i>
                             <span class=" mtLoginAccount">--</span>
@@ -379,7 +379,7 @@
                                 <div style="display: none;" class="divRemarkBtn input-group form-control-underline iconCheckAnim placeholder-move-right zIndex_overMask_SafariFix">
                                     <input type="text" class="form-control inputRemark" value="">
                                     <div class="input-group-append">
-                                        <span class="input-group-text ModifyRemarkSaveBtn language_replace" style="cursor: pointer; color: #C9AE7F; background-color: #2d3244; border: none; margin-right:5px">確認</span>
+                                        <span class="input-group-text ModifyRemarkSaveBtn language_replace" style="cursor: pointer; color: #C9AE7F; background-color: #2d3244; border: none; margin-right: 5px">確認</span>
                                         <span class="input-group-text ModifyRemarkCancelBtn language_replace" style="cursor: pointer; color: #C9AE7F; background-color: #2d3244; border: none">取消</span>
                                     </div>
                                 </div>
@@ -399,17 +399,15 @@
                             </div>
 
                         </div>
-                        
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
-                                <div class="form-group wrapper_center dataList-process">
-                                    <button class="btn btn-outline-main language_replace btnOpen">展開</button>
-                                    <button class="btn btn-outline-main language_replace btnClose">收合</button>
-                                </div>
-                            </div>
-                        <div class="GameAccountingCodeList">
+
+
+                        <div class="form-group wrapper_center dataList-process">
+                            <button class="btn btn-outline-main language_replace btnOpen">展開</button>
+                            <button class="btn btn-outline-main language_replace btnClose">收合</button>
                         </div>
 
-
+                        <div class="GameAccountingCodeList">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -417,18 +415,18 @@
     </div>
 
     <div id="tempGameAccountingCode" style="display: none">
-        <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15);width:48%;float:left;padding-left:5px;">
+        <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15); width: 48%; float: left; padding-left: 5px;">
             <div class="detailItem">
                 <span><span class="language_replace GameAccountingCode">期間上下數</span></span>
             </div>
 
             <div class="detailItem">
                 <span class="title-s"><i class="icon icon-ewin-default-periodWinLose icon-s icon-before"></i><span class="language_replace">佔成率</span></span>
-                <span><span class="data UserRate">0</span> <span style="color:rgba(200, 219, 234, 0.8);">%</span></span>
+                <span><span class="data UserRate">0</span> <span style="color: rgba(200, 219, 234, 0.8);">%</span></span>
             </div>
             <div class="detailItem">
                 <span class="title-s"><i class="icon icon-ewin-default-periodRolling icon-s icon-before"></i><span class="language_replace">轉碼率</span></span>
-                <span><span class="data BuyChipRate">0</span> <span style="color:rgba(200, 219, 234, 0.8);">%</span></span>
+                <span><span class="data BuyChipRate">0</span> <span style="color: rgba(200, 219, 234, 0.8);">%</span></span>
             </div>
         </div>
     </div>
