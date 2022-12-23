@@ -2232,6 +2232,14 @@ a.ttIMG {
             background: linear-gradient(170deg, #d3b485, #c1a678, #aa916b);
         }
 
+    .wrapper_center .btn2 {
+        margin: 3px 3px 3px 3px;
+        padding: 3px 0px 3px 0px;
+        font-weight: 500;
+        transition: background-color 0.3s ease-in;
+        max-width:160px;
+    }
+
     .wrapper_center .icon-ewin-input-transfer {
         font-size: 1.5625rem;
     }
