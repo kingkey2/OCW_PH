@@ -44,7 +44,10 @@
             retValue = false;
         }
 
-        if (form.LoginPassword.value != "") {
+        if (form.LoginPassword.value == "") {
+            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入登入密碼"));
+            retValue = false;
+        } else {
             if (form.LoginPassword.value != form.LoginPassword2.value) {
                 window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("登入密碼二次驗證失敗"));
                 retValue = false;
