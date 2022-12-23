@@ -39,7 +39,7 @@
         var chkMessage = "";
         var form = document.forms[0];
 
-        if (form.LoginAccount.value != "") {
+        if (form.LoginAccount.value == "") {
             window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入帳號"));
             retValue = false;
         }
