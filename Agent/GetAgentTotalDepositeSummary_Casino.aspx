@@ -44,13 +44,13 @@
             white-space: nowrap;
             user-select: none;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 14px;
             font-weight: bold;
             border: 3px solid rgba(227, 195, 141, 0.8);
         }
 
         .agentPlus {
-            padding: 0px 10px;
+            padding: 0px 7px;
         }
 
         .tree-btn:hover {
@@ -265,12 +265,12 @@
         var idList = document.getElementById("idList");
 
         c.clearChildren(idList);
-        expandDiv.style.display = "none";
+        //expandDiv.style.display = "none";
 
         if (o.SummaryList && o.SummaryList.length > 0) {
             document.getElementById("idResultTable").classList.remove("MT_tableDiv__hasNoData");
             idList.classList.remove("tbody__hasNoData");
-            expandDiv.style.display = "block";
+            //expandDiv.style.display = "block";
             for (var i = 0; i < o.SummaryList.length; i++) {
                 var item = o.SummaryList[i];
                 var t = c.getTemplate("templateTableItem");
@@ -532,8 +532,18 @@
         mlp.loadLanguage(lang, function () {
             //queryOrderSummary(qYear, qMon);
             window.parent.API_CloseLoading();
-            querySelfData()
+            querySelfData();
+            ac.dataToggleCollapseInit();
         });
+    }
+
+    function EWinEventNotify(eventName, isDisplay, param) {
+        switch (eventName) {
+            case "WindowFocus":
+                //updateBaseInfo();
+                ac.dataToggleCollapseInit();
+                break;
+        }
     }
 
     window.onload = init;
@@ -587,7 +597,7 @@
                                 </div>
 
                             </div>
-                            <div id="expandDiv" style="display: none" class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div id="expandDiv" class="col-12 col-md-6 col-lg-4 col-xl-auto">
                                 <div class="form-group wrapper_center dataList-process">
                                     <button class="btn btn-outline-main language_replace" onclick="toggleAllRow(true)">展開</button>
                                     <button class="btn btn-outline-main language_replace" onclick="toggleAllRow(false)">收合</button>

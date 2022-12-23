@@ -2208,6 +2208,10 @@ a.ttIMG {
     font-size: 0.625rem;
 }
 
+#expandDiv {
+    padding:0px;
+}
+
 .wrapper_center {
     text-align: center;
     margin: 0 auto;
@@ -5817,15 +5821,6 @@ i {
     transition: all 0.3s ease-out;
 }
 
-    .wrapper__TopCollapse.orderHistory_userAccount {
-        height: calc(100% - 24.375rem);
-        top: 24.375rem;
-    }
-
-        .wrapper__TopCollapse.orderHistory_userAccount.top_collapse {
-            height: calc(100% - 65px);
-            top: 65px;
-        }
 
 @media (min-width: 576px) {
     .wrapper__TopCollapse.orderHistory_userAccount {
