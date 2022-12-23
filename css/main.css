@@ -2141,7 +2141,7 @@ hr.line {
 @media (min-width: 768px) {
   .navbar-brand .logo {
     width: 190px;
-    background: url(../images/logo.png) left center no-repeat;
+    background: url(../images/logo.png?a=1) left center no-repeat;
     background-size: contain;
   }
 

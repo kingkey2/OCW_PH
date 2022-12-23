@@ -3266,7 +3266,7 @@
         <div class="loader-box">
             <div class="loader-spinner">
                 <div class="sk-fading-circle">
-                    <div class="loader-logo" style="width: 80%; height: 80%; background: url(../images/icon/ico-dog-w.svg) center center no-repeat; background-size: calc(100% - 50px); -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both; animation: loader-logo-anim 1.2s infinite ease-in-out both; margin: 10%;">
+                    <div class="loader-logo" style="width: 80%; height: 80%; background: url(../images/icon/ico-dog-w.png) center center no-repeat; background-size: calc(100% - 50px); -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both; animation: loader-logo-anim 1.2s infinite ease-in-out both; margin: 10%;">
                     </div>
                     <div class="sk-circle1 sk-circle"></div>
                     <div class="sk-circle2 sk-circle"></div>
@@ -3507,7 +3507,7 @@
                                             <li class="login">
                                                 <button class="btn-login btn" type="button" onclick="onBtnLoginShow()">
                                                     <span class="avater">
-                                                        <img src="images/avatar/avater-2.png" alt="" onerror="setDefaultIcon(this)"></span>
+                                                        <img src="images/avatar/avater-2.png?a=1" alt="" onerror="setDefaultIcon(this)"></span>
                                                     <span class="language_replace">登入</span></button>
                                             </li>
                                             <li class="register" style="display: block !important">
@@ -3540,7 +3540,7 @@
                                                 <a onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)" class="btn nav-link btnDropDown " role="button">
                                                     <span class="avater">
                                                         <span class="avater-img">
-                                                            <img src="images/avatar/avater-2.png" alt="">
+                                                            <img src="images/avatar/avater-2.png?a=1" alt="">
                                                         </span>
                                                         <span class="avater-name"></span>
                                                     </span>
