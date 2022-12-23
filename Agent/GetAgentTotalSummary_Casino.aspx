@@ -597,14 +597,15 @@
                                 </div>
 
                             </div>
-                            <div id="expandDiv"  class="col-12 col-md-6 col-lg-4 col-xl-auto">
-                                <div class="form-group wrapper_center dataList-process">
-                                    <button class="btn btn-outline-main language_replace" onclick="toggleAllRow(true)">展開</button>
-                                    <button class="btn btn-outline-main language_replace" onclick="toggleAllRow(false)">收合</button>
+
+                            <div id="expandDiv"  class="col-12 col-md-3 col-lg-1 col-xl-auto">
+                                <div class="form-group wrapper_center row">
+                                    <button class="btn2 btn-outline-main language_replace col-6 col-md-12 col-lg-12" onclick="toggleAllRow(true)">展開</button>
+                                    <button class="btn2 btn-outline-main language_replace col-6 col-md-12 col-lg-12" onclick="toggleAllRow(false)">收合</button>
                                 </div>
                             </div>
-
-                             <div class="col-12 col-md-12 col-lg-12 col-xl-5">
+                
+                             <div class="col-12 col-md-12 col-lg-5 col-xl-5">
                                 <div id="idTabMainContent">
                                     <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
                                         <li class="nav-item">

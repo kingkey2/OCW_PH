@@ -92,6 +92,21 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="CreateUserAccountPoint">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateUserAccountPointResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateUserAccountPointResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetOrderSummary">
         <s:complexType>
           <s:sequence>
@@ -813,6 +828,7 @@
       </s:element>
       <s:element name="AgentSessionResult" nillable="true" type="tns:AgentSessionResult" />
       <s:element name="ChidUserData" nillable="true" type="tns:ChidUserData" />
+      <s:element name="APIResult" nillable="true" type="tns:APIResult" />
       <s:element name="OrderSummaryResult" nillable="true" type="tns:OrderSummaryResult" />
       <s:element name="UserAccountSummaryResult" nillable="true" type="tns:UserAccountSummaryResult" />
       <s:element name="TotalSummaryResult" nillable="true" type="tns:TotalSummaryResult" />
@@ -820,7 +836,6 @@
       <s:element name="AccountingResult" nillable="true" type="tns:AccountingResult" />
       <s:element name="AgentAccountingDetailResult" nillable="true" type="tns:AgentAccountingDetailResult" />
       <s:element name="UserInfoResult" nillable="true" type="tns:UserInfoResult" />
-      <s:element name="APIResult" nillable="true" type="tns:APIResult" />
       <s:element name="ChildUserInfoResult" nillable="true" type="tns:ChildUserInfoResult" />
     </s:schema>
   </wsdl:types>
@@ -835,6 +850,12 @@
   </wsdl:message>
   <wsdl:message name="GetChildUserDataSoapOut">
     <wsdl:part name="parameters" element="tns:GetChildUserDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserAccountPointSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateUserAccountPoint" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserAccountPointSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateUserAccountPointResponse" />
   </wsdl:message>
   <wsdl:message name="GetOrderSummarySoapIn">
     <wsdl:part name="parameters" element="tns:GetOrderSummary" />
@@ -943,6 +964,13 @@
   </wsdl:message>
   <wsdl:message name="GetChildUserDataHttpGetOut">
     <wsdl:part name="Body" element="tns:ChidUserData" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserAccountPointHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserAccountPointHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="GetOrderSummaryHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
@@ -1078,6 +1106,13 @@
   <wsdl:message name="GetChildUserDataHttpPostOut">
     <wsdl:part name="Body" element="tns:ChidUserData" />
   </wsdl:message>
+  <wsdl:message name="CreateUserAccountPointHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserAccountPointHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="GetOrderSummaryHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="QueryBeginDate" type="s:string" />
@@ -1209,6 +1244,10 @@
       <wsdl:input message="tns:GetChildUserDataSoapIn" />
       <wsdl:output message="tns:GetChildUserDataSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CreateUserAccountPoint">
+      <wsdl:input message="tns:CreateUserAccountPointSoapIn" />
+      <wsdl:output message="tns:CreateUserAccountPointSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <wsdl:input message="tns:GetOrderSummarySoapIn" />
       <wsdl:output message="tns:GetOrderSummarySoapOut" />
@@ -1283,6 +1322,10 @@
       <wsdl:input message="tns:GetChildUserDataHttpGetIn" />
       <wsdl:output message="tns:GetChildUserDataHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="CreateUserAccountPoint">
+      <wsdl:input message="tns:CreateUserAccountPointHttpGetIn" />
+      <wsdl:output message="tns:CreateUserAccountPointHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <wsdl:input message="tns:GetOrderSummaryHttpGetIn" />
       <wsdl:output message="tns:GetOrderSummaryHttpGetOut" />
@@ -1348,6 +1391,10 @@
     <wsdl:operation name="GetChildUserData">
       <wsdl:input message="tns:GetChildUserDataHttpPostIn" />
       <wsdl:output message="tns:GetChildUserDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateUserAccountPoint">
+      <wsdl:input message="tns:CreateUserAccountPointHttpPostIn" />
+      <wsdl:output message="tns:CreateUserAccountPointHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <wsdl:input message="tns:GetOrderSummaryHttpPostIn" />
@@ -1419,6 +1466,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetChildUserData">
       <soap:operation soapAction="http://tempuri.org/GetChildUserData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUserAccountPoint">
+      <soap:operation soapAction="http://tempuri.org/CreateUserAccountPoint" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1591,6 +1647,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CreateUserAccountPoint">
+      <soap12:operation soapAction="http://tempuri.org/CreateUserAccountPoint" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <soap12:operation soapAction="http://tempuri.org/GetOrderSummary" style="document" />
       <wsdl:input>
@@ -1756,6 +1821,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CreateUserAccountPoint">
+      <http:operation location="/CreateUserAccountPoint" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <http:operation location="/GetOrderSummary" />
       <wsdl:input>
@@ -1896,6 +1970,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetChildUserData">
       <http:operation location="/GetChildUserData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUserAccountPoint">
+      <http:operation location="/CreateUserAccountPoint" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

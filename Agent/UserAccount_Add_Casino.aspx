@@ -39,7 +39,15 @@
         var chkMessage = "";
         var form = document.forms[0];
 
-        if (form.LoginPassword.value != "") {
+        if (form.LoginAccount.value == "") {
+            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入帳號"));
+            retValue = false;
+        }
+
+        if (form.LoginPassword.value == "") {
+            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入登入密碼"));
+            retValue = false;
+        } else {
             if (form.LoginPassword.value != form.LoginPassword2.value) {
                 window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("登入密碼二次驗證失敗"));
                 retValue = false;
@@ -132,6 +140,58 @@
                     retValue = false;
                     break;
                 }
+            } else if (el.hasAttribute("default")) {
+                //其它遊戲
+                var currencyType = el.getAttribute("default");
+                var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
+                var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
+                var agentGameUserRate = 0;
+                var agentGameBuyChipRate = 0;
+
+                if (isNaN(pointUserRate.value) == true || isNaN(pointBuyChipRate.value) == true) {
+                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("佔成/轉碼請輸入正確數字"));
+                    retValue = false;
+                    break;
+                }
+
+                for (var j = 0; j < EWinInfo.UserInfo.WalletList.length; j++) {
+                    if (EWinInfo.UserInfo.WalletList[j].CurrencyType == EWinInfo.MainCurrencyType) {
+                        agentGameUserRate = EWinInfo.UserInfo.WalletList[j].UserRate;
+                        agentGameBuyChipRate = EWinInfo.UserInfo.WalletList[j].BuyChipRate;
+                    }
+                }
+
+                if ((pointUserRate.value != "") && (pointUserRate.value != null)) {
+                    if ((Number(pointUserRate.value) > agentGameUserRate) || Number(pointUserRate.value) < 0) {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("佔成可接受範圍為") + " 0 - " + agentGameUserRate);
+                        retValue = false;
+                        break;
+                    }
+                } else {
+                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("佔成率不可空白"));
+                    retValue = false;
+                    break;
+                }
+
+                if ((pointBuyChipRate.value != "") || (pointBuyChipRate.value != null)) {
+                    if (Number(pointBuyChipRate.value) < 0) {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("轉碼不可負數"));
+                        retValue = false;
+                        break;
+                    } else {
+                        if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("下線轉碼率不可高於上線"));
+                            retValue = false;
+                            break;
+                        }
+                    }
+
+                } else {
+                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("轉碼率不可空白"));
+                    retValue = false;
+                    break;
+                }
+
             }
         }
 
@@ -259,6 +319,7 @@
         var idPointList = document.getElementById("idPointList");
         var AllowPayment = 0;
         var AllowServiceChat = 0;
+        var retValue = true;
 
         if (processing == false) {
 
@@ -314,6 +375,19 @@
                     var g;
 
 
+                    if (pointUserRate.value == "") {
+                        
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + mlp.getLanguageKey("佔成率(%)") + " " + mlp.getLanguageKey("不可為空值"));
+                        retValue = false;
+                        break;
+                    }
+
+                    if (pointBuyChipRate.value == "") {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + mlp.getLanguageKey("轉碼率(%)") + " " + mlp.getLanguageKey("不可為空值"));
+                        retValue = false;
+                        break;
+                    }
+
                     g = {
                         CurrencyType: currencyType,
                         PointState: PointStateSelect,
@@ -333,6 +407,18 @@
                     var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
                     var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
 
+                    if (pointUserRate.value == "") {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + "-" + mlp.getLanguageKey("佔成率(%)") + " " + mlp.getLanguageKey("不可為空值"));
+                        retValue = false;
+                        break;
+                    }
+
+                    if (pointBuyChipRate.value == "") {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + "-" + mlp.getLanguageKey("轉碼率(%)") + " " + mlp.getLanguageKey("不可為空值"));
+                        retValue = false;
+                        break;
+                    }
+
                     let k = {
                         CurrencyType: EWinInfo.MainCurrencyType,
                         PointState: PointStateSelect,
@@ -348,38 +434,41 @@
                 }
             }
 
-            postObj = {
-                AID: EWinInfo.ASID,
-                LoginAccount: form.LoginAccount.value,
-                UserField: userList
-            }
-            processing = true;
-            window.parent.API_ShowLoading("Sending");
+            if (retValue) {
 
-            c.callService(ApiUrl + "/CreateUserInfo", postObj, function (success, o) {
-                if (success) {
-                    var obj = c.getJSON(o);
-
-                    if (obj.Result == 0) {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("更新完成"), mlp.getLanguageKey("更新完成"), function () {
-                            window.parent.API_CloseWindow(true);
-                        });
-                    } else {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), obj.Message);
-                        processing = false;
-                    }
-                } else {
-                    if (o == "Timeout") {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
-                        processing = false;
-                    } else {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
-                        processing = false;
-                    }
+                postObj = {
+                    AID: EWinInfo.ASID,
+                    LoginAccount: form.LoginAccount.value,
+                    UserField: userList
                 }
+                processing = true;
+                window.parent.API_ShowLoading("Sending");
 
-                window.parent.API_CloseLoading();
-            })
+                c.callService(ApiUrl + "/CreateUserInfo", postObj, function (success, o) {
+                    if (success) {
+                        var obj = c.getJSON(o);
+
+                        if (obj.Result == 0) {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("更新完成"), mlp.getLanguageKey("更新完成"), function () {
+                                window.parent.API_CloseWindow(true);
+                            });
+                        } else {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), obj.Message);
+                            processing = false;
+                        }
+                    } else {
+                        if (o == "Timeout") {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                            processing = false;
+                        } else {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                            processing = false;
+                        }
+                    }
+
+                    window.parent.API_CloseLoading();
+                })
+            }
 
         }
         else {

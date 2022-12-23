@@ -8,7 +8,7 @@
     string AgentVersion = EWinWeb.AgentVersion;
     EWin.Agent.AgentAPI agentAPI = new EWin.Agent.AgentAPI();
     EWin.Login.LoginAPI loginAPI = new EWin.Login.LoginAPI();
-
+    EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
     if (CodingControl.FormSubmit()) {
 
         EWin.Agent.LoginResult ASS = null;
@@ -35,6 +35,7 @@
 
         if (ASS != null) {
             if (ASS.ResultState == EWin.Agent.enumResultState.OK) {
+                api.CreateUserAccountPoint(ASS.AID,EWinWeb.ConvertCurrencyType);
                 Response.SetCookie(new HttpCookie("ASID", ASS.AID));
                 Response.Redirect("Index.aspx?DefaultCompany=" + DefaultCompany + "&Lang=" + Lang);
             } else {
