@@ -304,7 +304,7 @@
         <div id="WrapperFilterGame_UserAccountMaint" class="dataList fixed Filter__Wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div id="idSearchButton" class="col-12 col-md-4">
+                    <div id="idSearchButton" class="col-12 col-md-6 col-lg-4 col-xl-auto">
                         <div class="form-group form-group-s2 ">
                             <div class="title hidden shown-md"><span class="language_replace">直屬帳號</span></div>
                             <div class="input-group form-control-underline iconCheckAnim placeholder-move-right zIndex_overMask_SafariFix">
