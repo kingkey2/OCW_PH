@@ -128,8 +128,8 @@
     <%--<meta property="og:image" content="https://casino-maharaja.com/images/share_pic_en.png" />--%>
 
     <!-- Share image -->
-    <link rel="shortcut icon" href="images/favicon.ico"/>
-    <link rel="bookmark" href="images/favicon.ico"/>
+    <link rel="shortcut icon" href="images/share_pic.png"/>
+    <link rel="bookmark" href="images/share_pic.png"/>
     <link rel="apple-touch-icon" href="images/share_pic.png"/>
 
 
