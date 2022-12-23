@@ -3266,7 +3266,7 @@
         <div class="loader-box">
             <div class="loader-spinner">
                 <div class="sk-fading-circle">
-                    <div class="loader-logo" style="width: 80%; height: 80%; background: url(../images/icon/ico-dog-w.svg) center center no-repeat; background-size: calc(100% - 50px); -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both; animation: loader-logo-anim 1.2s infinite ease-in-out both; margin: 10%;">
+                    <div class="loader-logo" style="width: 80%; height: 80%; background: url(../images/icon/ico-dog-w.png) center center no-repeat; background-size: calc(100% - 50px); -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both; animation: loader-logo-anim 1.2s infinite ease-in-out both; margin: 10%;">
                     </div>
                     <div class="sk-circle1 sk-circle"></div>
                     <div class="sk-circle2 sk-circle"></div>
