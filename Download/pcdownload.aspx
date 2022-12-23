@@ -56,7 +56,7 @@
                 <div class="dlP_Con agentLoadDiv">
                     <div class="dlP_ConAppInfo">
                         <div class="dlP_AppIcon"><img src="../images/appdownload_logo.png" alt="icon_game"></div>
-                        <div class="dlP_AppType"><img src="../images/logo.png" alt="Lucky Sprite"></div>
+                        <div class="dlP_AppType"><img src="../images/logo.png?1" alt="Lucky Sprite"></div>
                         <!-- <span>Agent APP</span> -->
                         <div class="dlP_AppName"><span>Lucky Sprite game APP</span></div>
                     </div>

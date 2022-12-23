@@ -19,14 +19,18 @@
         string NewFingerPrint = Request["FingerPrint"];
         bool IsOldFingerPrint = false;
         string UserAgent = Request["UserAgent"];
+        string Birthday = string.Empty;
 
         Newtonsoft.Json.Linq.JObject obj_FingerPrint = new Newtonsoft.Json.Linq.JObject();
 
         string UserIP = CodingControl.GetUserIP();
         System.Data.DataTable DT;
 
+        System.Data.DataTable DT1 = null;
+
         EWin.Login.LoginResult LoginAPIResult;
         EWin.Login.LoginAPI LoginAPI = new EWin.Login.LoginAPI();
+
 
 
         RValue = R.Next(100000, 9999999);
@@ -47,10 +51,19 @@
 
                 if (infoResult.Result == EWin.Lobby.enumResult.OK) {
                     LoginAccount = infoResult.LoginAccount;
+
                     WebSID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
                 }
             } else {
                 WebSID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
+            }
+
+            DT1 = RedisCache.UserAccount.GetUserAccountByLoginAccount(LoginAccount);
+
+            if (DT1 != null && DT1.Rows.Count > 0) {
+
+            } else {
+                EWinWebDB.UserAccount.InsertUserAccountData(LoginAccount);
             }
 
             if (string.IsNullOrEmpty(WebSID) == false) {

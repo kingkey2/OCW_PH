@@ -1249,6 +1249,22 @@ public static class EWinWebDB {
             return RetValue;
         }
 
+        public static int InsertUserAccountData(string LoginAccount) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " INSERT INTO UserAccountTable (LoginAccount) " +
+                                  " VALUES (@LoginAccount) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
+
         public static int UpdateFingerPrint(string FingerPrints, string LoginAccount) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;

@@ -104,6 +104,14 @@
 
 
         }, 30000);
+
+        $('#form').on('keyup keypress', function (e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
     }
 
     function CheckWalletPassword(password, cb) {
@@ -871,7 +879,7 @@
                                 <!-- <h5 class="language_replace">便捷金額出款</h5> -->
                                 <p class="text-s language_replace">請從下方金額選擇您要的金額，或是自行填入想要出款的金額。兩種方式擇一即可。</p>
                             </div>
-                            <form>
+                            <form id="form">
                                 <div class="form-group">
                                     <div class="btn-wrap btn-radio-wrap btn-radio-payment">
                                         <div class="btn-radio btn-radio-coinType">
