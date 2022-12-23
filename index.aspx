@@ -2394,7 +2394,6 @@
         }
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
-
             if (EWinWebInfo.DeviceType == 1) {
                 noSleep = new NoSleep();
                 noSleep.disable();
@@ -2587,8 +2586,8 @@
         API_changeAvatarImg(getCookie("selectAvatar"));
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
 
-        $(".company-license").append(`<iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;" ></iframe>`);
-
+        //$(".company-license").append(`<iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;" ></iframe>`);
+     
         //resize();
     }
 
@@ -3251,6 +3250,10 @@
         });
     }
 
+    function openCuracao() {
+        window.open("https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&rlh=25cde581dbaa53d3e5241d0863b2d92f");
+    }
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
@@ -3772,7 +3775,7 @@
                     <div class="company-detail">
                   <%--      --%>
                         <div class="company-license">
-                            
+                            <img id="imgCuracao" src="images/Curacao.PNG" height="50" width="150" onclick="window.parent.openCuracao()" />
                         </div>
                         <div class="company-address">
                             <p class="address language_replace">Lucky Sprite由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>

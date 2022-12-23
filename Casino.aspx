@@ -5,7 +5,7 @@
     string MarqueeText = "";
     int RValue;
     string Token;
-    string selectedCategory ="GameList_Hot";
+    string selectedCategory = "GameList_Hot";
 
     if (string.IsNullOrEmpty(Request["selectedCategory"]) == false) {
         selectedCategory = Request["selectedCategory"];
@@ -19,8 +19,7 @@
     RValue = R.Next(100000, 9999999);
     Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
     Result = LobbyAPI.GetCompanyMarqueeText(Token, Guid.NewGuid().ToString());
-    if (Result.Result == EWin.Lobby.enumResult.OK)
-    {
+    if (Result.Result == EWin.Lobby.enumResult.OK) {
         MarqueeText = Result.Message;
     }
 %>
@@ -46,16 +45,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
-    
+
     <style>
         .title-showAll:hover {
             cursor: pointer;
         }
 
-        .game-item-info-detail{
+        .game-item-info-detail {
             cursor: pointer;
         }
-
     </style>
 </head>
 <%--<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
@@ -87,7 +85,7 @@
     var v = "";
     var GCB;
     var iframeWidth;
-    var selectedCategoryCode="<%=selectedCategory %>";
+    var selectedCategoryCode ="<%=selectedCategory %>";
     var categoryDatas = [];
     var tmpCategory_GameList_All = "";
     var tmpCategory_GameList_Live = "";
@@ -96,7 +94,7 @@
     var tmpCategory_GameList_Slot = "";
     var selectedCategorys = [];
     var GameCategoryCodeArray = [];
- 
+
     var HeaderGames = [
         {
             GameCode: "JL.74",
@@ -328,7 +326,7 @@
                         var showType = category.ShowType;
                         var game_wrapper = "";
                         if (category.Datas.length > 0) {
-                            var categArea="";
+                            var categArea = "";
                             var textlink;
                             var gameItems = "";
 
@@ -344,7 +342,7 @@
                                     })
                                 });
 
-                                if (gameItem && gameItem.GameStatus==0) {
+                                if (gameItem && gameItem.GameStatus == 0) {
                                     createGameItem(gameItem, showType, function (stringGameItem) {
                                         gameBrand = gameItem.GameBrand;
                                         gameItems += stringGameItem;
@@ -381,7 +379,7 @@
                                 addContainMiddle = false;
                             }
 
-                            if (gameItems!="") {
+                            if (gameItems != "") {
                                 if (showType == 0) {
                                     if (Location == "GameList_Brand") {
                                         categArea = `<section class="section-wrap section-levelUp">
@@ -486,7 +484,7 @@
                                 }
                             }
 
-                         
+
 
                             if (addContainMiddle) {
                                 categAreas += categArea;
@@ -707,22 +705,22 @@
                 } else {
                     gameitemmobilepopup = '';
                 }
-         
+
                 GItitle = `<div class="swiper-slide desktop ${'gameid_' + gameItem.GameID}">`;
                 gameitemlink = `<span class="game-item-link" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')" onmouseover="appendGameProp('${gameItem.GameBrand}','${gameName}','${RTP}','${gameItem.GameID}','${gameItem.GameCode}',${showType},'${gameItem.GameCategoryCode}','${gameItem.GameName}')"></span>`;
 
             }
-   
+
             imgsrc = `${WebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
-           /*  三冠王 ===========================
-            等級：crownLevel-1/
-            類別：crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4) 
-            ----------------------------------------------------------
-            等級：crownLevel-2
-            類別：crown-P-M 派彩+倍率 / crown-P-S 派彩+轉數 / crown-M-S 派彩+轉數
-            ----------------------------------------------------------
-            等級：crownLevel-3
-           */
+            /*  三冠王 ===========================
+             等級：crownLevel-1/
+             類別：crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4) 
+             ----------------------------------------------------------
+             等級：crownLevel-2
+             類別：crown-P-M 派彩+倍率 / crown-P-S 派彩+轉數 / crown-M-S 派彩+轉數
+             ----------------------------------------------------------
+             等級：crownLevel-3
+            */
             if (showType == 2) {
                 GI = `${GItitle}
                         <div class="game-item ${championData.crownLevel} ${championData.championTypeStr}">
@@ -776,7 +774,7 @@
 
         var date = {
             championTypeStr: "",
-            crownLevel:""
+            crownLevel: ""
         }
         var count = 0;
         if (championType != 0) {
@@ -807,10 +805,10 @@
                     date.championTypeStr = "crown-M-S";
                 }
             }
-            else if (count == 3) { date.crownLevel = "crownLevel-3"; date.championTypeStr = "";  }
+            else if (count == 3) { date.crownLevel = "crownLevel-3"; date.championTypeStr = ""; }
         }
 
-      
+
         return date;
     }
 
@@ -940,8 +938,8 @@
                 window.parent.API_LoadPage("Login", "Login.aspx");
             }, null);
         }
- 
-      
+
+
     }
 
     function updateGameCode() {
@@ -987,7 +985,7 @@
                             break;
                         default:
                     }
-                    
+
                     if (WebInfo.DeviceType == 1) {
                         RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
@@ -1032,7 +1030,7 @@
                             break;
                         default:
                     }
-                    
+
                     if (WebInfo.DeviceType == 1) {
                         RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
@@ -1081,7 +1079,7 @@
                     if (selectedCategoryCode == lobbyGame.Location) {
                         $(RecordDom).addClass('active');
                     }
-                    
+
                     if (WebInfo.DeviceType == 1) {
                         RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
@@ -1126,7 +1124,7 @@
                             break;
                         default:
                     }
-                    
+
                     if (WebInfo.DeviceType == 1) {
                         RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
@@ -1143,7 +1141,7 @@
                     idGameItemTitle.appendChild(RecordDom);
                 }
             }
-           
+
             //廠牌
             var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Brand" });
             if (lobbyGame) {
@@ -1172,7 +1170,7 @@
                             break;
                         default:
                     }
-                    
+
                     if (WebInfo.DeviceType == 1) {
                         RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
@@ -1196,14 +1194,14 @@
         iframeWidth = window.innerWidth;
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
-        
+
         createCategory(selectedCategoryCode, function () {
             //$('#idGameItemTitle .tab-item').eq(0).addClass('active');
             $('#categoryPage_' + selectedCategoryCode).css('display', 'block');
 
             //$('#categoryPage_' + selectedCategoryCode).removeClass('contain-disappear');
             //$('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
-            
+
             setSwiper(selectedCategoryCode);
         });
 
@@ -1239,29 +1237,11 @@
         //GCB.InitPromise.then(() => {
         //});
 
-        var heroLobby = new Swiper("#hero-slider-lobby", {
-            loop: true,
-            // slidesPerView: 1,
-            slidesPerView: "auto",
-            centeredSlides: true,
-            // freeMode: true,
-            // spaceBetween: 20,  
-            speed: 1000, //Duration of transition between slides (in ms)
-            // autoplay: {
-            //     delay: 3500,
-            //     disableOnInteraction: false,
-            // },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-
-        });
-
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             if (p != null) {
                 //getBanner();
+                setBanner();
                 getCompanyGameCode();
 
                 if (WebInfo.DeviceType_B == 1) {
@@ -1305,7 +1285,7 @@
                 //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                 //    window.parent.location.href = "index.aspx";
                 //});
-                    window.parent.API_SetFavoToIndexDB();
+                window.parent.API_SetFavoToIndexDB();
             }
 
         });
@@ -1319,11 +1299,11 @@
     function showDefauktGameIcon(GameBrand, GameName) {
         var el = event.target;
         el.onerror = showDefauktGameIcon2;
-        el.src = WebInfo.ImageUrl+"/" + GameBrand + "/ENG/" + GameName + ".png";
+        el.src = WebInfo.ImageUrl + "/" + GameBrand + "/ENG/" + GameName + ".png";
     }
 
     function showDefauktGameIcon2() {
-  
+
         var el = event.target;
         if (el.src.includes("PG")) {
             el.onerror = null;
@@ -1382,7 +1362,7 @@
     function getBanner() {
         var GUID = Math.uuid();
         var TagName = "CasinoBanner";
-        
+
         if (WebInfo.DeviceType_B == 0) {
             TagName = TagName + "_P";
         } else {
@@ -1464,21 +1444,52 @@
         });
     }
 
-    window.onload = init;
-</script>
-
-<body class="innerBody">
-    <main class="innerMain">
-        <section class="section-slider_lobby hero">
-            <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
-                <div class="swiper-wrapper" id="divBanner">
-
-                  <div class="swiper-slide">
-                          <div class="hero-item">
-                            <div class="hero-item-box mobile casinobanner_m" style="display:none">
+    function setBanner() {
+        if (WebInfo.DeviceType_B == 1) {
+            $("#divBanner").html(`        
+                <div class="swiper-slide">
+                        <div class="hero-item">
+                            <div class="hero-item-box mobile casinobanner_m" >
                                 <img src="images/casinobanner/CasinoBanner1_M.jpg" />
                             </div>
-                            <div class="hero-item-box desktop casinobanner_p" style="display:none">
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <div class="hero-item-box mobile casinobanner_m" >
+                                <img src="images/casinobanner/CasinoBanner2_M.jpg" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <div class="hero-item-box mobile casinobanner_m" >
+                                <img src="images/casinobanner/CasinoBanner3_M.jpg" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <div class="hero-item-box mobile casinobanner_m" >
+                                <img src="images/casinobanner/CasinoBanner4_M.jpg" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <div class="hero-item-box mobile casinobanner_m" >
+                                <img src="images/casinobanner/CasinoBanner5_M.jpg" />
+                            </div>
+                        </div>
+                    </div>`);
+        } else {
+            $("#divBanner").html(`                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
                                     <img src="images/casinobanner/CasinoBanner1_P.jpg" class="bg" />
                                 </div>
@@ -1488,10 +1499,7 @@
 
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <div class="hero-item-box mobile casinobanner_m" style="display:none">
-                                <img src="images/casinobanner/CasinoBanner2_M.jpg" />
-                            </div>
-                            <div class="hero-item-box desktop casinobanner_p" style="display:none">
+                            <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
                                     <img src="images/casinobanner/CasinoBanner2_P.jpg" class="bg" />
                                 </div>
@@ -1501,10 +1509,7 @@
 
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <div class="hero-item-box mobile casinobanner_m" style="display:none">
-                                <img src="images/casinobanner/CasinoBanner3_M.jpg" />
-                            </div>
-                            <div class="hero-item-box desktop casinobanner_p" style="display:none">
+                            <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
                                     <img src="images/casinobanner/CasinoBanner3_P.jpg" class="bg" />
                                 </div>
@@ -1514,10 +1519,7 @@
 
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <div class="hero-item-box mobile casinobanner_m" style="display:none">
-                                <img src="images/casinobanner/CasinoBanner4_M.jpg" />
-                            </div>
-                            <div class="hero-item-box desktop casinobanner_p" style="display:none">
+                            <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
                                     <img src="images/casinobanner/CasinoBanner4_P.jpg" class="bg" />
                                 </div>
@@ -1527,16 +1529,43 @@
 
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <div class="hero-item-box mobile casinobanner_m" style="display:none">
-                                <img src="images/casinobanner/CasinoBanner5_M.jpg" />
-                            </div>
-                            <div class="hero-item-box desktop casinobanner_p" style="display:none">
+                            <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
                                     <img src="images/casinobanner/CasinoBanner5_P.jpg" class="bg" />
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>`);
+        }
+
+        var heroLobby = new Swiper("#hero-slider-lobby", {
+            loop: true,
+            // slidesPerView: 1,
+            slidesPerView: "auto",
+            centeredSlides: true,
+            // freeMode: true,
+            // spaceBetween: 20,  
+            speed: 1000, //Duration of transition between slides (in ms)
+            // autoplay: {
+            //     delay: 3500,
+            //     disableOnInteraction: false,
+            // },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+
+        });
+    }
+
+    window.onload = init;
+</script>
+
+<body class="innerBody">
+    <main class="innerMain">
+        <section class="section-slider_lobby hero">
+            <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
+                <div class="swiper-wrapper" id="divBanner">
 
                 </div>
                 <div class="swiper-pagination"></div>
@@ -1564,14 +1593,14 @@
                 <div class="marquee_title">
                     <i class="icon icon-mask icon-announce"></i>
                 </div>
-                <marquee class="marquee-content" direction="left" scrollamount="3" scrolldelay="100" behavior="scroll" hover="true"   onMouseOver="this.stop()" onMouseOut="this.start()">
+                <marquee class="marquee-content" direction="left" scrollamount="3" scrolldelay="100" behavior="scroll" hover="true" onmouseover="this.stop()" onmouseout="this.start()">
                     <a class="marquee-item" data-remote="true" href="#"><%=MarqueeText %></a>
                 </marquee>
             </div>
         </div>
-        
+
         <!-- 各分類-單一遊戲推薦區 -->
-         <%--    <section class="section-category-dailypush" style="display:none;">
+        <%--    <section class="section-category-dailypush" style="display:none;">
             <div class="container">                
                 <!-- hot -->
                 <div class="category-dailypush-wrapper hot">
@@ -1805,20 +1834,19 @@
                 </div>             
             </div>
         </section>--%>
-         <section class="game-area overflow-hidden">
+        <section class="game-area overflow-hidden">
             <div id="gameAreas">
-                 
-            </div>           
+            </div>
         </section>
-          <!-- 遊戲-排名區-新版 遊戲內容-->
-         <section class="game-area overflow-hidden" style="display:none">
+        <!-- 遊戲-排名區-新版 遊戲內容-->
+        <section class="game-area overflow-hidden" style="display: none">
             <div class="container">
-                <section class="section-wrap section-levelUp"> 
+                <section class="section-wrap section-levelUp">
                     <div class="game_wrapper gameRanking">
                         <div class="sec-title-container">
-                        <div class="sec-title-wrapper">
-                            <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="">排名</span></h3>
-                        </div>
+                            <div class="sec-title-wrapper">
+                                <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="">排名</span></h3>
+                            </div>
                         </div>
                         <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow" id="idGameRanking">
                             <div class="swiper-wrapper">
@@ -1830,7 +1858,7 @@
                                                 <div class="game-item-img">
                                                     <span class="game-item-link"></span>
                                                     <div class="img-wrap">
-                                                        <img src=""  onerror="setDefaultIcon(this)"/>
+                                                        <img src="" onerror="setDefaultIcon(this)" />
                                                     </div>
                                                 </div>
                                                 <div class="game-item-info-detail open">
@@ -1864,7 +1892,7 @@
                                                                     <div class="btn-s-wrapper">
                                                                         <button type="button" class="btn-thumbUp btn btn-round is-hide">
                                                                             <i class="icon icon-m-thumup"></i>
-                                                                        </button>                                                                       
+                                                                        </button>
                                                                         <button type="button" class="btn-like btn btn-round">
                                                                             <i class="icon icon-m-favorite"></i>
                                                                         </button>
@@ -1887,16 +1915,16 @@
                                             </div> -->
                                         </div>
                                     </div>
-                                </div>                   
+                                </div>
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
                         </div>
                     </div>
-            </section>
-            </div> 
-         </section>
-         <!-- 遊戲-隨機推薦-->
+                </section>
+            </div>
+        </section>
+        <!-- 遊戲-隨機推薦-->
         <%-- <section class="section-wrap section_randomRem" style="display:none;">
             <div class="container-fluid">
                 <div class="game_wrapper">
@@ -1925,7 +1953,6 @@
                 </div>
              </div>
         </section>--%>
-
     </main>
 
     <div id="temCategItem" class="is-hide">
@@ -1934,7 +1961,7 @@
                 <span class="title language_replace CategName"></span></span>
         </li>
     </div>
- <%--   <div id="testdiv">
+    <%--   <div id="testdiv">
         <div class="container category-dailypush">
                                      <section class="section-category-dailypush" onclick="window.parent.openGame('BNG', '242','タイガー ジャングル')">
                  <div class="category-dailypush-wrapper hot">
@@ -2051,7 +2078,7 @@
                         </div>
                     </div>
                 </div>
-             </div>
+            </div>
         </section>
     </div>
     <div id="temGameItem2" class="is-hide">
@@ -2071,100 +2098,97 @@
     </div>
 
     <div id="temCategArea3" class="is-hide">
-         <section class="section-wrap section-levelUp"> 
-                    <div class="game_wrapper gameRanking">
-                        <div class="sec-title-container">
-                        <div class="sec-title-wrapper">
-                            <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="">排名</span></h3>
-                        </div>
-                        </div>
-                        <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow">
-                            <div class="swiper-wrapper">
-                    
-                            </div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
+        <section class="section-wrap section-levelUp">
+            <div class="game_wrapper gameRanking">
+                <div class="sec-title-container">
+                    <div class="sec-title-wrapper">
+                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="">排名</span></h3>
                     </div>
-            </section>
+                </div>
+                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow">
+                    <div class="swiper-wrapper">
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <div id="temGameItem3" class="is-hide">
-         <div class="swiper-slide">
-                                    <div class="game-item">
-                                        <div class="game-item-inner">
-                                            <span class="game-item-mobile-popup" data-toggle="modal"></span>
-                                            <div class="game-item-focus">
-                                                <div class="game-item-img">
-                                                    <span class="game-item-link"></span>
-                                                    <div class="img-wrap">
-                                                        <img src="" onerror="setDefaultIcon(this)">
-                                                    </div>
-                                                </div>
-                                                <div class="game-item-info-detail">
-                                                    <div class="game-item-info-detail-wrapper">
-                                                        <div class="game-item-info-detail-moreInfo">
-                                                            <ul class="moreInfo-item-wrapper">
-                                                                <li class="moreInfo-item brand">
-                                                                    <span class="title">メーカー</span>
-                                                                    <span class="value">PG</span>
-                                                                </li>
-                                                                <li class="moreInfo-item RTP">
-                                                                    <span class="title">RTP</span>
-                                                                    <span class="value number">96.66</span>
-                                                                </li>
-                                                                <li class="moreInfo-item gamecode">
-                                                                    <span class="title">NO.</span>
-                                                                    <span class="value number">00976</span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="game-item-info-detail-indicator">
-                                                            <div class="game-item-info-detail-indicator-inner">
-                                                                <div class="info">
-                                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                                </div>
-                                                                <div class="action">
-                                                                    <div class="btn-s-wrapper">
-                                                                        <button type="button" class="btn-thumbUp btn btn-round">
-                                                                            <i class="icon icon-m-thumup"></i>
-                                                                        </button>
-                                                                        <button type="button" class="btn-like btn btn-round">
-                                                                            <i class="icon icon-m-favorite"></i>
-                                                                        </button>
-                                                                        <button type="button" class="btn-more btn btn-round">
-                                                                            <i class="arrow arrow-down"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                    <button type="button" class="btn btn-play">
-                                                                        <span class="language_replace">プレイ</span><i class="triangle"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+        <div class="swiper-slide">
+            <div class="game-item">
+                <div class="game-item-inner">
+                    <span class="game-item-mobile-popup" data-toggle="modal"></span>
+                    <div class="game-item-focus">
+                        <div class="game-item-img">
+                            <span class="game-item-link"></span>
+                            <div class="img-wrap">
+                                <img src="" onerror="setDefaultIcon(this)">
+                            </div>
+                        </div>
+                        <div class="game-item-info-detail">
+                            <div class="game-item-info-detail-wrapper">
+                                <div class="game-item-info-detail-moreInfo">
+                                    <ul class="moreInfo-item-wrapper">
+                                        <li class="moreInfo-item brand">
+                                            <span class="title">メーカー</span>
+                                            <span class="value">PG</span>
+                                        </li>
+                                        <li class="moreInfo-item RTP">
+                                            <span class="title">RTP</span>
+                                            <span class="value number">96.66</span>
+                                        </li>
+                                        <li class="moreInfo-item gamecode">
+                                            <span class="title">NO.</span>
+                                            <span class="value number">00976</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="game-item-info-detail-indicator">
+                                    <div class="game-item-info-detail-indicator-inner">
+                                        <div class="info">
+                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                        </div>
+                                        <div class="action">
+                                            <div class="btn-s-wrapper">
+                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                    <i class="icon icon-m-thumup"></i>
+                                                </button>
+                                                <button type="button" class="btn-like btn btn-round">
+                                                    <i class="icon icon-m-favorite"></i>
+                                                </button>
+                                                <button type="button" class="btn-more btn btn-round">
+                                                    <i class="arrow arrow-down"></i>
+                                                </button>
                                             </div>
-                                            <!-- <div class="game-item-info">
+                                            <button type="button" class="btn btn-play">
+                                                <span class="language_replace">プレイ</span><i class="triangle"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="game-item-info">
                                                 <div class="game-item-info-inner">
                                                     <h3 class="game-item-name">バタフライブロッサム</h3>
                                                 </div>
                                             </div> -->
-                                        </div>
-                                    </div>
-                                </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-     <%--banner--%>
+    <%--banner--%>
     <div id="tmpBanner" class="is-hide">
         <div class="swiper-slide">
             <div class="hero-item">
                 <a class="hero-item-link"></a>
                 <div class="hero-item-box mobile Banner_M">
-                    
                 </div>
                 <div class="hero-item-box desktop">
                     <div class="img-wrap  Banner_P">
-                        
                     </div>
                 </div>
             </div>
@@ -2173,7 +2197,7 @@
 </body>
 <script>
      // 遊戲排名 TEST
-    // var GameRanking = new Swiper("#idGameRanking", {    
+    // var GameRanking = new Swiper("#idGameRanking", {
     //    slidesPerView: "auto",
     //    lazy: true,
     //    freeMode: true,
