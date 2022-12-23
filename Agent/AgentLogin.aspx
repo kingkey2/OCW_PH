@@ -35,7 +35,7 @@
 
         if (ASS != null) {
             if (ASS.ResultState == EWin.Agent.enumResultState.OK) {
-                var a=  api.CreateUserAccountPoint(ASS.AID,EWinWeb.ConvertCurrencyType);
+                api.CreateUserAccountPoint(ASS.AID,EWinWeb.ConvertCurrencyType);
                 Response.SetCookie(new HttpCookie("ASID", ASS.AID));
                 Response.Redirect("Index.aspx?DefaultCompany=" + DefaultCompany + "&Lang=" + Lang);
             } else {
