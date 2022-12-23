@@ -495,6 +495,91 @@
         }); 
     }
 
+    //function createPayments(testcount) {
+    //    for (var i = 0; i < testcount; i++) {
+    //        var amount = 500;
+    //        GetPaymentChannelByGroupIndex(amount, function (s, paymentChannelCode) {
+    //            if (s) {
+    //                PaymentChannelCode = paymentChannelCode;
+    //                PaymentClient.GetInProgressPaymentByLoginAccount(WebInfo.SID, Math.uuid(), WebInfo.UserInfo.LoginAccount, 1, function (success, o) {
+    //                    //if (true) {
+    //                    if (success) {
+                 
+    //                        if (o.Result == 0) {
+    //                            if (false) {
+    //                                //if (UserAccountPayments.length > 0) {
+    //                                window.parent.API_LoadingEnd(1);
+    //                                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能有一筆進行中之訂單"), function () {
+
+    //                                });
+    //                            } else {
+    //                                var selPaymentMethodID = PaymentMethod[0].PaymentMethodID;
+
+    //                                PaymentClient.CreateEPayWithdrawalAgent(WebInfo.SID, Math.uuid(), amount, selPaymentMethodID, PaymentChannelCode, function (success, o) {
+    //                                    if (success) {
+    //                                        let data = o.Data;
+
+    //                                        if (o.Result == 0) {
+    //                                            OrderNumber = data.OrderNumber;
+
+    //                                            PaymentClient.ConfirmEPayWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, '', '', 'GCASH', '', '0912345678', function (success, o) {
+    //                                                if (success) {
+    //                                                    window.parent.API_LoadingEnd(1);
+    //                                                    if (o.Result == 0) {
+    //                                                        //setEthWalletAddress(o.Message)
+    //                                                        console.log("test count:" + i);
+    //                                                    } else {
+    //                                                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+    //                                                        });
+    //                                                    }
+    //                                                }
+    //                                                else {
+    //                                                    window.parent.API_LoadingEnd(1);
+    //                                                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+    //                                                    });
+    //                                                }
+    //                                            })
+    //                                        } else {
+    //                                            window.parent.API_LoadingEnd(1);
+    //                                            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+    //                                            });
+    //                                        }
+
+    //                                    }
+    //                                    else {
+    //                                        window.parent.API_LoadingEnd(1);
+    //                                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
+
+    //                                        });
+    //                                    }
+    //                                })
+    //                            }
+    //                        } else {
+    //                            window.parent.API_LoadingEnd(1);
+    //                            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+    //                            });
+    //                        }
+
+    //                    }
+    //                    else {
+    //                        window.parent.API_LoadingEnd(1);
+    //                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
+
+    //                        });
+    //                    }
+    //                })
+    //            } else {
+    //                window.parent.API_LoadingEnd(1);
+    //                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(message));
+    //            }
+    //        });
+    //    }
+    //}
+
     function check_pKatakana(word) {
 
         if (word.match(/[^ァ-ヶ|ー]/)) {
