@@ -3507,7 +3507,7 @@
                                             <li class="login">
                                                 <button class="btn-login btn" type="button" onclick="onBtnLoginShow()">
                                                     <span class="avater">
-                                                        <img src="images/avatar/avater-2.png" alt="" onerror="setDefaultIcon(this)"></span>
+                                                        <img src="images/avatar/avater-2.png?a=1" alt="" onerror="setDefaultIcon(this)"></span>
                                                     <span class="language_replace">登入</span></button>
                                             </li>
                                             <li class="register" style="display: block !important">
@@ -3540,7 +3540,7 @@
                                                 <a onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)" class="btn nav-link btnDropDown " role="button">
                                                     <span class="avater">
                                                         <span class="avater-img">
-                                                            <img src="images/avatar/avater-2.png" alt="">
+                                                            <img src="images/avatar/avater-2.png?a=1" alt="">
                                                         </span>
                                                         <span class="avater-name"></span>
                                                     </span>
