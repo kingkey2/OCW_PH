@@ -283,6 +283,7 @@
             var postData;
             $(".TotalValidBetValue").text(0);
             $(".RewardValue").text(0);
+            $(".UserRebate").text(0);
             $(".TotalOrderCount").text(0);
             $(".NewUserCount").text(0);
             $(".WithdrawalValue").text(0);
