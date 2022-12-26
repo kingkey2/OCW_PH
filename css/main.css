@@ -2,38 +2,14 @@
 /*=================== fonts ====================*/
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
-@font-face {
-  font-family: "maharaja";
-  src: url("fonts/maharaja.eot");
-  src: url("fonts/maharaja.eot?#iefix") format("embedded-opentype"), url("fonts/maharaja.woff") format("woff"), url("fonts/maharaja.ttf") format("truetype"), url("fonts/maharaja.svg#maharaja") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-[data-icon]:before {
-  font-family: "maharaja" !important;
-  content: attr(data-icon);
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.5rem;
+    font-family: sans-serif;
+    font-weight: 500;
+    line-height: 1.2;
+    color: inherit;
 }
 
-[class^=icon-m]:before,
-[class*=" icon-m"]:before {
-  font-family: "maharaja" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
 .icon-m-heart-f:before {
   content: "a";

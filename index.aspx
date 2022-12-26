@@ -134,8 +134,7 @@
 
 
     <link rel="stylesheet" href="css/basic.min.css">
-    <link rel="stylesheet" href="css/main.css?<%:Version%>">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    <link rel="stylesheet" href="css/main.css?<%:Version%>">  
 
     <link rel="alternate" hreflang="ja" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
     <link rel="alternate" hreflang="ja-jp" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
@@ -538,12 +537,12 @@
 
     function API_Home() {
         //Game
-        API_LoadPage("Casino", "Casino.aspx");
+        API_LoadPage("Casino", "Casino2.aspx");
     }
 
     function API_Casino() {
         //Game
-        API_LoadPage("Casino", "Casino.aspx");
+        API_LoadPage("Casino", "Casino2.aspx");
     }
 
     function API_SetFavoToIndexDB(cb) {
@@ -3329,20 +3328,20 @@
                                     <ul class="catagory">
                                         <%--
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
+                                            onclick="API_LoadPage('Casino', 'Casino2.aspx', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-all"></i>
                                                 <span class="title language_replace">遊戲大廳</span></a>
                                         </li>
                                         --%>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Slot', false)">
+                                            onclick="API_LoadPage('Casino', 'Casino2.aspx?selectedCategory=GameList_Slot', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-slot"></i>
                                                 <span class="title language_replace">老虎機</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Live', false)">
+                                            onclick="API_LoadPage('Casino', 'Casino2.aspx?selectedCategory=GameList_Live', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-live"></i>
                                                 <span class="title language_replace">真人</span></a>
@@ -3465,7 +3464,7 @@
                     <!-- 頂部 NavBar -->
                     <div class="header_topNavBar">
                         <!-- 左上角 -->
-                        <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Casino','Casino.aspx')">
+                        <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Casino','Casino2.aspx')">
                             <div class="navbar-brand">
                                 <div class="logo"><a></a></div>
                             </div>
