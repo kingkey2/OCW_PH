@@ -79,6 +79,7 @@
                                     case "FIFIPay.GcashDirect":
                                     case "DiDiPay.GcashQRcode":
                                     case "YuHong.GcashQRcode":
+                                    case "YuHong.GcashH5_":
                                     case "DiDiPay.Gcash":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
@@ -138,6 +139,7 @@
                                         </div>`;
                                         break;
                                     case "FeibaoPaymaya.Paymaya":
+                                    case "YuHong.QRPH":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.AmountMin != 0) {
