@@ -313,7 +313,7 @@
                         if (o.AgentItemList.length > 0) {
                             let data = o.AgentItemList[0].Summary;
                             $(".TotalValidBetValue").text(toCurrency(data.TotalValidBetValue));
-                            $(".UserRebate").text(toCurrency(data.UserRebate));
+                            $(".UserRebate").text(toCurrency(data.UserRebate - data.PaidOPValue));
                             $(".RewardValue").text(toCurrency(data.TotalRewardValue - data.SelfRewardValue));
                             $(".PreferentialCost").text(toCurrency(data.BonusPointValue + data.CostValue));
                             $(".TotalOrderCount").text(toCurrency(data.TotalOrderCount));
