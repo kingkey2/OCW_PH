@@ -479,14 +479,7 @@
             var IFramePage = document.getElementById("GameIFramePage");
             IFramePage.src = "";
 
-            //非滿版遊戲介面
-            // $('#headerGameDetailContent').hide();
-            // $('#GameIFramePage').hide();
-            //非滿版遊戲介面 end
-
-            //滿版遊戲介面
             $('#divGameFrame').css('display', 'none');
-            //滿版遊戲介面 end
         }
 
         if ($('.header_menu').hasClass("show")) {
@@ -603,24 +596,6 @@
         }
     }
 
-    function API_SendSerivceMail(subject, body, email) {
-        lobbyClient.SendCSMail(Math.uuid(), email, subject, body, function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已成功通知客服，將回信至您輸入或註冊的信箱"));
-                } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
-                }
-            } else {
-                if (o == "Timeout") {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
-                } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
-                }
-            }
-        });
-    }
-
     function API_ShowLoading() {
         $('.loader-container').show();
         $('.loader-backdrop').removeClass('is-show');
@@ -631,10 +606,6 @@
         $('.loader-container').fadeOut(250, function () {
             $('.iframe-container').addClass('is-show');
         });
-    }
-
-    function API_ShowContactUs() {
-        return showContactUs();
     }
 
     function API_NonCloseShowMessageOK(title, msg, cbOK) {
@@ -1600,44 +1571,12 @@
         }
     }
 
-    function showContactUs() {
-        var divMessageBox = document.getElementById("alertContactUs");
-        var divMessageBoxCrossButton = divMessageBox.querySelector(".close");
-
-        var modal = new bootstrap.Modal(divMessageBox);
-
-        if (divMessageBox != null) {
-            modal.toggle();
-        }
-    }
-
-    function sendContactUs() {
-        var contactUsDom = document.querySelector(".inbox_customerService");
-        var subjectText = contactUsDom.querySelector(".contectUs_Subject").value;
-        var emailText = contactUsDom.querySelector(".contectUs_Eamil").value.trim();
-        var bodyText = contactUsDom.querySelector(".contectUs_Body").value;
-        var NickName = contactUsDom.querySelector(".contectUs_NickName").value;
-        var Phone = contactUsDom.querySelector(".contectUs_Phone").value;
-
-        if (emailText == "") {
-            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入回覆信箱"));
-        }
-
-        API_SendSerivceMail(subjectText, "ニックネーム：" + NickName + "<br/>" + "携帯電話：" + Phone + "<br/>" + bodyText, emailText);
-    }
     //#region Game
     function GameLoadPage(url, gameBrand, gameName) {
         var IFramePage = document.getElementById("GameIFramePage");
 
         if (IFramePage != null) {
-            //非滿版遊戲介面
-            // $('#headerGameDetailContent').show();
-            // $('#GameIFramePage').show();
-            //非滿版遊戲介面 end
-
-            //滿版遊戲介面
             $('#divGameFrame').css('display', 'flex');
-            //滿版遊戲介面 end
 
             //var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
             //if (showCloseGameTooltipCount == '') {
@@ -1686,8 +1625,7 @@
         if (gameWindow) {
             gameWindow.close();
         }
-
-
+        
         if (alertSearch.css("display") == "block") {
             alertSearchCloseButton.click();
         }
@@ -1723,7 +1661,6 @@
             gameCode = gameBrand + "." + gameName;
             $('.headerGameName').text(gameLangName);
             if (false) {
-            //if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
                 $('#GameMask').show();
                 gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "")
                 CloseWindowOpenGamePage(gameWindow);
@@ -1771,11 +1708,11 @@
             gameWindow = window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
         }
     }
-    //.divGameFrame{width:70vw;height:39.375vw;background-color:#09f}
+    
     function CloseGameFrame() {
-        //滿版遊戲介面
+
         $('#divGameFrame').css('display', 'none');
-        //滿版遊戲介面 end
+      
         game_userlogout();
         appendGameFrame();
     }
@@ -1828,8 +1765,6 @@
             w = vw - 110;
         }
 
-
-        // class="divGameFrame"
         let tmp = `<div class="divGameFrameWrapper">
             <div class="btn-wrapper">
                 <div class="btn btn-game-close" onclick="CloseGameFrame()"><i class="icon icon-mask icon-error"></i></div>
@@ -2864,6 +2799,7 @@
                 )
             }
         };
+
         this.rem = function () {
             if (SearchDom.children().find(".group" + showMoreClickCount).length > 0) {
                 SearchDom.children().find(".group" + showMoreClickCount).show();
@@ -2994,21 +2930,6 @@
 
             SearchSelf.searchGameList();
 
-        }
-
-        //openFullSearch
-        this.openFullSearch = function (e) {
-            var header_SearchFull = document.getElementById("header_SearchFull");
-            header_SearchFull.classList.add("open");
-        }
-
-        //openFullSearch
-        this.closeFullSearch = function (e) {
-            var header_SearchFull = document.getElementById("header_SearchFull");
-
-            if (header_SearchFull.classList.contains("open")) {
-                header_SearchFull.classList.remove("open");
-            }
         }
 
         var getSearchGameBrand = function () {
@@ -3291,19 +3212,6 @@
             <!-- class="navbar-expand-xl" trigger hidden -->
             <nav class="navbar">
                 <!-- TOP Search-->
-                <div class="search-full" id="header_SearchFull">
-                    <div class="container-fluid">
-                        <form class="search__wrapper">
-                            <div class="form-group-search search-plusbutton">
-                                <input id="" type="search" class="form-control custom-search" name="search" language_replace="placeholder" placeholder="輸入帳號">
-                                <label for="search" class="form-label"><span class="language_replace">輸入帳號</span></label>
-                                <div class="btn btnSearch"><span class="language_replace">搜尋</span></div>
-                                <button type="reset" class="btn btnReset"><i class="icon icon-ewin-input-reset"></i></button>
-                            </div>
-                            <span class="btn btn__closefullsearch" onclick="SearchControll.closeFullSearch(this)"><i class="icon icon-ewin-input-compress"></i></span>
-                        </form>
-                    </div>
-                </div>
                 <div class="container-fluid navbar__content">
                     <!--MENU BUTTON -->
                     <button id="navbar_toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -3469,18 +3377,6 @@
                             <div class="navbar-brand">
                                 <div class="logo"><a></a></div>
                             </div>
-                        </div>
-                        <div id="headerGameDetailContent" style="display: none;">
-                            <!-- Search -->
-                            <ul class="nav header_setting_content">
-                                <li class="headerGameDetail navbar-search nav-item">
-                                    <button id="closeGameBtn" type="button" onclick="CloseGameFrame()" data-toggle="tooltip" data-placement="bottom" class="btn btn-search" style="background: white;">
-                                        <i class="icon">X</i>
-                                    </button>
-                                    <span class="headerGameName"></span>
-
-                                </li>
-                            </ul>
                         </div>
                         <!-- 右上角 -->
                         <div class="header_rightWrapper">
@@ -3847,76 +3743,6 @@
         </div>
     </div>
 
-    <!-- Modal Search 品牌-文字版-->
-    <%--  <div class="modal fade no-footer alertSearch " id="alertSearch" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <!-- <h5 class="modal-title">我是logo</h5> -->
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="searchFilter-wrapper">
-                        <div class="searchFilter-item input-group keyword">
-                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
-                            <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
-                        </div>
-                        
-                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
-                            <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
-                                <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
-                                <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>
-                                <option class="searchFilter-option language_replace" value="BNG">BNG</option>
-                                <option class="searchFilter-option language_replace" value="CG">CG</option>
-                                <option class="searchFilter-option language_replace" value="CQ9">CQ9</option>
-                                <option class="searchFilter-option language_replace" value="EVO">EVO</option>
-                                <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
-                                 <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>
-                                <option class="searchFilter-option language_replace" value="KGS">KGS</option>
-                                <option class="searchFilter-option language_replace" value="KX">KX</option>
-                                <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>
-                                <option class="searchFilter-option language_replace" value="PG">PG</option>
-                                <option class="searchFilter-option language_replace" value="PNG">PNG</option>
-                                <option class="searchFilter-option language_replace" value="PP">PP</option>
-                                <option class="searchFilter-option language_replace" value="VA">VA</option>
-                                <option class="searchFilter-option language_replace" value="ZEUS">ZEUS</option>
-                                <option class="searchFilter-option language_replace" value="BTI">BTI</option>
-                                <option class="searchFilter-option language_replace" value="BG">BG</option>
-                            </select>
-                        </div>
-                        <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display: none">
-                            <select class="custom-select" id="seleGameCategory">
-                                <option class="title language_replace" value="All" selected>全部</option>
-                                <option class="searchFilter-option language_replace" value="Electron">Electron</option>
-                                <option class="searchFilter-option language_replace" value="Fish">Fish</option>
-                                <option class="searchFilter-option language_replace" value="Live">Live</option>
-                                <option class="searchFilter-option language_replace" value="Slot">Slot</option>
-                                <option class="searchFilter-option language_replace" value="Sports">Sports</option>
-                            </select>
-                        </div>
-                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
-                    </div>                    
-                </div>
-                <div class="modal-body">
-                    <div class="game-search-wrapper">
-                        <div class="search-result-wrapper">
-                            <div class="search-result-inner">
-                                <div class="search-result-list">
-                                    <div class="game-item-group list-row row" id="alertSearchContent">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>--%>
-
     <!-- 我的最愛/遊玩過的遊戲 PoPup-->
     <div class="modal fade no-footer alertSearchTemp" id="alertFavoPlayed" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
@@ -4143,73 +3969,6 @@
         </div>
     </div>
 
-    <!--alert-->
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertContactUs" aria-hidden="true" id="alertContactUs">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header border-bottom align-items-center">
-                    <i class="icon-service"></i>
-                    <h5 class="modal-title language_replace ml-1">客服信箱</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-body-content">
-                        <!-- <div class="service-contact">
-                            <span class="titel language_replace">客服信箱</span><span class="data"> : service@BBC117.com</span>
-                        </div> -->
-                        <div class="inbox_customerService" id="sendMail">
-                            <div class="form-group">
-                                <label class="form-title language_replace">問題分類</label>
-                                <select class="form-control custom-style contectUs_Subject">
-                                    <option class="language_replace">出入金</option>
-                                    <option class="language_replace">註冊</option>
-                                    <option class="language_replace">獎勵</option>
-                                    <option class="language_replace">遊戲</option>
-                                    <option class="language_replace">其他</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-title language_replace">信箱</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style contectUs_Eamil" language_replace="placeholder" placeholder="請輸入回覆信箱" autocomplete="off">
-                                    <div class="invalid-feedback language_replace">錯誤提示</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-title language_replace">暱稱</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style contectUs_NickName" autocomplete="off" name="NickName">
-                                    <div class="invalid-feedback language_replace">錯誤提示</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-title language_replace">電話</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style contectUs_Phone" autocomplete="off" name="Phone">
-                                    <div class="invalid-feedback language_replace">錯誤提示</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-title language_replace">問題敘述</label>
-                                <textarea class="form-control custom-style contectUs_Body" rows="5" language_replace="placeholder" placeholder=""></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <!-- <button class="btn btn-icon">
-                        <i class="icon-copy" onclick="copyText('service@BBC117.com')"></i>
-                    </button> -->
-                    <div class="btn-container">
-                        <button type="button" class="alertContact_OK btn btn-primary btn-block" data-dismiss="modal" onclick="sendContactUs();"><span class="language_replace">寄出</span></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!--alert Msg-->
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertMsg" aria-hidden="true" id="alertMsg" style="z-index: 10000;">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -4336,13 +4095,6 @@
 
                             </div>
                         </article>
-                        <!-- <i class="icon-error_outline primary"></i>
-                        <div class="language_replace">公告時間：</div>
-                        <div class="alert_Time"></div>
-                        <div class="text-wrap">
-                            <div class="language_replace">公告詳情：</div>
-                            <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
-                        </div> -->
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -4475,60 +4227,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Modal Search 品牌-文字版-->
-    <%--    <div id="tmpSearchGameItem" class="is-hide">
-        <div class="game-item col-auto">
-            <div class="game-item-inner">
-                <div class="game-item-img">
-                    <span class="game-item-link"></span>
-                    <div class="img-wrap">
-                        <img class="gameimg" src="">
-                    </div>
-                </div>
-                <div class="game-item-info">
-                    <div class="game-item-info-inner">
-                        <div class="game-item-info-brief">
-                            <div class="game-item-info-pre">
-                                <h3 class="gameName"></h3>
-                            </div>
-                            <div class="game-item-info-moreInfo">
-                                <ul class="moreInfo-item-wrapper">
-                                    <li class="moreInfo-item brand">
-                                        <h4 class="value BrandName"></h4>
-                                    </li>                                   
-                                    <li class="moreInfo-item RTP">
-                                        <span class="title">RTP</span>
-                                        <span class="value number valueRTP"></span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="game-item-info-indicator">
-                            <div class="action">
-                                <div class="btn-s-wrapper">
-                                    <!-- 按讚 按鈕移除 -->
-                                    <button type="button" class="btn-thumbUp btn btn-round" style="display: none;">
-                                        <i class="icon icon-m-thumup"></i>
-                                    </button>
-                                    
-                                    <button type="button" class="btn-like btn btn-round">
-                                        <i class="icon icon-m-favorite"></i>
-                                    </button>
-                                </div>
-                                <!-- play 按鈕移除 -->
-                                <button type="button" class="btn btn-play">
-                                    <span class="language_replace title">プレイ</span><i class="triangle"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>--%>
-
 
     <!-- Modal Search 新版 - 品牌-LOGO版-->
     <div id="tmpSearchGameItem" class="is-hide">
