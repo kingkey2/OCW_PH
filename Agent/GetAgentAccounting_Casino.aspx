@@ -163,7 +163,17 @@
         mlp = new multiLanguage();
         mlp.loadLanguage(lang, function () {
             setSearchFrame();
+            ac.dataToggleCollapseInit();
         });
+    }
+
+    function EWinEventNotify(eventName, isDisplay, param) {
+        switch (eventName) {
+            case "WindowFocus":
+                //updateBaseInfo();
+                ac.dataToggleCollapseInit();
+                break;
+        }
     }
 
     function setSearchFrame() {
@@ -302,7 +312,7 @@
                       <!-- collapse內容 由此開始 ========== -->
                     <div id="searchList" class="collapse-content collapse show">
                         <div id="divSearchContent" class="row searchListContent">
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-4">
                                 <!-- 起始日期 / 結束日期 -->
                                 <div class="form-group search_date">
                                     <div class="starDate">
@@ -329,7 +339,7 @@
 
                             </div>
 
-                             <div class="col-12 col-md-12 col-lg-12 col-xl-5">
+                             <div class="col-12 col-md-12 col-lg-8 col-xl-8">
                                 <div id="idTabMainContent">
                                     <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
                                         <li class="nav-item">
@@ -355,7 +365,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto" style="display: none">
                                 <!-- 幣別 -->
                                 <div class="form-group form-group-s2 ">
                                     <div class="title"><span class="language_replace">幣別</span></div>

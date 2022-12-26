@@ -108,6 +108,14 @@
         window.setInterval(function () {
             watchScroll();
         }, 0);
+
+        $('#form').on('keyup keypress', function (e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
     }
 
     function CheckPaymentChannelAmount(amount,cb) {
@@ -1058,7 +1066,7 @@
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
                                 <p class="text-s language_replace">請從下方金額選擇您要的金額，或是自行填入想要存款的金額。兩種方式擇一即可。</p>
                             </div>
-                            <form>
+                            <form id="form">
                                 <div class="form-group mb-3 mb-md-4">
                                     <div class="btn-wrap btn-radio-wrap btn-radio-payment">
                                         <div class="btn-radio btn-radio-coinType">
@@ -1232,7 +1240,7 @@
                                             <a href="https://etherscan.io/" target="_blank" class="btn btn-outline-primary btn-etherscan btn-white">Etherscan</a><span class="language_replace desc-2">查詢入款交易狀況</span>
                                         </p>
                                         <!-- 說明頁 -->
-                                        <button type="button" class="btn btn-icon" onclick="window.parent.API_LoadPage('instructions-crypto', 'instructions-crypto.html', true)">
+                                        <button type="button" class="btn btn-icon" onclick="window.parent.API_LoadPage('instructions-crypto', 'instructions-crypto.html', true)" style="display: none">
                                             <i class="icon-casinoworld-question-outline"></i>
                                         </button>
                                     </div>

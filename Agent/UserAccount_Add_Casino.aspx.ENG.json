@@ -77,6 +77,6 @@
   "Electron": "Egame",
   "Electron.Fish": "FIsh",
   "Live.FightChicken": "CockFight",
-  "Live": "Stream"
-
+  "Live": "Stream",
+  "不可為空值": "Not Nullable"
 }

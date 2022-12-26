@@ -10,9 +10,12 @@
 
     ASR = api.GetAgentSessionByID(ASID);
 
-    if (ASR.Result != EWin.SpriteAgent.enumResult.OK) {
+    if (ASR.Result != EWin.SpriteAgent.enumResult.OK)
+    {
         Response.Redirect("login.aspx");
-    } else {
+    }
+    else
+    {
         ASI = ASR.AgentSessionInfo;
     }
 
@@ -28,9 +31,9 @@
     <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">
     <style>
         .tree-btn {
-            padding: 0px 12px;
+            padding: 0px 9px;
             border: none;
-            display: inline-block;         
+            display: inline-block;
             vertical-align: middle;
             overflow: hidden;
             text-decoration: none;
@@ -41,20 +44,19 @@
             white-space: nowrap;
             user-select: none;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 14px;
             font-weight: bold;
             border: 3px solid rgba(227, 195, 141, 0.8);
         }
 
         .agentPlus {
-           padding: 0px 10px;
+            padding: 0px 7px;
         }
-            .tree-btn:hover {
-                color: #fff;
-                background-color: rgba(227, 195, 141, 0.8);
-            }
 
-
+        .tree-btn:hover {
+            color: #fff;
+            background-color: rgba(227, 195, 141, 0.8);
+        }
     </style>
 </head>
 <!-- <script type="text/javascript" src="js/AgentCommon.js"></script> -->
@@ -151,7 +153,7 @@
 
         if (o) {
             if (o.SummaryList && o.SummaryList.length > 0) {
-                hasData = true;         
+                hasData = true;
             }
         }
 
@@ -403,8 +405,17 @@
             //queryOrderSummary(qYear, qMon);
             window.parent.API_CloseLoading();
             queryData(EWinInfo.UserInfo.LoginAccount);
-
+            ac.dataToggleCollapseInit();
         });
+    }
+
+    function EWinEventNotify(eventName, isDisplay, param) {
+        switch (eventName) {
+            case "WindowFocus":
+                //updateBaseInfo();
+                ac.dataToggleCollapseInit();
+                break;
+        }
     }
 
     window.onload = init;
@@ -421,7 +432,7 @@
                     <!-- collapse內容 由此開始 ========== -->
                     <div id="searchList" class="collapse-content collapse show">
                         <div id="divSearchContent" class="row searchListContent">
-                            <div id="idSearchButton" class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div id="idSearchButton" class="col-12 col-md-6 col-lg-3 col-xl-2">
                                 <div class="form-group form-group-s2 ">
                                     <div class="title hidden shown-md"><span class="language_replace">帳號</span></div>
 
@@ -432,7 +443,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                                 <!-- 起始日期 / 結束日期 -->
                                 <div class="form-group search_date">
                                     <div class="starDate">
@@ -459,7 +470,7 @@
 
                             </div>
 
-                               <div class="col-12 col-md-12 col-lg-12 col-xl-5">
+                            <div class="col-12 col-md-12 col-lg-5 col-xl-7">
                                 <div id="idTabMainContent">
                                     <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
                                         <li class="nav-item">
@@ -485,7 +496,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto" style="display: none">
                                 <!-- 幣別 -->
                                 <div class="form-group form-group-s2 ">
                                     <div class="title"><span class="language_replace">幣別</span></div>
@@ -530,14 +541,14 @@
                                     <span class="LoginAccount">CON5</span>
                                 </span>
                             </div>
-                             <div class="tbody__td date td-100 nonTitle">
+                            <div class="tbody__td date td-100 nonTitle">
                                 <span class="td__title"><span class="language_replace">上線帳號</span></span>
                                 <span class="td__content Space">
                                     <span class="noChild" style="padding: 0px 12px; display: none"></span>
                                     <span class="ParentLoginAccount">CON5</span>
                                 </span>
                             </div>
-                             <div class="tbody__td td-3 nonTitle">
+                            <div class="tbody__td td-3 nonTitle">
                                 <span class="td__title"><span class="language_replace">層級</span></span>
                                 <span class="td__content"><i class="icon icon-s icon-before"></i><span class="InsideLevel"></span></span>
                             </div>
@@ -545,7 +556,7 @@
                                 <span class="td__title"><span class="language_replace">貨幣</span></span>
                                 <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="CurrencyType"></span></span>
                             </div>
-<%--                            <div class="tbody__td td-number td-3 td-vertical">
+                            <%--                            <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-totalWinLose icon-s icon-before"></i><span class="language_replace">團隊入金/出金</span></span>
                                 <span class="td__content"><span class="DepositValue"></span><span class="splitIcon">/</span><span class="WithdrawValue num-negative"></span></span>
                             </div>
@@ -583,7 +594,7 @@
                             <div class="thead__th"><span class="language_replace">上線帳號</span></div>
                             <div class="thead__th"><span class="language_replace">層級</span></div>
                             <div class="thead__th"><span class="language_replace">貨幣</span></div>
-<%--                            <div class="thead__th"><span class="language_replace">團隊入金/出金</span></div>
+                            <%--                            <div class="thead__th"><span class="language_replace">團隊入金/出金</span></div>
                             <div class="thead__th"><span class="language_replace">團隊首次入金/出金</span></div>
                             <div class="thead__th"><span class="language_replace">團隊入金/出金筆數</span></div>
                             <div class="thead__th"><span class="language_replace">團隊首次入金/出金筆數</span></div>--%>

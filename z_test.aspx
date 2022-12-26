@@ -15,6 +15,8 @@
     int GoEwinLogin = 0;
     string Version = EWinWeb.Version;
     string ImageUrl = EWinWeb.ImageUrl;
+    string EwinLoginUrl = string.Empty;
+
     if (string.IsNullOrEmpty(Request["SID"]) == false) {
         SID = Request["SID"];
     }
@@ -46,6 +48,7 @@
         } else {
             EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
         }
+
         Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(CT) + "&KeepLogin=0" + "&GPSPosition=1" + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
     }
 
@@ -54,7 +57,7 @@
     RValue = R.Next(100000, 9999999);
     Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
     var CompanySite = lobbyAPI.GetCompanySite(Token, Guid.NewGuid().ToString());
-
+    
     RegisterType = CompanySite.RegisterType;
     RegisterParentPersonCode = CompanySite.RegisterParentPersonCode;
     if (string.IsNullOrEmpty(Request["Lang"])) {
@@ -122,8 +125,8 @@
     <%--<meta property="og:image" content="https://casino-maharaja.com/images/share_pic_en.png" />--%>
 
     <!-- Share image -->
-    <link rel="shortcut icon" href="images/favicon.ico"/>
-    <link rel="bookmark" href="images/favicon.ico"/>
+    <link rel="shortcut icon" href="images/favicon.png"/>
+    <link rel="bookmark" href="images/favicon.png"/>
     <link rel="apple-touch-icon" href="images/share_pic.png"/>
 
 
@@ -185,6 +188,7 @@
         RegisterType: "<%=RegisterType%>",
         RegisterParentPersonCode: "<%=RegisterParentPersonCode%>",
         DeviceType: getOS(),
+        DeviceType_B: getOS_ForBanner(),
         IsOpenGame: false,
         ImageUrl: "<%=ImageUrl%>"
     };
@@ -201,8 +205,11 @@
     var LobbyGameList = {};
     var UserThisWeekTotalValidBetValueData = [];
     var SearchControll;
+    var clickCount=0;
     var PCode = "<%=PCode%>";
     var PageType = "<%=PageType%>";
+    var JoinActivitys;
+
     //#region TOP API
     function API_GetGCB() {
         return GCB;
@@ -226,6 +233,10 @@
 
     function API_GetPaymentAPI() {
         return paymentClient;
+    }
+
+    function API_IsAndroidAPI() {
+        return isAndroid();
     }
 
 
@@ -276,7 +287,59 @@
         }
     };
 
+    function isAndroid() {
+        var os = function () {
+            var ua = navigator.userAgent,
+                isWindowsPhone = /(?:Windows Phone)/.test(ua),
+                isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+                isAndroid = /(?:Android)/.test(ua),
+                isFireFox = /(?:Firefox)/.test(ua),
+                isChrome = /(?:Chrome|CriOS)/.test(ua),
+                isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+                isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+                isPc = !isPhone && !isAndroid && !isSymbian;
+            return {
+                isTablet: isTablet,
+                isPhone: isPhone,
+                isAndroid: isAndroid,
+                isPc: isPc
+            };
+        }();
 
+        if (os.isAndroid) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    function getOS_ForBanner() {
+        var os = function () {
+            var ua = navigator.userAgent,
+                isWindowsPhone = /(?:Windows Phone)/.test(ua),
+                isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+                isAndroid = /(?:Android)/.test(ua),
+                isFireFox = /(?:Firefox)/.test(ua),
+                isChrome = /(?:Chrome|CriOS)/.test(ua),
+                isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+                isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+                isPc = !isPhone && !isAndroid && !isSymbian;
+            return {
+                isTablet: isTablet,
+                isPhone: isPhone,
+                isAndroid: isAndroid,
+                isPc: isPc
+            };
+        }();
+
+        if (os.isTablet) {
+            return 2;
+        } else if (os.isAndroid || os.isPhone) {
+            return 1;
+        } else if (os.isPc) {
+            return 0;
+        }
+    };
 
     // type = 0 , data = gameCode ;  type = 1 , data = gameBrand 
     function API_GetGameLang(lang, GameCode, cb) {
@@ -413,14 +476,7 @@
             var IFramePage = document.getElementById("GameIFramePage");
             IFramePage.src = "";
 
-            //非滿版遊戲介面
-            // $('#headerGameDetailContent').hide();
-            // $('#GameIFramePage').hide();
-            //非滿版遊戲介面 end
-
-            //滿版遊戲介面
             $('#divGameFrame').css('display', 'none');
-            //滿版遊戲介面 end
         }
 
         if ($('.header_menu').hasClass("show")) {
@@ -512,6 +568,12 @@
         return showMessageOK(title, msg, cbOK);
     }
 
+    $(document).on('shown.bs.modal', '#alertSearch', function () {
+        if ($('#search-brand-wrapper').css('display')=='none') {
+            $('.input-fake-select').trigger("click");
+        }
+    });
+
     function API_ShowSearchGameModel() {
         $('#alertSearch').modal('show');
     }
@@ -531,24 +593,6 @@
         }
     }
 
-    function API_SendSerivceMail(subject, body, email) {
-        lobbyClient.SendCSMail(Math.uuid(), email, subject, body, function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已成功通知客服，將回信至您輸入或註冊的信箱"));
-                } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
-                }
-            } else {
-                if (o == "Timeout") {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
-                } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
-                }
-            }
-        });
-    }
-
     function API_ShowLoading() {
         $('.loader-container').show();
         $('.loader-backdrop').removeClass('is-show');
@@ -559,10 +603,6 @@
         $('.loader-container').fadeOut(250, function () {
             $('.iframe-container').addClass('is-show');
         });
-    }
-
-    function API_ShowContactUs() {
-        return showContactUs();
     }
 
     function API_NonCloseShowMessageOK(title, msg, cbOK) {
@@ -623,7 +663,7 @@
     }
 
     function API_OpenGame(GameBrand, GameName, LangName) {
-        openGame(GameBrand, GameName, LangName);
+        openGame(GameBrand, GameName, LangName.replace("'", "‘"));
     }
 
     function API_GetUserTotalSummary(cb) {
@@ -920,8 +960,8 @@
         popupMoblieGameInfo.find('.GameName').text(GameLangName);
         $('.headerGameName').text(GameLangName);
 
-        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName + "')");
-        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName + "')");
+        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName.replace("'", "‘") + "')");
+        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "', '" + GameLangName.replace("'", "‘") + "')");
         GCB.GetFavo(function (data) {
             favoriteGames.push(data);
         }, function (data) {
@@ -1528,44 +1568,12 @@
         }
     }
 
-    function showContactUs() {
-        var divMessageBox = document.getElementById("alertContactUs");
-        var divMessageBoxCrossButton = divMessageBox.querySelector(".close");
-
-        var modal = new bootstrap.Modal(divMessageBox);
-
-        if (divMessageBox != null) {
-            modal.toggle();
-        }
-    }
-
-    function sendContactUs() {
-        var contactUsDom = document.querySelector(".inbox_customerService");
-        var subjectText = contactUsDom.querySelector(".contectUs_Subject").value;
-        var emailText = contactUsDom.querySelector(".contectUs_Eamil").value.trim();
-        var bodyText = contactUsDom.querySelector(".contectUs_Body").value;
-        var NickName = contactUsDom.querySelector(".contectUs_NickName").value;
-        var Phone = contactUsDom.querySelector(".contectUs_Phone").value;
-
-        if (emailText == "") {
-            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入回覆信箱"));
-        }
-
-        API_SendSerivceMail(subjectText, "ニックネーム：" + NickName + "<br/>" + "携帯電話：" + Phone + "<br/>" + bodyText, emailText);
-    }
     //#region Game
     function GameLoadPage(url, gameBrand, gameName) {
         var IFramePage = document.getElementById("GameIFramePage");
 
         if (IFramePage != null) {
-            //非滿版遊戲介面
-            // $('#headerGameDetailContent').show();
-            // $('#GameIFramePage').show();
-            //非滿版遊戲介面 end
-
-            //滿版遊戲介面
             $('#divGameFrame').css('display', 'flex');
-            //滿版遊戲介面 end
 
             //var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
             //if (showCloseGameTooltipCount == '') {
@@ -1614,8 +1622,7 @@
         if (gameWindow) {
             gameWindow.close();
         }
-
-
+        
         if (alertSearch.css("display") == "block") {
             alertSearchCloseButton.click();
         }
@@ -1650,22 +1657,21 @@
 
             gameCode = gameBrand + "." + gameName;
             $('.headerGameName').text(gameLangName);
-
-            if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
+            if (false) {
                 $('#GameMask').show();
-                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
+                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "")
                 CloseWindowOpenGamePage(gameWindow);
             } else {
                 if (EWinWebInfo.DeviceType == 1) {
                     $('#GameMask').show();
-                    gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
+                    gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "");
                     CloseWindowOpenGamePage(gameWindow);
 
                     <%--  window.location.href = "/OpenGame_M.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode
  + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";--%>
 
                 } else {
-                    if (gameBrand.toUpperCase() == 'CMD') {
+                    if (gameBrand.toUpperCase() == 'CMD' || gameBrand.toUpperCase() == 'EWIN') {
                         $('#GameIFramePage').removeAttr('sandbox');
                     }
 
@@ -1699,11 +1705,11 @@
             gameWindow = window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
         }
     }
-    //.divGameFrame{width:70vw;height:39.375vw;background-color:#09f}
+    
     function CloseGameFrame() {
-        //滿版遊戲介面
+
         $('#divGameFrame').css('display', 'none');
-        //滿版遊戲介面 end
+      
         game_userlogout();
         appendGameFrame();
     }
@@ -1756,8 +1762,6 @@
             w = vw - 110;
         }
 
-
-        // class="divGameFrame"
         let tmp = `<div class="divGameFrameWrapper">
             <div class="btn-wrapper">
                 <div class="btn btn-game-close" onclick="CloseGameFrame()"><i class="icon icon-mask icon-error"></i></div>
@@ -1940,9 +1944,11 @@
             }
 
             selectedWallet = wallet;
+         
 
             if (wallet.CurrencyType == EWinWebInfo.BonusCurrencyType) {
                 $("#liWithdrawal").hide();
+               
             } else {
                 if (wallet.PointValue > 0) {
                     $("#liWithdrawal").show();
@@ -1951,6 +1957,9 @@
                 }
             }
 
+            if (EWinWebInfo.UserInfo.UserAccountType != 0) {
+                $("#liWithdrawalAgent").show();
+            }
             // 已登入
             idMenuLogin.classList.remove("is-hide");
             idLoginBtn.classList.add("is-hide");
@@ -2004,7 +2013,7 @@
                         });
                     } else {
                         EWinWebInfo.UserLogined = false;
-                        showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請重新登入") + ":" + mlp.getLanguageKey(obj.Message), function () {
+                        showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請重新登入") + " " + mlp.getLanguageKey(obj.Message), function () {
                             API_Logout(true);
                         });
 
@@ -2038,6 +2047,18 @@
             notifyWindowEvent("SetLanguage", c);
         });
         //mlpByGameBrand.loadLanguageByOtherFile(EWinWebInfo.EWinUrl + "/GameBrand.", c);      
+    }
+
+
+    function chanegelang() {
+        clickCount++;
+
+        if (clickCount == 5) {
+            setLanguage("CHT");
+            $("#btn_PupLangClose").click();
+            clickCount = 0;
+        }
+        
     }
 
     function switchLang(Lang, isReload) {
@@ -2275,32 +2296,7 @@
             return;
         }
 
-        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 30,
-            {
-                GameCode: "EWin.EWinGaming",
-                GameBrand: "EWin",
-                GameStatus: 1,
-                GameID: 0,
-                GameName: "EWinGaming",
-                GameCategoryCode: "Live",
-                GameCategorySubCode: "Baccarat",
-                GameAccountingCode: null,
-                AllowDemoPlay: 1,
-                RTPInfo: "",
-                IsHot: 1,
-                IsNew: 1,
-                SortIndex: 99,
-                Tags: [],
-                Language: [{
-                    LanguageCode: "JPN",
-                    DisplayText: "EWinゲーミング"
-                },
-                {
-                    LanguageCode: "CHT",
-                    DisplayText: "真人百家樂(eWIN)"
-                }],
-                RTP: null
-            },
+        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 30, null,
             () => {
                 notifyWindowEvent("GameLoadEnd", null);
             }
@@ -2330,7 +2326,6 @@
         }
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
-
             if (EWinWebInfo.DeviceType == 1) {
                 noSleep = new NoSleep();
                 noSleep.disable();
@@ -2338,14 +2333,6 @@
                     document.removeEventListener('click', enableNoSleep, false);
                     noSleep.enable();
                 }, false);
-            }
-
-            if (EWinWebInfo.DeviceType == 1) {
-                // $(".searchFilter-item").eq(0).css("flex-grow", "0");
-                // $(".searchFilter-item").eq(0).css("flex-shrink","0");
-                // $(".searchFilter-item").eq(0).css("flex-basis","100%");
-                // $(".searchFilter-item").eq(1).css("margin-left", "0");
-                //$(".searchFilter-item").eq(2).css("margin-left","0");
             }
 
             var dstPage = c.getParameter("DstPage");
@@ -2379,6 +2366,9 @@
             }
             else {
                 if (EWinWebInfo.SID != "") {
+                     API_GetUserAccountProperty("JoinActivity", function (d) {
+                         JoinActivitys = d;
+                    });
                     API_Casino();
                 } else {
                     if (PageType != null && PageType != "" && PageType == "OpenSumo") {
@@ -2431,7 +2421,7 @@
 
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
                                             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("即將開啟") + ":" + openGameBeforeLogin.GameLangName, function () {
-                                                openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
+                                                openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName.replace("'", "‘"));
                                             });
                                         } else {
                                             var srcPage = window.sessionStorage.getItem("SrcPage");
@@ -2485,7 +2475,7 @@
                                 getPromotionCollectAvailable();
                             } else {
                                 if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
-                                   
+                               
                                 }
                             }
                         }
@@ -2520,6 +2510,8 @@
         API_changeAvatarImg(getCookie("selectAvatar"));
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
 
+        //$(".company-license").append(`<iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;" ></iframe>`);
+     
         //resize();
     }
 
@@ -2600,6 +2592,11 @@
                                 if (wallet.PointValue <= 100) {
                                     boolCheck = true;
                                     break;
+                                } else {
+                                    if (JoinActivitys == "") {
+                                        boolCheck = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -2728,7 +2725,7 @@
 
                         var RTP = "--";
                         var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
-                        lang_gamename = lang_gamename.replace("'", "");
+                        lang_gamename = lang_gamename.replace("'", "‘");
                         if (gameItem.RTPInfo) {
                             RTP = JSON.parse(gameItem.RTPInfo).RTP;
                         }
@@ -2739,7 +2736,7 @@
 
                         GI = c.getTemplate("tmpSearchGameItem");
                         let GI1 = $(GI);
-                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
+                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename.replace("'", "‘") + "')");
 
                         GI1.addClass("group" + parseInt(gameItemCount / 60));
                         gameItemCount++;
@@ -2791,6 +2788,7 @@
                 )
             }
         };
+
         this.rem = function () {
             if (SearchDom.children().find(".group" + showMoreClickCount).length > 0) {
                 SearchDom.children().find(".group" + showMoreClickCount).show();
@@ -2923,21 +2921,6 @@
 
         }
 
-        //openFullSearch
-        this.openFullSearch = function (e) {
-            var header_SearchFull = document.getElementById("header_SearchFull");
-            header_SearchFull.classList.add("open");
-        }
-
-        //openFullSearch
-        this.closeFullSearch = function (e) {
-            var header_SearchFull = document.getElementById("header_SearchFull");
-
-            if (header_SearchFull.classList.contains("open")) {
-                header_SearchFull.classList.remove("open");
-            }
-        }
-
         var getSearchGameBrand = function () {
             var ParentMain = SearchDom.find("#ulSearchGameBrand");
             ParentMain.empty();
@@ -2972,8 +2955,11 @@
 
                                     GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png?` + v;
                                 }
-
-                                ParentMain.append(GBLDom);
+                                if (GBL.GameBrand.toUpperCase() == 'JL' || GBL.GameBrand.toUpperCase() == 'EVO' || GBL.GameBrand.toUpperCase() == 'FC') {
+                                    ParentMain.prepend(GBLDom);
+                                } else {
+                                    ParentMain.append(GBLDom);
+                                }
                             }
                         }
                     } else {
@@ -3079,7 +3065,7 @@
 
                 var RTP = "--";
                 var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
-                lang_gamename = lang_gamename.replace("'", "");
+                lang_gamename = lang_gamename.replace("'", "‘");
                 if (gameItem.RTPInfo) {
                     RTP = JSON.parse(gameItem.RTPInfo).RTP;
                 }
@@ -3090,7 +3076,7 @@
 
                 GI = c.getTemplate("tmpSearchGameItem");
                 let GI1 = $(GI);
-                GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
+                GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename.replace("'", "\'") + "')");
 
                 var GI_img = GI.querySelector(".gameimg");
                 if (GI_img != null) {
@@ -3174,6 +3160,10 @@
         });
     }
 
+    function openCuracao() {
+        window.open("https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&rlh=25cde581dbaa53d3e5241d0863b2d92f");
+    }
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
@@ -3186,7 +3176,7 @@
         <div class="loader-box">
             <div class="loader-spinner">
                 <div class="sk-fading-circle">
-                    <div class="loader-logo" style="width: 80%; height: 80%; background: url(../images/icon/ico-dog-w.svg) center center no-repeat; background-size: calc(100% - 50px); -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both; animation: loader-logo-anim 1.2s infinite ease-in-out both; margin: 10%;">
+                    <div class="loader-logo" style="width: 80%; height: 80%; background: url(../images/icon/ico-dog-w.png) center center no-repeat; background-size: calc(100% - 50px); -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both; animation: loader-logo-anim 1.2s infinite ease-in-out both; margin: 10%;">
                     </div>
                     <div class="sk-circle1 sk-circle"></div>
                     <div class="sk-circle2 sk-circle"></div>
@@ -3211,19 +3201,6 @@
             <!-- class="navbar-expand-xl" trigger hidden -->
             <nav class="navbar">
                 <!-- TOP Search-->
-                <div class="search-full" id="header_SearchFull">
-                    <div class="container-fluid">
-                        <form class="search__wrapper">
-                            <div class="form-group-search search-plusbutton">
-                                <input id="" type="search" class="form-control custom-search" name="search" language_replace="placeholder" placeholder="輸入帳號">
-                                <label for="search" class="form-label"><span class="language_replace">輸入帳號</span></label>
-                                <div class="btn btnSearch"><span class="language_replace">搜尋</span></div>
-                                <button type="reset" class="btn btnReset"><i class="icon icon-ewin-input-reset"></i></button>
-                            </div>
-                            <span class="btn btn__closefullsearch" onclick="SearchControll.closeFullSearch(this)"><i class="icon icon-ewin-input-compress"></i></span>
-                        </form>
-                    </div>
-                </div>
                 <div class="container-fluid navbar__content">
                     <!--MENU BUTTON -->
                     <button id="navbar_toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -3294,7 +3271,6 @@
                                                 <i class="icon icon-mask icon-withdarw"></i>
                                                 <span class="title language_replace">出款</span></a>
                                         </li>
-
                                     </ul>
                                 </li>
                                 <li class="nav-item navbarMenu__catagory">
@@ -3335,6 +3311,15 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="nav-item navbarMenu__catagory">
+                                    <ul class="catagory">
+                                        <li class="nav-item submenu dropdown" onclick="window.open('Download/pcdownload.aspx')">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-mobile"></i>
+                                                <span class="title language_replace">Mobile</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <%--
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
@@ -3348,6 +3333,11 @@
                                     </ul>
                                 </li>
                                 --%>
+                            <li class="nav-item submenu dropdown" onclick="API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx', true)" id="liWithdrawalAgent" style="display: none">
+                                    <a class="nav-link">   
+                                         <i class="icon icon-mask icon-coin"></i>
+                                        <span class="title language_replace">代理出款</span></a>
+                                </li>
                                 <li class="nav-item submenu dropdown" id="idLogoutItem">
                                     <a class="nav-link" onclick="API_Logout(true)">
                                         <!-- <i class="icon icon2020-ico-login"></i> -->
@@ -3358,7 +3348,7 @@
                             <li class="nav-item navbarMenu__catagory nav-lang">
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown "
-                                        onclick="showLangProp()">
+                                        onclick="chanegelang()">
                                         <a class="nav-link">
                                             <!-- icon-flag-JP/icon-flag-ZH 切換-->
                                             <i id="langIcon" class="icon icon-mask"></i>
@@ -3377,22 +3367,11 @@
                                 <div class="logo"><a></a></div>
                             </div>
                         </div>
-                        <div id="headerGameDetailContent" style="display: none;">
-                            <!-- Search -->
-                            <ul class="nav header_setting_content">
-                                <li class="headerGameDetail navbar-search nav-item">
-                                    <button id="closeGameBtn" type="button" onclick="CloseGameFrame()" data-toggle="tooltip" data-placement="bottom" class="btn btn-search" style="background: white;">
-                                        <i class="icon">X</i>
-                                    </button>
-                                    <span class="headerGameName"></span>
-
-                                </li>
-                            </ul>
-                        </div>
                         <!-- 右上角 -->
                         <div class="header_rightWrapper">
 
                             <div class="header_setting">
+                                <a href="/Download/pcdownload.aspx" target="_blank" class="mobile_download"><img src="images/mobile_head.svg"><span>mobile</span></a>
                                 <ul class="nav header_setting_content">
                                     <!-- Search -->
                                     <li class="navbar-search nav-item">
@@ -3413,7 +3392,7 @@
                                             <li class="login">
                                                 <button class="btn-login btn" type="button" onclick="onBtnLoginShow()">
                                                     <span class="avater">
-                                                        <img src="images/avatar/avater-2.png" alt="" onerror="setDefaultIcon(this)"></span>
+                                                        <img src="images/avatar/avater-2.png?a=1" alt="" onerror="setDefaultIcon(this)"></span>
                                                     <span class="language_replace">登入</span></button>
                                             </li>
                                             <li class="register" style="display: block !important">
@@ -3446,7 +3425,7 @@
                                                 <a onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)" class="btn nav-link btnDropDown " role="button">
                                                     <span class="avater">
                                                         <span class="avater-img">
-                                                            <img src="images/avatar/avater-2.png" alt="">
+                                                            <img src="images/avatar/avater-2.png?a=1" alt="">
                                                         </span>
                                                         <span class="avater-name"></span>
                                                     </span>
@@ -3525,13 +3504,11 @@
                     <div class="partner">
                         <div class="logo">
                             <div class="row">
-                                <%--   
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-eWIN.png" alt="">
                                     </div>
                                 </div>
-                                --%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-microgaming.png" alt="">
@@ -3591,7 +3568,6 @@
                                         <img src="/images/logo/footer/logo-bco.png" alt="">
                                     </div>
                                 </div>
-                                <%--  
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-cg.png" alt="">
@@ -3599,7 +3575,18 @@
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-ds88.png" alt="">
+                                    </div>
+                                </div>
+                                <%--  
+                                <div class="logo-item">
+                                    <div class="img-crop">
                                         <img src="/images/logo/footer/logo-playngo.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-xg.png" alt="">
                                     </div>
                                 </div>
                                 --%>
@@ -3613,7 +3600,17 @@
                                         <img src="/images/logo/footer/logo-cmd.png" alt="">
                                     </div>
                                 </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-wm.png" alt="">
+                                    </div>
+                                </div>
                                 <%-- 
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-bti.png" alt="">
+                                    </div>
+                                </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-netent.png" alt="">
@@ -3629,11 +3626,7 @@
                                         <img src="/images/logo/footer/logo-evops.png" alt="">
                                     </div>
                                 </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="/images/logo/footer/logo-bti.png" alt="">
-                                    </div>
-                                </div>
+                                
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-zeus.png" alt="">
@@ -3665,8 +3658,9 @@
                     </div>
 
                     <div class="company-detail">
-                        <div class="company-license" style="display:none">
-                            <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
+                  <%--      --%>
+                        <div class="company-license">
+                            <img id="imgCuracao" src="images/Curacao.PNG" height="50" width="150" onclick="window.parent.openCuracao()" />
                         </div>
                         <div class="company-address">
                             <p class="address language_replace">Lucky Sprite由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
@@ -3708,7 +3702,7 @@
                                     </div>
                                 </label>
                             </li>
-                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
+                            <li class="lang-item custom-control custom-radioValue-lang" onclick="">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
                                     <div class="custom-input radio-button">
@@ -3737,76 +3731,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal Search 品牌-文字版-->
-    <%--  <div class="modal fade no-footer alertSearch " id="alertSearch" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <!-- <h5 class="modal-title">我是logo</h5> -->
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="searchFilter-wrapper">
-                        <div class="searchFilter-item input-group keyword">
-                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
-                            <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
-                        </div>
-                        
-                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
-                            <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
-                                <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
-                                <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>
-                                <option class="searchFilter-option language_replace" value="BNG">BNG</option>
-                                <option class="searchFilter-option language_replace" value="CG">CG</option>
-                                <option class="searchFilter-option language_replace" value="CQ9">CQ9</option>
-                                <option class="searchFilter-option language_replace" value="EVO">EVO</option>
-                                <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
-                                 <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>
-                                <option class="searchFilter-option language_replace" value="KGS">KGS</option>
-                                <option class="searchFilter-option language_replace" value="KX">KX</option>
-                                <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>
-                                <option class="searchFilter-option language_replace" value="PG">PG</option>
-                                <option class="searchFilter-option language_replace" value="PNG">PNG</option>
-                                <option class="searchFilter-option language_replace" value="PP">PP</option>
-                                <option class="searchFilter-option language_replace" value="VA">VA</option>
-                                <option class="searchFilter-option language_replace" value="ZEUS">ZEUS</option>
-                                <option class="searchFilter-option language_replace" value="BTI">BTI</option>
-                                <option class="searchFilter-option language_replace" value="BG">BG</option>
-                            </select>
-                        </div>
-                        <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display: none">
-                            <select class="custom-select" id="seleGameCategory">
-                                <option class="title language_replace" value="All" selected>全部</option>
-                                <option class="searchFilter-option language_replace" value="Electron">Electron</option>
-                                <option class="searchFilter-option language_replace" value="Fish">Fish</option>
-                                <option class="searchFilter-option language_replace" value="Live">Live</option>
-                                <option class="searchFilter-option language_replace" value="Slot">Slot</option>
-                                <option class="searchFilter-option language_replace" value="Sports">Sports</option>
-                            </select>
-                        </div>
-                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
-                    </div>                    
-                </div>
-                <div class="modal-body">
-                    <div class="game-search-wrapper">
-                        <div class="search-result-wrapper">
-                            <div class="search-result-inner">
-                                <div class="search-result-list">
-                                    <div class="game-item-group list-row row" id="alertSearchContent">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>--%>
 
     <!-- 我的最愛/遊玩過的遊戲 PoPup-->
     <div class="modal fade no-footer alertSearchTemp" id="alertFavoPlayed" tabindex="-1" aria-hidden="true">
@@ -3910,7 +3834,7 @@
                         </div>
 
                         <!-- 品牌LOGO版 Collapse -->
-                        <div class="brand-wrapper">
+                        <div class="brand-wrapper" id="search-brand-wrapper">
                             <div class="modal-header-container">
                                 <div class="brand-inner">
                                     <ul class="brand-popup-list" id="ulSearchGameBrand">
@@ -4028,73 +3952,6 @@
                 <div class="modal-footer">
                     <div class="btn-container">
                         <button type="button" class="alertPartialHtml_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--alert-->
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertContactUs" aria-hidden="true" id="alertContactUs">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header border-bottom align-items-center">
-                    <i class="icon-service"></i>
-                    <h5 class="modal-title language_replace ml-1">客服信箱</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-body-content">
-                        <!-- <div class="service-contact">
-                            <span class="titel language_replace">客服信箱</span><span class="data"> : service@BBC117.com</span>
-                        </div> -->
-                        <div class="inbox_customerService" id="sendMail">
-                            <div class="form-group">
-                                <label class="form-title language_replace">問題分類</label>
-                                <select class="form-control custom-style contectUs_Subject">
-                                    <option class="language_replace">出入金</option>
-                                    <option class="language_replace">註冊</option>
-                                    <option class="language_replace">獎勵</option>
-                                    <option class="language_replace">遊戲</option>
-                                    <option class="language_replace">其他</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-title language_replace">信箱</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style contectUs_Eamil" language_replace="placeholder" placeholder="請輸入回覆信箱" autocomplete="off">
-                                    <div class="invalid-feedback language_replace">錯誤提示</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-title language_replace">暱稱</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style contectUs_NickName" autocomplete="off" name="NickName">
-                                    <div class="invalid-feedback language_replace">錯誤提示</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-title language_replace">電話</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style contectUs_Phone" autocomplete="off" name="Phone">
-                                    <div class="invalid-feedback language_replace">錯誤提示</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-title language_replace">問題敘述</label>
-                                <textarea class="form-control custom-style contectUs_Body" rows="5" language_replace="placeholder" placeholder=""></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <!-- <button class="btn btn-icon">
-                        <i class="icon-copy" onclick="copyText('service@BBC117.com')"></i>
-                    </button> -->
-                    <div class="btn-container">
-                        <button type="button" class="alertContact_OK btn btn-primary btn-block" data-dismiss="modal" onclick="sendContactUs();"><span class="language_replace">寄出</span></button>
                     </div>
                 </div>
             </div>
@@ -4227,13 +4084,6 @@
 
                             </div>
                         </article>
-                        <!-- <i class="icon-error_outline primary"></i>
-                        <div class="language_replace">公告時間：</div>
-                        <div class="alert_Time"></div>
-                        <div class="text-wrap">
-                            <div class="language_replace">公告詳情：</div>
-                            <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
-                        </div> -->
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -4366,60 +4216,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Modal Search 品牌-文字版-->
-    <%--    <div id="tmpSearchGameItem" class="is-hide">
-        <div class="game-item col-auto">
-            <div class="game-item-inner">
-                <div class="game-item-img">
-                    <span class="game-item-link"></span>
-                    <div class="img-wrap">
-                        <img class="gameimg" src="">
-                    </div>
-                </div>
-                <div class="game-item-info">
-                    <div class="game-item-info-inner">
-                        <div class="game-item-info-brief">
-                            <div class="game-item-info-pre">
-                                <h3 class="gameName"></h3>
-                            </div>
-                            <div class="game-item-info-moreInfo">
-                                <ul class="moreInfo-item-wrapper">
-                                    <li class="moreInfo-item brand">
-                                        <h4 class="value BrandName"></h4>
-                                    </li>                                   
-                                    <li class="moreInfo-item RTP">
-                                        <span class="title">RTP</span>
-                                        <span class="value number valueRTP"></span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="game-item-info-indicator">
-                            <div class="action">
-                                <div class="btn-s-wrapper">
-                                    <!-- 按讚 按鈕移除 -->
-                                    <button type="button" class="btn-thumbUp btn btn-round" style="display: none;">
-                                        <i class="icon icon-m-thumup"></i>
-                                    </button>
-                                    
-                                    <button type="button" class="btn-like btn btn-round">
-                                        <i class="icon icon-m-favorite"></i>
-                                    </button>
-                                </div>
-                                <!-- play 按鈕移除 -->
-                                <button type="button" class="btn btn-play">
-                                    <span class="language_replace title">プレイ</span><i class="triangle"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>--%>
-
 
     <!-- Modal Search 新版 - 品牌-LOGO版-->
     <div id="tmpSearchGameItem" class="is-hide">

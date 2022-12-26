@@ -240,7 +240,7 @@
                 if (o.Result == 0) {
                     cb(true, o.ChannelList[0].PaymentChannelCode);
                 } else {
-                    cb(false, o.Message);
+                    cb(false, mlp.getLanguageKey("貨幣未設定匯率"));
                 }
             }
         })
@@ -390,8 +390,8 @@
                                 window.parent.API_LoadingEnd(1);
                                 let UserAccountPayments = o.UserAccountPayments;
                                 if (o.Result == 0) {
-                                    //if (UserAccountPayments.length == 0) {
-                                    if (UserAccountPayments.length > 0) {
+                                    if (false) {
+                                    //if (UserAccountPayments.length > 0) {
                                         window.parent.API_LoadingEnd(1);
                                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能有一筆進行中之訂單"), function () {
 
@@ -458,7 +458,7 @@
                         })
                     } else {
                         window.parent.API_LoadingEnd(1);
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(message));
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), paymentChannelCode);
                     }
                 });
             } else {

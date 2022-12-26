@@ -33,7 +33,7 @@ public class Payment {
             string CurrencyType;
             string CompanyKey;
             string Sign;
-            string result;
+            string result="";
             string token = EWinWeb.EPayToken;
             dynamic EPAYSetting = null;
             JObject returnResult;
@@ -144,7 +144,7 @@ public class Payment {
                         }
                         else
                         {
-                            R.Message = "Create Order Fail";
+                            R.Message = result;
                             return R;
                         }
                         #endregion
@@ -152,7 +152,7 @@ public class Payment {
                     }
                     catch (Exception ex)
                     {
-                        R.Message = "Create Order Fail";
+                        R.Message = "Create Order Fail:"+ex.Message;
                         return R;
                     }
                 }
@@ -168,7 +168,7 @@ public class Payment {
                 }
                 else
                 {
-                    R.Message = "Create Order Fail";
+                    R.Message = returnResult["Message"].ToString();
                     return R;
                 }
             }
@@ -191,7 +191,7 @@ public class Payment {
             string CompanyKey;
             DateTime OrderDate = DateTime.Now;
             string Sign;
-            string result;
+            string result="";
             System.Data.DataTable DT = new System.Data.DataTable();
             string token = EWinWeb.EPayToken;
             decimal JPYRate = 0;
@@ -302,7 +302,7 @@ public class Payment {
                         }
                         else
                         {
-                            R.Message = "Create Order Fail";
+                            R.Message = result;
                             return R;
                         }
                         #endregion
@@ -310,7 +310,7 @@ public class Payment {
                     }
                     catch (Exception ex)
                     {
-                        R.Message = "Create Order Fail";
+                        R.Message = "Create Order Fail:"+ex.Message;
                         return R;
                     }
                 }
@@ -328,7 +328,7 @@ public class Payment {
                 }
                 else
                 {
-                    R.Message = "Create Order Fail";
+                    R.Message = returnResult["Message"].ToString();
                     return R;
                 }
             }

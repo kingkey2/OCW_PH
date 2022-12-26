@@ -10,9 +10,12 @@
 
     ASR = api.GetAgentSessionByID(ASID);
 
-    if (ASR.Result != EWin.SpriteAgent.enumResult.OK) {
+    if (ASR.Result != EWin.SpriteAgent.enumResult.OK)
+    {
         Response.Redirect("login.aspx");
-    } else {
+    }
+    else
+    {
         ASI = ASR.AgentSessionInfo;
     }
 
@@ -28,7 +31,7 @@
     <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">
     <style>
         .tree-btn {
-            padding: 0px 12px;
+            padding: 0px 9px;
             border: none;
             display: inline-block;
             vertical-align: middle;
@@ -41,13 +44,13 @@
             white-space: nowrap;
             user-select: none;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 14px;
             font-weight: bold;
             border: 3px solid rgba(227, 195, 141, 0.8);
         }
 
         .agentPlus {
-            padding: 0px 10px;
+            padding: 0px 7px;
         }
 
         .tree-btn:hover {
@@ -256,12 +259,12 @@
         var idList = document.getElementById("idList");
 
         c.clearChildren(idList);
-        expandDiv.style.display = "none";
+        //expandDiv.style.display = "none";
 
         if (o.SummaryList && o.SummaryList.length > 0) {
             document.getElementById("idResultTable").classList.remove("MT_tableDiv__hasNoData");
             idList.classList.remove("tbody__hasNoData");
-            expandDiv.style.display = "block";
+            //expandDiv.style.display = "block";
             for (var i = 0; i < o.SummaryList.length; i++) {
                 var item = o.SummaryList[i];
                 var t = c.getTemplate("templateTableItem");
@@ -532,8 +535,18 @@
             //queryOrderSummary(qYear, qMon);
             window.parent.API_CloseLoading();
             //queryData(EWinInfo.UserInfo.LoginAccount);
-            querySelfData()
+            querySelfData();
+            ac.dataToggleCollapseInit();
         });
+    }
+
+    function EWinEventNotify(eventName, isDisplay, param) {
+        switch (eventName) {
+            case "WindowFocus":
+                //updateBaseInfo();
+                ac.dataToggleCollapseInit();
+                break;
+        }
     }
 
     window.onload = init;
@@ -550,7 +563,7 @@
                     <!-- collapse內容 由此開始 ========== -->
                     <div id="searchList" class="collapse-content collapse show">
                         <div id="divSearchContent" class="row searchListContent">
-                            <div id="idSearchButton" class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div id="idSearchButton" class="col-12 col-md-4 col-lg-2 col-xl-2">
                                 <div class="form-group form-group-s2 ">
                                     <div class="title hidden shown-md"><span class="language_replace">帳號</span></div>
 
@@ -561,7 +574,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div class="col-12 col-md-5 col-lg-4 col-xl-3">
                                 <!-- 起始日期 / 結束日期 -->
                                 <div class="form-group search_date">
                                     <div class="starDate">
@@ -588,7 +601,14 @@
 
                             </div>
 
-                             <div class="col-12 col-md-12 col-lg-12 col-xl-5">
+                            <div id="expandDiv" class="col-12 col-md-3 col-lg-1 col-xl-1">
+                                <div class="form-group wrapper_center row">
+                                    <button class="btn2 btn-outline-main language_replace col-6 col-md-12 col-lg-12" onclick="toggleAllRow(true)">展開</button>
+                                    <button class="btn2 btn-outline-main language_replace col-6 col-md-12 col-lg-12" onclick="toggleAllRow(false)">收合</button>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-12 col-lg-5 col-xl-6">
                                 <div id="idTabMainContent">
                                     <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
                                         <li class="nav-item">
@@ -614,7 +634,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto" style="display: none">
                                 <!-- 幣別 -->
                                 <div class="form-group form-group-s2 ">
                                     <div class="title"><span class="language_replace">幣別</span></div>
@@ -629,12 +649,6 @@
                                             <div class="custom-input checkbox"><span class="language_replace tempName">Non</span></div>
                                         </label>
                                     </div>
-                                </div>
-                            </div>
-                            <div id="expandDiv" style="display: none" class="col-12 col-md-6 col-lg-4 col-xl-auto">
-                                <div class="form-group wrapper_center dataList-process">
-                                    <button class="btn btn-outline-main language_replace" onclick="toggleAllRow(true)">展開</button>
-                                    <button class="btn btn-outline-main language_replace" onclick="toggleAllRow(false)">收合</button>
                                 </div>
                             </div>
                             <div class="col-12">

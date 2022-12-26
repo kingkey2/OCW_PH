@@ -124,15 +124,24 @@
     <meta property="og:Keyword" content="Auto Fast Deposits and Withdrawals" />
     <meta property="og:description" content="Partners with a wide variety of well-known game brands, we provide fast deposit and withdrawal options, so you can play and have fun whenever you want!" />
 
+    <%--<meta property="og:url" content="https://casino-maharaja.com/" />--%>
+    <%--<meta property="og:image" content="https://casino-maharaja.com/images/share_pic_en.png" />--%>
+
     <!-- Share image -->
-    <link rel="shortcut icon" href="images/favicon.ico"/>
-    <link rel="bookmark" href="images/favicon.ico"/>
+    <link rel="shortcut icon" href="images/favicon.png"/>
+    <link rel="bookmark" href="images/favicon.png"/>
     <link rel="apple-touch-icon" href="images/share_pic.png"/>
 
 
     <link rel="stylesheet" href="css/basic.min.css">
-    <link rel="stylesheet" href="css/main.css?<%:Version%>">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    <link rel="stylesheet" href="css/main.css?<%:Version%>">  
+
+    <link rel="alternate" hreflang="ja" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
+    <link rel="alternate" hreflang="ja-jp" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
+    <link rel="alternate" hreflang="zh-cn" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
+    <link rel="alternate" hreflang="zh-tw" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
+    <link rel="alternate" hreflang="zh" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
+    <link rel="alternate" hreflang="zh-hk" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
 </head>
 
 <script
@@ -469,14 +478,7 @@
             var IFramePage = document.getElementById("GameIFramePage");
             IFramePage.src = "";
 
-            //非滿版遊戲介面
-            // $('#headerGameDetailContent').hide();
-            // $('#GameIFramePage').hide();
-            //非滿版遊戲介面 end
-
-            //滿版遊戲介面
             $('#divGameFrame').css('display', 'none');
-            //滿版遊戲介面 end
         }
 
         if ($('.header_menu').hasClass("show")) {
@@ -528,12 +530,12 @@
 
     function API_Home() {
         //Game
-        API_LoadPage("Casino", "Casino.aspx");
+        API_LoadPage("Casino", "Casino2.aspx");
     }
 
     function API_Casino() {
         //Game
-        API_LoadPage("Casino", "Casino.aspx");
+        API_LoadPage("Casino", "Casino2.aspx");
     }
 
     function API_SetFavoToIndexDB(cb) {
@@ -593,24 +595,6 @@
         }
     }
 
-    function API_SendSerivceMail(subject, body, email) {
-        lobbyClient.SendCSMail(Math.uuid(), email, subject, body, function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已成功通知客服，將回信至您輸入或註冊的信箱"));
-                } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
-                }
-            } else {
-                if (o == "Timeout") {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
-                } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
-                }
-            }
-        });
-    }
-
     function API_ShowLoading() {
         $('.loader-container').show();
         $('.loader-backdrop').removeClass('is-show');
@@ -621,10 +605,6 @@
         $('.loader-container').fadeOut(250, function () {
             $('.iframe-container').addClass('is-show');
         });
-    }
-
-    function API_ShowContactUs() {
-        return showContactUs();
     }
 
     function API_NonCloseShowMessageOK(title, msg, cbOK) {
@@ -1057,7 +1037,269 @@
             divMessageBoxTitle.innerHTML = title;
 
             if (pathName == 'Rules') {
-                var rulesHtml = "";d
+                var rulesHtml = "";
+                if (EWinWebInfo.Lang == 'JPN') {
+                    rulesHtml = `<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マハラジャ</title>
+
+    <!-- <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" /> -->
+    <link rel="stylesheet" href="css/icons.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="css/global.css" type="text/css" /> -->
+    <link rel="stylesheet" href="css/manual.css" type="text/css" />
+</head>
+<body>
+    <div class="page-container">
+        <!-- Heading-Top -->
+        <div id="heading-top"></div>
+        <div class="page-content">
+            <div class="manual-container">
+                <h2 class="language_replace">利用規約</h2>
+                <div class="text-wrap">
+                    <strong><span>バージョン</span></strong><strong><span>: 1.0</span></strong><br />
+                    <strong><span>更新日</span></strong><strong><span>: 29.10.2021</span></strong><br />
+                    <br />
+                    <br />
+                    <span><strong>1. </strong></span><strong><span>一般</span></strong><br />
+                    <strong><span>このページは、マハラジャの利用規約（以下利用規約）を構成し、このサイトを利用するすべての登録ユーザーは必ず本利用規約に同意する必要があります。本利用規約およびこの中で明確に言及されている文書は、当事者間の合意および理解し、当社とユーザーの契約関係を規定します。</span></strong><strong> </strong><strong><span>マハラジャ（以下ウェブサイト）を利用する前に、本利用規約をしっかりお読みの上、必ず理解してください。本利用規約にご同意いただけない場合には、ウェブサイトの使用および使用の継続をおやめください。また、プライバシーポリシーに関してもよく理解しておかれることをお勧めします。</span></strong><br />
+                    <br />
+                    <span><strong>1.1</strong></span><br />
+                    <strong><span>本利用規約には、以下のようないくつかの追加用語が含まれています</span></strong><strong><span>:</span></strong><br />
+                    <span><strong>-</strong></span><strong><span>プレイすることを選択したゲームのルール（「ルール」）。</span></strong><br />
+                    <span><strong>-</strong></span><strong><span>特定のキャンペーンに随時適用される当社のキャンペーン利用規約（「キャンペーン利用規約」）。</span></strong><br />
+                    <span><strong>-</strong></span><strong><span>当社がユーザーから収集した、またはユーザーから当社に提供された個人情報の処理に関する条件を定めた当社のプライバシーポリシー。</span></strong><br />
+                    <br />
+                    <span><strong>1.2</strong></span><br />
+                    <strong><span>ユーザーは、随時改正されることがある本利用規約に含まれることを理解し、同意するものとします。さらに、当ウェブサイトまたは当社関連のその他のウェブサイトに登録や使用する場合、ルール、キャンペーン利用規約、プライバシーポリシーに従い、またこれらをすべてを読み、理解したうえで承認するものとみなされます。</span></strong><br />
+                    <br />
+                    <br />
+                    <strong><span>2. </span></strong><strong><span>義務、必須条件および責任</span></strong><br />
+                    <br />
+                    <strong><span>2.1</span></strong><br />
+                    <strong><span>本利用規約に同意しアカウント登録を行うことで、ユーザーは、次のことを表明し、保証するものとします</span></strong><strong>
+                        <span>
+                            :<br />
+                            <br />
+                            2.1.1
+                        </span>
+                    </strong><br />
+                    <strong><span>アカウントを個人的に登録する</span></strong><br />
+                    <strong><span>ユーザー名およびパスワードを含むユーザーのアカウント情報および、またはウェブサイトを介してユーザーのアカウントにアクセスするすべての方法に関する責任は、ユーザー自身が負うものとします。</span></strong><br />
+                    <strong><span>アカウントの安全性が損なわれる疑いがある場合、直ちに当社に連絡し、不正なアクセスを防ぐための適切な措置を講じる必要があります。</span></strong><br />
+                    <br />
+                    <strong>
+                        <span>
+                            2.1.2<br />
+                            18
+                        </span>
+                    </strong><strong><span>歳以上であること。</span></strong><strong><span>(</span></strong><strong><span>未満は不可</span></strong><strong><span>)</span></strong><br />
+                    <strong><span>未成年者のギャンブルは犯罪です。上記に違反していると思われる合理的な理由があるアカウントは、直ちに閉鎖され、すでに支払われた勝利金額を差し引いたすべての入金額がアカウントユーザーに払い戻されます。</span></strong><br />
+                    <br />
+                    <strong><span>2.1.3</span></strong><br />
+                    <strong><span>当ウェブサイトで開設できるアカウントは一つのみです</span></strong><strong> </strong><strong><span>その理由に関わらず、ユーザーが複数のアカウントの開設、または開設を試みた場合は、当社の裁量で、重複するアカウントでのプレイを無効にすることを含む、ユーザーのいずれか、またはすべてのアカウントを閉鎖する場合があります。</span></strong><br />
+                    <br />
+                    <strong><span>2.1.4</span></strong><br />
+                    <strong><span>ユーザーは他の人に代わってではなく自身のために、楽しむことや娯楽の目的のみで当ウェブサイトを利用するものします。</span></strong><br />
+                    <br />
+                    <strong><span>2.1.5</span></strong><br />
+                    <strong><span>特定の地域では、当ウェブサイトへのアクセスおよび使用する権利が違法とみなされる場合があることを認識するものとします。</span></strong><br />
+                    <strong><span>ユーザーの居住地域で、当社のウェブサイトを使用することが許可されているかどうかを確認するのはユーザー自身の責任であり、あらゆる地域での当ウェブサイトへのアクセスは当ウェブサイトが提供するサービスの利用の提案、もしくは勧誘を意味するものではありません。</span></strong><br />
+                    <br />
+                    <strong><span>2.1.6</span></strong><br />
+                    <strong><span>アカウントの登録時および存続期間中に要請される個人情報は、正確なものを提供するものとします。個人情報は、氏名、住所、生年月日、メールアドレス、電話番号、決済情報などを含みますが、これに限定されることはありません。この義務を守り、情報が常に最新のものであることを保証するのはユーザー自身の責任です。情報が変更された場合、および登録フォームで提供した必須情報に変更があった場合は、当社に通知するものとします。</span></strong><br />
+                    <br />
+                    <strong><span>2.1.7</span></strong><br />
+                    <strong><span>当ウェブサイトを使用するほかのプレイヤー、およびマハラジャの従業員であるサポートエージェントに対して、侮辱的もしくは節度に欠いた発言を避け、礼儀正しく接するものとします。チャットの使用は、当社提供サービスに関連する問い合わせのみとさせていただきます。</span></strong><br />
+                    <br />
+                    <br />
+                    <strong><span>3. </span></strong><strong><span>アカウントと認証チェック</span></strong><br />
+                    <br />
+                    <strong><span>3.1</span></strong><br />
+                    <strong><span>当ウェブサイトで賭けをしたり入金をするためには、まずユーザー自身が個人的にアカウント（「アカウント」）を開設する必要があります。当社が提供するゲームを実際にリアルマネーを使ってプレイするためには、当ウェブサイトにて登録しなければなりません。マハラジャは、独自の裁量でアカウントの登録や開設を拒否する権利を有します。</span></strong><br />
+                    <br />
+                    <strong><span>3.2</span></strong><br />
+                    <strong><span>一人のユーザー、</span></strong><strong><span>IP</span></strong><strong><span>アドレス、およびデバイスにつきに認められているのは、一アカウントのみです。複数のアカウントを持つユーザーを特定した場合は、当社は、重複したアカウントを閉鎖し、出金可能な資金を返却する権利を留保します。</span></strong><br />
+                    <br />
+                    <strong><span>3.3</span></strong><br />
+                    <strong><span>アカウント登録過程の一環として、ウェブサイトにログインするためのユーザー名とパスワードを選択する必要があります。ログイン情報を安全に保管することは、ユーザー自身のみの責任です。ユーザーは、ログイン情報を決して誰にも開示してはいけません。当社は、意図的または偶発的、能動的または受動的だったに関わらず、第三者へのログイン情報の開示に起因する、第三者によるアカウントの悪用や誤用に関する責任を一切負いません。ユーザーのログイン情報を使用して行われた活動は、ユーザー自身によって実行されたものとみなされ、そのような活動から生じる責任はすべてユーザーが追うものとします。万が一、第三者がユーザーのログイン情報を認識している場合、当社に通知すること、およびログイン情報を変更することはユーザー自身の責任です。</span></strong><br />
+                    <br />
+                    <strong><span>3.4</span></strong><br />
+                    <strong><span>当社は、いかなる理由に関わらず、いつでもユーザーの身元確認を行い、関連する書類の提出を要請する権利を留保します。これには、以下の事項が含まれますがこれらに限定されません</span></strong><strong><span>: </span></strong><strong><span>身元調査、信用調査、または法律で認められてる個人履歴の調査。こういった調査の基準は各ケースによりますが、氏名、住所、年齢、職業などのユーザーの登録情報の確認、ユーザーの金銭的地位、資金源などのユーザーの金銭的取引の確認、および</span></strong><strong><span>/</span></strong><strong><span>またはゲーム活動などを含みます。</span></strong><br />
+                    <strong><span>マハラジャには、そのような調査が行われていることをユーザーに伝える義務は一切ないものとします。これらの調査には、許可を受けた信用照会機関、ユーザーの身元を確認するための身元確認サービス、および</span></strong><strong><span>/</span></strong><strong><span>または不正防止機関などの調査を行う特定の第三者企業の使用が含まれる場合があります。マハラジャは、これらの調査の結果が否定的または不確実な場合、独自の裁量でアカウントを閉鎖し、すべての残高を保留することがあります。すべての個人情報は当社のプライバシーポリシーに従って処理されます。</span></strong><br />
+                    <br />
+                    <strong><span>3.5</span></strong><br />
+                    <strong><span>マハラジャは、法的義務および内部ポリシーに従って、ユーザーのアカウントでの入金または出金の処理を行う際に、適正評価の書類の提出を含む追加の本人確認手続きを行う権利を留保します。適正評価手続きに使われるすべての書類が本物であることを保証するのはユーザーの責任です。偽造書類は、資金の没収およびそのような書類の拒否につながる可能性があります。これらの確認手続きは、合理的な時間枠内で実行されるものとします。なお、疑義を避けるため、これらの確認手続きが実行されるまで、ユーザーのアカウントへの資金の支払いなどを遅らせる場合があります。</span></strong><br />
+                    <br />
+                    <strong><span>3.6</span></strong><br />
+                    <strong><span>マネーロンダリング防止のため、すべての決済取引のチェックが行われます。マハラジャおよびすべての規制または管理機関は、犯罪防止の目的で、すべての取引のモニターまたは調査を要求することができます。マハラジャは、疑わしい取引を関連管轄当局に報告します。また、当社は、当社のゲームに関連する疑わしい行為を認識した場合は、直ちに関連機関に報告するものとします。マハラジャは、該当するマネーロンダリングおよびテロ資金供与防止の法律および規制に従って、アカウントの凍結または閉鎖、およびアカウント残高の保留を行う場合があります。</span></strong><br />
+                    <br />
+                    <strong><span>3.7</span></strong><br />
+                    <strong><span>マハラジャは、当社独自の裁量で、ユーザーとの取引関係を継続することが当社のライセンスおよび一般規制義務、または当社のあらゆるサービスに悪影響を与える可能性があるとみなした場合、一切の説明なしで、個人のアカウントの開設を拒否し、またはいつでもアカウントを凍結または閉鎖する権利を留保します。ただし、マハラジャによりすでに行われている契約上の義務は、法律でマハラジャが使用可能な権利を損なうことなく、順守されるものとします。</span></strong><br />
+                    <br />
+                    <strong><span>3.8</span></strong><br />
+                    <strong><span>ユーザーは、いつでもアカウントにログインし、入金、ボーナスクレジット、勝利金、賭け金などのアカウント履歴を確認することができます。誤りに気付いた場合は、必要に応じて調査および修正ができるよう、直ちにマハラジャに報告する必要があります。</span></strong><br />
+                    <br />
+                    <strong><span>3.9</span></strong><br />
+                    <strong><span>ユーザーのアカウントに、クレジットや勝利金またはその他の資金が誤って入金された場合には、ユーザーは、メールまたはチャットを使って、直ちにマハラジャに報告する必要があります。誤って入金された金額は例外なくマハラジャの所有物であり、ユーザーは該当する金額を直ちにアカウントからマハラジャに返金する必要があります。誤って入金された資金を出金した場合、ユーザーは、直ちに返済する必要のある出金額のマハラジャに対する清算債務者とみなされます。誤って入金されたクレジット、勝利金またはその他の資金を使用して賭けが行われた場合、これらの賭けはすべて無効となります。</span></strong><br />
+                    <br />
+                    <strong><span>3.10</span></strong><br />
+                    <strong><span>アカウント残高の金額にかかわらず、残高に利息は一切支払われません。したがってユーザーは、決してマハラジャを金融機関として扱わないものとします。</span></strong><br />
+                    <br />
+                    <strong><span>3.11</span></strong><br />
+                    <strong><span>ユーザーは、マハラジャが、ユーザーによる不正行為および共謀を固く禁じていることを理解し承認するものとします。不正行為や共謀が行われたと合理的に判断された場合、当社は、そのような行為の結果として行われたと思われる賭けを無効にし、および、またはユーザーのアカウントからすべての資金を没収し、閉鎖する権利を留保します。ほかのプレイヤーが、不正行為や共謀によって不当な利益を得ていると考える合理的な根拠のあるユーザーは、メールまたはチャットでマハラジャに報告する必要があります。</span></strong><br />
+                    <br />
+                    <strong><span>3.12</span></strong><br />
+                    <strong><span>ほかのユーザーアカウントへの資金移動は禁止されています。また、その逆も許可されません。</span></strong><br />
+                    <br />
+                    <strong><span>3.13</span></strong><br />
+                    <strong><span>ユーザーは、当ウェブサイトをハッキングしたり、いかなる方法でも当サイトのコードを変更したりしないことに同意します。また、当サイトを使用するにあたり、ユーザー自身、または第三者にかかわらず、ロボット、自動的、機械的、電子的またはそのほかのデバイスを使用して、当サイトでの決断を自動的に行わないことに同意するものとします。当社は、これらのデバイス、またはプレイヤーに不当な優位性を提供するように作られた外部のリソースが、当ウェブサイトで使用されていると合理的に判断された場合には、そのようなデバイスを使って行われたと思われるプレイを無効にする権利を留保します。当社は、調査の対象となるアカウントを一時閉鎖し、当社の独自の裁量でアカウントを閉鎖する場合があります。当社は、これらのデバイスの使用は詐欺行為と同様であるとみなし、このような場合には、アカウントが閉鎖された時点での残高の払い戻しを行わない権利を留保します。</span></strong><br />
+                    <br />
+                    <strong><span>3.14</span></strong><br />
+                    <strong><span>マハラジャは、外国の政府において重要な地位を占める人物（外国</span></strong><strong><span>PEPs</span></strong><strong><span>）とみなされるユーザーへのサービスの提供は行っておりません。いずれかの段階で外国</span></strong><strong><span>PEPs</span></strong><strong><span>と判断された場合は、ユーザーのアカウントは閉鎖され、すべての入金は返金されます。外国</span></strong><strong><span>PEPs</span></strong><strong><span>としての判断に同意しない場合は、メールまたはチャットでご連絡ください。</span></strong><br />
+                    <br />
+                    <br />
+                    <strong><span>4. </span></strong><strong><span>入金</span></strong><br />
+                    <br />
+                    <strong><span>4.1</span></strong><br />
+                    <strong><span>アカウントへの入金において、ユーザーは、合法的な機関によって発行され、合法的にユーザーの名義である有効なクレジットカード、およびその他の決済手段のみを使用することに同意するものとします。ユーザーの決済手段の名義が、ユーザー自身のものではないと当社が判断した場合、または合理的な根拠がある場合、ユーザーのアカウントを閉鎖し、すべての勝利金を無効にする権利を留保します。マハラジャは、企業向けに発行されたカードの使用を禁止します。</span></strong><br />
+                    <br />
+                    <strong><span>4.2</span></strong><br />
+                    <strong><span>マハラジャでは、さまざまな通貨でのプレイを受け入れています。</span></strong><br />
+                    <strong><span>ユーザーはその中からアカウントで使用するデフォルト通貨をひとつ選択しなければなりません。ユーザーが選択した通貨以外の通貨でマハラジャに送金された資金は、その時点での為替レートを使って、ユーザーのデフォルト通貨に変換されます。為替レートの費用はすべてユーザーが負担するものとします。</span></strong><br />
+                    <br />
+                    <strong><span>4.3</span></strong><br />
+                    <strong><span>アカウント開設後、ユーザーは、賭けおよびプレイを開始できる前に最低額以上の入金を行う必要があります。最小および最大入金額は、当ウェブサイトにあるユーザーのアカウントの「入金」ページにて確認できます。ユーザーは、アカウントにある資金のみで賭け、およびプレイすることに同意するものとします。</span></strong><br />
+                    <br />
+                    <strong><span>4.4</span></strong><br />
+                    <strong><span>不正な手段で取得した資金を入金することは違法です。適用される法律に従って、マハラジャは、ユーザーのアカウントへの入金に使用されたクレジットカード</span></strong><strong><span>/</span></strong><strong><span>デビットカードと同じ方法に送金を行います。ひとつ以上のクレジットカード</span></strong><strong><span>/</span></strong><strong><span>デビットカードが登録されている場合は、過去</span></strong><strong><span>6</span></strong><strong><span>か月に最も多く入金に使用された決済口座に送金されます。</span></strong><br />
+                    <br />
+                    <strong><span>4.5</span></strong><br />
+                    <strong><span>クレジットカードまたはデビットカードによる入金を行った場合、当社の合理的な裁量により、該当するカードの下</span></strong><strong><span>4</span></strong><strong><span>桁を除くすべての番号を確認できるカードの表面、および</span></strong><strong><span>CVV</span></strong><strong><span>・</span></strong><strong><span>CVV2</span></strong><strong><span>番号を除く裏面の画像の提出を要請する場合があります。</span></strong><br />
+                    <br />
+                    <strong><span>4.6</span></strong><br />
+                    <strong><span>キャンペーン、ロイヤリティプログラム、またはその他のマーケティングキャンペーンの一環として、ボーナス資金がユーザーのアカウントに加算されることがあります。これらのボーナスはウェブサイト上で賭けに利用する必要があり、そのまま出金する事はできません。</span></strong><br />
+                    <strong><span>キャンペーンによっては、各キャンペーンの特定の利用規約に沿って条件を達成すると、これらのボーナスがリアルマネーへ換金される場合があります。詳しくは各キャンペーン利用規約をご参照ください。</span></strong><br />
+                    <br />
+                    <strong><span>4.7</span></strong><br />
+                    <strong><span>アカウントへの入金は、常に金融機関、または決済サービス機関を通じて行われます。入金の手続き、利用規約、利用可能性、手数料および処理時間は、関連する金融機関または決済サービス機関によって異なる場合があります。</span></strong><br />
+                    <br />
+                    <strong><span>4.8</span></strong><br />
+                    <strong><span>クレジットは認められていません。アカウントに十分な資金を維持し、それに応じて賭けを行うことはユーザーの責任です。アカウント残高が不十分な場合のギャンブル取引は成立しません。当社は、ユーザーのアカウントにすべての賭けを補う十分な資金がない場合、不注意で行われたまたは受け入れられた賭けを無効にする権利を留保します。</span></strong><br />
+                    <br />
+                    <br />
+                    <strong><span>5. </span></strong><strong><span>カジノゲーム特有のルール</span></strong><br />
+                    <br />
+                    <strong><span>5.1</span></strong><br />
+                    <strong><span>「無料ゲーム」モードでのゲームプレイから得た勝利金およびアカウント残高は、一切の商業的価値を持たず、現金、クレジット、またいかなる形の利益として償還されることはありません。</span></strong><br />
+                    <br />
+                    <strong><span>5.2</span></strong><br />
+                    <strong><span>当ウェブサイトで提供されているゲームは、ランダム・ナンバー・ジェネレーター（</span></strong><strong><span>RNG)</span></strong><strong><span>を使用し、各ゲームの無作為なゲーム結果、およびプロダクトやゲームが公正であることを保証します。この乱数システムは、認可を受けた独立した第三者機関により監査認証されています。当ウェブサイトの「無料ゲーム」モードと「リアルマネー」モードには、まったく同じ乱数ジェネレーターが使用されています。</span></strong><br />
+                    <br />
+                    <br />
+                    <strong><span>6. </span></strong><strong><span>保証と責任</span></strong><br />
+                    <br />
+                    <strong><span>6.1</span></strong><br />
+                    <strong><span>マハラジャは以下の事項を保証しておりません</span></strong><strong><span>: </span></strong><strong><span>当ウェブサイトが完璧で、エラーなく作動すること、ウェブサイトおよび当サイトで提供しているゲームが中断なくアクセスできること、ウェブサイトとゲームが目的に適合していること。マハラジャは明示的または示唆的にかかわらず、このような保証は一切いたしかねます。</span></strong><br />
+                    <br />
+                    <strong><span>6.2</span></strong><br />
+                    <strong><span>予期できない技術的な問題、または第三者プロバイダーの技術的な問題といったマハラジャの管理外の状況において、マハラジャは、プレイのキャンセルおよび</span></strong><strong><span>/</span></strong><strong><span>または払い戻しを行うことができるものとします。また、ユーザーは、ユーザーのコンピューター機器またはモバイルデバイス、およびインターネッとの接続が、ウェブサイトの性能と操作に影響する可能性があることを認識するものとします。マハラジャは、ユーザーの機器、インターネット接続、または第三者プロバイダーに起因する故障や問題に関して一切責任を負いません。これには、プレイができない、または特定のゲームに関連する情報の表示または受信ができない場合も含まれます。</span></strong><br />
+                    <br />
+                    <strong><span>6.3</span></strong><br />
+                    <strong><span>いかなる理由に関わらず、中断または切断された承認済みのゲームラウンドが生じた場合、すべてのユーザーの取引は正確に記録されています。未完了のゲームラウンドは、通常、ゲームが再開されると復元されるか、またはそれが不可能な場合には、そのゲームラウンドはマハラジャにより削除され、プレイ金額がユーザーのアカウントに払い戻されます。</span></strong><br />
+                    <br />
+                    <strong><span>6.4</span></strong><br />
+                    <strong><span>マハラジャは独自の裁量で、ユーザーに事前通知することなく、当ウェブサイトおよび</span></strong><strong><span>/</span></strong><strong><span>または特定のゲームを一時的に利用不可能にする権利を留保します。当社は、こういった状況の結果としてユーザーに生じた損失について一切の責任を負いません。</span></strong><br />
+                    <br />
+                    <strong><span>6.5</span></strong><br />
+                    <strong><span>マハラジャは、いかなるダウンタイム、サーバーの中断、遅延、またはゲームプレイの技術的もしくは政治的妨害についての一切の責任を負いません。払い戻しは、マハラジャの裁量のみで行われるものとします。</span></strong><br />
+                    <br />
+                    <br />
+                    <strong><span>7. </span></strong><strong><span>免責事項</span></strong><br />
+                    <br />
+                    <strong><span>7.1</span></strong><br />
+                    <strong><span>ユーザーは、当ウェブサイトで提供されるサービスが娯楽目的のみであることを認めるものとします。ユーザーは、当サービスを使用することを要求されてはおらず、ユーザーのみの選択および裁量で当サイトのサービスに参加するものとします。結果として、ユーザーは、ユーザー自身の責任で当ウェブサイトを訪れ、ゲームに参加します。ユーザーは、当ウェブサイトおよびサービスへの関心は、職業上のものではなく個人的なものであり、個人の娯楽の目的のみでアカウントを登録したと断言するものとします。当社が提供するサービスのその他の目的の使用は、固く禁じられています。</span></strong><br />
+                    <br />
+                    <strong><span>7.2</span></strong><br />
+                    <strong><span>前述の規定の一般性を失うことなく、マハラジャおよびその取締役、従業員、パートナー、第三者のゲーム配信会社は、法律または契約上の義務で許可されている範囲で、直接的、間接的、特徴的、結果的、偶発的またはその他のかたちに関わらず、ユーザーの当ウェブサイトの使用またはゲームへの参加に関連して生じた、いかなる損失、費用、経費または損害について責任を負いません。</span></strong><br />
+                    <strong><span>なお、ゲームでのエラーまたは誤作動に対するマハラジャの責任は該当のゲームのに限定されます。</span></strong><br />
+                    <br />
+                    <strong><span>7.3</span></strong><br />
+                    <strong><span>当ウェブサイトに表示されているすべての情報は、情報提供のみを目的として提供されており、いかなる性質の専門的なアドバイスを提供することは意図していません。マハラジャおよびその独立したプロバイダーは、情報の誤り、不完全性、不正確さ、遅延、またはその中に含まれる情報に起因した行動について、一切責任を負いません。</span></strong><br />
+                    <br />
+                    <br />
+                    <strong><span>8. </span></strong><strong><span>知的財産</span></strong><br />
+                    <br />
+                    <strong><span>8.1</span></strong><br />
+                    <strong><span>ウェブサイト上のすべての知的財産権</span></strong><strong><span>(IP</span></strong><strong><span>権</span></strong><strong><span>)</span></strong><strong><span>は、マハラジャまたは第三者のソフトウェアプロバイダーに帰属します。当ウェブサイトを利用することによって、当サイトまたはソフトウェアプロバイダーの知的財産権の所有権が、ユーザーに付与されることはありません。知的財産権には、特許、著作権、意匠権、商標、データベース権やこれらいずれかのアプリケーション、また著作者人格権、知識、企業秘密、ドメイン名、</span></strong><strong><span>URL</span></strong><strong><span>、商号、およびその他すべての知的財産権および産業所有権</span></strong><strong><span> (</span></strong><strong><span>およびこれらに関係したライセンス</span></strong><strong><span>) </span></strong><strong><span>などがありますが、登録の有無、登録が可能であるかどうか、特定の国や地域、または世界の他の地域に存続するかどうかにかかわらず、これらに限定されません。</span></strong><br />
+                    <br />
+                    <strong><span>8.2</span></strong><br />
+                    <strong><span>ユーザーは、適用する法律で規定された範囲内で以下のことを行うことはできません</span></strong><strong>
+                        <span>
+                            :<br />
+                            <br />
+                            8.2.1
+                        </span>
+                    </strong><br />
+                    <strong><span>ソフトウェアおよび</span></strong><strong><span>/</span></strong><strong><span>またはウェブサイトのコピー、配布、公開、リバースエンジニアリング、逆コンパイル、逆アセンブル、修正または翻訳を行ったり、ソフトウェアおよび</span></strong><strong><span>/</span></strong><strong><span>またはウェブサイトのソースコードから二次的著作物を作成するためにソースコードにアクセスしようとすること。</span></strong><br />
+                    <br />
+                    <strong><span>8.2.2</span></strong><br />
+                    <strong><span>ソフトウェアの販売、譲渡、再許諾、移譲、配布、または第三者への貸与。</span></strong><br />
+                    <br />
+                    <strong><span>8.2.3</span></strong><br />
+                    <strong><span>コンピューターネットワークなどを介して、第三者がソフトウェアを使用できるようにすること。</span></strong><br />
+                    <br />
+                    <strong><span>8.2.4</span></strong><br />
+                    <strong><span>物理的または電子的手段を問わず、ソフトウェアを他国に輸出すること。</span></strong><br />
+                    <br />
+                    <strong><span>8.2.5</span></strong><br />
+                    <strong><span>適用される法律または規制で禁止されている方法でソフトウェアを使用すること。</span></strong><br />
+                    <br />
+                    <strong>
+                        <span>
+                            8.2.6<br />
+                            IP
+                        </span>
+                    </strong><strong><span>権に害を及ぼす、またはその可能性がある行為を行うこと、また、マハラジャ、その従業員、取締役、役員、およびコンサルタントのイメージや世評を損なう行為を行うこと。</span></strong><br />
+                    <br />
+                    <strong><span>8.3</span></strong><br />
+                    <strong><span>ユーザーは、ウェブサイトまたはゲームに関連してユーザーが使用する名前や画像（ユーザー名など）が、第三者の知的財産権、プライバシー、またはその他の権利を損害したり、他者に対して不快なものでないことを保証するものとします。ユーザーは、当社のプライバシーポリシーの条件に従い、ウェブサイトまたはゲームに関連するあらゆる目的で、これらの名前および画像を使用する、世界的、取り消し不能、譲渡可能、著作権使用料無料の再許諾可能な許可をマハラジャに付与します。</span></strong><br />
+                    <br />
+                    <br />
+                    <strong><span>9. </span></strong><strong><span>クレーム・仲裁</span></strong><br />
+                    <br />
+                    <strong><span>9.1</span></strong><br />
+                    <strong><span>当ウェブサイトに関するクレームの申し立ては、ウェブサイトの手順に従ってカスタマーサポートチームまでご連絡ください。または、</span></strong><strong><span> service@casino-maharaja.com </span></strong><strong><span>までメールにてご連絡ください。</span></strong><br />
+                    <strong><span>特定のゲームに関するクレームは、当該事項が発生してから</span></strong><strong><span>7</span></strong><strong><span>営業日以内に申し立てる必要があります。支払い、アカウントの停止、ボーナスの計算を含むそのほかの事項に関するクレームは、当該事項発生から</span></strong><strong><span>1</span></strong><strong><span>か月以内に申し立てを行う必要があります。</span></strong><br />
+                    <br />
+                    <strong><span>9.2</span></strong><br />
+                    <strong><span>クレームはカスタマーサポートチームにより対処され、サポートエージェントが直ちに解決できない場合にはマハラジャ内でエスカレーションすることとします。ユーザーは、クレームの状況について合理的に通知されるものとします。当社は、可能な限り短い時間で、通常の状況においては</span></strong><strong><span>14</span></strong><strong><span>営業日以内に、クレームを解決するよう常に努めるものとします。</span></strong><br />
+                    <br />
+                    <br />
+                    <strong><span>10. </span></strong><strong><span>一般</span></strong><br />
+                    <br />
+                    <strong><span>10.1</span></strong><br />
+                    <strong><span>本利用規約の条項に違反した場合、または違反したと疑われる合理的な根拠がある場合、当社は、ユーザーのアカウントの開設拒否、停止、または閉鎖、またプレイ金の支払いの差し控え、およびユーザーのアカウントにある残高を損害賠償にあてがう権利を留保します。上記は、状況に応じて適切とみなされる、ユーザーに対する法的措置をとる権利を排除するものではありません。</span></strong><br />
+                    <br />
+                    <strong><span>10.2</span></strong><br />
+                    <strong><span>マハラジャが解散または事実上その業務を終了することになった場合には、ユーザーは事前に通知されるものとします。通知後、マハラジャには、有効解散日または終了日まで、本利用規約から生じる義務を履行する責任があるものとします。</span></strong><br />
+                    <br />
+                    <strong><span>10.3</span></strong><br />
+                    <strong><span>本利用規約は、情報提供および利便性の目的で、多言語にて公開されていますが、日本語版の本利用規約が他の言語版に優先するものとします。</span></strong><br />
+                    <br />
+                    <strong><span>10.4</span></strong><br />
+                    <strong><span>当社は、当社の合理的な管理が及ばない事件、出来事、または原因に起因する当社の本利用規約に基づく義務の履行遅延または不履行について、本利用規約に違反したとされず責任を負わないものとします。</span></strong><br />
+                    <br />
+                    <strong><span>10.5</span></strong><br />
+                    <strong><span>本利用規約のいずれかの規定が、違法または法的強制力がないと判断された場合、そのような規定は本利用規約から分離されます。その他のすべての規定は引き続き有効であり、この分離による影響は一切受けません。</span></strong>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>`;
+                } else {
                     rulesHtml = `<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -1316,7 +1558,7 @@
 
     </div>
 </body>`;
-         
+                }
 
                 $(divMessageBoxContent).html(rulesHtml);
                 modal.toggle();
@@ -1328,44 +1570,12 @@
         }
     }
 
-    function showContactUs() {
-        var divMessageBox = document.getElementById("alertContactUs");
-        var divMessageBoxCrossButton = divMessageBox.querySelector(".close");
-
-        var modal = new bootstrap.Modal(divMessageBox);
-
-        if (divMessageBox != null) {
-            modal.toggle();
-        }
-    }
-
-    function sendContactUs() {
-        var contactUsDom = document.querySelector(".inbox_customerService");
-        var subjectText = contactUsDom.querySelector(".contectUs_Subject").value;
-        var emailText = contactUsDom.querySelector(".contectUs_Eamil").value.trim();
-        var bodyText = contactUsDom.querySelector(".contectUs_Body").value;
-        var NickName = contactUsDom.querySelector(".contectUs_NickName").value;
-        var Phone = contactUsDom.querySelector(".contectUs_Phone").value;
-
-        if (emailText == "") {
-            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入回覆信箱"));
-        }
-
-        API_SendSerivceMail(subjectText, "ニックネーム：" + NickName + "<br/>" + "携帯電話：" + Phone + "<br/>" + bodyText, emailText);
-    }
     //#region Game
     function GameLoadPage(url, gameBrand, gameName) {
         var IFramePage = document.getElementById("GameIFramePage");
 
         if (IFramePage != null) {
-            //非滿版遊戲介面
-            // $('#headerGameDetailContent').show();
-            // $('#GameIFramePage').show();
-            //非滿版遊戲介面 end
-
-            //滿版遊戲介面
             $('#divGameFrame').css('display', 'flex');
-            //滿版遊戲介面 end
 
             //var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
             //if (showCloseGameTooltipCount == '') {
@@ -1414,8 +1624,7 @@
         if (gameWindow) {
             gameWindow.close();
         }
-
-
+        
         if (alertSearch.css("display") == "block") {
             alertSearchCloseButton.click();
         }
@@ -1451,14 +1660,13 @@
             gameCode = gameBrand + "." + gameName;
             $('.headerGameName').text(gameLangName);
             if (false) {
-            //if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
                 $('#GameMask').show();
-                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
+                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "")
                 CloseWindowOpenGamePage(gameWindow);
             } else {
                 if (EWinWebInfo.DeviceType == 1) {
                     $('#GameMask').show();
-                    gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
+                    gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "");
                     CloseWindowOpenGamePage(gameWindow);
 
                     <%--  window.location.href = "/OpenGame_M.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode
@@ -1499,11 +1707,11 @@
             gameWindow = window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
         }
     }
-    //.divGameFrame{width:70vw;height:39.375vw;background-color:#09f}
+    
     function CloseGameFrame() {
-        //滿版遊戲介面
+
         $('#divGameFrame').css('display', 'none');
-        //滿版遊戲介面 end
+      
         game_userlogout();
         appendGameFrame();
     }
@@ -1556,8 +1764,6 @@
             w = vw - 110;
         }
 
-
-        // class="divGameFrame"
         let tmp = `<div class="divGameFrameWrapper">
             <div class="btn-wrapper">
                 <div class="btn btn-game-close" onclick="CloseGameFrame()"><i class="icon icon-mask icon-error"></i></div>
@@ -1743,24 +1949,19 @@
          
 
             if (wallet.CurrencyType == EWinWebInfo.BonusCurrencyType) {
-                if (EWinWebInfo.UserInfo.UserAccountType != 0) {
-                    $("#liWithdrawalAgent").hide();
-                }
                 $("#liWithdrawal").hide();
+               
             } else {
                 if (wallet.PointValue > 0) {
-                    if (EWinWebInfo.UserInfo.UserAccountType != 0) {
-                       $("#liWithdrawalAgent").show();
-                    }
                     $("#liWithdrawal").show();
                 } else {
-                    if (EWinWebInfo.UserInfo.UserAccountType != 0) {
-                       $("#liWithdrawalAgent").hide();
-                    }
                     $("#liWithdrawal").hide();
                 }
             }
-            $("#liWithdrawalAgent").show();
+
+            if (EWinWebInfo.UserInfo.UserAccountType != 0) {
+                $("#liWithdrawalAgent").show();
+            }
             // 已登入
             idMenuLogin.classList.remove("is-hide");
             idLoginBtn.classList.add("is-hide");
@@ -2127,7 +2328,6 @@
         }
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
-
             if (EWinWebInfo.DeviceType == 1) {
                 noSleep = new NoSleep();
                 noSleep.disable();
@@ -2319,6 +2519,9 @@
 
         API_changeAvatarImg(getCookie("selectAvatar"));
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
+
+        //$(".company-license").append(`<iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;" ></iframe>`);
+     
         //resize();
     }
 
@@ -2595,6 +2798,7 @@
                 )
             }
         };
+
         this.rem = function () {
             if (SearchDom.children().find(".group" + showMoreClickCount).length > 0) {
                 SearchDom.children().find(".group" + showMoreClickCount).show();
@@ -2725,21 +2929,6 @@
 
             SearchSelf.searchGameList();
 
-        }
-
-        //openFullSearch
-        this.openFullSearch = function (e) {
-            var header_SearchFull = document.getElementById("header_SearchFull");
-            header_SearchFull.classList.add("open");
-        }
-
-        //openFullSearch
-        this.closeFullSearch = function (e) {
-            var header_SearchFull = document.getElementById("header_SearchFull");
-
-            if (header_SearchFull.classList.contains("open")) {
-                header_SearchFull.classList.remove("open");
-            }
         }
 
         var getSearchGameBrand = function () {
@@ -2981,6 +3170,10 @@
         });
     }
 
+    function openCuracao() {
+        window.open("https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&rlh=25cde581dbaa53d3e5241d0863b2d92f");
+    }
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
@@ -2993,7 +3186,7 @@
         <div class="loader-box">
             <div class="loader-spinner">
                 <div class="sk-fading-circle">
-                    <div class="loader-logo" style="width: 80%; height: 80%; background: url(../images/icon/ico-dog-w.svg) center center no-repeat; background-size: calc(100% - 50px); -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both; animation: loader-logo-anim 1.2s infinite ease-in-out both; margin: 10%;">
+                    <div class="loader-logo" style="width: 80%; height: 80%; background: url(../images/icon/ico-dog-w.png) center center no-repeat; background-size: calc(100% - 50px); -webkit-animation: loader-logo-anim 1.2s infinite ease-in-out both; animation: loader-logo-anim 1.2s infinite ease-in-out both; margin: 10%;">
                     </div>
                     <div class="sk-circle1 sk-circle"></div>
                     <div class="sk-circle2 sk-circle"></div>
@@ -3018,19 +3211,6 @@
             <!-- class="navbar-expand-xl" trigger hidden -->
             <nav class="navbar">
                 <!-- TOP Search-->
-                <div class="search-full" id="header_SearchFull">
-                    <div class="container-fluid">
-                        <form class="search__wrapper">
-                            <div class="form-group-search search-plusbutton">
-                                <input id="" type="search" class="form-control custom-search" name="search" language_replace="placeholder" placeholder="輸入帳號">
-                                <label for="search" class="form-label"><span class="language_replace">輸入帳號</span></label>
-                                <div class="btn btnSearch"><span class="language_replace">搜尋</span></div>
-                                <button type="reset" class="btn btnReset"><i class="icon icon-ewin-input-reset"></i></button>
-                            </div>
-                            <span class="btn btn__closefullsearch" onclick="SearchControll.closeFullSearch(this)"><i class="icon icon-ewin-input-compress"></i></span>
-                        </form>
-                    </div>
-                </div>
                 <div class="container-fluid navbar__content">
                     <!--MENU BUTTON -->
                     <button id="navbar_toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -3056,20 +3236,20 @@
                                     <ul class="catagory">
                                         <%--
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
+                                            onclick="API_LoadPage('Casino', 'Casino2.aspx', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-all"></i>
                                                 <span class="title language_replace">遊戲大廳</span></a>
                                         </li>
                                         --%>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Slot', false)">
+                                            onclick="API_LoadPage('Casino', 'Casino2.aspx?selectedCategory=GameList_Slot', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-slot"></i>
                                                 <span class="title language_replace">老虎機</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Live', false)">
+                                            onclick="API_LoadPage('Casino', 'Casino2.aspx?selectedCategory=GameList_Live', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-live"></i>
                                                 <span class="title language_replace">真人</span></a>
@@ -3097,11 +3277,6 @@
                                                 <span class="title language_replace">存款</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)" id="liWithdrawal" style="display: none">
-                                            <a class="nav-link">
-                                                <i class="icon icon-mask icon-withdarw"></i>
-                                                <span class="title language_replace">出款</span></a>
-                                        </li>
-                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx', true)" id="liWithdrawalAgent" style="display: none">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-withdarw"></i>
                                                 <span class="title language_replace">出款</span></a>
@@ -3168,6 +3343,11 @@
                                     </ul>
                                 </li>
                                 --%>
+                            <li class="nav-item submenu dropdown" onclick="API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx', true)" id="liWithdrawalAgent" style="display: none">
+                                    <a class="nav-link">   
+                                         <i class="icon icon-mask icon-coin"></i>
+                                        <span class="title language_replace">代理出款</span></a>
+                                </li>
                                 <li class="nav-item submenu dropdown" id="idLogoutItem">
                                     <a class="nav-link" onclick="API_Logout(true)">
                                         <!-- <i class="icon icon2020-ico-login"></i> -->
@@ -3192,22 +3372,10 @@
                     <!-- 頂部 NavBar -->
                     <div class="header_topNavBar">
                         <!-- 左上角 -->
-                        <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Casino','Casino.aspx')">
+                        <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Casino','Casino2.aspx')">
                             <div class="navbar-brand">
                                 <div class="logo"><a></a></div>
                             </div>
-                        </div>
-                        <div id="headerGameDetailContent" style="display: none;">
-                            <!-- Search -->
-                            <ul class="nav header_setting_content">
-                                <li class="headerGameDetail navbar-search nav-item">
-                                    <button id="closeGameBtn" type="button" onclick="CloseGameFrame()" data-toggle="tooltip" data-placement="bottom" class="btn btn-search" style="background: white;">
-                                        <i class="icon">X</i>
-                                    </button>
-                                    <span class="headerGameName"></span>
-
-                                </li>
-                            </ul>
                         </div>
                         <!-- 右上角 -->
                         <div class="header_rightWrapper">
@@ -3234,7 +3402,7 @@
                                             <li class="login">
                                                 <button class="btn-login btn" type="button" onclick="onBtnLoginShow()">
                                                     <span class="avater">
-                                                        <img src="images/avatar/avater-2.png" alt="" onerror="setDefaultIcon(this)"></span>
+                                                        <img src="images/avatar/avater-2.png?a=1" alt="" onerror="setDefaultIcon(this)"></span>
                                                     <span class="language_replace">登入</span></button>
                                             </li>
                                             <li class="register" style="display: block !important">
@@ -3267,7 +3435,7 @@
                                                 <a onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)" class="btn nav-link btnDropDown " role="button">
                                                     <span class="avater">
                                                         <span class="avater-img">
-                                                            <img src="images/avatar/avater-2.png" alt="">
+                                                            <img src="images/avatar/avater-2.png?a=1" alt="">
                                                         </span>
                                                         <span class="avater-name"></span>
                                                     </span>
@@ -3502,7 +3670,7 @@
                     <div class="company-detail">
                   <%--      --%>
                         <div class="company-license">
-                            <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;" ></iframe>
+                            <img id="imgCuracao" src="images/Curacao.PNG" height="50" width="150" onclick="window.parent.openCuracao()" />
                         </div>
                         <div class="company-address">
                             <p class="address language_replace">Lucky Sprite由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
@@ -3573,76 +3741,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal Search 品牌-文字版-->
-    <%--  <div class="modal fade no-footer alertSearch " id="alertSearch" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <!-- <h5 class="modal-title">我是logo</h5> -->
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="searchFilter-wrapper">
-                        <div class="searchFilter-item input-group keyword">
-                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
-                            <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
-                        </div>
-                        
-                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
-                            <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
-                                <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
-                                <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>
-                                <option class="searchFilter-option language_replace" value="BNG">BNG</option>
-                                <option class="searchFilter-option language_replace" value="CG">CG</option>
-                                <option class="searchFilter-option language_replace" value="CQ9">CQ9</option>
-                                <option class="searchFilter-option language_replace" value="EVO">EVO</option>
-                                <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
-                                 <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>
-                                <option class="searchFilter-option language_replace" value="KGS">KGS</option>
-                                <option class="searchFilter-option language_replace" value="KX">KX</option>
-                                <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>
-                                <option class="searchFilter-option language_replace" value="PG">PG</option>
-                                <option class="searchFilter-option language_replace" value="PNG">PNG</option>
-                                <option class="searchFilter-option language_replace" value="PP">PP</option>
-                                <option class="searchFilter-option language_replace" value="VA">VA</option>
-                                <option class="searchFilter-option language_replace" value="ZEUS">ZEUS</option>
-                                <option class="searchFilter-option language_replace" value="BTI">BTI</option>
-                                <option class="searchFilter-option language_replace" value="BG">BG</option>
-                            </select>
-                        </div>
-                        <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display: none">
-                            <select class="custom-select" id="seleGameCategory">
-                                <option class="title language_replace" value="All" selected>全部</option>
-                                <option class="searchFilter-option language_replace" value="Electron">Electron</option>
-                                <option class="searchFilter-option language_replace" value="Fish">Fish</option>
-                                <option class="searchFilter-option language_replace" value="Live">Live</option>
-                                <option class="searchFilter-option language_replace" value="Slot">Slot</option>
-                                <option class="searchFilter-option language_replace" value="Sports">Sports</option>
-                            </select>
-                        </div>
-                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
-                    </div>                    
-                </div>
-                <div class="modal-body">
-                    <div class="game-search-wrapper">
-                        <div class="search-result-wrapper">
-                            <div class="search-result-inner">
-                                <div class="search-result-list">
-                                    <div class="game-item-group list-row row" id="alertSearchContent">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>--%>
 
     <!-- 我的最愛/遊玩過的遊戲 PoPup-->
     <div class="modal fade no-footer alertSearchTemp" id="alertFavoPlayed" tabindex="-1" aria-hidden="true">
@@ -3870,73 +3968,6 @@
         </div>
     </div>
 
-    <!--alert-->
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertContactUs" aria-hidden="true" id="alertContactUs">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header border-bottom align-items-center">
-                    <i class="icon-service"></i>
-                    <h5 class="modal-title language_replace ml-1">客服信箱</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-body-content">
-                        <!-- <div class="service-contact">
-                            <span class="titel language_replace">客服信箱</span><span class="data"> : service@BBC117.com</span>
-                        </div> -->
-                        <div class="inbox_customerService" id="sendMail">
-                            <div class="form-group">
-                                <label class="form-title language_replace">問題分類</label>
-                                <select class="form-control custom-style contectUs_Subject">
-                                    <option class="language_replace">出入金</option>
-                                    <option class="language_replace">註冊</option>
-                                    <option class="language_replace">獎勵</option>
-                                    <option class="language_replace">遊戲</option>
-                                    <option class="language_replace">其他</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-title language_replace">信箱</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style contectUs_Eamil" language_replace="placeholder" placeholder="請輸入回覆信箱" autocomplete="off">
-                                    <div class="invalid-feedback language_replace">錯誤提示</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-title language_replace">暱稱</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style contectUs_NickName" autocomplete="off" name="NickName">
-                                    <div class="invalid-feedback language_replace">錯誤提示</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-title language_replace">電話</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style contectUs_Phone" autocomplete="off" name="Phone">
-                                    <div class="invalid-feedback language_replace">錯誤提示</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-title language_replace">問題敘述</label>
-                                <textarea class="form-control custom-style contectUs_Body" rows="5" language_replace="placeholder" placeholder=""></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <!-- <button class="btn btn-icon">
-                        <i class="icon-copy" onclick="copyText('service@BBC117.com')"></i>
-                    </button> -->
-                    <div class="btn-container">
-                        <button type="button" class="alertContact_OK btn btn-primary btn-block" data-dismiss="modal" onclick="sendContactUs();"><span class="language_replace">寄出</span></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!--alert Msg-->
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertMsg" aria-hidden="true" id="alertMsg" style="z-index: 10000;">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -4063,13 +4094,6 @@
 
                             </div>
                         </article>
-                        <!-- <i class="icon-error_outline primary"></i>
-                        <div class="language_replace">公告時間：</div>
-                        <div class="alert_Time"></div>
-                        <div class="text-wrap">
-                            <div class="language_replace">公告詳情：</div>
-                            <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
-                        </div> -->
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -4202,60 +4226,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Modal Search 品牌-文字版-->
-    <%--    <div id="tmpSearchGameItem" class="is-hide">
-        <div class="game-item col-auto">
-            <div class="game-item-inner">
-                <div class="game-item-img">
-                    <span class="game-item-link"></span>
-                    <div class="img-wrap">
-                        <img class="gameimg" src="">
-                    </div>
-                </div>
-                <div class="game-item-info">
-                    <div class="game-item-info-inner">
-                        <div class="game-item-info-brief">
-                            <div class="game-item-info-pre">
-                                <h3 class="gameName"></h3>
-                            </div>
-                            <div class="game-item-info-moreInfo">
-                                <ul class="moreInfo-item-wrapper">
-                                    <li class="moreInfo-item brand">
-                                        <h4 class="value BrandName"></h4>
-                                    </li>                                   
-                                    <li class="moreInfo-item RTP">
-                                        <span class="title">RTP</span>
-                                        <span class="value number valueRTP"></span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="game-item-info-indicator">
-                            <div class="action">
-                                <div class="btn-s-wrapper">
-                                    <!-- 按讚 按鈕移除 -->
-                                    <button type="button" class="btn-thumbUp btn btn-round" style="display: none;">
-                                        <i class="icon icon-m-thumup"></i>
-                                    </button>
-                                    
-                                    <button type="button" class="btn-like btn btn-round">
-                                        <i class="icon icon-m-favorite"></i>
-                                    </button>
-                                </div>
-                                <!-- play 按鈕移除 -->
-                                <button type="button" class="btn btn-play">
-                                    <span class="language_replace title">プレイ</span><i class="triangle"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>--%>
-
 
     <!-- Modal Search 新版 - 品牌-LOGO版-->
     <div id="tmpSearchGameItem" class="is-hide">

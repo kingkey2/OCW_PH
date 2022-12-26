@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">
     <style>
         .tree-btn {
-            padding: 0px 12px;
+            padding: 0px 9px;
             border: none;
             display: inline-block;
             vertical-align: middle;
@@ -44,13 +44,13 @@
             white-space: nowrap;
             user-select: none;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 14px;
             font-weight: bold;
             border: 3px solid rgba(227, 195, 141, 0.8);
         }
 
         .agentPlus {
-            padding: 0px 10px;
+            padding: 0px 7px;
         }
 
         .tree-btn:hover {
@@ -355,8 +355,18 @@
             //queryOrderSummary(qYear, qMon);
             window.parent.API_CloseLoading();
             queryData(EWinInfo.UserInfo.LoginAccount);
+            ac.dataToggleCollapseInit();
 
         });
+    }
+
+    function EWinEventNotify(eventName, isDisplay, param) {
+        switch (eventName) {
+            case "WindowFocus":
+                //updateBaseInfo();
+                ac.dataToggleCollapseInit();
+                break;
+        }
     }
 
     window.onload = init;
@@ -373,7 +383,7 @@
                     <!-- collapse內容 由此開始 ========== -->
                     <div id="searchList" class="collapse-content collapse show">
                         <div id="divSearchContent" class="row searchListContent">
-                            <div id="idSearchButton" class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                              <div id="idSearchButton" class="col-12 col-md-6 col-lg-3 col-xl-2">
                                 <div class="form-group form-group-s2 ">
                                     <div class="title hidden shown-md"><span class="language_replace">帳號</span></div>
 
@@ -384,7 +394,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                                 <!-- 起始日期 / 結束日期 -->
                                 <div class="form-group search_date">
                                     <div class="starDate">
@@ -411,7 +421,7 @@
 
                             </div>
 
-                             <div class="col-12 col-md-12 col-lg-12 col-xl-5">
+                             <div class="col-12 col-md-12 col-lg-5 col-xl-7">
                                 <div id="idTabMainContent">
                                     <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
                                         <li class="nav-item">
@@ -437,7 +447,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto" style="display: none">
                                 <!-- 幣別 -->
                                 <div class="form-group form-group-s2 ">
                                     <div class="title"><span class="language_replace">幣別</span></div>
