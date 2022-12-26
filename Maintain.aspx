@@ -17,8 +17,7 @@
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css" type="text/css" />
     <link rel="stylesheet" href="css/global.css" type="text/css" />
-    <!--日文圖片-->
-    <meta property="og:image" content="https://casino-maharaja.com/images/share_pic.png" />
+
 </head>
 <body>
     <div class="page-container">
