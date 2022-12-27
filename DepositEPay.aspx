@@ -161,7 +161,7 @@
             } else if (serivce.includes('Grabpay')) {
                 $('#GrabPayPic').show();
                 $('#GrabPayPic').find('.serivceName').text(serivceName);
-            } else if (serivce.includes('Paymaya')) {
+            } else if (serivce.includes('Paymaya') || serivce.includes('QRPH')) {
                 $('#PayMayaPic').show();
                 $('#PayMayaPic').find('.serivceName').text(serivceName);
             }

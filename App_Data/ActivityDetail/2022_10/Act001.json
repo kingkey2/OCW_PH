@@ -131,6 +131,22 @@
       "ThresholdRate": 100,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "YuHong.QRPH1",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "YuHong.GcashH5_1",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
     }
   ],
   "Rate2": [
@@ -253,6 +269,22 @@
       "ThresholdRate": 100,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "YuHong.GcashH5_1",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "YuHong.QRPH1",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
     }
   ],
   "Rate3": [
@@ -370,6 +402,22 @@
     },
     {
       "PaymentCode": "FeibaoGrabpay.Grabpay1",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "YuHong.GcashH5_1",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "YuHong.QRPH1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,

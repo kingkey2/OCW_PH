@@ -1302,6 +1302,14 @@ public class PaymentAPI : System.Web.Services.WebService
                 {
                     ServiceType = "PHP02";
                 }
+                else if (ServiceCode == "QRPH")
+                {
+                    ServiceType = "PHP06";
+                }
+                else if (ServiceCode == "GcashH5_")
+                {
+                    ServiceType = "PHP07";
+                }
 
                 Decription = TempCommonData.PaymentMethodName + ", ReceiveTotalAmount=" + TempCommonData.ReceiveTotalAmount.ToString("F10");
 
