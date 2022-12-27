@@ -662,7 +662,7 @@
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap activityPicture">
                                              <p>
-                                                <img title="Sign Up Bonus" src="images/activity/SignUpBonus.jpg?a=1" />
+                                                <img title="Sign Up Bonus" src="images/activity/SignUpBonus.jpg?a=2" />
                                              </p>
                                        
                                     </div>
@@ -685,7 +685,7 @@
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap activityPicture">
                                            <p>
-                                               <img title="Refer A Friend And Get Bonus" src="images/activity/ReferFriendAndGetBonus.jpg?a=1" />
+                                               <img title="Refer A Friend And Get Bonus" src="images/activity/ReferFriendAndGetBonus.jpg?a=2" />
                                              </p>
                                     </div>
                                     <div class="info">
@@ -707,7 +707,7 @@
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap activityPicture">
                                             <p>
-                                                   <img title="New Player First Time Deposit Event!" src="images/activity/NewPlayerFirstTimeDepositEvent.jpg?a=1" />
+                                                   <img title="New Player First Time Deposit Event!" src="images/activity/NewPlayerFirstTimeDepositEvent.jpg?a=2" />
                                              </p>
                                       
                                     </div>
@@ -730,7 +730,7 @@
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap activityPicture">
                                             <p>
-                                                <img title="Refer friends and play" src="images/activity/ReferFriendsAndPlay.jpg?a=1" />
+                                                <img title="Refer friends and play" src="images/activity/ReferFriendsAndPlay.jpg?a=2" />
                                             </p>
                                                
                                                         
@@ -754,7 +754,7 @@
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap activityPicture">
                                               <p>
-                                                  <img title="Refer friends and play" src="images/activity/DepositSpecialBonus.jpg?a=1" />
+                                                  <img title="Refer friends and play" src="images/activity/DepositSpecialBonus.jpg?a=2" />
                                             </p>
                                     </div>
                                     <div class="info">
