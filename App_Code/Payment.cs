@@ -208,6 +208,10 @@ public class Payment {
                 } else if (ServiceType == "PHP03") {
                     ProviderCode = "FeibaoPayPaymaya";
                 }
+                else if (ServiceType == "PHP08")
+                {
+                    ProviderCode = "FeibaoPayBank";
+                }
             }
 
             if (EWinWeb.IsTestSite)

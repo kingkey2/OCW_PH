@@ -168,9 +168,41 @@
                                             </a>
                                         </div>`;
                                         break;
+                                    case "FeibaoBank.Bank":
+                                        var minAmount = "unlimited";
+                                        var maxAmount = "unlimited";
+                                        if (channel.AmountMin != 0) {
+                                            minAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMin)));
+                                        }
+
+                                        if (channel.AmountMax != 0) {
+                                            maxAmount = toCurrency(new BigNumber(Math.abs(channel.AmountMax)));
+                                        }
+
+
+                                        doc = ` <div class="card-item sd-11">
+                                            <a class="card-item-link" onclick="OpenPage('DepositEPay','DepositEPay.aspx?PaymentChannelCode=${channel.PaymentChannelCode}')">
+                                                <div class="card-item-inner">
+                                                    <div class="title">
+                                                        <span class="language_replace">${channel.PaymentName}</span>
+                                                    </div>
+                                                    <div class="logo vertical-center text-center">
+                                                        <img src="images/assets/card-surface/icon-logo-bankcard.png">
+                                                    </div>
+                                                    <div class="quota">
+                                                        <i class="language_replace">${mlp.getLanguageKey("限額:")}</i>
+                                                        <span class="limit">${minAmount} ~ ${maxAmount}</span>
+                                                    </div>
+                                                </div>
+                                                 <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
+                                            </a>
+                                        </div>`;
+                                        break;
                                     default:
 
                                 }
+
+
                                 if (!isAddedCrypto) {
                                     if (channel.PaymentChannelCode == ".ERC-HLN" || channel.PaymentChannelCode == ".ERC-ETH" ||channel.PaymentChannelCode == ".BTC-BTC" || channel.PaymentChannelCode == ".ERC-USDC" || channel.PaymentChannelCode == ".ERC-USDT" || channel.PaymentChannelCode == ".TRC-USDC" || channel.PaymentChannelCode == ".TRC-USDT" || channel.PaymentChannelCode == ".XRP-XRP") {
                                         isAddedCrypto = true;

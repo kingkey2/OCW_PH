@@ -1310,7 +1310,11 @@ public class PaymentAPI : System.Web.Services.WebService
                 {
                     ServiceType = "PHP07";
                 }
-
+                else if (ServiceCode == "Bank")
+                {
+                    ServiceType = "PHP08";
+                }
+              
                 Decription = TempCommonData.PaymentMethodName + ", ReceiveTotalAmount=" + TempCommonData.ReceiveTotalAmount.ToString("F10");
 
                 if (ActivityNames.Length > 0)
