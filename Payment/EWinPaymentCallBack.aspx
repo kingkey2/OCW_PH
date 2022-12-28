@@ -313,7 +313,7 @@
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
                         }
-                        else if (BodyObj.Action == "Accept")
+                        else if (BodyObj.Action == "Accept"||BodyObj.Action == "Resend")
                         {
                             if (!string.IsNullOrEmpty(BodyObj.PaymentProvider))
                             {
