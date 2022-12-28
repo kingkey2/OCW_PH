@@ -1242,6 +1242,7 @@
             if (p != null) {
                 //getBanner();
                 setBanner();
+                window.parent.API_SetFavoToIndexDB();
                 getCompanyGameCode();
 
                 if (WebInfo.DeviceType_B == 1) {
@@ -1266,28 +1267,9 @@
                     if (o.LobbyGameList.length > 0) {
                         LobbyGameList = o.LobbyGameList;
                         updateGameCode();
-
-                        window.parent.API_SetFavoToIndexDB();
-                    } else {
-                        //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                        //    window.parent.location.href = "index.aspx";
-                        //});
-                        window.parent.API_SetFavoToIndexDB();
-                    }
-                } else {
-                    //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                    //    window.parent.location.href = "index.aspx";
-                    //});
-                    window.parent.API_SetFavoToIndexDB();
+                    } 
                 }
             }
-            else {
-                //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                //    window.parent.location.href = "index.aspx";
-                //});
-                window.parent.API_SetFavoToIndexDB();
-            }
-
         });
     }
 
