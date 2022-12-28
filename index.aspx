@@ -3314,11 +3314,11 @@
                                                 <i class="icon icon-mask icon-announce"></i>
                                                 <span class="title language_replace">公告</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','ReportAgent.aspx', true)">
+                                        <%--<li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','ReportAgent.aspx', true)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-news-report"></i>
                                                 <span class="title language_replace">報表</span></a>
-                                        </li>
+                                        </li>--%>
                                     </ul>
                                 </li>
                                 <li class="nav-item navbarMenu__catagory">
