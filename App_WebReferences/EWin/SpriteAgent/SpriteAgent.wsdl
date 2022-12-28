@@ -507,6 +507,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="ValidBetValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="AccountingOPValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalBonusValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusValue_Own" type="s:decimal" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetAgentAccountingDetail">
@@ -586,6 +588,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="TotalNGR" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalRebate" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UserRebate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalBonusValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusValue_Own" type="s:decimal" />
           <s:element minOccurs="0" maxOccurs="1" name="ChildDetail" type="tns:ArrayOfAccountingDetail" />
         </s:sequence>
       </s:complexType>

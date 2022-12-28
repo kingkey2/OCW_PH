@@ -114,6 +114,14 @@
                                 <span class="td__title"><span class="language_replace">應得佣金</span></span>
                                 <span class="td__content"><span class="AccountingOPValue">${toCurrency(data.AccountingOPValue)}</span></span>
                             </div>
+                              <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">總紅利</span></span>
+                                <span class="td__content"><span class="TotalBonusValue">${toCurrency(data.TotalBonusValue)}</span></span>
+                            </div>
+                              <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">佔成紅利</span></span>
+                                <span class="td__content"><span class="BonusValue_Own">${toCurrency(data.BonusValue_Own)}</span></span>
+                            </div>
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">結算開始日期</span></span>
                                 <span class="td__content"><span class="StartDate">${data.StartDate}</span></span>
@@ -424,6 +432,14 @@
                                 <span class="td__title"><span class="language_replace">應付傭金</span></span>
                                 <span class="td__content"><span class="AccountingOPValue"></span></span>
                             </div>
+                              <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">總紅利</span></span>
+                                <span class="td__content"><span class="TotalBonusValue"></span></span>
+                            </div>
+                              <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">佔成紅利</span></span>
+                                <span class="td__content"><span class="BonusValue_Own"></span></span>
+                            </div>
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">結算開始日期</span></span>
                                 <span class="td__content"><span class="StartDate">CON5</span></span>
@@ -447,6 +463,8 @@
                             <div class="thead__th"><span class="language_replace">總輸贏</span></div>
                             <div class="thead__th"><span class="language_replace">總轉碼</span></div>
                             <div class="thead__th"><span class="language_replace">應付傭金</span></div>
+                            <div class="thead__th"><span class="language_replace">總紅利</span></div>
+                            <div class="thead__th"><span class="language_replace">佔成紅利</span></div>
                             <div class="thead__th"><span class="language_replace">結算開始日期</span></div>      
                             <div class="thead__th"><span class="language_replace">結算結束日期</span></div>     
                             <div class="thead__th"><span class="language_replace">建立時間</span></div>     

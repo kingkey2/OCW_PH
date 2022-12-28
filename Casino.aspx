@@ -1450,7 +1450,7 @@
                 <div class="swiper-slide">
                         <div class="hero-item">
                             <div class="hero-item-box mobile casinobanner_m" >
-                                <img src="images/casinobanner/CasinoBanner1_M.jpg" />
+                                <img src="images/casinobanner/CasinoBanner1_M.jpg?1" />
                             </div>
                         </div>
                     </div>
@@ -1458,7 +1458,7 @@
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <div class="hero-item-box mobile casinobanner_m" >
-                                <img src="images/casinobanner/CasinoBanner2_M.jpg" />
+                                <img src="images/casinobanner/CasinoBanner2_M.jpg?1" />
                             </div>
                         </div>
                     </div>
@@ -1466,7 +1466,7 @@
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <div class="hero-item-box mobile casinobanner_m" >
-                                <img src="images/casinobanner/CasinoBanner3_M.jpg" />
+                                <img src="images/casinobanner/CasinoBanner3_M.jpg?1" />
                             </div>
                         </div>
                     </div>
@@ -1474,7 +1474,7 @@
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <div class="hero-item-box mobile casinobanner_m" >
-                                <img src="images/casinobanner/CasinoBanner4_M.jpg" />
+                                <img src="images/casinobanner/CasinoBanner4_M.jpg?1" />
                             </div>
                         </div>
                     </div>
@@ -1482,7 +1482,7 @@
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <div class="hero-item-box mobile casinobanner_m" >
-                                <img src="images/casinobanner/CasinoBanner5_M.jpg" />
+                                <img src="images/casinobanner/CasinoBanner5_M.jpg?1" />
                             </div>
                         </div>
                     </div>`);
@@ -1491,7 +1491,7 @@
                         <div class="hero-item">
                             <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
-                                    <img src="images/casinobanner/CasinoBanner1_P.jpg" class="bg" />
+                                    <img src="images/casinobanner/CasinoBanner1_P.jpg?1" class="bg" />
                                 </div>
                             </div>
                         </div>
@@ -1501,7 +1501,7 @@
                         <div class="hero-item">
                             <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
-                                    <img src="images/casinobanner/CasinoBanner2_P.jpg" class="bg" />
+                                    <img src="images/casinobanner/CasinoBanner2_P.jpg?1" class="bg" />
                                 </div>
                             </div>
                         </div>
@@ -1511,7 +1511,7 @@
                         <div class="hero-item">
                             <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
-                                    <img src="images/casinobanner/CasinoBanner3_P.jpg" class="bg" />
+                                    <img src="images/casinobanner/CasinoBanner3_P.jpg?1" class="bg" />
                                 </div>
                             </div>
                         </div>
@@ -1521,7 +1521,7 @@
                         <div class="hero-item">
                             <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
-                                    <img src="images/casinobanner/CasinoBanner4_P.jpg" class="bg" />
+                                    <img src="images/casinobanner/CasinoBanner4_P.jpg?1" class="bg" />
                                 </div>
                             </div>
                         </div>
@@ -1531,7 +1531,7 @@
                         <div class="hero-item">
                             <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
-                                    <img src="images/casinobanner/CasinoBanner5_P.jpg" class="bg" />
+                                    <img src="images/casinobanner/CasinoBanner5_P.jpg?1" class="bg" />
                                 </div>
                             </div>
                         </div>
