@@ -1275,6 +1275,10 @@ public class PaymentAPI : System.Web.Services.WebService
                     {
                         ProviderCode = "FeibaoPay";
                     }
+                    else if (ProviderCode == "FeibaoBank")
+                    {
+                        ProviderCode = "FeibaoPayBank";
+                    }
                 }
                 else {
                     SetResultException(R, "PaymentMethodNotExist");

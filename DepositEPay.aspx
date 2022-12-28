@@ -164,6 +164,9 @@
             } else if (serivce.includes('Paymaya') || serivce.includes('QRPH')) {
                 $('#PayMayaPic').show();
                 $('#PayMayaPic').find('.serivceName').text(serivceName);
+            } else if (serivce.includes('Bank')) {
+                $('#BankPic').show();
+                $('#BankPic').find('.serivceName').text(serivceName);
             }
 
             if (providerCode.includes("Feibao")) {
@@ -507,6 +510,21 @@
                                     </div>
                                 </div>
                                 <img src="images/assets/card-surface/card-10.svg" class="card-item-bg" />
+                            </div>
+                        </div>
+                        <div class="card-item sd-03"  id="BankPic" style="display:none;">
+                            <div class="card-item-link">
+                                <div class="card-item-inner">
+                                    <div class="title">
+                                        <span class="language_replace serviceName">Bank</span>
+                                        <!-- <span>Electronic Wallet</span>  -->
+                                    </div>                                   
+                                    <div class="logo vertical-center text-center">
+                                        <!-- <span class="text language_replace">銀行振込</span>   -->
+                                          <img src="images/assets/card-surface/icon-logo-bankcard.png">                                 
+                                    </div>
+                                </div>
+                                <img src="images/assets/card-surface/card-09.svg" class="card-item-bg" />
                             </div>
                         </div>
                         <div class="card-item sd-11" id="PayMayaPic" style="display:none;">

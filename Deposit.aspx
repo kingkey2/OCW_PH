@@ -180,7 +180,7 @@
                                         }
 
 
-                                        doc = ` <div class="card-item sd-11">
+                                        doc = ` <div class="card-item sd-03">
                                             <a class="card-item-link" onclick="OpenPage('DepositEPay','DepositEPay.aspx?PaymentChannelCode=${channel.PaymentChannelCode}')">
                                                 <div class="card-item-inner">
                                                     <div class="title">
