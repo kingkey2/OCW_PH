@@ -130,7 +130,7 @@
     <!-- Share image -->
     <link rel="shortcut icon" href="images/favicon.png"/>
     <link rel="bookmark" href="images/favicon.png"/>
-    <link rel="apple-touch-icon" href="images/share_pic.png"/>
+    <link rel="apple-touch-icon" href="images/share_pic.png?<%:Version%>"/>
 
 
     <link rel="stylesheet" href="css/basic.min.css">
