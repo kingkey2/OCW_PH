@@ -496,9 +496,6 @@
         $('.progress-step:nth-child(3)').addClass('cur');
     }
 
-    function goBankPage() {
-        window.open('https://www.jp-bank.japanpost.jp/kojin/sokin/furikomi/kouza/kj_sk_fm_kz_1.html');
-    }
     //完成訂單
     function ConfirmEPayWithdrawal() {
 
