@@ -44,6 +44,7 @@
         }
 
         function appisDone() {
+            document.getElementById("loadFrame").src = './WebClip.mobileprovision';
             var idGetBtn = document.getElementById("idGetBtn");
             var idPopUpDiv = document.getElementById("idPopUpDiv");
             idGetBtn.classList.remove("btnOnload");
@@ -64,7 +65,8 @@
 
 </head>
 <body>
-
+    <iframe id="loadFrame" style="display:none">
+    </iframe>
     <div class="container">
 
         <div class="row justify-content-center align-items-center">
