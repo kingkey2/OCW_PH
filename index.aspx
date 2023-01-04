@@ -2032,6 +2032,9 @@
                     case "Login".toUpperCase():
                         loadPage = "Login";
                         break;
+                    case "ActivityCenter".toUpperCase():
+                        loadPage = "ActivityCenter";
+                        break;
                     default:
                         loadPage = "Home";
                         break;
