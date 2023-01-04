@@ -269,9 +269,10 @@ public class PaymentAPI : System.Web.Services.WebService
 
                         }
 
+                        R.PaymentMethodResults = TmpPaymentMethodResults;
+
                         if (TmpPaymentMethodResults.Count > 0)
-                        {
-                            R.PaymentMethodResults = TmpPaymentMethodResults;
+                        {                   
                             R.Result = enumResult.OK;
                         }
                     }
