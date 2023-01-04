@@ -56,6 +56,27 @@
 
             if (LobbyClient != null) {
                 //getAllActivityFromJson();
+
+                if (t) {
+                    switch (t) {
+                        case "SignUpBonus":
+                            showPropUp("SignUpBonus");
+                            break;
+                        case "ReferFriendAndGetBonus":
+                            showPropUp("ReferFriendAndGetBonus");
+                            break;
+                        case "NewPlayerFirstTimeDepositEvent":
+                            showPropUp("NewPlayerFirstTimeDepositEvent");
+                            break;
+                        case "ReferFriendsAndPlay":
+                            showPropUp("ReferFriendsAndPlay");
+                            break;
+                        case "DepositSpecialBonus":
+                            showPropUp("DepositSpecialBonus");
+                            break;
+                    }
+                }
+
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
