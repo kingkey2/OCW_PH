@@ -19,6 +19,7 @@
     string Version = EWinWeb.Version;
     string ImageUrl = EWinWeb.ImageUrl;
     string EwinLoginUrl = string.Empty;
+    string UserIP = string.Empty;
 
     if (string.IsNullOrEmpty(Request["SID"]) == false) {
         SID = Request["SID"];
@@ -56,11 +57,25 @@
     }
 
     EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+    EWin.Login.LoginAPI loginAPI = new EWin.Login.LoginAPI();
 
     RValue = R.Next(100000, 9999999);
     Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
     var CompanySite = lobbyAPI.GetCompanySite(Token, Guid.NewGuid().ToString());
-    
+
+    UserIP = CodingControl.GetUserIP();
+    if (!string.IsNullOrEmpty(UserIP)) {
+        EWin.Login.GeoClass GC = loginAPI.GetGeoCode(UserIP);
+
+        if (GC != null) {
+            if (!string.IsNullOrEmpty(GC.GeoCountry)) {
+                if (GC.GeoCountry == "TW") {
+                    Response.Redirect("/NoServiceArea.aspx");
+                }
+            }
+        }
+    }
+
     RegisterType = CompanySite.RegisterType;
     RegisterParentPersonCode = CompanySite.RegisterParentPersonCode;
     if (string.IsNullOrEmpty(Request["Lang"])) {

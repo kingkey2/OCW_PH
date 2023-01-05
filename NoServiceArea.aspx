@@ -1,12 +1,5 @@
 ﻿<%@ Page Language="C#" %>
 
-<%
-    Newtonsoft.Json.Linq.JObject jObject = EWinWeb.GetSettingJObj();
-    string MaintainMessage = jObject["MaintainMessage"].ToString();
-
-
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,19 +28,12 @@
                         </div>
                         <div class="text-wrap text-center">
                             <p>
-                                <span class="language_replace">Lucky Sprite in currently down for maintenance</span><br>
-                                <span class="language_replace">Please wait a moment, we will be right back!</span><br>
+                                <h1 class="language_replace">Sorry</h1>
                                 <br>
-                                <span class="language_replace"><%:MaintainMessage%></span>
+                                <h1 class="language_replace">No Service Area</h1>
+                                <br>
+                                <br>
                             </p>
-                            <!-- <p><span class="language_replace">您點選的頁面沒有反應，請回到首頁。</span></p> -->
-                        </div>
-                        <div class="btn-container">
-                            <a href="index.aspx" class="square-link outline">
-                                <i class="icon-home"></i>
-                                <!-- <span class="language_replace">首頁</span> -->
-                                <span class="language_replace">Home</span>
-                            </a>
                         </div>
                     </section>
 

@@ -603,15 +603,14 @@
             uType = 1;
             document.getElementById("idUserAccountType").innerText = mlp.getLanguageKey("代理");
 
-            if (EWinInfo.CompanyCode.toUpperCase() == "fanta".toUpperCase()) {
-                var select = document.getElementById("ContactPhonePrefix");
-                select.innerHTML = "";
+            var select = document.getElementById("ContactPhonePrefix");
+            select.innerHTML = "";
 
-                var option = document.createElement("option");
-                option.text = mlp.getLanguageKey("+63 菲律賓");
-                option.value = "+63";
-                select.appendChild(option);
-            }
+            var option = document.createElement("option");
+            option.text = mlp.getLanguageKey("+63 菲律賓");
+            option.value = "+63";
+            select.appendChild(option);
+
         });
     }
 
