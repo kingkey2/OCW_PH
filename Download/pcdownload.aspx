@@ -61,7 +61,7 @@
                         <div class="dlP_AppName"><span>Lucky Sprite game APP</span></div>
                     </div>
                     <div class="dlP_ConAppQrcode">
-                        <img class="img" src="images/221016190555.png" alt="qrcode" />
+                        <img class="img" src="images/DownloadPage.png" alt="qrcode" />
                     </div>
                     <div class="dlP_ConBtnDiv">
                         <div class="dlP_ConBtn" onclick="javascript:location.href='https://backend.ewin888.com/GetDownloadLink.aspx?Tag=A0NQP51Y'">

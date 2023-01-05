@@ -34,7 +34,6 @@
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/lobby.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
     <!--===========JS========-->
     <script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
     <%--<script type="text/javascript" src="/Scripts/UIControl.js"></script>--%>

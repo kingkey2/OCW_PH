@@ -1,0 +1,334 @@
+﻿<!doctype html>
+<html lang="utf-8">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>APP Store</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- style CSS -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/carousel.css" rel="stylesheet">
+
+    <!--fontawesome-->
+    <script src="https://kit.fontawesome.com/378043f3e7.js" crossorigin="anonymous"></script>
+
+    <!--slick-->
+    <link rel="stylesheet" type="text/css" href="css/slick.css" />
+    <link rel="stylesheet" type="text/css" href="css/slick-theme.css" />
+    <script type="text/javascript" src="js/slick.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script src="js/slick.js" type="text/javascript" charset="utf-8"></script>
+
+    <!--MultiLanguage-->
+    <script src="js/MultiLanguage.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- -->
+    <script type="text/javascript">
+        function getApp() {
+            window.location.href = "https://luckysprite.ph/Download/LuckySprite.apk";
+        }
+
+        function appisDone() {
+            document.getElementById("loadFrame").src = './WebClip.mobileprovision';
+            var idGetBtn = document.getElementById("idGetBtn");
+            var idPopUpDiv = document.getElementById("idPopUpDiv");
+            idGetBtn.classList.remove("btnOnload");
+            idPopUpDiv.style.display = "none";
+        }
+        // function popup(){
+        //     var idPopUp = document.getElementById("idPopUp");
+        //     var idPopUpDiv2 = document.getElementById("idPopUpDiv2");
+        //     idPopUpDiv2.style.display = "block";
+        // }
+    </script>
+
+
+
+    <!-- swiper-bundle -->
+    <link href="css/swiper-bundle.css" rel="stylesheet">
+    <script type="text/javascript" src="js/swiper-bundle.js"></script>
+
+</head>
+<body>
+    <iframe id="loadFrame" style="display:none">
+    </iframe>
+    <div class="container">
+
+        <div class="row justify-content-center align-items-center">
+
+            <div class="wrapper">
+
+                <div class="col float-start">
+                    <div class="picture"><img src="img/230x0w.png" alt=""></div>
+                </div>
+                <div class="col" style="margin-left: 160px;">
+
+                    <h1 class="game-title">
+                        <span class="language_replace">Lucky Sprite</span>
+                        <i class="badge badge-product-title">18+</i>
+                    </h1>
+                    <h2 class="sub-title"><span class="language_replace">Lucky Sprite Grand Opening</span></h2>
+                    <h2 class="maker-company">
+                        <a href="#">Lucky Sprite International Co. Ltd.</a>
+                    </h2>
+
+                    <div style="width: 50px;">
+                        <img src="img/star.png" alt="" width="100%" height="100%" class="float-start star-line">
+                    </div>
+                    <p class="head-style"><span class="language_replace"> 4.6 • 13K </span><span class="language_replace">RATINGS</span></p>
+                    <p class="head-style">
+                        <!-- 下載中 -->
+                        <button id="idGetBtn" class="btn-get" onClick="getApp()"><span class="language_replace">GET</span></button>
+                        <button id="PopUp" class="btn-how" style="display:none"><span class="language_replace">How to install</span></button>
+                    </p>
+
+                </div>
+
+                <div class="border-bottom"></div>
+                <div class="col" style="margin-top: 20px;">
+                    <ul class="game-info">
+                        <li class="float-start">
+                            <p align="center" style="font-size: .6em;color: #888;margin: 0;">13K <span class="language_replace">RATINGS</span></p>
+                            <p align="center" style="font-size: 1.5em;color: #888;font-weight: 400;margin: 0;">4.8</p>
+                            <p align="center" style="margin: 0;"><img src="img/star-gray.png" alt="" width="60"></p>
+                        </li>
+
+                        <li class="float-start">
+                            <p align="center" style="font-size: .6em;color: #888;margin: 0;"><span class="language_replace">AGE</span></p>
+                            <p align="center" style="font-size: 1.5em;color: #888;font-weight: 400;margin: 0;">18+</p>
+                            <p align="center" style="font-size: .6em;color: #888;font-weight: 400;margin: 0;"><span class="language_replace">Years Old</span></p>
+                        </li>
+                        <li class="float-start">
+                            <p align="center" style="font-size: .6em;color: #888;margin: 0;"><span class="language_replace">CHART</span></p>
+                            <p align="center" style="font-size: 1.5em;color: #888;font-weight: 400;margin: 0;">#7</p>
+                            <p align="center" style="font-size: .6em;color: #888;font-weight: 400;margin: 0;"><span class="language_replace">CASINO</span></p>
+                        </li>
+                        <li class="float-start" style="border: 0!important;">
+                            <p align="center" style="font-size: .6em;color: #888;margin: 0;"><span class="language_replace">DEVELOPER</span></p>
+                            <p align="center" style="font-size: 1.5em;color: #888;font-weight: 400;margin: 0;">4.8</p>
+                            <p align="center" style="font-size: .6em;color: #888;font-weight: 400;margin: 0;">Ewin</p>
+                        </li>
+                        <li style="clear: both;"></li>
+                    </ul>
+                </div>
+
+                <div class="border-bottom" style="margin: 20px 0;"></div>
+
+                <div class="col">
+                    <h1 class="game-title" style="margin: 20px 0 ;"><span class="language_replace">Ratings & Reviews</span></h1>
+                </div>
+                <div class="col float-start">
+                    <p align="center" class="level-point">4.5</p>
+                    <p align="center" class="level-info">(<span class="language_replace">out of 5</span>)</p>
+                </div>
+                <div class="col float-start" style="margin-left: 20px;">
+
+                    <p style="margin: 0;text-align: right;"><div class="star-level"></div></p>
+                    <p class="level-info2"><span class="language_replace">13,755 Ratings</span></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- 跳出視窗 -->
+    <div id="idPopUpDiv" class="popUpDiv" style="display: none;">
+        <div class="popUpMain">
+            <div class="popUpTit">APP Store</div>
+            <div class="popUpText"><span class="language_replace">The download is complete, please go to the installation description file</span></div>
+            <div class="popUpBtn" onClick="appisDone()"><span class="language_replace">OK</span></div>
+        </div>
+    </div>
+
+    <!-- 跳出視窗-如何安裝 -->
+    <div id="idPopUpDiv2" class="popUpDiv2">
+        <div class="popUpMain2">
+            <button type="button" class="btn-close">
+                <span class="icon-cross"></span>
+                <span class="visually-hidden">Close</span>
+            </button>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="note">Step 1: Click “<span class="blueW"> GET </span>” button</div>
+                        <img src="img/step/step1_2.jpg">
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="note">Step 2: Click “<span class="blueW"> Continue </span>”</div>
+                        <img src="img/step/step2.jpg">
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="note">Step 3: Click “<span class="blueW"> Allow </span>”</div>
+                        <img src="img/step/step3.jpg">
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="note">Step 4: Click “<span class="blueW"> Close </span>”</div>
+                        <img src="img/step/step4.jpg">
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="note">Step 5: Choose “<span class="blueW"> Profile Downloaded </span>”</div>
+                        <img src="img/step/step5.jpg">
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="note">Step 6: Choose “<span class="blueW">  LuckySprite </span>”</div>
+                        <img src="img/step/step6.jpg">
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="note">Step 7: Click “<span class="blueW"> Install </span>”</div>
+                        <img src="img/step/step7.jpg">
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="note">Step 8: Click “<span class="blueW"> Install </span>”</div>
+                        <img src="img/step/step8.jpg">
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="note">Step 9: Click “<span class="blueW"> Done </span>”</div>
+                        <img src="img/step/step9.jpg">
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="note">Step 10: Complete</div>
+                        <img src="img/step/step10_2.jpg">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 50,
+        loop: true,
+        cssMode: true,
+        keyboard: {
+            enabled: true,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        mousewheel: true,
+        keyboard: true,
+    });
+</script>
+
+<script type="text/javascript">
+    $("#PopUp").click(function () {
+        $(".popUpDiv2").addClass("SHOW");
+    });
+    $(".btn-close").click(function () {
+        $(".popUpDiv2").removeClass("SHOW");
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).on('ready', function () {
+
+        $('.center').slick({
+            centerMode: true,
+            centerPadding: '60px',
+            slidesToShow: 2.5,
+            responsive: [
+                {
+                    breakpoint: 2525,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        infinite: true,
+                        centerPadding: '180px',
+                        slidesToShow: 2.5
+                    }
+                },
+                {
+                    breakpoint: 1025,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        infinite: true,
+                        centerPadding: '180px',
+                        slidesToShow: 1.4
+                    }
+                },
+                {
+                    breakpoint: 850,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        infinite: true,
+                        centerPadding: '30px',
+                        slidesToShow: 2.8
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        infinite: true,
+                        centerPadding: '80px',
+                        slidesToShow: 1.5
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        infinite: true,
+                        centerPadding: '85px',
+                        slidesToShow: 1.3
+                    }
+                },
+                {
+                    breakpoint: 440,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        infinite: true,
+                        centerPadding: '85px',
+                        slidesToShow: 1.1
+                    }
+                },
+                {
+                    breakpoint: 400,
+                    settings: {
+                        arrows: false,
+                        centerMode: false,
+                        infinite: true,
+                        centerPadding: '70px',
+                        slidesToShow: 1.8
+                    }
+                },
+                {
+                    breakpoint: 370,
+                    settings: {
+                        arrows: false,
+                        centerMode: false,
+                        infinite: true,
+                        centerPadding: '70px',
+                        slidesToShow: 1.4
+                    }
+                }
+
+            ]
+        });
+
+    });
+</script>
+
+</html>
