@@ -1832,13 +1832,18 @@
          
 
             if (wallet.CurrencyType == EWinWebInfo.BonusCurrencyType) {
-                $("#liWithdrawal").hide();
-               
+                $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
+                    showMessageOK("", mlp.getLanguageKey("請先充值"));
+                });
             } else {
                 if (wallet.PointValue > 0) {
-                    $("#liWithdrawal").show();
+                    $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
+                        API_LoadPage('Withdrawal', 'Withdrawal.aspx', true);
+                    });
                 } else {
-                    $("#liWithdrawal").hide();
+                    $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
+                        showMessageOK("", mlp.getLanguageKey("請先充值"));
+                    });
                 }
             }
 
@@ -3068,7 +3073,7 @@
                                                 <i class="icon icon-mask icon-deposit"></i>
                                                 <span class="title language_replace">存款</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)" id="liWithdrawal" style="display: none">
+                                        <li class="nav-item submenu dropdown" id="liWithdrawal">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-withdarw"></i>
                                                 <span class="title language_replace">出款</span></a>
