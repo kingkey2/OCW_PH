@@ -730,7 +730,7 @@ public class LobbyAPI : System.Web.Services.WebService {
     {
         CompanyGameCodeResult R = new CompanyGameCodeResult() { Result = EWin.Lobby.enumResult.ERR };
         System.Data.DataTable DT;
-
+       
         DT = RedisCache.CompanyGameCode.GetCompanyGameCode(GameCode.Split('.').First(), GameCode);
         if (DT != null && DT.Rows.Count > 0)
         {
