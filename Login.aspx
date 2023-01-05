@@ -386,7 +386,7 @@
             } else if (form.ValidImg.value == "") {
                 form.ValidImg.setCustomValidity(mlp.getLanguageKey("請輸入驗證碼"));
             }
-        } else if (LoginType == 1) {
+        } else if (LoginType == 1)  {
 
             CheckAccountPhoneExist();
 
@@ -410,10 +410,12 @@
         form.reportValidity();
 
         if (form.checkValidity()) {
-            if (navigator.webdriver == false) {
-                form.action = "Login.aspx";
-                form.submit();
-            }
+            //if (navigator.webdriver == false) {
+            //    form.action = "Login.aspx";
+            //    form.submit();
+            //}
+            form.action = "Login.aspx";
+            form.submit();
         }
     }
 
