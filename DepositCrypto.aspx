@@ -80,10 +80,11 @@
         lobbyClient = window.parent.API_GetLobbyAPI();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
+            GetPaymentMethod();
             window.parent.API_LoadingEnd();
         }, "PaymentAPI");
 
-        GetPaymentMethod();
+        
         startCountDown();
         btn_NextStep();
 
