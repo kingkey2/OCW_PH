@@ -352,7 +352,7 @@
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">After player A deposits 500, invite player B to join, player B deposits 100, player A can get </span><span style="font-family: arial, helvetica, sans-serif;">10 (PHP).</span></p>
 <p class="MsoNormal">&nbsp;</p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">⦁ Any players who use the link to share with others to register, and recharge more than 100, </span><span style="font-family: arial, helvetica, sans-serif;">unlimited claim, and quickly notify your friends now to earn high bonuses together.</span></p>
-<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">The more referrals you have, the more bonus you can get, for example you referred 10 </span><span style="font-family: arial, helvetica, sans-serif;">people to register and recharge 10 *10=1000 $(PHP).</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">The more referrals you have, the more bonus you can get, for example you referred 10 </span><span style="font-family: arial, helvetica, sans-serif;">people to register and recharge (deposit 100)*10=100PHP.</span></p>
 <p>&nbsp;</p>
 <p class="MsoNormal"><strong><span style="font-family: arial, helvetica, sans-serif;">Event rules and terms:</span></strong></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">1. This promotion is limited to a single player, a single account, a single contact information, a single payment account, a single IP and a single computer environment to participate in. Anyone who gains the bonus by illegal means, the LUCKYSPRITE organizer has the right to adjust the content of the event.</span></p>
@@ -546,7 +546,7 @@
 <p><span style="font-family: arial, helvetica, sans-serif;"> </span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">⦁ Any players who use the link to share with others to register, and recharge more than 100,</span><span style="font-family: arial, helvetica, sans-serif;">unlimited claim, and quickly notify your friends now to earn high bonuses together.</span></p>
 <p><span style="font-family: arial, helvetica, sans-serif;"> </span></p>
-<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">The more referrals you have, the more bonus you can get, for example you referred 10 </span><span style="font-family: arial, helvetica, sans-serif;">people to register and recharge 10 *10=1000 $(PHP).</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">The more referrals you have, the more bonus you can get, for example you referred 10 </span><span style="font-family: arial, helvetica, sans-serif;">people to register and recharge (deposit 100)*10=100PHP.</span></p>
 <p><span style="font-family: arial, helvetica, sans-serif;"> </span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif;">&nbsp;</span></p>
 <p><span style="font-family: arial, helvetica, sans-serif;"> </span></p>
