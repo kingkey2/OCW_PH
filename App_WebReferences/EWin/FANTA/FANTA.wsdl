@@ -261,6 +261,37 @@
           <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
         </s:sequence>
       </s:complexType>
+      <s:element name="UpdateThresholdAddRate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ThresholdAddRateSetting" type="tns:ArrayOfVipBuyChipRateSetting" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateThresholdAddRateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateThresholdAddRateResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResetThresholdAddRate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResetThresholdAddRateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ResetThresholdAddRateResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="AgentAccountingResult" nillable="true" type="tns:AgentAccountingResult" />
       <s:element name="ChildUserResult" nillable="true" type="tns:ChildUserResult" />
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
@@ -321,6 +352,18 @@
   </wsdl:message>
   <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateSoapOut">
     <wsdl:part name="parameters" element="tns:GetUserSelfValidBetValueFromSummaryByDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateThresholdAddRateSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateThresholdAddRate" />
+  </wsdl:message>
+  <wsdl:message name="UpdateThresholdAddRateSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateThresholdAddRateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResetThresholdAddRateSoapIn">
+    <wsdl:part name="parameters" element="tns:ResetThresholdAddRate" />
+  </wsdl:message>
+  <wsdl:message name="ResetThresholdAddRateSoapOut">
+    <wsdl:part name="parameters" element="tns:ResetThresholdAddRateResponse" />
   </wsdl:message>
   <wsdl:message name="GetAccountingDetailBySummaryDateHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
@@ -396,6 +439,13 @@
   <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateHttpGetOut">
     <wsdl:part name="Body" element="tns:SelfValidBetResult" />
   </wsdl:message>
+  <wsdl:message name="ResetThresholdAddRateHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ResetThresholdAddRateHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="GetAccountingDetailBySummaryDateHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -470,6 +520,13 @@
   <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateHttpPostOut">
     <wsdl:part name="Body" element="tns:SelfValidBetResult" />
   </wsdl:message>
+  <wsdl:message name="ResetThresholdAddRateHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ResetThresholdAddRateHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:portType name="FANTASoap">
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
       <wsdl:input message="tns:GetAccountingDetailBySummaryDateSoapIn" />
@@ -507,6 +564,14 @@
       <wsdl:input message="tns:GetUserSelfValidBetValueFromSummaryByDateSoapIn" />
       <wsdl:output message="tns:GetUserSelfValidBetValueFromSummaryByDateSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="UpdateThresholdAddRate">
+      <wsdl:input message="tns:UpdateThresholdAddRateSoapIn" />
+      <wsdl:output message="tns:UpdateThresholdAddRateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetThresholdAddRate">
+      <wsdl:input message="tns:ResetThresholdAddRateSoapIn" />
+      <wsdl:output message="tns:ResetThresholdAddRateSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="FANTAHttpGet">
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
@@ -541,6 +606,10 @@
       <wsdl:input message="tns:GetUserSelfValidBetValueFromSummaryByDateHttpGetIn" />
       <wsdl:output message="tns:GetUserSelfValidBetValueFromSummaryByDateHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="ResetThresholdAddRate">
+      <wsdl:input message="tns:ResetThresholdAddRateHttpGetIn" />
+      <wsdl:output message="tns:ResetThresholdAddRateHttpGetOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="FANTAHttpPost">
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
@@ -574,6 +643,10 @@
     <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDate">
       <wsdl:input message="tns:GetUserSelfValidBetValueFromSummaryByDateHttpPostIn" />
       <wsdl:output message="tns:GetUserSelfValidBetValueFromSummaryByDateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetThresholdAddRate">
+      <wsdl:input message="tns:ResetThresholdAddRateHttpPostIn" />
+      <wsdl:output message="tns:ResetThresholdAddRateHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="FANTASoap" type="tns:FANTASoap">
@@ -652,6 +725,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDate">
       <soap:operation soapAction="http://tempuri.org/GetUserSelfValidBetValueFromSummaryByDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateThresholdAddRate">
+      <soap:operation soapAction="http://tempuri.org/UpdateThresholdAddRate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetThresholdAddRate">
+      <soap:operation soapAction="http://tempuri.org/ResetThresholdAddRate" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -743,6 +834,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdateThresholdAddRate">
+      <soap12:operation soapAction="http://tempuri.org/UpdateThresholdAddRate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetThresholdAddRate">
+      <soap12:operation soapAction="http://tempuri.org/ResetThresholdAddRate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="FANTAHttpGet" type="tns:FANTAHttpGet">
     <http:binding verb="GET" />
@@ -818,6 +927,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ResetThresholdAddRate">
+      <http:operation location="/ResetThresholdAddRate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="FANTAHttpPost" type="tns:FANTAHttpPost">
     <http:binding verb="POST" />
@@ -886,6 +1004,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDate">
       <http:operation location="/GetUserSelfValidBetValueFromSummaryByDate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetThresholdAddRate">
+      <http:operation location="/ResetThresholdAddRate" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

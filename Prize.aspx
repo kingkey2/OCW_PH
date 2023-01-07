@@ -178,14 +178,16 @@
                                 c.setClassText(RecordDom, "title", null, Collect.PromotionTitle);
                                 c.setClassText(RecordDom, "pointval", null, PointValue);
                                 $(RecordDom).attr("data-collectid", Collect.CollectID);
+                                $(RecordDom).attr("data-description", Collect.Description);
                                 $(RecordDom).attr("data-val", PointValue);
 
                                 DomBtn.onclick = function (e) {
                                     let CollectID = $(e.target).closest(".prize-item").data("collectid");
+                                    let Description = $(e.target).closest(".prize-item").data("description");
                                     let val = new BigNumber($(e.target).closest(".prize-item").data("val")).toFormat();
 
                                     window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), val + mlp.getLanguageKey(" 確認領取"), function () {
-                                        LobbyClient.CollectUserAccountPromotion(WebInfo.SID, Math.uuid(), CollectID, function (success, o) {
+                                        LobbyClient.CollectUserAccountPromotion(WebInfo.SID, Math.uuid(), CollectID, Description, function (success, o) {
                                             if (success) {
                                                 if (o.Result == 0) {
                                                     //window.parent.API_ShowMessageOK(mlp.getLanguageKey("確認"), mlp.getLanguageKey("領取成功"), function () {
