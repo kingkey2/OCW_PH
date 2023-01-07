@@ -28,6 +28,7 @@ public static class ActivityCore {
                 Info.ActivityName = ActivityDetail["Name"].ToString();
                 Info.Title = ActivityDetail["Title"].ToString();
                 Info.SubTitle = ActivityDetail["SubTitle"].ToString();
+                Info.DetailPath = DetailPath;
 
                 R.Data = Info;
 
@@ -406,6 +407,7 @@ public static class ActivityCore {
         public string ActivityName { get; set; }
         public string Title { get; set; }
         public string SubTitle { get; set; }
+        public string DetailPath { get; set; }
     }
 
     public class ActJoinCheck : ActivityInfo {

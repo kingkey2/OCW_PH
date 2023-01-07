@@ -730,7 +730,7 @@ public class LobbyAPI : System.Web.Services.WebService {
     {
         CompanyGameCodeResult R = new CompanyGameCodeResult() { Result = EWin.Lobby.enumResult.ERR };
         System.Data.DataTable DT;
-       
+
         DT = RedisCache.CompanyGameCode.GetCompanyGameCode(GameCode.Split('.').First(), GameCode);
         if (DT != null && DT.Rows.Count > 0)
         {
@@ -1698,8 +1698,10 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult CollectUserAccountPromotion(string WebSID, string GUID, int CollectID) {
+    public EWin.Lobby.APIResult CollectUserAccountPromotion(string WebSID, string GUID, int CollectID, string Description) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
+        List<EWin.FANTA.VipBuyChipRateSetting> ThresholdAddRateSetting = new List<EWin.FANTA.VipBuyChipRateSetting>();
         RedisCache.SessionContext.SIDInfo SI;
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
         string Token = GetToken();
@@ -1798,6 +1800,38 @@ public class LobbyAPI : System.Web.Services.WebService {
                                     o.PointValue = PointValue;
 
                                     lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, SI.LoginAccount, "JoinActivity", Newtonsoft.Json.JsonConvert.SerializeObject(o));
+
+                                    //檢查該活動是否有門檻扣除遊戲限制
+                                    var getActivityResult = ActivityCore.GetActInfo(Description);
+
+                                    if (getActivityResult.Result == ActivityCore.enumActResult.OK) {
+                                        string DetailPath = getActivityResult.Data.DetailPath;
+
+                                        if (!string.IsNullOrEmpty(DetailPath)) {
+                                            Newtonsoft.Json.Linq.JObject ActivitySetting = GetActivityDetail(DetailPath);
+
+                                            if (ActivitySetting != null) {
+
+                                                if (ActivitySetting["ThresholdAddRate"] != null) {
+                                                    Newtonsoft.Json.Linq.JArray TH = Newtonsoft.Json.Linq.JArray.Parse(ActivitySetting["ThresholdAddRate"].ToString());
+                                                    string GameAccountingCode = string.Empty;
+
+                                                    if (TH.Count > 0) {
+                                                        ThresholdAddRateSetting = TH.ToObject<List<EWin.FANTA.VipBuyChipRateSetting>>();
+
+                                                        fantaAPI.UpdateThresholdAddRate(GetToken(), SI.LoginAccount, ThresholdAddRateSetting.ToArray());
+                                                        lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, SI.LoginAccount, "JoinHasThresholdAddRateActivity", "true");
+                                                    } else { //reset
+                                                        fantaAPI.ResetThresholdAddRate(GetToken(), SI.LoginAccount);
+                                                        lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, SI.LoginAccount, "JoinHasThresholdAddRateActivity");
+                                                    }
+                                                } else { //reset
+                                                    fantaAPI.ResetThresholdAddRate(GetToken(), SI.LoginAccount);
+                                                    lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, SI.LoginAccount, "JoinHasThresholdAddRateActivity");
+                                                }
+                                            }
+                                        }
+                                    }
 
                                     EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, JoinActivityCycle, 0, 0, 0);
                                     R.Result = EWin.Lobby.enumResult.OK;

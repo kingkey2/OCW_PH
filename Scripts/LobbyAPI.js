@@ -349,14 +349,15 @@
         });
     };
 
-    this.CollectUserAccountPromotion = function (WebSID, GUID, CollectID, cb) {
+    this.CollectUserAccountPromotion = function (WebSID, GUID, CollectID, Description, cb) {
         var url = APIUrl + "/CollectUserAccountPromotion";
         var postData;
 
         postData = {
             WebSID: WebSID,
             GUID: GUID,
-            CollectID: CollectID
+            CollectID: CollectID,
+            Description: Description
         };
 
         callService(url, postData, 10000, function (success, text) {
