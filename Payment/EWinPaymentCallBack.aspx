@@ -377,7 +377,7 @@
                                                 }
                                             }
                                             else {
-                                                SetResultException(R, "Order FlowStatus Error PaymentFlowStatusByProviderProcessing:"+setPaymentFlowStatusByProviderProcessing);
+                                                   R.Result = 0;
                                             }
 
                                         }
