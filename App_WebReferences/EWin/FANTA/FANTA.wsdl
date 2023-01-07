@@ -165,6 +165,23 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetUserPointValue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserPointValueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserPointValueResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetSelfValidBetValueFromSummaryByDate">
         <s:complexType>
           <s:sequence>
@@ -335,6 +352,12 @@
   <wsdl:message name="GetUserThresholdValueSoapOut">
     <wsdl:part name="parameters" element="tns:GetUserThresholdValueResponse" />
   </wsdl:message>
+  <wsdl:message name="GetUserPointValueSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserPointValue" />
+  </wsdl:message>
+  <wsdl:message name="GetUserPointValueSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserPointValueResponse" />
+  </wsdl:message>
   <wsdl:message name="GetSelfValidBetValueFromSummaryByDateSoapIn">
     <wsdl:part name="parameters" element="tns:GetSelfValidBetValueFromSummaryByDate" />
   </wsdl:message>
@@ -408,6 +431,15 @@
     <wsdl:part name="CurrencyType" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetUserThresholdValueHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserPointValueHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserPointValueHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="GetSelfValidBetValueFromSummaryByDateHttpGetIn">
@@ -491,6 +523,15 @@
   <wsdl:message name="GetUserThresholdValueHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="GetUserPointValueHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserPointValueHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="GetSelfValidBetValueFromSummaryByDateHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
@@ -552,6 +593,10 @@
       <wsdl:input message="tns:GetUserThresholdValueSoapIn" />
       <wsdl:output message="tns:GetUserThresholdValueSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <wsdl:input message="tns:GetUserPointValueSoapIn" />
+      <wsdl:output message="tns:GetUserPointValueSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetSelfValidBetValueFromSummaryByDate">
       <wsdl:input message="tns:GetSelfValidBetValueFromSummaryByDateSoapIn" />
       <wsdl:output message="tns:GetSelfValidBetValueFromSummaryByDateSoapOut" />
@@ -594,6 +639,10 @@
       <wsdl:input message="tns:GetUserThresholdValueHttpGetIn" />
       <wsdl:output message="tns:GetUserThresholdValueHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <wsdl:input message="tns:GetUserPointValueHttpGetIn" />
+      <wsdl:output message="tns:GetUserPointValueHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetSelfValidBetValueFromSummaryByDate">
       <wsdl:input message="tns:GetSelfValidBetValueFromSummaryByDateHttpGetIn" />
       <wsdl:output message="tns:GetSelfValidBetValueFromSummaryByDateHttpGetOut" />
@@ -631,6 +680,10 @@
     <wsdl:operation name="GetUserThresholdValue">
       <wsdl:input message="tns:GetUserThresholdValueHttpPostIn" />
       <wsdl:output message="tns:GetUserThresholdValueHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <wsdl:input message="tns:GetUserPointValueHttpPostIn" />
+      <wsdl:output message="tns:GetUserPointValueHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetSelfValidBetValueFromSummaryByDate">
       <wsdl:input message="tns:GetSelfValidBetValueFromSummaryByDateHttpPostIn" />
@@ -698,6 +751,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserThresholdValue">
       <soap:operation soapAction="http://tempuri.org/GetUserThresholdValue" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <soap:operation soapAction="http://tempuri.org/GetUserPointValue" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -807,6 +869,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <soap12:operation soapAction="http://tempuri.org/GetUserPointValue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetSelfValidBetValueFromSummaryByDate">
       <soap12:operation soapAction="http://tempuri.org/GetSelfValidBetValueFromSummaryByDate" style="document" />
       <wsdl:input>
@@ -900,6 +971,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <http:operation location="/GetUserPointValue" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetSelfValidBetValueFromSummaryByDate">
       <http:operation location="/GetSelfValidBetValueFromSummaryByDate" />
       <wsdl:input>
@@ -977,6 +1057,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserThresholdValue">
       <http:operation location="/GetUserThresholdValue" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <http:operation location="/GetUserPointValue" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

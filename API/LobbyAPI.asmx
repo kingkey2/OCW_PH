@@ -1821,14 +1821,8 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                                                         fantaAPI.UpdateThresholdAddRate(GetToken(), SI.LoginAccount, ThresholdAddRateSetting.ToArray());
                                                         lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, SI.LoginAccount, "JoinHasThresholdAddRateActivity", "true");
-                                                    } else { //reset
-                                                        fantaAPI.ResetThresholdAddRate(GetToken(), SI.LoginAccount);
-                                                        lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, SI.LoginAccount, "JoinHasThresholdAddRateActivity");
-                                                    }
-                                                } else { //reset
-                                                    fantaAPI.ResetThresholdAddRate(GetToken(), SI.LoginAccount);
-                                                    lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, SI.LoginAccount, "JoinHasThresholdAddRateActivity");
-                                                }
+                                                    } 
+                                                } 
                                             }
                                         }
                                     }

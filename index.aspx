@@ -1138,7 +1138,7 @@
             el.src = el.src.replace("MG", "MG2");
         } else {
             el.onerror = null;
-            el.src = WebInfo.ImageUrl + "/default.png";
+            el.src = EWinWebInfo.ImageUrl + "/default.png";
         }
     }
     //#endregion
@@ -3020,7 +3020,7 @@
                     <!-- Sidebar Menu 側邊選單-->
                     <div class="navbarMenu collapse navbar-menu navbar-collapse offset" id="navbarMenu">
 
-                        <div class="search-bar mobile" data-toggle="modal" data-target="#alertSearch">
+                        <div class="search-bar mobile" data-toggle="modal" data-target="#alertSearch" onclick="API_ShowSearchGameModel()">
                             <span class="text language_replace">遊戲搜尋</span>
                             <span class="btn btn-search">
                                 <i class="icon icon-mask icon-search"></i>
@@ -3183,7 +3183,7 @@
                                     <!-- Search -->
                                     <li class="navbar-search nav-item">
 
-                                        <span class="search-bar desktop" data-toggle="modal" data-target="#alertSearch">
+                                        <span class="search-bar desktop" data-toggle="modal" data-target="#alertSearch" onclick="API_ShowSearchGameModel()">
                                             <span class="btn btn-search">
                                                 <i class="icon icon-mask icon-search"></i>
                                             </span>
