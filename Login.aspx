@@ -30,9 +30,7 @@
 
         EWin.Login.LoginResult LoginAPIResult;
         EWin.Login.LoginAPI LoginAPI = new EWin.Login.LoginAPI();
-        EWin.FANTA.FANTA fantaApi = new EWin.FANTA.FANTA();
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-        EWin.FANTA.APIResult fanta_Result = new EWin.FANTA.APIResult();
 
         RValue = R.Next(100000, 9999999);
         Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
@@ -74,29 +72,6 @@
                 }
                 else {
                     EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
-                }
-
-                //錢包金額少於100或門檻歸0時取消只有特定遊戲扣除門檻限制
-                fanta_Result = fantaApi.GetUserPointValue(Token, System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
-                if (fanta_Result.ResultState == EWin.FANTA.enumResultState.OK) {
-                    decimal PointValue = decimal.Parse(fanta_Result.Message);
-
-                    if (PointValue <= 100) {
-                        fantaApi.ResetThresholdAddRate(Token, LoginAccount);
-                        lobbyAPI.RemoveUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, "JoinHasThresholdAddRateActivity");
-                    } else {
-                        fanta_Result = new EWin.FANTA.APIResult();
-
-                        fanta_Result = fantaApi.GetUserThresholdValue(Token, System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
-
-                        if (fanta_Result.ResultState == EWin.FANTA.enumResultState.OK) {
-                            decimal ThresholdValue = decimal.Parse(fanta_Result.Message);
-                            if (ThresholdValue == 0) {
-                                fantaApi.ResetThresholdAddRate(Token, LoginAccount);
-                                lobbyAPI.RemoveUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, "JoinHasThresholdAddRateActivity");
-                            }
-                        }
-                    }
                 }
 
                 Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });

@@ -1,5 +1,22 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ForegroundOperation.aspx.cs" Inherits="Backend_ForegroundOperation" %>
+<% 
+    EWin.GlobalPermissionAPI.GlobalPermissionAPI GApi = new EWin.GlobalPermissionAPI.GlobalPermissionAPI();
+    EWin.GlobalPermissionAPI.APIResult GR = new EWin.GlobalPermissionAPI.APIResult();
+    string ASID = string.Empty;
 
+
+    if (string.IsNullOrEmpty(Request["ASID"]) == false) {
+        ASID = Request["ASID"];
+        GR = GApi.CheckPermission(ASID, EWinWeb.CompanyCode, "ManualUserLevelAdjust", "ManualUserLevelAdjust", "");
+
+        if (GR.Result == EWin.GlobalPermissionAPI.enumResult.ERR) {
+            Response.Redirect("../Error.aspx?ErrMsg=NoPermissions");
+        }
+    } else {
+            Response.Redirect("../Error.aspx?ErrMsg=NoPermissions");
+    }
+
+%>
 <!doctype html>
 <html>
 <head>
@@ -21,6 +38,7 @@
 <script>      
     var c = new common();
     var ApiUrl = "ForegroundOperation.aspx";
+    var ASID = <%=ASID%>;
 
     function init() {
         if (self == top) {
@@ -30,7 +48,7 @@
 
     function onBtnUpdateCompanyCategory() {
         var postData = {
-
+            ASID: ASID
         };
 
         c.callService(ApiUrl + "/UpdateCompanyCategory", postData, function (success, o) {
@@ -47,7 +65,7 @@
 
     function onBtnOpenWebSite() {
         var postData = {
-
+            ASID: ASID
         };
 
         c.callService(ApiUrl + "/OpenSite", postData, function (success, o) {
@@ -64,6 +82,7 @@
 
     function onBtnCloseWebSite() {
         var postData = {
+            ASID: ASID,
             Message: $("#idCloseWebSiteTxt").val()
         };
 
