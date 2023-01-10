@@ -64,13 +64,17 @@
     var CompanySite = lobbyAPI.GetCompanySite(Token, Guid.NewGuid().ToString());
 
     UserIP = CodingControl.GetUserIP();
-    if (!string.IsNullOrEmpty(UserIP)) {
-        EWin.Login.GeoClass GC = loginAPI.GetGeoCode(UserIP);
+    if (!EWinWeb.IsTestSite) {
+        if (!string.IsNullOrEmpty(UserIP)) {
+            if (UserIP != "112.121.69.46") {
+                EWin.Login.GeoClass GC = loginAPI.GetGeoCode(UserIP);
 
-        if (GC != null) {
-            if (!string.IsNullOrEmpty(GC.GeoCountry)) {
-                if (GC.GeoCountry == "TW") {
-                    Response.Redirect("/NoServiceArea.aspx");
+                if (GC != null) {
+                    if (!string.IsNullOrEmpty(GC.GeoCountry)) {
+                        if (GC.GeoCountry == "TW") {
+                            Response.Redirect("/NoServiceArea.aspx");
+                        }
+                    }
                 }
             }
         }
