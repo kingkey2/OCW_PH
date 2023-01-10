@@ -7,7 +7,7 @@
 
     if (string.IsNullOrEmpty(Request["ASID"]) == false) {
         ASID = Request["ASID"];
-        GR = GApi.CheckPermission(ASID, EWinWeb.CompanyCode, "ManualUserLevelAdjust", "ManualUserLevelAdjust", "");
+        GR = GApi.CheckPermission(ASID, EWinWeb.CompanyCode, "ForegroundAPI", "ForegroundAPI", "");
 
         if (GR.Result == EWin.GlobalPermissionAPI.enumResult.ERR) {
             Response.Redirect("../Error.aspx?ErrMsg=NoPermissions");
