@@ -38,7 +38,7 @@
 <script>      
     var c = new common();
     var ApiUrl = "ManualUserLevelAdjust.aspx";
-    var ASID = <%=ASID%>;
+    var ASID = "<%=ASID%>";
 
     function init() {
         if (self == top) {
