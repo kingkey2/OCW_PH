@@ -21,7 +21,11 @@
       "ThresholdRate": 0
     },
     {
-      "GameAccountingCode": "Sports",
+      "GameAccountingCode": "Sport",
+      "ThresholdRate": 0
+    },
+    {
+      "GameAccountingCode": "Live.FightChicken",
       "ThresholdRate": 0
     },
     {
