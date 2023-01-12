@@ -1079,7 +1079,7 @@
                             <li class="nav-item navbarMenu__catagory" id="liTrade" style="display:none">
                                 <span class="catagory-item"><span class="language_replace">交易</span></span>
                                 <ul class="catagory">
-                                    <li class="nav-item submenu dropdown" id="btnWithdrawal">
+                                    <li class="nav-item submenu dropdown" id="btnWithdrawal" style="display:none">
                                         <a class="nav-link"<%-- onclick="API_MainWindow(mlp.getLanguageKey('出款'), 'UserAccount_Maint2_Casino.aspx');ItemClick(this);"--%>>
                                             <i class="icon icon-mask icon-ewin-transfer"></i>
                                             <span class="language_replace">出款</span></a>
