@@ -64,5 +64,10 @@
   "團隊管理": "Team Management",
   "數據查詢": "Logs Query",
   "結算查詢": "Settlement Query",
-  "複製推廣連結": "Copy Link"
+  "複製推廣連結": "Copy Link",
+  "錯誤": "Error",
+  "完成": "Finish",
+  "出款": "Withdrawal",
+  "轉帳至遊戲帳戶": "Transfer To GameAccount",
+  "交易": "Transaction"
 }

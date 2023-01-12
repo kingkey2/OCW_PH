@@ -922,32 +922,38 @@
             }, null);
 
         } else {
-            EWinWebInfo.IsOpenGame = true;
-            GCB.AddPlayed(gameBrand + "." + gameName, function (success) {
-                if (success) {
-                    API_RefreshPersonalPlayed(gameBrand + "." + gameName, true);
-                }
-            });
 
-            gameCode = gameBrand + "." + gameName;
-            $('.headerGameName').text(gameLangName);
-            if (false) {
-                $('#GameMask').show();
-                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "")
-                CloseWindowOpenGamePage(gameWindow);
-            } else {
-                if (EWinWebInfo.DeviceType == 1) {
+            if (EWinWebInfo.UserInfo.UserAccountType == 0) {
+                EWinWebInfo.IsOpenGame = true;
+                GCB.AddPlayed(gameBrand + "." + gameName, function (success) {
+                    if (success) {
+                        API_RefreshPersonalPlayed(gameBrand + "." + gameName, true);
+                    }
+                });
+
+                gameCode = gameBrand + "." + gameName;
+                $('.headerGameName').text(gameLangName);
+                if (false) {
                     $('#GameMask').show();
-                    gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "");
+                    gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "")
                     CloseWindowOpenGamePage(gameWindow);
                 } else {
-                    if (gameBrand.toUpperCase() == 'CMD' || gameBrand.toUpperCase() == 'EWIN') {
-                        $('#GameIFramePage').removeAttr('sandbox');
-                    }
+                    if (EWinWebInfo.DeviceType == 1) {
+                        $('#GameMask').show();
+                        gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "");
+                        CloseWindowOpenGamePage(gameWindow);
+                    } else {
+                        if (gameBrand.toUpperCase() == 'CMD' || gameBrand.toUpperCase() == 'EWIN') {
+                            $('#GameIFramePage').removeAttr('sandbox');
+                        }
 
-                    GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
+                        GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
+                    }
                 }
+            } else {
+                showMessageOK("", mlp.getLanguageKey("代理身分禁止玩遊戲"));
             }
+
         }
     }
     

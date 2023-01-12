@@ -830,6 +830,63 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetUserAccountProperty">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PropertyName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountPropertyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountPropertyResult" type="tns:UserAccountPropertyResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserAccountPropertyResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PropertyName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PropertyValue" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CreateGameAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateGameAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateGameAccountResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TransToGameAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TransOutValue" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TransToGameAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TransToGameAccountResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="AgentSessionResult" nillable="true" type="tns:AgentSessionResult" />
       <s:element name="ChidUserData" nillable="true" type="tns:ChidUserData" />
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
@@ -841,6 +898,7 @@
       <s:element name="AgentAccountingDetailResult" nillable="true" type="tns:AgentAccountingDetailResult" />
       <s:element name="UserInfoResult" nillable="true" type="tns:UserInfoResult" />
       <s:element name="ChildUserInfoResult" nillable="true" type="tns:ChildUserInfoResult" />
+      <s:element name="UserAccountPropertyResult" nillable="true" type="tns:UserAccountPropertyResult" />
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetAgentSessionByIDSoapIn">
@@ -956,6 +1014,24 @@
   </wsdl:message>
   <wsdl:message name="UpdateUserAccountNoteSoapOut">
     <wsdl:part name="parameters" element="tns:UpdateUserAccountNoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountPropertySoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAccountProperty" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountPropertySoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAccountPropertyResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateGameAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateGameAccount" />
+  </wsdl:message>
+  <wsdl:message name="CreateGameAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateGameAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="TransToGameAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:TransToGameAccount" />
+  </wsdl:message>
+  <wsdl:message name="TransToGameAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:TransToGameAccountResponse" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpGetIn">
     <wsdl:part name="ASID" type="s:string" />
@@ -1096,6 +1172,28 @@
     <wsdl:part name="UserAccountNote" type="s:string" />
   </wsdl:message>
   <wsdl:message name="UpdateUserAccountNoteHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountPropertyHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PropertyName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountPropertyHttpGetOut">
+    <wsdl:part name="Body" element="tns:UserAccountPropertyResult" />
+  </wsdl:message>
+  <wsdl:message name="CreateGameAccountHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateGameAccountHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="TransToGameAccountHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="TransOutValue" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TransToGameAccountHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpPostIn">
@@ -1239,6 +1337,28 @@
   <wsdl:message name="UpdateUserAccountNoteHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="GetUserAccountPropertyHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PropertyName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountPropertyHttpPostOut">
+    <wsdl:part name="Body" element="tns:UserAccountPropertyResult" />
+  </wsdl:message>
+  <wsdl:message name="CreateGameAccountHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateGameAccountHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="TransToGameAccountHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="TransOutValue" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TransToGameAccountHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:portType name="SpriteAgentSoap">
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDSoapIn" />
@@ -1316,6 +1436,18 @@
       <wsdl:input message="tns:UpdateUserAccountNoteSoapIn" />
       <wsdl:output message="tns:UpdateUserAccountNoteSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <wsdl:input message="tns:GetUserAccountPropertySoapIn" />
+      <wsdl:output message="tns:GetUserAccountPropertySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateGameAccount">
+      <wsdl:input message="tns:CreateGameAccountSoapIn" />
+      <wsdl:output message="tns:CreateGameAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransToGameAccount">
+      <wsdl:input message="tns:TransToGameAccountSoapIn" />
+      <wsdl:output message="tns:TransToGameAccountSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="SpriteAgentHttpGet">
     <wsdl:operation name="GetAgentSessionByID">
@@ -1386,6 +1518,18 @@
       <wsdl:input message="tns:UpdateUserAccountNoteHttpGetIn" />
       <wsdl:output message="tns:UpdateUserAccountNoteHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <wsdl:input message="tns:GetUserAccountPropertyHttpGetIn" />
+      <wsdl:output message="tns:GetUserAccountPropertyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateGameAccount">
+      <wsdl:input message="tns:CreateGameAccountHttpGetIn" />
+      <wsdl:output message="tns:CreateGameAccountHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransToGameAccount">
+      <wsdl:input message="tns:TransToGameAccountHttpGetIn" />
+      <wsdl:output message="tns:TransToGameAccountHttpGetOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="SpriteAgentHttpPost">
     <wsdl:operation name="GetAgentSessionByID">
@@ -1455,6 +1599,18 @@
     <wsdl:operation name="UpdateUserAccountNote">
       <wsdl:input message="tns:UpdateUserAccountNoteHttpPostIn" />
       <wsdl:output message="tns:UpdateUserAccountNoteHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <wsdl:input message="tns:GetUserAccountPropertyHttpPostIn" />
+      <wsdl:output message="tns:GetUserAccountPropertyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateGameAccount">
+      <wsdl:input message="tns:CreateGameAccountHttpPostIn" />
+      <wsdl:output message="tns:CreateGameAccountHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransToGameAccount">
+      <wsdl:input message="tns:TransToGameAccountHttpPostIn" />
+      <wsdl:output message="tns:TransToGameAccountHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SpriteAgentSoap" type="tns:SpriteAgentSoap">
@@ -1623,6 +1779,33 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateUserAccountNote">
       <soap:operation soapAction="http://tempuri.org/UpdateUserAccountNote" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <soap:operation soapAction="http://tempuri.org/GetUserAccountProperty" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateGameAccount">
+      <soap:operation soapAction="http://tempuri.org/CreateGameAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransToGameAccount">
+      <soap:operation soapAction="http://tempuri.org/TransToGameAccount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1804,6 +1987,33 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <soap12:operation soapAction="http://tempuri.org/GetUserAccountProperty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateGameAccount">
+      <soap12:operation soapAction="http://tempuri.org/CreateGameAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransToGameAccount">
+      <soap12:operation soapAction="http://tempuri.org/TransToGameAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SpriteAgentHttpGet" type="tns:SpriteAgentHttpGet">
     <http:binding verb="GET" />
@@ -1960,6 +2170,33 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <http:operation location="/GetUserAccountProperty" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateGameAccount">
+      <http:operation location="/CreateGameAccount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransToGameAccount">
+      <http:operation location="/TransToGameAccount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SpriteAgentHttpPost" type="tns:SpriteAgentHttpPost">
     <http:binding verb="POST" />
@@ -2109,6 +2346,33 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateUserAccountNote">
       <http:operation location="/UpdateUserAccountNote" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <http:operation location="/GetUserAccountProperty" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateGameAccount">
+      <http:operation location="/CreateGameAccount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransToGameAccount">
+      <http:operation location="/TransToGameAccount" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
