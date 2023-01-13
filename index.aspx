@@ -685,6 +685,41 @@
             }
         }
     }
+    
+    function showMessageAgentAccount(cbOK, cbCancel) {
+        if ($("#alertMsgAgentAccount").attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("alertMsgAgentAccount");
+            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertMsgAgentAccount_Close");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alertMsgAgentAccount_OK");
+
+            if (MessageModal == null) {
+                MessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+            }
+
+            if (divMessageBox != null) {
+                MessageModal.show();
+
+                if (divMessageBoxCloseButton != null) {
+                    divMessageBoxCloseButton.onclick = function () {
+                        MessageModal.hide();
+
+                        if (cbCancel != null)
+                            cbCancel();
+                    }
+                }
+
+                if (divMessageBoxOKButton != null) {
+
+                    divMessageBoxOKButton.onclick = function () {
+                        MessageModal.hide();
+
+                        if (cbOK != null)
+                            cbOK();
+                    }
+                }
+            }
+        }
+    }
 
     function showMessageOK(title, message, cbOK) {
         if ($("#alertMsg").attr("aria-hidden") == 'true') {
@@ -757,6 +792,40 @@
         $("#alertBoardMsg").modal("hide");
         $("#popupBulletinList").modal("show");
     }
+
+    function nonCloseShowMessageOK(title, message, cbOK) {
+        var nonCloseDom = $("#nonClose_alertContact");
+        if (nonCloseDom.attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("nonClose_alertContact");
+            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
+            //var divMessageBoxTitle = divMessageBox.querySelector(".alertContact_Text");
+            var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
+            var nonCloseMessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+
+            if (divMessageBox != null) {
+                nonCloseMessageModal.show();
+                nonCloseDom.attr("aria-hidden", 'false');
+
+                if (divMessageBoxCloseButton != null) {
+                    divMessageBoxCloseButton.classList.add("is-hide");
+                }
+
+                if (divMessageBoxOKButton != null) {
+
+                    divMessageBoxOKButton.onclick = function () {
+                        nonCloseMessageModal.hide();
+                        nonCloseDom.attr("aria-hidden", 'true');
+                        if (cbOK != null)
+                            cbOK();
+                    }
+                }
+
+                divMessageBoxContent.innerHTML = message;
+            }
+        }
+    }
+
 
     function nonCloseShowMessageOK(title, message, cbOK) {
         var nonCloseDom = $("#nonClose_alertContact");
@@ -1798,6 +1867,7 @@
     function updateBaseInfo() {
         var idMenuLogin = document.getElementById("idMenuLogin");
         var idLoginBtn = document.getElementById("idLoginBtn");
+        var userWithdrawPermissions = true;
         //var idUserNameTitle = document.getElementById("idUserNameTitle");
         var idWalletDiv = idMenuLogin.querySelector(".amount")
         if (EWinWebInfo.UserLogined) {
@@ -1829,27 +1899,52 @@
             }
 
             selectedWallet = wallet;
-         
 
-            if (wallet.CurrencyType == EWinWebInfo.BonusCurrencyType) {
-                $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
-                    showMessageOK("", mlp.getLanguageKey("請先充值"));
-                });
-            } else {
-                if (wallet.PointValue > 0) {
-                    $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
-                        API_LoadPage('Withdrawal', 'Withdrawal.aspx', true);
-                    });
-                } else {
-                    $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
-                        showMessageOK("", mlp.getLanguageKey("請先充值"));
-                    });
+            var Tag = EWinWebInfo.UserInfo.Tag;
+            if (Tag!=null) {
+                var jsonTag = JSON.parse(Tag);
+                for (var i = 0; i < jsonTag.length; i++) {
+                    if (jsonTag[i]["TagText"] == "黑名單" || jsonTag[i]["TagText"] == "數據延遲/異常" || jsonTag[i]["TagText"] == "技術排查中") {
+                        userWithdrawPermissions = false;
+                    }
                 }
             }
 
-            if (EWinWebInfo.UserInfo.UserAccountType != 0) {
-                $("#liWithdrawalAgent").show();
+            if (!userWithdrawPermissions) {
+                $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
+                    showMessageOK("", mlp.getLanguageKey("請聯繫客服"));
+                });
+
+                $(document).unbind('click').on('click', '#liWithdrawalAgent', function (event) {
+                    showMessageOK("", mlp.getLanguageKey("請聯繫客服"));
+                });
+               
+            } else {
+                if (wallet.CurrencyType == EWinWebInfo.BonusCurrencyType) {
+                    $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
+                        showMessageOK("", mlp.getLanguageKey("請先充值"));
+                    });
+                } else {
+                    if (wallet.PointValue > 0) {
+                        $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
+                            API_LoadPage('Withdrawal', 'Withdrawal.aspx', true);
+                        });
+                    } else {
+                        $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
+                            showMessageOK("", mlp.getLanguageKey("請先充值"));
+                        });
+                    }
+                }
+
+                if (EWinWebInfo.UserInfo.UserAccountType != 0) {
+                    $(document).unbind('click').on('click', '#liWithdrawalAgent', function (event) {
+                        API_LoadPage('WithdrawalAgent', 'WithdrawalAgent.aspx', true);
+                    });
+                
+                    $("#WithdrawalAgent").show();
+                }
             }
+         
             // 已登入
             idMenuLogin.classList.remove("is-hide");
             idLoginBtn.classList.add("is-hide");
@@ -3140,7 +3235,7 @@
                                     </ul>
                                 </li>
                                 --%>
-                            <li class="nav-item submenu dropdown" onclick="API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx', true)" id="liWithdrawalAgent" style="display: none">
+                            <li class="nav-item submenu dropdown" id="liWithdrawalAgent" style="display: none">
                                     <a class="nav-link">   
                                          <i class="icon icon-mask icon-coin"></i>
                                         <span class="title language_replace">代理出款</span></a>
@@ -3763,6 +3858,34 @@
         </div>
     </div>
 
+        <!--alert Msg-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertMsgAgentAccount" aria-hidden="true" id="alertMsgAgentAccount" style="z-index: 10000;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <i class="icon-error_outline primary"></i>
+                        <div class="text-wrap">
+                            <p class="alertMsgAgentAccountg_Text language_replace">請選擇登入帳號</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container">
+                        <button type="button" class="alertMsgAgentAccount_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">代理帳號</span></button>
+                        <button type="button" style="color: #fff;background-color: #007bff;  border-color: #007bff;" class="alertMsgAgentAccount_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">遊戲帳號</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!--alert-->
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="nonClose_alertContact" aria-hidden="true" id="nonClose_alertContact">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -3789,8 +3912,6 @@
             </div>
         </div>
     </div>
-
-    <!--alert-->
 
 
     <div class="modal fade footer-center" tabindex="-1" role="dialog" aria-labelledby="alertContactWithCheckBox" aria-hidden="true" id="alertContactWithCheckBox">

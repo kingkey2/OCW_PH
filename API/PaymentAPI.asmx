@@ -272,7 +272,7 @@ public class PaymentAPI : System.Web.Services.WebService
                         R.PaymentMethodResults = TmpPaymentMethodResults;
 
                         if (TmpPaymentMethodResults.Count > 0)
-                        {                   
+                        {
                             R.Result = enumResult.OK;
                         }
                     }
@@ -1319,7 +1319,7 @@ public class PaymentAPI : System.Web.Services.WebService
                 {
                     ServiceType = "PHP08";
                 }
-              
+
                 Decription = TempCommonData.PaymentMethodName + ", ReceiveTotalAmount=" + TempCommonData.ReceiveTotalAmount.ToString("F10");
 
                 if (ActivityNames.Length > 0)
@@ -1824,6 +1824,18 @@ public class PaymentAPI : System.Web.Services.WebService
                         {
                             //Check ThresholdValue
                             EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
+                            if (userInfoResult.Tag!=null&&userInfoResult.Tag.Length>0)
+                            {
+                                for (int i = 0; i < userInfoResult.Tag.Length; i++)
+                                {
+                                    if (userInfoResult.Tag[i].TagText=="黑名單"||userInfoResult.Tag[i].TagText=="數據延遲/異常"||userInfoResult.Tag[i].TagText=="技術排查中")
+                                    {
+                                            SetResultException(R, "請聯繫客服");
+                                            return R;
+                                    }
+                                }
+                            }
+
                             EWin.Lobby.ThresholdInfo thresholdInfo;
                             decimal thresholdValue;
 
@@ -1934,7 +1946,7 @@ public class PaymentAPI : System.Web.Services.WebService
         return R;
     }
 
-            [WebMethod]
+    [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public PaymentCommonResult CreateEPayWithdrawalAgent(string WebSID, string GUID, decimal Amount, int PaymentMethodID,string PaymentChannelCode)
     {
@@ -1984,6 +1996,18 @@ public class PaymentAPI : System.Web.Services.WebService
                         {
                             //Check ThresholdValue
                             EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
+
+                            if (userInfoResult.Tag!=null&&userInfoResult.Tag.Length>0)
+                            {
+                                for (int i = 0; i < userInfoResult.Tag.Length; i++)
+                                {
+                                    if (userInfoResult.Tag[i].TagText=="黑名單"||userInfoResult.Tag[i].TagText=="數據延遲/異常"||userInfoResult.Tag[i].TagText=="技術排查中")
+                                    {
+                                            SetResultException(R, "請聯繫客服");
+                                            return R;
+                                    }
+                                }
+                            }
                             EWin.Lobby.ThresholdInfo thresholdInfo;
                             decimal thresholdValue;
 

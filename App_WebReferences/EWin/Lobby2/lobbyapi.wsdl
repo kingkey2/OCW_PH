@@ -1514,6 +1514,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="Birthday" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="EMail" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="HasServiceChatMessage" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="Tag" type="tns:ArrayOfCompanyTag" />
               <s:element minOccurs="0" maxOccurs="1" name="Property" type="tns:ArrayOfPropertySet" />
               <s:element minOccurs="0" maxOccurs="1" name="Company" type="tns:CompanyInfo" />
               <s:element minOccurs="0" maxOccurs="1" name="AllBinding" type="tns:ArrayOfBindingInfo" />
@@ -1522,6 +1523,19 @@
             </s:sequence>
           </s:extension>
         </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfCompanyTag">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CompanyTag" nillable="true" type="tns:CompanyTag" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CompanyTag">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TagID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TagText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FontColor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BGColor" type="s:string" />
+        </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfBindingInfo">
         <s:sequence>

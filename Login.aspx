@@ -17,6 +17,7 @@
         string PhoneNumber = Request["PhoneNumber"];
         string LoginType = Request["LoginType"];
         string NewFingerPrint = Request["FingerPrint"];
+        bool FirstLogin =bool.Parse(Request["FirstLogin"]);
         bool IsOldFingerPrint = false;
         string UserAgent = Request["UserAgent"];
         string Birthday = string.Empty;
@@ -46,133 +47,163 @@
 
 
         if (LoginAPIResult.ResultState == EWin.Login.enumResultState.OK) {
-            if (LoginType == "1") {
+            if (false)
+            {
                 EWin.Lobby.UserInfoResult infoResult = lobbyAPI.GetUserInfo(Token, LoginAPIResult.SID, System.Guid.NewGuid().ToString());
+                if (infoResult.UserAccountType != 0)
+                {
+                    Response.Write("<script> var defaultError = function(){ window.parent.showMessageAgentAccount()};</script>");
+                }
+            }
+            else
+            {
+                if (LoginType == "1")
+                {
+                    EWin.Lobby.UserInfoResult infoResult = lobbyAPI.GetUserInfo(Token, LoginAPIResult.SID, System.Guid.NewGuid().ToString());
 
-                if (infoResult.Result == EWin.Lobby.enumResult.OK) {
-                    LoginAccount = infoResult.LoginAccount;
+                    if (infoResult.Result == EWin.Lobby.enumResult.OK)
+                    {
+                        LoginAccount = infoResult.LoginAccount;
 
+                        WebSID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
+                    }
+                }
+                else
+                {
                     WebSID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
                 }
-            } else {
-                WebSID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
-            }
 
-            DT1 = RedisCache.UserAccount.GetUserAccountByLoginAccount(LoginAccount);
+                DT1 = RedisCache.UserAccount.GetUserAccountByLoginAccount(LoginAccount);
 
-            if (DT1 != null && DT1.Rows.Count > 0) {
-
-            } else {
-                EWinWebDB.UserAccount.InsertUserAccountData(LoginAccount);
-            }
-
-            if (string.IsNullOrEmpty(WebSID) == false) {
-                string EwinCallBackUrl;
-                if ( CodingControl.GetIsHttps())
+                if (DT1 != null && DT1.Rows.Count > 0)
                 {
-                    EwinCallBackUrl =  "https://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
+
                 }
-                else {
-                    EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
+                else
+                {
+                    EWinWebDB.UserAccount.InsertUserAccountData(LoginAccount);
                 }
 
-                //錢包金額少於100或門檻歸0時取消只有特定遊戲扣除門檻限制
-                fanta_Result = fantaApi.GetUserPointValue(Token, System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
-                if (fanta_Result.ResultState == EWin.FANTA.enumResultState.OK) {
-                    decimal PointValue = decimal.Parse(fanta_Result.Message);
+                if (string.IsNullOrEmpty(WebSID) == false)
+                {
+                    string EwinCallBackUrl;
+                    if (CodingControl.GetIsHttps())
+                    {
+                        EwinCallBackUrl = "https://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
+                    }
+                    else
+                    {
+                        EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
+                    }
 
-                    if (PointValue <= 100) {
-                        fantaApi.ResetThresholdAddRate(Token, LoginAccount);
-                        lobbyAPI.RemoveUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, "JoinHasThresholdAddRateActivity");
-                    } else {
-                        fanta_Result = new EWin.FANTA.APIResult();
+                    //錢包金額少於100或門檻歸0時取消只有特定遊戲扣除門檻限制
+                    fanta_Result = fantaApi.GetUserPointValue(Token, System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
+                    if (fanta_Result.ResultState == EWin.FANTA.enumResultState.OK)
+                    {
+                        decimal PointValue = decimal.Parse(fanta_Result.Message);
 
-                        fanta_Result = fantaApi.GetUserThresholdValue(Token, System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
+                        if (PointValue <= 100)
+                        {
+                            fantaApi.ResetThresholdAddRate(Token, LoginAccount);
+                            lobbyAPI.RemoveUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, "JoinHasThresholdAddRateActivity");
+                        }
+                        else
+                        {
+                            fanta_Result = new EWin.FANTA.APIResult();
 
-                        if (fanta_Result.ResultState == EWin.FANTA.enumResultState.OK) {
-                            decimal ThresholdValue = decimal.Parse(fanta_Result.Message);
-                            if (ThresholdValue == 0) {
-                                fantaApi.ResetThresholdAddRate(Token, LoginAccount);
-                                lobbyAPI.RemoveUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, "JoinHasThresholdAddRateActivity");
+                            fanta_Result = fantaApi.GetUserThresholdValue(Token, System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
+
+                            if (fanta_Result.ResultState == EWin.FANTA.enumResultState.OK)
+                            {
+                                decimal ThresholdValue = decimal.Parse(fanta_Result.Message);
+                                if (ThresholdValue == 0)
+                                {
+                                    fantaApi.ResetThresholdAddRate(Token, LoginAccount);
+                                    lobbyAPI.RemoveUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, "JoinHasThresholdAddRateActivity");
+                                }
                             }
                         }
                     }
+
+                    Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
+                    Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
+                    Response.SetCookie(new HttpCookie("SID", WebSID));
+                    Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
+                    //Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(LoginAPIResult.CT) + "&KeepLogin=0"  + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
+
+                    //Response.Redirect("RefreshParent.aspx?index.aspx");
+                    Response.Redirect("RefreshParent.aspx?index.aspx?CT=" + HttpUtility.UrlEncode(LoginAPIResult.CT) + "&GoEwinLogin=1");
+                    //DT = RedisCache.UserAccountFingerprint.GetUserAccountFingerprint(LoginAccount);
+
+                    //if (DT != null && DT.Rows.Count > 0) {
+                    //    for (int i = 0; i < DT.Rows.Count; i++) {
+                    //        if (DT.Rows[i]["FingerprintID"].ToString() == NewFingerPrint) {
+                    //            IsOldFingerPrint = true;
+                    //            break;
+                    //        }
+                    //    }
+                    //}
+
+                    //if (IsOldFingerPrint || LoginType == "0") {
+                    //    if (LoginType == "0") {
+                    //        if (IsOldFingerPrint == false) {
+                    //            EWinWebDB.UserAccountFingerprint.InsertUserAccountFingerprint(LoginAccount, NewFingerPrint, UserAgent);
+                    //            RedisCache.UserAccountFingerprint.UpdateUserAccountFingerprint(LoginAccount);
+                    //        }
+                    //    }
+
+                    //    Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
+                    //    Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
+                    //    Response.SetCookie(new HttpCookie("SID", WebSID));
+                    //    Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
+
+                    //    Response.Redirect("RefreshParent.aspx?index.aspx");
+                    //} else {
+                    //    if (EWinWeb.IsTestSite) {
+                    //        var ValidateCode = CodingControl.RandomPassword(new Random(), 4, "0123456789");
+                    //        dynamic tempFP = new System.Dynamic.ExpandoObject();
+                    //        tempFP.ValidateCode = ValidateCode;
+                    //        tempFP.RecoverToken = LoginAPIResult.RecoverToken;
+                    //        tempFP.LoginAccount = LoginAccount;
+                    //        tempFP.SID = WebSID;
+                    //        tempFP.CT = LoginAPIResult.CT;
+                    //        tempFP.FingerPrint = NewFingerPrint;
+
+                    //        RedisCache.FingerPrint.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(tempFP, Newtonsoft.Json.Formatting.None), NewFingerPrint);
+                    //        Response.Write("<script>window.parent.API_ShowMessageOK('測試', '測試驗證碼:" + ValidateCode + "',function(){ window.parent.API_LoadPage('LoginByFP', 'LoginByFP.aspx');});</script>");
+                    //    } else {
+                    //        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+                    //        var ValidateCode = CodingControl.RandomPassword(new Random(), 4, "0123456789");
+                    //        string smsContent = "ただいまマハラジャへのログインは本人確認を行なっております。確認コード（" + ValidateCode + "）入力して下さい。";
+
+
+
+                    //        var SendResult = lobbyAPI.SendSMS(Token, System.Guid.NewGuid().ToString(), "0", 0, LoginAccount, smsContent);
+
+                    //        if (SendResult.Result == EWin.Lobby.enumResult.OK) {
+                    //            dynamic tempFP = new System.Dynamic.ExpandoObject();
+                    //            tempFP.ValidateCode = ValidateCode;
+                    //            tempFP.RecoverToken = LoginAPIResult.RecoverToken;
+                    //            tempFP.LoginAccount = LoginAccount;
+                    //            tempFP.SID = WebSID;
+                    //            tempFP.CT = LoginAPIResult.CT;
+                    //            tempFP.FingerPrint = NewFingerPrint;
+
+                    //            RedisCache.FingerPrint.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(tempFP, Newtonsoft.Json.Formatting.None), NewFingerPrint);
+                    //            Response.Write("<script>window.parent.API_LoadPage('LoginByFP', 'LoginByFP.aspx')</script>");
+                    //        } else {
+                    //            Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗'),function () { })};</script>");
+                    //        }
+                    //    }
+                    //}
                 }
-
-                Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
-                Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
-                Response.SetCookie(new HttpCookie("SID", WebSID));
-                Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
-                //Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(LoginAPIResult.CT) + "&KeepLogin=0"  + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
-
-                //Response.Redirect("RefreshParent.aspx?index.aspx");
-                Response.Redirect("RefreshParent.aspx?index.aspx?CT="+ HttpUtility.UrlEncode(LoginAPIResult.CT) +"&GoEwinLogin=1");
-                //DT = RedisCache.UserAccountFingerprint.GetUserAccountFingerprint(LoginAccount);
-
-                //if (DT != null && DT.Rows.Count > 0) {
-                //    for (int i = 0; i < DT.Rows.Count; i++) {
-                //        if (DT.Rows[i]["FingerprintID"].ToString() == NewFingerPrint) {
-                //            IsOldFingerPrint = true;
-                //            break;
-                //        }
-                //    }
-                //}
-
-                //if (IsOldFingerPrint || LoginType == "0") {
-                //    if (LoginType == "0") {
-                //        if (IsOldFingerPrint == false) {
-                //            EWinWebDB.UserAccountFingerprint.InsertUserAccountFingerprint(LoginAccount, NewFingerPrint, UserAgent);
-                //            RedisCache.UserAccountFingerprint.UpdateUserAccountFingerprint(LoginAccount);
-                //        }
-                //    }
-
-                //    Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
-                //    Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
-                //    Response.SetCookie(new HttpCookie("SID", WebSID));
-                //    Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
-
-                //    Response.Redirect("RefreshParent.aspx?index.aspx");
-                //} else {
-                //    if (EWinWeb.IsTestSite) {
-                //        var ValidateCode = CodingControl.RandomPassword(new Random(), 4, "0123456789");
-                //        dynamic tempFP = new System.Dynamic.ExpandoObject();
-                //        tempFP.ValidateCode = ValidateCode;
-                //        tempFP.RecoverToken = LoginAPIResult.RecoverToken;
-                //        tempFP.LoginAccount = LoginAccount;
-                //        tempFP.SID = WebSID;
-                //        tempFP.CT = LoginAPIResult.CT;
-                //        tempFP.FingerPrint = NewFingerPrint;
-
-                //        RedisCache.FingerPrint.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(tempFP, Newtonsoft.Json.Formatting.None), NewFingerPrint);
-                //        Response.Write("<script>window.parent.API_ShowMessageOK('測試', '測試驗證碼:" + ValidateCode + "',function(){ window.parent.API_LoadPage('LoginByFP', 'LoginByFP.aspx');});</script>");
-                //    } else {
-                //        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-                //        var ValidateCode = CodingControl.RandomPassword(new Random(), 4, "0123456789");
-                //        string smsContent = "ただいまマハラジャへのログインは本人確認を行なっております。確認コード（" + ValidateCode + "）入力して下さい。";
-
-
-
-                //        var SendResult = lobbyAPI.SendSMS(Token, System.Guid.NewGuid().ToString(), "0", 0, LoginAccount, smsContent);
-
-                //        if (SendResult.Result == EWin.Lobby.enumResult.OK) {
-                //            dynamic tempFP = new System.Dynamic.ExpandoObject();
-                //            tempFP.ValidateCode = ValidateCode;
-                //            tempFP.RecoverToken = LoginAPIResult.RecoverToken;
-                //            tempFP.LoginAccount = LoginAccount;
-                //            tempFP.SID = WebSID;
-                //            tempFP.CT = LoginAPIResult.CT;
-                //            tempFP.FingerPrint = NewFingerPrint;
-
-                //            RedisCache.FingerPrint.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(tempFP, Newtonsoft.Json.Formatting.None), NewFingerPrint);
-                //            Response.Write("<script>window.parent.API_LoadPage('LoginByFP', 'LoginByFP.aspx')</script>");
-                //        } else {
-                //            Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗'),function () { })};</script>");
-                //        }
-                //    }
-                //}
-            } else {
-                Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') ,function () { })};</script>");
+                else
+                {
+                    Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') ,function () { })};</script>");
+                }
             }
+
+
         } else {
             Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' +  mlp.getLanguageKey('" + LoginAPIResult.Message + "'),function () { })};</script>");
             //Response.Write("<script>var defalutLoginAccount = '" + LoginAccount +"'; var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗'),function () { })};</script>");
@@ -201,7 +232,7 @@
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/google-libphonenumber/3.2.31/libphonenumber.min.js"></script>
 <%--<script type="text/javascript" src="/Scripts/fingerprint.js"></script>--%>
-<script type="text/javascript">
+ <script type="text/javascript">
     if (self != top) {
         window.parent.API_LoadingStart();
     }
@@ -534,6 +565,7 @@
                 </div>--%>
                 <div class="form-content">
                     <form method="post" id="idFormUserLogin">
+                        <input type="hidden" name="FirstLogin" value="true"  />
                         <input type="hidden" name="FingerPrint" value="" />
                         <input type="hidden" name="UserAgent" value="" />
                         <input type="hidden" name="LoginGUID" value="" />
@@ -616,7 +648,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
 </body>
 </html>
