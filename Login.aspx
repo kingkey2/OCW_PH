@@ -36,7 +36,11 @@
         RValue = R.Next(100000, 9999999);
         Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
 
-        if (LoginType == "1") {
+        if (!FirstLogin)
+        {
+            LoginAPIResult = LoginAPI.UserLoginByCustomValidate(Token,  LoginAccount, LoginPassword, EWinWeb.CompanyCode, UserIP);
+        }
+        else if (LoginType == "1") {
             telPhoneNormalize = new TelPhoneNormalize(PhonePrefix, PhoneNumber);
             LoginAPIResult = LoginAPI.UserLoginByPhoneNumber(Token, LoginGUID, telPhoneNormalize.PhonePrefix, telPhoneNormalize.PhoneNumber, LoginPassword, EWinWeb.CompanyCode, ValidImg, UserIP);
         } else {
@@ -45,12 +49,13 @@
 
 
         if (LoginAPIResult.ResultState == EWin.Login.enumResultState.OK) {
-            if (false)
+            if (FirstLogin)
             {
                 EWin.Lobby.UserInfoResult infoResult = lobbyAPI.GetUserInfo(Token, LoginAPIResult.SID, System.Guid.NewGuid().ToString());
                 if (infoResult.UserAccountType != 0)
                 {
-                    Response.Write("<script> var defaultError = function(){ window.parent.showMessageAgentAccount()};</script>");
+                    Response.Write("<script> AgentAccountLogin('"+LoginAccount+"','"+LoginPassword+"');</script>");
+                    Response.Write("<script> var defaultError = function(){ AgentAccountLogin('"+LoginAccount+"','"+LoginPassword+"');};</script>");
                 }
             }
             else
@@ -94,11 +99,11 @@
                         EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
                     }
 
-                Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
-                Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
-                Response.SetCookie(new HttpCookie("SID", WebSID));
-                Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
-                //Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(LoginAPIResult.CT) + "&KeepLogin=0"  + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
+                    Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
+                    Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
+                    Response.SetCookie(new HttpCookie("SID", WebSID));
+                    Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
+                    //Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(LoginAPIResult.CT) + "&KeepLogin=0"  + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
 
                     //Response.Redirect("RefreshParent.aspx?index.aspx");
                     Response.Redirect("RefreshParent.aspx?index.aspx?CT=" + HttpUtility.UrlEncode(LoginAPIResult.CT) + "&GoEwinLogin=1");
@@ -218,6 +223,21 @@
     //function checkDevice() {
     //    window.parent.API_LoadPage("LoginByFP", "LoginByFP.aspx")
     //}
+     function AgentAccountLogin(loginaccount, password) {
+         var form = document.getElementById("idFormUserLogin");
+         form.LoginAccount.value = loginaccount;
+         form.LoginPassword.value = password;
+         form.FirstLogin.value = "false";
+         form.action = "Login.aspx";
+         window.parent.showMessageAgentAccount(function () {
+             form.LoginAccount.value = loginaccount;
+             form.submit();
+         }, function () {
+             form.LoginAccount.value = loginaccount + "@";
+             form.submit();
+         });
+     }
+     
 
     function updateBaseInfo() {
     }
@@ -504,7 +524,7 @@
     }
 
     window.onload = init;
-</script>
+ </script>
 <body>
     <div class="layout-full-screen sign-container" data-form-group="signContainer">
 

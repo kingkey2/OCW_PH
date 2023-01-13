@@ -830,40 +830,6 @@
         }
     }
 
-
-    function nonCloseShowMessageOK(title, message, cbOK) {
-        var nonCloseDom = $("#nonClose_alertContact");
-        if (nonCloseDom.attr("aria-hidden") == 'true') {
-            var divMessageBox = document.getElementById("nonClose_alertContact");
-            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
-            var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
-            //var divMessageBoxTitle = divMessageBox.querySelector(".alertContact_Text");
-            var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
-            var nonCloseMessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
-
-            if (divMessageBox != null) {
-                nonCloseMessageModal.show();
-                nonCloseDom.attr("aria-hidden", 'false');
-
-                if (divMessageBoxCloseButton != null) {
-                    divMessageBoxCloseButton.classList.add("is-hide");
-                }
-
-                if (divMessageBoxOKButton != null) {
-
-                    divMessageBoxOKButton.onclick = function () {
-                        nonCloseMessageModal.hide();
-                        nonCloseDom.attr("aria-hidden", 'true');
-                        if (cbOK != null)
-                            cbOK();
-                    }
-                }
-
-                divMessageBoxContent.innerHTML = message;
-            }
-        }
-    }
-
     function WithCheckBoxShowMessageOK(title, docNumber, cbOK) {
         var alertDom = $("#alertContactWithCheckBox")
         if (alertDom.attr("aria-hidden") == 'true') {
@@ -1911,8 +1877,8 @@
             selectedWallet = wallet;
 
             var Tag = EWinWebInfo.UserInfo.Tag;
-            if (Tag!=null) {
-                var jsonTag = JSON.parse(Tag);
+            if (Tag) {
+                var jsonTag = Tag;
                 for (var i = 0; i < jsonTag.length; i++) {
                     if (jsonTag[i]["TagText"] == "黑名單" || jsonTag[i]["TagText"] == "數據延遲/異常" || jsonTag[i]["TagText"] == "技術排查中") {
                         userWithdrawPermissions = false;
@@ -1921,14 +1887,13 @@
             }
 
             if (!userWithdrawPermissions) {
-                $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
+                $('#liWithdrawal').unbind('click').click(function () {
                     showMessageOK("", mlp.getLanguageKey("請聯繫客服"));
                 });
 
-                $(document).unbind('click').on('click', '#liWithdrawalAgent', function (event) {
+                $('#liWithdrawalAgent').unbind('click').click(function () {
                     showMessageOK("", mlp.getLanguageKey("請聯繫客服"));
                 });
-               
             } else {
                 if (wallet.CurrencyType == EWinWebInfo.BonusCurrencyType) {
                     $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
@@ -1936,22 +1901,21 @@
                     });
                 } else {
                     if (wallet.PointValue > 0) {
-                        $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
+                        $('#liWithdrawal').unbind('click').click(function () {
                             API_LoadPage('Withdrawal', 'Withdrawal.aspx', true);
                         });
                     } else {
-                        $(document).unbind('click').on('click', '#liWithdrawal', function (event) {
+                        $('#liWithdrawal').unbind('click').click(function () {
                             showMessageOK("", mlp.getLanguageKey("請先充值"));
                         });
                     }
                 }
 
                 if (EWinWebInfo.UserInfo.UserAccountType != 0) {
-                    $(document).unbind('click').on('click', '#liWithdrawalAgent', function (event) {
+                    $("#WithdrawalAgent").show();
+                    $('#liWithdrawalAgent').unbind('click').click(function () {
                         API_LoadPage('WithdrawalAgent', 'WithdrawalAgent.aspx', true);
                     });
-                
-                    $("#WithdrawalAgent").show();
                 }
             }
          
