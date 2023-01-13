@@ -21,7 +21,7 @@
         bool IsOldFingerPrint = false;
         string UserAgent = Request["UserAgent"];
         string Birthday = string.Empty;
-
+        bool FirstLogin2 = false;
         Newtonsoft.Json.Linq.JObject obj_FingerPrint = new Newtonsoft.Json.Linq.JObject();
 
         string UserIP = CodingControl.GetUserIP();
@@ -48,16 +48,33 @@
         }
 
 
-        if (LoginAPIResult.ResultState == EWin.Login.enumResultState.OK) {
+        if (LoginAPIResult.ResultState == EWin.Login.enumResultState.OK)
+        {
             if (FirstLogin)
             {
                 EWin.Lobby.UserInfoResult infoResult = lobbyAPI.GetUserInfo(Token, LoginAPIResult.SID, System.Guid.NewGuid().ToString());
                 if (infoResult.UserAccountType != 0)
                 {
-                    Response.Write("<script> var defaultError2 = function(){ AgentAccountLogin('"+LoginAccount+"','"+LoginPassword+"');};</script>");
+                    var _GetUserAccountProperty = lobbyAPI.GetUserAccountProperty(Token, System.Guid.NewGuid().ToString(),EWin.Lobby.enumUserTypeParam.BySID,LoginAPIResult.SID,"AlreadyHaveGameAccount");
+                    if (_GetUserAccountProperty.Result == EWin.Lobby.enumResult.OK)
+                    {
+                          Response.Write("<script> var defaultError2 = function(){ AgentAccountLogin('" + _GetUserAccountProperty.PropertyValue + "','" + LoginPassword + "');};</script>");
+                    }
+                    else { 
+                          Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' +  mlp.getLanguageKey('" + "尚未建立遊戲帳號" + "'),function () { })};</script>");
+                    }
+                  
+                }
+                else
+                {
+                    FirstLogin2 = true;
                 }
             }
             else
+            {
+                FirstLogin2 = true;
+            }
+            if (FirstLogin2)
             {
                 if (LoginType == "1")
                 {
@@ -172,13 +189,13 @@
                 }
                 else
                 {
-                   Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') ,function () { })};</script>");
+                    Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') ,function () { })};</script>");
                 }
             }
-
-
-        } else {
-             Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' +  mlp.getLanguageKey('" + LoginAPIResult.Message + "'),function () { })};</script>");
+        }
+        else
+        {
+            Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' +  mlp.getLanguageKey('" + LoginAPIResult.Message + "'),function () { })};</script>");
         }
     }
 %>
@@ -228,20 +245,13 @@
          form.LoginPassword.value = password;
          form.FirstLogin.value = "false";
          form.action = "Login.aspx";
-         $('script').each(function () {
-
-             if (this.innerHTML === " var defaultError2 = function(){ AgentAccountLogin('eddie111','1234');};") {
-                 debugger;
-                 this.parentNode.removeChild(this);
-             }
-         });
-         debugger;
+ 
          window.parent.showMessageAgentAccount(function () {
              form.LoginAccount.value = loginaccount;
              form.submit();
 
          }, function () {
-             form.LoginAccount.value = loginaccount + "@";
+             form.LoginAccount.value = loginaccount;
              form.submit();
          });
      }

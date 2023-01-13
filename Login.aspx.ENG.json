@@ -26,5 +26,6 @@
   "測試驗證碼": "verification code testing",
   "請輸入正確電話": "Please enter correct phone number.",
   "帳號": "UserName",
-  "請輸入帳號": "Please enter the UserName."
+  "請輸入帳號": "Please enter the UserName.",
+  "尚未建立遊戲帳號": "No player account has been created yet."
 }

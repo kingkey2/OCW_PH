@@ -275,7 +275,6 @@ public class LobbyAPI : System.Web.Services.WebService {
         }
     }
 
-
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.GameCodeOnlineListResult GetUserAccountGameCodeOnlineList(string WebSID, string GUID) {
