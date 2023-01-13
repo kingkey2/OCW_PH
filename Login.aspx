@@ -58,10 +58,11 @@
                     var _GetUserAccountProperty = lobbyAPI.GetUserAccountProperty(Token, System.Guid.NewGuid().ToString(),EWin.Lobby.enumUserTypeParam.BySID,LoginAPIResult.SID,"AlreadyHaveGameAccount");
                     if (_GetUserAccountProperty.Result == EWin.Lobby.enumResult.OK)
                     {
-                          Response.Write("<script> var defaultError2 = function(){ AgentAccountLogin('" + _GetUserAccountProperty.PropertyValue + "','" + LoginPassword + "');};</script>");
+                          Response.Write("<script> var defaultError2 = function(){ AgentAccountLogin('" + _GetUserAccountProperty.PropertyValue + "','" + LoginPassword + "',true);};</script>");
                     }
                     else { 
-                          Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' +  mlp.getLanguageKey('" + "尚未建立遊戲帳號" + "'),function () { })};</script>");
+                          Response.Write("<script> var defaultError2 = function(){ AgentAccountLogin('" + _GetUserAccountProperty.PropertyValue + "','" + LoginPassword + "',false);};</script>");
+                  
                     }
                   
                 }
@@ -239,7 +240,7 @@
     //function checkDevice() {
     //    window.parent.API_LoadPage("LoginByFP", "LoginByFP.aspx")
     //}
-     function AgentAccountLogin(loginaccount, password) {
+     function AgentAccountLogin(loginaccount, password,haveGameAccount) {
          var form = document.getElementById("idFormUserLogin");
          form.LoginAccount.value = loginaccount;
          form.LoginPassword.value = password;
@@ -251,8 +252,14 @@
              form.submit();
 
          }, function () {
-             form.LoginAccount.value = loginaccount;
-             form.submit();
+                 if (haveGameAccount) {
+                     form.LoginAccount.value = loginaccount;
+                     form.submit();
+                 } else {
+                     window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' + mlp.getLanguageKey('" + "尚未建立遊戲帳號" + "'), function () { })
+                 }
+
+             
          });
      }
      
