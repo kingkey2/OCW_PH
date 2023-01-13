@@ -54,8 +54,7 @@
                 EWin.Lobby.UserInfoResult infoResult = lobbyAPI.GetUserInfo(Token, LoginAPIResult.SID, System.Guid.NewGuid().ToString());
                 if (infoResult.UserAccountType != 0)
                 {
-                    Response.Write("<script> AgentAccountLogin('"+LoginAccount+"','"+LoginPassword+"');</script>");
-                    Response.Write("<script> var defaultError = function(){ AgentAccountLogin('"+LoginAccount+"','"+LoginPassword+"');};</script>");
+                    Response.Write("<script> var defaultError2 = function(){ AgentAccountLogin('"+LoginAccount+"','"+LoginPassword+"');};</script>");
                 }
             }
             else
@@ -173,14 +172,13 @@
                 }
                 else
                 {
-                    Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') ,function () { })};</script>");
+                   Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') ,function () { })};</script>");
                 }
             }
 
 
         } else {
-            Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' +  mlp.getLanguageKey('" + LoginAPIResult.Message + "'),function () { })};</script>");
-            //Response.Write("<script>var defalutLoginAccount = '" + LoginAccount +"'; var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗'),function () { })};</script>");
+             Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' +  mlp.getLanguageKey('" + LoginAPIResult.Message + "'),function () { })};</script>");
         }
     }
 %>
@@ -206,6 +204,7 @@
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/google-libphonenumber/3.2.31/libphonenumber.min.js"></script>
 <%--<script type="text/javascript" src="/Scripts/fingerprint.js"></script>--%>
+
  <script type="text/javascript">
     if (self != top) {
         window.parent.API_LoadingStart();
@@ -229,9 +228,18 @@
          form.LoginPassword.value = password;
          form.FirstLogin.value = "false";
          form.action = "Login.aspx";
+         $('script').each(function () {
+
+             if (this.innerHTML === " var defaultError2 = function(){ AgentAccountLogin('eddie111','1234');};") {
+                 debugger;
+                 this.parentNode.removeChild(this);
+             }
+         });
+         debugger;
          window.parent.showMessageAgentAccount(function () {
              form.LoginAccount.value = loginaccount;
              form.submit();
+
          }, function () {
              form.LoginAccount.value = loginaccount + "@";
              form.submit();
@@ -321,6 +329,8 @@
             } else {
                 if (typeof (defaultError) != 'undefined') {
                     defaultError();
+                } else if (typeof (defaultError2) != 'undefined') {
+                    defaultError2();
                 }
             }
 

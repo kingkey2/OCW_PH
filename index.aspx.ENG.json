@@ -148,5 +148,8 @@
   "請先充值": "Please deposit first.",
   "代理出款": "Agent Withdrawal",
   "代理身分禁止玩遊戲": "Agent is prohibited from playing games",
-  "請聯繫客服": "Please contact customer service."
+  "請聯繫客服": "Please contact customer service.",
+  "請選擇登入帳號": "Please select login account.",
+  "代理帳號": "Agent account",
+  "遊戲帳號": "Game account"
 }

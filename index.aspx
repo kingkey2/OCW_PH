@@ -695,17 +695,17 @@
             var divMessageBox = document.getElementById("alertMsgAgentAccount");
             var divMessageBoxCloseButton = divMessageBox.querySelector(".alertMsgAgentAccount_Close");
             var divMessageBoxOKButton = divMessageBox.querySelector(".alertMsgAgentAccount_OK");
-
-            if (MessageModal == null) {
-                MessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+            var showMessageAgentAccountModal = null;
+            if (showMessageAgentAccountModal == null) {
+                showMessageAgentAccountModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
             }
 
             if (divMessageBox != null) {
-                MessageModal.show();
+                showMessageAgentAccountModal.show();
 
                 if (divMessageBoxCloseButton != null) {
                     divMessageBoxCloseButton.onclick = function () {
-                        MessageModal.hide();
+                        showMessageAgentAccountModal.hide();
 
                         if (cbCancel != null)
                             cbCancel();
@@ -715,7 +715,7 @@
                 if (divMessageBoxOKButton != null) {
 
                     divMessageBoxOKButton.onclick = function () {
-                        MessageModal.hide();
+                        showMessageAgentAccountModal.hide();
 
                         if (cbOK != null)
                             cbOK();
@@ -1841,6 +1841,20 @@
     }
 
     function updateBaseInfo() {
+        if (EWinWebInfo.UserInfo.UserAccountType != 0) {
+            $("#liWithdrawalAgent").show();
+            $("#gameCategory").hide();
+            $("#paymentCategory").hide();
+            $("#downloadCategory").hide();
+
+            $("#ActivityCenterPage").hide();
+            $("#PrizePage").hide();
+            $("#RecordPage").hide();
+            $("#BulletinPage").hide();
+            $("#SearchGame1").hide();
+            $("#SearchGame2").hide();
+        }
+
         var idMenuLogin = document.getElementById("idMenuLogin");
         var idLoginBtn = document.getElementById("idLoginBtn");
         var userWithdrawPermissions = true;
@@ -1912,7 +1926,6 @@
                 }
 
                 if (EWinWebInfo.UserInfo.UserAccountType != 0) {
-                    $("#WithdrawalAgent").show();
                     $('#liWithdrawalAgent').unbind('click').click(function () {
                         API_LoadPage('WithdrawalAgent', 'WithdrawalAgent.aspx', true);
                     });
@@ -3089,7 +3102,7 @@
                     <!-- Sidebar Menu 側邊選單-->
                     <div class="navbarMenu collapse navbar-menu navbar-collapse offset" id="navbarMenu">
 
-                        <div class="search-bar mobile" data-toggle="modal" data-target="#alertSearch" onclick="API_ShowSearchGameModel()">
+                        <div id="SearchGame1" class="search-bar mobile" data-toggle="modal" data-target="#alertSearch" onclick="API_ShowSearchGameModel()">
                             <span class="text language_replace">遊戲搜尋</span>
                             <span class="btn btn-search">
                                 <i class="icon icon-mask icon-search"></i>
@@ -3098,7 +3111,7 @@
 
                         <ul class="nav navbar-nav menu_nav no-gutters">
                             <ul class="menu_nav_top">
-                                <li class="nav-item navbarMenu__catagory">
+                                <li class="nav-item navbarMenu__catagory" id="gameCategory">
                                     <ul class="catagory">
                                         <%--
                                         <li class="nav-item submenu dropdown"
@@ -3134,7 +3147,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="nav-item navbarMenu__catagory">
+                                <li class="nav-item navbarMenu__catagory"  id="paymentCategory">
                                     <ul class="catagory">
                                         <li class="nav-item submenu dropdown"
                                             onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
@@ -3149,7 +3162,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="nav-item navbarMenu__catagory">
+                                <li class="nav-item navbarMenu__catagory" id="userCategory">
                                     <ul class="catagory">
                                         <li class="nav-item submenu dropdown">
                                             <a class="nav-link" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
@@ -3157,12 +3170,12 @@
                                                 <span class="title language_replace">會員中心</span></a>
                                         </li>
 
-                                        <li class="nav-item submenu dropdown">
+                                        <li class="nav-item submenu dropdown" id="ActivityCenterPage">
                                             <a class="nav-link" onclick="API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                                                 <i class="icon icon-mask icon-loudspeaker"></i>
                                                 <span class="title language_replace">活動中心</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown">
+                                        <li class="nav-item submenu dropdown" id="PrizePage">
 
                                             <a class="nav-link" onclick="API_LoadPage('Prize','Prize.aspx', true)">
                                                 <!-- 通知小紅點 -->
@@ -3170,12 +3183,12 @@
                                                 <i class="icon icon-mask icon-prize"></i>
                                                 <span class="title language_replace">領獎中心</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown">
+                                        <li class="nav-item submenu dropdown" id="RecordPage">
                                             <a class="nav-link" onclick="API_LoadPage('record','record.aspx', true)">
                                                 <i class="icon icon-mask icon-calendar"></i>
                                                 <span class="title language_replace">履歷記錄</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown">
+                                        <li class="nav-item submenu dropdown" id="BulletinPage">
                                             <a class="nav-link" data-toggle="modal" data-target="#popupBulletinList">
                                                 <i class="icon icon-mask icon-announce"></i>
                                                 <span class="title language_replace">公告</span></a>
@@ -3187,7 +3200,7 @@
                                         </li>--%>
                                     </ul>
                                 </li>
-                                <li class="nav-item navbarMenu__catagory">
+                                <li class="nav-item navbarMenu__catagory" id="downloadCategory">
                                     <ul class="catagory">
                                         <li class="nav-item submenu dropdown" onclick="window.open('Download/pcdownload.aspx')">
                                             <a class="nav-link">
@@ -3250,7 +3263,7 @@
                                 <a href="/Download/pcdownload.aspx" target="_blank" class="mobile_download"><img src="images/mobile_head.svg"><span>mobile</span></a>
                                 <ul class="nav header_setting_content">
                                     <!-- Search -->
-                                    <li class="navbar-search nav-item">
+                                    <li class="navbar-search nav-item" id="SearchGame2">
 
                                         <span class="search-bar desktop" data-toggle="modal" data-target="#alertSearch" onclick="API_ShowSearchGameModel()">
                                             <span class="btn btn-search">
