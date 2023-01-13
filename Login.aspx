@@ -31,9 +31,7 @@
 
         EWin.Login.LoginResult LoginAPIResult;
         EWin.Login.LoginAPI LoginAPI = new EWin.Login.LoginAPI();
-        EWin.FANTA.FANTA fantaApi = new EWin.FANTA.FANTA();
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-        EWin.FANTA.APIResult fanta_Result = new EWin.FANTA.APIResult();
 
         RValue = R.Next(100000, 9999999);
         Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
@@ -96,40 +94,11 @@
                         EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
                     }
 
-                    //錢包金額少於100或門檻歸0時取消只有特定遊戲扣除門檻限制
-                    fanta_Result = fantaApi.GetUserPointValue(Token, System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
-                    if (fanta_Result.ResultState == EWin.FANTA.enumResultState.OK)
-                    {
-                        decimal PointValue = decimal.Parse(fanta_Result.Message);
-
-                        if (PointValue <= 100)
-                        {
-                            fantaApi.ResetThresholdAddRate(Token, LoginAccount);
-                            lobbyAPI.RemoveUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, "JoinHasThresholdAddRateActivity");
-                        }
-                        else
-                        {
-                            fanta_Result = new EWin.FANTA.APIResult();
-
-                            fanta_Result = fantaApi.GetUserThresholdValue(Token, System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
-
-                            if (fanta_Result.ResultState == EWin.FANTA.enumResultState.OK)
-                            {
-                                decimal ThresholdValue = decimal.Parse(fanta_Result.Message);
-                                if (ThresholdValue == 0)
-                                {
-                                    fantaApi.ResetThresholdAddRate(Token, LoginAccount);
-                                    lobbyAPI.RemoveUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, "JoinHasThresholdAddRateActivity");
-                                }
-                            }
-                        }
-                    }
-
-                    Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
-                    Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
-                    Response.SetCookie(new HttpCookie("SID", WebSID));
-                    Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
-                    //Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(LoginAPIResult.CT) + "&KeepLogin=0"  + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
+                Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
+                Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
+                Response.SetCookie(new HttpCookie("SID", WebSID));
+                Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
+                //Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(LoginAPIResult.CT) + "&KeepLogin=0"  + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
 
                     //Response.Redirect("RefreshParent.aspx?index.aspx");
                     Response.Redirect("RefreshParent.aspx?index.aspx?CT=" + HttpUtility.UrlEncode(LoginAPIResult.CT) + "&GoEwinLogin=1");

@@ -1,5 +1,22 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ManualUserLevelAdjust.aspx.cs" Inherits="Backend_ManualUserLevelAdjust" %>
+<% 
+    EWin.GlobalPermissionAPI.GlobalPermissionAPI GApi = new EWin.GlobalPermissionAPI.GlobalPermissionAPI();
+    EWin.GlobalPermissionAPI.APIResult GR = new EWin.GlobalPermissionAPI.APIResult();
+    string ASID = string.Empty;
 
+
+    if (string.IsNullOrEmpty(Request["ASID"]) == false) {
+        ASID = Request["ASID"];
+        GR = GApi.CheckPermission(ASID, EWinWeb.CompanyCode, "ManualUserLevelAdjust", "ManualUserLevelAdjust", "");
+
+        if (GR.Result == EWin.GlobalPermissionAPI.enumResult.ERR) {
+            Response.Redirect("../Error.aspx?ErrMsg=NoPermissions");
+        }
+    } else {
+            Response.Redirect("../Error.aspx?ErrMsg=NoPermissions");
+    }
+
+%>
 <!doctype html>
 <html>
 <head>
@@ -21,6 +38,7 @@
 <script>      
     var c = new common();
     var ApiUrl = "ManualUserLevelAdjust.aspx";
+    var ASID = "<%=ASID%>";
 
     function init() {
         if (self == top) {
@@ -30,6 +48,7 @@
 
     function onBtnUpdateUserLevel() {
         var postData = {
+            ASID: ASID,
             LoginAccount: $("#idLoginAccount").val(),
             NewUserLevelIndex: $("#idUserLevelIndex").val()
         };

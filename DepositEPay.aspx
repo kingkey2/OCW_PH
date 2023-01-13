@@ -397,7 +397,6 @@
     function setExpireSecond() {
         var nowDate = new Date();
         nowDate.addSeconds(ExpireSecond);
-        nowDate.addHours(1);
         $(".ExpireSecond").text(format(nowDate, "-"));
         $(".ExpireSecond").parent().show();
     }

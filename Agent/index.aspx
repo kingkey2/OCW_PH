@@ -1,4 +1,4 @@
-<%@ Page Language="C#" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="index.aspx.cs" Inherits="index" %>
 
 <%
     string DefaultCompany = Request["DefaultCompany"];
@@ -7,9 +7,11 @@
     string AgentURL = Request["AgentURL"];
     string Lang = Request["Lang"];
     string AgentVersion = EWinWeb.AgentVersion;
+    string AlreadyHaveGameAccount = string.Empty;
     EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
     EWin.SpriteAgent.AgentSessionResult ASR = null;
     EWin.SpriteAgent.AgentSessionInfo ASI = null;
+    EWin.SpriteAgent.UserAccountPropertyResult UPR = null;
 
     ASR = api.GetAgentSessionByID(ASID);
 
@@ -25,6 +27,12 @@
         }
     } else {
         ASI = ASR.AgentSessionInfo;
+
+        UPR = api.GetUserAccountProperty(ASID, System.Guid.NewGuid().ToString(), "AlreadyHaveGameAccount");
+
+        if (UPR!=null && UPR.Result == EWin.SpriteAgent.enumResult.OK) {
+            AlreadyHaveGameAccount = UPR.PropertyValue;
+        }
     }
 %>
 <%="" %>
@@ -86,6 +94,7 @@
     var hasCryptoWallet = false;
     var AgentURL = "";
     var InAppMode = false;
+    var AlreadyHaveGameAccount = "<%=AlreadyHaveGameAccount%>";
 
     var EWinInfo = {
         ASID: "<%=ASI.AgentSessionID%>",
@@ -694,67 +703,6 @@
                             }
                         }
 
-                        //確認是否有下線
-                        api.QueryChildUserAccountList(EWinInfo.ASID, Math.uuid(), EWinInfo.LoginAccount, function (success, o) {
-                            if (success) {
-                                if (o.ResultState == 0) {
-                                    if (o.UserAccountList != null) {
-                                        if (o.UserAccountList.length > 0) {
-
-                                            //外掛的，代理收付款關閉的話，就不出現下線收款選項
-                                            if (EWinInfo.CompanyInfo.PaymentParent != 0) {
-                                                if (document.getElementById("idRequireWithdrawal")) {
-                                                    document.getElementById("idRequireWithdrawal").style.display = "";
-                                                }
-                                            }
-
-
-
-                                            if (EWinInfo.UserInfo.UserAccountType != 0) {
-                                                if (document.getElementById("idChildList")) {
-                                                    document.getElementById("idChildList").style.display = "";
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        });
-
-                        // 檢查是否允許金流取款
-                        if (EWinInfo.CompanyInfo != null) {
-                            if ((EWinInfo.CompanyInfo.PaymentParent == 2) || (EWinInfo.CompanyInfo.PaymentParent == 3)) {
-                                hasPay = true;
-                            }
-
-                            if ((EWinInfo.CompanyInfo.PaymentGPay == 2) || (EWinInfo.CompanyInfo.PaymentGPay == 3)) {
-                                hasPay = true;
-                            }
-
-                            if ((EWinInfo.CompanyInfo.PaymentBitCoin == 2) || (EWinInfo.CompanyInfo.PaymentBitCoin == 3)) {
-                                hasPay = true;
-                            }
-
-                            if ((EWinInfo.CompanyInfo.PaymentBankCard == 2) || (EWinInfo.CompanyInfo.PaymentBankCard == 3)) {
-                                hasPay = true;
-                                if (document.getElementById("idBankPay")) {
-                                    document.getElementById("idBankPay").style.display = "";
-                                }
-                            }
-
-
-                        }
-
-                        if (hasPay == true) {
-                            if (document.getElementById("idRequireWithdrawalMySelf")) {
-                                document.getElementById("idRequireWithdrawalMySelf").style.display = "";
-                            }
-
-                            if (document.getElementById("idRequireWithdrawalReport")) {
-                                document.getElementById("idRequireWithdrawalReport").style.display = "";
-                            }
-                        }
-
                         //動態報表
                         if (menuList) {
                             if (EWinInfo.CompanyInfo.ReportList) {
@@ -848,6 +796,36 @@
         el.parentNode.classList.add("active");
     }
 
+    function CreateGameAccount() {
+        var postObj;
+
+        postObj = {
+            AID: EWinInfo.ASID
+        };
+
+        c.callService("index.aspx/CreateGameAccount", postObj, function (success, o) {
+            if (success) {
+                var obj = c.getJSON(o);
+
+                if (obj.Result == 0) {
+                    API_ShowMessageOK(mlp.getLanguageKey("完成"), mlp.getLanguageKey("完成"), function () {
+                        $("#idCreateGameAccount").hide();
+                        $("#liTrade").show();
+                    })
+                } else {
+                    API_ShowMessageOK(mlp.getLanguageKey("錯誤"), obj.Message);
+                }
+            } else {
+                if (o == "Timeout") {
+                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                } else {
+                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                }
+            }
+        });
+
+    }
+
     function init() {
         lang = window.localStorage.getItem("agent_lang");
 
@@ -864,7 +842,15 @@
                         }                        
                     });                        
                  }
-             });
+            });
+
+            if (AlreadyHaveGameAccount == "") {
+                $("#idCreateGameAccount").show();
+                $("#liTrade").hide();
+            } else {
+                $("#idCreateGameAccount").hide();
+                $("#liTrade").show();
+            }
 
             window.setInterval(function () {
                 if (EWinInfo.ASID != null && EWinInfo.ASID != "") {
@@ -1090,6 +1076,21 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="nav-item navbarMenu__catagory" id="liTrade" style="display:none">
+                                <span class="catagory-item"><span class="language_replace">交易</span></span>
+                                <ul class="catagory">
+                                    <li class="nav-item submenu dropdown" id="btnWithdrawal" style="display:none">
+                                        <a class="nav-link"<%-- onclick="API_MainWindow(mlp.getLanguageKey('出款'), 'UserAccount_Maint2_Casino.aspx');ItemClick(this);"--%>>
+                                            <i class="icon icon-mask icon-ewin-transfer"></i>
+                                            <span class="language_replace">出款</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown" id="btnTransfer">
+                                        <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('轉帳至遊戲帳戶'), 'UserAccountWallet_Transfer.aspx');ItemClick(this);">
+                                            <i class="icon icon-mask icon-ewin-transfer"></i>
+                                            <span class="language_replace">轉帳至遊戲帳戶</span></a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item submenu dropdown">
                                 <a class="nav-link" onclick="LogOut()">
                                     <i class="icon icon-mask icon-ewin-logout"></i>
@@ -1138,6 +1139,9 @@
                                                 </li>
                                                 <li id="idMyQRCode" class="nav-item">
                                                     <a class="nav-link icon icon-ewin-default-myQrCode language_replace" onclick="showQRCode()" target="mainiframe">我的推廣碼</a>
+                                                </li>
+                                                <li id="idCreateGameAccount" class="nav-item" style="display:none">
+                                                    <a class="nav-link icon icon-ewin-default-myQrCode language_replace" onclick="CreateGameAccount()" target="mainiframe">新增遊玩帳號</a>
                                                 </li>
                                             </ul>
                                         </li>
