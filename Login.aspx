@@ -61,7 +61,7 @@
                           Response.Write("<script> var defaultError2 = function(){ AgentAccountLogin('" + _GetUserAccountProperty.PropertyValue + "','" + LoginPassword + "',true);};</script>");
                     }
                     else { 
-                          Response.Write("<script> var defaultError2 = function(){ AgentAccountLogin('" + _GetUserAccountProperty.PropertyValue + "','" + LoginPassword + "',false);};</script>");
+                          Response.Write("<script> var defaultError2 = function(){ AgentAccountLogin('" + LoginAccount + "','" + LoginPassword + "',false);};</script>");
                   
                     }
                   

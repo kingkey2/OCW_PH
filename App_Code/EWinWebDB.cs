@@ -458,6 +458,27 @@ public static class EWinWebDB {
 
             return ReturnValue;
         }
+
+        public static System.Data.DataTable GetActivityLoginAccountByActivityName(string ActivityName)
+        {
+            string SS;
+            System.Data.DataTable DT;
+            System.Data.SqlClient.SqlCommand DBCmd;
+
+            SS = " SELECT LoginAccount " +
+                     " FROM   UserAccountEventSummary " +
+                     " WHERE  ActivityName = @ActivityName " +
+                     "        AND UserIP = @UserIP ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@ActivityName", System.Data.SqlDbType.VarChar).Value = ActivityName;
+            DBCmd.Parameters.Add("@UserIP", System.Data.SqlDbType.VarChar).Value = CodingControl.GetUserIP();
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
     }
 
     public static class UserAccountPayment {

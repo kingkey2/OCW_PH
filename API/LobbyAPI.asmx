@@ -528,6 +528,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult();
         EWin.OCW.ParentUserAccountInfoResult Parent = new EWin.OCW.ParentUserAccountInfoResult();
         System.Data.DataTable DT = null;
+        System.Data.DataTable ActivityLoginAccountDT = null;
         string ParentLoginAccount = string.Empty;
         string CollectAreaType;
         string Birthday = DateTime.Now.ToString("yyyy/MM/dd");
@@ -547,7 +548,17 @@ public class LobbyAPI : System.Web.Services.WebService {
             ActivityCount = EWinWebDB.UserAccountEventSummary.GetActivityCountByActivityName("RegisterBouns");
 
             if (ActivityCount > 2) {
-
+                string LoginAccounts = "";
+                ActivityLoginAccountDT= EWinWebDB.UserAccountEventSummary.GetActivityLoginAccountByActivityName("RegisterBouns");
+                if (ActivityLoginAccountDT!=null&&ActivityLoginAccountDT.Rows.Count>0)
+                {
+                    for (int i = 0; i < ActivityLoginAccountDT.Rows.Count; i++)
+                    {
+                        LoginAccounts += ActivityLoginAccountDT.Rows[i]["LoginAccount"].ToString()+",";
+                    }
+                    LoginAccounts += "IP:" + CodingControl.GetUserIP();
+                }
+                lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, "RegisterBouns IP duplicate", LoginAccounts);
             } else {
                 var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
 
@@ -1820,8 +1831,8 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                                                         fantaAPI.UpdateThresholdAddRate(GetToken(), SI.LoginAccount, ThresholdAddRateSetting.ToArray());
                                                         lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, SI.LoginAccount, "JoinHasThresholdAddRateActivity", "true");
-                                                    } 
-                                                } 
+                                                    }
+                                                }
                                             }
                                         }
                                     }
