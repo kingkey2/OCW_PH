@@ -834,16 +834,6 @@
         });
 
         AdjustDate();
-
-        //changeAvatar(getCookie("selectAvatar"));
-        
-
-        $("#activityURL").attr("href", "https://casino-maharaja.net/lp/01/" + WebInfo.UserInfo.PersonCode);
-        $("#activityURL1").attr("href", "https://casino-maharaja.net/lp/02/" + WebInfo.UserInfo.PersonCode);
-
-        //if (!WebInfo.UserInfo.IsWalletPasswordSet) {
-            //document.getElementById('idWalletPasswordUnSet').style.display = "block";
-        //}
     }
 
     function GetEPayBankSelect() {
@@ -875,22 +865,6 @@
             }
 
         })
-    }
-
-    function copyActivityUrl() {
-
-        navigator.clipboard.writeText("https://casino-maharaja.net/lp/01/" + WebInfo.UserInfo.PersonCode).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
-        //alert("Copied the text: " + copyText.value);
-    }
-
-    function copyActivityUrl1() {
-
-        navigator.clipboard.writeText("https://casino-maharaja.net/lp/02/" + WebInfo.UserInfo.PersonCode).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
-        //alert("Copied the text: " + copyText.value);
     }
 
     function openAddGameModal() {
@@ -1697,61 +1671,6 @@
                         </section>
                       
                     </section>
-
-                    <%--
-                    <!-- 熱門活動 -->
-                    <div class="activity-promo-wrapper">
-                        <div class="activity-promo-inner">
-                            <div class="sec-title-container">
-                                <div class="sec-title-wrapper">
-                                    <h3 class="sec-title title-deco"><span class="language_replace">熱門活動</span></h3>
-                                </div>
-                            </div>                           
-                            <div class="activity-promo-content">
-                                <ul class="activity-promo-list">
-                                    <li class="promo-item">
-                                        <div class="promo-inner">
-                                            <div class="promo-img">
-                                                <a id="activityURL1" href="https://www.casino-maharaja.net/lp/02/N00000000"
-                                                    target="_blank">
-                                                    <div class="img-crop">
-                                                        <img src="images/activity/promo-02.jpg"
-                                                            alt="パチンコって何？それっておいしいの？">
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="promo-content">
-                                                <h4 class="title language_replace">顧客活用的介紹推廣頁②（柏青哥愛好者）</h4>
-                                                <button type="button" class="btn btn-full-sub" onclick="copyActivityUrl1()">
-                                                    <i class="icon icon-mask icon-copy"></i><span class="language_replace">複製活動連結</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="promo-item">
-                                        <div class="promo-inner">
-                                            <div class="promo-img">
-                                                <a id="activityURL" href="https://casino-maharaja.net/lp/01/N00000000"
-                                                    target="_blank">
-                                                    <div class="img-crop">
-                                                        <img src="images/activity/promo-01.jpg"
-                                                            alt="とりあえず、当社のドメインで紹介用LPをアップしてみました。">
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="promo-content">
-                                                <h4 class="title language_replace">お客様活用、紹介ランディングページその①（主婦）</h4>
-                                                <button type="button" class="btn btn-full-sub " onclick="copyActivityUrl()"><i class="icon icon-mask icon-copy"></i>
-                                                    <span class="language_replace">複製活動連結</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    --%>
                 </article>
             </div>
         </div>

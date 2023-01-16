@@ -808,7 +808,7 @@
                 var obj = c.getJSON(o);
 
                 if (obj.Result == 0) {
-                    API_ShowMessageOK(mlp.getLanguageKey("完成"), mlp.getLanguageKey("完成"), function () {
+                    API_ShowMessageOK(mlp.getLanguageKey("完成"), mlp.getLanguageKey("遊玩帳號")+" : "+obj.Message, function () {
                         $("#idCreateGameAccount").hide();
                         $("#liTrade").show();
                     })

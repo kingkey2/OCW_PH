@@ -1841,18 +1841,20 @@
     }
 
     function updateBaseInfo() {
-        if (EWinWebInfo.UserInfo.UserAccountType != 0) {
-            $("#liWithdrawalAgent").show();
-            $("#gameCategory").hide();
-            $("#paymentCategory").hide();
-            $("#downloadCategory").hide();
+        if (EWinWebInfo.UserInfo != null) {
+            if (EWinWebInfo.UserInfo.UserAccountType != 0) {
+                $("#liWithdrawalAgent").show();
+                $("#gameCategory").hide();
+                $("#paymentCategory").hide();
+                $("#downloadCategory").hide();
 
-            $("#ActivityCenterPage").hide();
-            $("#PrizePage").hide();
-            $("#RecordPage").hide();
-            $("#BulletinPage").hide();
-            $("#SearchGame1").hide();
-            $("#SearchGame2").hide();
+                $("#ActivityCenterPage").hide();
+                $("#PrizePage").hide();
+                $("#RecordPage").hide();
+                $("#BulletinPage").hide();
+                $("#SearchGame1").hide();
+                $("#SearchGame2").hide();
+            }
         }
 
         var idMenuLogin = document.getElementById("idMenuLogin");
