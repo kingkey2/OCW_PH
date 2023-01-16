@@ -543,7 +543,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     Birthday = EachPS.Value;
                 }
             }
-            EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"));
+       EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), Birthday);
 
             ActivityCount = EWinWebDB.UserAccountEventSummary.GetActivityCountByActivityName("RegisterBouns");
 
