@@ -68,6 +68,8 @@
   "錯誤": "Error",
   "完成": "Finish",
   "出款": "Withdrawal",
-  "轉帳至遊戲帳戶": "Transfer To GameAccount",
-  "交易": "Transaction"
+  "轉帳至遊戲帳戶": "Transfer To PlayerAccount",
+  "交易": "Transaction",
+  "新增遊玩帳號": "Create PlayerAccount",
+  "遊玩帳號": "PlayerAccount"
 }
