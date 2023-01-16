@@ -1274,14 +1274,15 @@ public static class EWinWebDB {
             System.Data.SqlClient.SqlCommand DBCmd;
             int RetValue = 0;
 
-            SS = " INSERT INTO UserAccountTable (UserLevelIndex, LoginAccount, UserLevelUpdateDate, Birthday) " +
-                                  " VALUES (@UserLevelIndex, @LoginAccount, @UserLevelUpdateDate, @Birthday) ";
+            SS = " INSERT INTO UserAccountTable (UserLevelIndex, LoginAccount, UserLevelUpdateDate, Birthday,RegisterIP) " +
+                                  " VALUES (@UserLevelIndex, @LoginAccount, @UserLevelUpdateDate, @Birthday,@RegisterIP) ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
             DBCmd.Parameters.Add("@UserLevelIndex", System.Data.SqlDbType.Int).Value = UserLevelIndex;
             DBCmd.Parameters.Add("@UserLevelUpdateDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(UserLevelUpdateDate);
             DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@RegisterIP", System.Data.SqlDbType.VarChar).Value = CodingControl.GetUserIP();
             DBCmd.Parameters.Add("@Birthday", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(Birthday);
             RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
 
