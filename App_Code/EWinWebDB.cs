@@ -1481,6 +1481,24 @@ public static class EWinWebDB {
             return ReturnValue;
         }
 
+        //保級成功
+        public static int RelegationUserAccountLevelSuccess(int UserLevelIndex, string LoginAccount, string UserLevelUpdateDate) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " UPDATE UserAccountTable SET UserLevelIndex=@UserLevelIndex,UserLevelUpdateDate=@UserLevelUpdateDate,UserLevelAccumulationValidBetValue=0 " +
+                      " WHERE LoginAccount=@LoginAccount";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@UserLevelIndex", System.Data.SqlDbType.Int).Value = UserLevelIndex;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@UserLevelUpdateDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(UserLevelUpdateDate);
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
     }
 
     public static class UserAccountLevelLog {
