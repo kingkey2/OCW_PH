@@ -1877,17 +1877,17 @@
             } else {
                 wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.MainCurrencyType.toLocaleUpperCase());
             }
-
+   
             //Check Balance Change
             if (selectedWallet != null) {
                 if (wallet.PointValue != selectedWallet.PointValue) {
                     //idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
-                    idWalletDiv.innerText = new BigNumber(parseFloat(wallet.PointValue).toFixed(1)).toFormat();
+                    idWalletDiv.innerText = new BigNumber(roundDown(parseFloat(wallet.PointValue), 2)).toFormat();
                     notifyWindowEvent("BalanceChange", wallet.PointValue);
                 }
             } else {
                 //idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
-                idWalletDiv.innerText = new BigNumber(parseFloat(wallet.PointValue).toFixed(1)).toFormat();
+                idWalletDiv.innerText = new BigNumber(roundDown(parseFloat(wallet.PointValue), 2)).toFormat();
             }
 
             selectedWallet = wallet;
@@ -1949,6 +1949,10 @@
             $(".avater-name").text("");
             selectedWallet = null;
         }
+    }
+
+    function roundDown(num, decimal) {
+        return Math.floor((num + Number.EPSILON) * Math.pow(10, decimal)) / Math.pow(10, decimal);
     }
 
     function userRecover(cb) {

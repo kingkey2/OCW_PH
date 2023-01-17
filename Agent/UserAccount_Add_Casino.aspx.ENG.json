@@ -78,5 +78,6 @@
   "Electron.Fish": "FIsh",
   "Live.FightChicken": "CockFight",
   "Live": "Stream",
-  "不可為空值": "Not Nullable"
+  "不可為空值": "Not Nullable",
+  "電話已存在": "This phone number has already been used, please use another phone number, thank you!"
 }
