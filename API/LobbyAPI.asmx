@@ -543,7 +543,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     Birthday = EachPS.Value;
                 }
             }
-       EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), Birthday);
+            EWinWebDB.UserAccount.InsertUserAccountLevelAndBirthday(0, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd"), Birthday);
 
             ActivityCount = EWinWebDB.UserAccountEventSummary.GetActivityCountByActivityName("RegisterBouns");
 
@@ -925,7 +925,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     GUID = GUID
                 };
 
-                R.DetailList = callResult.DetailList.GroupBy(x => new { x.GameCode, x.CurrencyType, x.SummaryDate }, x => x, (key, detail) => new EWin.Lobby.GameOrderDetail {
+                R.DetailList = callResult.DetailList.Where(x => x.CurrencyType == EWinWeb.BonusCurrencyType || x.CurrencyType == EWinWeb.MainCurrencyType).GroupBy(x => new { x.GameCode, x.CurrencyType, x.SummaryDate }, x => x, (key, detail) => new EWin.Lobby.GameOrderDetail {
                     GameCode = key.GameCode,
                     ValidBetValue = detail.Sum(y => y.ValidBetValue),
                     BuyChipValue = detail.Sum(y => y.BuyChipValue),
@@ -971,7 +971,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     GUID = GUID
                 };
 
-                R.SummaryList = callResult.SummaryList.Where(x=>x.OrderValue > 0).GroupBy(x => new { x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
+                R.SummaryList = callResult.SummaryList.Where(x => x.OrderValue > 0 && (x.CurrencyType == EWinWeb.BonusCurrencyType || x.CurrencyType == EWinWeb.MainCurrencyType)).GroupBy(x => new { x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
                     ValidBetValue = sum.Sum(y => y.ValidBetValue),
                     RewardValue = sum.Sum(y => y.RewardValue),
                     OrderValue = sum.Sum(y => y.OrderValue),
