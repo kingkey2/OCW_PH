@@ -242,17 +242,13 @@
     //}
      function AgentAccountLogin(loginaccount, agentLoginAccount, password, haveGameAccount) {
          var form = document.getElementById("idFormUserLogin");
-         if (haveGameAccount) {
-             form.LoginAccount.value = loginaccount;
-         } else {
-             form.LoginAccount.value = agentLoginAccount;
-         }
+    
          form.LoginPassword.value = password;
          form.FirstLogin.value = "false";
          form.action = "Login.aspx";
 
          window.parent.showMessageAgentAccount(function () {
-             //form.LoginAccount.value = loginaccount;
+             form.LoginAccount.value = agentLoginAccount;
              form.submit();
 
          }, function () {
