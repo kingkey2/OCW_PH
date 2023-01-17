@@ -11,5 +11,6 @@
   "請輸入轉出金額!!": "Please enter the transfer amount",
   "轉出金額輸入錯誤!!": " The transfer amount is incorrect, please check.",
   "轉出金額不可輸入負數!!": " The transfer amount cannot be minus, please check.",
-  "轉出金額超過可轉金額!!": " The transfer amount exceed wallet amount."
+  "轉出金額超過可轉金額!!": " The transfer amount exceed wallet amount.",
+  "提醒": "System Message"
 }

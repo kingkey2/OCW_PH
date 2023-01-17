@@ -71,5 +71,6 @@
   "轉帳至遊戲帳戶": "Transfer To PlayerAccount",
   "交易": "Transaction",
   "新增遊玩帳號": "Create PlayerAccount",
-  "遊玩帳號": "PlayerAccount"
+  "遊玩帳號": "PlayerAccount",
+  "提醒": "System Message"
 }
