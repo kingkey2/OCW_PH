@@ -143,7 +143,7 @@
             wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType.toLocaleUpperCase());
         }
         
-        $("#idAmount").text(new BigNumber(parseFloat(wallet.PointValue).toFixed(1)).toFormat());
+        $("#idAmount").text(new BigNumber(roundDown(parseFloat(wallet.PointValue), 2)).toFormat());
         $("#PersonCode").text(WebInfo.UserInfo.PersonCode);
         $("#idCopyPersonCode").text(`${"<%=EWinWeb.CasinoWorldUrl %>"}/Index.aspx?PCode=${WebInfo.UserInfo.PersonCode}`);
         $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"<%=EWinWeb.CasinoWorldUrl %>"}/Index.aspx?PCode=${WebInfo.UserInfo.PersonCode}&Download=2`);
@@ -793,7 +793,10 @@
         window.document.body.scrollTop = 0;
         window.document.documentElement.scrollTop = 0;
     }
-
+    
+    function roundDown(num, decimal) {
+        return Math.floor((num + Number.EPSILON) * Math.pow(10, decimal)) / Math.pow(10, decimal);
+    }
 
     function init() {
         if (self == top) {
