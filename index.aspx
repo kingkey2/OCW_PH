@@ -1950,7 +1950,7 @@
             selectedWallet = null;
         }
     }
-
+     //小數點後兩位無條件捨去
     function roundDown(num, decimal) {
         return Math.floor((num + Number.EPSILON) * Math.pow(10, decimal)) / Math.pow(10, decimal);
     }
