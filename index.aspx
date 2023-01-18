@@ -1843,7 +1843,6 @@
     function updateBaseInfo() {
         if (EWinWebInfo.UserInfo != null) {
             if (EWinWebInfo.UserInfo.UserAccountType != 0) {
-                $('.btn-deposit').hide();
                 $("#liWithdrawalAgent").show();
                 $("#gameCategory").hide();
                 $("#paymentCategory").hide();
