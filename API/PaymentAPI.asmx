@@ -1650,6 +1650,16 @@ public class PaymentAPI : System.Web.Services.WebService
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
+
+            EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
+            if (userInfoResult.Result== EWin.Lobby.enumResult.OK)
+            {
+                if (userInfoResult.UserAccountType != 0)
+                {
+                    SetResultException(R, "PaymentMethodNotSupportDeposit");
+                    return R;
+                }
+            }
             PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
 
             if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
@@ -1830,8 +1840,8 @@ public class PaymentAPI : System.Web.Services.WebService
                                 {
                                     if (userInfoResult.Tag[i].TagText=="黑名單"||userInfoResult.Tag[i].TagText=="數據延遲/異常"||userInfoResult.Tag[i].TagText=="技術排查中")
                                     {
-                                            SetResultException(R, "請聯繫客服");
-                                            return R;
+                                        SetResultException(R, "請聯繫客服");
+                                        return R;
                                     }
                                 }
                             }
@@ -2003,8 +2013,8 @@ public class PaymentAPI : System.Web.Services.WebService
                                 {
                                     if (userInfoResult.Tag[i].TagText=="黑名單"||userInfoResult.Tag[i].TagText=="數據延遲/異常"||userInfoResult.Tag[i].TagText=="技術排查中")
                                     {
-                                            SetResultException(R, "請聯繫客服");
-                                            return R;
+                                        SetResultException(R, "請聯繫客服");
+                                        return R;
                                     }
                                 }
                             }
@@ -2184,7 +2194,7 @@ public class PaymentAPI : System.Web.Services.WebService
                         PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(TempCryptoData.PaymentMethodID);
                         if (!(PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0))
                         {
-                            SetResultException(R, "PaymentMethodNotExist");
+                            SetResultException(R, "AgentAccountCannotDeposit");
                             return R;
                         }
 
