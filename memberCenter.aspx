@@ -807,11 +807,17 @@
             $('.icon-copy').hide();
         }
 
+        
+
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetLobbyAPI();
         PaymentClient = window.parent.API_GetPaymentAPI();
         lang = window.parent.API_GetLang();
- 
+
+        if (WebInfo.UserInfo.UserAccountType != 0) {
+            $('.btn-deposit').hide();
+        }
+
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
