@@ -53,9 +53,7 @@
 <script src="/Scripts/bignumber.min.js"></script>
 <script src="/Scripts/Math.uuid.js"></script>
 <script src="Scripts/MultiLanguage.js"></script>
-<script type="text/javascript" src="js/AppBridge.js"></script>
 <script>
-    var AppBridge = new AppBridge("JsBridge", "iosJsBridge", "");
     var c = new common();
     var lang = "<%=Lang%>";
     var mlp;
@@ -236,39 +234,6 @@
         var langTmp;
         var langel = document.getElementsByName("lang");
         var inAPP = false;
-
-        //存入殼內的為第一優先
-        if (AppBridge) {
-            if (AppBridge.config.inAPP == true) {
-                inAPP = true;
-                AppBridge.GetDataByKey("CompanyCode", function (retValue) {
-                    if (retValue != "(null)" && retValue != "") {
-                        if (typeof (retValue) != "undefined") {
-                            defaultCompany = retValue;
-                            document.getElementsByName("CompanyCode")[0].value = retValue;
-                        }
-                    }
-
-                    //if (window.sessionStorage.getItem("hasDefaultCompany")) {
-                    //    if (window.sessionStorage.getItem("hasDefaultCompany") == "false") {
-                    //        idCompanyCode.style.display = "block";
-                    //        document.getElementsByName("CompanyCode")[0].value = "";
-                    //    }
-
-                    //}
-                    //else {
-                    //    if ((defaultCompany != null) && (defaultCompany != "")) {
-                    //        idCompanyCode.style.display = "none";
-                    //    } else {
-                    //        window.sessionStorage.setItem("hasDefaultCompany", "false");
-                    //        idCompanyCode.style.display = "block";
-                    //    }
-                    //}
-                });
-
-            }
-        }
-
 
         //設定是否已傳送資料
         window.localStorage.setItem("UpdateDeviceInfo", "false");

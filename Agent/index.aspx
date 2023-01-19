@@ -58,10 +58,8 @@
 <script type="text/javascript" src="/Scripts/qcode-decoder.min.js"></script>
 <script type="text/javascript" src="/Scripts/qcode-decoder.min.js"></script>
 <script type="text/javascript" src="js/AgentAPI.js"></script>
-<script type="text/javascript" src="js/AppBridge.js"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-    var AppBridge = new AppBridge("JsBridge", "iosJsBridge", "");
     var c = new common();
     var lang;
     var mlp;
@@ -900,59 +898,7 @@
                 } else {
                     window.top.location.href = "Refresh.aspx?login.aspx?C=<%=DefaultCompany%>";
                 }
-            }, 10000);
-
-            if (AppBridge) {
-                if (AppBridge.config.inAPP == true) {
-                    EWinInfo.InAppMode = true;
-                    InAppMode = true;
-                    AppBridge.SetDataByKey("CompanyCode", EWinInfo.CompanyCode);
-                    AppBridge.getMobileInfo(function (deviceType, deviceName, systemInfo, ID, version) {
-                        switch (systemInfo.split("_")[0].toUpperCase()) {
-                            case "IOS":
-                                DeviceType = "IOS";
-                                break;
-                            case "ANDROID":
-                                DeviceType = "ANDROID";
-                                break;
-                            default:
-                                DeviceType = "PC";
-                                break;
-
-                        }
-
-                        resize();
-                    })
-
-
-                    AppBridge.getPhoneAllData(function (retInfo) {
-                        DeviceName = retInfo.deviceName;
-                        DeviceKey = retInfo.uuid;
-                        NotifyToken = retInfo.token;
-                        GPSPosition = retInfo.longitude + "," + retInfo.latitude;
-
-                        //0 = None, 1 = FCM, 2 = JPush
-                        PushType = 1;
-                        if (retInfo.token == "") {
-                            PushType = 2;
-                        }
-
-                        //0=未知/1=PC/2=Mobile
-
-                        if (window.localStorage.getItem("UpdateDeviceInfo") == "false") {
-                            api.UpdateDeviceInfo(EWinInfo.ASID, Math.uuid(), DeviceGUID, PushType, DeviceName, DeviceKey, 2, NotifyToken, GPSPosition, UserAgent, null);
-                            window.localStorage.setItem("UpdateDeviceInfo", "true");
-                        }
-                    });
-                }
-                else {
-
-                    if (window.localStorage.getItem("UpdateDeviceInfo") == "false") {
-                        api.UpdateDeviceInfo(EWinInfo.ASID, Math.uuid(), DeviceGUID, PushType, DeviceName, DeviceKey, 1, NotifyToken, GPSPosition, UserAgent, null);
-                        window.localStorage.setItem("UpdateDeviceInfo", "true");
-                    }
-                }
-            }                     
+            }, 10000);               
         });
 
         resize();

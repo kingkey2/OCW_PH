@@ -1005,7 +1005,7 @@
             el.src = el.src.replace("MG", "MG2");
         } else {
             el.onerror = null;
-            el.src = WebInfo.ImageUrl + "/default.png";
+            el.src = EWinWebInfo.ImageUrl + "/default.png";
         }
     }
 
