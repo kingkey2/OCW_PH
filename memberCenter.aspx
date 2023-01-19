@@ -807,11 +807,13 @@
             $('.icon-copy').hide();
         }
 
+        
+
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetLobbyAPI();
         PaymentClient = window.parent.API_GetPaymentAPI();
         lang = window.parent.API_GetLang();
- 
+
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();

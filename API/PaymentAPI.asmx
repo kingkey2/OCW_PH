@@ -1650,6 +1650,16 @@ public class PaymentAPI : System.Web.Services.WebService
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
+
+            EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
+            if (userInfoResult.Result== EWin.Lobby.enumResult.OK)
+            {
+                if (userInfoResult.UserAccountType != 0)
+                {
+                    SetResultException(R, "PaymentMethodNotSupportDeposit");
+                    return R;
+                }
+            }
             PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
 
             if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
@@ -1830,8 +1840,8 @@ public class PaymentAPI : System.Web.Services.WebService
                                 {
                                     if (userInfoResult.Tag[i].TagText=="黑名單"||userInfoResult.Tag[i].TagText=="數據延遲/異常"||userInfoResult.Tag[i].TagText=="技術排查中")
                                     {
-                                            SetResultException(R, "請聯繫客服");
-                                            return R;
+                                        SetResultException(R, "請聯繫客服");
+                                        return R;
                                     }
                                 }
                             }
@@ -1851,6 +1861,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                 {
                                     thresholdValue = 0;
                                 }
+
                                 if (thresholdValue == 0)
                                 {
                                     PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
@@ -1948,7 +1959,7 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public PaymentCommonResult CreateEPayWithdrawalAgent(string WebSID, string GUID, decimal Amount, int PaymentMethodID,string PaymentChannelCode)
+    public PaymentCommonResult CreateEPayWithdrawalAgent(string WebSID, string GUID, decimal Amount, int PaymentMethodID, string PaymentChannelCode)
     {
         PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
         PaymentCommonData PaymentCommonData = new PaymentCommonData() { PaymentCryptoDetailList = new List<CryptoDetail>() };
@@ -1997,95 +2008,69 @@ public class PaymentAPI : System.Web.Services.WebService
                             //Check ThresholdValue
                             EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
 
-                            if (userInfoResult.Tag!=null&&userInfoResult.Tag.Length>0)
+                            if (userInfoResult.Tag != null && userInfoResult.Tag.Length > 0)
                             {
                                 for (int i = 0; i < userInfoResult.Tag.Length; i++)
                                 {
-                                    if (userInfoResult.Tag[i].TagText=="黑名單"||userInfoResult.Tag[i].TagText=="數據延遲/異常"||userInfoResult.Tag[i].TagText=="技術排查中")
+                                    if (userInfoResult.Tag[i].TagText == "黑名單" || userInfoResult.Tag[i].TagText == "數據延遲/異常" || userInfoResult.Tag[i].TagText == "技術排查中")
                                     {
-                                            SetResultException(R, "請聯繫客服");
-                                            return R;
+                                        SetResultException(R, "請聯繫客服");
+                                        return R;
                                     }
                                 }
                             }
-                            EWin.Lobby.ThresholdInfo thresholdInfo;
-                            decimal thresholdValue;
 
-                            if (userInfoResult.Result == EWin.Lobby.enumResult.OK)
+                            PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
+                            PaymentCode = PaymentChannelCode;
+                            ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
+                            ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
+
+
+                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
+                            HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
+                            ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
+
+
+                            ReceiveTotalAmount = CodingControl.FormatDecimal(ReceiveTotalAmount, 0);
+                            CryptoDetail Dcd = new CryptoDetail()
                             {
-                                thresholdInfo = userInfoResult.ThresholdInfo.Where(x => x.CurrencyType.ToUpper() == EWinWeb.MainCurrencyType.ToUpper()).FirstOrDefault();
+                                TokenCurrencyType = ReceiveCurrencyType,
+                                TokenContractAddress = "",
+                                ExchangeRate = 1,
+                                PartialRate = 1,
+                                ReceiveAmount = ReceiveTotalAmount,
+                            };
 
-                                if (thresholdInfo != null)
-                                {
-                                    thresholdValue = thresholdInfo.ThresholdValue;
-                                }
-                                else
-                                {
-                                    thresholdValue = 0;
-                                }
-                                if (thresholdValue == 0)
-                                {
-                                    PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
-                                    PaymentCode = PaymentChannelCode;
-                                    ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
-                                    ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
+                            PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
 
+                            string OrderNumber = System.Guid.NewGuid().ToString();
+                            int InsertRet;
 
-                                    HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
-                                    HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
-                                    ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
+                            PaymentCommonData.PaymentType = 1;
+                            PaymentCommonData.BasicType = 1;
+                            PaymentCommonData.OrderNumber = OrderNumber;
+                            PaymentCommonData.LoginAccount = SI.LoginAccount;
+                            PaymentCommonData.Amount = Amount;
+                            PaymentCommonData.ReceiveTotalAmount = ReceiveTotalAmount;
+                            PaymentCommonData.HandingFeeRate = HandingFeeRate;
+                            PaymentCommonData.HandingFeeAmount = HandingFeeAmount;
+                            PaymentCommonData.ExpireSecond = ExpireSecond;
+                            PaymentCommonData.PaymentMethodID = PaymentMethodID;
+                            PaymentCommonData.PaymentMethodName = PaymentMethodName;
+                            PaymentCommonData.PaymentCode = PaymentCode;
+                            PaymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
 
+                            InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, PaymentCommonData.PaymentType, PaymentCommonData.BasicType, PaymentCommonData.LoginAccount, PaymentCommonData.Amount, PaymentCommonData.HandingFeeRate, PaymentCommonData.HandingFeeAmount, 0, 0, PaymentCommonData.PaymentMethodID, "", "", Newtonsoft.Json.JsonConvert.SerializeObject(PaymentCommonData.PaymentCryptoDetailList), PaymentCommonData.ExpireSecond);
 
-                                    ReceiveTotalAmount = CodingControl.FormatDecimal(ReceiveTotalAmount, 0);
-                                    CryptoDetail Dcd = new CryptoDetail()
-                                    {
-                                        TokenCurrencyType = ReceiveCurrencyType,
-                                        TokenContractAddress = "",
-                                        ExchangeRate = 1,
-                                        PartialRate = 1,
-                                        ReceiveAmount = ReceiveTotalAmount,
-                                    };
-
-                                    PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
-
-                                    string OrderNumber = System.Guid.NewGuid().ToString();
-                                    int InsertRet;
-
-                                    PaymentCommonData.PaymentType = 1;
-                                    PaymentCommonData.BasicType = 1;
-                                    PaymentCommonData.OrderNumber = OrderNumber;
-                                    PaymentCommonData.LoginAccount = SI.LoginAccount;
-                                    PaymentCommonData.Amount = Amount;
-                                    PaymentCommonData.ReceiveTotalAmount = ReceiveTotalAmount;
-                                    PaymentCommonData.HandingFeeRate = HandingFeeRate;
-                                    PaymentCommonData.HandingFeeAmount = HandingFeeAmount;
-                                    PaymentCommonData.ExpireSecond = ExpireSecond;
-                                    PaymentCommonData.PaymentMethodID = PaymentMethodID;
-                                    PaymentCommonData.PaymentMethodName = PaymentMethodName;
-                                    PaymentCommonData.PaymentCode = PaymentCode;
-                                    PaymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
-
-                                    InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, PaymentCommonData.PaymentType, PaymentCommonData.BasicType, PaymentCommonData.LoginAccount, PaymentCommonData.Amount, PaymentCommonData.HandingFeeRate, PaymentCommonData.HandingFeeAmount, 0, 0, PaymentCommonData.PaymentMethodID, "", "", Newtonsoft.Json.JsonConvert.SerializeObject(PaymentCommonData.PaymentCryptoDetailList), PaymentCommonData.ExpireSecond);
-
-                                    if (InsertRet == 1)
-                                    {
-                                        R.Result = enumResult.OK;
-                                        R.Data = PaymentCommonData;
-                                        RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(R.Data), PaymentCommonData.OrderNumber);
-                                    }
-                                    else
-                                    {
-                                        SetResultException(R, "InsertFailure");
-                                    }
-                                }
-                                else
-                                {
-                                    SetResultException(R, "ThresholdLimit");
-                                }
+                            if (InsertRet == 1)
+                            {
+                                R.Result = enumResult.OK;
+                                R.Data = PaymentCommonData;
+                                RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(R.Data), PaymentCommonData.OrderNumber);
                             }
                             else
                             {
-                                SetResultException(R, "GetInfoError");
+                                SetResultException(R, "InsertFailure");
                             }
 
                         }
@@ -2184,7 +2169,7 @@ public class PaymentAPI : System.Web.Services.WebService
                         PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(TempCryptoData.PaymentMethodID);
                         if (!(PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0))
                         {
-                            SetResultException(R, "PaymentMethodNotExist");
+                            SetResultException(R, "AgentAccountCannotDeposit");
                             return R;
                         }
 
@@ -2196,13 +2181,13 @@ public class PaymentAPI : System.Web.Services.WebService
                         EWin.Lobby.ThresholdInfo thresholdInfo;
 
 
-                        if (userInfoResult.Result == EWin.Lobby.enumResult.OK)
+                        if (userInfoResult.UserAccountType!=0 ||userInfoResult.Result == EWin.Lobby.enumResult.OK)
                         {
                             thresholdInfo = userInfoResult.ThresholdInfo.Where(x => x.CurrencyType.ToUpper() == EWinWeb.MainCurrencyType.ToUpper()).FirstOrDefault();
 
-                            if (thresholdInfo != null)
+                            if (userInfoResult.UserAccountType!=0||thresholdInfo != null)
                             {
-                                if (thresholdInfo.ThresholdValue == 0)
+                                if (userInfoResult.UserAccountType!=0||thresholdInfo.ThresholdValue == 0)
                                 {
                                     PointValue = TempCryptoData.Amount;
 

@@ -40,5 +40,6 @@
   "ChannelNoAvailable": "This deposit method is not available now.",
   "OneOrderInProgress": "Can only have one order in progress.",
   "Error:1001": "Channel adjustment, please change to another payment method.",
-  "Error:1002": "Channel adjustment, please change to another payment method."
+  "Error:1002": "Channel adjustment, please change to another payment method.",
+  "AgentAccountCannotDeposit": "Agent account can't deposit."
 }
