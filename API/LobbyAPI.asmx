@@ -696,13 +696,15 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult GetUserOtherSMSNumber(string WebSID, string GUID) {
+    public EWin.Lobby.APIResult GetUserOtherSMSNumber(string WebSID, string GUID)
+    {
         EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
         RedisCache.SessionContext.SIDInfo SI;
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
-        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+        {
             var R2 = fantaAPI.GetUserOtherSMSNumber(GetToken(), SI.EWinSID, GUID);
             if (R2.ResultState == EWin.FANTA.enumResultState.OK)
             {
@@ -712,6 +714,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     Message = R2.Message,
                     GUID = GUID
                 };
+                return R;
             }
             else
             {
@@ -721,16 +724,19 @@ public class LobbyAPI : System.Web.Services.WebService {
                     Message = "InvalidWebSID",
                     GUID = GUID
                 };
+                return R;
             }
-        } else {
-            var R = new EWin.Lobby.UserInfoResult() {
+        }
+        else
+        {
+            var R = new EWin.Lobby.UserInfoResult()
+            {
                 Result = EWin.Lobby.enumResult.ERR,
                 Message = "InvalidWebSID",
                 GUID = GUID
-            }; 
+            };
+            return R;
         }
-
-         return R;
     }
 
     [WebMethod]

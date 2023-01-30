@@ -96,7 +96,27 @@
     function updateBaseInfo() {
         $("#RealName").val(WebInfo.UserInfo.RealName);
         $("#Email").val(WebInfo.UserInfo.EMail == undefined ? "" : WebInfo.UserInfo.EMail);
-        $("#PhoneNumber").val(WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber);
+        if (WebInfo.UserInfo.ContactPhoneNumber != null && WebInfo.UserInfo.ContactPhoneNumber != '') {
+            $("#PhoneNumber").val(WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber);
+        } else {
+            var GUID = Math.uuid();
+            p.GetUserOtherSMSNumber(WebInfo.SID, GUID, function (success, o) {
+                if (success) {
+                    if (o.Result == 0) {
+                        if (o.Message && o.Message != '') {
+                            $("#PhoneNumber").val(o.Message);
+                        } else {
+                      
+                        }
+                    } else {
+                     
+                    }
+                } else {
+                    
+                }
+            });
+        }
+        
         let IsFullRegistration = 0;
 
         if (WebInfo.UserInfo.ExtraData) {
