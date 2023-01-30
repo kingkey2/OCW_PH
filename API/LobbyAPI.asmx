@@ -696,6 +696,45 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.APIResult GetUserOtherSMSNumber(string WebSID, string GUID) {
+        EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
+        RedisCache.SessionContext.SIDInfo SI;
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            var R2 = fantaAPI.GetUserOtherSMSNumber(GetToken(), SI.EWinSID, GUID);
+            if (R2.ResultState == EWin.FANTA.enumResultState.OK)
+            {
+                var R = new EWin.Lobby.UserInfoResult()
+                {
+                    Result = EWin.Lobby.enumResult.OK,
+                    Message = R2.Message,
+                    GUID = GUID
+                };
+            }
+            else
+            {
+                var R = new EWin.Lobby.UserInfoResult()
+                {
+                    Result = EWin.Lobby.enumResult.ERR,
+                    Message = "InvalidWebSID",
+                    GUID = GUID
+                };
+            }
+        } else {
+            var R = new EWin.Lobby.UserInfoResult() {
+                Result = EWin.Lobby.enumResult.ERR,
+                Message = "InvalidWebSID",
+                GUID = GUID
+            }; 
+        }
+
+         return R;
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.UserInfoResult GetUserInfo(string WebSID, string GUID) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
@@ -1306,16 +1345,42 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult SetWalletPasswordByValidateCode(string WebSID,string GUID, EWin.Lobby.enumValidateType ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword) {
+    public EWin.Lobby.APIResult SetWalletPasswordByValidateCode(string WebSID,string GUID, EWin.FANTA.enumValidateType ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
         RedisCache.SessionContext.SIDInfo SI;
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
         EWin.Lobby.APIResult R;
+        EWin.FANTA.APIResult R2;
+        string Token = GetToken();
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            R= lobbyAPI.SetWalletPasswordByValidateCode(GetToken(), GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
-            if (R.Result == EWin.Lobby.enumResult.OK)
+            var UserInfoResult = lobbyAPI.GetUserInfo(Token, SI.EWinSID, GUID);
+            if (UserInfoResult.Result == EWin.Lobby.enumResult.OK)
             {
-                R = lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.BySID, SI.EWinSID, "IsSetWalletPassword", "true");
+                R2 = fantaAPI.SetWalletPasswordByValidateCode(Token, UserInfoResult.LoginAccount, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
+
+                if (R2.ResultState == EWin.FANTA.enumResultState.OK)
+                {
+                    R = lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.BySID, SI.EWinSID, "IsSetWalletPassword", "true");
+                }
+                else
+                {
+                    R = new EWin.Lobby.APIResult()
+                    {
+                        Result = EWin.Lobby.enumResult.ERR,
+                        Message = "Other",
+                        GUID = GUID
+                    };
+                }
+            }
+            else
+            {
+                R = new EWin.Lobby.APIResult()
+                {
+                    Result = EWin.Lobby.enumResult.ERR,
+                    Message = "InvalidWebSID",
+                    GUID = GUID
+                };
             }
         } else {
             R = new EWin.Lobby.APIResult() {
