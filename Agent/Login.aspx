@@ -1,37 +1,16 @@
-<%@ Page Language="C#" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" %>
 
 <%
     //string DefaultCompany = Request["C"];
     string Lang;
     string DefaultCompany = EWinWeb.CompanyCode;
-    string Version=EWinWeb.Version;
+    string Version = EWinWeb.Version;
     string AgentVersion = EWinWeb.AgentVersion;
-    if (string.IsNullOrEmpty(Request["Lang"]))
-    {
+    if (string.IsNullOrEmpty(Request["Lang"])) {
         string userLang = CodingControl.GetDefaultLanguage();
 
-        if (userLang.ToUpper() == "zh-TW".ToUpper()) { Lang = "CHT"; }
-        else if (userLang.ToUpper() == "zh-HK".ToUpper()) { Lang = "CHT"; }
-        else if (userLang.ToUpper() == "zh-MO".ToUpper()) { Lang = "CHT"; }
-        else if (userLang.ToUpper() == "zh-CHT".ToUpper()) { Lang = "CHT"; }
-        else if (userLang.ToUpper() == "zh-CHS".ToUpper()) { Lang = "CHS"; }
-        else if (userLang.ToUpper() == "zh-SG".ToUpper()) { Lang = "CHS"; }
-        else if (userLang.ToUpper() == "zh-CN".ToUpper()) { Lang = "CHS"; }
-        else if (userLang.ToUpper() == "zh".ToUpper()) { Lang = "CHS"; }
-        else if (userLang.ToUpper() == "en-US".ToUpper()) { Lang = "ENG"; }
-        else if (userLang.ToUpper() == "en-CA".ToUpper()) { Lang = "ENG"; }
-        else if (userLang.ToUpper() == "en-PH".ToUpper()) { Lang = "ENG"; }
-        else if (userLang.ToUpper() == "en".ToUpper()) { Lang = "ENG"; }
-        else if (userLang.ToUpper() == "ko-KR".ToUpper()) { Lang = "KOR"; }
-        else if (userLang.ToUpper() == "ko-KP".ToUpper()) { Lang = "KOR"; }
-        else if (userLang.ToUpper() == "ko".ToUpper()) { Lang = "KOR"; }
-        else if (userLang.ToUpper() == "ja".ToUpper()) { Lang = "JPN"; }
-        else if (userLang.ToUpper() == "th".ToUpper()) { Lang = "THAI"; }
-        else if (userLang.ToUpper() == "ph".ToUpper()) { Lang = "PHP"; }
-        else { Lang = "CHS"; }
-    }
-    else
-    {
+        if (userLang.ToUpper() == "zh-TW".ToUpper()) { Lang = "CHT"; } else if (userLang.ToUpper() == "zh-HK".ToUpper()) { Lang = "CHT"; } else if (userLang.ToUpper() == "zh-MO".ToUpper()) { Lang = "CHT"; } else if (userLang.ToUpper() == "zh-CHT".ToUpper()) { Lang = "CHT"; } else if (userLang.ToUpper() == "zh-CHS".ToUpper()) { Lang = "CHS"; } else if (userLang.ToUpper() == "zh-SG".ToUpper()) { Lang = "CHS"; } else if (userLang.ToUpper() == "zh-CN".ToUpper()) { Lang = "CHS"; } else if (userLang.ToUpper() == "zh".ToUpper()) { Lang = "CHS"; } else if (userLang.ToUpper() == "en-US".ToUpper()) { Lang = "ENG"; } else if (userLang.ToUpper() == "en-CA".ToUpper()) { Lang = "ENG"; } else if (userLang.ToUpper() == "en-PH".ToUpper()) { Lang = "ENG"; } else if (userLang.ToUpper() == "en".ToUpper()) { Lang = "ENG"; } else if (userLang.ToUpper() == "ko-KR".ToUpper()) { Lang = "KOR"; } else if (userLang.ToUpper() == "ko-KP".ToUpper()) { Lang = "KOR"; } else if (userLang.ToUpper() == "ko".ToUpper()) { Lang = "KOR"; } else if (userLang.ToUpper() == "ja".ToUpper()) { Lang = "JPN"; } else if (userLang.ToUpper() == "th".ToUpper()) { Lang = "THAI"; } else if (userLang.ToUpper() == "ph".ToUpper()) { Lang = "PHP"; } else { Lang = "CHS"; }
+    } else {
         Lang = Request["Lang"];
     }
 
@@ -43,8 +22,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>代理網登入</title>
-    <meta id="extViewportMeta" name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">     
+    <title>Lucky Sprite</title>
+    <meta id="extViewportMeta" name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <link rel="stylesheet" href="css/basic.min.css?<%:AgentVersion%>">
     <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">
     <link rel="stylesheet" href="css/login.css?<%:AgentVersion%>">
@@ -54,6 +33,9 @@
 <script src="/Scripts/Math.uuid.js"></script>
 <script src="Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="js/AppBridge.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/google-libphonenumber/3.2.31/libphonenumber.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script src="../Scripts/LobbyAPI.js"></script>
 <script>
     var AppBridge = new AppBridge("JsBridge", "iosJsBridge", "");
     var c = new common();
@@ -65,6 +47,8 @@
     var companyCodeTimer;
     var companyCodeclickCount = 0;
     var v ="<%:AgentVersion%>";
+    var p = new LobbyAPI("../API/LobbyAPI.asmx");
+
     function setLanguage(v) {
         var form = document.forms[0];
 
@@ -77,7 +61,6 @@
         }
     }
 
-
     function checkData() {
         var form = document.forms[0];
 
@@ -85,7 +68,7 @@
             showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入登入帳號"));
         } else if (form.LoginPassword.value == "") {
             showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入登入密碼"));
-        }  else {
+        } else {
             var allowCompany = true;
 
             if ((defaultCompany == null) || (defaultCompany == "")) {
@@ -231,6 +214,91 @@
         }
     }
 
+    //#region 忘記密碼
+    function showForgetPassWord() {
+        $("#idPopUpForgetPassWord").addClass("show");
+    }
+
+    function closeForgetPassWord() {
+        $("#idPopUpForgetPassWord").removeClass("show");
+    }
+
+    function sendValidateCode() {
+        var GUID = Math.uuid();
+        var PhonePrefix = $("#ContactPhonePrefix").val();
+        var PhoneNumber = $("#ContactPhoneNumber").val();
+
+        if (PhoneNumber == "") {
+            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入手機號碼"));
+        } else {
+            p.SetUserMail(GUID, 1, 1, "", PhonePrefix, PhoneNumber, "", function (success, o) {
+                if (success) {
+                    if (o.Result == 0) {
+                        showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已寄送認證碼"));
+                    } else {
+                        showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("發送失敗，請重新發送"));
+                    }
+                } else {
+                    showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
+                }
+            });
+        }
+
+    }
+
+    function updatePassWord() {
+        var GUID = Math.uuid();
+        var PhonePrefix = $("#ContactPhonePrefix").val();
+        var PhoneNumber = $("#ContactPhoneNumber").val();
+        var LoginAccount = $("#LoginAccount").val();
+        var LoginPassword = $("#LoginPassword").val();
+        var ValidateCode = $("#ValidateCode").val();
+        var ValidateType = 1;
+        var EMail = "";
+        var postObj;
+
+        if (LoginAccount == "") {
+            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入帳號"));
+        } else if (LoginPassword == "") {
+            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入密碼"));
+        } else if (ValidateCode == "") {
+            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入驗證碼"));
+        }
+
+        postObj = {
+            CompanyCode: defaultCompany,
+            GUID: GUID,
+            ValidateType: ValidateType,
+            EMail: EMail,
+            ContactPhonePrefix: PhonePrefix,
+            ContactPhoneNumber: PhoneNumber,
+            ValidateCode: ValidateCode,
+            NewPassword: LoginPassword,
+            LoginAccount: LoginAccount
+        };
+
+        c.callService("Login.aspx/SetUserPasswordByValidateCode", postObj, function (success, o) {
+            if (success) {
+                var obj = c.getJSON(o);
+
+                if (obj.Result == 0) {
+                    showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已修改密碼"), function () {
+                        closeForgetPassWord();
+                    });
+                } else {
+                    showMessageOK(mlp.getLanguageKey("錯誤"), obj.Message);
+                }
+            } else {
+                if (o == "Timeout") {
+                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                } else {
+                    showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                }
+            }
+        });
+    }
+    //#endregion
+
     function init() {
         var idCompanyCode = document.getElementById("idCompanyCode");
         var langTmp;
@@ -290,7 +358,7 @@
             //    }
             //}
         }
-        
+
         for (var i = 0; i < langel.length; i++) {
             if (lang == langel[i].value) {
                 langel[i].checked = true;
@@ -299,7 +367,7 @@
         }
 
         window.localStorage.setItem("agent_lang", lang);
-        
+
         onLoginType();
 
         mlp = new multiLanguage(v);
@@ -337,7 +405,7 @@
             //}
         });
 
-        
+
     }
 
     window.onload = init;
@@ -350,19 +418,18 @@
                     <span class="language_replace" onclick="showCompanyCode()">Lucky Sprite</span>
                 </div>
                 <!-- <div class="login__qrcode"><span class="qrcode"></span></div> -->
-                <%if (EWinWeb.IsTestSite == true)
-                { %>
+                <%if (EWinWeb.IsTestSite == true) { %>
                 <div>
-                    <p style="text-align: center; font-size: 14px; margin-bottom: 0;line-height: 1;"><span class="language_replace num-negative">此為測試環境</span></p>
+                    <p style="text-align: center; font-size: 14px; margin-bottom: 0; line-height: 1;"><span class="language_replace num-negative">此為測試環境</span></p>
                 </div>
-               <%} %>
+                <%} %>
             </section>
             <form class="loginForm" method="post" action="AgentLogin.aspx">
                 <input type="hidden" name="Lang" value="<%=Lang %>" />
-                
+
                 <div class="loginForm__left">
                     <div class="form-group form-group-loginUser" style="display: none;">
-                       
+
                         <div class="custom-control custom-radio custom-control-inline">
                             <input onclick="onLoginType()" type="radio" name="LoginType" id="rdoLoginType0" value="0" class="custom-control-input-hidden" checked>
                             <label class="custom-control-label" for="rdoLoginType0"><span class="language_replace">主帳戶登入</span></label>
@@ -374,19 +441,19 @@
                     </div>
                     <div class="form-group form-group-lang">
                         <p><span class="language_replace">語系</span></p>
-                        <div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('CHS')" style="display:none">
-                            <input type="radio" id="lang1" name="lang" class="custom-control-input-hidden" value="CHS" >
+                        <div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('CHS')" style="display: none">
+                            <input type="radio" id="lang1" name="lang" class="custom-control-input-hidden" value="CHS">
                             <label class="custom-control-label-lang ico-before-cn" for="lang1">
                                 <span
                                     class="language_replace">简体中文</span></label>
                         </div>
-                        <div class="custom-control  custom-control-inline custom-radio-lang" style="width:25% !important" onclick="setLanguage('CHT')">
+                        <div class="custom-control  custom-control-inline custom-radio-lang" style="width: 25% !important" onclick="setLanguage('CHT')">
                             <input type="radio" id="lang2" name="lang" class="custom-control-input-hidden" value="CHT">
                             <label class="custom-control-label-lang ico-before-hk" for="lang2">
                                 <span
                                     class="language_replace">繁體中文</span></label>
                         </div>
-                        <div class="custom-control custom-radio-lang custom-control-inline" style="width:25% !important" onclick="setLanguage('ENG')">
+                        <div class="custom-control custom-radio-lang custom-control-inline" style="width: 25% !important" onclick="setLanguage('ENG')">
                             <input type="radio" id="lang3" name="lang" class="custom-control-input-hidden" value="ENG" checked>
                             <label class="custom-control-label-lang ico-before-en" for="lang3">
                                 <span
@@ -395,7 +462,7 @@
                     </div>
                 </div>
                 <div class="loginForm__right">
-                     <div class="form-group">
+                    <div class="form-group">
                         <div class="form-control-underline form-input-icon">
                             <input type="text" class="form-control" name="LoginAccount" required>
                             <label for="member" class="form-label ico-before-member"><span class="language_replace">登入帳號</span></label>
@@ -422,17 +489,20 @@
                     <div class="form-group form-group-btnLogin btn-group-lg">
                         <div class="btn btn-full-main" onclick="checkData()"><span class="language_replace">登入</span></div>
                     </div>
+                    <div class="form-group form-group-btnLogin btn-group-lg">
+                        <div class="btn btn-full-main" onclick="showForgetPassWord()"><span class="language_replace">忘記密碼</span></div>
+                    </div>
                 </div>
             </form>
             <div class="copyright">
-               
+
                 <p><span class="language_replace">Copyright © 2020 eWin版權所有</span></p>
                 <p><span id="version" class="language_replace">v1.0</span></p>
             </div>
         </div>
     </main>
 
-    <div class="popUp" id="idMessageBox">
+    <div class="popUp" id="idMessageBox" style="z-index:999">
         <div class="popUpWrapper">
             <div class="popUp__title" id="idMessageTitle">[Title]</div>
             <div class="popUp__content" id="idMessageText">
@@ -443,6 +513,9 @@
                 <div class="btn btn-popup-confirm" id="idMessageButtonOK">OK</div>
             </div>
         </div>
+
+        <!-- mask_overlay 半透明遮罩-->
+        <div class="mask_overlay_popup mask_overlay_loading"></div>
     </div>
 
     <div class="popUp" id="idShowLoading">
@@ -457,16 +530,105 @@
             <div class="gooey">
                 <span class="dot"></span>
                 <div class="dots">
-                  <span></span>
-                  <span></span>
-                  <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
-             </div>
-             <div class="loading_text">Login</div>
+            </div>
+            <div class="loading_text">Login</div>
         </div>
-      
+
         <!-- mask_overlay 半透明遮罩-->
-        <div id="mask_overlay_popup" class="mask_overlay_popup mask_overlay_loading" ></div>
+        <div class="mask_overlay_popup mask_overlay_loading"></div>
+    </div>
+
+    <div class="popUp " id="idPopUpForgetPassWord">
+        <div class="popUpWrapper">
+            <div class="popUp__close btn btn-close" onclick="closeForgetPassWord()"></div>
+            <div class="popUp__title"><span class="language_replace">忘記密碼</span></div>
+            <div class="popUp__content">
+                <div>
+                    <div class="col-12 form-group row no-gutters data-item">
+                        <div class="col-12 data-title">
+                            <label class="title"><span class="title_name"><span class="language_replace" langkey="電話">電話</span></span></label>
+                        </div>
+                        <div class="col-12 data-content">
+                            <div class="row no-gutters">
+                                <div class="col-auto col-md-4 ">
+                                    <div class="form-control-underline">
+                                        <select name="ContactPhonePrefix" id="ContactPhonePrefix" class="custom-select">
+                                            <option class="language_replace" value="+63" langkey="+63 菲律賓">+63 菲律賓</option>
+                                            <option class="language_replace" value="+886" langkey="+886 台灣">+886 台灣</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col col-md-6 pl-2">
+                                    <div class="form-control-underline">
+                                        <input type="text" class="form-control" name="ContactPhoneNumber" id="ContactPhoneNumber" language_replace="placeholder" placeholder="請輸入手機號碼" langkey="請輸入手機號碼">
+                                        <label for="password" class="form-label "><span class="language_replace" langkey="請輸入手機號碼">請輸入手機號碼</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6  col-lg-12  form-group row no-gutters data-item">
+                        <div class="col-12 data-title">
+                            <div class="form-group form-group-btnLogin btn-group-lg" style="padding-top:0px !important">
+                               <div class="btn btn-full-main" onclick="sendValidateCode()"><span class="language_replace">傳送驗證碼</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6  col-lg-12  form-group row no-gutters data-item">
+                        <div class="col-12 data-title">
+                            <label class="title"><span class="title_name"><span class="language_replace" langkey="帳號">帳號</span></span></label>
+                        </div>
+                        <div class="col-12 data-content">
+                            <div class="form-control-underline">
+                                <input type="text" class="form-control" name="LoginAccount" id="LoginAccount" language_replace="placeholder" placeholder="請輸入帳號" langkey="請輸入帳號">
+                                <label for="password" class="form-label "><span class="language_replace" langkey="請輸入帳號">請輸入帳號</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 form-group row no-gutters data-item ">
+                        <div class="col-12 data-title">
+                            <label class="title"><span class="title_name"><span class="language_replace" langkey="登入密碼">登入密碼</span></span></label>
+                        </div>
+                        <div class="col-12 data-content">
+                            <div class="form-control-underline">
+                                <input type="password" class="form-control" name="LoginPassword" id="LoginPassword" language_replace="placeholder" placeholder="請輸入密碼" langkey="請輸入密碼">
+                                    <label for="password" class="form-label "><span class="language_replace" langkey="請輸入密碼">請輸入密碼</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6  col-lg-12  form-group row no-gutters data-item">
+                        <div class="col-12 data-title">
+                            <label class="title"><span class="title_name"><span class="language_replace" langkey="驗證碼">驗證碼</span></span></label>
+                        </div>
+                        <div class="col-12 data-content">
+                            <div class="form-control-underline">
+                                <input type="text" class="form-control" name="ValidateCode" id="ValidateCode" language_replace="placeholder" placeholder="請輸入驗證碼" langkey="請輸入驗證碼">
+                                <label for="password" class="form-label "><span class="language_replace" langkey="請輸入驗證碼">請輸入驗證碼</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6  col-lg-12  form-group row no-gutters data-item">
+                        <div class="col-12 data-title">
+                            <div class="form-group form-group-btnLogin btn-group-lg" style="padding-top:0px !important">
+                                <div class="btn btn-full-main" onclick="updatePassWord()"><span class="language_replace">修改密碼</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- mask_overlay 半透明遮罩-->
+        <div class="mask_overlay_popup mask_overlay_loading"></div>
     </div>
 
 </body>

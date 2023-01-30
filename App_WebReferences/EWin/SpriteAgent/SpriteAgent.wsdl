@@ -887,6 +887,34 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="SetUserPasswordByValidateCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ValidateType" type="tns:enumValidateType" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPhonePrefix" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ValidateCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="enumValidateType">
+        <s:restriction base="s:string">
+          <s:enumeration value="EMail" />
+          <s:enumeration value="PhoneNumber" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SetUserPasswordByValidateCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetUserPasswordByValidateCodeResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="AgentSessionResult" nillable="true" type="tns:AgentSessionResult" />
       <s:element name="ChidUserData" nillable="true" type="tns:ChidUserData" />
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
@@ -1032,6 +1060,12 @@
   </wsdl:message>
   <wsdl:message name="TransToGameAccountSoapOut">
     <wsdl:part name="parameters" element="tns:TransToGameAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetUserPasswordByValidateCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:SetUserPasswordByValidateCode" />
+  </wsdl:message>
+  <wsdl:message name="SetUserPasswordByValidateCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:SetUserPasswordByValidateCodeResponse" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpGetIn">
     <wsdl:part name="ASID" type="s:string" />
@@ -1194,6 +1228,20 @@
     <wsdl:part name="TransOutValue" type="s:string" />
   </wsdl:message>
   <wsdl:message name="TransToGameAccountHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="SetUserPasswordByValidateCodeHttpGetIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="ValidateType" type="s:string" />
+    <wsdl:part name="EMail" type="s:string" />
+    <wsdl:part name="ContactPhonePrefix" type="s:string" />
+    <wsdl:part name="ContactPhoneNumber" type="s:string" />
+    <wsdl:part name="ValidateCode" type="s:string" />
+    <wsdl:part name="NewPassword" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetUserPasswordByValidateCodeHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpPostIn">
@@ -1359,6 +1407,20 @@
   <wsdl:message name="TransToGameAccountHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="SetUserPasswordByValidateCodeHttpPostIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="ValidateType" type="s:string" />
+    <wsdl:part name="EMail" type="s:string" />
+    <wsdl:part name="ContactPhonePrefix" type="s:string" />
+    <wsdl:part name="ContactPhoneNumber" type="s:string" />
+    <wsdl:part name="ValidateCode" type="s:string" />
+    <wsdl:part name="NewPassword" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetUserPasswordByValidateCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:portType name="SpriteAgentSoap">
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDSoapIn" />
@@ -1448,6 +1510,10 @@
       <wsdl:input message="tns:TransToGameAccountSoapIn" />
       <wsdl:output message="tns:TransToGameAccountSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <wsdl:input message="tns:SetUserPasswordByValidateCodeSoapIn" />
+      <wsdl:output message="tns:SetUserPasswordByValidateCodeSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="SpriteAgentHttpGet">
     <wsdl:operation name="GetAgentSessionByID">
@@ -1530,6 +1596,10 @@
       <wsdl:input message="tns:TransToGameAccountHttpGetIn" />
       <wsdl:output message="tns:TransToGameAccountHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <wsdl:input message="tns:SetUserPasswordByValidateCodeHttpGetIn" />
+      <wsdl:output message="tns:SetUserPasswordByValidateCodeHttpGetOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="SpriteAgentHttpPost">
     <wsdl:operation name="GetAgentSessionByID">
@@ -1611,6 +1681,10 @@
     <wsdl:operation name="TransToGameAccount">
       <wsdl:input message="tns:TransToGameAccountHttpPostIn" />
       <wsdl:output message="tns:TransToGameAccountHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <wsdl:input message="tns:SetUserPasswordByValidateCodeHttpPostIn" />
+      <wsdl:output message="tns:SetUserPasswordByValidateCodeHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SpriteAgentSoap" type="tns:SpriteAgentSoap">
@@ -1806,6 +1880,15 @@
     </wsdl:operation>
     <wsdl:operation name="TransToGameAccount">
       <soap:operation soapAction="http://tempuri.org/TransToGameAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <soap:operation soapAction="http://tempuri.org/SetUserPasswordByValidateCode" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2014,6 +2097,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <soap12:operation soapAction="http://tempuri.org/SetUserPasswordByValidateCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SpriteAgentHttpGet" type="tns:SpriteAgentHttpGet">
     <http:binding verb="GET" />
@@ -2197,6 +2289,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <http:operation location="/SetUserPasswordByValidateCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SpriteAgentHttpPost" type="tns:SpriteAgentHttpPost">
     <http:binding verb="POST" />
@@ -2373,6 +2474,15 @@
     </wsdl:operation>
     <wsdl:operation name="TransToGameAccount">
       <http:operation location="/TransToGameAccount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <http:operation location="/SetUserPasswordByValidateCode" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
