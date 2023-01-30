@@ -226,7 +226,7 @@
             if (new Date(postData.QueryBeginDate) <= new Date(postData.QueryEndDate)) {
 
                 window.parent.API_ShowLoading();
-                callService(ApiUrl + "/GetUserAccountSummary", postData, function (success, o) {
+                c.callService(ApiUrl + "/GetUserAccountSummary", postData, function (success, o) {
                     if (success) {
                         var obj = c.getJSON(o);
 
@@ -542,38 +542,6 @@
                 break;
         }
     }
-
-    function callService(URL, postObject, cb) {
-        var xmlHttp = new XMLHttpRequest;
-        var postData;
-
-        if (postObject)
-            postData = JSON.stringify(postObject);
-
-        xmlHttp.open("POST", URL, true);
-        xmlHttp.onreadystatechange = function () {
-            if (this.readyState == 4) {
-                var contentText = this.responseText;
-
-                if (this.status == "200") {
-                    if (cb) {
-                        cb(true, contentText);
-                    }
-                } else {
-                    cb(false, contentText);
-                }
-            }
-        };
-
-        xmlHttp.timeout = 300000;  // 30s
-        xmlHttp.ontimeout = function () {
-            if (cb)
-                cb(false, "Timeout");
-        };
-
-        xmlHttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-        xmlHttp.send(postData);
-    };
 
     window.onload = init;
 </script>

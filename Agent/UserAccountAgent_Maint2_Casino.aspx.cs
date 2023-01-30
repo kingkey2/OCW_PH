@@ -14,7 +14,6 @@ public partial class UserAccountAgent_Maint2_Casino : System.Web.UI.Page {
     public static EWin.SpriteAgent.UserAccountSummaryResult GetUserAccountSummary(string AID, string LoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType) {
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
         EWin.SpriteAgent.UserAccountSummaryResult RetValue = new EWin.SpriteAgent.UserAccountSummaryResult();
-
         RetValue = api.GetUserAccountSummary_Agent(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType);
 
         return RetValue;
