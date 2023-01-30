@@ -212,9 +212,15 @@
 
     function queryData() {
         if (currencyType != "") {
+            var LoginAccount = "";
+
+            if (loginAccount.value.trim()!='') {
+                LoginAccount = loginAccount.value;
+            }
+
             var postData = {
                 AID: EWinInfo.ASID,
-                LoginAccount: loginAccount.value,
+                LoginAccount: LoginAccount,
                 QueryBeginDate: startDate.value,
                 QueryEndDate: endDate.value,
                 CurrencyType: currencyType
