@@ -509,6 +509,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CancelDescription" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -516,6 +517,23 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="CancelPaymentResult" type="tns:PaymentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetSendFailure">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FailureDescription" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetSendFailureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetSendFailureResult" type="tns:PaymentResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -685,6 +703,12 @@
   <wsdl:message name="CancelPaymentSoapOut">
     <wsdl:part name="parameters" element="tns:CancelPaymentResponse" />
   </wsdl:message>
+  <wsdl:message name="SetSendFailureSoapIn">
+    <wsdl:part name="parameters" element="tns:SetSendFailure" />
+  </wsdl:message>
+  <wsdl:message name="SetSendFailureSoapOut">
+    <wsdl:part name="parameters" element="tns:SetSendFailureResponse" />
+  </wsdl:message>
   <wsdl:message name="GetPaymentDetailBankCardSoapIn">
     <wsdl:part name="parameters" element="tns:GetPaymentDetailBankCard" />
   </wsdl:message>
@@ -803,8 +827,18 @@
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
     <wsdl:part name="PaymentSerial" type="s:string" />
+    <wsdl:part name="CancelDescription" type="s:string" />
   </wsdl:message>
   <wsdl:message name="CancelPaymentHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentResult" />
+  </wsdl:message>
+  <wsdl:message name="SetSendFailureHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+    <wsdl:part name="FailureDescription" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetSendFailureHttpGetOut">
     <wsdl:part name="Body" element="tns:PaymentResult" />
   </wsdl:message>
   <wsdl:message name="GetPaymentDetailBankCardHttpGetIn">
@@ -929,8 +963,18 @@
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
     <wsdl:part name="PaymentSerial" type="s:string" />
+    <wsdl:part name="CancelDescription" type="s:string" />
   </wsdl:message>
   <wsdl:message name="CancelPaymentHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentResult" />
+  </wsdl:message>
+  <wsdl:message name="SetSendFailureHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+    <wsdl:part name="FailureDescription" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetSendFailureHttpPostOut">
     <wsdl:part name="Body" element="tns:PaymentResult" />
   </wsdl:message>
   <wsdl:message name="GetPaymentDetailBankCardHttpPostIn">
@@ -1014,6 +1058,10 @@
       <wsdl:input message="tns:CancelPaymentSoapIn" />
       <wsdl:output message="tns:CancelPaymentSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="SetSendFailure">
+      <wsdl:input message="tns:SetSendFailureSoapIn" />
+      <wsdl:output message="tns:SetSendFailureSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPaymentDetailBankCard">
       <wsdl:input message="tns:GetPaymentDetailBankCardSoapIn" />
       <wsdl:output message="tns:GetPaymentDetailBankCardSoapOut" />
@@ -1076,6 +1124,10 @@
       <wsdl:input message="tns:CancelPaymentHttpGetIn" />
       <wsdl:output message="tns:CancelPaymentHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="SetSendFailure">
+      <wsdl:input message="tns:SetSendFailureHttpGetIn" />
+      <wsdl:output message="tns:SetSendFailureHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPaymentDetailBankCard">
       <wsdl:input message="tns:GetPaymentDetailBankCardHttpGetIn" />
       <wsdl:output message="tns:GetPaymentDetailBankCardHttpGetOut" />
@@ -1137,6 +1189,10 @@
     <wsdl:operation name="CancelPayment">
       <wsdl:input message="tns:CancelPaymentHttpPostIn" />
       <wsdl:output message="tns:CancelPaymentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetSendFailure">
+      <wsdl:input message="tns:SetSendFailureHttpPostIn" />
+      <wsdl:output message="tns:SetSendFailureHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPaymentDetailBankCard">
       <wsdl:input message="tns:GetPaymentDetailBankCardHttpPostIn" />
@@ -1286,6 +1342,15 @@
     </wsdl:operation>
     <wsdl:operation name="CancelPayment">
       <soap:operation soapAction="http://tempuri.org/CancelPayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSendFailure">
+      <soap:operation soapAction="http://tempuri.org/SetSendFailure" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1458,6 +1523,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetSendFailure">
+      <soap12:operation soapAction="http://tempuri.org/SetSendFailure" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPaymentDetailBankCard">
       <soap12:operation soapAction="http://tempuri.org/GetPaymentDetailBankCard" style="document" />
       <wsdl:input>
@@ -1596,6 +1670,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetSendFailure">
+      <http:operation location="/SetSendFailure" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPaymentDetailBankCard">
       <http:operation location="/GetPaymentDetailBankCard" />
       <wsdl:input>
@@ -1727,6 +1810,15 @@
     </wsdl:operation>
     <wsdl:operation name="CancelPayment">
       <http:operation location="/CancelPayment" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSendFailure">
+      <http:operation location="/SetSendFailure" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
