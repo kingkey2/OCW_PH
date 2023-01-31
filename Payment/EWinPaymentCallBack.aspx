@@ -76,6 +76,10 @@
                                         addThresholdResult = lobbyAPI.AddThreshold(Token, GUID, transactionCode, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, tagInfoData.ThresholdValue, description, ResetThreshold);
 
                                         if (addThresholdResult.Result == EWin.Lobby.enumResult.OK || addThresholdResult.Message == "-2") {
+                                            //若有重製門檻將只能遊玩電子遊戲的限制移除
+                                            if (ResetThreshold) {
+                                                fantaAPI.ClearGameAclByLoginAccount(Token, BodyObj.LoginAccount, System.Guid.NewGuid().ToString());
+                                            }
 
                                             if (tagInfoData.IsJoinDepositActivity) {
                                                 //有參加入金活動

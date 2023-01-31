@@ -1782,6 +1782,9 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, SI.EWinSID, GUID, CollectID);
 
                                 if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
+                                    //領取Bouns要加上只能遊玩電子遊戲的限制
+                                    string[] GameAccountingCodeBanList = { "Live","Sport"};
+                                    lobbyAPI.SetGameAcl(Token, SI.EWinSID, System.Guid.NewGuid().ToString(), EWin.Lobby.enumGameAclType.GameAccountingCode, GameAccountingCodeBanList, "Receive Bonus. CollectID=" + CollectID.ToString());
 
                                     string JoinActivityCycle = "1";
                                     decimal ThresholdValue = 0;
