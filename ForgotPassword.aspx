@@ -292,7 +292,7 @@
         mlp.loadLanguage(lang, function () {
 
             if (WebInfo.UserLogined) {
-                if (WebInfo.UserInfo.ContactPhonePrefix != "" && WebInfo.UserInfo.ContactPhoneNumber != "") {
+                if (WebInfo.UserInfo.ContactPhoneNumber != "") {
                     if (WebInfo.UserInfo.ContactPhonePrefix[0] != "+") {
                         $("#idPhonePrefix").val("+" + WebInfo.UserInfo.ContactPhonePrefix);
                     } else {
@@ -304,8 +304,35 @@
                     $("#idPhonePrefix").attr("disabled", "true");
                     $("#idPhoneNumber").attr("disabled", "true");
                 } else {
-                    window.parent.showMessageOK("", mlp.getLanguageKey("無電話資訊，請聯繫客服"), function () {
-                        window.parent.API_LoadPage('Casino','Casino.aspx');
+                    var GUID = Math.uuid();
+                    p.GetUserOtherSMSNumber(WebInfo.SID, GUID, function (success, o) {
+                        if (success) {
+                            if (o.Result == 0) {
+                                if (o.Message && o.Message != '') {
+                                    var splitOtherSMSNumber = o.Message.split('-');
+                                    if (splitOtherSMSNumber[0][0] != "+") {
+                                        $("#idPhonePrefix").val("+" + splitOtherSMSNumber[0]);
+                                    } else {
+                                        $("#idPhonePrefix").val(splitOtherSMSNumber[0]);
+                                    }
+
+                                    $("#idPhoneNumber").val(splitOtherSMSNumber[1]);
+
+                                    $("#idPhonePrefix").attr("disabled", "true");
+                                    $("#idPhoneNumber").attr("disabled", "true");
+                                } else {
+                                    window.parent.showMessageOK("", mlp.getLanguageKey("無電話資訊，請聯繫客服"), function () {
+                                        window.parent.API_LoadPage('Casino', 'Casino.aspx');
+                                    });
+                                }
+                            } else {
+                                window.parent.showMessageOK("", mlp.getLanguageKey("無電話資訊，請聯繫客服"), function () {
+                                    window.parent.API_LoadPage('Casino', 'Casino.aspx');
+                                });
+                            }
+                        } else {
+                            window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
+                        }
                     });
                 }
             }
