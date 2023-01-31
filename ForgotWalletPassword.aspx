@@ -278,7 +278,7 @@
         mlp.loadLanguage(lang, function () {
 
             if (WebInfo.UserLogined) {
-                if (WebInfo.UserInfo.ContactPhonePrefix != "" && WebInfo.UserInfo.ContactPhoneNumber != "") {
+                if (WebInfo.UserInfo.ContactPhoneNumber != "") {
 
                     if (WebInfo.UserInfo.ContactPhonePrefix[0] != "+") {
                         $("#idPhonePrefix").val("+" + WebInfo.UserInfo.ContactPhonePrefix);

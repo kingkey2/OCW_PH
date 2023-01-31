@@ -96,7 +96,7 @@
     function updateBaseInfo() {
         $("#RealName").val(WebInfo.UserInfo.RealName);
         $("#Email").val(WebInfo.UserInfo.EMail == undefined ? "" : WebInfo.UserInfo.EMail);
-        if (WebInfo.UserInfo.ContactPhoneNumber != null && WebInfo.UserInfo.ContactPhoneNumber != '') {
+        if (WebInfo.UserInfo.ContactPhoneNumber!='') {
             $("#PhoneNumber").val(WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber);
         } else {
             var GUID = Math.uuid();
