@@ -352,22 +352,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ClearGameAclByLoginAccount">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ClearGameAclByLoginAccountResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ClearGameAclByLoginAccountResult" type="tns:APIResult" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="AgentAccountingResult" nillable="true" type="tns:AgentAccountingResult" />
       <s:element name="ChildUserResult" nillable="true" type="tns:ChildUserResult" />
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
@@ -458,12 +442,6 @@
   </wsdl:message>
   <wsdl:message name="GetUserOtherSMSNumberSoapOut">
     <wsdl:part name="parameters" element="tns:GetUserOtherSMSNumberResponse" />
-  </wsdl:message>
-  <wsdl:message name="ClearGameAclByLoginAccountSoapIn">
-    <wsdl:part name="parameters" element="tns:ClearGameAclByLoginAccount" />
-  </wsdl:message>
-  <wsdl:message name="ClearGameAclByLoginAccountSoapOut">
-    <wsdl:part name="parameters" element="tns:ClearGameAclByLoginAccountResponse" />
   </wsdl:message>
   <wsdl:message name="GetAccountingDetailBySummaryDateHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
@@ -574,14 +552,6 @@
     <wsdl:part name="GUID" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetUserOtherSMSNumberHttpGetOut">
-    <wsdl:part name="Body" element="tns:APIResult" />
-  </wsdl:message>
-  <wsdl:message name="ClearGameAclByLoginAccountHttpGetIn">
-    <wsdl:part name="Token" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
-    <wsdl:part name="GUID" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="ClearGameAclByLoginAccountHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="GetAccountingDetailBySummaryDateHttpPostIn">
@@ -695,14 +665,6 @@
   <wsdl:message name="GetUserOtherSMSNumberHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
-  <wsdl:message name="ClearGameAclByLoginAccountHttpPostIn">
-    <wsdl:part name="Token" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
-    <wsdl:part name="GUID" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="ClearGameAclByLoginAccountHttpPostOut">
-    <wsdl:part name="Body" element="tns:APIResult" />
-  </wsdl:message>
   <wsdl:portType name="FANTASoap">
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
       <wsdl:input message="tns:GetAccountingDetailBySummaryDateSoapIn" />
@@ -760,10 +722,6 @@
       <wsdl:input message="tns:GetUserOtherSMSNumberSoapIn" />
       <wsdl:output message="tns:GetUserOtherSMSNumberSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ClearGameAclByLoginAccount">
-      <wsdl:input message="tns:ClearGameAclByLoginAccountSoapIn" />
-      <wsdl:output message="tns:ClearGameAclByLoginAccountSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="FANTAHttpGet">
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
@@ -814,10 +772,6 @@
       <wsdl:input message="tns:GetUserOtherSMSNumberHttpGetIn" />
       <wsdl:output message="tns:GetUserOtherSMSNumberHttpGetOut" />
     </wsdl:operation>
-    <wsdl:operation name="ClearGameAclByLoginAccount">
-      <wsdl:input message="tns:ClearGameAclByLoginAccountHttpGetIn" />
-      <wsdl:output message="tns:ClearGameAclByLoginAccountHttpGetOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="FANTAHttpPost">
     <wsdl:operation name="GetAccountingDetailBySummaryDate">
@@ -867,10 +821,6 @@
     <wsdl:operation name="GetUserOtherSMSNumber">
       <wsdl:input message="tns:GetUserOtherSMSNumberHttpPostIn" />
       <wsdl:output message="tns:GetUserOtherSMSNumberHttpPostOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ClearGameAclByLoginAccount">
-      <wsdl:input message="tns:ClearGameAclByLoginAccountHttpPostIn" />
-      <wsdl:output message="tns:ClearGameAclByLoginAccountHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="FANTASoap" type="tns:FANTASoap">
@@ -994,15 +944,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserOtherSMSNumber">
       <soap:operation soapAction="http://tempuri.org/GetUserOtherSMSNumber" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ClearGameAclByLoginAccount">
-      <soap:operation soapAction="http://tempuri.org/ClearGameAclByLoginAccount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1139,15 +1080,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ClearGameAclByLoginAccount">
-      <soap12:operation soapAction="http://tempuri.org/ClearGameAclByLoginAccount" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="FANTAHttpGet" type="tns:FANTAHttpGet">
     <http:binding verb="GET" />
@@ -1259,15 +1191,6 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ClearGameAclByLoginAccount">
-      <http:operation location="/ClearGameAclByLoginAccount" />
-      <wsdl:input>
-        <http:urlEncoded />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="FANTAHttpPost" type="tns:FANTAHttpPost">
     <http:binding verb="POST" />
@@ -1372,15 +1295,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserOtherSMSNumber">
       <http:operation location="/GetUserOtherSMSNumber" />
-      <wsdl:input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ClearGameAclByLoginAccount">
-      <http:operation location="/ClearGameAclByLoginAccount" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
