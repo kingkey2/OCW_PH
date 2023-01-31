@@ -739,7 +739,7 @@ public class PaymentAPI : System.Web.Services.WebService
                             else
                             {
                                 SetResultException(R, updateTagResult.ResultMessage);
-                                paymentAPI.CancelPayment(GetToken(), GUID, paymentResult.PaymentSerial);
+                                paymentAPI.CancelPayment(GetToken(), GUID, paymentResult.PaymentSerial,"");
                                 ocwAPI.FinishCompanyWallet(SI.EWinCT, (EWin.OCW.enumWalletType)TempCryptoData.WalletType, walletDepositResult.WalletPublicAddress);
                             }
                         }
@@ -1031,7 +1031,7 @@ public class PaymentAPI : System.Web.Services.WebService
                         else
                         {
                             SetResultException(R, updateTagResult.ResultMessage);
-                            paymentAPI.CancelPayment(GetToken(), GUID, paymentResult.PaymentSerial);
+                            paymentAPI.CancelPayment(GetToken(), GUID, paymentResult.PaymentSerial,"");
                         }
                     }
                     else
@@ -1445,7 +1445,7 @@ public class PaymentAPI : System.Web.Services.WebService
                         else
                         {
                             SetResultException(R, updateTagResult.ResultMessage);
-                            paymentAPI.CancelPayment(GetToken(), GUID, paymentResult.PaymentSerial);
+                            paymentAPI.CancelPayment(GetToken(), GUID, paymentResult.PaymentSerial,"");
                         }
                     }
                     else
@@ -1592,13 +1592,13 @@ public class PaymentAPI : System.Web.Services.WebService
                             else
                             {
                                 SetResultException(R, R_PayPal.Message);
-                                paymentAPI.CancelPayment(GetToken(), GUID, paymentResult.PaymentSerial);
+                                paymentAPI.CancelPayment(GetToken(), GUID, paymentResult.PaymentSerial,"");
                             }
                         }
                         else
                         {
                             SetResultException(R, updateTagResult.ResultMessage);
-                            paymentAPI.CancelPayment(GetToken(), GUID, paymentResult.PaymentSerial);
+                            paymentAPI.CancelPayment(GetToken(), GUID, paymentResult.PaymentSerial,"");
                         }
                     }
                     else
@@ -3017,7 +3017,7 @@ public class PaymentAPI : System.Web.Services.WebService
                         {
                             new EWin.OCW.OCW().FinishCompanyWallet(SI.EWinCT, (EWin.OCW.enumWalletType)WalletType, ToWalletAddress);
                         }
-                        var paymentResult = paymentAPI.CancelPayment(GetToken(), GUID, PaymentSerial);
+                        var paymentResult = paymentAPI.CancelPayment(GetToken(), GUID, PaymentSerial,"");
 
                         if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                         {
