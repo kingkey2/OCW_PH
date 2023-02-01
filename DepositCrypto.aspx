@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css?<%:Version%>" type="text/css" />
     <link href="css/footer-new.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
     <style>
         /* .progressline-step {
              position: absolute;
@@ -80,10 +79,11 @@
         lobbyClient = window.parent.API_GetLobbyAPI();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
+            GetPaymentMethod();
             window.parent.API_LoadingEnd();
         }, "PaymentAPI");
 
-        GetPaymentMethod();
+        
         startCountDown();
         btn_NextStep();
 

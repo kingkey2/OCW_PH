@@ -237,10 +237,6 @@
                     updateFourGame();
                 }
 
-                window.parent.API_GetUserThisWeekTotalValidBetValue(function (e) {
-                    setUserThisWeekLogined(e);
-                })
-
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";

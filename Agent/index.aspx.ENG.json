@@ -14,7 +14,7 @@
   "區塊鏈交易明細": "Blockchain Transaction Record",
   "下線出款申請記錄": "Cash-Out Transaction Record",
   "投注結算報表": "Betting Settlement",
-  "新增下線": "Add Member",
+  "新增下線": "Add Agent",
   "新增助手": "Add Assistant",
   "登出": "Logout",
   "管理": "Member Centre",
@@ -64,5 +64,13 @@
   "團隊管理": "Team Management",
   "數據查詢": "Logs Query",
   "結算查詢": "Settlement Query",
-  "複製推廣連結": "Copy Link"
+  "複製推廣連結": "Copy Link",
+  "錯誤": "Error",
+  "完成": "Finish",
+  "出款": "Withdrawal",
+  "轉帳至遊戲帳戶": "Transfer To PlayerAccount",
+  "交易": "Transaction",
+  "新增遊玩帳號": "Create PlayerAccount",
+  "遊玩帳號": "PlayerAccount",
+  "提醒": "System Message"
 }

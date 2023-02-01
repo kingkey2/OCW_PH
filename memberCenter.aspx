@@ -25,10 +25,8 @@
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/member-2.css" rel="stylesheet" />
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" /> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         .invalid-feedback {
             display:block !important;
@@ -98,7 +96,27 @@
     function updateBaseInfo() {
         $("#RealName").val(WebInfo.UserInfo.RealName);
         $("#Email").val(WebInfo.UserInfo.EMail == undefined ? "" : WebInfo.UserInfo.EMail);
-        $("#PhoneNumber").val(WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber);
+        if (WebInfo.UserInfo.ContactPhoneNumber!='') {
+            $("#PhoneNumber").val(WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber);
+        } else {
+            var GUID = Math.uuid();
+            p.GetUserOtherSMSNumber(WebInfo.SID, GUID, function (success, o) {
+                if (success) {
+                    if (o.Result == 0) {
+                        if (o.Message && o.Message != '') {
+                            $("#PhoneNumber").val(o.Message);
+                        } else {
+                      
+                        }
+                    } else {
+                     
+                    }
+                } else {
+                    
+                }
+            });
+        }
+        
         let IsFullRegistration = 0;
 
         if (WebInfo.UserInfo.ExtraData) {
@@ -145,7 +163,7 @@
             wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType.toLocaleUpperCase());
         }
         
-        $("#idAmount").text(new BigNumber(parseFloat(wallet.PointValue).toFixed(1)).toFormat());
+        $("#idAmount").text(new BigNumber(roundDown(parseFloat(wallet.PointValue), 2)).toFormat());
         $("#PersonCode").text(WebInfo.UserInfo.PersonCode);
         $("#idCopyPersonCode").text(`${"<%=EWinWeb.CasinoWorldUrl %>"}/Index.aspx?PCode=${WebInfo.UserInfo.PersonCode}`);
         $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"<%=EWinWeb.CasinoWorldUrl %>"}/Index.aspx?PCode=${WebInfo.UserInfo.PersonCode}&Download=2`);
@@ -795,7 +813,10 @@
         window.document.body.scrollTop = 0;
         window.document.documentElement.scrollTop = 0;
     }
-
+    
+    function roundDown(num, decimal) {
+        return Math.floor((num + Number.EPSILON) * Math.pow(10, decimal)) / Math.pow(10, decimal);
+    }
 
     function init() {
         if (self == top) {
@@ -806,11 +827,13 @@
             $('.icon-copy').hide();
         }
 
+        
+
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetLobbyAPI();
         PaymentClient = window.parent.API_GetPaymentAPI();
         lang = window.parent.API_GetLang();
- 
+
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
@@ -827,9 +850,6 @@
                 }
               
                 updateBaseInfo();
-                window.top.API_GetUserThisWeekTotalValidBetValue(function (e) {
-                    setUserThisWeekLogined(e);
-                });
             }
             else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
@@ -839,16 +859,6 @@
         });
 
         AdjustDate();
-
-        //changeAvatar(getCookie("selectAvatar"));
-        
-
-        $("#activityURL").attr("href", "https://casino-maharaja.net/lp/01/" + WebInfo.UserInfo.PersonCode);
-        $("#activityURL1").attr("href", "https://casino-maharaja.net/lp/02/" + WebInfo.UserInfo.PersonCode);
-
-        //if (!WebInfo.UserInfo.IsWalletPasswordSet) {
-            //document.getElementById('idWalletPasswordUnSet').style.display = "block";
-        //}
     }
 
     function GetEPayBankSelect() {
@@ -880,22 +890,6 @@
             }
 
         })
-    }
-
-    function copyActivityUrl() {
-
-        navigator.clipboard.writeText("https://casino-maharaja.net/lp/01/" + WebInfo.UserInfo.PersonCode).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
-        //alert("Copied the text: " + copyText.value);
-    }
-
-    function copyActivityUrl1() {
-
-        navigator.clipboard.writeText("https://casino-maharaja.net/lp/02/" + WebInfo.UserInfo.PersonCode).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
-        //alert("Copied the text: " + copyText.value);
     }
 
     function openAddGameModal() {
@@ -1702,61 +1696,6 @@
                         </section>
                       
                     </section>
-
-                    <%--
-                    <!-- 熱門活動 -->
-                    <div class="activity-promo-wrapper">
-                        <div class="activity-promo-inner">
-                            <div class="sec-title-container">
-                                <div class="sec-title-wrapper">
-                                    <h3 class="sec-title title-deco"><span class="language_replace">熱門活動</span></h3>
-                                </div>
-                            </div>                           
-                            <div class="activity-promo-content">
-                                <ul class="activity-promo-list">
-                                    <li class="promo-item">
-                                        <div class="promo-inner">
-                                            <div class="promo-img">
-                                                <a id="activityURL1" href="https://www.casino-maharaja.net/lp/02/N00000000"
-                                                    target="_blank">
-                                                    <div class="img-crop">
-                                                        <img src="images/activity/promo-02.jpg"
-                                                            alt="パチンコって何？それっておいしいの？">
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="promo-content">
-                                                <h4 class="title language_replace">顧客活用的介紹推廣頁②（柏青哥愛好者）</h4>
-                                                <button type="button" class="btn btn-full-sub" onclick="copyActivityUrl1()">
-                                                    <i class="icon icon-mask icon-copy"></i><span class="language_replace">複製活動連結</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="promo-item">
-                                        <div class="promo-inner">
-                                            <div class="promo-img">
-                                                <a id="activityURL" href="https://casino-maharaja.net/lp/01/N00000000"
-                                                    target="_blank">
-                                                    <div class="img-crop">
-                                                        <img src="images/activity/promo-01.jpg"
-                                                            alt="とりあえず、当社のドメインで紹介用LPをアップしてみました。">
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="promo-content">
-                                                <h4 class="title language_replace">お客様活用、紹介ランディングページその①（主婦）</h4>
-                                                <button type="button" class="btn btn-full-sub " onclick="copyActivityUrl()"><i class="icon icon-mask icon-copy"></i>
-                                                    <span class="language_replace">複製活動連結</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    --%>
                 </article>
             </div>
         </div>

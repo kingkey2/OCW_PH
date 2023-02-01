@@ -264,7 +264,7 @@ legend {
   display: flex;
   width: 100%;
   height: 150px;
-  background: url(../images/theme/icon/icon-nodata.svg) center center no-repeat;
+  background: url(../images/theme/icon/icon-nodata.png) center center no-repeat;
   background-size: contain;
   text-align: center;
 }
@@ -1567,7 +1567,7 @@ hr.line {
           align-items: center;
   height: 50px;
   width: 40px;
-  background: url(../images/logo-mobile.png) left center no-repeat;
+  background: url(../images/logo-mobile.png?1) left center no-repeat;
   background-size: contain;
 }
 .navbar-brand .logo a {
@@ -2133,7 +2133,7 @@ hr.line {
 @media (min-width: 768px) {
   .navbar-brand .logo {
     width: 190px;
-    background: url(../images/logo.png?a=1) left center no-repeat;
+    background: url(../images/logo.png?a=2) left center no-repeat;
     background-size: contain;
   }
 

@@ -30,5 +30,8 @@
   "建立時間": "Created Date",
   "應付傭金": "Total Rebate Amount",
   "總轉碼": "Total Valid Bet",
-  "總輸贏": "Total Win/Loss"
+  "總輸贏": "Total Win/Loss",
+  "總紅利": "Total Bonus",
+  "佔成紅利": "Dividends",
+  "提醒": "System Message"
 }

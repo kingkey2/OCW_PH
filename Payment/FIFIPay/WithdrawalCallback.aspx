@@ -57,7 +57,7 @@
                                 RValue = random.Next(100000, 9999999);
                                 Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
 
-                                paymentAPI.CancelPayment(Token, Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"]);
+                                paymentAPI.CancelPayment(Token, Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"],"");
                                 R.ResultState = APIResult.enumResultCode.OK;
                                 R.Message = "SUCCESS";
                             }

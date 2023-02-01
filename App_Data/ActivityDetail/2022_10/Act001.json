@@ -11,6 +11,32 @@
   "Rate2Title": "每次入金贈送10%",
   "Rate2SubTitle": "",
   "CollectAreaType": "1",
+  "ThresholdAddRate": [
+    {
+      "GameAccountingCode": "Electron",
+      "ThresholdRate": 1
+    },
+    {
+      "GameAccountingCode": "Live",
+      "ThresholdRate": 0
+    },
+    {
+      "GameAccountingCode": "Sport",
+      "ThresholdRate": 0
+    },
+    {
+      "GameAccountingCode": "Live.FightChicken",
+      "ThresholdRate": 0
+    },
+    {
+      "GameAccountingCode": "Electron.Fish",
+      "ThresholdRate": 0
+    },
+    {
+      "GameAccountingCode": "Slot",
+      "ThresholdRate": 1
+    }
+  ],
   "Rate1": [
     {
       "PaymentCode": ".ERC-HLN",
@@ -142,6 +168,14 @@
     },
     {
       "PaymentCode": "YuHong.GcashH5_1",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "FeibaoBank.Bank1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,
@@ -285,6 +319,14 @@
       "ThresholdRate": 100,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "FeibaoBank.Bank1",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
     }
   ],
   "Rate3": [
@@ -418,6 +460,14 @@
     },
     {
       "PaymentCode": "YuHong.QRPH1",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "FeibaoBank.Bank1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,

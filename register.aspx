@@ -8,7 +8,7 @@
     if (EWinWeb.IsTestSite) { // 測試機
         DefaultPersonCode = "A57915863569070";
     } else { // 正式機
-        DefaultPersonCode = "A14615629820693";
+        DefaultPersonCode = "S20115763981352";
     }
 
 %>
@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
 </head>
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -32,8 +31,10 @@
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
-<script type="text/javascript" src="/Scripts/libphonenumber.js"></script>
+<%--<script type="text/javascript" src="/Scripts/libphonenumber.js"></script>--%>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/google-libphonenumber/3.2.31/libphonenumber.min.js"></script>
+    
 <script>      
     if (self != top) {
         window.parent.API_LoadingStart();

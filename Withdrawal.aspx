@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
      <link rel="stylesheet" href="css/wallet.css?<%:Version%>" type="text/css" />
     <link href="css/footer-new.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
        <style>
         .tempCard {
         cursor:pointer;
@@ -55,7 +54,7 @@
     var lobbyClient;
     var WebInfo;
     var TimeZone = 8;
-
+    var userWithdrawPermissions = true;
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
@@ -78,6 +77,22 @@
                 } else {
                     checkWalletPassword();
                 }
+            }
+
+            var Tag = WebInfo.UserInfo.Tag;
+            if (Tag != null) {
+                var jsonTag = JSON.parse(Tag);
+                for (var i = 0; i < jsonTag.length; i++) {
+                    if (jsonTag[i]["TagText"] == "黑名單" || jsonTag[i]["TagText"] == "數據延遲/異常" || jsonTag[i]["TagText"] == "技術排查中") {
+                        userWithdrawPermissions = false;
+                    }
+                }
+            }
+
+            if (!userWithdrawPermissions) {
+                window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("請聯繫客服"), function () {
+                    window.parent.API_Reload();
+                });
             }
        
         }, "PaymentAPI");

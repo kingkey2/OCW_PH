@@ -107,6 +107,17 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page {
         return ThresholdValue;
     }
 
+    public decimal GetUserPointValue(string LoginAccount) {
+        decimal PointValue = 0;
+        EWin.FANTA.FANTA api = new EWin.FANTA.FANTA();
+        var ApiResult = api.GetUserPointValue(GetToken(), System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
+        if (ApiResult.ResultState == EWin.FANTA.enumResultState.OK) {
+            PointValue = decimal.Parse(ApiResult.Message);
+        }
+
+        return PointValue;
+    }
+
     public string GetToken() {
         string Token;
         int RValue;

@@ -12,19 +12,13 @@
 
     ASR = api.GetAgentSessionByID(ASID);
 
-    if (ASR.Result != EWin.SpriteAgent.enumResult.OK)
-    {
-        if (string.IsNullOrEmpty(DefaultCompany) == false)
-        {
+    if (ASR.Result != EWin.SpriteAgent.enumResult.OK) {
+        if (string.IsNullOrEmpty(DefaultCompany) == false) {
             Response.Redirect("login.aspx?C=" + DefaultCompany);
-        }
-        else
-        {
+        } else {
             Response.Redirect("login.aspx");
         }
-    }
-    else
-    {
+    } else {
         ASI = ASR.AgentSessionInfo;
         DefaultCompany = EWinWeb.CompanyCode;
         DefaultCurrencyType = EWinWeb.MainCurrencyType;
@@ -132,9 +126,9 @@
                                     }
 
                                     if (w.PointValue.toString().includes("e")) {
-                                        c.setClassText(temp, "WalletBalance", null, BigNumber(w.PointValue).toFormat());
+                                        c.setClassText(temp, "WalletBalance", null, BigNumber(roundDown(w.PointValue, 2)).toFormat());
                                     } else {
-                                        c.setClassText(temp, "WalletBalance", null, Number(BigNumber(w.PointValue).toFixed(12)));
+                                        c.setClassText(temp, "WalletBalance", null, Number(BigNumber(roundDown(w.PointValue, 2))));
                                     }
 
                                     templateRateInfo = c.getTemplate("templateRateInfo");
@@ -277,6 +271,10 @@
                     window.parent.API_CloseLoading();
                 }
             });
+        }
+        //小數點後兩位無條件捨去
+        function roundDown(num, decimal) {
+            return Math.floor((num + Number.EPSILON) * Math.pow(10, decimal)) / Math.pow(10, decimal);
         }
 
         function queryAccountingData() {

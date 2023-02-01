@@ -27,6 +27,7 @@
                 EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
                 EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
                 EWin.OCW.OCW ocwAPI = new EWin.OCW.OCW();
+                EWin.FANTA.APIResult fanta_Result = new EWin.FANTA.APIResult();
 
                 EWin.Payment.PaymentResult paymentResult = paymentAPI.GetPaymentByClientOrderNumber(Token, GUID, BodyObj.ClientOrderNumber);
                 //回去EWin確認該筆訂單存在
@@ -57,12 +58,14 @@
                                     int PaymentFlowStatus = (int)PaymentDT.Rows[0]["FlowStatus"];
                                     bool ResetThreshold = false;
                                     decimal ThresholdValue;
+                                    decimal PointValue;
 
                                     if (PaymentFlowStatus == 1) {
                                         transactionCode = BodyObj.PaymentSerial;
                                         description = "Deposit, PaymentCode=" + tagInfoData.PaymentCode + ", Amount=" + BodyObj.Amount;
                                         ResetThreshold = CheckResetThreshold(BodyObj.LoginAccount);
                                         ThresholdValue = GetUserThresholdValue(BodyObj.LoginAccount);
+                                        PointValue = GetUserPointValue(BodyObj.LoginAccount);
 
                                         if (ThresholdValue == 0) {
                                             lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinActivity");
@@ -73,6 +76,10 @@
                                         addThresholdResult = lobbyAPI.AddThreshold(Token, GUID, transactionCode, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, tagInfoData.ThresholdValue, description, ResetThreshold);
 
                                         if (addThresholdResult.Result == EWin.Lobby.enumResult.OK || addThresholdResult.Message == "-2") {
+                                            //若有重製門檻將只能遊玩電子遊戲的限制移除
+                                            if (ResetThreshold) {
+                                               // fantaAPI.ClearGameAclByLoginAccount(Token, BodyObj.LoginAccount, System.Guid.NewGuid().ToString());
+                                            }
 
                                             if (tagInfoData.IsJoinDepositActivity) {
                                                 //有參加入金活動
@@ -168,6 +175,17 @@
                                                         }
 
                                                         fantaAPI.ResetUserPointValueAndThresholdValueByCurrencyType(GetToken(), BodyObj.LoginAccount, System.Guid.NewGuid().ToString(), EWinWeb.BonusCurrencyType, "FirstDepositRestBonusWallet");
+                                                    }
+
+                                                    //錢包金額少於100或門檻歸0時取消只有特定遊戲扣除門檻限制
+                                                    if (PointValue <= 100) {
+                                                        fantaAPI.ResetThresholdAddRate(Token, BodyObj.LoginAccount);
+                                                        lobbyAPI.RemoveUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinHasThresholdAddRateActivity");
+                                                    } else {
+                                                        if (ThresholdValue == 0) {
+                                                            fantaAPI.ResetThresholdAddRate(Token, BodyObj.LoginAccount);
+                                                            lobbyAPI.RemoveUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinHasThresholdAddRateActivity");
+                                                        }
                                                     }
 
                                                     R.Result = 0;
@@ -313,7 +331,7 @@
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
                         }
-                        else if (BodyObj.Action == "Accept")
+                        else if (BodyObj.Action == "Accept"||BodyObj.Action == "Resend")
                         {
                             if (!string.IsNullOrEmpty(BodyObj.PaymentProvider))
                             {
@@ -370,14 +388,14 @@
                                                     {
                                                         SetResultException(R, "Create Withdrawal Fail:" + CreateEPayWithdrawalReturn.Message);
                                                     }
-                                                    else { 
-                                                       SetResultException(R, "Create Withdrawal Fail:" + CreateEPayWithdrawalReturn.Message+",Order FlowStatus Error CancelPaymentFlowStatusByProviderProcessing:"+setCancelPaymentFlowStatusByProviderProcessing);
+                                                    else {
+                                                        SetResultException(R, "Create Withdrawal Fail:" + CreateEPayWithdrawalReturn.Message+",Order FlowStatus Error CancelPaymentFlowStatusByProviderProcessing:"+setCancelPaymentFlowStatusByProviderProcessing);
                                                     }
 
                                                 }
                                             }
                                             else {
-                                                SetResultException(R, "Order FlowStatus Error PaymentFlowStatusByProviderProcessing:"+setPaymentFlowStatusByProviderProcessing);
+                                                R.Result = 0;
                                             }
 
                                         }
@@ -393,7 +411,7 @@
                                 }
                             }
                             else {
-                              SetResultException(R, "PaymentProvider Empty.");
+                                SetResultException(R, "PaymentProvider Empty.");
                             }
                         }
                         else if (BodyObj.Action == "CancelResume")

@@ -228,7 +228,7 @@ public class AgentAPI : System.Web.Services.WebService {
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Agent.ChildUserAccountResult QueryChildUserAccountList(string AID, string GUID, string ParentLoginAccount) {
-        EWin.Agent.ChildUserAccountResult R;
+        EWin.Agent.ChildUserAccountResult R = new EWin.Agent.ChildUserAccountResult();
         EWin.Agent.AgentAPI api = new EWin.Agent.AgentAPI();
 
         R = api.QueryChildUserAccountList(AID, GUID, ParentLoginAccount);

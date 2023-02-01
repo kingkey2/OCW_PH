@@ -21,6 +21,7 @@
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/SelectItem.js"></script>
 <script type="text/javascript" src="js/AgentCommon.js"></script>
+<script type="text/javascript" src="../Scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
     var c = new common();
     var ac = new AgentCommon();
@@ -33,6 +34,7 @@
     var uType;
     var processing = false;
     var GetCompanyPermissionGroup;
+    var p;
 
     function checkFormData() {
         var retValue = true;
@@ -54,164 +56,170 @@
             }
         }
 
-        // 檢查所有錢包數值
-        for (var i = 0; i < idPointList.children.length; i++) {
-            var el = idPointList.children[i];
+        CheckAccountPhoneExist(function (check) {
+            if (check) {
+                // 檢查所有錢包數值
+                for (var i = 0; i < idPointList.children.length; i++) {
+                    var el = idPointList.children[i];
 
-            if (el.hasAttribute("currencyType")) {
-                var btnPointNew = c.getFirstClassElement(el, "btnPointNew");
-                //其它遊戲
-                var currencyType = el.getAttribute("currencyType");
-                var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
-                var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
-                var agentGameUserRate = 0;
-                var agentGameBuyChipRate = 0;
+                    if (el.hasAttribute("currencyType")) {
+                        var btnPointNew = c.getFirstClassElement(el, "btnPointNew");
+                        //其它遊戲
+                        var currencyType = el.getAttribute("currencyType");
+                        var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
+                        var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
+                        var agentGameUserRate = 0;
+                        var agentGameBuyChipRate = 0;
 
-                if (isNaN(pointUserRate.value) == true || isNaN(pointBuyChipRate.value) == true) {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("佔成/轉碼請輸入正確數字"));
-                    retValue = false;
-                    break;
-                }
-
-                for (var j = 0; j < EWinInfo.UserInfo.GameCodeList.length; j++) {
-                    if (EWinInfo.UserInfo.GameCodeList[j].CurrencyType == currencyType) {
-                        if (EWinInfo.UserInfo.GameCodeList[j].GameAccountingCode == btnPointNew.getAttribute("btnGameCode")) {
-                            agentGameUserRate = EWinInfo.UserInfo.GameCodeList[j].UserRate;
-                            agentGameBuyChipRate = EWinInfo.UserInfo.GameCodeList[j].BuyChipRate;
-                        }
-                    }
-                }
-
-                if ((pointUserRate.value != "") && (pointUserRate.value != null)) {
-                    if ((Number(pointUserRate.value) > agentGameUserRate) || Number(pointUserRate.value) < 0) {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("佔成可接受範圍為") + " 0 - " + agentGameUserRate);
-                        retValue = false;
-                        break;
-                    }
-                } else {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("佔成率不可空白"));
-                    retValue = false;
-                    break;
-                }
-
-                if ((pointBuyChipRate.value != "") || (pointBuyChipRate.value != null)) {
-                    if (Number(pointBuyChipRate.value) < 0) {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼不可負數"));
-                        retValue = false;
-                        break;
-                    }
-                    else {
-                        switch (EWinInfo.CompanyInfo.DownlineBuyChipRateType) {
-                            case 0:
-                                //不允許下線轉碼率設定高於上線
-                                if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
-                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("下線轉碼率不可高於上線"));
-                                    retValue = false;
-                                    break;
-                                }
-                                break;
-                            case 1:
-                                //允許設定高於上線
-                                if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
-                                    if (chkMessage == "") {
-                                        chkMessage = btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼數超過上線,用戶須自行承擔差額,確定要繼續嗎?");
-                                    }
-                                    else {
-                                        chkMessage = chkMessage + "<br/>" + btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼數超過上線,用戶須自行承擔差額,確定要繼續嗎?");
-                                    }
-                                    break;
-                                }
-                                break;
-                            case 2:
-                                //代理佔成時才允許下線碼佣高於代理
-                                if (Number(agentGameUserRate) > 0) {
-                                    if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
-                                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("下線轉碼率不可高於上線"));
-                                        retValue = false;
-                                        break;
-                                    }
-                                }
-                                break;
-                        }
-                    }
-
-                } else {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼率不可空白"));
-                    retValue = false;
-                    break;
-                }
-            } else if (el.hasAttribute("default")) {
-                //其它遊戲
-                var currencyType = el.getAttribute("default");
-                var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
-                var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
-                var agentGameUserRate = 0;
-                var agentGameBuyChipRate = 0;
-
-                if (isNaN(pointUserRate.value) == true || isNaN(pointBuyChipRate.value) == true) {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("佔成/轉碼請輸入正確數字"));
-                    retValue = false;
-                    break;
-                }
-
-                for (var j = 0; j < EWinInfo.UserInfo.WalletList.length; j++) {
-                    if (EWinInfo.UserInfo.WalletList[j].CurrencyType == EWinInfo.MainCurrencyType) {
-                        agentGameUserRate = EWinInfo.UserInfo.WalletList[j].UserRate;
-                        agentGameBuyChipRate = EWinInfo.UserInfo.WalletList[j].BuyChipRate;
-                    }
-                }
-
-                if ((pointUserRate.value != "") && (pointUserRate.value != null)) {
-                    if ((Number(pointUserRate.value) > agentGameUserRate) || Number(pointUserRate.value) < 0) {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("佔成可接受範圍為") + " 0 - " + agentGameUserRate);
-                        retValue = false;
-                        break;
-                    }
-                } else {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("佔成率不可空白"));
-                    retValue = false;
-                    break;
-                }
-
-                if ((pointBuyChipRate.value != "") || (pointBuyChipRate.value != null)) {
-                    if (Number(pointBuyChipRate.value) < 0) {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("轉碼不可負數"));
-                        retValue = false;
-                        break;
-                    } else {
-                        if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("下線轉碼率不可高於上線"));
+                        if (isNaN(pointUserRate.value) == true || isNaN(pointBuyChipRate.value) == true) {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("佔成/轉碼請輸入正確數字"));
                             retValue = false;
                             break;
                         }
-                    }
 
-                } else {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("轉碼率不可空白"));
-                    retValue = false;
-                    break;
+                        for (var j = 0; j < EWinInfo.UserInfo.GameCodeList.length; j++) {
+                            if (EWinInfo.UserInfo.GameCodeList[j].CurrencyType == currencyType) {
+                                if (EWinInfo.UserInfo.GameCodeList[j].GameAccountingCode == btnPointNew.getAttribute("btnGameCode")) {
+                                    agentGameUserRate = EWinInfo.UserInfo.GameCodeList[j].UserRate;
+                                    agentGameBuyChipRate = EWinInfo.UserInfo.GameCodeList[j].BuyChipRate;
+                                }
+                            }
+                        }
+
+                        if ((pointUserRate.value != "") && (pointUserRate.value != null)) {
+                            if ((Number(pointUserRate.value) > agentGameUserRate) || Number(pointUserRate.value) < 0) {
+                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("佔成可接受範圍為") + " 0 - " + agentGameUserRate);
+                                retValue = false;
+                                break;
+                            }
+                        } else {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("佔成率不可空白"));
+                            retValue = false;
+                            break;
+                        }
+
+                        if ((pointBuyChipRate.value != "") || (pointBuyChipRate.value != null)) {
+                            if (Number(pointBuyChipRate.value) < 0) {
+                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼不可負數"));
+                                retValue = false;
+                                break;
+                            }
+                            else {
+                                switch (EWinInfo.CompanyInfo.DownlineBuyChipRateType) {
+                                    case 0:
+                                        //不允許下線轉碼率設定高於上線
+                                        if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
+                                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("下線轉碼率不可高於上線"));
+                                            retValue = false;
+                                            break;
+                                        }
+                                        break;
+                                    case 1:
+                                        //允許設定高於上線
+                                        if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
+                                            if (chkMessage == "") {
+                                                chkMessage = btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼數超過上線,用戶須自行承擔差額,確定要繼續嗎?");
+                                            }
+                                            else {
+                                                chkMessage = chkMessage + "<br/>" + btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼數超過上線,用戶須自行承擔差額,確定要繼續嗎?");
+                                            }
+                                            break;
+                                        }
+                                        break;
+                                    case 2:
+                                        //代理佔成時才允許下線碼佣高於代理
+                                        if (Number(agentGameUserRate) > 0) {
+                                            if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
+                                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("下線轉碼率不可高於上線"));
+                                                retValue = false;
+                                                break;
+                                            }
+                                        }
+                                        break;
+                                }
+                            }
+
+                        } else {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + currencyType + " " + mlp.getLanguageKey("轉碼率不可空白"));
+                            retValue = false;
+                            break;
+                        }
+                    } else if (el.hasAttribute("default")) {
+                        //其它遊戲
+                        var currencyType = el.getAttribute("default");
+                        var pointUserRate = c.getFirstClassElement(el, "PointUserRate");
+                        var pointBuyChipRate = c.getFirstClassElement(el, "PointBuyChipRate");
+                        var agentGameUserRate = 0;
+                        var agentGameBuyChipRate = 0;
+
+                        if (isNaN(pointUserRate.value) == true || isNaN(pointBuyChipRate.value) == true) {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("佔成/轉碼請輸入正確數字"));
+                            retValue = false;
+                            break;
+                        }
+
+                        for (var j = 0; j < EWinInfo.UserInfo.WalletList.length; j++) {
+                            if (EWinInfo.UserInfo.WalletList[j].CurrencyType == EWinInfo.MainCurrencyType) {
+                                agentGameUserRate = EWinInfo.UserInfo.WalletList[j].UserRate;
+                                agentGameBuyChipRate = EWinInfo.UserInfo.WalletList[j].BuyChipRate;
+                            }
+                        }
+
+                        if ((pointUserRate.value != "") && (pointUserRate.value != null)) {
+                            if ((Number(pointUserRate.value) > agentGameUserRate) || Number(pointUserRate.value) < 0) {
+                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("佔成可接受範圍為") + " 0 - " + agentGameUserRate);
+                                retValue = false;
+                                break;
+                            }
+                        } else {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("佔成率不可空白"));
+                            retValue = false;
+                            break;
+                        }
+
+                        if ((pointBuyChipRate.value != "") || (pointBuyChipRate.value != null)) {
+                            if (Number(pointBuyChipRate.value) < 0) {
+                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("轉碼不可負數"));
+                                retValue = false;
+                                break;
+                            } else {
+                                if (Number(agentGameBuyChipRate) < Number(pointBuyChipRate.value)) {
+                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("下線轉碼率不可高於上線"));
+                                    retValue = false;
+                                    break;
+                                }
+                            }
+
+                        } else {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), currencyType + " " + mlp.getLanguageKey("轉碼率不可空白"));
+                            retValue = false;
+                            break;
+                        }
+
+                    }
                 }
+
+                if (retValue == true) {
+                    checkAccountExist(form.LoginAccount.value, function (accountExist) {
+                        if (accountExist == true) {
+                            if (chkMessage != "") {
+                                window.parent.API_ShowMessage(mlp.getLanguageKey("警告"), chkMessage, function () {
+                                    updateUserInfo();
+                                }, null);
+                            }
+                            else {
+                                updateUserInfo();
+                            }
+
+                        } else {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("登入帳號已存在"));
+                        }
+                    });
+                }
+            } else {
 
             }
-        }
-
-        if (retValue == true) {
-            checkAccountExist(form.LoginAccount.value, function (accountExist) {
-                if (accountExist == true) {
-                    if (chkMessage != "") {
-                        window.parent.API_ShowMessage(mlp.getLanguageKey("警告"), chkMessage, function () {
-                            updateUserInfo();
-                        }, null);
-                    }
-                    else {
-                        updateUserInfo();
-                    }
-
-                } else {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("登入帳號已存在"));
-                }
-            });
-        }
+        });
     }
 
     function chkUserAccount(el) {
@@ -592,8 +600,37 @@
 
     }
 
+    function CheckAccountPhoneExist(cb) {
+
+        var idPhonePrefix = document.getElementById("ContactPhonePrefix");
+        var idPhoneNumber = document.getElementById("ContactPhoneNumber");
+
+        if (idPhonePrefix.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
+            cb(false);
+            return;
+        } else if (idPhoneNumber.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入電話"));
+            cb(false);
+            return;
+        }
+
+        p.CheckAccountExistEx(Math.uuid(), "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
+            if (success) {
+                if (o.Result != 0) {
+                    cb(true);
+                } else {
+                    cb(false);
+                    window.parent.API_ShowMessageOK("", mlp.getLanguageKey("電話已存在"));
+                }
+            }
+
+        });
+    }
+
     function init() {
         lang = window.localStorage.getItem("agent_lang");
+        p = window.parent.API_GetLobbyAPI();
 
         mlp = new multiLanguage();
         mlp.loadLanguage(lang, function () {
@@ -603,15 +640,14 @@
             uType = 1;
             document.getElementById("idUserAccountType").innerText = mlp.getLanguageKey("代理");
 
-            if (EWinInfo.CompanyCode.toUpperCase() == "fanta".toUpperCase()) {
-                var select = document.getElementById("ContactPhonePrefix");
-                select.innerHTML = "";
+            var select = document.getElementById("ContactPhonePrefix");
+            select.innerHTML = "";
 
-                var option = document.createElement("option");
-                option.text = mlp.getLanguageKey("+63 菲律賓");
-                option.value = "+63";
-                select.appendChild(option);
-            }
+            var option = document.createElement("option");
+            option.text = mlp.getLanguageKey("+63 菲律賓");
+            option.value = "+63";
+            select.appendChild(option);
+
         });
     }
 

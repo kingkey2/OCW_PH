@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="css/basic.min.css">    
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/record.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
@@ -1104,7 +1103,7 @@
                                     <span class="language_replace">投注金額</span>
                                 </div>
                                 <div class="record-table-cell td-validBet">
-                                    <span class="language_replace">出款流水扣除值</span>
+                                    <span class="language_replace">有效投注</span>
                                 </div>
                                 <div class="record-table-cell td-rewardValue">
                                     <span class="language_replace">勝/負</span>
@@ -1374,7 +1373,7 @@
                     </div>
                     <!-- 有效投注 -->
                     <div class="record-table-cell td-validBet">
-                        <span class="title language_replace">出款流水扣除值</span>
+                        <span class="title language_replace">有效投注</span>
                         <span class="data number validBet">50090</span>
                     </div>
                     <!-- 勝/負 -->
@@ -1399,7 +1398,7 @@
                         <span class="language_replace">投注金額</span>
                     </div>
                     <div class="record-table-cell cell-validBet">
-                        <span class="language_replace">出款流水扣除值</span>
+                        <span class="language_replace">有效投注</span>
                     </div>
                     <div class="record-table-cell cell-rewardValue">
                         <span class="language_replace">勝/負</span>
@@ -1437,7 +1436,7 @@
                     </div>
                     <!-- 有效投注 -->
                     <div class="record-table-cell td-validBet">
-                        <span class="title language_replace">出款流水扣除值</span>
+                        <span class="title language_replace">有效投注</span>
                         <span class="data number validBet">50090</span>
                     </div>
                     <!-- 勝/負 -->
@@ -1462,7 +1461,7 @@
                         <span class="language_replace orderValue">投注金額</span>
                     </div>
                     <div class="record-table-cell cell-validBet">
-                        <span class="language_replace validBet">出款流水扣除值</span>
+                        <span class="language_replace validBet">有效投注</span>
                     </div>
                     <div class="record-table-cell cell-rewardValue">
                         <span class="language_replace rewardValue">勝/負</span>
@@ -1495,7 +1494,7 @@
                         <span class="data number orderValue">9999</span>
                     </div>
                     <div class="record-drop-item-validBet record-item">
-                        <span class="title language_replace">出款流水扣除值</span>
+                        <span class="title language_replace">有效投注</span>
                         <span class="data number  validBet">9,99999</span>
                     </div>
                 </div>
@@ -1524,7 +1523,7 @@
                         <span class="data number orderValue">999</span>
                     </div>
                     <div class="record-drop-item-validBet record-item">
-                        <span class="title language_replace">出款流水扣除值</span>
+                        <span class="title language_replace">有效投注</span>
                         <span class="data number validBet">9,99999</span>
                     </div>
                 </div>

@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/activity.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
@@ -179,14 +178,16 @@
                                 c.setClassText(RecordDom, "title", null, Collect.PromotionTitle);
                                 c.setClassText(RecordDom, "pointval", null, PointValue);
                                 $(RecordDom).attr("data-collectid", Collect.CollectID);
+                                $(RecordDom).attr("data-description", Collect.Description);
                                 $(RecordDom).attr("data-val", PointValue);
 
                                 DomBtn.onclick = function (e) {
                                     let CollectID = $(e.target).closest(".prize-item").data("collectid");
+                                    let Description = $(e.target).closest(".prize-item").data("description");
                                     let val = new BigNumber($(e.target).closest(".prize-item").data("val")).toFormat();
 
                                     window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), val + mlp.getLanguageKey(" 確認領取"), function () {
-                                        LobbyClient.CollectUserAccountPromotion(WebInfo.SID, Math.uuid(), CollectID, function (success, o) {
+                                        LobbyClient.CollectUserAccountPromotion(WebInfo.SID, Math.uuid(), CollectID, Description, function (success, o) {
                                             if (success) {
                                                 if (o.Result == 0) {
                                                     //window.parent.API_ShowMessageOK(mlp.getLanguageKey("確認"), mlp.getLanguageKey("領取成功"), function () {

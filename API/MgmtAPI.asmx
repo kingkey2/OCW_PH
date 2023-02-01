@@ -258,7 +258,7 @@ public class MgmtAPI : System.Web.Services.WebService {
 
                                             } else { //保級成功時間重新計算
                                                      //更新會員等級資料
-                                                EWinWebDB.UserAccount.UpdateUserAccountLevel(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+                                                EWinWebDB.UserAccount.RelegationUserAccountLevelSuccess(UserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
                                             }
                                         }
                                     }

@@ -208,6 +208,10 @@ public class Payment {
                 } else if (ServiceType == "PHP03") {
                     ProviderCode = "FeibaoPayPaymaya";
                 }
+                else if (ServiceType == "PHP08")
+                {
+                    ProviderCode = "FeibaoPayBank";
+                }
             }
 
             if (EWinWeb.IsTestSite)
@@ -389,7 +393,7 @@ public class Payment {
             sendDic.Add("pay_order_id", OrderID);//
             sendDic.Add("pay_notify_url", SettingData.NotifyAsyncUrl);//
             sendDic.Add("pay_amount", OrderAmount.ToString("#.##"));//
-            sendDic.Add("pay_channel_id", "1747");//
+            sendDic.Add("pay_channel_id", "1889");//
 
             sendDic = Common.AsciiDictionary(sendDic);
 

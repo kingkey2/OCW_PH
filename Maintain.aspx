@@ -27,11 +27,11 @@
                 <div class="main-panel">
 
                     <section class="section-wrap">
-                        <div class="logo">
+                        <%--<div class="logo">
                             <img src="images/assets/logo-icon.svg" alt="">
-                        </div>
+                        </div>--%>
                         <div class="img-wrap img-error">
-                            <img src="images/assets/feature-img.png">
+                            <img src="images/appdownload_logo.png">
                         </div>
                         <div class="text-wrap text-center">
                             <p>

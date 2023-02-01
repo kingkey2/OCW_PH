@@ -34,7 +34,6 @@
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/lobby.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
     <!--===========JS========-->
     <script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
     <%--<script type="text/javascript" src="/Scripts/UIControl.js"></script>--%>
@@ -1246,6 +1245,7 @@
             if (p != null) {
                 //getBanner();
                 setBanner();
+                window.parent.API_SetFavoToIndexDB();
                 getCompanyGameCode();
 
                 if (WebInfo.DeviceType_B == 1) {
@@ -1270,28 +1270,9 @@
                     if (o.LobbyGameList.length > 0) {
                         LobbyGameList = o.LobbyGameList;
                         updateGameCode();
-
-                        window.parent.API_SetFavoToIndexDB();
-                    } else {
-                        //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                        //    window.parent.location.href = "index.aspx";
-                        //});
-                        window.parent.API_SetFavoToIndexDB();
-                    }
-                } else {
-                    //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                    //    window.parent.location.href = "index.aspx";
-                    //});
-                    window.parent.API_SetFavoToIndexDB();
+                    } 
                 }
             }
-            else {
-                //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                //    window.parent.location.href = "index.aspx";
-                //});
-                window.parent.API_SetFavoToIndexDB();
-            }
-
         });
     }
 
@@ -1454,7 +1435,7 @@
                 <div class="swiper-slide">
                         <div class="hero-item">
                             <div class="hero-item-box mobile casinobanner_m" >
-                                <img src="images/casinobanner/CasinoBanner1_M.jpg" />
+                                <img src="images/casinobanner/CasinoBanner1_M.jpg?1" />
                             </div>
                         </div>
                     </div>
@@ -1462,7 +1443,7 @@
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <div class="hero-item-box mobile casinobanner_m" >
-                                <img src="images/casinobanner/CasinoBanner2_M.jpg" />
+                                <img src="images/casinobanner/CasinoBanner2_M.jpg?1" />
                             </div>
                         </div>
                     </div>
@@ -1470,7 +1451,7 @@
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <div class="hero-item-box mobile casinobanner_m" >
-                                <img src="images/casinobanner/CasinoBanner3_M.jpg" />
+                                <img src="images/casinobanner/CasinoBanner3_M.jpg?1" />
                             </div>
                         </div>
                     </div>
@@ -1478,7 +1459,7 @@
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <div class="hero-item-box mobile casinobanner_m" >
-                                <img src="images/casinobanner/CasinoBanner4_M.jpg" />
+                                <img src="images/casinobanner/CasinoBanner4_M.jpg?1" />
                             </div>
                         </div>
                     </div>
@@ -1486,7 +1467,7 @@
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <div class="hero-item-box mobile casinobanner_m" >
-                                <img src="images/casinobanner/CasinoBanner5_M.jpg" />
+                                <img src="images/casinobanner/CasinoBanner5_M.jpg?1" />
                             </div>
                         </div>
                     </div>`);
@@ -1495,7 +1476,7 @@
                         <div class="hero-item">
                             <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
-                                    <img src="images/casinobanner/CasinoBanner1_P.jpg" class="bg" />
+                                    <img src="images/casinobanner/CasinoBanner1_P.jpg?1" class="bg" />
                                 </div>
                             </div>
                         </div>
@@ -1505,7 +1486,7 @@
                         <div class="hero-item">
                             <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
-                                    <img src="images/casinobanner/CasinoBanner2_P.jpg" class="bg" />
+                                    <img src="images/casinobanner/CasinoBanner2_P.jpg?1" class="bg" />
                                 </div>
                             </div>
                         </div>
@@ -1515,7 +1496,7 @@
                         <div class="hero-item">
                             <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
-                                    <img src="images/casinobanner/CasinoBanner3_P.jpg" class="bg" />
+                                    <img src="images/casinobanner/CasinoBanner3_P.jpg?1" class="bg" />
                                 </div>
                             </div>
                         </div>
@@ -1525,7 +1506,7 @@
                         <div class="hero-item">
                             <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
-                                    <img src="images/casinobanner/CasinoBanner4_P.jpg" class="bg" />
+                                    <img src="images/casinobanner/CasinoBanner4_P.jpg?1" class="bg" />
                                 </div>
                             </div>
                         </div>
@@ -1535,7 +1516,7 @@
                         <div class="hero-item">
                             <div class="hero-item-box desktop casinobanner_p" >
                                 <div class="img-wrap">
-                                    <img src="images/casinobanner/CasinoBanner5_P.jpg" class="bg" />
+                                    <img src="images/casinobanner/CasinoBanner5_P.jpg?1" class="bg" />
                                 </div>
                             </div>
                         </div>

@@ -10,5 +10,31 @@
   "Title": "First Time Deposit Event!",
   "SubTitle": "50% bonus on first deposit",
   "SubTitle1": "首次入金贈送50%",
-  "CollectAreaType": 1
+  "CollectAreaType": 1,
+  "ThresholdAddRate": [
+    {
+      "GameAccountingCode": "Electron",
+      "ThresholdRate": 1
+    },
+    {
+      "GameAccountingCode": "Live",
+      "ThresholdRate": 0
+    },
+    {
+      "GameAccountingCode": "Sport",
+      "ThresholdRate": 0
+    },
+    {
+      "GameAccountingCode": "Live.FightChicken",
+      "ThresholdRate": 0
+    },
+    {
+      "GameAccountingCode": "Electron.Fish",
+      "ThresholdRate": 0
+    },
+    {
+      "GameAccountingCode": "Slot",
+      "ThresholdRate": 1
+    }
+  ]
 }

@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css?<%:Version%>" type="text/css" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />  
     <link href="css/footer-new.css" rel="stylesheet" />
     <style>
         .bankUrl:hover {
@@ -496,9 +495,6 @@
         $('.progress-step:nth-child(3)').addClass('cur');
     }
 
-    function goBankPage() {
-        window.open('https://www.jp-bank.japanpost.jp/kojin/sokin/furikomi/kouza/kj_sk_fm_kz_1.html');
-    }
     //完成訂單
     function ConfirmEPayWithdrawal() {
 

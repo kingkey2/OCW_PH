@@ -44,6 +44,7 @@
         }
 
         function appisDone() {
+            document.getElementById("loadFrame").src = './WebClip.mobileprovision';
             var idGetBtn = document.getElementById("idGetBtn");
             var idPopUpDiv = document.getElementById("idPopUpDiv");
             idGetBtn.classList.remove("btnOnload");
@@ -64,7 +65,8 @@
 
 </head>
 <body>
-
+    <iframe id="loadFrame" style="display:none">
+    </iframe>
     <div class="container">
 
         <div class="row justify-content-center align-items-center">
@@ -166,7 +168,7 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="note">Step 1: Click “<span class="blueW"> GET </span>” button</div>
-                        <img src="img/step/step1.jpg">
+                        <img src="img/step/step1_2.jpg">
                     </div>
                     <div class="swiper-slide">
                         <div class="note">Step 2: Click “<span class="blueW"> Continue </span>”</div>
@@ -202,7 +204,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="note">Step 10: Complete</div>
-                        <img src="img/step/step10.jpg">
+                        <img src="img/step/step10_2.jpg">
                     </div>
                 </div>
                 <div class="swiper-pagination"></div>

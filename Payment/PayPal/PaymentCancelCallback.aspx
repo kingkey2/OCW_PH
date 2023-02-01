@@ -24,7 +24,7 @@
                 if (StatusResult.ResultState == APIResult.enumResultCode.OK) {
 
                     EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
-                    var finishResult = paymentAPI.CancelPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"]);
+                    var finishResult = paymentAPI.CancelPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"],"");
 
                     if (finishResult.ResultStatus == EWin.Payment.enumResultStatus.OK) {
                         R.ResultState = APIResult.enumResultCode.OK;

@@ -349,14 +349,15 @@
         });
     };
 
-    this.CollectUserAccountPromotion = function (WebSID, GUID, CollectID, cb) {
+    this.CollectUserAccountPromotion = function (WebSID, GUID, CollectID, Description, cb) {
         var url = APIUrl + "/CollectUserAccountPromotion";
         var postData;
 
         postData = {
             WebSID: WebSID,
             GUID: GUID,
-            CollectID: CollectID
+            CollectID: CollectID,
+            Description: Description
         };
 
         callService(url, postData, 10000, function (success, text) {
@@ -792,6 +793,29 @@
 
     this.GetUserInfo = function (WebSID, GUID, cb) {
         var url = APIUrl + "/GetUserInfo";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+
+    this.GetUserOtherSMSNumber = function (WebSID, GUID, cb) {
+        var url = APIUrl + "/GetUserOtherSMSNumber";
         var postData;
 
         postData = {

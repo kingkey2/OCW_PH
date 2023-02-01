@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
    
 </head>
     
@@ -34,7 +33,7 @@
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
-<script type="text/javascript" src="/Scripts/libphonenumber.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/google-libphonenumber/3.2.31/libphonenumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script>      
     if (self != top) {
@@ -145,26 +144,39 @@
             if (success) {
                 if (o1.Result == 0) {
                     LoginAccount = o1.Message;
-                    p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
+                    //p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
+                    //    if (success) {
+                    //        if (o.Result == 0) {
+
+                    //            p.SetUserMail(GUID, 1, 1, "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
+                    //                if (success) {
+                    //                    if (o.Result == 0) {
+                    //                        isSent = true;
+                    //                        startCountDown(120);
+                    //                        window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已寄送認證碼"));
+                    //                    } else {
+                    //                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("發送失敗，請重新發送"));
+                    //                    }
+                    //                } else {
+                    //                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
+                    //                }
+                    //            });
+                    //        } else {
+                    //            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話不存在"));
+                    //        }
+                    //    }
+                    //});
+                    p.SetUserMail(GUID, 1, 1, "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
                         if (success) {
                             if (o.Result == 0) {
-
-                                p.SetUserMail(GUID, 1, 1, "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
-                                    if (success) {
-                                        if (o.Result == 0) {
-                                            isSent = true;
-                                            startCountDown(120);
-                                            window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已寄送認證碼"));
-                                        } else {
-                                            window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("發送失敗，請重新發送"));
-                                        }
-                                    } else {
-                                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
-                                    }
-                                });
+                                isSent = true;
+                                startCountDown(120);
+                                window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已寄送認證碼"));
                             } else {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話不存在"));
+                                window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("發送失敗，請重新發送"));
                             }
+                        } else {
+                            window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
                         }
                     });
                 } else {
@@ -280,7 +292,7 @@
         mlp.loadLanguage(lang, function () {
 
             if (WebInfo.UserLogined) {
-                if (WebInfo.UserInfo.ContactPhonePrefix != "" && WebInfo.UserInfo.ContactPhoneNumber != "") {
+                if (WebInfo.UserInfo.ContactPhoneNumber != "") {
                     if (WebInfo.UserInfo.ContactPhonePrefix[0] != "+") {
                         $("#idPhonePrefix").val("+" + WebInfo.UserInfo.ContactPhonePrefix);
                     } else {
@@ -292,8 +304,35 @@
                     $("#idPhonePrefix").attr("disabled", "true");
                     $("#idPhoneNumber").attr("disabled", "true");
                 } else {
-                    window.parent.showMessageOK("", mlp.getLanguageKey("無電話資訊，請聯繫客服"), function () {
-                        window.parent.API_LoadPage('Casino','Casino.aspx');
+                    var GUID = Math.uuid();
+                    p.GetUserOtherSMSNumber(WebInfo.SID, GUID, function (success, o) {
+                        if (success) {
+                            if (o.Result == 0) {
+                                if (o.Message && o.Message != '') {
+                                    var splitOtherSMSNumber = o.Message.split('-');
+                                    if (splitOtherSMSNumber[0][0] != "+") {
+                                        $("#idPhonePrefix").val("+" + splitOtherSMSNumber[0]);
+                                    } else {
+                                        $("#idPhonePrefix").val(splitOtherSMSNumber[0]);
+                                    }
+
+                                    $("#idPhoneNumber").val(splitOtherSMSNumber[1]);
+
+                                    $("#idPhonePrefix").attr("disabled", "true");
+                                    $("#idPhoneNumber").attr("disabled", "true");
+                                } else {
+                                    window.parent.showMessageOK("", mlp.getLanguageKey("無電話資訊，請聯繫客服"), function () {
+                                        window.parent.API_LoadPage('Casino', 'Casino.aspx');
+                                    });
+                                }
+                            } else {
+                                window.parent.showMessageOK("", mlp.getLanguageKey("無電話資訊，請聯繫客服"), function () {
+                                    window.parent.API_LoadPage('Casino', 'Casino.aspx');
+                                });
+                            }
+                        } else {
+                            window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
+                        }
                     });
                 }
             }
