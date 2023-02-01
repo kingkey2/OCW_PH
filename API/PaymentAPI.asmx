@@ -1150,7 +1150,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                             HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
                                         }
                                     }
-                                    ReceiveTotalAmount = Amount * (1 + HandingFeeRate);
+                                    ReceiveTotalAmount = Math.Ceiling(Amount * (1 + HandingFeeRate));
 
                                     paymentCommonData.PaymentType = 0;
                                     paymentCommonData.BasicType = 0;
