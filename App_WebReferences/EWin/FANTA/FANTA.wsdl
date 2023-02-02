@@ -336,6 +336,28 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="SetUserPasswordByValidateCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ValidateType" type="tns:enumValidateType" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPhonePrefix" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ValidateCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserPasswordByValidateCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetUserPasswordByValidateCodeResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetUserOtherSMSNumber">
         <s:complexType>
           <s:sequence>
@@ -453,6 +475,12 @@
   <wsdl:message name="SetWalletPasswordByValidateCodeSoapOut">
     <wsdl:part name="parameters" element="tns:SetWalletPasswordByValidateCodeResponse" />
   </wsdl:message>
+  <wsdl:message name="SetUserPasswordByValidateCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:SetUserPasswordByValidateCode" />
+  </wsdl:message>
+  <wsdl:message name="SetUserPasswordByValidateCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:SetUserPasswordByValidateCodeResponse" />
+  </wsdl:message>
   <wsdl:message name="GetUserOtherSMSNumberSoapIn">
     <wsdl:part name="parameters" element="tns:GetUserOtherSMSNumber" />
   </wsdl:message>
@@ -566,6 +594,20 @@
     <wsdl:part name="NewPassword" type="s:string" />
   </wsdl:message>
   <wsdl:message name="SetWalletPasswordByValidateCodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="SetUserPasswordByValidateCodeHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="ValidateType" type="s:string" />
+    <wsdl:part name="EMail" type="s:string" />
+    <wsdl:part name="ContactPhonePrefix" type="s:string" />
+    <wsdl:part name="ContactPhoneNumber" type="s:string" />
+    <wsdl:part name="ValidateCode" type="s:string" />
+    <wsdl:part name="NewPassword" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetUserPasswordByValidateCodeHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="GetUserOtherSMSNumberHttpGetIn">
@@ -687,6 +729,20 @@
   <wsdl:message name="SetWalletPasswordByValidateCodeHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="SetUserPasswordByValidateCodeHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="ValidateType" type="s:string" />
+    <wsdl:part name="EMail" type="s:string" />
+    <wsdl:part name="ContactPhonePrefix" type="s:string" />
+    <wsdl:part name="ContactPhoneNumber" type="s:string" />
+    <wsdl:part name="ValidateCode" type="s:string" />
+    <wsdl:part name="NewPassword" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetUserPasswordByValidateCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="GetUserOtherSMSNumberHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -756,6 +812,10 @@
       <wsdl:input message="tns:SetWalletPasswordByValidateCodeSoapIn" />
       <wsdl:output message="tns:SetWalletPasswordByValidateCodeSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <wsdl:input message="tns:SetUserPasswordByValidateCodeSoapIn" />
+      <wsdl:output message="tns:SetUserPasswordByValidateCodeSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetUserOtherSMSNumber">
       <wsdl:input message="tns:GetUserOtherSMSNumberSoapIn" />
       <wsdl:output message="tns:GetUserOtherSMSNumberSoapOut" />
@@ -810,6 +870,10 @@
       <wsdl:input message="tns:SetWalletPasswordByValidateCodeHttpGetIn" />
       <wsdl:output message="tns:SetWalletPasswordByValidateCodeHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <wsdl:input message="tns:SetUserPasswordByValidateCodeHttpGetIn" />
+      <wsdl:output message="tns:SetUserPasswordByValidateCodeHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetUserOtherSMSNumber">
       <wsdl:input message="tns:GetUserOtherSMSNumberHttpGetIn" />
       <wsdl:output message="tns:GetUserOtherSMSNumberHttpGetOut" />
@@ -863,6 +927,10 @@
     <wsdl:operation name="SetWalletPasswordByValidateCode">
       <wsdl:input message="tns:SetWalletPasswordByValidateCodeHttpPostIn" />
       <wsdl:output message="tns:SetWalletPasswordByValidateCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <wsdl:input message="tns:SetUserPasswordByValidateCodeHttpPostIn" />
+      <wsdl:output message="tns:SetUserPasswordByValidateCodeHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUserOtherSMSNumber">
       <wsdl:input message="tns:GetUserOtherSMSNumberHttpPostIn" />
@@ -985,6 +1053,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetWalletPasswordByValidateCode">
       <soap:operation soapAction="http://tempuri.org/SetWalletPasswordByValidateCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <soap:operation soapAction="http://tempuri.org/SetUserPasswordByValidateCode" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1130,6 +1207,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <soap12:operation soapAction="http://tempuri.org/SetUserPasswordByValidateCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetUserOtherSMSNumber">
       <soap12:operation soapAction="http://tempuri.org/GetUserOtherSMSNumber" style="document" />
       <wsdl:input>
@@ -1250,6 +1336,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <http:operation location="/SetUserPasswordByValidateCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetUserOtherSMSNumber">
       <http:operation location="/GetUserOtherSMSNumber" />
       <wsdl:input>
@@ -1363,6 +1458,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetWalletPasswordByValidateCode">
       <http:operation location="/SetWalletPasswordByValidateCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserPasswordByValidateCode">
+      <http:operation location="/SetUserPasswordByValidateCode" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

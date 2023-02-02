@@ -1344,9 +1344,33 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult SetUserPasswordByValidateCode(string GUID, EWin.Lobby.enumValidateType ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword) {
+    public EWin.Lobby.APIResult SetUserPasswordByValidateCode(string GUID, string LoginAccount, EWin.FANTA.enumValidateType ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword)
+    {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-        return lobbyAPI.SetUserPasswordByValidateCode(GetToken(), GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
+        EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
+        EWin.Lobby.APIResult R;
+        EWin.FANTA.APIResult R2;
+        R2 = fantaAPI.SetUserPasswordByValidateCode(GetToken(), LoginAccount, GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
+
+        if (R2.ResultState == EWin.FANTA.enumResultState.OK)
+        {
+            R = new EWin.Lobby.APIResult()
+            {
+                Result = EWin.Lobby.enumResult.OK,
+                Message = "",
+                GUID = GUID
+            };
+        }
+        else
+        {
+            R = new EWin.Lobby.APIResult()
+            {
+                Result = EWin.Lobby.enumResult.ERR,
+                Message = R2.Message,
+                GUID = GUID
+            };
+        }
+        return R;
     }
 
     [WebMethod]
