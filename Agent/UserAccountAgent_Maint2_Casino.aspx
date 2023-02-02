@@ -725,10 +725,10 @@
                                 <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="CurrencyType"></span></span>
                             </div>
                             <div class="tbody__td td-number td-3 td-vertical">
-                                <span class="td__title"><i class="icon icon-ewin-default-totalWinLose icon-s icon-before"></i><span class="language_replace">團隊代理數</span></span>
+                                <span class="td__title"><i class="icon icon-ewin-default-totalWinLose icon-s icon-before"></i><span class="language_replace">團隊下線數</span></span>
                                 <span class="td__content"><span class="AgentCount"></span></span>
                             </div>
-                            <div class="tbody__td td-number td-3 td-vertical">
+                            <div class="tbody__td td-number td-3 td-vertical" style="display:none">
                                 <span class="td__title"><i class="icon icon-ewin-default-totalRolling icon-s icon-before"></i><span class="language_replace">團隊會員數</span></span>
                                 <span class="td__content"><span class="PlayerCount"></span></span>
                             </div>
@@ -766,8 +766,8 @@
                             <div class="thead__th"><span class="language_replace">層級</span></div>
                             <div class="thead__th"><span class="language_replace">上線帳號</span></div>
                             <div class="thead__th"><span class="language_replace">貨幣</span></div>
-                            <div class="thead__th"><span class="language_replace">團隊代理數</span></div>
-                            <div class="thead__th"><span class="language_replace">團隊會員數</span></div>
+                            <div class="thead__th"><span class="language_replace">團隊下線數</span></div>
+                            <div class="thead__th"><span class="language_replace" style="display:none">團隊會員數</span></div>
                             <div class="thead__th"><span class="language_replace">期間團隊新增下線數</span></div>
                             <div class="thead__th"><span class="language_replace">期間個人新增會員數</span></div>
                             <div class="thead__th"><span class="language_replace">錢包餘額</span></div>
