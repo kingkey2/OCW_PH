@@ -33,6 +33,8 @@
                                 break;
                         }
 
+                        TaxFeeValue = Math.Round(TaxFeeValue, 0);
+
                         var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"], TaxFeeValue);
 
                         if (finishResult.ResultStatus == EWin.Payment.enumResultStatus.OK) {
