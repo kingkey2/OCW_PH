@@ -796,17 +796,6 @@ public class LobbyAPI : System.Web.Services.WebService {
         return R;
     }
 
-
-    //[WebMethod]
-    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public EWin.Lobby2.CompanyGameCodeResult2 GetCompanyGameCodeByUpdateTimestamp(string GUID, long UpdateTimestamp, int GameID)
-    //{
-
-    //    EWin.Lobby2.LobbyAPI lobbyAPI = new EWin.Lobby2.LobbyAPI();
-    //    return lobbyAPI.GetCompanyGameCodeByUpdateTimestamp(GetToken(), GUID, UpdateTimestamp, GameID);
-
-    //}
-
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public OcwCompanyCategoryGameCodeResult GetCompanyGameCodeThree(string GUID,string Location)

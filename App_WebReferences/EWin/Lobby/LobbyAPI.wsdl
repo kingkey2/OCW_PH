@@ -1752,15 +1752,10 @@
       <s:element name="GetCompanyGameCodeByUpdateTimestampResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCompanyGameCodeByUpdateTimestampResult" type="tns:CompanyGameCodeResult2" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetCompanyGameCodeByUpdateTimestampResult" type="tns:CompanyGameCodeResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CompanyGameCodeResult2">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:CompanyGameCodeResult" />
-        </s:complexContent>
-      </s:complexType>
       <s:complexType name="CompanyGameCodeResult">
         <s:complexContent mixed="false">
           <s:extension base="tns:APIResult">
@@ -2383,7 +2378,6 @@
       <s:element name="UserBalanceResult" nillable="true" type="tns:UserBalanceResult" />
       <s:element name="GameCodeRTPResult" nillable="true" type="tns:GameCodeRTPResult" />
       <s:element name="GameBrandResult" nillable="true" type="tns:GameBrandResult" />
-      <s:element name="CompanyGameCodeResult2" nillable="true" type="tns:CompanyGameCodeResult2" />
       <s:element name="CompanyGameCodeResult" nillable="true" type="tns:CompanyGameCodeResult" />
       <s:element name="CompanyCategoryResult" nillable="true" type="tns:CompanyCategoryResult" />
       <s:element name="GameOrderDetailListResult" nillable="true" type="tns:GameOrderDetailListResult" />
@@ -3413,7 +3407,7 @@
     <wsdl:part name="GameID" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeByUpdateTimestampHttpGetOut">
-    <wsdl:part name="Body" element="tns:CompanyGameCodeResult2" />
+    <wsdl:part name="Body" element="tns:CompanyGameCodeResult" />
   </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
@@ -4128,7 +4122,7 @@
     <wsdl:part name="GameID" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeByUpdateTimestampHttpPostOut">
-    <wsdl:part name="Body" element="tns:CompanyGameCodeResult2" />
+    <wsdl:part name="Body" element="tns:CompanyGameCodeResult" />
   </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
