@@ -18,11 +18,11 @@
     {
         // 在發生未處理的錯誤時執行的程式碼
 
-        Exception ex = Server.GetLastError().GetBaseException();
+        //Exception ex = Server.GetLastError().GetBaseException();
 
-        Response.Redirect("Error.aspx?ErrMsg=" + ex.Message);
+        //Response.Redirect("Error.aspx?ErrMsg=" + ex.Message);
 
-        Server.ClearError();
+        //Server.ClearError();
     }
 
     void Session_Start(object sender, EventArgs e)

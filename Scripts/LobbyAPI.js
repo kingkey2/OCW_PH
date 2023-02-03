@@ -1618,51 +1618,51 @@
         });
     };
 
-    this.GetAccountingDetailBySummaryDate = function (WebSID, GUID, StartDate, EndDate, cb) {
-        var url = APIUrl + "/GetAccountingDetailBySummaryDate";
-        var postData;
+    //this.GetAccountingDetailBySummaryDate = function (WebSID, GUID, StartDate, EndDate, cb) {
+    //    var url = APIUrl + "/GetAccountingDetailBySummaryDate";
+    //    var postData;
 
-        postData = {
-            WebSID: WebSID,
-            GUID: GUID,
-            StartDate: StartDate,
-            EndDate: EndDate
-        };
+    //    postData = {
+    //        WebSID: WebSID,
+    //        GUID: GUID,
+    //        StartDate: StartDate,
+    //        EndDate: EndDate
+    //    };
 
-        callService(url, postData, 10000, function (success, text) {
-            if (success == true) {
-                var obj = getJSON(text);
+    //    callService(url, postData, 10000, function (success, text) {
+    //        if (success == true) {
+    //            var obj = getJSON(text);
 
-                if (cb)
-                    cb(true, obj);
-            } else {
-                if (cb)
-                    cb(false, text);
-            }
-        });
-    };
+    //            if (cb)
+    //                cb(true, obj);
+    //        } else {
+    //            if (cb)
+    //                cb(false, text);
+    //        }
+    //    });
+    //};
 
-    this.GetChildUserBySID = function (WebSID, GUID, cb) {
-        var url = APIUrl + "/GetChildUserBySID";
-        var postData;
+    //this.GetChildUserBySID = function (WebSID, GUID, cb) {
+    //    var url = APIUrl + "/GetChildUserBySID";
+    //    var postData;
 
-        postData = {
-            WebSID: WebSID,
-            GUID: GUID
-        };
+    //    postData = {
+    //        WebSID: WebSID,
+    //        GUID: GUID
+    //    };
 
-        callService(url, postData, 10000, function (success, text) {
-            if (success == true) {
-                var obj = getJSON(text);
+    //    callService(url, postData, 10000, function (success, text) {
+    //        if (success == true) {
+    //            var obj = getJSON(text);
 
-                if (cb)
-                    cb(true, obj);
-            } else {
-                if (cb)
-                    cb(false, text);
-            }
-        });
-    };
+    //            if (cb)
+    //                cb(true, obj);
+    //        } else {
+    //            if (cb)
+    //                cb(false, text);
+    //        }
+    //    });
+    //};
 
     this.GetTotalSummaryBySID = function (WebSID, GUID, cb) {
         var url = APIUrl + "/GetTotalSummaryBySID";

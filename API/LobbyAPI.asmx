@@ -781,9 +781,9 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public CompanyGameCodeResult GetCompanyGameCode(string GUID, string GameCode)
+    public CompanyGameCodeResult1 GetCompanyGameCode(string GUID, string GameCode)
     {
-        CompanyGameCodeResult R = new CompanyGameCodeResult() { Result = EWin.Lobby.enumResult.ERR };
+        CompanyGameCodeResult1 R = new CompanyGameCodeResult1() { Result = EWin.Lobby.enumResult.ERR };
         System.Data.DataTable DT;
 
         DT = RedisCache.CompanyGameCode.GetCompanyGameCode(GameCode.Split('.').First(), GameCode);
@@ -797,15 +797,15 @@ public class LobbyAPI : System.Web.Services.WebService {
     }
 
 
-    [WebMethod]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby2.CompanyGameCodeResult GetCompanyGameCodeByUpdateTimestamp(string GUID, long UpdateTimestamp, int GameID)
-    {
+    //[WebMethod]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public EWin.Lobby2.CompanyGameCodeResult2 GetCompanyGameCodeByUpdateTimestamp(string GUID, long UpdateTimestamp, int GameID)
+    //{
 
-        EWin.Lobby2.LobbyAPI lobbyAPI = new EWin.Lobby2.LobbyAPI();
-        return lobbyAPI.GetCompanyGameCodeByUpdateTimestamp(GetToken(), GUID, UpdateTimestamp, GameID);
+    //    EWin.Lobby2.LobbyAPI lobbyAPI = new EWin.Lobby2.LobbyAPI();
+    //    return lobbyAPI.GetCompanyGameCodeByUpdateTimestamp(GetToken(), GUID, UpdateTimestamp, GameID);
 
-    }
+    //}
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -1344,13 +1344,13 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult SetUserPasswordByValidateCode(string GUID, string LoginAccount, EWin.FANTA.enumValidateType ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword)
+    public EWin.Lobby.APIResult SetUserPasswordByValidateCode(string GUID, string LoginAccount, int ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword)
     {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
         EWin.Lobby.APIResult R;
         EWin.FANTA.APIResult R2;
-        R2 = fantaAPI.SetUserPasswordByValidateCode(GetToken(), LoginAccount, GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
+        R2 = fantaAPI.SetUserPasswordByValidateCode(GetToken(), LoginAccount, GUID,  (EWin.FANTA.enumValidateType)ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
 
         if (R2.ResultState == EWin.FANTA.enumResultState.OK)
         {
@@ -1375,7 +1375,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult SetWalletPasswordByValidateCode(string WebSID,string GUID, EWin.FANTA.enumValidateType ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword) {
+    public EWin.Lobby.APIResult SetWalletPasswordByValidateCode(string WebSID,string GUID, int ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
         RedisCache.SessionContext.SIDInfo SI;
@@ -1387,7 +1387,7 @@ public class LobbyAPI : System.Web.Services.WebService {
             var UserInfoResult = lobbyAPI.GetUserInfo(Token, SI.EWinSID, GUID);
             if (UserInfoResult.Result == EWin.Lobby.enumResult.OK)
             {
-                R2 = fantaAPI.SetWalletPasswordByValidateCode(Token, UserInfoResult.LoginAccount, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
+                R2 = fantaAPI.SetWalletPasswordByValidateCode(Token, UserInfoResult.LoginAccount, (EWin.FANTA.enumValidateType)ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
 
                 if (R2.ResultState == EWin.FANTA.enumResultState.OK)
                 {
@@ -2263,63 +2263,63 @@ public class LobbyAPI : System.Web.Services.WebService {
         return a;
     }
 
-    [WebMethod]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.FANTA.AgentAccountingResult GetAccountingDetailBySummaryDate(string WebSID, string GUID, string StartDate, string EndDate) {
-        EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
-        EWin.FANTA.AgentAccountingResult callResult = new EWin.FANTA.AgentAccountingResult();
-        EWin.FANTA.AgentAccountingResult R;
-        RedisCache.SessionContext.SIDInfo SI;
+    //[WebMethod]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public EWin.FANTA.AgentAccountingResult GetAccountingDetailBySummaryDate(string WebSID, string GUID, string StartDate, string EndDate) {
+    //    EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
+    //    EWin.FANTA.AgentAccountingResult callResult = new EWin.FANTA.AgentAccountingResult();
+    //    EWin.FANTA.AgentAccountingResult R;
+    //    RedisCache.SessionContext.SIDInfo SI;
 
-        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+    //    SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
-        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            R = fantaAPI.GetAccountingDetailBySummaryDate(GetToken(), SI.EWinSID, GUID, StartDate, EndDate);
+    //    if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+    //        R = fantaAPI.GetAccountingDetailBySummaryDate(GetToken(), SI.EWinSID, GUID, StartDate, EndDate);
 
-        } else {
-            R = new EWin.FANTA.AgentAccountingResult() {
-                ResultState = EWin.FANTA.enumResultState.ERR,
-                Message = "InvalidWebSID"
-            };
-        }
+    //    } else {
+    //        R = new EWin.FANTA.AgentAccountingResult() {
+    //            ResultState = EWin.FANTA.enumResultState.ERR,
+    //            Message = "InvalidWebSID"
+    //        };
+    //    }
 
-        return R;
-    }
+    //    return R;
+    //}
 
-    [WebMethod]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.FANTA.ChildUserResult GetChildUserBySID(string WebSID, string GUID) {
-        EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
-        EWin.FANTA.ChildUserResult callResult = new EWin.FANTA.ChildUserResult();
-        EWin.FANTA.ChildUserResult R = new EWin.FANTA.ChildUserResult() {
-            ResultState =  EWin.FANTA.enumResultState.ERR
-        };
-        RedisCache.SessionContext.SIDInfo SI;
-        string strUserAccountChild = string.Empty;
+    //[WebMethod]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public EWin.FANTA.ChildUserResult GetChildUserBySID(string WebSID, string GUID) {
+    //    EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
+    //    EWin.FANTA.ChildUserResult callResult = new EWin.FANTA.ChildUserResult();
+    //    EWin.FANTA.ChildUserResult R = new EWin.FANTA.ChildUserResult() {
+    //        ResultState =  EWin.FANTA.enumResultState.ERR
+    //    };
+    //    RedisCache.SessionContext.SIDInfo SI;
+    //    string strUserAccountChild = string.Empty;
 
-        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+    //    SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
-        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+    //    if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
 
-            strUserAccountChild = RedisCache.UserAccountChild.GetUserAccountChildByLoginAccount(SI.LoginAccount);
+    //        strUserAccountChild = RedisCache.UserAccountChild.GetUserAccountChildByLoginAccount(SI.LoginAccount);
 
-            if (string.IsNullOrEmpty(strUserAccountChild)) {
-                R = fantaAPI.GetChildUserBySID(GetToken(), SI.EWinSID, GUID);
-                RedisCache.UserAccountChild.UpdateUserAccountChild(R.ChildUserList, SI.LoginAccount);
-            } else {
-                R.ResultState = EWin.FANTA.enumResultState.OK;
-                R.ChildUserList = strUserAccountChild;
-            }
+    //        if (string.IsNullOrEmpty(strUserAccountChild)) {
+    //            R = fantaAPI.GetChildUserBySID(GetToken(), SI.EWinSID, GUID);
+    //            RedisCache.UserAccountChild.UpdateUserAccountChild(R.ChildUserList, SI.LoginAccount);
+    //        } else {
+    //            R.ResultState = EWin.FANTA.enumResultState.OK;
+    //            R.ChildUserList = strUserAccountChild;
+    //        }
 
-        } else {
-            R = new EWin.FANTA.ChildUserResult() {
-                ResultState = EWin.FANTA.enumResultState.ERR,
-                Message = "InvalidWebSID"
-            };
-        }
+    //    } else {
+    //        R = new EWin.FANTA.ChildUserResult() {
+    //            ResultState = EWin.FANTA.enumResultState.ERR,
+    //            Message = "InvalidWebSID"
+    //        };
+    //    }
 
-        return R;
-    }
+    //    return R;
+    //}
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -2668,13 +2668,9 @@ public class LobbyAPI : System.Web.Services.WebService {
         setUserAccountProperty(LoginAccount, System.Guid.NewGuid().ToString(), "UserLevelUpdateDate", DateTime.Now.ToString("yyyy/MM/dd"));
     }
 
-    private EWin.FANTA.APIResult updateEwinUserLevel(string LoginAccount, int UserLevelIndex) {
+    private void updateEwinUserLevel(string LoginAccount, int UserLevelIndex) {
         EWin.FANTA.APIResult R = new EWin.FANTA.APIResult();
         EWin.FANTA.FANTA API = new EWin.FANTA.FANTA();
-
-        R = API.UpdateUserLevel(GetToken(), LoginAccount, UserLevelIndex);
-
-        return R;
     }
 
     private EWin.Lobby.APIResult setUserAccountProperty(string LoginAccount, string GUID, string PropertyName, string PropertyValue) {
@@ -2849,7 +2845,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         public string PromotionTitle { get; set; }
     }
 
-    public class CompanyGameCodeResult : EWin.Lobby.APIResult {
+    public class CompanyGameCodeResult1 : EWin.Lobby.APIResult {
         public CompanyGameCode Data{ get; set; }
     }
 

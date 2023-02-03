@@ -60,102 +60,102 @@
             return;
         }
 
-        LobbyClient.GetAccountingDetailBySummaryDate(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
-            if (success) {
-                if (o.ResultState == 0) {
-                    if (o.AgentAccountingList.length > 0) {
-                        for (var i = 0; i < o.AgentAccountingList.length; i++) {
-                            var k = o.AgentAccountingList[i];
-                            var RecordDom;
-                            var RecordDom_M;
+        //LobbyClient.GetAccountingDetailBySummaryDate(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
+        //    if (success) {
+        //        if (o.ResultState == 0) {
+        //            if (o.AgentAccountingList.length > 0) {
+        //                for (var i = 0; i < o.AgentAccountingList.length; i++) {
+        //                    var k = o.AgentAccountingList[i];
+        //                    var RecordDom;
+        //                    var RecordDom_M;
 
-                            RecordDom = c.getTemplate("tmpAgentReport_P");
+        //                    RecordDom = c.getTemplate("tmpAgentReport_P");
 
-                            if (WebInfo.UserInfo.UserAccountType = 0) {
-                                RecordDom_M = c.getTemplate("tmpAgentReport_M");
-                            } else {
-                                RecordDom_M = c.getTemplate("tmpAgentReport_M_Agent");
-                            }
+        //                    if (WebInfo.UserInfo.UserAccountType = 0) {
+        //                        RecordDom_M = c.getTemplate("tmpAgentReport_M");
+        //                    } else {
+        //                        RecordDom_M = c.getTemplate("tmpAgentReport_M_Agent");
+        //                    }
 
-                            c.setClassText(RecordDom, "StartDate", null, k.StartDate);
-                            c.setClassText(RecordDom, "EndDate", null, k.EndDate);
-                            c.setClassText(RecordDom, "LoginAccount", null, k.LoginAccount);
-                            c.setClassText(RecordDom, "AccountingName", null, k.AccountingName);
-                            c.setClassText(RecordDom, "UserCommissionProfit", null, new BigNumber(k.UserCommissionProfit).toFixed(2));
+        //                    c.setClassText(RecordDom, "StartDate", null, k.StartDate);
+        //                    c.setClassText(RecordDom, "EndDate", null, k.EndDate);
+        //                    c.setClassText(RecordDom, "LoginAccount", null, k.LoginAccount);
+        //                    c.setClassText(RecordDom, "AccountingName", null, k.AccountingName);
+        //                    c.setClassText(RecordDom, "UserCommissionProfit", null, new BigNumber(k.UserCommissionProfit).toFixed(2));
 
-                            c.setClassText(RecordDom_M, "StartDate_y", null, k.StartDate.split("-")[0]);
-                            c.setClassText(RecordDom_M, "StartDate_m", null, k.StartDate.split("-")[1]);
-                            c.setClassText(RecordDom_M, "StartDate_d", null, k.StartDate.split("-")[2]);
-                            c.setClassText(RecordDom_M, "EndDate_y", null, k.EndDate.split("-")[0]);
-                            c.setClassText(RecordDom_M, "EndDate_m", null, k.EndDate.split("-")[1]);
-                            c.setClassText(RecordDom_M, "EndDate_d", null, k.EndDate.split("-")[2]);
-                            c.setClassText(RecordDom_M, "LoginAccount", null, k.LoginAccount);
-                            c.setClassText(RecordDom_M, "AccountingName", null, k.AccountingName);
-                            c.setClassText(RecordDom_M, "UserCommissionProfit", null, new BigNumber(k.UserCommissionProfit).toFixed(2));
+        //                    c.setClassText(RecordDom_M, "StartDate_y", null, k.StartDate.split("-")[0]);
+        //                    c.setClassText(RecordDom_M, "StartDate_m", null, k.StartDate.split("-")[1]);
+        //                    c.setClassText(RecordDom_M, "StartDate_d", null, k.StartDate.split("-")[2]);
+        //                    c.setClassText(RecordDom_M, "EndDate_y", null, k.EndDate.split("-")[0]);
+        //                    c.setClassText(RecordDom_M, "EndDate_m", null, k.EndDate.split("-")[1]);
+        //                    c.setClassText(RecordDom_M, "EndDate_d", null, k.EndDate.split("-")[2]);
+        //                    c.setClassText(RecordDom_M, "LoginAccount", null, k.LoginAccount);
+        //                    c.setClassText(RecordDom_M, "AccountingName", null, k.AccountingName);
+        //                    c.setClassText(RecordDom_M, "UserCommissionProfit", null, new BigNumber(k.UserCommissionProfit).toFixed(2));
 
-                            ParentMain.prepend(RecordDom);
-                            ParentMain_M.prepend(RecordDom_M);
-                        }
+        //                    ParentMain.prepend(RecordDom);
+        //                    ParentMain_M.prepend(RecordDom_M);
+        //                }
 
-                        window.parent.API_CloseLoading();
+        //                window.parent.API_CloseLoading();
 
-                    } else {
-                        document.getElementById("idNoGameData").style.display = "block";
-                        //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
-                        window.parent.API_CloseLoading();
-                    }
-                } else {
-                    document.getElementById("idNoGameData").style.display = "block";
-                    //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("取得資料失敗"));
-                    window.parent.API_CloseLoading();
-                }
-            } else {
-                window.parent.API_CloseLoading();
-            }
-        });
+        //            } else {
+        //                document.getElementById("idNoGameData").style.display = "block";
+        //                //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
+        //                window.parent.API_CloseLoading();
+        //            }
+        //        } else {
+        //            document.getElementById("idNoGameData").style.display = "block";
+        //            //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("取得資料失敗"));
+        //            window.parent.API_CloseLoading();
+        //        }
+        //    } else {
+        //        window.parent.API_CloseLoading();
+        //    }
+        //});
     }
 
     function getChildUserInfo() {
         var ParentMain = document.getElementById("divChildUser");
         ParentMain.innerHTML = "";
-        LobbyClient.GetChildUserBySID(WebInfo.SID, Math.uuid(), function (success, o) {
-            if (success) {
-                if (o.ResultState == 0) {
+        //LobbyClient.GetChildUserBySID(WebInfo.SID, Math.uuid(), function (success, o) {
+        //    if (success) {
+        //        if (o.ResultState == 0) {
 
-                    var ChildUserList = JSON.parse(o.ChildUserList);
+        //            var ChildUserList = JSON.parse(o.ChildUserList);
 
-                    if (ChildUserList.length > 0) {
-                        $("#childCount").text(ChildUserList.length);
-                        for (var i = 0; i < ChildUserList.length; i++) {
-                            var k = ChildUserList[i];
-                            var RecordDom;
-                            var UserAccountType = k.UserAccountType;
+        //            if (ChildUserList.length > 0) {
+        //                $("#childCount").text(ChildUserList.length);
+        //                for (var i = 0; i < ChildUserList.length; i++) {
+        //                    var k = ChildUserList[i];
+        //                    var RecordDom;
+        //                    var UserAccountType = k.UserAccountType;
 
-                            if (UserAccountType == 0) {
-                                RecordDom = c.getTemplate("tmpChild");
-                            } else {
-                                RecordDom = c.getTemplate("tmpChild_Agent");
-                            }
-                            c.setClassText(RecordDom, "member-account", null, k.LoginAccount);
+        //                    if (UserAccountType == 0) {
+        //                        RecordDom = c.getTemplate("tmpChild");
+        //                    } else {
+        //                        RecordDom = c.getTemplate("tmpChild_Agent");
+        //                    }
+        //                    c.setClassText(RecordDom, "member-account", null, k.LoginAccount);
 
-                            ParentMain.prepend(RecordDom);
-                        }
+        //                    ParentMain.prepend(RecordDom);
+        //                }
 
-                        window.parent.API_CloseLoading();
+        //                window.parent.API_CloseLoading();
 
-                    } else {
-                        document.getElementById("idNoGameData").style.display = "block";
-                        //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
-                        window.parent.API_CloseLoading();
-                    }
+        //            } else {
+        //                document.getElementById("idNoGameData").style.display = "block";
+        //                //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
+        //                window.parent.API_CloseLoading();
+        //            }
 
-                } else {
+        //        } else {
 
-                }
-            } else {
-                window.parent.API_CloseLoading();
-            }
-        });
+        //        }
+        //    } else {
+        //        window.parent.API_CloseLoading();
+        //    }
+        //});
     }
 
     function copyText(tag) {
