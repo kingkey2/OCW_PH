@@ -96,7 +96,7 @@
                             <div class="tbody__td td-function-execute floatT-right">
                                 <!-- <span class="td__title"><span class="language_replace"></span></span> -->
                                 <span class="td__content">
-                                    <button onclick="btnDetail_Click(${data.AccountingID},'${CurrencyType}')" class="btnAgentDetail btn btn-icon"><i class="icon icon-ewin-input-betDetail icon-before icon-line-vertical"></i><span class="language_replace">${mlp.getLanguageKey("結算細節")}</span></button></span>
+                                    <button onclick="btnDetail_Click(${data.AccountingID},'${CurrencyType}','${data.StartDate}','${data.EndDate}')" class="btnAgentDetail btn btn-icon"><i class="icon icon-ewin-input-betDetail icon-before icon-line-vertical"></i><span class="language_replace">${mlp.getLanguageKey("結算細節")}</span></button></span>
                             </div>
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">結算名稱</span></span>
@@ -156,8 +156,8 @@
         return parts.join('.');
     }
 
-    function btnDetail_Click(accountingID, CurrencyType) {
-        window.parent.API_NewWindow(mlp.getLanguageKey("結算細節"), "GetAgentAccountingDetail_Casino.aspx?AccountingID=" + accountingID + "&CurrencyType=" + CurrencyType );
+    function btnDetail_Click(accountingID, CurrencyType, StartDate, EndDate) {
+        window.parent.API_NewWindow(mlp.getLanguageKey("結算細節"), "GetAgentAccountingDetail_Casino.aspx?AccountingID=" + accountingID + "&CurrencyType=" + CurrencyType + "&StartDate=" + StartDate + "&EndDate=" + EndDate);
     }
 
     function init() {
@@ -304,6 +304,19 @@
                 document.getElementById("endDate").value = endDate;
                 break;
         }
+    }
+
+    function disableDateSel() {
+        var tabItem = document.getElementById("idTabMainContent").getElementsByClassName("nav-link");
+
+        for (var i = 0; i < tabItem.length; i++) {
+            //tabItem[i].classList.remove('active');
+            tabItem[i].classList.remove('active');
+            tabItem[i].parentNode.classList.remove('active');
+
+            //tabItem[i].setAttribute("aria-selected", "false");
+        }
+        document.getElementById("sliderDate").style.display = "none";
     }
 
     window.onload = init;

@@ -1240,12 +1240,13 @@
         });
     };
 
-    this.SetUserPasswordByValidateCode = function (GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword, cb) {
+    this.SetUserPasswordByValidateCode = function (GUID, loginAccount, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword, cb) {
         var url = APIUrl + "/SetUserPasswordByValidateCode";
         var postData;
 
         postData = {
             GUID: GUID,
+            LoginAccount: loginAccount,
             ValidateType: ValidateType,
             EMail: EMail,
             ContactPhonePrefix: ContactPhonePrefix,

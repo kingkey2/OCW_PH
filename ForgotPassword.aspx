@@ -114,7 +114,6 @@
         var idPhonePrefix = document.getElementById("idPhonePrefix");
         var idPhoneNumber = document.getElementById("idPhoneNumber");
 
-
         if (idPhonePrefix.value == "") {
             window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入國碼"));
             return;
@@ -142,30 +141,7 @@
 
         p.GetLoginAccount(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o1) {
             if (success) {
-                if (o1.Result == 0) {
-                    LoginAccount = o1.Message;
-                    //p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
-                    //    if (success) {
-                    //        if (o.Result == 0) {
-
-                    //            p.SetUserMail(GUID, 1, 1, "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
-                    //                if (success) {
-                    //                    if (o.Result == 0) {
-                    //                        isSent = true;
-                    //                        startCountDown(120);
-                    //                        window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已寄送認證碼"));
-                    //                    } else {
-                    //                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("發送失敗，請重新發送"));
-                    //                    }
-                    //                } else {
-                    //                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
-                    //                }
-                    //            });
-                    //        } else {
-                    //            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話不存在"));
-                    //        }
-                    //    }
-                    //});
+                if (o1.Result == 0) {  
                     p.SetUserMail(GUID, 1, 1, "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
                         if (success) {
                             if (o.Result == 0) {
@@ -179,6 +155,7 @@
                             window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
                         }
                     });
+            
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message));
                 }
@@ -186,7 +163,7 @@
         });
     }
 
-    function SetNewPassword(validCode, newPassword) {
+    function SetNewPassword(validCode, newPassword, loginAccount) {
 
 
         var idPhonePrefix = document.getElementById("idPhonePrefix");
@@ -197,9 +174,8 @@
         var ValidateCode = validCode;
         var NewPassword = newPassword;
 
-
         //c.callService(LobbyAPIUrl + "/SetUserPasswordByValidateCode", postObj, function (success, content) {
-        p.SetUserPasswordByValidateCode(GUID, ValidateType, EMail, idPhonePrefix.value, idPhoneNumber.value, ValidateCode, NewPassword, function (success, o) {
+        p.SetUserPasswordByValidateCode(GUID, loginAccount, ValidateType, EMail, idPhonePrefix.value, idPhoneNumber.value, ValidateCode, NewPassword, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     window.parent.showMessageOK("", mlp.getLanguageKey("已成功修改密碼！"), function () {
@@ -219,6 +195,8 @@
 
             let ValidCode = document.getElementById("idValidCode");
             let Password = document.getElementById("idNewPassword");
+            let LoginAccount = document.getElementById("idLoginAccount");
+
             var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$');
 
             if (ValidCode.value == "") {
@@ -226,7 +204,12 @@
                 ValidCode.reportValidity();
 
                 return;
-            } else if (Password.value == "") {
+            } else if (LoginAccount.value == "") {
+                LoginAccount.setCustomValidity(mlp.getLanguageKey("請輸入帳號"));
+                LoginAccount.reportValidity();
+
+                return
+            }else if (Password.value == "") {
                 Password.setCustomValidity(mlp.getLanguageKey("錯誤, 請輸入新密碼"));
                 Password.reportValidity();
 
@@ -236,7 +219,7 @@
                 Password.setCustomValidity("");
             }
 
-            SetNewPassword(ValidCode.value, Password.value);
+            SetNewPassword(ValidCode.value, Password.value, LoginAccount.value);
         } else {
             window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先取得驗證碼"));
         }
@@ -292,6 +275,8 @@
         mlp.loadLanguage(lang, function () {
 
             if (WebInfo.UserLogined) {
+
+                $('#idLoginAccount').val(WebInfo.UserInfo.LoginAccount);
                 if (WebInfo.UserInfo.ContactPhoneNumber != "") {
                     if (WebInfo.UserInfo.ContactPhonePrefix[0] != "+") {
                         $("#idPhonePrefix").val("+" + WebInfo.UserInfo.ContactPhonePrefix);
@@ -300,7 +285,7 @@
                     }
 
                     $("#idPhoneNumber").val(WebInfo.UserInfo.ContactPhoneNumber);
-
+          
                     $("#idPhonePrefix").attr("disabled", "true");
                     $("#idPhoneNumber").attr("disabled", "true");
                 } else {
@@ -335,6 +320,8 @@
                         }
                     });
                 }
+            } else {
+                $('#inputGroupLoginAccount').show();
             }
 
             window.parent.API_LoadingEnd();
@@ -431,7 +418,7 @@
                                 <input name="PhoneNumber" id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-000-0000" inputmode="decimal">
                                 <div class="invalid-feedback language_replace">請輸入正確電話</div>
                             </div>
-                        </div>
+                       </div>
                         <div class="btn-container col-12">
                             <button type="button" class="btn btn-primary" id="btnSend" onclick="SendPhone()"><span class="language_replace">取得驗證碼</span></button>
                         </div>
@@ -448,7 +435,14 @@
                             <div class="invalid-feedback language_replace">提示</div>
                         </div>
                     </div>
-
+                     </div>
+                      <div class="form-group" id="inputGroupLoginAccount" style="display:none;">
+                        <label class="form-title language_replace">帳號</label>
+                        <div class="input-group">
+                            <input id="idLoginAccount" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="請輸入帳號" inputmode="">
+                            <div class="invalid-feedback language_replace">提示</div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="form-title language_replace">新密碼</label>
                         <div class="input-group">

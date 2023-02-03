@@ -1150,7 +1150,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                             HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
                                         }
                                     }
-                                    ReceiveTotalAmount = Amount * (1 + HandingFeeRate);
+                                    ReceiveTotalAmount = Math.Ceiling(Amount * (1 + HandingFeeRate));
 
                                     paymentCommonData.PaymentType = 0;
                                     paymentCommonData.BasicType = 0;
@@ -1430,6 +1430,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                 else
                                 {
                                     EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, TempCommonData.ToInfo, paymentResult.PaymentSerial, "", PointValue, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData.ActivityDatas));
+                                    paymentAPI.CancelPayment(GetToken(),GUID,paymentResult.PaymentSerial,CreateEPayDepositeReturn.Message);
                                     SetResultException(R, "Error:1002");
                                 }
                             }
@@ -1838,7 +1839,7 @@ public class PaymentAPI : System.Web.Services.WebService
                             {
                                 for (int i = 0; i < userInfoResult.Tag.Length; i++)
                                 {
-                                    if (userInfoResult.Tag[i].TagText=="黑名單"||userInfoResult.Tag[i].TagText=="數據延遲/異常"||userInfoResult.Tag[i].TagText=="技術排查中")
+                                    if (userInfoResult.Tag[i].TagText=="黑名單"||userInfoResult.Tag[i].TagText=="數據延遲/異常"||userInfoResult.Tag[i].TagText=="技術排查中"||userInfoResult.Tag[i].TagText=="凍結出款")
                                     {
                                         SetResultException(R, "請聯繫客服");
                                         return R;
@@ -2012,7 +2013,7 @@ public class PaymentAPI : System.Web.Services.WebService
                             {
                                 for (int i = 0; i < userInfoResult.Tag.Length; i++)
                                 {
-                                    if (userInfoResult.Tag[i].TagText == "黑名單" || userInfoResult.Tag[i].TagText == "數據延遲/異常" || userInfoResult.Tag[i].TagText == "技術排查中")
+                                    if (userInfoResult.Tag[i].TagText == "黑名單" || userInfoResult.Tag[i].TagText == "數據延遲/異常" || userInfoResult.Tag[i].TagText == "技術排查中"|| userInfoResult.Tag[i].TagText == "凍結出款")
                                     {
                                         SetResultException(R, "請聯繫客服");
                                         return R;

@@ -242,18 +242,19 @@
     //}
      function AgentAccountLogin(loginaccount, agentLoginAccount, password, haveGameAccount) {
          var form = document.getElementById("idFormUserLogin");
-    
-         form.LoginPassword.value = password;
+       
          form.FirstLogin.value = "false";
          form.action = "Login.aspx";
 
          window.parent.showMessageAgentAccount(function () {
              form.LoginAccount.value = agentLoginAccount;
+             form.LoginPassword.value = password;
              form.submit();
 
          }, function () {
              if (haveGameAccount) {
                  form.LoginAccount.value = loginaccount;
+                 form.LoginPassword.value = password;
                  form.submit();
              } else {
                  window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' + mlp.getLanguageKey('尚未建立遊戲帳號'), function () { })
@@ -586,7 +587,7 @@
                         <div id="idMailLoginGroup" class="form-group">
                             <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
-                                <input type="text" class="form-control custom-style" inputmode="email" name="LoginAccount">
+                                <input type="text" class="form-control custom-style" inputmode="email" name="LoginAccount" autocomplete="off">
                                 <div class="invalid-feedback language_replace">請輸入帳號</div>
                             </div>
                         </div>
@@ -610,7 +611,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">密碼</label>
                             <div class="input-group">
-                                <input id="LoginPassword" type="password" class="form-control custom-style" placeholder="" inputmode="email" name="LoginPassword">
+                                <input id="LoginPassword" type="password" class="form-control custom-style" placeholder="" inputmode="email" name="LoginPassword" autocomplete="off">
                                 <div class="invalid-feedback language_replace">請輸入密碼</div>
                             </div>
                             <button class="btn btn-icon" type="button" onclick="showPassword('LoginPassword')">

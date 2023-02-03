@@ -1830,6 +1830,37 @@ public static class RedisCache {
         }
     }
 
+    public static class Agent {
+        private static string XMLPath = "Agent";
+        private static int DBIndex = 0;
+
+        public static string GetAccountDetailByLoginAccount(string LoginAccount, int AccountingID) {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":AccountDetail:AccountingID:" + AccountingID + ":LoginAccount:" + LoginAccount;
+            if (KeyExists(DBIndex, Key) == true) {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdateAccountDetailByLoginAccount(string JsonData, string LoginAccount, int AccountingID) {
+            string Key;
+
+            Key = XMLPath + ":AccountDetail:AccountingID:" + AccountingID + ":LoginAccount:" + LoginAccount;
+            for (int I = 0; I <= 3; I++) {
+                try {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, 1800);
+                    break;
+                } catch (Exception ex) {
+                }
+            }
+        }
+
+    }
+
     public static void DTWriteToRedis(int DBIndex, System.Data.DataTable DT, string Key, int ExpireTimeoutSeconds = 0) {
         string XMLContent;
 
