@@ -298,7 +298,8 @@
                 AID: EWinInfo.ASID,
                 QueryBeginDate: startDate,
                 QueryEndDate: endDate,
-                CurrencyType: DefaultCurrencyType
+                CurrencyType: DefaultCurrencyType,
+                LoginAccount: EWinInfo.UserInfo.LoginAccount
             };
 
             window.parent.API_ShowLoading();
@@ -309,7 +310,7 @@
 
                     if (o.Result == 0) {
                         if (o.AgentItemList.length > 0) {
-                            let data = o.AgentItemList[0].Summary;
+                            let data = o.AgentItemList[0];
                             $(".TotalValidBetValue").text(toCurrency(data.TotalValidBetValue));
                             $(".UserRebate").text(toCurrency(data.UserRebate - data.PaidOPValue));
                             $(".RewardValue").text(toCurrency(data.TotalRewardValue - data.SelfRewardValue));
