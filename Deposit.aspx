@@ -80,6 +80,11 @@
                                     case "YuHong.GcashQRcode":
                                     case "YuHong.GcashH5_":
                                     case "DiDiPay.Gcash":
+                                    case "GCPay.GGcashDirect":
+                                    case "ZINPay.GcashDirect":
+                                    case "ZINPay.GcashQRcode":
+                                    case "CLOUDPAY.GcashDirect":
+                                    case "EASYPAY.Gcash":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.AmountMin!=0) {
