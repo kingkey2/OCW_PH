@@ -1838,7 +1838,7 @@ public class PaymentAPI : System.Web.Services.WebService
                             {
                                 for (int i = 0; i < userInfoResult.Tag.Length; i++)
                                 {
-                                    if (userInfoResult.Tag[i].TagText=="黑名單"||userInfoResult.Tag[i].TagText=="數據延遲/異常"||userInfoResult.Tag[i].TagText=="技術排查中")
+                                    if (userInfoResult.Tag[i].TagText=="黑名單"||userInfoResult.Tag[i].TagText=="數據延遲/異常"||userInfoResult.Tag[i].TagText=="技術排查中"||userInfoResult.Tag[i].TagText=="凍結出款")
                                     {
                                         SetResultException(R, "請聯繫客服");
                                         return R;
@@ -2012,7 +2012,7 @@ public class PaymentAPI : System.Web.Services.WebService
                             {
                                 for (int i = 0; i < userInfoResult.Tag.Length; i++)
                                 {
-                                    if (userInfoResult.Tag[i].TagText == "黑名單" || userInfoResult.Tag[i].TagText == "數據延遲/異常" || userInfoResult.Tag[i].TagText == "技術排查中")
+                                    if (userInfoResult.Tag[i].TagText == "黑名單" || userInfoResult.Tag[i].TagText == "數據延遲/異常" || userInfoResult.Tag[i].TagText == "技術排查中"|| userInfoResult.Tag[i].TagText == "凍結出款")
                                     {
                                         SetResultException(R, "請聯繫客服");
                                         return R;
