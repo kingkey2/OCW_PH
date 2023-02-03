@@ -37,6 +37,12 @@ public partial class home_Casino : System.Web.UI.Page {
             RedisCache.Agent.UpdateHomeAccountDetailByLoginAccount(Newtonsoft.Json.JsonConvert.SerializeObject(RetValue), LoginAccount, QueryBeginDate, QueryEndDate);
         } else {
             RetValue = Newtonsoft.Json.JsonConvert.DeserializeObject<EWin.SpriteAgent.OrderSummaryResult>(RedisTmp);
+
+            if (RetValue.Result == EWin.SpriteAgent.enumResult.ERR) {
+                RetValue = api.GetOrderSummary(AID, QueryBeginDate, QueryEndDate, CurrencyType);
+
+                RedisCache.Agent.UpdateHomeAccountDetailByLoginAccount(Newtonsoft.Json.JsonConvert.SerializeObject(RetValue), LoginAccount, QueryBeginDate, QueryEndDate);
+            }
         }
         
         return RetValue;
