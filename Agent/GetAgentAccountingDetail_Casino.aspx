@@ -7,6 +7,8 @@
     string SearchCurrencyType = "";
     string AccountingID = Request["AccountingID"];
     string CurrencyType = Request["CurrencyType"];
+    string StartDate = Request["StartDate"];
+    string EndDate = Request["EndDate"];
     string AgentVersion = EWinWeb.AgentVersion;
 
 %>
@@ -37,6 +39,8 @@
     var lang;
     var accountingID = <%=AccountingID%>;
     var CurrencyType = "<%=CurrencyType%>";
+    var StartDate = "<%=StartDate%>";
+    var EndDate = "<%=EndDate%>";
 
     function queryData() {
         var idList = document.getElementById("idList");
@@ -50,7 +54,10 @@
         postData = {
             AID: EWinInfo.ASID,
             AccountingID: accountingID,
-            CurrencyType: currencyType
+            CurrencyType: currencyType,
+            StartDate: StartDate,
+            EndDate: EndDate,
+            LoginAccount: EWinInfo.UserInfo.LoginAccount
         };
 
         window.parent.API_ShowLoading();
@@ -88,42 +95,86 @@
         idList.appendChild(div);
         if (o != null) {
             if (o.ADList != null) {
+                let childBonusPointValue = 0;
+                let strChild = "";
 
                 for (var i = 0; i < o.ADList.length; i++) {
                     var data = o.ADList[i];
+                    childBonusPointValue = 0;
+                     strChild = "";
+                    
+                    if (data.ChildUser.length > 0) {
+                        for (var i = 0; i < data.ChildUser.length; i++) {
+                            let k = data.ChildUser[i];
+                            childBonusPointValue += k.BonusPointValue;
 
-                    var doc =` <div class="tbody__tr td-non-underline-last-2">
+                           strChild += ` <div class="tbody__tr td-non-underline-last-2">
+                            <div class="tbody__td date td-100 nonTitle">
+                                <span class="td__title"><span class="language_replace">帳號</span></span>
+                                <span class="td__content"><span class="LoginAccount">${k.LoginAccount}</span></span>
+                            </div>
+                             <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">團隊輸贏數</span></span>
+                                <span class="td__content"><span class="RewardValue">${toCurrency(k.TotalRewardValue)}</span></span>
+                            </div>
+                              <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">團隊轉碼數</span></span>
+                                <span class="td__content"><span class="ValidBetValue">${toCurrency(k.TotalValidBetValue)}</span></span>
+                            </div>
+                              <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">應得佣金</span></span>
+                                <span class="td__content"><span class="AccountingOPValue">${toCurrency(k.UserRebate)}</span></span>
+                            </div>
+                           <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">總紅利</span></span>
+                                <span class="td__content"><span class="TotalBonusValue">${toCurrency(k.BonusPointValue)}</span></span>
+                            </div>
+                           <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">佔成紅利</span></span>
+                                <span class="td__content"><span class="BonusValue_Own">${toCurrency(k.BonusPointValue)}</span></span>
+                            </div>
+                           <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">團隊投注筆數</span></span>
+                                <span class="td__content"><span class="AccountingOPValue">${toCurrency(k.TotalOrderCount)}</span></span>
+                            </div>
+                        </div>`;
+                        }
+                    }
+
+                    var doc = ` <div class="tbody__tr td-non-underline-last-2">
                             <div class="tbody__td date td-100 nonTitle">
                                 <span class="td__title"><span class="language_replace">帳號</span></span>
                                 <span class="td__content"><span class="LoginAccount">${data.LoginAccount}</span></span>
                             </div>
                              <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">團隊輸贏數</span></span>
-                                <span class="td__content"><span class="RewardValue">${toCurrency(data.RewardValue)}</span></span>
+                                <span class="td__content"><span class="RewardValue">${toCurrency(data.TotalRewardValue)}</span></span>
                             </div>
                               <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">團隊轉碼數</span></span>
-                                <span class="td__content"><span class="ValidBetValue">${toCurrency(data.ValidBetValue)}</span></span>
+                                <span class="td__content"><span class="ValidBetValue">${toCurrency(data.TotalValidBetValue)}</span></span>
                             </div>
                               <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">應得佣金</span></span>
-                                <span class="td__content"><span class="AccountingOPValue">${toCurrency(data.AccountingOPValue)}</span></span>
+                                <span class="td__content"><span class="AccountingOPValue">${toCurrency(data.UserRebate)}</span></span>
                             </div>
                            <div class="tbody__td td-number td-3 td-vertical">
-                                <span class="td__title"><span class="language_replace">團隊投注筆數</span></span>
-                                <span class="td__content"><span class="TotalBonusValue">${toCurrency(data.TotalBonusValue)}</span></span>
+                                <span class="td__title"><span class="language_replace">總紅利</span></span>
+                                <span class="td__content"><span class="TotalBonusValue">${toCurrency(data.BonusPointValue)}</span></span>
                             </div>
                            <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">佔成紅利</span></span>
-                                <span class="td__content"><span class="BonusValue_Own">${toCurrency(data.BonusValue_Own)}</span></span>
+                                <span class="td__content"><span class="BonusValue_Own">${toCurrency(data.BonusPointValue - childBonusPointValue)}</span></span>
                             </div>
                            <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">團隊投注筆數</span></span>
-                                <span class="td__content"><span class="AccountingOPValue">${toCurrency(data.OrderCount)}</span></span>
+                                <span class="td__content"><span class="AccountingOPValue">${toCurrency(data.TotalOrderCount)}</span></span>
                             </div>
-                        </div>`
+                        </div>`;
 
                     $('#idList').append(doc);
+                    $('#idList').append(strChild);
+
                     document.getElementById("hasNoData_DIV").style.display = "none";
                     idList.classList.remove("tbody__hasNoData");
                     document.getElementById("idResultTable").classList.remove("MT_tableDiv__hasNoData");
