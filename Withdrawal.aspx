@@ -83,7 +83,7 @@
             if (Tag != null) {
                 var jsonTag = JSON.parse(Tag);
                 for (var i = 0; i < jsonTag.length; i++) {
-                    if (jsonTag[i]["TagText"] == "黑名單" || jsonTag[i]["TagText"] == "數據延遲/異常" || jsonTag[i]["TagText"] == "技術排查中") {
+                    if (jsonTag[i]["TagText"] == "黑名單" || jsonTag[i]["TagText"] == "數據延遲/異常" || jsonTag[i]["TagText"] == "技術排查中" || jsonTag[i]["TagText"] == "凍結出款") {
                         userWithdrawPermissions = false;
                     }
                 }
