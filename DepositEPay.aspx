@@ -172,6 +172,11 @@
                 providerCode = "Feibao";
             }
 
+            if (PaymentChannelCode =='ZINPay.GcashQRcode3') {
+                $('#GCashAccountDiv').show();
+            }
+      
+
             PaymentClient.GetPaymentMethodByPaymentCodeFilterPaymentChannel(WebInfo.SID, Math.uuid(), providerCode, 0, PaymentChannelCode, WebInfo.UserInfo.UserLevel,0, function (success, o) {
                 if (success) {
                     if (o.Result == 0) {
@@ -208,53 +213,69 @@
     //建立訂單
     function CreatePayPalDeposit() {
         diabledBtn("btnStep2");
+        var checkGCashAccount = true;
+        var GCashAccount = $('#GCashAccount').val().trim();
         if ($("#amount").val() != '') {
-            var amount = parseFloat($("#amount").val());
-            var paymentID = PaymentMethod[0]["PaymentMethodID"];
-            CheckPaymentChannelAmount(amount, PaymentMethod[0]["PaymentCode"], function (s, message) {
-                if (s) {
-                    PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, '', function (success, o) {
-                        if (success) {
-                            let data = o.Data;
-                            if (o.Result == 0) {
-                                //$("#depositdetail .DepositName").text(data.ToInfo);
-                                $("#depositdetail .Amount").text(new BigNumber(data.Amount).toFormat());
-                                $("#depositdetail .TotalAmount").text(new BigNumber(data.Amount).toFormat());
-                                $("#depositdetail .OrderNumber").text(data.OrderNumber);
-                                $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
-                                $("#depositdetail .ThresholdValue").text(new BigNumber(data.ThresholdValue).toFormat());
-                                ExpireSecond = data.ExpireSecond;
+            if (PaymentChannelCode == 'ZINPay.GcashQRcode3') {
+                if (GCashAccount == '') {
+                    var checkGCashAccount = false;
+                }
+            }
 
-                                var depositdetail = document.getElementsByClassName("Collectionitem")[0];
-                                var CollectionitemDom = c.getTemplate("templateCollectionitem");
-                                c.setClassText(CollectionitemDom, "currency", null, data.ReceiveCurrencyType);
-                                c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.ReceiveTotalAmount).toFormat());
-                                depositdetail.appendChild(CollectionitemDom);
+            if (checkGCashAccount) {
+                var amount = parseFloat($("#amount").val());
+                var paymentID = PaymentMethod[0]["PaymentMethodID"];
+                CheckPaymentChannelAmount(amount, PaymentMethod[0]["PaymentCode"], function (s, message) {
+                    if (s) {
+                        PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, GCashAccount, function (success, o) {
+                            if (success) {
+                                let data = o.Data;
+                                if (o.Result == 0) {
+                                    //$("#depositdetail .DepositName").text(data.ToInfo);
+                                    $("#depositdetail .Amount").text(new BigNumber(data.Amount).toFormat());
+                                    $("#depositdetail .TotalAmount").text(new BigNumber(data.Amount).toFormat());
+                                    $("#depositdetail .OrderNumber").text(data.OrderNumber);
+                                    $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
+                                    $("#depositdetail .ThresholdValue").text(new BigNumber(data.ThresholdValue).toFormat());
+                                    ExpireSecond = data.ExpireSecond;
 
-                                OrderNumber = data.OrderNumber;
-                                GetDepositActivityInfoByOrderNumber(OrderNumber);
-                            } else {
+                                    var depositdetail = document.getElementsByClassName("Collectionitem")[0];
+                                    var CollectionitemDom = c.getTemplate("templateCollectionitem");
+                                    c.setClassText(CollectionitemDom, "currency", null, data.ReceiveCurrencyType);
+                                    c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.ReceiveTotalAmount).toFormat());
+                                    depositdetail.appendChild(CollectionitemDom);
+
+                                    OrderNumber = data.OrderNumber;
+                                    GetDepositActivityInfoByOrderNumber(OrderNumber);
+                                } else {
+                                    window.parent.API_LoadingEnd(1);
+                                    $("#btnStep2").removeAttr("disabled");
+                                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+                                    });
+                                }
+
+                            }
+                            else {
                                 window.parent.API_LoadingEnd(1);
-                                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+                                $("#btnStep2").removeAttr("disabled");
+                                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
 
                                 });
                             }
-
-                        }
-                        else {
-                            window.parent.API_LoadingEnd(1);
-                            $("#btnStep2").removeAttr("disabled");
-                            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
-
-                            });
-                        }
-                    })
-                } else {
-                    window.parent.API_LoadingEnd(1);
-                    $("#btnStep2").removeAttr("disabled");
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(message));
-                }
-            });
+                        })
+                    } else {
+                        window.parent.API_LoadingEnd(1);
+                        $("#btnStep2").removeAttr("disabled");
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(message));
+                    }
+                });
+            } else {
+                window.parent.API_LoadingEnd(1);
+                $("#btnStep2").removeAttr("disabled");
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入GCash帳號"));
+            }
+     
 
         } else {
             window.parent.API_LoadingEnd(1);
@@ -599,19 +620,12 @@
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>
-                             <%--   <div class="form-group depositLastName mb-2">
-                                    <label class="form-title language_replace" >請正確填寫存款人之姓名</label>
+                                <div class="form-group GCashAccount mb-2" id="GCashAccountDiv" style="display:none;">
+                                    <label class="form-title language_replace" >輸入GCash帳號</label>
                                     <div class="input-group">                                       
-                                        <input type="text" class="form-control custom-style" id="bankCardNameFirst" language_replace="placeholder" placeholder="請填寫片假名的姓">
+                                        <input type="text" class="form-control custom-style" id="GCashAccount" language_replace="placeholder" placeholder="請輸入GCash帳號" />
                                     </div>                            
-                                </div>
-                                <div class="form-group depositFirstName">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="bankCardNameSecond" language_replace="placeholder" placeholder="請填寫片假名的名">
-                                    </div>                            
-                                </div>--%>
-                              
-
+                                </div> 
                             </form>
                           <%--   <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->

@@ -80,7 +80,7 @@
                                     case "YuHong.GcashQRcode":
                                     case "YuHong.GcashH5_":
                                     case "DiDiPay.Gcash":
-                                    case "GCPay.GGcashDirect":
+                                    case "GCPay.GcashDirect":
                                     case "ZINPay.GcashDirect":
                                     case "ZINPay.GcashQRcode":
                                     case "CLOUDPAY.GcashDirect":
