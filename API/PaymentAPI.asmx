@@ -1430,7 +1430,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                 else
                                 {
                                     EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, TempCommonData.ToInfo, paymentResult.PaymentSerial, "", PointValue, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData.ActivityDatas));
-                                    paymentAPI.CancelPayment(GetToken(),GUID,paymentResult.PaymentSerial,CreateEPayDepositeReturn.Message);
+                                    var a=  paymentAPI.CancelPayment(GetToken(),GUID,paymentResult.PaymentSerial,CreateEPayDepositeReturn.Message);
                                     SetResultException(R, "Error:1002");
                                 }
                             }

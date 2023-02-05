@@ -12,13 +12,19 @@
 
     ASR = api.GetAgentSessionByID(ASID);
 
-    if (ASR.Result != EWin.SpriteAgent.enumResult.OK) {
-        if (string.IsNullOrEmpty(DefaultCompany) == false) {
+    if (ASR.Result != EWin.SpriteAgent.enumResult.OK)
+    {
+        if (string.IsNullOrEmpty(DefaultCompany) == false)
+        {
             Response.Redirect("login.aspx?C=" + DefaultCompany);
-        } else {
+        }
+        else
+        {
             Response.Redirect("login.aspx");
         }
-    } else {
+    }
+    else
+    {
         ASI = ASR.AgentSessionInfo;
         DefaultCompany = EWinWeb.CompanyCode;
         DefaultCurrencyType = EWinWeb.MainCurrencyType;
@@ -124,11 +130,11 @@
                                     if (parseFloat(w.PointValue) < 0) {
                                         temp.getElementsByClassName("WalletBalance")[0].classList.add("num-negative");
                                     }
-
+                                    
                                     if (w.PointValue.toString().includes("e")) {
-                                        c.setClassText(temp, "WalletBalance", null, BigNumber(roundDown(w.PointValue, 2)).toFormat());
+                                        c.setClassText(temp, "WalletBalance", null, BigNumber(roundDown(w.PointValue,2)).toFormat());
                                     } else {
-                                        c.setClassText(temp, "WalletBalance", null, Number(BigNumber(roundDown(w.PointValue, 2))));
+                                        c.setClassText(temp, "WalletBalance", null, Number(BigNumber(roundDown(w.PointValue,2))));
                                     }
 
                                     templateRateInfo = c.getTemplate("templateRateInfo");
@@ -272,42 +278,10 @@
                 }
             });
         }
-        //小數點後兩位無條件捨去
-        function roundDown(num, decimal) {
-            return Math.floor((num + Number.EPSILON) * Math.pow(10, decimal)) / Math.pow(10, decimal);
-        }
 
-        function callService(URL, postObject, cb) {
-            var xmlHttp = new XMLHttpRequest;
-            var postData;
-
-            if (postObject)
-                postData = JSON.stringify(postObject);
-
-            xmlHttp.open("POST", URL, true);
-            xmlHttp.onreadystatechange = function () {
-                if (this.readyState == 4) {
-                    var contentText = this.responseText;
-
-                    if (this.status == "200") {
-                        if (cb) {
-                            cb(true, contentText);
-                        }
-                    } else {
-                        cb(false, contentText);
-                    }
-                }
-            };
-
-            xmlHttp.timeout = 110000;  // 30s
-            xmlHttp.ontimeout = function () {
-                if (cb)
-                    cb(false, "Timeout");
-            };
-
-            xmlHttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-            xmlHttp.send(postData);
-        };
+    function roundDown(num, decimal) {
+        return Math.floor((num + Number.EPSILON) * Math.pow(10, decimal)) / Math.pow(10, decimal);
+    }
 
         function queryAccountingData() {
             var postData;
@@ -330,8 +304,7 @@
                 AID: EWinInfo.ASID,
                 QueryBeginDate: startDate,
                 QueryEndDate: endDate,
-                CurrencyType: DefaultCurrencyType,
-                LoginAccount: EWinInfo.UserInfo.LoginAccount
+                CurrencyType: DefaultCurrencyType
             };
 
             window.parent.API_ShowLoading();
@@ -339,10 +312,10 @@
             c.callService(ApiUrl + "/GetOrderSummary", postData, function (success, obj) {
                 if (success) {
                     var o = c.getJSON(obj);
-
+                    console.log(o);
                     if (o.Result == 0) {
                         if (o.AgentItemList.length > 0) {
-                            let data = o.AgentItemList[0];
+                            let data = o.AgentItemList[0].Summary;
                             $(".TotalValidBetValue").text(toCurrency(data.TotalValidBetValue));
                             $(".UserRebate").text(toCurrency(data.UserRebate - data.PaidOPValue));
                             $(".RewardValue").text(toCurrency(data.TotalRewardValue - data.SelfRewardValue));
