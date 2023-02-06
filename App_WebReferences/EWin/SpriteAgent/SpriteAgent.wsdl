@@ -107,12 +107,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="kevintest">
-        <s:complexType />
-      </s:element>
-      <s:element name="kevintestResponse">
-        <s:complexType />
-      </s:element>
       <s:element name="GetOrderSummary">
         <s:complexType>
           <s:sequence>
@@ -191,6 +185,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="TotalValidBetValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalGGR" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalNGR" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="BonusPointCost" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebate" type="s:decimal" />
@@ -927,12 +922,6 @@
   <wsdl:message name="CreateUserAccountPointSoapOut">
     <wsdl:part name="parameters" element="tns:CreateUserAccountPointResponse" />
   </wsdl:message>
-  <wsdl:message name="kevintestSoapIn">
-    <wsdl:part name="parameters" element="tns:kevintest" />
-  </wsdl:message>
-  <wsdl:message name="kevintestSoapOut">
-    <wsdl:part name="parameters" element="tns:kevintestResponse" />
-  </wsdl:message>
   <wsdl:message name="GetOrderSummarySoapIn">
     <wsdl:part name="parameters" element="tns:GetOrderSummary" />
   </wsdl:message>
@@ -1072,8 +1061,6 @@
   <wsdl:message name="CreateUserAccountPointHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
-  <wsdl:message name="kevintestHttpGetIn" />
-  <wsdl:message name="kevintestHttpGetOut" />
   <wsdl:message name="GetOrderSummaryHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="QueryBeginDate" type="s:string" />
@@ -1253,8 +1240,6 @@
   <wsdl:message name="CreateUserAccountPointHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
-  <wsdl:message name="kevintestHttpPostIn" />
-  <wsdl:message name="kevintestHttpPostOut" />
   <wsdl:message name="GetOrderSummaryHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="QueryBeginDate" type="s:string" />
@@ -1428,10 +1413,6 @@
       <wsdl:input message="tns:CreateUserAccountPointSoapIn" />
       <wsdl:output message="tns:CreateUserAccountPointSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <wsdl:input message="tns:kevintestSoapIn" />
-      <wsdl:output message="tns:kevintestSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <wsdl:input message="tns:GetOrderSummarySoapIn" />
       <wsdl:output message="tns:GetOrderSummarySoapOut" />
@@ -1526,10 +1507,6 @@
       <wsdl:input message="tns:CreateUserAccountPointHttpGetIn" />
       <wsdl:output message="tns:CreateUserAccountPointHttpGetOut" />
     </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <wsdl:input message="tns:kevintestHttpGetIn" />
-      <wsdl:output message="tns:kevintestHttpGetOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <wsdl:input message="tns:GetOrderSummaryHttpGetIn" />
       <wsdl:output message="tns:GetOrderSummaryHttpGetOut" />
@@ -1615,10 +1592,6 @@
     <wsdl:operation name="CreateUserAccountPoint">
       <wsdl:input message="tns:CreateUserAccountPointHttpPostIn" />
       <wsdl:output message="tns:CreateUserAccountPointHttpPostOut" />
-    </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <wsdl:input message="tns:kevintestHttpPostIn" />
-      <wsdl:output message="tns:kevintestHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <wsdl:input message="tns:GetOrderSummaryHttpPostIn" />
@@ -1715,15 +1688,6 @@
     </wsdl:operation>
     <wsdl:operation name="CreateUserAccountPoint">
       <soap:operation soapAction="http://tempuri.org/CreateUserAccountPoint" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <soap:operation soapAction="http://tempuri.org/kevintest" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1941,15 +1905,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <soap12:operation soapAction="http://tempuri.org/kevintest" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <soap12:operation soapAction="http://tempuri.org/GetOrderSummary" style="document" />
       <wsdl:input>
@@ -2160,13 +2115,6 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <http:operation location="/kevintest" />
-      <wsdl:input>
-        <http:urlEncoded />
-      </wsdl:input>
-      <wsdl:output />
-    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <http:operation location="/GetOrderSummary" />
       <wsdl:input>
@@ -2358,13 +2306,6 @@
       <wsdl:output>
         <mime:mimeXml part="Body" />
       </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <http:operation location="/kevintest" />
-      <wsdl:input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </wsdl:input>
-      <wsdl:output />
     </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <http:operation location="/GetOrderSummary" />
