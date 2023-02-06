@@ -1380,20 +1380,14 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                 if (R2.ResultState == EWin.FANTA.enumResultState.OK)
                 {
-                   lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.BySID, SI.EWinSID, "IsSetWalletPassword", "true");
-                    R = new EWin.Lobby.APIResult()
-                    {
-                        Result = EWin.Lobby.enumResult.OK,
-                        Message = "",
-                        GUID = GUID
-                    };
+                   R= lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.BySID, SI.EWinSID, "IsSetWalletPassword", "true");
                 }
                 else
                 {
                     R = new EWin.Lobby.APIResult()
                     {
                         Result = EWin.Lobby.enumResult.ERR,
-                        Message = "Other",
+                        Message = R2.Message,
                         GUID = GUID
                     };
                 }
