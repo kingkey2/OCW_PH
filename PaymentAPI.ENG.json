@@ -18,7 +18,7 @@
   "CreatePayment Error": "The order data is not able to create.",
   "No token": "This Token does not exist.",
   "GetToken Error": "It is failed to get the token.",
-  "ThresholdLimit": "You have not reach the withdrawal rolling.",
+  "ThresholdLimit": "You have not reached the valid betting amount .",
   "GetInfoError": "It is failed to get the information.",
   "CurrencyNotFound": "The specified currency does not exist.",
   "GetThresholdError": "Not able to get the withdrawal rolling, please try again.",

@@ -340,26 +340,52 @@
                 if (success) {
                     var o = c.getJSON(obj);
 
+                    let TotalValidBetValue = 0;
+                    let UserRebate = 0;
+                    let RewardValue = 0;
+                    let PreferentialCost = 0;
+                    let TotalOrderCount = 0;
+                    let NewUserCount = 0;
+                    let WithdrawalValue = 0;
+                    let WithdrawalCount = 0;
+                    let DepositValue = 0;
+                    let DepositCount = 0;
+                    let FirstDepositValue = 0;
+                    let FirstDepositCount = 0;
+                    let NotFirstDepositCount = 0;
+
                     if (o.Result == 0) {
                         if (o.AgentItemList.length > 0) {
-                            let data = o.AgentItemList[0];
-                            $(".TotalValidBetValue").text(toCurrency(data.TotalValidBetValue));
-                            $(".UserRebate").text(toCurrency(data.UserRebate - data.PaidOPValue));
-                            $(".RewardValue").text(toCurrency(data.TotalRewardValue - data.SelfRewardValue));
-                            $(".PreferentialCost").text(toCurrency(data.BonusPointValue + data.CostValue));
-                            $(".TotalOrderCount").text(toCurrency(data.TotalOrderCount));
-                            if (data.NewUserCount > 0) {
-                                $(".NewUserCount").text(toCurrency(data.NewUserCount));
-                            } else {
-                                $(".NewUserCount").text(0);
+                            for (var i = 0; i < o.AgentItemList.length; i++) {
+                                let data = o.AgentItemList[i];
+                                TotalValidBetValue = TotalValidBetValue + data.TotalValidBetValue;
+                                UserRebate = UserRebate + data.UserRebate - data.PaidOPValue;
+                                RewardValue = RewardValue + data.TotalRewardValue - data.SelfRewardValue;
+                                PreferentialCost = PreferentialCost + data.BonusPointValue + data.CostValue;
+                                TotalOrderCount = TotalOrderCount + data.TotalOrderCount;
+                                NewUserCount = NewUserCount + data.NewUserCount;
+                                WithdrawalValue = WithdrawalValue + data.WithdrawalValue;
+                                WithdrawalCount = WithdrawalCount + data.WithdrawalCount;
+                                DepositValue = DepositValue + data.DepositValue;
+                                DepositCount = DepositCount + data.DepositCount;
+                                FirstDepositValue = FirstDepositValue + data.FirstDepositValue;
+                                FirstDepositCount = FirstDepositCount + data.FirstDepositCount;
+                                NotFirstDepositCount = NotFirstDepositCount + data.DepositCount - data.FirstDepositCount;
                             }
-                            $(".WithdrawalValue").text(toCurrency(data.WithdrawalValue));
-                            $(".WithdrawalCount").text(toCurrency(data.WithdrawalCount));
-                            $(".DepositValue").text(toCurrency(data.DepositValue));
-                            $(".DepositCount").text(toCurrency(data.DepositCount));
-                            $(".FirstDepositValue").text(toCurrency(data.FirstDepositValue));
-                            $(".FirstDepositCount").text(toCurrency(data.FirstDepositCount));
-                            $(".NotFirstDepositCount").text(toCurrency(data.DepositCount - data.FirstDepositCount));
+
+                            $(".TotalValidBetValue").text(toCurrency(TotalValidBetValue));
+                            $(".UserRebate").text(toCurrency(UserRebate));
+                            $(".RewardValue").text(toCurrency(RewardValue));
+                            $(".PreferentialCost").text(toCurrency(PreferentialCost));
+                            $(".TotalOrderCount").text(toCurrency(TotalOrderCount));
+                            $(".NewUserCount").text(toCurrency(NewUserCount));
+                            $(".WithdrawalValue").text(toCurrency(WithdrawalValue));
+                            $(".WithdrawalCount").text(toCurrency(WithdrawalCount));
+                            $(".DepositValue").text(toCurrency(DepositValue));
+                            $(".DepositCount").text(toCurrency(DepositCount));
+                            $(".FirstDepositValue").text(toCurrency(FirstDepositValue));
+                            $(".FirstDepositCount").text(toCurrency(FirstDepositCount));
+                            $(".NotFirstDepositCount").text(toCurrency(NotFirstDepositCount));
                         }
                     } else {
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
