@@ -546,19 +546,15 @@
 
         var headerGameData = HeaderGames.find(function (o) { return o.Location == Location });
         if (headerGameData) {
-            GCB.GetByGameCode(headerGameData.GameCode, (gameItem) => {
-
-            })
-
-
             const promise = new Promise((resolve, reject) => {
-                
+                GCB.GetByGameCode(headerGameData.GameCode, (gameItem) => {
+                    resolve(gameItem);
+                })
             });
-
             promise.then((gameItem) => {
                 if (gameItem) {
                     var championData = checkChampionType(gameItem.ChampionType);
-                    gameName = ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
+                    gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                     gameCode = gameItem.GameCode;
                     var RTP = "";
                     if (gameItem.RTPInfo) {
@@ -775,7 +771,7 @@
              等級：crownLevel-3
             */
 
-        var data = {
+        var date = {
             championTypeStr: "",
             crownLevel: ""
         }
@@ -812,7 +808,7 @@
         }
 
 
-        return data;
+        return date;
     }
 
     function appendGameProp(gameBrand, gameLangName, RTP, gameID, gameCode, showType, gameCategoryCode, gameName) {
