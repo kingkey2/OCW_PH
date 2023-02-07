@@ -106,9 +106,10 @@
                     if (data.ChildUser.length > 0) {
                         for (var i = 0; i < data.ChildUser.length; i++) {
                             let k = data.ChildUser[i];
-                            childBonusPointValue += k.BonusPointValue;
+                            if (k.UserAccountType != 0) {
+                                childBonusPointValue += k.BonusPointValue;
 
-                           strChild += ` <div class="tbody__tr td-non-underline-last-2">
+                                strChild += ` <div class="tbody__tr td-non-underline-last-2">
                             <div class="tbody__td date td-100 nonTitle">
                                 <span class="td__title"><span class="language_replace">帳號</span></span>
                                 <span class="td__content"><span class="LoginAccount">${k.LoginAccount}</span></span>
@@ -138,6 +139,7 @@
                                 <span class="td__content"><span class="AccountingOPValue">${toCurrency(k.TotalOrderCount)}</span></span>
                             </div>
                         </div>`;
+                            }
                         }
                     }
 
@@ -173,7 +175,9 @@
                         </div>`;
 
                     $('#idList').append(doc);
-                    $('#idList').append(strChild);
+                    if (strChild != "") {
+                        $('#idList').append(strChild);
+                    }
 
                     document.getElementById("hasNoData_DIV").style.display = "none";
                     idList.classList.remove("tbody__hasNoData");

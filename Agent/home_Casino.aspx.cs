@@ -24,12 +24,27 @@ public partial class home_Casino : System.Web.UI.Page {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.SpriteAgent.OrderSummaryResult GetOrderSummary(string AID, string QueryBeginDate, string QueryEndDate, string CurrencyType) {
+    public static EWin.SpriteAgent.OrderSummaryResult GetOrderSummary(string AID, string QueryBeginDate, string QueryEndDate, string CurrencyType, string LoginAccount) {
         EWin.SpriteAgent.OrderSummaryResult RetValue = null;
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
+        string RedisTmp = string.Empty;
 
-        RetValue = api.GetOrderSummary(AID, QueryBeginDate, QueryEndDate, CurrencyType);
+        RedisTmp = RedisCache.Agent.GetHomeAccountDetailByLoginAccount(LoginAccount, QueryBeginDate, QueryEndDate);
 
+        if (string.IsNullOrEmpty(RedisTmp)) {
+            RetValue = api.GetOrderSummary(AID, QueryBeginDate, QueryEndDate, CurrencyType);
+
+            RedisCache.Agent.UpdateHomeAccountDetailByLoginAccount(Newtonsoft.Json.JsonConvert.SerializeObject(RetValue), LoginAccount, QueryBeginDate, QueryEndDate);
+        } else {
+            RetValue = Newtonsoft.Json.JsonConvert.DeserializeObject<EWin.SpriteAgent.OrderSummaryResult>(RedisTmp);
+
+            if (RetValue.Result == EWin.SpriteAgent.enumResult.ERR) {
+                RetValue = api.GetOrderSummary(AID, QueryBeginDate, QueryEndDate, CurrencyType);
+
+                RedisCache.Agent.UpdateHomeAccountDetailByLoginAccount(Newtonsoft.Json.JsonConvert.SerializeObject(RetValue), LoginAccount, QueryBeginDate, QueryEndDate);
+            }
+        }
+        
         return RetValue;
     }
 }

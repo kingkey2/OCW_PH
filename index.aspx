@@ -2087,7 +2087,7 @@
             return;
         }
 
-        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 300, null,
+        GCB = new GameCodeBridge("/API/LobbyAPI2.asmx", 300, null,
             () => {
                 notifyWindowEvent("GameLoadEnd", null);
             }

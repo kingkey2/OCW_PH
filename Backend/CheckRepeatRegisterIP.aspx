@@ -60,10 +60,14 @@
                 var obj = c.getJSON(o);
                 if (obj.Result == 0) {
                     //alert("完成");
-                    $("#LoginAccount").text(obj.LoginAccount);
-                    $("#IP").text(obj.IP);
+                    if (obj.IP != "") {
+                        $("#LoginAccount").text(obj.LoginAccount);
+                        $("#IP").text(obj.IP);
+                    } else {
+                        alert("無關聯帳戶");
+                    }
 
-                    console.log(obj);
+                    //console.log(obj);
                 } else {
                     alert(obj.Message);
                 }

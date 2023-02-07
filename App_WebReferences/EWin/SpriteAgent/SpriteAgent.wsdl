@@ -191,6 +191,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="TotalValidBetValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalGGR" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalNGR" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="BonusPointCost" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebate" type="s:decimal" />

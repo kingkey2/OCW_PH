@@ -12,13 +12,19 @@
 
     ASR = api.GetAgentSessionByID(ASID);
 
-    if (ASR.Result != EWin.SpriteAgent.enumResult.OK) {
-        if (string.IsNullOrEmpty(DefaultCompany) == false) {
+    if (ASR.Result != EWin.SpriteAgent.enumResult.OK)
+    {
+        if (string.IsNullOrEmpty(DefaultCompany) == false)
+        {
             Response.Redirect("login.aspx?C=" + DefaultCompany);
-        } else {
+        }
+        else
+        {
             Response.Redirect("login.aspx");
         }
-    } else {
+    }
+    else
+    {
         ASI = ASR.AgentSessionInfo;
         DefaultCompany = EWinWeb.CompanyCode;
         DefaultCurrencyType = EWinWeb.MainCurrencyType;
@@ -124,11 +130,11 @@
                                     if (parseFloat(w.PointValue) < 0) {
                                         temp.getElementsByClassName("WalletBalance")[0].classList.add("num-negative");
                                     }
-
+                                    
                                     if (w.PointValue.toString().includes("e")) {
-                                        c.setClassText(temp, "WalletBalance", null, BigNumber(roundDown(w.PointValue, 2)).toFormat());
+                                        c.setClassText(temp, "WalletBalance", null, BigNumber(roundDown(w.PointValue,2)).toFormat());
                                     } else {
-                                        c.setClassText(temp, "WalletBalance", null, Number(BigNumber(roundDown(w.PointValue, 2))));
+                                        c.setClassText(temp, "WalletBalance", null, Number(BigNumber(roundDown(w.PointValue,2))));
                                     }
 
                                     templateRateInfo = c.getTemplate("templateRateInfo");
@@ -272,42 +278,10 @@
                 }
             });
         }
-        //小數點後兩位無條件捨去
-        function roundDown(num, decimal) {
-            return Math.floor((num + Number.EPSILON) * Math.pow(10, decimal)) / Math.pow(10, decimal);
-        }
 
-        function callService(URL, postObject, cb) {
-            var xmlHttp = new XMLHttpRequest;
-            var postData;
-
-            if (postObject)
-                postData = JSON.stringify(postObject);
-
-            xmlHttp.open("POST", URL, true);
-            xmlHttp.onreadystatechange = function () {
-                if (this.readyState == 4) {
-                    var contentText = this.responseText;
-
-                    if (this.status == "200") {
-                        if (cb) {
-                            cb(true, contentText);
-                        }
-                    } else {
-                        cb(false, contentText);
-                    }
-                }
-            };
-
-            xmlHttp.timeout = 110000;  // 30s
-            xmlHttp.ontimeout = function () {
-                if (cb)
-                    cb(false, "Timeout");
-            };
-
-            xmlHttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-            xmlHttp.send(postData);
-        };
+    function roundDown(num, decimal) {
+        return Math.floor((num + Number.EPSILON) * Math.pow(10, decimal)) / Math.pow(10, decimal);
+    }
 
         function queryAccountingData() {
             var postData;
@@ -330,8 +304,7 @@
                 AID: EWinInfo.ASID,
                 QueryBeginDate: startDate,
                 QueryEndDate: endDate,
-                CurrencyType: DefaultCurrencyType,
-                LoginAccount: EWinInfo.UserInfo.LoginAccount
+                CurrencyType: DefaultCurrencyType
             };
 
             window.parent.API_ShowLoading();
@@ -339,53 +312,27 @@
             c.callService(ApiUrl + "/GetOrderSummary", postData, function (success, obj) {
                 if (success) {
                     var o = c.getJSON(obj);
-
-                    let TotalValidBetValue = 0;
-                    let UserRebate = 0;
-                    let RewardValue = 0;
-                    let PreferentialCost = 0;
-                    let TotalOrderCount = 0;
-                    let NewUserCount = 0;
-                    let WithdrawalValue = 0;
-                    let WithdrawalCount = 0;
-                    let DepositValue = 0;
-                    let DepositCount = 0;
-                    let FirstDepositValue = 0;
-                    let FirstDepositCount = 0;
-                    let NotFirstDepositCount = 0;
-
+                    console.log(o);
                     if (o.Result == 0) {
                         if (o.AgentItemList.length > 0) {
-                            for (var i = 0; i < o.AgentItemList.length; i++) {
-                                let data = o.AgentItemList[i];
-                                TotalValidBetValue = TotalValidBetValue + data.TotalValidBetValue;
-                                UserRebate = UserRebate + data.UserRebate - data.PaidOPValue;
-                                RewardValue = RewardValue + data.TotalRewardValue - data.SelfRewardValue;
-                                PreferentialCost = PreferentialCost + data.BonusPointValue + data.CostValue;
-                                TotalOrderCount = TotalOrderCount + data.TotalOrderCount;
-                                NewUserCount = NewUserCount + data.NewUserCount;
-                                WithdrawalValue = WithdrawalValue + data.WithdrawalValue;
-                                WithdrawalCount = WithdrawalCount + data.WithdrawalCount;
-                                DepositValue = DepositValue + data.DepositValue;
-                                DepositCount = DepositCount + data.DepositCount;
-                                FirstDepositValue = FirstDepositValue + data.FirstDepositValue;
-                                FirstDepositCount = FirstDepositCount + data.FirstDepositCount;
-                                NotFirstDepositCount = NotFirstDepositCount + data.DepositCount - data.FirstDepositCount;
+                            let data = o.AgentItemList[0].Summary;
+                            $(".TotalValidBetValue").text(toCurrency(data.TotalValidBetValue));
+                            $(".UserRebate").text(toCurrency(data.UserRebate - data.PaidOPValue));
+                            $(".RewardValue").text(toCurrency(data.TotalRewardValue - data.SelfRewardValue));
+                            $(".PreferentialCost").text(toCurrency(data.BonusPointValue + data.CostValue));
+                            $(".TotalOrderCount").text(toCurrency(data.TotalOrderCount));
+                            if (data.NewUserCount > 0) {
+                                $(".NewUserCount").text(toCurrency(data.NewUserCount));
+                            } else {
+                                $(".NewUserCount").text(0);
                             }
-
-                            $(".TotalValidBetValue").text(toCurrency(TotalValidBetValue));
-                            $(".UserRebate").text(toCurrency(UserRebate));
-                            $(".RewardValue").text(toCurrency(RewardValue));
-                            $(".PreferentialCost").text(toCurrency(PreferentialCost));
-                            $(".TotalOrderCount").text(toCurrency(TotalOrderCount));
-                            $(".NewUserCount").text(toCurrency(NewUserCount));
-                            $(".WithdrawalValue").text(toCurrency(WithdrawalValue));
-                            $(".WithdrawalCount").text(toCurrency(WithdrawalCount));
-                            $(".DepositValue").text(toCurrency(DepositValue));
-                            $(".DepositCount").text(toCurrency(DepositCount));
-                            $(".FirstDepositValue").text(toCurrency(FirstDepositValue));
-                            $(".FirstDepositCount").text(toCurrency(FirstDepositCount));
-                            $(".NotFirstDepositCount").text(toCurrency(NotFirstDepositCount));
+                            $(".WithdrawalValue").text(toCurrency(data.WithdrawalValue));
+                            $(".WithdrawalCount").text(toCurrency(data.WithdrawalCount));
+                            $(".DepositValue").text(toCurrency(data.DepositValue));
+                            $(".DepositCount").text(toCurrency(data.DepositCount));
+                            $(".FirstDepositValue").text(toCurrency(data.FirstDepositValue));
+                            $(".FirstDepositCount").text(toCurrency(data.FirstDepositCount));
+                            $(".NotFirstDepositCount").text(toCurrency(data.DepositCount - data.FirstDepositCount));
                         }
                     } else {
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
