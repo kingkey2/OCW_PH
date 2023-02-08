@@ -1916,12 +1916,12 @@ public static class RedisCache {
         #endregion
 
         #region 團隊會員
-        public static string GetPlayerTotalDepositSummaryByLoginAccount(string LoginAccount)
+        public static string GetPlayerTotalDepositSummaryByLoginAccount(string LoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate)
         {
             string Key;
             string strRet = string.Empty;
 
-            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:" + LoginAccount;
+            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:" + QueryBeginDate.ToString("yyyy/MM/dd") + "-" + QueryEndDate.ToString("yyyy/MM/dd") + ":" + LoginAccount;
             if (KeyExists(DBIndex, Key) == true)
             {
                 strRet = JsonReadFromRedis(DBIndex, Key);
@@ -1930,11 +1930,11 @@ public static class RedisCache {
             return strRet;
         }
 
-        public static void UpdatePlayerTotalDepositSummaryByLoginAccount(string JsonData, string LoginAccount, int ExpireTimeoutSeconds)
+        public static void UpdatePlayerTotalDepositSummaryByLoginAccount(string JsonData, DateTime QueryBeginDate, DateTime QueryEndDate, string LoginAccount, int ExpireTimeoutSeconds)
         {
             string Key;
 
-            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:" + LoginAccount;
+            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:"+ QueryBeginDate.ToString("yyyy/MM/dd")+"-"+ QueryEndDate.ToString("yyyy/MM/dd") + ":" + LoginAccount;
             for (int I = 0; I <= 3; I++)
             {
                 try

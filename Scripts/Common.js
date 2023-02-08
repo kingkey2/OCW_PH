@@ -431,7 +431,7 @@
 
         objectArray = o.querySelector("." + className);
 
-        return retValue;
+        return objectArray;
     };
 
     this.getJSON = function (text) {
