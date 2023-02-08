@@ -77,7 +77,7 @@
     }
 
     function updateList(o) {
-
+        $('#idList').empty();
         if (o != null) {
             if (o.AccountingList != null && o.AccountingList.length>0) {
                 //只顯示個人投注
