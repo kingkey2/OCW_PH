@@ -92,7 +92,8 @@
                 for (var i = 0; i < o.AccountingList.length; i++) {
 
                     var data = o.AccountingList[i];
-                    var doc = ` <div class="tbody__tr td-non-underline-last-2">
+                    if (data.AccountingOPValue != 0) {
+                        var doc = ` <div class="tbody__tr td-non-underline-last-2">
                             <div class="tbody__td td-function-execute floatT-right">
                                 <!-- <span class="td__title"><span class="language_replace"></span></span> -->
                                 <span class="td__content">
@@ -135,6 +136,7 @@
                                 <span class="td__content"><span class="CreateDate">${data.CreateDate}</span></span>
                             </div>
                         </div>`;
+                    }
 
                     $('#idList').append(doc);
                 }

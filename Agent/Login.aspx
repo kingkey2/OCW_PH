@@ -48,6 +48,7 @@
     var companyCodeclickCount = 0;
     var v ="<%:AgentVersion%>";
     var p = new LobbyAPI("../API/LobbyAPI.asmx");
+    var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
 
     function setLanguage(v) {
         var form = document.forms[0];
@@ -224,25 +225,45 @@
     }
 
     function sendValidateCode() {
+        debugger
         var GUID = Math.uuid();
         var PhonePrefix = $("#ContactPhonePrefix").val();
         var PhoneNumber = $("#ContactPhoneNumber").val();
 
         if (PhoneNumber == "") {
             showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入手機號碼"));
+            return;
         } else {
-            p.SetUserMail(GUID, 1, 1, "", PhonePrefix, PhoneNumber, "", function (success, o) {
-                if (success) {
-                    if (o.Result == 0) {
-                        showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已寄送認證碼"));
-                    } else {
-                        showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("發送失敗，請重新發送"));
-                    }
-                } else {
-                    showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
+            var phoneValue = PhonePrefix + PhoneNumber;
+            var phoneObj;
+
+            try {
+                phoneObj = PhoneNumberUtil.parse(phoneValue);
+
+                var type = PhoneNumberUtil.getNumberType(phoneObj);
+
+                if (type != libphonenumber.PhoneNumberType.MOBILE && type != libphonenumber.PhoneNumberType.FIXED_LINE_OR_MOBILE) {
+                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話格式有誤"));
+                    return;
                 }
-            });
+            } catch (e) {
+                showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話格式有誤"));
+                return;
+            }
+
         }
+
+        p.SetUserMail(GUID, 1, 1, "", PhonePrefix, PhoneNumber, "", function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已寄送認證碼"));
+                } else {
+                    showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("發送失敗，請重新發送"));
+                }
+            } else {
+                showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
+            }
+        });
 
     }
 
