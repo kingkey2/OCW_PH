@@ -1914,7 +1914,40 @@ public static class RedisCache {
             }
         }
         #endregion
-        
+
+        #region 團隊會員
+        public static string GetPlayerTotalDepositSummaryByLoginAccount(string LoginAccount)
+        {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:" + LoginAccount;
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdatePlayerTotalDepositSummaryByLoginAccount(string JsonData, string LoginAccount, int ExpireTimeoutSeconds)
+        {
+            string Key;
+
+            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:" + LoginAccount;
+            for (int I = 0; I <= 3; I++)
+            {
+                try
+                {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, ExpireTimeoutSeconds);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+        #endregion
     }
 
     public static void DTWriteToRedis(int DBIndex, System.Data.DataTable DT, string Key, int ExpireTimeoutSeconds = 0) {

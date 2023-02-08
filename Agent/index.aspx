@@ -66,7 +66,7 @@
 <script type="text/javascript" src="/Scripts/qcode-decoder.min.js"></script>
 <script type="text/javascript" src="/Scripts/qcode-decoder.min.js"></script>
 <script type="text/javascript" src="js/AgentAPI.js"></script>
-<script type="text/javascript" src="js/AppBridge.js"></script>
+<script type="text/javascript" src="/Agent/js/AppBridge.js"></script>
 <script type="text/javascript" src="../Scripts/LobbyAPI.js"></script>
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
