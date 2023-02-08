@@ -107,12 +107,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="kevintest">
-        <s:complexType />
-      </s:element>
-      <s:element name="kevintestResponse">
-        <s:complexType />
-      </s:element>
       <s:element name="GetOrderSummary">
         <s:complexType>
           <s:sequence>
@@ -173,7 +167,9 @@
           <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawalCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawalValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="NewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NewAgentCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="SelfNewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfNewAgentCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="CommissionValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="CommissionUserRateValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UplineCommissionUserRateValue" type="s:decimal" />
@@ -191,6 +187,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="TotalValidBetValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalGGR" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalNGR" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="BonusPointCost" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebate" type="s:decimal" />
@@ -243,9 +240,10 @@
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
-            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
             <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="RowsPage" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="PageNumber" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="MaxSearchUserAccountID" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -264,6 +262,8 @@
               <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SearchParentSortKeys" type="tns:ArrayOfString" />
               <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TotalCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="MaxUserID" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfUserAccountSummary" />
             </s:sequence>
           </s:extension>
@@ -546,6 +546,52 @@
           <s:element minOccurs="1" maxOccurs="1" name="GGRUserRateValue" type="s:decimal" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetAccountingItemExcludeLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccountingItemExcludeLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAccountingItemExcludeLoginResult" type="tns:AccountingResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAgentAccountingDetailExcludeLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="AccountingID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAgentAccountingDetailExcludeLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAgentAccountingDetailExcludeLoginResult" type="tns:AgentAccountingDetailResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AgentAccountingDetailResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ADList" type="tns:ArrayOfUserSummaryItem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:element name="GetAgentAccountingDetail">
         <s:complexType>
           <s:sequence>
@@ -564,15 +610,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="AgentAccountingDetailResult">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:APIResult">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="ADList" type="tns:ArrayOfUserSummaryItem" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
       <s:element name="QueryCurrentUserInfo">
         <s:complexType>
           <s:sequence>
@@ -927,12 +964,6 @@
   <wsdl:message name="CreateUserAccountPointSoapOut">
     <wsdl:part name="parameters" element="tns:CreateUserAccountPointResponse" />
   </wsdl:message>
-  <wsdl:message name="kevintestSoapIn">
-    <wsdl:part name="parameters" element="tns:kevintest" />
-  </wsdl:message>
-  <wsdl:message name="kevintestSoapOut">
-    <wsdl:part name="parameters" element="tns:kevintestResponse" />
-  </wsdl:message>
   <wsdl:message name="GetOrderSummarySoapIn">
     <wsdl:part name="parameters" element="tns:GetOrderSummary" />
   </wsdl:message>
@@ -980,6 +1011,18 @@
   </wsdl:message>
   <wsdl:message name="GetAccountingItemSoapOut">
     <wsdl:part name="parameters" element="tns:GetAccountingItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingItemExcludeLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAccountingItemExcludeLogin" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingItemExcludeLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAccountingItemExcludeLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentAccountingDetailExcludeLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAgentAccountingDetailExcludeLogin" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentAccountingDetailExcludeLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAgentAccountingDetailExcludeLoginResponse" />
   </wsdl:message>
   <wsdl:message name="GetAgentAccountingDetailSoapIn">
     <wsdl:part name="parameters" element="tns:GetAgentAccountingDetail" />
@@ -1072,8 +1115,6 @@
   <wsdl:message name="CreateUserAccountPointHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
-  <wsdl:message name="kevintestHttpGetIn" />
-  <wsdl:message name="kevintestHttpGetOut" />
   <wsdl:message name="GetOrderSummaryHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="QueryBeginDate" type="s:string" />
@@ -1086,9 +1127,10 @@
   <wsdl:message name="GetUserAccountSummaryHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="LoginAccount" type="s:string" />
-    <wsdl:part name="QueryBeginDate" type="s:string" />
-    <wsdl:part name="QueryEndDate" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="RowsPage" type="s:string" />
+    <wsdl:part name="PageNumber" type="s:string" />
+    <wsdl:part name="MaxSearchUserAccountID" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetUserAccountSummaryHttpGetOut">
     <wsdl:part name="Body" element="tns:UserAccountSummaryResult" />
@@ -1153,6 +1195,27 @@
   </wsdl:message>
   <wsdl:message name="GetAccountingItemHttpGetOut">
     <wsdl:part name="Body" element="tns:AccountingResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingItemExcludeLoginHttpGetIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingItemExcludeLoginHttpGetOut">
+    <wsdl:part name="Body" element="tns:AccountingResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentAccountingDetailExcludeLoginHttpGetIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="AccountingID" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentAccountingDetailExcludeLoginHttpGetOut">
+    <wsdl:part name="Body" element="tns:AgentAccountingDetailResult" />
   </wsdl:message>
   <wsdl:message name="GetAgentAccountingDetailHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
@@ -1253,8 +1316,6 @@
   <wsdl:message name="CreateUserAccountPointHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
-  <wsdl:message name="kevintestHttpPostIn" />
-  <wsdl:message name="kevintestHttpPostOut" />
   <wsdl:message name="GetOrderSummaryHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="QueryBeginDate" type="s:string" />
@@ -1267,9 +1328,10 @@
   <wsdl:message name="GetUserAccountSummaryHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="LoginAccount" type="s:string" />
-    <wsdl:part name="QueryBeginDate" type="s:string" />
-    <wsdl:part name="QueryEndDate" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="RowsPage" type="s:string" />
+    <wsdl:part name="PageNumber" type="s:string" />
+    <wsdl:part name="MaxSearchUserAccountID" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetUserAccountSummaryHttpPostOut">
     <wsdl:part name="Body" element="tns:UserAccountSummaryResult" />
@@ -1334,6 +1396,27 @@
   </wsdl:message>
   <wsdl:message name="GetAccountingItemHttpPostOut">
     <wsdl:part name="Body" element="tns:AccountingResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingItemExcludeLoginHttpPostIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountingItemExcludeLoginHttpPostOut">
+    <wsdl:part name="Body" element="tns:AccountingResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentAccountingDetailExcludeLoginHttpPostIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="AccountingID" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentAccountingDetailExcludeLoginHttpPostOut">
+    <wsdl:part name="Body" element="tns:AgentAccountingDetailResult" />
   </wsdl:message>
   <wsdl:message name="GetAgentAccountingDetailHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
@@ -1428,10 +1511,6 @@
       <wsdl:input message="tns:CreateUserAccountPointSoapIn" />
       <wsdl:output message="tns:CreateUserAccountPointSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <wsdl:input message="tns:kevintestSoapIn" />
-      <wsdl:output message="tns:kevintestSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <wsdl:input message="tns:GetOrderSummarySoapIn" />
       <wsdl:output message="tns:GetOrderSummarySoapOut" />
@@ -1463,6 +1542,14 @@
     <wsdl:operation name="GetAccountingItem">
       <wsdl:input message="tns:GetAccountingItemSoapIn" />
       <wsdl:output message="tns:GetAccountingItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItemExcludeLogin">
+      <wsdl:input message="tns:GetAccountingItemExcludeLoginSoapIn" />
+      <wsdl:output message="tns:GetAccountingItemExcludeLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetailExcludeLogin">
+      <wsdl:input message="tns:GetAgentAccountingDetailExcludeLoginSoapIn" />
+      <wsdl:output message="tns:GetAgentAccountingDetailExcludeLoginSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAgentAccountingDetail">
       <wsdl:input message="tns:GetAgentAccountingDetailSoapIn" />
@@ -1526,10 +1613,6 @@
       <wsdl:input message="tns:CreateUserAccountPointHttpGetIn" />
       <wsdl:output message="tns:CreateUserAccountPointHttpGetOut" />
     </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <wsdl:input message="tns:kevintestHttpGetIn" />
-      <wsdl:output message="tns:kevintestHttpGetOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <wsdl:input message="tns:GetOrderSummaryHttpGetIn" />
       <wsdl:output message="tns:GetOrderSummaryHttpGetOut" />
@@ -1561,6 +1644,14 @@
     <wsdl:operation name="GetAccountingItem">
       <wsdl:input message="tns:GetAccountingItemHttpGetIn" />
       <wsdl:output message="tns:GetAccountingItemHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItemExcludeLogin">
+      <wsdl:input message="tns:GetAccountingItemExcludeLoginHttpGetIn" />
+      <wsdl:output message="tns:GetAccountingItemExcludeLoginHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetailExcludeLogin">
+      <wsdl:input message="tns:GetAgentAccountingDetailExcludeLoginHttpGetIn" />
+      <wsdl:output message="tns:GetAgentAccountingDetailExcludeLoginHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAgentAccountingDetail">
       <wsdl:input message="tns:GetAgentAccountingDetailHttpGetIn" />
@@ -1616,10 +1707,6 @@
       <wsdl:input message="tns:CreateUserAccountPointHttpPostIn" />
       <wsdl:output message="tns:CreateUserAccountPointHttpPostOut" />
     </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <wsdl:input message="tns:kevintestHttpPostIn" />
-      <wsdl:output message="tns:kevintestHttpPostOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <wsdl:input message="tns:GetOrderSummaryHttpPostIn" />
       <wsdl:output message="tns:GetOrderSummaryHttpPostOut" />
@@ -1651,6 +1738,14 @@
     <wsdl:operation name="GetAccountingItem">
       <wsdl:input message="tns:GetAccountingItemHttpPostIn" />
       <wsdl:output message="tns:GetAccountingItemHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItemExcludeLogin">
+      <wsdl:input message="tns:GetAccountingItemExcludeLoginHttpPostIn" />
+      <wsdl:output message="tns:GetAccountingItemExcludeLoginHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetailExcludeLogin">
+      <wsdl:input message="tns:GetAgentAccountingDetailExcludeLoginHttpPostIn" />
+      <wsdl:output message="tns:GetAgentAccountingDetailExcludeLoginHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAgentAccountingDetail">
       <wsdl:input message="tns:GetAgentAccountingDetailHttpPostIn" />
@@ -1715,15 +1810,6 @@
     </wsdl:operation>
     <wsdl:operation name="CreateUserAccountPoint">
       <soap:operation soapAction="http://tempuri.org/CreateUserAccountPoint" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <soap:operation soapAction="http://tempuri.org/kevintest" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1796,6 +1882,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetAccountingItem">
       <soap:operation soapAction="http://tempuri.org/GetAccountingItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItemExcludeLogin">
+      <soap:operation soapAction="http://tempuri.org/GetAccountingItemExcludeLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetailExcludeLogin">
+      <soap:operation soapAction="http://tempuri.org/GetAgentAccountingDetailExcludeLogin" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1941,15 +2045,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <soap12:operation soapAction="http://tempuri.org/kevintest" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <soap12:operation soapAction="http://tempuri.org/GetOrderSummary" style="document" />
       <wsdl:input>
@@ -2015,6 +2110,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetAccountingItem">
       <soap12:operation soapAction="http://tempuri.org/GetAccountingItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItemExcludeLogin">
+      <soap12:operation soapAction="http://tempuri.org/GetAccountingItemExcludeLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetailExcludeLogin">
+      <soap12:operation soapAction="http://tempuri.org/GetAgentAccountingDetailExcludeLogin" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2160,13 +2273,6 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <http:operation location="/kevintest" />
-      <wsdl:input>
-        <http:urlEncoded />
-      </wsdl:input>
-      <wsdl:output />
-    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <http:operation location="/GetOrderSummary" />
       <wsdl:input>
@@ -2232,6 +2338,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetAccountingItem">
       <http:operation location="/GetAccountingItem" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItemExcludeLogin">
+      <http:operation location="/GetAccountingItemExcludeLogin" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetailExcludeLogin">
+      <http:operation location="/GetAgentAccountingDetailExcludeLogin" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -2359,13 +2483,6 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="kevintest">
-      <http:operation location="/kevintest" />
-      <wsdl:input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </wsdl:input>
-      <wsdl:output />
-    </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <http:operation location="/GetOrderSummary" />
       <wsdl:input>
@@ -2431,6 +2548,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetAccountingItem">
       <http:operation location="/GetAccountingItem" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountingItemExcludeLogin">
+      <http:operation location="/GetAccountingItemExcludeLogin" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentAccountingDetailExcludeLogin">
+      <http:operation location="/GetAgentAccountingDetailExcludeLogin" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
