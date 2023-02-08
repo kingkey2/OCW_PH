@@ -65,6 +65,7 @@
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script type="text/javascript" src="Scripts/MultiLanguage.js"></script>
+<script type="text/javascript" src="../Scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/date.js"></script>
 <script>
     var ApiUrl = "GetPlayerTotalSummary_Casino.aspx";
@@ -77,6 +78,7 @@
     var PageNumber = 1;
 
     function querySelfData() {
+        PageNumber = 1;
         queryData(EWinInfo.UserInfo.LoginAccount);
     }
 
@@ -148,7 +150,9 @@
         var idList = document.getElementById("idList");
         var hasData = false;
 
-        c.clearChildren(idList);
+        if (PageNumber == 1) {
+            c.clearChildren(idList);
+        }
 
         if (o) {
             if (o.SummaryList && o.SummaryList.length > 0) {
@@ -194,6 +198,13 @@
 
                 idList.appendChild(t);
             }
+
+            if (o.HasNextPage) {
+                $("#btnShowNextData").show();
+            } else {
+                $("#btnShowNextData").hide();
+            }
+
         } else {
             var div = document.createElement("DIV");
 
@@ -338,6 +349,11 @@
             //tabItem[i].setAttribute("aria-selected", "false");
         }
         document.getElementById("sliderDate").style.display = "none";
+    }
+
+    function showNextData() {
+        PageNumber = PageNumber + 1;
+        queryData(EWinInfo.UserInfo.LoginAccount);
     }
 
     function init() {

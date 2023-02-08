@@ -21,35 +21,60 @@ public partial class GetPlayerTotalSummary_Casino : System.Web.UI.Page
         string strRedisData = string.Empty;
         JObject redisSaveData = new JObject();
         int ExpireTimeoutSeconds = 0;
+        int TotalPage = 0;
 
-        strRedisData = RedisCache.Agent.GetPlayerTotalSummaryInfoByLoginAccount(LoginAccount, QueryBeginDate.ToString("yyyy-MM-dd"), QueryEndDate.ToString("yyyy-MM-dd"));
-
-        if (string.IsNullOrEmpty(strRedisData)) {
+        if (!string.IsNullOrEmpty(TargetLoginAccount)) {
             RetValue = api.GetTotalOrderSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType, TargetLoginAccount);
+        } else {
+            strRedisData = RedisCache.Agent.GetPlayerTotalSummaryInfoByLoginAccount(LoginAccount, QueryBeginDate.ToString("yyyy-MM-dd"), QueryEndDate.ToString("yyyy-MM-dd"));
 
-            if (RetValue.Result == EWin.SpriteAgent.enumResult.OK) {
-                if (RetValue.SummaryList.Count() > 0) {
-                    int TotalPage = 0;
-                    TotalPage = (int)Math.Ceiling(double.Parse((RetValue.SummaryList.Count() / RowsPage).ToString()));
+            if (string.IsNullOrEmpty(strRedisData)) {
+                RetValue = api.GetTotalOrderSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType, TargetLoginAccount);
 
-                    redisSaveData.Add("TotalPage", TotalPage);
-                    ExpireTimeoutSeconds = 600;
-                    
-                    for (int i = 0; i < TotalPage; i++) {
-                        k = new EWin.SpriteAgent.TotalSummaryResult();
-                        k.Result = EWin.SpriteAgent.enumResult.OK;
-                        k.SummaryList = RetValue.SummaryList.Skip(i).Take(RowsPage).ToArray();
+                if (RetValue.Result == EWin.SpriteAgent.enumResult.OK) {
+                    if (RetValue.SummaryList.Count() > 0) {
+                        TotalPage = int.Parse(Math.Ceiling((double)RetValue.SummaryList.Count() / (double)RowsPage).ToString());
 
-                        redisSaveData.Add(i++.ToString(), JsonConvert.SerializeObject(k));
+                        redisSaveData.Add("TotalPage", TotalPage);
+                        ExpireTimeoutSeconds = 600;
+
+                        for (int i = 0; i < TotalPage; i++) {
+                            k = new EWin.SpriteAgent.TotalSummaryResult();
+                            k.Result = EWin.SpriteAgent.enumResult.OK;
+                            k.SummaryList = RetValue.SummaryList.Skip(i).Take(RowsPage).ToArray();
+
+                            redisSaveData.Add((i + 1).ToString(), JsonConvert.SerializeObject(k));
+                        }
+
+                        if (TotalPage > 1) {
+                            RetValue.HasNextPage = true;
+                        } else {
+                            RetValue.HasNextPage = false;
+                        }
+
+                        RedisCache.Agent.UpdatePlayerTotalSummaryByLoginAccount(JsonConvert.SerializeObject(redisSaveData), LoginAccount, QueryBeginDate.ToString("yyyy-MM-dd"), QueryEndDate.ToString("yyyy-MM-dd"));
                     }
+                }
 
-                    RedisCache.Agent.UpdatePlayerTotalSummaryByLoginAccount(JsonConvert.SerializeObject(redisSaveData), LoginAccount, QueryBeginDate.ToString("yyyy-MM-dd"), QueryEndDate.ToString("yyyy-MM-dd"));
+            } else {
+                redisSaveData = JObject.Parse(strRedisData);
+
+                if (redisSaveData["TotalPage"] != null) {
+                    TotalPage = (int)redisSaveData["TotalPage"];
+                }
+
+                if (redisSaveData[PageNumber.ToString()] != null) {
+                    RetValue = JsonConvert.DeserializeObject<EWin.SpriteAgent.TotalSummaryResult>((string)redisSaveData[PageNumber.ToString()]);
+
+                    if (PageNumber >= TotalPage) {
+                        RetValue.HasNextPage = false;
+                    } else {
+                        RetValue.HasNextPage = true;
+                    }
                 }
             }
-        } else {
-
         }
-        
+
         return RetValue;
     }
 }
