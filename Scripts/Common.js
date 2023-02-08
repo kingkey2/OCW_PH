@@ -338,13 +338,17 @@
         return scr;
     };
 
-    this.getTemplate = function (idTemplate) {
+    this.getTemplate = function (idTemplate) {        
         var oTemplate = document.getElementById(idTemplate);
         var oInstance;
 
         if (oTemplate) {
-            oInstance = oTemplate.children[0].cloneNode(true);
-            findNeedClearChildren(oInstance);
+            if (oTemplate.tagName.toUpperCase() == "TEMPLATE") {
+                oInstance = oTemplate.content.firstElementChild.cloneNode(true);
+            } else {
+                oInstance = oTemplate.children[0].cloneNode(true);
+                findNeedClearChildren(oInstance);
+            }              
         }
 
         return oInstance;
@@ -425,14 +429,7 @@
         var retValue;
         var objectArray;
 
-        objectArray = o.getElementsByClassName(className);
-        if (objectArray) {
-            if (objectArray.length) {
-                if (objectArray.length > 0) {
-                    retValue = objectArray[0];
-                }
-            }
-        }
+        objectArray = o.querySelector("." + className);
 
         return retValue;
     };

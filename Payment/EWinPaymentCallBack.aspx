@@ -17,7 +17,10 @@
             PostBody = reader.ReadToEnd();
         };
 
+
         if (string.IsNullOrEmpty(PostBody) == false) {
+           
+
             try { BodyObj = Newtonsoft.Json.JsonConvert.DeserializeObject<PaymentCallbackInfo>(PostBody); } catch (Exception ex) {
                 BodyObj = null;
             }
@@ -363,6 +366,10 @@
                                     else if (UnderProvider == "YuHong") { ProviderCode = "YuHong"; }
                                     else if (UnderProvider == "DiDiPay") { ProviderCode = "DiDiPay"; }
                                     else if (UnderProvider == "FIFIPay") { ProviderCode = "FIFIPay"; }
+                                    else if (UnderProvider == "ZINPay") { ProviderCode = "ZINPay"; }
+                                    else if (UnderProvider == "CLOUDPAY") { ProviderCode = "CLOUDPAY"; }
+                                    else if (UnderProvider == "EASYPAY") { ProviderCode = "EASYPAY"; }
+                                    else if (UnderProvider == "GCPay") { ProviderCode = "GCPay"; }
                                     else
                                     {
                                         CheckUnderProvider = false;
