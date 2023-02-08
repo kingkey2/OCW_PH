@@ -65,6 +65,7 @@
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script type="text/javascript" src="Scripts/MultiLanguage.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/date.js"></script>
 <script>
     var ApiUrl = "GetPlayerTotalDepositSummary_Casino.aspx";
@@ -256,6 +257,12 @@
 
 
                 idList.appendChild(t);
+            }
+
+            if (o.Message =="HasNextPage") {
+                $("#btnShowNextData").show();
+            } else {
+                $("#btnShowNextData").hide();
             }
         } else {
             var div = document.createElement("DIV");
