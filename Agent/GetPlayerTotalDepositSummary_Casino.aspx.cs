@@ -69,7 +69,6 @@ public partial class GetPlayerTotalDepositSummary_Casino : System.Web.UI.Page
             }
             else
             {
-                var aa = redisSaveData["11"];
                 redisSaveData = JObject.Parse(strRedisData);
                 //有該頁面的資料
                 if (redisSaveData[PageNumber.ToString()] != null)
