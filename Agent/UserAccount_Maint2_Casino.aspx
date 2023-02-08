@@ -672,11 +672,11 @@
                     <div class="tbody" id="idList">
                     </div>
                     <div class="row">
-                    <div class="col-12" id="btnShowNextData" style="display: none">
-                        <div class="form-group wrapper_center dataList-process">
-                            <button class="btn btn-full-main btn-roundcorner " onclick="showNextData()"><i class="icon icon-before icon-ewin-input-submit"></i><span class="language_replace">查看更多</span></button>
+                        <div class="col-12" id="btnShowNextData" style="display: none">
+                            <div class="form-group wrapper_center dataList-process">
+                                <button class="btn btn-full-main btn-roundcorner " onclick="showNextData()"><i class="icon icon-before icon-ewin-input-submit"></i><span class="language_replace">查看更多</span></button>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>

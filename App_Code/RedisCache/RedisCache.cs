@@ -1888,7 +1888,7 @@ public static class RedisCache {
         }
         #endregion
 
-        #region 團隊會員
+        #region 團隊管理-會員
         public static string GetTeamMemberInfoByLoginAccount(string LoginAccount) {
             string Key;
             string strRet = string.Empty;
@@ -1914,7 +1914,35 @@ public static class RedisCache {
             }
         }
         #endregion
-        
+
+        #region 會員投注數據
+        public static string GetPlayerTotalSummaryInfoByLoginAccount(string LoginAccount, string StratDate, string EndDate) {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":PlayerTotalSummaryInfo:LoginAccount:" + LoginAccount + ":SearchDate:" + StratDate + "_" + EndDate;
+            if (KeyExists(DBIndex, Key) == true) {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdatePlayerTotalSummaryByLoginAccount(string JsonData, string LoginAccount, string StratDate, string EndDate) {
+            string Key;
+
+            Key = XMLPath + ":PlayerTotalSummaryInfo:LoginAccount:" + LoginAccount + ":SearchDate:" + StratDate + "_" + EndDate;
+            for (int I = 0; I <= 3; I++) {
+                try {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, 300);
+                    break;
+                } catch (Exception ex) {
+                }
+            }
+        }
+        #endregion
+
+
     }
 
     public static void DTWriteToRedis(int DBIndex, System.Data.DataTable DT, string Key, int ExpireTimeoutSeconds = 0) {

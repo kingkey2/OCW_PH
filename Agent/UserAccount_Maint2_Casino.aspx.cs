@@ -32,7 +32,7 @@ public partial class UserAccount_Maint2_Casino : System.Web.UI.Page {
                 if (RetValue.Result == EWin.SpriteAgent.enumResult.OK) {
                     MaxSearchUserAccountID = RetValue.MaxUserID;
                     redisSaveData.Add("MaxSearchUserAccountID", MaxSearchUserAccountID.ToString());
-                    ExpireTimeoutSeconds = 60;
+                    ExpireTimeoutSeconds = 600;
                     redisSaveData.Add(PageNumber.ToString(), JsonConvert.SerializeObject(RetValue));
 
                     RedisCache.Agent.UpdateTeamMemberInfoByLoginAccount(JsonConvert.SerializeObject(redisSaveData), LoginAccount, ExpireTimeoutSeconds);
@@ -64,14 +64,5 @@ public partial class UserAccount_Maint2_Casino : System.Web.UI.Page {
         }
 
         return RetValue;
-
-
-        //Dictionary<string, string> aa = new Dictionary<string, string>();
-        //aa.Add("0", "asdfg");
-        //aa.Add("1", "qwer");
-        //string fff = Newtonsoft.Json.JsonConvert.SerializeObject(aa);
-        //RedisCache.Agent.kevintest(fff);
-
-        //Newtonsoft.Json.Linq.JObject gg = Newtonsoft.Json.Linq.JObject.Parse(fff);
     }
 }
