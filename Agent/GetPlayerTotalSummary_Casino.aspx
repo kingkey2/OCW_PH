@@ -114,7 +114,7 @@
                 QueryEndDate: endDate.value,
                 CurrencyType: currencyType,
                 TargetLoginAccount: targetLoginAccount.value,
-                RowsPage: 5, //一頁顯示的比數
+                RowsPage: 50, //一頁顯示的比數
                 PageNumber: PageNumber
             };
 

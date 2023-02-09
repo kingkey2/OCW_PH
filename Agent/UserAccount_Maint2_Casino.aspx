@@ -225,7 +225,7 @@
                 AID: EWinInfo.ASID,
                 SearchLoginAccount: LoginAccount,
                 LoginAccount: EWinInfo.UserInfo.LoginAccount,
-                RowsPage: 5, //一頁顯示的比數
+                RowsPage: 50, //一頁顯示的比數
                 PageNumber: PageNumber,
                 CurrencyType: currencyType
             };

@@ -431,7 +431,17 @@
 
         objectArray = o.querySelector("." + className);
 
-        return objectArray;
+
+        objectArray = o.getElementsByClassName(className);
+        if (objectArray) {
+            if (objectArray.length) {
+                if (objectArray.length > 0) {
+                    retValue = objectArray[0];
+                }
+            }
+        }
+
+        return retValue;
     };
 
     this.getJSON = function (text) {

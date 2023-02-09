@@ -2,6 +2,48 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="AgentLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginGUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="LoginType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MainAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserIP" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgentLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AgentLoginResult" type="tns:LoginResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="LoginResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="AgentURL" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="APIResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Result" type="tns:enumResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="enumResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="OK" />
+          <s:enumeration value="ERR" />
+        </s:restriction>
+      </s:simpleType>
       <s:element name="GetAgentSessionByID">
         <s:complexType>
           <s:sequence>
@@ -25,18 +67,6 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
-      <s:complexType name="APIResult">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Result" type="tns:enumResult" />
-          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:simpleType name="enumResult">
-        <s:restriction base="s:string">
-          <s:enumeration value="OK" />
-          <s:enumeration value="ERR" />
-        </s:restriction>
-      </s:simpleType>
       <s:complexType name="AgentSessionInfo">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="AgentSessionID" type="s:string" />
@@ -935,6 +965,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="LoginResult" nillable="true" type="tns:LoginResult" />
       <s:element name="AgentSessionResult" nillable="true" type="tns:AgentSessionResult" />
       <s:element name="ChidUserData" nillable="true" type="tns:ChidUserData" />
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
@@ -949,6 +980,12 @@
       <s:element name="UserAccountPropertyResult" nillable="true" type="tns:UserAccountPropertyResult" />
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="AgentLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:AgentLogin" />
+  </wsdl:message>
+  <wsdl:message name="AgentLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:AgentLoginResponse" />
+  </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDSoapIn">
     <wsdl:part name="parameters" element="tns:GetAgentSessionByID" />
   </wsdl:message>
@@ -1098,6 +1135,18 @@
   </wsdl:message>
   <wsdl:message name="SetUserPasswordByValidateCodeSoapOut">
     <wsdl:part name="parameters" element="tns:SetUserPasswordByValidateCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="AgentLoginHttpGetIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginType" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="LoginPassword" type="s:string" />
+    <wsdl:part name="MainAccount" type="s:string" />
+    <wsdl:part name="UserIP" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AgentLoginHttpGetOut">
+    <wsdl:part name="Body" element="tns:LoginResult" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpGetIn">
     <wsdl:part name="ASID" type="s:string" />
@@ -1299,6 +1348,18 @@
   </wsdl:message>
   <wsdl:message name="SetUserPasswordByValidateCodeHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="AgentLoginHttpPostIn">
+    <wsdl:part name="LoginGUID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginType" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="LoginPassword" type="s:string" />
+    <wsdl:part name="MainAccount" type="s:string" />
+    <wsdl:part name="UserIP" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AgentLoginHttpPostOut">
+    <wsdl:part name="Body" element="tns:LoginResult" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpPostIn">
     <wsdl:part name="ASID" type="s:string" />
@@ -1502,6 +1563,10 @@
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:portType name="SpriteAgentSoap">
+    <wsdl:operation name="AgentLogin">
+      <wsdl:input message="tns:AgentLoginSoapIn" />
+      <wsdl:output message="tns:AgentLoginSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDSoapIn" />
       <wsdl:output message="tns:GetAgentSessionByIDSoapOut" />
@@ -1604,6 +1669,10 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="SpriteAgentHttpGet">
+    <wsdl:operation name="AgentLogin">
+      <wsdl:input message="tns:AgentLoginHttpGetIn" />
+      <wsdl:output message="tns:AgentLoginHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDHttpGetIn" />
       <wsdl:output message="tns:GetAgentSessionByIDHttpGetOut" />
@@ -1698,6 +1767,10 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="SpriteAgentHttpPost">
+    <wsdl:operation name="AgentLogin">
+      <wsdl:input message="tns:AgentLoginHttpPostIn" />
+      <wsdl:output message="tns:AgentLoginHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDHttpPostIn" />
       <wsdl:output message="tns:GetAgentSessionByIDHttpPostOut" />
@@ -1793,6 +1866,15 @@
   </wsdl:portType>
   <wsdl:binding name="SpriteAgentSoap" type="tns:SpriteAgentSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AgentLogin">
+      <soap:operation soapAction="http://tempuri.org/AgentLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <soap:operation soapAction="http://tempuri.org/GetAgentSessionByID" style="document" />
       <wsdl:input>
@@ -2021,6 +2103,15 @@
   </wsdl:binding>
   <wsdl:binding name="SpriteAgentSoap12" type="tns:SpriteAgentSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AgentLogin">
+      <soap12:operation soapAction="http://tempuri.org/AgentLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <soap12:operation soapAction="http://tempuri.org/GetAgentSessionByID" style="document" />
       <wsdl:input>
@@ -2249,6 +2340,15 @@
   </wsdl:binding>
   <wsdl:binding name="SpriteAgentHttpGet" type="tns:SpriteAgentHttpGet">
     <http:binding verb="GET" />
+    <wsdl:operation name="AgentLogin">
+      <http:operation location="/AgentLogin" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <http:operation location="/GetAgentSessionByID" />
       <wsdl:input>
@@ -2459,6 +2559,15 @@
   </wsdl:binding>
   <wsdl:binding name="SpriteAgentHttpPost" type="tns:SpriteAgentHttpPost">
     <http:binding verb="POST" />
+    <wsdl:operation name="AgentLogin">
+      <http:operation location="/AgentLogin" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <http:operation location="/GetAgentSessionByID" />
       <wsdl:input>

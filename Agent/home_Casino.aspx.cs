@@ -13,11 +13,26 @@ public partial class home_Casino : System.Web.UI.Page {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.SpriteAgent.ChidUserData GetChildUserData(string AID) {
+    public static EWin.SpriteAgent.ChidUserData GetChildUserData(string AID, string LoginAccount) {
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
         EWin.SpriteAgent.ChidUserData RetValue = new EWin.SpriteAgent.ChidUserData();
+        string RedisTmp = string.Empty;
 
-        RetValue = api.GetChildUserData(AID);
+        RedisTmp = RedisCache.Agent.GetHomeChildDetailByLoginAccount(LoginAccount);
+
+        if (string.IsNullOrEmpty(RedisTmp)) {
+            RetValue = api.GetChildUserData(AID);
+
+            RedisCache.Agent.UpdateHomeChildDetailByLoginAccount(Newtonsoft.Json.JsonConvert.SerializeObject(RetValue), LoginAccount);
+        } else {
+            RetValue = Newtonsoft.Json.JsonConvert.DeserializeObject<EWin.SpriteAgent.ChidUserData>(RedisTmp);
+
+            if (RetValue.Result == EWin.SpriteAgent.enumResult.ERR) {
+                RetValue = api.GetChildUserData(AID);
+
+                RedisCache.Agent.UpdateHomeChildDetailByLoginAccount(Newtonsoft.Json.JsonConvert.SerializeObject(RetValue), LoginAccount);
+            }
+        }
 
         return RetValue;
     }
