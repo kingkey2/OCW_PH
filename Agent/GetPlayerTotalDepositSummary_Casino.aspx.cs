@@ -64,6 +64,9 @@ public partial class GetPlayerTotalDepositSummary_Casino : System.Web.UI.Page
                         RetValue.Message = "HasNextPage";
                     }
 
+                    RetValue.SummaryList = tmpRetValue.ToArray();
+                    RetValue.Result = EWin.SpriteAgent.enumResult.OK;
+
                 }
                 else
                 {
@@ -80,7 +83,7 @@ public partial class GetPlayerTotalDepositSummary_Casino : System.Web.UI.Page
                             {
                                 if (_AgentTotalSummary.LoginAccount == TargetLoginAccount)
                                 {
-                                    RetValue.SummaryList = new List<EWin.SpriteAgent.AgentTotalSummary>() { _AgentTotalSummary };
+                                    RetValue.SummaryList = new List<EWin.SpriteAgent.AgentTotalSummary>() { _AgentTotalSummary }.ToArray();
                                     RetValue.Result = EWin.SpriteAgent.enumResult.OK;
                                     RetValue.Message = "";
                                     break;
@@ -93,10 +96,6 @@ public partial class GetPlayerTotalDepositSummary_Casino : System.Web.UI.Page
                         }
                     }
                 }
-
-                RetValue.SummaryList = tmpRetValue.ToArray();
-                RetValue.Result = EWin.SpriteAgent.enumResult.OK;
-
             }
         }
         else
@@ -138,7 +137,7 @@ public partial class GetPlayerTotalDepositSummary_Casino : System.Web.UI.Page
                         {
                             if (_AgentTotalSummary.LoginAccount == TargetLoginAccount)
                             {
-                                RetValue.SummaryList = new List<EWin.SpriteAgent.AgentTotalSummary>() { _AgentTotalSummary };
+                                RetValue.SummaryList = new List<EWin.SpriteAgent.AgentTotalSummary>() { _AgentTotalSummary }.ToArray();
                                 RetValue.Result = EWin.SpriteAgent.enumResult.OK;
                                 RetValue.Message = "";
                                 break;
