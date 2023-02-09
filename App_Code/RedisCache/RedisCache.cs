@@ -1948,7 +1948,7 @@ public static class RedisCache {
             string Key;
             string strRet = string.Empty;
 
-            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:" + QueryBeginDate.ToString("yyyy/MM/dd") + "-" + QueryEndDate.ToString("yyyy/MM/dd") + ":" + LoginAccount;
+            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:"+ LoginAccount+ ":SummaryDate:" + QueryBeginDate.ToString("yyyy/MM/dd") + "-" + QueryEndDate.ToString("yyyy/MM/dd");
             if (KeyExists(DBIndex, Key) == true)
             {
                 strRet = JsonReadFromRedis(DBIndex, Key);
@@ -1961,7 +1961,7 @@ public static class RedisCache {
         {
             string Key;
 
-            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:"+ QueryBeginDate.ToString("yyyy/MM/dd")+"-"+ QueryEndDate.ToString("yyyy/MM/dd") + ":" + LoginAccount;
+            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:" + LoginAccount + ":SummaryDate:" + QueryBeginDate.ToString("yyyy/MM/dd") + "-" + QueryEndDate.ToString("yyyy/MM/dd");
             for (int I = 0; I <= 3; I++)
             {
                 try

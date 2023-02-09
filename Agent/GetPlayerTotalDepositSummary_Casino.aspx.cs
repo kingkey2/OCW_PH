@@ -24,38 +24,40 @@ public partial class GetPlayerTotalDepositSummary_Casino : System.Web.UI.Page
         string strRedisData = string.Empty;
         JObject redisSaveData = new JObject();
         int ExpireTimeoutSeconds = 600;
-        
-        if (string.IsNullOrEmpty(TargetLoginAccount))
-        {
+
             strRedisData = RedisCache.Agent.GetPlayerTotalDepositSummaryByLoginAccount(LoginAccount,QueryBeginDate, QueryEndDate);
-            //沒有redis資料一律將PageNumber改為1，避免用戶在該頁面放置到Redis已消失的狀態，最大會員編號已失效資料的數量會有問題
-            if (string.IsNullOrEmpty(strRedisData))
+
+        if (string.IsNullOrEmpty(strRedisData))
+        {
+
+            RetValue = api.GetPlayerTotalDepositSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType, "");
+
+            if (RetValue.Result == EWin.SpriteAgent.enumResult.OK && RetValue.SummaryList.Length > 0)
             {
-                RetValue = api.GetPlayerTotalDepositSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType, TargetLoginAccount);
 
-                if (RetValue.Result == EWin.SpriteAgent.enumResult.OK&& RetValue.SummaryList.Length>0)
+                tmpPageNumber = 1;
+                tmpAgentTotalSummaryResult = new List<EWin.SpriteAgent.AgentTotalSummary>();
+
+                for (int i = 0; i < RetValue.SummaryList.Length; i++)
                 {
-           
-                    tmpPageNumber = 1;
-                    tmpAgentTotalSummaryResult = new List<EWin.SpriteAgent.AgentTotalSummary>();
-                   
-                    for (int i = 0; i < RetValue.SummaryList.Length; i++)
+                    tmpAgentTotalSummaryResult.Add(RetValue.SummaryList[i]);
+                    if ((i + 1) % RowsPage == 0)
                     {
-                        tmpAgentTotalSummaryResult.Add(RetValue.SummaryList[i]);
-                        if ((i+1)%RowsPage==0)
-                        {
-                            redisSaveData.Add(tmpPageNumber.ToString(), JsonConvert.SerializeObject(tmpAgentTotalSummaryResult));
-                            tmpPageNumber++;
-                            tmpAgentTotalSummaryResult = new List<EWin.SpriteAgent.AgentTotalSummary>();
-                        }
-
-                        if (RetValue.SummaryList.Length==i+1)
-                        {
-                            redisSaveData.Add(tmpPageNumber.ToString(), JsonConvert.SerializeObject(tmpAgentTotalSummaryResult));
-                        }
+                        redisSaveData.Add(tmpPageNumber.ToString(), JsonConvert.SerializeObject(tmpAgentTotalSummaryResult));
+                        tmpPageNumber++;
+                        tmpAgentTotalSummaryResult = new List<EWin.SpriteAgent.AgentTotalSummary>();
                     }
 
-                    RedisCache.Agent.UpdatePlayerTotalDepositSummaryByLoginAccount(JsonConvert.SerializeObject(redisSaveData), QueryBeginDate, QueryEndDate, LoginAccount, ExpireTimeoutSeconds);
+                    if (RetValue.SummaryList.Length == i + 1)
+                    {
+                        redisSaveData.Add(tmpPageNumber.ToString(), JsonConvert.SerializeObject(tmpAgentTotalSummaryResult));
+                    }
+                }
+
+                RedisCache.Agent.UpdatePlayerTotalDepositSummaryByLoginAccount(JsonConvert.SerializeObject(redisSaveData), QueryBeginDate, QueryEndDate, LoginAccount, ExpireTimeoutSeconds);
+
+                if (string.IsNullOrEmpty(TargetLoginAccount))
+                {
                     tmpRetValue = JsonConvert.DeserializeObject<List<EWin.SpriteAgent.AgentTotalSummary>>((string)redisSaveData[PageNumber.ToString()]);
                     if (redisSaveData[(PageNumber + 1).ToString()] != null)
                     {
@@ -66,10 +68,42 @@ public partial class GetPlayerTotalDepositSummary_Casino : System.Web.UI.Page
                     RetValue.Result = EWin.SpriteAgent.enumResult.OK;
 
                 }
+                else
+                {
+                    var Page = 1;
+
+                    while (true)
+                    {
+                        var PageData = redisSaveData[Page.ToString()];
+                        if (PageData != null)
+                        {
+                            Page++;
+                            var LstAgentTotalSummary = JsonConvert.DeserializeObject<List<EWin.SpriteAgent.AgentTotalSummary>>(PageData.ToString());
+                            foreach (var _AgentTotalSummary in LstAgentTotalSummary)
+                            {
+                                if (_AgentTotalSummary.LoginAccount == TargetLoginAccount)
+                                {
+                                    RetValue.SummaryList = new List<EWin.SpriteAgent.AgentTotalSummary>() { _AgentTotalSummary }.ToArray();
+                                    RetValue.Result = EWin.SpriteAgent.enumResult.OK;
+                                    RetValue.Message = "";
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
             }
-            else
+        }
+        else
+        {
+            redisSaveData = JObject.Parse(strRedisData);
+
+            if (string.IsNullOrEmpty(TargetLoginAccount))
             {
-                redisSaveData = JObject.Parse(strRedisData);
                 //有該頁面的資料
                 if (redisSaveData[PageNumber.ToString()] != null)
                 {
@@ -88,14 +122,41 @@ public partial class GetPlayerTotalDepositSummary_Casino : System.Web.UI.Page
                     RetValue.Result = EWin.SpriteAgent.enumResult.ERR;
                     RetValue.Message = "NoData";
                 }
-
             }
+            else {
+                var Page = 1;
+
+                while (true)
+                {
+                    var PageData = redisSaveData[Page.ToString()];
+                    if (PageData != null)
+                    {
+                        Page++;
+                        var LstAgentTotalSummary = JsonConvert.DeserializeObject<List<EWin.SpriteAgent.AgentTotalSummary>>(PageData.ToString());
+                        foreach (var _AgentTotalSummary in LstAgentTotalSummary)
+                        {
+                            if (_AgentTotalSummary.LoginAccount == TargetLoginAccount)
+                            {
+                                RetValue.SummaryList = new List<EWin.SpriteAgent.AgentTotalSummary>() { _AgentTotalSummary }.ToArray();
+                                RetValue.Result = EWin.SpriteAgent.enumResult.OK;
+                                RetValue.Message = "";
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+
         }
-        else {
-            RetValue = api.GetPlayerTotalDepositSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType, TargetLoginAccount);
-        }
+
          
         return RetValue;
     }
+
 
 }
