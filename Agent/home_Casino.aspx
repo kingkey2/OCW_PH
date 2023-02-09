@@ -360,15 +360,16 @@
                                 let data = o.AgentItemList[i];
                                 TotalValidBetValue = TotalValidBetValue + data.TotalValidBetValue;
                                 UserRebate = UserRebate + data.UserRebate - data.PaidOPValue;
-                                RewardValue = RewardValue + data.TotalRewardValue - data.SelfRewardValue;
-                                PreferentialCost = PreferentialCost + data.BonusPointValue + data.CostValue;
+                                RewardValue = RewardValue + data.TotalRewardValue;
+                                PreferentialCost = PreferentialCost + data.BonusPointValue;
                                 TotalOrderCount = TotalOrderCount + data.TotalOrderCount;
-                                NewUserCount = NewUserCount + data.NewUserCount;
+                                NewUserCount = NewUserCount + data.NewUserCount + data.NewAgentCount;
                                 WithdrawalValue = WithdrawalValue + data.WithdrawalValue;
                                 WithdrawalCount = WithdrawalCount + data.WithdrawalCount;
                                 DepositValue = DepositValue + data.DepositValue;
                                 DepositCount = DepositCount + data.DepositCount;
                                 FirstDepositValue = FirstDepositValue + data.FirstDepositValue;
+
                                 FirstDepositCount = FirstDepositCount + data.FirstDepositCount;
                                 NotFirstDepositCount = NotFirstDepositCount + data.DepositCount - data.FirstDepositCount;
                             }
@@ -407,7 +408,8 @@
             var postData;
 
             postData = {
-                AID: EWinInfo.ASID
+                AID: EWinInfo.ASID,
+                LoginAccount: EWinInfo.UserInfo.LoginAccount
             };
 
             c.callService(ApiUrl + "/GetChildUserData", postData, function (success, obj) {
@@ -706,7 +708,7 @@
                                     <span class="currency language_replace">會員輸贏</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace RewardValue data">9999</span>
+                                    <span class="language_replace TotalRewardValue data">9999</span>
                                 </div>
                             </div>
                         </div>

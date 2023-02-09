@@ -1888,6 +1888,33 @@ public static class RedisCache {
         }
         #endregion
 
+        #region 首頁中間下線統計資料
+        public static string GetHomeChildDetailByLoginAccount(string LoginAccount) {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":Home:ChildDetail:LoginAccount:" + LoginAccount;
+            if (KeyExists(DBIndex, Key) == true) {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdateHomeChildDetailByLoginAccount(string JsonData, string LoginAccount) {
+            string Key;
+
+            Key = XMLPath + ":Home:ChildDetail:LoginAccount:" + LoginAccount;
+            for (int I = 0; I <= 3; I++) {
+                try {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, 300);
+                    break;
+                } catch (Exception ex) {
+                }
+            }
+        }
+        #endregion
+
         #region 團隊管理-會員
         public static string GetTeamMemberInfoByLoginAccount(string LoginAccount) {
             string Key;
@@ -1975,8 +2002,7 @@ public static class RedisCache {
             }
         }
         #endregion
-
-
+        
     }
 
     public static void DTWriteToRedis(int DBIndex, System.Data.DataTable DT, string Key, int ExpireTimeoutSeconds = 0) {
