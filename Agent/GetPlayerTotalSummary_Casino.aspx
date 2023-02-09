@@ -65,6 +65,7 @@
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script type="text/javascript" src="Scripts/MultiLanguage.js"></script>
+<script type="text/javascript" src="../Scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/date.js"></script>
 <script>
     var ApiUrl = "GetPlayerTotalSummary_Casino.aspx";
@@ -74,8 +75,10 @@
     var EWinInfo;
     var api;
     var lang;
+    var PageNumber = 1;
 
     function querySelfData() {
+        PageNumber = 1;
         queryData(EWinInfo.UserInfo.LoginAccount);
     }
 
@@ -86,7 +89,6 @@
         var idList = document.getElementById("idList");
         var currencyTypeDom = "";
         var currencyType = "";
-
 
         startDate = document.getElementById("startDate");
         endDate = document.getElementById("endDate");
@@ -111,35 +113,33 @@
                 QueryBeginDate: startDate.value,
                 QueryEndDate: endDate.value,
                 CurrencyType: currencyType,
-                TargetLoginAccount: targetLoginAccount.value
+                TargetLoginAccount: targetLoginAccount.value,
+                RowsPage: 50, //一頁顯示的比數
+                PageNumber: PageNumber
             };
 
-            if (new Date(postData.QueryBeginDate) <= new Date(postData.QueryEndDate)) {
+            window.parent.API_ShowLoading();
+            c.callService(ApiUrl + "/GetTotalOrderSummary", postData, function (success, o) {
+                if (success) {
+                    var obj = c.getJSON(o);
 
-                window.parent.API_ShowLoading();
-                c.callService(ApiUrl + "/GetTotalOrderSummary", postData, function (success, o) {
-                    if (success) {
-                        var obj = c.getJSON(o);
-
-                        if (obj.Result == 0) {
-                            updateList(obj);
-                        } else {
-
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
-                        }
+                    if (obj.Result == 0) {
+                        updateList(obj);
                     } else {
-                        if (o == "Timeout") {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
-                        } else {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
-                        }
-                    }
 
-                    window.parent.API_CloseLoading();
-                });
-            } else {
-                window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("結束日期不可小於起起始日期"));
-            }
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                    }
+                } else {
+                    if (o == "Timeout") {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                    } else {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    }
+                }
+
+                window.parent.API_CloseLoading();
+            });
+
         }
         else {
             window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("請至少選擇一個幣別!!"));
@@ -150,7 +150,9 @@
         var idList = document.getElementById("idList");
         var hasData = false;
 
-        c.clearChildren(idList);
+        if (PageNumber == 1) {
+            c.clearChildren(idList);
+        }
 
         if (o) {
             if (o.SummaryList && o.SummaryList.length > 0) {
@@ -196,6 +198,13 @@
 
                 idList.appendChild(t);
             }
+
+            if (o.HasNextPage) {
+                $("#btnShowNextData").show();
+            } else {
+                $("#btnShowNextData").hide();
+            }
+
         } else {
             var div = document.createElement("DIV");
 
@@ -342,6 +351,11 @@
         document.getElementById("sliderDate").style.display = "none";
     }
 
+    function showNextData() {
+        PageNumber = PageNumber + 1;
+        queryData(EWinInfo.UserInfo.LoginAccount);
+    }
+
     function init() {
         var d = new Date();
 
@@ -394,7 +408,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3" style="display:none">
                                 <!-- 起始日期 / 結束日期 -->
                                 <div class="form-group search_date">
                                     <div class="starDate">
@@ -544,6 +558,13 @@
                     </div>
                     <!-- 表格上下滑動框 -->
                     <div class="tbody" id="idList">
+                    </div>
+                    <div class="row">
+                        <div class="col-12" id="btnShowNextData" style="display: none">
+                            <div class="form-group wrapper_center dataList-process">
+                                <button class="btn btn-full-main btn-roundcorner " onclick="showNextData()"><i class="icon icon-before icon-ewin-input-submit"></i><span class="language_replace">查看更多</span></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

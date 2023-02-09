@@ -65,6 +65,7 @@
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script type="text/javascript" src="Scripts/MultiLanguage.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/date.js"></script>
 <script>
     var ApiUrl = "GetPlayerTotalDepositSummary_Casino.aspx";
@@ -74,8 +75,16 @@
     var EWinInfo;
     var api;
     var lang;
-
+    var RowsPage = 5;
+    var PageNumber = 1;
     function querySelfData() {
+        PageNumber = 1;
+        queryData(EWinInfo.UserInfo.LoginAccount);
+    }
+
+
+    function showNextData() {
+        PageNumber = PageNumber + 1;
         queryData(EWinInfo.UserInfo.LoginAccount);
     }
 
@@ -110,6 +119,8 @@
                 QueryBeginDate: startDate.value,
                 QueryEndDate: endDate.value,
                 CurrencyType: currencyType,
+                RowsPage: RowsPage, //一頁顯示的比數
+                PageNumber: PageNumber,
                 TargetLoginAccount: targetLoginAccount.value
             };
 
@@ -149,7 +160,9 @@
         var idList = document.getElementById("idList");
         var hasData = false;
 
-        c.clearChildren(idList);
+        if (PageNumber== 1) {
+            c.clearChildren(idList);
+        }
 
         if (o) {
             if (o.SummaryList && o.SummaryList.length > 0) {
@@ -244,6 +257,12 @@
 
 
                 idList.appendChild(t);
+            }
+
+            if (o.Message =="HasNextPage") {
+                $("#btnShowNextData").show();
+            } else {
+                $("#btnShowNextData").hide();
             }
         } else {
             var div = document.createElement("DIV");
@@ -605,6 +624,13 @@
                     </div>
                     <!-- 表格上下滑動框 -->
                     <div class="tbody" id="idList">
+                    </div>
+                        <div class="row">
+                    <div class="col-12" id="btnShowNextData" style="display: none">
+                        <div class="form-group wrapper_center dataList-process">
+                            <button class="btn btn-full-main btn-roundcorner " onclick="showNextData()"><i class="icon icon-before icon-ewin-input-submit"></i><span class="language_replace">查看更多</span></button>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>

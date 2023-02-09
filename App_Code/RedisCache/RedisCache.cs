@@ -1834,6 +1834,7 @@ public static class RedisCache {
         private static string XMLPath = "Agent";
         private static int DBIndex = 0;
 
+        #region 傭金結算查詢-細節
         public static string GetAccountDetailByLoginAccount(string LoginAccount, int AccountingID) {
             string Key;
             string strRet = string.Empty;
@@ -1858,7 +1859,9 @@ public static class RedisCache {
                 }
             }
         }
+        #endregion
 
+        #region 首頁下方區塊統計資料
         public static string GetHomeAccountDetailByLoginAccount(string LoginAccount, string StratDate, string EndDate) {
             string Key;
             string strRet = string.Empty;
@@ -1883,6 +1886,96 @@ public static class RedisCache {
                 }
             }
         }
+        #endregion
+
+        #region 團隊管理-會員
+        public static string GetTeamMemberInfoByLoginAccount(string LoginAccount) {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":TeamMemberInfo:LoginAccount:" + LoginAccount;
+            if (KeyExists(DBIndex, Key) == true) {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdateTeamMemberInfoByLoginAccount(string JsonData, string LoginAccount,int ExpireTimeoutSeconds) {
+            string Key;
+
+            Key = XMLPath + ":TeamMemberInfo:LoginAccount:"+ LoginAccount;
+            for (int I = 0; I <= 3; I++) {
+                try {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, ExpireTimeoutSeconds);
+                    break;
+                } catch (Exception ex) {
+                }
+            }
+        }
+        #endregion
+
+        #region 團隊會員
+        public static string GetPlayerTotalDepositSummaryByLoginAccount(string LoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate)
+        {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:" + QueryBeginDate.ToString("yyyy/MM/dd") + "-" + QueryEndDate.ToString("yyyy/MM/dd") + ":" + LoginAccount;
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdatePlayerTotalDepositSummaryByLoginAccount(string JsonData, DateTime QueryBeginDate, DateTime QueryEndDate, string LoginAccount, int ExpireTimeoutSeconds)
+        {
+            string Key;
+
+            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:"+ QueryBeginDate.ToString("yyyy/MM/dd")+"-"+ QueryEndDate.ToString("yyyy/MM/dd") + ":" + LoginAccount;
+            for (int I = 0; I <= 3; I++)
+            {
+                try
+                {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, ExpireTimeoutSeconds);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+        #endregion
+
+        #region 會員投注數據
+        public static string GetPlayerTotalSummaryInfoByLoginAccount(string LoginAccount, string StratDate, string EndDate) {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":PlayerTotalSummaryInfo:LoginAccount:" + LoginAccount + ":SearchDate:" + StratDate + "_" + EndDate;
+            if (KeyExists(DBIndex, Key) == true) {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdatePlayerTotalSummaryByLoginAccount(string JsonData, string LoginAccount, string StratDate, string EndDate) {
+            string Key;
+
+            Key = XMLPath + ":PlayerTotalSummaryInfo:LoginAccount:" + LoginAccount + ":SearchDate:" + StratDate + "_" + EndDate;
+            for (int I = 0; I <= 3; I++) {
+                try {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, 300);
+                    break;
+                } catch (Exception ex) {
+                }
+            }
+        }
+        #endregion
+
 
     }
 

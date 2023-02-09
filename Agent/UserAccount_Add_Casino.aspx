@@ -22,6 +22,7 @@
 <script type="text/javascript" src="/Scripts/SelectItem.js"></script>
 <script type="text/javascript" src="js/AgentCommon.js"></script>
 <script type="text/javascript" src="../Scripts/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/google-libphonenumber/3.2.31/libphonenumber.min.js"></script>
 <script type="text/javascript">
     var c = new common();
     var ac = new AgentCommon();
@@ -35,6 +36,7 @@
     var processing = false;
     var GetCompanyPermissionGroup;
     var p;
+    var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
 
     function checkFormData() {
         var retValue = true;
@@ -613,6 +615,25 @@
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入電話"));
             cb(false);
             return;
+        } else {
+            var phoneValue = idPhonePrefix.value + idPhoneNumber.value;
+            var phoneObj;
+
+            try {
+                phoneObj = PhoneNumberUtil.parse(phoneValue);
+
+                var type = PhoneNumberUtil.getNumberType(phoneObj);
+
+                if (type != libphonenumber.PhoneNumberType.MOBILE && type != libphonenumber.PhoneNumberType.FIXED_LINE_OR_MOBILE) {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話格式有誤"));
+                    cb(false);
+                    return;
+                }
+            } catch (e) {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話格式有誤"));
+                cb(false);
+                return;
+            }
         }
 
         p.CheckAccountExistEx(Math.uuid(), "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {

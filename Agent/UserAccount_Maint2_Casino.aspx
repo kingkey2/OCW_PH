@@ -94,6 +94,7 @@
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script type="text/javascript" src="Scripts/MultiLanguage.js"></script>
+<script type="text/javascript" src="../Scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/date.js"></script>
 <script>
     var ApiUrl = "UserAccount_Maint2_Casino.aspx";
@@ -106,6 +107,7 @@
     var startDate;
     var endDate;
     var currencyType = "";
+    var PageNumber = 1;
     //var hasDataExpand;
 
     function agentExpand(SortKey) {
@@ -191,6 +193,7 @@
 
     function querySelfData() {
         var currencyTypeDom = "";
+        PageNumber = 1;
 
         startDate = document.getElementById("startDate");
         endDate = document.getElementById("endDate");
@@ -214,44 +217,39 @@
         if (currencyType != "") {
             var LoginAccount = "";
 
-            if (loginAccount.value.trim()!='') {
+            if (loginAccount.value.trim() != '') {
                 LoginAccount = loginAccount.value;
             }
 
             var postData = {
                 AID: EWinInfo.ASID,
-                LoginAccount: LoginAccount,
-                QueryBeginDate: startDate.value,
-                QueryEndDate: endDate.value,
+                SearchLoginAccount: LoginAccount,
+                LoginAccount: EWinInfo.UserInfo.LoginAccount,
+                RowsPage: 50, //一頁顯示的比數
+                PageNumber: PageNumber,
                 CurrencyType: currencyType
             };
+            window.parent.API_ShowLoading();
+            c.callService(ApiUrl + "/GetUserAccountSummary", postData, function (success, o) {
+                if (success) {
+                    var obj = c.getJSON(o);
 
-            if (new Date(postData.QueryBeginDate) <= new Date(postData.QueryEndDate)) {
-
-                window.parent.API_ShowLoading();
-                c.callService(ApiUrl + "/GetUserAccountSummary", postData, function (success, o) {
-                    if (success) {
-                        var obj = c.getJSON(o);
-
-                        if (obj.Result == 0) {
-                            updateList(obj);
-                        } else {
-
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
-                        }
+                    if (obj.Result == 0) {
+                        updateList(obj);
                     } else {
-                        if (o == "Timeout") {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
-                        } else {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
-                        }
-                    }
 
-                    window.parent.API_CloseLoading();
-                });
-            } else {
-                window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("結束日期不可小於起起始日期"));
-            }
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                    }
+                } else {
+                    if (o == "Timeout") {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                    } else {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    }
+                }
+
+                window.parent.API_CloseLoading();
+            });
         }
         else {
             window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("請至少選擇一個幣別!!"));
@@ -261,26 +259,20 @@
     function updateList(o) {
         var idList = document.getElementById("idList");
 
-        c.clearChildren(idList);
-        //expandDiv.style.display = "none";
+        if (o.SearchPageNumber == 1) {
+            c.clearChildren(idList);
+        }
 
         if (o.SummaryList && o.SummaryList.length > 0) {
             document.getElementById("idResultTable").classList.remove("MT_tableDiv__hasNoData");
             idList.classList.remove("tbody__hasNoData");
-            //expandDiv.style.display = "block";
             for (var i = 0; i < o.SummaryList.length; i++) {
                 var item = o.SummaryList[i];
                 var t = c.getTemplate("templateTableItem");
-                var expandBtn;
-                var parentSortKey = "";
                 c.setClassText(t, "LoginAccount", null, item.LoginAccount);
                 c.setClassText(t, "InsideLevel", null, item.DealUserAccountInsideLevel);
                 c.setClassText(t, "ParentLoginAccount", null, item.ParentLoginAccount);
                 c.setClassText(t, "CurrencyType", null, item.CurrencyType);
-                //c.setClassText(t, "AgentCount", null, item.AgentCount);
-                //c.setClassText(t, "PlayerCount", null, item.PlayerCount);
-                //c.setClassText(t, "NewUserCount", null, item.NewUserCount);
-                //c.setClassText(t, "SelfNewUserCount", null, item.SelfNewUserCount);
                 c.setClassText(t, "PointValue", null, c.toCurrency(item.PointValue));
 
                 var stateDom = t.querySelector(".UserAccountState");
@@ -291,72 +283,19 @@
                 } else {
                     stateDom.innerText = mlp.getLanguageKey("停用");
                     stateDom.style.color = "red";
-                }              
+                }
                 c.setClassText(t, "LastLoginDate", null, item.LastLoginDate);
                 c.setClassText(t, "CreateDate", null, item.CreateDate);
 
-
-                //expandBtn = t.querySelector(".Expand");
-                //t.querySelector(".Space").style.paddingLeft = ((item.DealUserAccountInsideLevel - 1) * 20) + "px";
-
-
-                //if (item.HasChild) {
-                //    expandBtn.onclick = new Function("agentExpand('" + item.DealUserAccountSortKey + "')");
-                //    expandBtn.classList.add("agentPlus");
-                //} else {
-                //    expandBtn.style.display = "none";
-                //    t.querySelector(".noChild").style.display = "inline-block";
-                //}
-
-                //if (item.DealUserAccountInsideLevel != 1) {
-                //    if (item.DealUserAccountInsideLevel % 2 == 0) {
-                //        t.classList.add("switch_tr");
-                //    }
-
-                //    for (var ii = 1; ii < (item.DealUserAccountSortKey.length / 6) - 1; ii++) {
-                //        var tempClass = item.DealUserAccountSortKey.substring(0, (ii + 1) * 6);
-                //        t.classList.add("row_c_" + tempClass);
-
-                //        if (ii == ((item.DealUserAccountSortKey.length / 6) - 2)) {
-                //            parentSortKey = tempClass;
-                //            t.classList.add("row_s_" + tempClass);
-                //        }
-                //    }
-
-                //    t.classList.add("row_child");
-                //    t.style.display = "none";
-                //} else {
-                //    t.classList.add("row_top");
-                //}
-
-                ////有搜尋的結果處理
-                //if (o.SearchLoginAccount) {
-
-                //    if (item.IsTarget) {
-                //        t.style.display = "table-row";
-                //        t.classList.add("searchTarget");
-                //    } else {
-                //        if (o.SearchParentSortKeys && o.SearchParentSortKeys.length > 0) {
-                //            for (var ii = 0; ii < o.SearchParentSortKeys.length; ii++) {
-                //                switch (o.SearchParentSortKeys[ii]) {
-                //                    case parentSortKey:
-                //                        t.style.display = "table-row";
-                //                        break;
-                //                    case item.DealUserAccountSortKey:
-                //                        t.style.display = "table-row";
-                //                        expandBtn.classList.remove("agentPlus");
-                //                        expandBtn.innerText = "-";
-                //                        break;
-                //                    default:
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
-
-
                 idList.appendChild(t);
             }
+
+            if (o.HasNextPage) {
+                $("#btnShowNextData").show();
+            } else {
+                $("#btnShowNextData").hide();
+            }
+
         } else {
             var div = document.createElement("DIV");
 
@@ -504,6 +443,11 @@
         document.getElementById("sliderDate").style.display = "none";
     }
 
+    function showNextData() {
+        PageNumber = PageNumber + 1;
+        queryData();
+    }
+
     function init() {
         var d = new Date();
 
@@ -556,7 +500,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3" style="display: none">
                                 <!-- 起始日期 / 結束日期 -->
                                 <div class="form-group search_date">
                                     <div class="starDate">
@@ -583,7 +527,7 @@
 
                             </div>
 
-                          <div class="col-12 col-md-12 col-lg-5 col-xl-7">
+                            <div class="col-12 col-md-12 col-lg-5 col-xl-7" style="display: none">
                                 <div id="idTabMainContent">
                                     <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
                                         <li class="nav-item">
@@ -626,7 +570,7 @@
                                     </div>
                                 </div>
                             </div>
-<%--                            <div id="expandDiv" style="display: none" class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <%--                            <div id="expandDiv" style="display: none" class="col-12 col-md-6 col-lg-4 col-xl-auto">
                                 <div class="form-group wrapper_center dataList-process">
                                     <button class="btn btn-outline-main" onclick="toggleAllRow(true)">展開</button>
                                     <button class="btn btn-outline-main" onclick="toggleAllRow(false)">縮和</button>
@@ -655,7 +599,7 @@
                             <div class="tbody__td date td-100 nonTitle">
                                 <span class="td__title"><span class="language_replace">帳號</span></span>
                                 <span class="td__content Space">
-<%--                                    <span class="noChild" style="padding: 0px 12px; display: none"></span>
+                                    <%--                                    <span class="noChild" style="padding: 0px 12px; display: none"></span>
                                     <button class="tree-btn Expand">+</button>--%>
                                     <span class="LoginAccount">CON5</span>
                                 </span>
@@ -672,7 +616,7 @@
                                 <span class="td__title"><span class="language_replace">貨幣</span></span>
                                 <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="CurrencyType"></span></span>
                             </div>
-<%--                            <div class="tbody__td td-number td-3 td-vertical">
+                            <%--                            <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-totalWinLose icon-s icon-before"></i><span class="language_replace">團隊代理數</span></span>
                                 <span class="td__content"><span class="AgentCount"></span></span>
                             </div>
@@ -696,11 +640,11 @@
                                 <span class="td__title"><i class="icon icon-ewin-default-accountRolling icon-s icon-before"></i><span class="language_replace">狀態</span></span>
                                 <span class="td__content"><span class="UserAccountState">CON4</span></span>
                             </div>
-                                      <div class="tbody__td td-number td-3 td-vertical">
+                            <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-accountRolling icon-s icon-before"></i><span class="language_replace">最後登入時間</span></span>
                                 <span class="td__content"><span class="LastLoginDate">CON4</span></span>
                             </div>
-                                      <div class="tbody__td td-number td-3 td-vertical">
+                            <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-accountRolling icon-s icon-before"></i><span class="language_replace">建立時間</span></span>
                                 <span class="td__content"><span class="CreateDate">CON4</span></span>
                             </div>
@@ -712,20 +656,27 @@
                         <div class="thead__tr">
                             <div class="thead__th"><span class="language_replace">帳號</span></div>
                             <div class="thead__th"><span class="language_replace">層級</span></div>
-                              <div class="thead__th"><span class="language_replace">上線帳號</span></div>
+                            <div class="thead__th"><span class="language_replace">上線帳號</span></div>
                             <div class="thead__th"><span class="language_replace">貨幣</span></div>
-<%--                            <div class="thead__th"><span class="language_replace">團隊代理數</span></div>
+                            <%--                            <div class="thead__th"><span class="language_replace">團隊代理數</span></div>
                             <div class="thead__th"><span class="language_replace">團隊會員數</span></div>
                             <div class="thead__th"><span class="language_replace">期間團隊新增下線數</span></div>
                             <div class="thead__th"><span class="language_replace">期間個人新增會員數</span></div>--%>
                             <div class="thead__th"><span class="language_replace">錢包餘額</span></div>
                             <div class="thead__th"><span class="language_replace">狀態</span></div>
-                             <div class="thead__th"><span class="language_replace">最後登入時間</span></div>
-                             <div class="thead__th"><span class="language_replace">建立時間</span></div>
+                            <div class="thead__th"><span class="language_replace">最後登入時間</span></div>
+                            <div class="thead__th"><span class="language_replace">建立時間</span></div>
                         </div>
                     </div>
                     <!-- 表格上下滑動框 -->
                     <div class="tbody" id="idList">
+                    </div>
+                    <div class="row">
+                        <div class="col-12" id="btnShowNextData" style="display: none">
+                            <div class="form-group wrapper_center dataList-process">
+                                <button class="btn btn-full-main btn-roundcorner " onclick="showNextData()"><i class="icon icon-before icon-ewin-input-submit"></i><span class="language_replace">查看更多</span></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

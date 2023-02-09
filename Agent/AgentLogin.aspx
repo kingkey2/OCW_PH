@@ -6,12 +6,13 @@
     string DefaultCompany = Request["CompanyCode"];
     string Lang = Request.Form.GetValues("Lang")[0];
     string AgentVersion = EWinWeb.AgentVersion;
-    EWin.Agent.AgentAPI agentAPI = new EWin.Agent.AgentAPI();
+    //EWin.Agent.AgentAPI agentAPI = new EWin.Agent.AgentAPI();
+    EWin.SpriteAgent.SpriteAgent agentAPI = new EWin.SpriteAgent.SpriteAgent();
     EWin.Login.LoginAPI loginAPI = new EWin.Login.LoginAPI();
     EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
     if (CodingControl.FormSubmit()) {
 
-        EWin.Agent.LoginResult ASS = null;
+        EWin.SpriteAgent.LoginResult ASS = null;
         string CompanyCode = Request["CompanyCode"];
         string LoginType = Request["LoginType"];  //0=主帳戶登入/1=助手登入
         string LoginAccount = Request["LoginAccount"];
@@ -26,15 +27,15 @@
         LoginGUID = loginAPI.CreateLoginGUID(Token);
 
         if (LoginType == "0") {
-            ASS = agentAPI.AgentLogin(LoginGUID, System.Guid.NewGuid().ToString(), EWin.Agent.enumLoginType.MainAccount, LoginAccount, LoginPassword, LoginAccount, CodingControl.GetUserIP());
+            ASS = agentAPI.AgentLogin(LoginGUID, System.Guid.NewGuid().ToString(), 0, LoginAccount, LoginPassword, LoginAccount, CodingControl.GetUserIP());
 
         } else if (LoginType == "1") {
             string MainAccount = Request["MainAccount"];
-            ASS = agentAPI.AgentLogin(LoginGUID, System.Guid.NewGuid().ToString(), EWin.Agent.enumLoginType.AgentLogin, LoginAccount, LoginPassword, MainAccount, CodingControl.GetUserIP());
+            ASS = agentAPI.AgentLogin(LoginGUID, System.Guid.NewGuid().ToString(), 1, LoginAccount, LoginPassword, MainAccount, CodingControl.GetUserIP());
         }
 
         if (ASS != null) {
-            if (ASS.ResultState == EWin.Agent.enumResultState.OK) {
+            if (ASS.Result ==  EWin.SpriteAgent.enumResult.OK) {
                 api.CreateUserAccountPoint(ASS.AID,EWinWeb.ConvertCurrencyType);
                 Response.SetCookie(new HttpCookie("ASID", ASS.AID));
                 Response.Redirect("Index.aspx?DefaultCompany=" + DefaultCompany + "&Lang=" + Lang);
@@ -45,6 +46,10 @@
                         msgContent = "帳號鎖定,請等待10分鐘後再嘗試登入";
                         break;
                     case "Denied":
+                        showMsg = true;
+                        msgContent = "此帳號無使用權限";
+                        break;
+                    case "IdentityMismatch":
                         showMsg = true;
                         msgContent = "此帳號無使用權限";
                         break;
