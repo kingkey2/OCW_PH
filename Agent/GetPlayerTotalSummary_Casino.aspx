@@ -126,7 +126,7 @@
                     if (obj.Result == 0) {
                         updateList(obj);
                     } else {
-
+                        $("#idList").empty();
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
                     }
                 } else {
