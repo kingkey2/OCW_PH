@@ -23,10 +23,49 @@ public partial class GetPlayerTotalSummary_Casino : System.Web.UI.Page
         int ExpireTimeoutSeconds = 0;
         int TotalPage = 0;
 
+        strRedisData = RedisCache.Agent.GetPlayerTotalSummaryInfoByLoginAccount(LoginAccount, QueryBeginDate.ToString("yyyy-MM-dd"), QueryEndDate.ToString("yyyy-MM-dd"));
+
         if (!string.IsNullOrEmpty(TargetLoginAccount)) {
-            RetValue = api.GetTotalOrderSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType, TargetLoginAccount);
+            if (string.IsNullOrEmpty(strRedisData)) {
+                RetValue = api.GetTotalOrderSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType, TargetLoginAccount);
+            } else {
+                redisSaveData = JObject.Parse(strRedisData);
+
+                if (redisSaveData["All"] != null) {
+                    JArray arrSaveData = JArray.Parse((string)redisSaveData["All"]);
+                    JObject searchData = null;
+
+                    searchData = (JObject)arrSaveData.Where(x => (string)x["LoginAccount"] == TargetLoginAccount).Select(x => x).FirstOrDefault();
+
+                    if (searchData == null) {
+                        RetValue.Result = EWin.SpriteAgent.enumResult.OK;
+                    } else {
+                        RetValue.Result = EWin.SpriteAgent.enumResult.OK;
+                        List<EWin.SpriteAgent.TotalSummary> kk = new List<EWin.SpriteAgent.TotalSummary>();
+                        kk.Add(new EWin.SpriteAgent.TotalSummary() {
+                            UserAccountID = (int)searchData["UserAccountID"],
+                            CurrencyType = (string)searchData["CurrencyType"],
+                            LoginAccount = (string)searchData["LoginAccount"],
+                            ParentLoginAccount = (string)searchData["ParentLoginAccount"],
+                            RewardValue = (decimal)searchData["RewardValue"],
+                            ValidBetValue = (decimal)searchData["ValidBetValue"],
+                            SelfRewardValue = (decimal)searchData["SelfRewardValue"],
+                            SelfValidBetValue = (decimal)searchData["SelfValidBetValue"],
+                            OrderCount = (int)searchData["OrderCount"],
+                            SelfOrderCount = (int)searchData["SelfOrderCount"],
+                            HasChild = (bool)searchData["HasChild"],
+                            DealUserAccountSortKey = (string)searchData["DealUserAccountSortKey"],
+                            DealUserAccountInsideLevel = (int)searchData["DealUserAccountInsideLevel"],
+                            IsTarget = (bool)searchData["IsTarget"]
+                        });
+                        RetValue.SummaryList = kk.ToArray();
+                        RetValue.HasNextPage = false;
+                    }
+                } else {
+                    RetValue = api.GetTotalOrderSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType, TargetLoginAccount);
+                }
+            }
         } else {
-            strRedisData = RedisCache.Agent.GetPlayerTotalSummaryInfoByLoginAccount(LoginAccount, QueryBeginDate.ToString("yyyy-MM-dd"), QueryEndDate.ToString("yyyy-MM-dd"));
 
             if (string.IsNullOrEmpty(strRedisData)) {
                 RetValue = api.GetTotalOrderSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType, TargetLoginAccount);
@@ -36,6 +75,7 @@ public partial class GetPlayerTotalSummary_Casino : System.Web.UI.Page
                         TotalPage = int.Parse(Math.Ceiling((double)RetValue.SummaryList.Count() / (double)RowsPage).ToString());
 
                         redisSaveData.Add("TotalPage", TotalPage);
+                        redisSaveData.Add("All", JsonConvert.SerializeObject(RetValue.SummaryList));
                         ExpireTimeoutSeconds = 600;
 
                         for (int i = 0; i < TotalPage; i++) {
