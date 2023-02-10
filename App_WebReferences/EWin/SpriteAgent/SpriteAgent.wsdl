@@ -160,6 +160,9 @@
             <s:sequence>
               <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TotalDepositUsers" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FirstDepositCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="NextDepositCount" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="AgentItemList" type="tns:ArrayOfUserSummaryItem" />
             </s:sequence>
           </s:extension>
@@ -486,6 +489,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="DealUserAccountSortKey" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="DealUserAccountInsideLevel" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="IsTarget" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetPlayerTotalDepositSummary">

@@ -351,10 +351,11 @@
                     let DepositValue = 0;
                     let DepositCount = 0;
                     let FirstDepositValue = 0;
-                    let FirstDepositCount = 0;
-                    let NotFirstDepositCount = 0;
 
                     if (o.Result == 0) {
+                        $(".FirstDepositCount").text(toCurrency(o.FirstDepositCount));
+                        $(".NotFirstDepositCount").text(toCurrency(o.NextDepositCount));
+
                         if (o.AgentItemList.length > 0) {
                             for (var i = 0; i < o.AgentItemList.length; i++) {
                                 let data = o.AgentItemList[i];
@@ -369,9 +370,6 @@
                                 DepositValue = DepositValue + data.DepositValue;
                                 DepositCount = DepositCount + data.DepositCount;
                                 FirstDepositValue = FirstDepositValue + data.FirstDepositValue;
-
-                                FirstDepositCount = FirstDepositCount + data.FirstDepositCount;
-                                NotFirstDepositCount = NotFirstDepositCount + data.DepositCount - data.FirstDepositCount;
                             }
 
                             $(".TotalValidBetValue").text(toCurrency(TotalValidBetValue));
@@ -385,8 +383,6 @@
                             $(".DepositValue").text(toCurrency(DepositValue));
                             $(".DepositCount").text(toCurrency(DepositCount));
                             $(".FirstDepositValue").text(toCurrency(FirstDepositValue));
-                            $(".FirstDepositCount").text(toCurrency(FirstDepositCount));
-                            $(".NotFirstDepositCount").text(toCurrency(NotFirstDepositCount));
                         }
                     } else {
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
