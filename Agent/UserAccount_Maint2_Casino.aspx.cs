@@ -32,7 +32,7 @@ public partial class UserAccount_Maint2_Casino : System.Web.UI.Page {
                 if (RetValue.Result == EWin.SpriteAgent.enumResult.OK) {
                     MaxSearchUserAccountID = RetValue.MaxUserID;
                     redisSaveData.Add("MaxSearchUserAccountID", MaxSearchUserAccountID.ToString());
-                    ExpireTimeoutSeconds = 600;
+                    ExpireTimeoutSeconds = 300;
                     redisSaveData.Add(PageNumber.ToString(), JsonConvert.SerializeObject(RetValue));
 
                     RedisCache.Agent.UpdateTeamMemberInfoByLoginAccount(JsonConvert.SerializeObject(redisSaveData), LoginAccount, ExpireTimeoutSeconds);

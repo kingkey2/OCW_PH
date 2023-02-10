@@ -23,7 +23,7 @@ public partial class GetPlayerTotalDepositSummary_Casino : System.Web.UI.Page
         int tmpPageNumber =0;
         string strRedisData = string.Empty;
         JObject redisSaveData = new JObject();
-        int ExpireTimeoutSeconds = 600;
+        int ExpireTimeoutSeconds = 300;
 
             strRedisData = RedisCache.Agent.GetPlayerTotalDepositSummaryByLoginAccount(LoginAccount,QueryBeginDate, QueryEndDate);
 
