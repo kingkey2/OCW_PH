@@ -75,7 +75,7 @@
     var EWinInfo;
     var api;
     var lang;
-    var RowsPage = 5;
+    var RowsPage = 50;
     var PageNumber = 1;
     function querySelfData() {
         PageNumber = 1;
