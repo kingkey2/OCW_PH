@@ -312,7 +312,7 @@
         function queryAccountingData() {
             var postData;
             $(".TotalValidBetValue").text(0);
-            $(".RewardValue").text(0);
+            $(".TotalRewardValue").text(0);
             $(".UserRebate").text(0);
             $(".TotalOrderCount").text(0);
             $(".NewUserCount").text(0);
@@ -374,7 +374,7 @@
 
                             $(".TotalValidBetValue").text(toCurrency(TotalValidBetValue));
                             $(".UserRebate").text(toCurrency(UserRebate));
-                            $(".RewardValue").text(toCurrency(RewardValue));
+                            $(".TotalRewardValue").text(toCurrency(RewardValue));
                             $(".PreferentialCost").text(toCurrency(PreferentialCost));
                             $(".TotalOrderCount").text(toCurrency(TotalOrderCount));
                             $(".NewUserCount").text(toCurrency(NewUserCount));
@@ -606,18 +606,18 @@
                             <div class="currencyWallet__currencyFocus">
                                 <div class="">
                                     <span class="title-s"><span class="language_replace">總數</span></span>
-                                    <span class="data WalletBalance AgentCount">0</span>
+                                    <span class="data AgentCount">0</span>
                                 </div>
                             </div>
                             <div class="currencyWallet__detail">
                                 <div class="wrapper_revenueAmount">
                                     <div class="detailItem">
                                         <span class="title-s"><i class="icon icon-ewin-default-periodWinLose icon-s icon-before"></i><span class="language_replace">直屬</span></span>
-                                        <span class="data rewardValue AgentCount_Under">0</span>
+                                        <span class="data AgentCount_Under">0</span>
                                     </div>
                                     <div class="detailItem">
                                         <span class="title-s"><i class="icon icon-ewin-default-periodRolling icon-s icon-before"></i><span class="language_replace">下線</span></span>
-                                        <span class="data validBetValue AgentCount_Other">0</span>
+                                        <span class="data AgentCount_Other">0</span>
                                     </div>
                                 </div>
                             </div>
@@ -633,18 +633,18 @@
                             <div class="currencyWallet__currencyFocus">
                                 <div class="">
                                     <span class="title-s"><span class="language_replace">總數</span></span>
-                                    <span class="data WalletBalance UserCount">0</span>
+                                    <span class="data UserCount">0</span>
                                 </div>
                             </div>
                             <div class="currencyWallet__detail">
                                 <div class="wrapper_revenueAmount">
                                     <div class="detailItem">
                                         <span class="title-s"><i class="icon icon-ewin-default-periodWinLose icon-s icon-before"></i><span class="language_replace">直屬</span></span>
-                                        <span class="data rewardValue UserCount_Under">0</span>
+                                        <span class="data UserCount_Under">0</span>
                                     </div>
                                     <div class="detailItem">
                                         <span class="title-s"><i class="icon icon-ewin-default-periodRolling icon-s icon-before"></i><span class="language_replace">下線</span></span>
-                                        <span class="data validBetValue UserCount_Other">0</span>
+                                        <span class="data UserCount_Other">0</span>
                                     </div>
                                 </div>
                             </div>
@@ -665,7 +665,7 @@
                                     <span class="currency language_replace">總返水</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace data">9999</span>
+                                    <span class="language_replace data">0</span>
                                 </div>
                             </div>
                         </div>
@@ -691,7 +691,7 @@
                                     <span class="currency language_replace">有效投注</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace TotalValidBetValue data">9999</span>
+                                    <span class="language_replace TotalValidBetValue data">0</span>
                                 </div>
                             </div>
                         </div>
@@ -704,7 +704,7 @@
                                     <span class="currency language_replace">會員輸贏</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace TotalRewardValue data">9999</span>
+                                    <span class="language_replace TotalRewardValue data">0</span>
                                 </div>
                             </div>
                         </div>
@@ -717,7 +717,7 @@
                                     <span class="currency language_replace">總佔成</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace data ">9999</span>
+                                    <span class="language_replace data ">0</span>
                                 </div>
                             </div>
                         </div>
@@ -809,7 +809,7 @@
                                 </div>--%>
                                 <div class="detailItem">
                                     <span class="title-s"><span class="language_replace">筆數</span></span>
-                                    <span class="data validBetValue WithdrawalCount">0</span>
+                                    <span class="data WithdrawalCount">0</span>
                                 </div>
                             </div>
                         </div>
@@ -828,7 +828,7 @@
                             <div class="wrapper_revenueAmount">
                                 <div class="detailItem">
                                     <span class="title-s"><span class="language_replace">筆數</span></span>
-                                    <span class="data validBetValue DepositCount">0</span>
+                                    <span class="data DepositCount">0</span>
                                 </div>
                             </div>
                         </div>
@@ -847,7 +847,7 @@
                             <div class="wrapper_revenueAmount">
                                 <div class="detailItem">
                                     <span class="title-s"><span class="language_replace">筆數</span></span>
-                                    <span class="data validBetValue FirstDepositCount">0</span>
+                                    <span class="data FirstDepositCount">0</span>
                                 </div>
                             </div>
                         </div>
