@@ -72,5 +72,7 @@
   "交易": "Transaction",
   "新增遊玩帳號": "Create PlayerAccount",
   "遊玩帳號": "PlayerAccount",
-  "提醒": "System Message"
+  "提醒": "System Message",
+  "SMSNumberNotExist": "Phone number not exist.",
+  "NormalizeError": "The phone format is incorrect."
 }

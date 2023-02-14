@@ -1081,6 +1081,11 @@
                                             <i class="icon icon-mask icon-ewin-assisant"></i>
                                             <span class="language_replace">傭金結算查詢</span></a>
                                     </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('設定錢包密碼'), 'SetWalletPassword.aspx');ItemClick(this);">
+                                            <i class="icon icon-mask icon-ewin-transfer"></i>
+                                            <span class="language_replace">設定錢包密碼</span></a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-item navbarMenu__catagory" id="liTrade" style="display:none">
