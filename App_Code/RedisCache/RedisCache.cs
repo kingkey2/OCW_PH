@@ -7,7 +7,7 @@ using System.Web;
 /// <summary>
 /// RedisCache 的摘要描述
 /// </summary>
-public static class RedisCache {
+public static partial class RedisCache {
     public static class Company {
         private static string XMLPath = "Company";
         private static int DBIndex = 0;

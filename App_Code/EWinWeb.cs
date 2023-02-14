@@ -32,6 +32,7 @@ public static class EWinWeb {
     public static string WebRedisConnStr = System.Configuration.ConfigurationManager.AppSettings["WebRedisConnStr"];
     public static string SharedFolder = System.Configuration.ConfigurationManager.AppSettings["SharedFolder"];
     public static string EPayToken = System.Configuration.ConfigurationManager.AppSettings["EPayToken"];
+    public static string CompanyID = System.Configuration.ConfigurationManager.AppSettings["CompanyID"];
     public static string Key3DES = "onoeTs39aHfAATKGxYmyJ3Nf";
     public static string DirSplit = "\\";
 

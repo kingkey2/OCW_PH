@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://tempuri.org/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:element name="AgentLogin">
@@ -44,6 +44,30 @@
           <s:enumeration value="ERR" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="GetUserSMSNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserSMSNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserSMSNumberResult" type="tns:PhoneResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PhoneResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ContactPhonePrefix" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ContactPhoneNumber" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:element name="GetAgentSessionByID">
         <s:complexType>
           <s:sequence>
@@ -150,11 +174,11 @@
       <s:element name="GetOrderSummaryResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetOrderSummaryResult" type="tns:OrderSummaryResult" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderSummaryResult" type="tns:TotalSummaryResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="OrderSummaryResult">
+      <s:complexType name="TotalSummaryResult">
         <s:complexContent mixed="false">
           <s:extension base="tns:APIResult">
             <s:sequence>
@@ -337,21 +361,78 @@
           <s:element minOccurs="1" maxOccurs="1" name="IsTarget" type="s:boolean" />
         </s:sequence>
       </s:complexType>
-      <s:element name="GetUserAccountSummary_Agent">
+      <s:element name="GetGroupAgent">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TargetUserAccountID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Page" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGroupAgentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGroupAgentResult" type="tns:GroupAgentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GroupAgentResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SelfSortKey" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="SelfInsideLevel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfAccountData" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfAccountData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AccountData" nillable="true" type="tns:AccountData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccountData">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ParentUserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParentAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NewAgentCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PlayerCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastLoginDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserAccountSortKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountInsideLevel" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetGroupBySearch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TargetLoginAccount" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
             <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
             <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetUserAccountSummary_AgentResponse">
+      <s:element name="GetGroupBySearchResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountSummary_AgentResult" type="tns:UserAccountSummaryResult" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetGroupBySearchResult" type="tns:GroupAgentResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -359,42 +440,45 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TargetUserAccountID" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
             <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
             <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Page" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="GetAgentTotalOrderSummaryResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetAgentTotalOrderSummaryResult" type="tns:TotalSummaryResult" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetAgentTotalOrderSummaryResult" type="tns:OrderSummaryResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="TotalSummaryResult">
+      <s:complexType name="OrderSummaryResult">
         <s:complexContent mixed="false">
           <s:extension base="tns:APIResult">
             <s:sequence>
               <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="SearchParentSortKeys" type="tns:ArrayOfString" />
+              <s:element minOccurs="0" maxOccurs="1" name="SelfSortKey" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="SelfInsideLevel" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="HasNextPage" type="s:boolean" />
-              <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfTotalSummary" />
+              <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfOrderSummary" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
       </s:complexType>
-      <s:complexType name="ArrayOfTotalSummary">
+      <s:complexType name="ArrayOfOrderSummary">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="TotalSummary" nillable="true" type="tns:TotalSummary" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OrderSummary" nillable="true" type="tns:OrderSummary" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="TotalSummary">
+      <s:complexType name="OrderSummary">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ParentLoginAccount" type="s:string" />
@@ -405,71 +489,70 @@
           <s:element minOccurs="1" maxOccurs="1" name="OrderCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="SelfOrderCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="HasChild" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="DealUserAccountSortKey" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="DealUserAccountInsideLevel" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="IsTarget" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserAccountSortKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountInsideLevel" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:element name="GetTotalOrderSummary">
+      <s:element name="GetPlayerTotalOrderSummary">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
-            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
-            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="TargetLoginAccount" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetTotalOrderSummaryResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetTotalOrderSummaryResult" type="tns:TotalSummaryResult" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetAgentTotalOrderDepositeSummary">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
             <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
             <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetAgentTotalOrderDepositeSummaryResponse">
+      <s:element name="GetPlayerTotalOrderSummaryResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetAgentTotalOrderDepositeSummaryResult" type="tns:AgentTotalSummaryResult" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetPlayerTotalOrderSummaryResult" type="tns:OrderSummaryResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="AgentTotalSummaryResult">
+      <s:element name="GetAgentTotalDepositeSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TargetUserAccountID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAgentTotalDepositeSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAgentTotalDepositeSummaryResult" type="tns:DepositeSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DepositeSummaryResult">
         <s:complexContent mixed="false">
           <s:extension base="tns:APIResult">
             <s:sequence>
               <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="SearchParentSortKeys" type="tns:ArrayOfString" />
+              <s:element minOccurs="0" maxOccurs="1" name="SelfSortKey" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="SelfInsideLevel" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfAgentTotalSummary" />
+              <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfDepositeSummary" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
       </s:complexType>
-      <s:complexType name="ArrayOfAgentTotalSummary">
+      <s:complexType name="ArrayOfDepositeSummary">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="AgentTotalSummary" nillable="true" type="tns:AgentTotalSummary" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DepositeSummary" nillable="true" type="tns:DepositeSummary" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="AgentTotalSummary">
+      <s:complexType name="DepositeSummary">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="ParentLoginAccount" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="DepositValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="FirstDepositValue" type="s:decimal" />
@@ -486,28 +569,96 @@
           <s:element minOccurs="1" maxOccurs="1" name="SelfFirstWithdrawValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="SelfWithdrawPaymentCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="HasChild" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="DealUserAccountSortKey" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="DealUserAccountInsideLevel" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="IsTarget" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserAccountSortKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountInsideLevel" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetPlayerTotalDepositSummary">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
             <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
             <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="TargetLoginAccount" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="GetPlayerTotalDepositSummaryResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetPlayerTotalDepositSummaryResult" type="tns:AgentTotalSummaryResult" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetPlayerTotalDepositSummaryResult" type="tns:DepositeSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSearchAgentTotalOrderSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TargetLoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSearchAgentTotalOrderSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSearchAgentTotalOrderSummaryResult" type="tns:OrderSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSearchUserTotalOrderSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TargetLoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSearchUserTotalOrderSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSearchUserTotalOrderSummaryResult" type="tns:OrderSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSearchAgentTotalDepositSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TargetLoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSearchAgentTotalDepositSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSearchAgentTotalDepositSummaryResult" type="tns:DepositeSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSearchPlayerTotalDepositSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TargetLoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSearchPlayerTotalDepositSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSearchPlayerTotalDepositSummaryResult" type="tns:DepositeSummaryResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -970,13 +1121,15 @@
         </s:complexType>
       </s:element>
       <s:element name="LoginResult" nillable="true" type="tns:LoginResult" />
+      <s:element name="PhoneResult" nillable="true" type="tns:PhoneResult" />
       <s:element name="AgentSessionResult" nillable="true" type="tns:AgentSessionResult" />
       <s:element name="ChidUserData" nillable="true" type="tns:ChidUserData" />
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
-      <s:element name="OrderSummaryResult" nillable="true" type="tns:OrderSummaryResult" />
-      <s:element name="UserAccountSummaryResult" nillable="true" type="tns:UserAccountSummaryResult" />
       <s:element name="TotalSummaryResult" nillable="true" type="tns:TotalSummaryResult" />
-      <s:element name="AgentTotalSummaryResult" nillable="true" type="tns:AgentTotalSummaryResult" />
+      <s:element name="UserAccountSummaryResult" nillable="true" type="tns:UserAccountSummaryResult" />
+      <s:element name="GroupAgentResult" nillable="true" type="tns:GroupAgentResult" />
+      <s:element name="OrderSummaryResult" nillable="true" type="tns:OrderSummaryResult" />
+      <s:element name="DepositeSummaryResult" nillable="true" type="tns:DepositeSummaryResult" />
       <s:element name="AccountingResult" nillable="true" type="tns:AccountingResult" />
       <s:element name="AgentAccountingDetailResult" nillable="true" type="tns:AgentAccountingDetailResult" />
       <s:element name="UserInfoResult" nillable="true" type="tns:UserInfoResult" />
@@ -989,6 +1142,12 @@
   </wsdl:message>
   <wsdl:message name="AgentLoginSoapOut">
     <wsdl:part name="parameters" element="tns:AgentLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSMSNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserSMSNumber" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSMSNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserSMSNumberResponse" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDSoapIn">
     <wsdl:part name="parameters" element="tns:GetAgentSessionByID" />
@@ -1020,11 +1179,17 @@
   <wsdl:message name="GetUserAccountSummarySoapOut">
     <wsdl:part name="parameters" element="tns:GetUserAccountSummaryResponse" />
   </wsdl:message>
-  <wsdl:message name="GetUserAccountSummary_AgentSoapIn">
-    <wsdl:part name="parameters" element="tns:GetUserAccountSummary_Agent" />
+  <wsdl:message name="GetGroupAgentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGroupAgent" />
   </wsdl:message>
-  <wsdl:message name="GetUserAccountSummary_AgentSoapOut">
-    <wsdl:part name="parameters" element="tns:GetUserAccountSummary_AgentResponse" />
+  <wsdl:message name="GetGroupAgentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGroupAgentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupBySearchSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGroupBySearch" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupBySearchSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGroupBySearchResponse" />
   </wsdl:message>
   <wsdl:message name="GetAgentTotalOrderSummarySoapIn">
     <wsdl:part name="parameters" element="tns:GetAgentTotalOrderSummary" />
@@ -1032,23 +1197,47 @@
   <wsdl:message name="GetAgentTotalOrderSummarySoapOut">
     <wsdl:part name="parameters" element="tns:GetAgentTotalOrderSummaryResponse" />
   </wsdl:message>
-  <wsdl:message name="GetTotalOrderSummarySoapIn">
-    <wsdl:part name="parameters" element="tns:GetTotalOrderSummary" />
+  <wsdl:message name="GetPlayerTotalOrderSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetPlayerTotalOrderSummary" />
   </wsdl:message>
-  <wsdl:message name="GetTotalOrderSummarySoapOut">
-    <wsdl:part name="parameters" element="tns:GetTotalOrderSummaryResponse" />
+  <wsdl:message name="GetPlayerTotalOrderSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetPlayerTotalOrderSummaryResponse" />
   </wsdl:message>
-  <wsdl:message name="GetAgentTotalOrderDepositeSummarySoapIn">
-    <wsdl:part name="parameters" element="tns:GetAgentTotalOrderDepositeSummary" />
+  <wsdl:message name="GetAgentTotalDepositeSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetAgentTotalDepositeSummary" />
   </wsdl:message>
-  <wsdl:message name="GetAgentTotalOrderDepositeSummarySoapOut">
-    <wsdl:part name="parameters" element="tns:GetAgentTotalOrderDepositeSummaryResponse" />
+  <wsdl:message name="GetAgentTotalDepositeSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetAgentTotalDepositeSummaryResponse" />
   </wsdl:message>
   <wsdl:message name="GetPlayerTotalDepositSummarySoapIn">
     <wsdl:part name="parameters" element="tns:GetPlayerTotalDepositSummary" />
   </wsdl:message>
   <wsdl:message name="GetPlayerTotalDepositSummarySoapOut">
     <wsdl:part name="parameters" element="tns:GetPlayerTotalDepositSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchAgentTotalOrderSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetSearchAgentTotalOrderSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchAgentTotalOrderSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetSearchAgentTotalOrderSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchUserTotalOrderSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetSearchUserTotalOrderSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchUserTotalOrderSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetSearchUserTotalOrderSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchAgentTotalDepositSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetSearchAgentTotalDepositSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchAgentTotalDepositSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetSearchAgentTotalDepositSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchPlayerTotalDepositSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetSearchPlayerTotalDepositSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchPlayerTotalDepositSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetSearchPlayerTotalDepositSummaryResponse" />
   </wsdl:message>
   <wsdl:message name="GetAccountingItemSoapIn">
     <wsdl:part name="parameters" element="tns:GetAccountingItem" />
@@ -1152,6 +1341,12 @@
   <wsdl:message name="AgentLoginHttpGetOut">
     <wsdl:part name="Body" element="tns:LoginResult" />
   </wsdl:message>
+  <wsdl:message name="GetUserSMSNumberHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSMSNumberHttpGetOut">
+    <wsdl:part name="Body" element="tns:PhoneResult" />
+  </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpGetIn">
     <wsdl:part name="ASID" type="s:string" />
   </wsdl:message>
@@ -1178,7 +1373,7 @@
     <wsdl:part name="CurrencyType" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetOrderSummaryHttpGetOut">
-    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
+    <wsdl:part name="Body" element="tns:TotalSummaryResult" />
   </wsdl:message>
   <wsdl:message name="GetUserAccountSummaryHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
@@ -1191,57 +1386,105 @@
   <wsdl:message name="GetUserAccountSummaryHttpGetOut">
     <wsdl:part name="Body" element="tns:UserAccountSummaryResult" />
   </wsdl:message>
-  <wsdl:message name="GetUserAccountSummary_AgentHttpGetIn">
+  <wsdl:message name="GetGroupAgentHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="TargetUserAccountID" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="Page" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupAgentHttpGetOut">
+    <wsdl:part name="Body" element="tns:GroupAgentResult" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupBySearchHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
     <wsdl:part name="QueryBeginDate" type="s:string" />
     <wsdl:part name="QueryEndDate" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
   </wsdl:message>
-  <wsdl:message name="GetUserAccountSummary_AgentHttpGetOut">
-    <wsdl:part name="Body" element="tns:UserAccountSummaryResult" />
+  <wsdl:message name="GetGroupBySearchHttpGetOut">
+    <wsdl:part name="Body" element="tns:GroupAgentResult" />
   </wsdl:message>
   <wsdl:message name="GetAgentTotalOrderSummaryHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="TargetUserAccountID" type="s:string" />
     <wsdl:part name="QueryBeginDate" type="s:string" />
     <wsdl:part name="QueryEndDate" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="Page" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetAgentTotalOrderSummaryHttpGetOut">
-    <wsdl:part name="Body" element="tns:TotalSummaryResult" />
+    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
   </wsdl:message>
-  <wsdl:message name="GetTotalOrderSummaryHttpGetIn">
+  <wsdl:message name="GetPlayerTotalOrderSummaryHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
-    <wsdl:part name="QueryBeginDate" type="s:string" />
-    <wsdl:part name="QueryEndDate" type="s:string" />
-    <wsdl:part name="CurrencyType" type="s:string" />
-    <wsdl:part name="TargetLoginAccount" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="GetTotalOrderSummaryHttpGetOut">
-    <wsdl:part name="Body" element="tns:TotalSummaryResult" />
-  </wsdl:message>
-  <wsdl:message name="GetAgentTotalOrderDepositeSummaryHttpGetIn">
-    <wsdl:part name="AID" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
     <wsdl:part name="QueryBeginDate" type="s:string" />
     <wsdl:part name="QueryEndDate" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
   </wsdl:message>
-  <wsdl:message name="GetAgentTotalOrderDepositeSummaryHttpGetOut">
-    <wsdl:part name="Body" element="tns:AgentTotalSummaryResult" />
+  <wsdl:message name="GetPlayerTotalOrderSummaryHttpGetOut">
+    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalDepositeSummaryHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetUserAccountID" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalDepositeSummaryHttpGetOut">
+    <wsdl:part name="Body" element="tns:DepositeSummaryResult" />
   </wsdl:message>
   <wsdl:message name="GetPlayerTotalDepositSummaryHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
     <wsdl:part name="QueryBeginDate" type="s:string" />
     <wsdl:part name="QueryEndDate" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
-    <wsdl:part name="TargetLoginAccount" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetPlayerTotalDepositSummaryHttpGetOut">
-    <wsdl:part name="Body" element="tns:AgentTotalSummaryResult" />
+    <wsdl:part name="Body" element="tns:DepositeSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchAgentTotalOrderSummaryHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchAgentTotalOrderSummaryHttpGetOut">
+    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchUserTotalOrderSummaryHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchUserTotalOrderSummaryHttpGetOut">
+    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchAgentTotalDepositSummaryHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchAgentTotalDepositSummaryHttpGetOut">
+    <wsdl:part name="Body" element="tns:DepositeSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchPlayerTotalDepositSummaryHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchPlayerTotalDepositSummaryHttpGetOut">
+    <wsdl:part name="Body" element="tns:DepositeSummaryResult" />
   </wsdl:message>
   <wsdl:message name="GetAccountingItemHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
@@ -1365,6 +1608,12 @@
   <wsdl:message name="AgentLoginHttpPostOut">
     <wsdl:part name="Body" element="tns:LoginResult" />
   </wsdl:message>
+  <wsdl:message name="GetUserSMSNumberHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSMSNumberHttpPostOut">
+    <wsdl:part name="Body" element="tns:PhoneResult" />
+  </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpPostIn">
     <wsdl:part name="ASID" type="s:string" />
   </wsdl:message>
@@ -1391,7 +1640,7 @@
     <wsdl:part name="CurrencyType" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetOrderSummaryHttpPostOut">
-    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
+    <wsdl:part name="Body" element="tns:TotalSummaryResult" />
   </wsdl:message>
   <wsdl:message name="GetUserAccountSummaryHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
@@ -1404,57 +1653,105 @@
   <wsdl:message name="GetUserAccountSummaryHttpPostOut">
     <wsdl:part name="Body" element="tns:UserAccountSummaryResult" />
   </wsdl:message>
-  <wsdl:message name="GetUserAccountSummary_AgentHttpPostIn">
+  <wsdl:message name="GetGroupAgentHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="TargetUserAccountID" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="Page" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupAgentHttpPostOut">
+    <wsdl:part name="Body" element="tns:GroupAgentResult" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupBySearchHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
     <wsdl:part name="QueryBeginDate" type="s:string" />
     <wsdl:part name="QueryEndDate" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
   </wsdl:message>
-  <wsdl:message name="GetUserAccountSummary_AgentHttpPostOut">
-    <wsdl:part name="Body" element="tns:UserAccountSummaryResult" />
+  <wsdl:message name="GetGroupBySearchHttpPostOut">
+    <wsdl:part name="Body" element="tns:GroupAgentResult" />
   </wsdl:message>
   <wsdl:message name="GetAgentTotalOrderSummaryHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="TargetUserAccountID" type="s:string" />
     <wsdl:part name="QueryBeginDate" type="s:string" />
     <wsdl:part name="QueryEndDate" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="Page" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetAgentTotalOrderSummaryHttpPostOut">
-    <wsdl:part name="Body" element="tns:TotalSummaryResult" />
+    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
   </wsdl:message>
-  <wsdl:message name="GetTotalOrderSummaryHttpPostIn">
+  <wsdl:message name="GetPlayerTotalOrderSummaryHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
-    <wsdl:part name="QueryBeginDate" type="s:string" />
-    <wsdl:part name="QueryEndDate" type="s:string" />
-    <wsdl:part name="CurrencyType" type="s:string" />
-    <wsdl:part name="TargetLoginAccount" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="GetTotalOrderSummaryHttpPostOut">
-    <wsdl:part name="Body" element="tns:TotalSummaryResult" />
-  </wsdl:message>
-  <wsdl:message name="GetAgentTotalOrderDepositeSummaryHttpPostIn">
-    <wsdl:part name="AID" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
     <wsdl:part name="QueryBeginDate" type="s:string" />
     <wsdl:part name="QueryEndDate" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
   </wsdl:message>
-  <wsdl:message name="GetAgentTotalOrderDepositeSummaryHttpPostOut">
-    <wsdl:part name="Body" element="tns:AgentTotalSummaryResult" />
+  <wsdl:message name="GetPlayerTotalOrderSummaryHttpPostOut">
+    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalDepositeSummaryHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetUserAccountID" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentTotalDepositeSummaryHttpPostOut">
+    <wsdl:part name="Body" element="tns:DepositeSummaryResult" />
   </wsdl:message>
   <wsdl:message name="GetPlayerTotalDepositSummaryHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
     <wsdl:part name="QueryBeginDate" type="s:string" />
     <wsdl:part name="QueryEndDate" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
-    <wsdl:part name="TargetLoginAccount" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetPlayerTotalDepositSummaryHttpPostOut">
-    <wsdl:part name="Body" element="tns:AgentTotalSummaryResult" />
+    <wsdl:part name="Body" element="tns:DepositeSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchAgentTotalOrderSummaryHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchAgentTotalOrderSummaryHttpPostOut">
+    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchUserTotalOrderSummaryHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchUserTotalOrderSummaryHttpPostOut">
+    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchAgentTotalDepositSummaryHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchAgentTotalDepositSummaryHttpPostOut">
+    <wsdl:part name="Body" element="tns:DepositeSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchPlayerTotalDepositSummaryHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchPlayerTotalDepositSummaryHttpPostOut">
+    <wsdl:part name="Body" element="tns:DepositeSummaryResult" />
   </wsdl:message>
   <wsdl:message name="GetAccountingItemHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
@@ -1571,6 +1868,10 @@
       <wsdl:input message="tns:AgentLoginSoapIn" />
       <wsdl:output message="tns:AgentLoginSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserSMSNumber">
+      <wsdl:input message="tns:GetUserSMSNumberSoapIn" />
+      <wsdl:output message="tns:GetUserSMSNumberSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDSoapIn" />
       <wsdl:output message="tns:GetAgentSessionByIDSoapOut" />
@@ -1591,25 +1892,45 @@
       <wsdl:input message="tns:GetUserAccountSummarySoapIn" />
       <wsdl:output message="tns:GetUserAccountSummarySoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetUserAccountSummary_Agent">
-      <wsdl:input message="tns:GetUserAccountSummary_AgentSoapIn" />
-      <wsdl:output message="tns:GetUserAccountSummary_AgentSoapOut" />
+    <wsdl:operation name="GetGroupAgent">
+      <wsdl:input message="tns:GetGroupAgentSoapIn" />
+      <wsdl:output message="tns:GetGroupAgentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <wsdl:input message="tns:GetGroupBySearchSoapIn" />
+      <wsdl:output message="tns:GetGroupBySearchSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAgentTotalOrderSummary">
       <wsdl:input message="tns:GetAgentTotalOrderSummarySoapIn" />
       <wsdl:output message="tns:GetAgentTotalOrderSummarySoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetTotalOrderSummary">
-      <wsdl:input message="tns:GetTotalOrderSummarySoapIn" />
-      <wsdl:output message="tns:GetTotalOrderSummarySoapOut" />
+    <wsdl:operation name="GetPlayerTotalOrderSummary">
+      <wsdl:input message="tns:GetPlayerTotalOrderSummarySoapIn" />
+      <wsdl:output message="tns:GetPlayerTotalOrderSummarySoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
-      <wsdl:input message="tns:GetAgentTotalOrderDepositeSummarySoapIn" />
-      <wsdl:output message="tns:GetAgentTotalOrderDepositeSummarySoapOut" />
+    <wsdl:operation name="GetAgentTotalDepositeSummary">
+      <wsdl:input message="tns:GetAgentTotalDepositeSummarySoapIn" />
+      <wsdl:output message="tns:GetAgentTotalDepositeSummarySoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPlayerTotalDepositSummary">
       <wsdl:input message="tns:GetPlayerTotalDepositSummarySoapIn" />
       <wsdl:output message="tns:GetPlayerTotalDepositSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalOrderSummary">
+      <wsdl:input message="tns:GetSearchAgentTotalOrderSummarySoapIn" />
+      <wsdl:output message="tns:GetSearchAgentTotalOrderSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchUserTotalOrderSummary">
+      <wsdl:input message="tns:GetSearchUserTotalOrderSummarySoapIn" />
+      <wsdl:output message="tns:GetSearchUserTotalOrderSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalDepositSummary">
+      <wsdl:input message="tns:GetSearchAgentTotalDepositSummarySoapIn" />
+      <wsdl:output message="tns:GetSearchAgentTotalDepositSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchPlayerTotalDepositSummary">
+      <wsdl:input message="tns:GetSearchPlayerTotalDepositSummarySoapIn" />
+      <wsdl:output message="tns:GetSearchPlayerTotalDepositSummarySoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAccountingItem">
       <wsdl:input message="tns:GetAccountingItemSoapIn" />
@@ -1677,6 +1998,10 @@
       <wsdl:input message="tns:AgentLoginHttpGetIn" />
       <wsdl:output message="tns:AgentLoginHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserSMSNumber">
+      <wsdl:input message="tns:GetUserSMSNumberHttpGetIn" />
+      <wsdl:output message="tns:GetUserSMSNumberHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDHttpGetIn" />
       <wsdl:output message="tns:GetAgentSessionByIDHttpGetOut" />
@@ -1697,25 +2022,45 @@
       <wsdl:input message="tns:GetUserAccountSummaryHttpGetIn" />
       <wsdl:output message="tns:GetUserAccountSummaryHttpGetOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetUserAccountSummary_Agent">
-      <wsdl:input message="tns:GetUserAccountSummary_AgentHttpGetIn" />
-      <wsdl:output message="tns:GetUserAccountSummary_AgentHttpGetOut" />
+    <wsdl:operation name="GetGroupAgent">
+      <wsdl:input message="tns:GetGroupAgentHttpGetIn" />
+      <wsdl:output message="tns:GetGroupAgentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <wsdl:input message="tns:GetGroupBySearchHttpGetIn" />
+      <wsdl:output message="tns:GetGroupBySearchHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAgentTotalOrderSummary">
       <wsdl:input message="tns:GetAgentTotalOrderSummaryHttpGetIn" />
       <wsdl:output message="tns:GetAgentTotalOrderSummaryHttpGetOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetTotalOrderSummary">
-      <wsdl:input message="tns:GetTotalOrderSummaryHttpGetIn" />
-      <wsdl:output message="tns:GetTotalOrderSummaryHttpGetOut" />
+    <wsdl:operation name="GetPlayerTotalOrderSummary">
+      <wsdl:input message="tns:GetPlayerTotalOrderSummaryHttpGetIn" />
+      <wsdl:output message="tns:GetPlayerTotalOrderSummaryHttpGetOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
-      <wsdl:input message="tns:GetAgentTotalOrderDepositeSummaryHttpGetIn" />
-      <wsdl:output message="tns:GetAgentTotalOrderDepositeSummaryHttpGetOut" />
+    <wsdl:operation name="GetAgentTotalDepositeSummary">
+      <wsdl:input message="tns:GetAgentTotalDepositeSummaryHttpGetIn" />
+      <wsdl:output message="tns:GetAgentTotalDepositeSummaryHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPlayerTotalDepositSummary">
       <wsdl:input message="tns:GetPlayerTotalDepositSummaryHttpGetIn" />
       <wsdl:output message="tns:GetPlayerTotalDepositSummaryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalOrderSummary">
+      <wsdl:input message="tns:GetSearchAgentTotalOrderSummaryHttpGetIn" />
+      <wsdl:output message="tns:GetSearchAgentTotalOrderSummaryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchUserTotalOrderSummary">
+      <wsdl:input message="tns:GetSearchUserTotalOrderSummaryHttpGetIn" />
+      <wsdl:output message="tns:GetSearchUserTotalOrderSummaryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalDepositSummary">
+      <wsdl:input message="tns:GetSearchAgentTotalDepositSummaryHttpGetIn" />
+      <wsdl:output message="tns:GetSearchAgentTotalDepositSummaryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchPlayerTotalDepositSummary">
+      <wsdl:input message="tns:GetSearchPlayerTotalDepositSummaryHttpGetIn" />
+      <wsdl:output message="tns:GetSearchPlayerTotalDepositSummaryHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAccountingItem">
       <wsdl:input message="tns:GetAccountingItemHttpGetIn" />
@@ -1775,6 +2120,10 @@
       <wsdl:input message="tns:AgentLoginHttpPostIn" />
       <wsdl:output message="tns:AgentLoginHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserSMSNumber">
+      <wsdl:input message="tns:GetUserSMSNumberHttpPostIn" />
+      <wsdl:output message="tns:GetUserSMSNumberHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDHttpPostIn" />
       <wsdl:output message="tns:GetAgentSessionByIDHttpPostOut" />
@@ -1795,25 +2144,45 @@
       <wsdl:input message="tns:GetUserAccountSummaryHttpPostIn" />
       <wsdl:output message="tns:GetUserAccountSummaryHttpPostOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetUserAccountSummary_Agent">
-      <wsdl:input message="tns:GetUserAccountSummary_AgentHttpPostIn" />
-      <wsdl:output message="tns:GetUserAccountSummary_AgentHttpPostOut" />
+    <wsdl:operation name="GetGroupAgent">
+      <wsdl:input message="tns:GetGroupAgentHttpPostIn" />
+      <wsdl:output message="tns:GetGroupAgentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <wsdl:input message="tns:GetGroupBySearchHttpPostIn" />
+      <wsdl:output message="tns:GetGroupBySearchHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAgentTotalOrderSummary">
       <wsdl:input message="tns:GetAgentTotalOrderSummaryHttpPostIn" />
       <wsdl:output message="tns:GetAgentTotalOrderSummaryHttpPostOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetTotalOrderSummary">
-      <wsdl:input message="tns:GetTotalOrderSummaryHttpPostIn" />
-      <wsdl:output message="tns:GetTotalOrderSummaryHttpPostOut" />
+    <wsdl:operation name="GetPlayerTotalOrderSummary">
+      <wsdl:input message="tns:GetPlayerTotalOrderSummaryHttpPostIn" />
+      <wsdl:output message="tns:GetPlayerTotalOrderSummaryHttpPostOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
-      <wsdl:input message="tns:GetAgentTotalOrderDepositeSummaryHttpPostIn" />
-      <wsdl:output message="tns:GetAgentTotalOrderDepositeSummaryHttpPostOut" />
+    <wsdl:operation name="GetAgentTotalDepositeSummary">
+      <wsdl:input message="tns:GetAgentTotalDepositeSummaryHttpPostIn" />
+      <wsdl:output message="tns:GetAgentTotalDepositeSummaryHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPlayerTotalDepositSummary">
       <wsdl:input message="tns:GetPlayerTotalDepositSummaryHttpPostIn" />
       <wsdl:output message="tns:GetPlayerTotalDepositSummaryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalOrderSummary">
+      <wsdl:input message="tns:GetSearchAgentTotalOrderSummaryHttpPostIn" />
+      <wsdl:output message="tns:GetSearchAgentTotalOrderSummaryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchUserTotalOrderSummary">
+      <wsdl:input message="tns:GetSearchUserTotalOrderSummaryHttpPostIn" />
+      <wsdl:output message="tns:GetSearchUserTotalOrderSummaryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalDepositSummary">
+      <wsdl:input message="tns:GetSearchAgentTotalDepositSummaryHttpPostIn" />
+      <wsdl:output message="tns:GetSearchAgentTotalDepositSummaryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchPlayerTotalDepositSummary">
+      <wsdl:input message="tns:GetSearchPlayerTotalDepositSummaryHttpPostIn" />
+      <wsdl:output message="tns:GetSearchPlayerTotalDepositSummaryHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAccountingItem">
       <wsdl:input message="tns:GetAccountingItemHttpPostIn" />
@@ -1879,6 +2248,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserSMSNumber">
+      <soap:operation soapAction="http://tempuri.org/GetUserSMSNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <soap:operation soapAction="http://tempuri.org/GetAgentSessionByID" style="document" />
       <wsdl:input>
@@ -1924,8 +2302,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetUserAccountSummary_Agent">
-      <soap:operation soapAction="http://tempuri.org/GetUserAccountSummary_Agent" style="document" />
+    <wsdl:operation name="GetGroupAgent">
+      <soap:operation soapAction="http://tempuri.org/GetGroupAgent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <soap:operation soapAction="http://tempuri.org/GetGroupBySearch" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1942,8 +2329,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTotalOrderSummary">
-      <soap:operation soapAction="http://tempuri.org/GetTotalOrderSummary" style="document" />
+    <wsdl:operation name="GetPlayerTotalOrderSummary">
+      <soap:operation soapAction="http://tempuri.org/GetPlayerTotalOrderSummary" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1951,8 +2338,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
-      <soap:operation soapAction="http://tempuri.org/GetAgentTotalOrderDepositeSummary" style="document" />
+    <wsdl:operation name="GetAgentTotalDepositeSummary">
+      <soap:operation soapAction="http://tempuri.org/GetAgentTotalDepositeSummary" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1962,6 +2349,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetPlayerTotalDepositSummary">
       <soap:operation soapAction="http://tempuri.org/GetPlayerTotalDepositSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalOrderSummary">
+      <soap:operation soapAction="http://tempuri.org/GetSearchAgentTotalOrderSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchUserTotalOrderSummary">
+      <soap:operation soapAction="http://tempuri.org/GetSearchUserTotalOrderSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalDepositSummary">
+      <soap:operation soapAction="http://tempuri.org/GetSearchAgentTotalDepositSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchPlayerTotalDepositSummary">
+      <soap:operation soapAction="http://tempuri.org/GetSearchPlayerTotalDepositSummary" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2116,6 +2539,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserSMSNumber">
+      <soap12:operation soapAction="http://tempuri.org/GetUserSMSNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <soap12:operation soapAction="http://tempuri.org/GetAgentSessionByID" style="document" />
       <wsdl:input>
@@ -2161,8 +2593,17 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetUserAccountSummary_Agent">
-      <soap12:operation soapAction="http://tempuri.org/GetUserAccountSummary_Agent" style="document" />
+    <wsdl:operation name="GetGroupAgent">
+      <soap12:operation soapAction="http://tempuri.org/GetGroupAgent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <soap12:operation soapAction="http://tempuri.org/GetGroupBySearch" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2179,8 +2620,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTotalOrderSummary">
-      <soap12:operation soapAction="http://tempuri.org/GetTotalOrderSummary" style="document" />
+    <wsdl:operation name="GetPlayerTotalOrderSummary">
+      <soap12:operation soapAction="http://tempuri.org/GetPlayerTotalOrderSummary" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2188,8 +2629,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
-      <soap12:operation soapAction="http://tempuri.org/GetAgentTotalOrderDepositeSummary" style="document" />
+    <wsdl:operation name="GetAgentTotalDepositeSummary">
+      <soap12:operation soapAction="http://tempuri.org/GetAgentTotalDepositeSummary" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2199,6 +2640,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetPlayerTotalDepositSummary">
       <soap12:operation soapAction="http://tempuri.org/GetPlayerTotalDepositSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalOrderSummary">
+      <soap12:operation soapAction="http://tempuri.org/GetSearchAgentTotalOrderSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchUserTotalOrderSummary">
+      <soap12:operation soapAction="http://tempuri.org/GetSearchUserTotalOrderSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalDepositSummary">
+      <soap12:operation soapAction="http://tempuri.org/GetSearchAgentTotalDepositSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchPlayerTotalDepositSummary">
+      <soap12:operation soapAction="http://tempuri.org/GetSearchPlayerTotalDepositSummary" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2353,6 +2830,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserSMSNumber">
+      <http:operation location="/GetUserSMSNumber" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <http:operation location="/GetAgentSessionByID" />
       <wsdl:input>
@@ -2398,8 +2884,17 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetUserAccountSummary_Agent">
-      <http:operation location="/GetUserAccountSummary_Agent" />
+    <wsdl:operation name="GetGroupAgent">
+      <http:operation location="/GetGroupAgent" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <http:operation location="/GetGroupBySearch" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -2416,8 +2911,8 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTotalOrderSummary">
-      <http:operation location="/GetTotalOrderSummary" />
+    <wsdl:operation name="GetPlayerTotalOrderSummary">
+      <http:operation location="/GetPlayerTotalOrderSummary" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -2425,8 +2920,8 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
-      <http:operation location="/GetAgentTotalOrderDepositeSummary" />
+    <wsdl:operation name="GetAgentTotalDepositeSummary">
+      <http:operation location="/GetAgentTotalDepositeSummary" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -2436,6 +2931,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetPlayerTotalDepositSummary">
       <http:operation location="/GetPlayerTotalDepositSummary" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalOrderSummary">
+      <http:operation location="/GetSearchAgentTotalOrderSummary" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchUserTotalOrderSummary">
+      <http:operation location="/GetSearchUserTotalOrderSummary" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalDepositSummary">
+      <http:operation location="/GetSearchAgentTotalDepositSummary" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchPlayerTotalDepositSummary">
+      <http:operation location="/GetSearchPlayerTotalDepositSummary" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -2572,6 +3103,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserSMSNumber">
+      <http:operation location="/GetUserSMSNumber" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <http:operation location="/GetAgentSessionByID" />
       <wsdl:input>
@@ -2617,8 +3157,17 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetUserAccountSummary_Agent">
-      <http:operation location="/GetUserAccountSummary_Agent" />
+    <wsdl:operation name="GetGroupAgent">
+      <http:operation location="/GetGroupAgent" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <http:operation location="/GetGroupBySearch" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
@@ -2635,8 +3184,8 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTotalOrderSummary">
-      <http:operation location="/GetTotalOrderSummary" />
+    <wsdl:operation name="GetPlayerTotalOrderSummary">
+      <http:operation location="/GetPlayerTotalOrderSummary" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
@@ -2644,8 +3193,8 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetAgentTotalOrderDepositeSummary">
-      <http:operation location="/GetAgentTotalOrderDepositeSummary" />
+    <wsdl:operation name="GetAgentTotalDepositeSummary">
+      <http:operation location="/GetAgentTotalDepositeSummary" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
@@ -2655,6 +3204,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetPlayerTotalDepositSummary">
       <http:operation location="/GetPlayerTotalDepositSummary" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalOrderSummary">
+      <http:operation location="/GetSearchAgentTotalOrderSummary" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchUserTotalOrderSummary">
+      <http:operation location="/GetSearchUserTotalOrderSummary" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchAgentTotalDepositSummary">
+      <http:operation location="/GetSearchAgentTotalDepositSummary" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSearchPlayerTotalDepositSummary">
+      <http:operation location="/GetSearchPlayerTotalDepositSummary" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
