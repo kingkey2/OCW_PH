@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="home_CasinoExcludeLogin.aspx.cs" Inherits="home_Casino" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="home_CasinoExcludeLogin.aspx.cs" Inherits="home_CasinoExcludeLogin" %>
 
 <%
     string DefaultCompany = "";
@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>代理網</title>
+    <title>Home 測試頁</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/basic.min.css?<%=AgentVersion %>">
     <link rel="stylesheet" href="css/main2.css?<%=AgentVersion %>">
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="js/AgentCommon.js"></script>
     <script type="text/javascript" src="js/date.js"></script>
     <script type="text/javascript">
-        var ApiUrl = "home_Casino.aspx";
+        var ApiUrl = "home_CasinoExcludeLogin.aspx";
         var c = new common();
         var ac = new AgentCommon();
         var mlp;
@@ -51,39 +51,42 @@
             var idUserAccountType = document.getElementById("idUserAccountType");
             var idUserAccountState = document.getElementById("idUserAccountState");
             var idUserWalletInfo = document.getElementById("idUserWalletInfo");
+            var LoginAccount = $('#loginAccount').val();
+            var postData = {
+                "LoginAccount": LoginAccount
+            }
 
-            api.QueryUserInfo(EWinInfo.ASID, Math.uuid(), function (success, o) {
+            c.callService(ApiUrl + "/QueryUserInfo", postData, function (success, obj) {
                 if (success) {
-                    if (o.ResultState == 0) {
-
-                        idParentPath.innerHTML = EWinInfo.LoginAccount;
+                    var o = c.getJSON(obj);
+                    if (o.Result == 0) {
+                        idParentPath.innerHTML = LoginAccount;
                         idRealName.innerHTML = o.RealName;
 
                         userAccountType = o.UserAccountType;
                         switch (o.UserAccountType) {
                             case 0:
-                                idUserAccountType.innerHTML = mlp.getLanguageKey("會員");
+                                idUserAccountType.innerHTML = "會員";
                                 break;
                             case 1:
-                                idUserAccountType.innerHTML = mlp.getLanguageKey("代理");
+                                idUserAccountType.innerHTML = "代理";
                                 break;
                             case 2:
-                                idUserAccountType.innerHTML = mlp.getLanguageKey("股東");
+                                idUserAccountType.innerHTML = "股東";
                                 break;
                         }
 
                         switch (o.UserAccountState) {
                             case 0:
-                                idUserAccountState.innerHTML = mlp.getLanguageKey("正常");
+                                idUserAccountState.innerHTML = "正常";
                                 break;
                             case 1:
-                                idUserAccountState.innerHTML = mlp.getLanguageKey("停用");
+                                idUserAccountState.innerHTML = "停用";
                                 break;
                             case 2:
-                                idUserAccountState.innerHTML = mlp.getLanguageKey("永久停用");
+                                idUserAccountState.innerHTML ="永久停用";
                                 break;
                         }
-
 
                         // build wallet list
                         if (o.WalletList != null) {
@@ -91,7 +94,7 @@
                             for (var i = 0; i < o.WalletList.length; i++) {
                                 var temp = c.getTemplate("templateWalletInfo");
                                 var w = o.WalletList[i];
-                                if (w.CurrencyType != EWinInfo.MainCurrencyType) {
+                                if (w.CurrencyType != DefaultCurrencyType) {
                                     continue;
                                 }
 
@@ -178,7 +181,7 @@
                                     }
 
                                     try {
-                                        if (w.CurrencyType.toUpperCase() == EWinInfo.MainCurrencyType.toUpperCase()) {
+                                        if (w.CurrencyType.toUpperCase() == DefaultCurrencyType.toUpperCase()) {
                                             //公司預設錢包會插在最上面
                                             idUserWalletInfo.insertAdjacentElement("afterbegin", temp);
                                         }
@@ -195,11 +198,10 @@
 
                         }
 
-
                         if (o.GameCodeList != null) {
                             for (var l = 0; l < o.GameCodeList.length; l++) {
                                 let kk = o.GameCodeList[l];
-                                if (kk.CurrencyType == EWinInfo.MainCurrencyType) {
+                                if (kk.CurrencyType == DefaultCurrencyType) {
                                     let t = c.getTemplate("tempGameAccountingCode");
 
                                     c.setClassText(t, "GameAccountingCode", null, mlp.getLanguageKey(kk.GameAccountingCode));
@@ -231,26 +233,22 @@
 
                         if (cb)
                             cb(true);
-                        window.parent.API_CloseLoading();
+                    CloseLoading();
                     } else {
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
 
                         if (cb)
                             cb(false);
-                        window.parent.API_CloseLoading();
+                    CloseLoading();
                     }
                 } else {
                     if (o == "Timeout") {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後再嘗試"));
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
                     } else {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o));
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
                     }
-
-                    if (cb) {
-                        cb(false);
-                    }
-                    window.parent.API_CloseLoading();
                 }
+
             });
         }
         //小數點後兩位無條件捨去
@@ -307,18 +305,25 @@
             $(".NotFirstDepositCount").text(0);
             $(".PreferentialCost").text(0);
 
+            var LoginAccount = $('#loginAccount').val();
+
+            if (LoginAccount=='') {
+                alert('尚未輸入帳號');
+                return;
+            }
+
             postData = {
-                AID: EWinInfo.ASID,
                 QueryBeginDate: startDate,
                 QueryEndDate: endDate,
                 CurrencyType: DefaultCurrencyType,
-                LoginAccount: EWinInfo.UserInfo.LoginAccount
+                LoginAccount: LoginAccount
             };
 
-            window.parent.API_ShowLoading();
+            ShowLoading();
 
             c.callService(ApiUrl + "/GetOrderSummary", postData, function (success, obj) {
                 if (success) {
+                    CloseLoading();
                     var o = c.getJSON(obj);
 
                     let TotalValidBetValue = 0;
@@ -369,6 +374,7 @@
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
                     }
                 } else {
+                    CloseLoading();
                     if (o == "Timeout") {
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
                     } else {
@@ -378,15 +384,31 @@
 
             });
 
-            window.parent.API_CloseLoading();
+  
+        }
+
+        function ShowLoading(showText) {
+            var idShowLoading = document.getElementById("idShowLoading");
+
+            if (showText == "" || showText == null) {
+                showText = "Loading";
+            }
+            document.getElementsByClassName("loading_text")[0].innerText = showText;
+            c.addClassName(idShowLoading, "show");
+        }
+
+        function CloseLoading() {
+            var idShowLoading = document.getElementById("idShowLoading");
+
+            c.removeClassName(idShowLoading, "show");
         }
 
         function getChildUserData() {
             var postData;
+            var LoginAccount = $('#loginAccount').val();
 
             postData = {
-                AID: EWinInfo.ASID,
-                LoginAccount: EWinInfo.UserInfo.LoginAccount
+                LoginAccount: LoginAccount
             };
 
             c.callService(ApiUrl + "/GetChildUserData", postData, function (success, obj) {
@@ -410,7 +432,7 @@
 
             });
 
-            window.parent.API_CloseLoading();
+        CloseLoading();
         }
 
         function changeDateTab(e, type) {
@@ -488,25 +510,34 @@
             return parts.join('.');
         }
 
-        function init() {
-            EWinInfo = window.parent.EWinInfo;
-            if (EWinInfo) {
-                api = window.parent.API_GetAgentAPI();
+        function searchBtn() {
+            var LoginAccount = $('#loginAccount').val();
 
-                lang = window.localStorage.getItem("agent_lang");
-                mlp = new multiLanguage();
-                mlp.loadLanguage(lang, function () {
-                    queryUserInfo();
-                    getChildUserData();
-                });
+            if (LoginAccount.trim() == '') {
+                alert("尚未輸入帳號");
+                return;
             }
+
+            queryUserInfo();
+            getChildUserData();
+        }
+
+        function init() {
+            lang = window.localStorage.getItem("agent_lang");
+            mlp = new multiLanguage();
+            mlp.loadLanguage(lang, function () {
+        
+            });
+        }
+
+        function API_ShowMessageOK(title,message) {
+            alert(title + "," + message);
         }
 
         window.onload = init;
-
     </script>
 </head>
-<body class="innerBody">
+<body class="innerBody" style="background-color:darkslategrey;">
     <main>
         <div class="loginUserInfo">
             <div class="container-fluid">
@@ -539,6 +570,18 @@
 
         <div id="WrapperFilterGame_Home" class="fixed Filter__Wrapper">
             <div class="container-fluid ">
+                  <div id="idSearchButton" class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                        <div class="form-group form-group-s2 ">
+                            <div class="title hidden shown-md"><span class="language_replace">帳號</span></div>
+                            <div class="input-group form-control-underline iconCheckAnim placeholder-move-right zIndex_overMask_SafariFix">
+                                <input type="text" class="form-control" id="loginAccount" value="">
+                                <div class="input-group-append">
+                                    <span onclick="searchBtn()" class="input-group-text language_replace" style="cursor: pointer; color: #C9AE7F; background-color: #2d3244; border: none">搜尋</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 <div class="row">
                     <div id="idTabMainContent" class="tab__Wrapper col-12 col-md">
                         <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
@@ -915,5 +958,21 @@
         </div>
 
     </main>
+        <!-- Loading PopUp 要放在 message 及 toast 前面  -->
+    <div class="popUp loading" id="idShowLoading">
+        <div class="global__loading">
+            <!-- <div class="logo"><img src="Images/theme/dark/img/logo_eWin.svg" alt=""></div> -->
+            <div class="gooey">
+                <span class="dot"></span>
+                <div class="dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="loading_text">Loading</div>
+        </div>
+        <div id="mask_overlay_popup" class="mask_overlay_popup mask_overlay_loading"></div>
+    </div>
 </body>
 </html>
