@@ -15,7 +15,7 @@ public partial class GetAgentTotalSummary_Casino : System.Web.UI.Page {
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
         EWin.SpriteAgent.TotalSummaryResult RetValue = new EWin.SpriteAgent.TotalSummaryResult();
 
-        RetValue = api.GetAgentTotalOrderSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType);
+        //RetValue = api.GetAgentTotalOrderSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType);
 
         return RetValue;
     }

@@ -24,8 +24,8 @@ public partial class home_Casino : System.Web.UI.Page {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.SpriteAgent.OrderSummaryResult GetOrderSummary(string AID, string QueryBeginDate, string QueryEndDate, string CurrencyType) {
-        EWin.SpriteAgent.OrderSummaryResult RetValue = null;
+    public static EWin.SpriteAgent.TotalSummaryResult GetOrderSummary(string AID, string QueryBeginDate, string QueryEndDate, string CurrencyType) {
+        EWin.SpriteAgent.TotalSummaryResult RetValue = null;
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
 
         RetValue = api.GetOrderSummary(AID, QueryBeginDate, QueryEndDate, CurrencyType);

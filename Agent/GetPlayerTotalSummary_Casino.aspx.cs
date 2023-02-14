@@ -14,10 +14,10 @@ public partial class GetPlayerTotalSummary_Casino : System.Web.UI.Page
 {
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.SpriteAgent.TotalSummaryResult GetTotalOrderSummary(string AID, string LoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType, string TargetLoginAccount, int RowsPage, int PageNumber) {
+    public static EWin.SpriteAgent.OrderSummaryResult GetTotalOrderSummary(string AID, string LoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType, string TargetLoginAccount, int RowsPage, int PageNumber) {
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
-        EWin.SpriteAgent.TotalSummaryResult RetValue = new EWin.SpriteAgent.TotalSummaryResult();
-        EWin.SpriteAgent.TotalSummaryResult k = new EWin.SpriteAgent.TotalSummaryResult();
+        EWin.SpriteAgent.OrderSummaryResult RetValue = new EWin.SpriteAgent.OrderSummaryResult();
+        EWin.SpriteAgent.OrderSummaryResult k = new EWin.SpriteAgent.OrderSummaryResult();
         string strRedisData = string.Empty;
         JObject redisSaveData = new JObject();
         int ExpireTimeoutSeconds = 0;
@@ -27,7 +27,7 @@ public partial class GetPlayerTotalSummary_Casino : System.Web.UI.Page
 
         if (!string.IsNullOrEmpty(TargetLoginAccount)) {
             if (string.IsNullOrEmpty(strRedisData)) {
-                RetValue = api.GetTotalOrderSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType, TargetLoginAccount);
+                RetValue = api.GetPlayerTotalOrderSummary(AID, QueryBeginDate, QueryEndDate, CurrencyType);
             } else {
                 redisSaveData = JObject.Parse(strRedisData);
 
@@ -41,8 +41,8 @@ public partial class GetPlayerTotalSummary_Casino : System.Web.UI.Page
                         RetValue.Result = EWin.SpriteAgent.enumResult.OK;
                     } else {
                         RetValue.Result = EWin.SpriteAgent.enumResult.OK;
-                        List<EWin.SpriteAgent.TotalSummary> kk = new List<EWin.SpriteAgent.TotalSummary>();
-                        kk.Add(new EWin.SpriteAgent.TotalSummary() {
+                        List<EWin.SpriteAgent.OrderSummary> kk = new List<EWin.SpriteAgent.OrderSummary>();
+                        kk.Add(new EWin.SpriteAgent.OrderSummary() {
                             UserAccountID = (int)searchData["UserAccountID"],
                             CurrencyType = (string)searchData["CurrencyType"],
                             LoginAccount = (string)searchData["LoginAccount"],
@@ -54,21 +54,20 @@ public partial class GetPlayerTotalSummary_Casino : System.Web.UI.Page
                             OrderCount = (int)searchData["OrderCount"],
                             SelfOrderCount = (int)searchData["SelfOrderCount"],
                             HasChild = (bool)searchData["HasChild"],
-                            DealUserAccountSortKey = (string)searchData["DealUserAccountSortKey"],
-                            DealUserAccountInsideLevel = (int)searchData["DealUserAccountInsideLevel"],
-                            IsTarget = (bool)searchData["IsTarget"]
+                            UserAccountInsideLevel = (int)searchData["UserAccountInsideLevel"],
+                            UserAccountSortKey = (string)searchData["UserAccountSortKey"],
                         });
                         RetValue.SummaryList = kk.ToArray();
                         RetValue.HasNextPage = false;
                     }
                 } else {
-                    RetValue = api.GetTotalOrderSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType, TargetLoginAccount);
+                    RetValue = api.GetPlayerTotalOrderSummary(AID, QueryBeginDate, QueryEndDate, CurrencyType);
                 }
             }
         } else {
 
             if (string.IsNullOrEmpty(strRedisData)) {
-                RetValue = api.GetTotalOrderSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType, TargetLoginAccount);
+                RetValue = api.GetPlayerTotalOrderSummary(AID, QueryBeginDate, QueryEndDate, CurrencyType);
 
                 if (RetValue.Result == EWin.SpriteAgent.enumResult.OK) {
                     if (RetValue.SummaryList.Count() > 0) {
@@ -79,7 +78,7 @@ public partial class GetPlayerTotalSummary_Casino : System.Web.UI.Page
                         ExpireTimeoutSeconds = 600;
 
                         for (int i = 0; i < TotalPage; i++) {
-                            k = new EWin.SpriteAgent.TotalSummaryResult();
+                            k = new EWin.SpriteAgent.OrderSummaryResult();
                             k.Result = EWin.SpriteAgent.enumResult.OK;
                             k.SummaryList = RetValue.SummaryList.Skip(i).Take(RowsPage).ToArray();
 
@@ -104,7 +103,7 @@ public partial class GetPlayerTotalSummary_Casino : System.Web.UI.Page
                 }
 
                 if (redisSaveData[PageNumber.ToString()] != null) {
-                    RetValue = JsonConvert.DeserializeObject<EWin.SpriteAgent.TotalSummaryResult>((string)redisSaveData[PageNumber.ToString()]);
+                    RetValue = JsonConvert.DeserializeObject<EWin.SpriteAgent.OrderSummaryResult>((string)redisSaveData[PageNumber.ToString()]);
 
                     if (PageNumber >= TotalPage) {
                         RetValue.HasNextPage = false;
