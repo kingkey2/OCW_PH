@@ -248,13 +248,15 @@
             ValidateCode, ValidateCode,
             NewPassword: NewPassword
         }
-
+     
         c.callService(ApiUrl + "/SetWalletPasswordByValidateCode", postData, function (success, o) {
             if (success) {
                 var obj = c.getJSON(o);
 
                 if (obj.Result == 0) {
-                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已成功修改密碼！"));
+                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已成功修改密碼！"), function () {
+                        window.parent.API_MainWindow('Main', 'home_Casino.aspx');
+                    });
                 } else {
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
                 }
