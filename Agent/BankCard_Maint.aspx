@@ -110,86 +110,8 @@
     var PageNumber = 1;
     //var hasDataExpand;
 
-    function agentExpand(SortKey) {
-        var expandBtn = event.currentTarget;
-        if (expandBtn) {
-            var exists = !(expandBtn.classList.toggle("agentPlus"));
-            if (exists) {
-                //s
-                expandBtn.innerText = "-";
-                checkParentLoginAccountExists(SortKey)
-            } else {
-                //c
-                expandBtn.innerText = "+";
-                hideChildAllRow(SortKey);
-            }
-        }
-    }
 
-    function checkParentLoginAccountExists(SortKey) {
-        var doms = document.querySelectorAll(".row_s_" + SortKey);
-        for (var ii = 0; ii < doms.length; ii++) {
-            var dom = doms[ii];
-            dom.style.display = "table-row";
-        }
-    }
 
-    function hideChildAllRow(SortKey) {
-        var doms = document.querySelectorAll(".row_c_" + SortKey);
-        for (var i = 0; i < doms.length; i++) {
-            var dom = doms[i];
-            var btn = dom.querySelector('.Expand');
-
-            dom.style.display = "none";
-            if (btn) {
-                btn.classList.add("agentPlus");
-                btn.innerText = "+";
-            }
-        }
-    }
-
-    function toggleAllRow(isExpand) {
-        var doms = document.querySelectorAll(".row_child");
-        for (var i = 0; i < doms.length; i++) {
-            var dom = doms[i];
-            var btn = dom.querySelector('.Expand');
-
-            if (isExpand) {
-                dom.style.display = "table-row";
-
-                if (btn) {
-                    btn.classList.remove("agentPlus");
-                    btn.innerText = "-";
-                }
-            } else {
-                dom.style.display = "none";
-
-                if (btn) {
-                    btn.classList.add("agentPlus");
-                    btn.innerText = "+";
-                }
-            }
-        }
-
-        doms = document.querySelectorAll(".row_top");
-
-        for (var i = 0; i < doms.length; i++) {
-            var dom = doms[i];
-            var btn = dom.querySelector('.Expand');
-
-            if (isExpand) {
-                if (btn) {
-                    btn.classList.remove("agentPlus");
-                    btn.innerText = "-";
-                }
-            } else {
-                if (btn) {
-                    btn.classList.add("agentPlus");
-                    btn.innerText = "+";
-                }
-            }
-        }
-    }
 
     function querySelfData() {
         var currencyTypeDom = "";
@@ -310,151 +232,12 @@
         }
     }
 
-    function changeDateTab(e, type) {
-        window.event.stopPropagation();
-        window.event.preventDefault();
-        var beginDate;
-        var endDate;
-        var tabMainContent = document.getElementById("idTabMainContent");
-        var tabItem = tabMainContent.getElementsByClassName("nav-link");
-        for (var i = 0; i < tabItem.length; i++) {
-            tabItem[i].classList.remove('active');
-            tabItem[i].parentNode.classList.remove('active');
-
-            //tabItem[i].setAttribute("aria-selected", "false");
-
-        }
-
-        document.getElementById("sliderDate").style.display = "block";
-
-        e.parentNode.classList.add('active');
-        e.classList.add('active');
-        //e.setAttribute("aria-selected", "true");
-        switch (type) {
-            case 0:
-                //本日
-                beginDate = Date.today().toString("yyyy-MM-dd");
-                endDate = Date.today().toString("yyyy-MM-dd");
-                document.getElementById("startDate").value = beginDate;
-                document.getElementById("endDate").value = endDate;
-                break;
-            case 1:
-                //昨日
-                beginDate = Date.today().addDays(-1).toString("yyyy-MM-dd");
-                endDate = Date.today().addDays(-1).toString("yyyy-MM-dd");
-                document.getElementById("startDate").value = beginDate;
-                document.getElementById("endDate").value = endDate;
-                break;
-            case 2:
-                //本周
-                beginDate = getFirstDayOfWeek(Date.today()).toString("yyyy-MM-dd");
-                endDate = getLastDayOfWeek(Date.today()).toString("yyyy-MM-dd");
-                document.getElementById("startDate").value = beginDate;
-                document.getElementById("endDate").value = endDate;
-                break;
-            case 3:
-                //上週  
-                beginDate = getFirstDayOfWeek(Date.today().addDays(-7)).toString("yyyy-MM-dd");
-                endDate = getLastDayOfWeek(Date.today().addDays(-7)).toString("yyyy-MM-dd");
-                document.getElementById("startDate").value = beginDate;
-                document.getElementById("endDate").value = endDate;
-                break;
-            case 4:
-                //本月
-                beginDate = Date.today().moveToFirstDayOfMonth().toString("yyyy-MM-dd");
-                endDate = Date.today().moveToLastDayOfMonth().toString("yyyy-MM-dd");
-                document.getElementById("startDate").value = beginDate;
-                document.getElementById("endDate").value = endDate;
-                break;
-            case 5:
-                //上月
-                beginDate = Date.today().addMonths(-1).moveToFirstDayOfMonth().toString("yyyy-MM-dd");
-                endDate = Date.today().addMonths(-1).moveToLastDayOfMonth().toString("yyyy-MM-dd");
-                document.getElementById("startDate").value = beginDate;
-                document.getElementById("endDate").value = endDate;
-                break;
-        }
-    }
-
-    function setSearchFrame() {
-        var pi = null;
-        var templateDiv;
-        var CurrencyTypeDiv = document.getElementById("CurrencyTypeDiv");
-        var tempCurrencyRadio;
-        var tempCurrencyName;
-
-
-        document.getElementById("startDate").value = getFirstDayOfWeek(Date.today()).toString("yyyy-MM-dd");
-        document.getElementById("endDate").value = getLastDayOfWeek(Date.today()).toString("yyyy-MM-dd");
-
-        if (EWinInfo.UserInfo != null) {
-            if (EWinInfo.UserInfo.WalletList != null) {
-                pi = EWinInfo.UserInfo.WalletList;
-                if (pi.length > 0) {
-                    for (var i = 0; i < pi.length; i++) {
-                        templateDiv = c.getTemplate("templateDiv");
-
-                        tempCurrencyRadio = c.getFirstClassElement(templateDiv, "tempRadio");
-                        tempCurrencyName = c.getFirstClassElement(templateDiv, "tempName");
-                        tempCurrencyRadio.value = pi[i].CurrencyType;
-                        tempCurrencyRadio.name = "chkCurrencyType";
-                        tempCurrencyName.innerText = pi[i].CurrencyType;
-
-                        if (i == 0) {
-                            tempCurrencyRadio.checked = true;
-                        }
-
-                        tempCurrencyRadio.classList.remove("tempRadio");
-                        tempCurrencyName.classList.remove("tempName");
-
-                        CurrencyTypeDiv.appendChild(templateDiv);
-                    }
-                }
-            }
-        }
-    }
-
-    function getFirstDayOfWeek(d) {
-        let date = new Date(d);
-        let day = date.getDay();
-
-        let diff = date.getDate() - day + (day === 0 ? -6 : 1);
-
-        return new Date(date.setDate(diff));
-    }
-
-    function getLastDayOfWeek(d) {
-        let firstDay = getFirstDayOfWeek(d);
-        let lastDay = new Date(firstDay);
-
-        return new Date(lastDay.setDate(lastDay.getDate() + 6));
-    }
-
-    function disableDateSel() {
-        var tabItem = document.getElementById("idTabMainContent").getElementsByClassName("nav-link");
-
-        for (var i = 0; i < tabItem.length; i++) {
-            //tabItem[i].classList.remove('active');
-            tabItem[i].classList.remove('active');
-            tabItem[i].parentNode.classList.remove('active');
-
-            //tabItem[i].setAttribute("aria-selected", "false");
-        }
-        document.getElementById("sliderDate").style.display = "none";
-    }
-
-    function showNextData() {
-        PageNumber = PageNumber + 1;
-        queryData();
-    }
-
     function init() {
         var d = new Date();
 
         EWinInfo = window.parent.EWinInfo;
         api = window.parent.API_GetAgentAPI();
-        setSearchFrame();
-
+   
         lang = window.localStorage.getItem("agent_lang");
         mlp = new multiLanguage();
         mlp.loadLanguage(lang, function () {
@@ -595,6 +378,95 @@
             </div>
         </div>
     </main>
+
+        <div class="popUp " id="idPopUpForgetPassWord">
+        <div class="popUpWrapper">
+            <div class="popUp__close btn btn-close" onclick="closeForgetPassWord()"></div>
+            <div class="popUp__title"><span class="language_replace">忘記密碼</span></div>
+            <div class="popUp__content">
+                <div>
+                    <div class="col-12 form-group row no-gutters data-item">
+                        <div class="col-12 data-title">
+                            <label class="title"><span class="title_name"><span class="language_replace" langkey="電話">電話</span></span></label>
+                        </div>
+                        <div class="col-12 data-content">
+                            <div class="row no-gutters">
+                                <div class="col-auto col-md-4 ">
+                                    <div class="form-control-underline">
+                                        <select name="ContactPhonePrefix" id="ContactPhonePrefix" class="custom-select">
+                                            <option class="language_replace" value="+63" langkey="+63 菲律賓">+63 菲律賓</option>
+                                            <option class="language_replace" value="+886" langkey="+886 台灣">+886 台灣</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col col-md-6 pl-2">
+                                    <div class="form-control-underline">
+                                        <input type="text" class="form-control" name="ContactPhoneNumber" id="ContactPhoneNumber" language_replace="placeholder" placeholder="請輸入手機號碼" langkey="請輸入手機號碼">
+                                        <label for="password" class="form-label "><span class="language_replace" langkey="請輸入手機號碼">請輸入手機號碼</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6  col-lg-12  form-group row no-gutters data-item">
+                        <div class="col-12 data-title">
+                            <div class="form-group form-group-btnLogin btn-group-lg" style="padding-top:0px !important">
+                               <div class="btn btn-full-main" onclick="sendValidateCode()"><span class="language_replace">傳送驗證碼</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6  col-lg-12  form-group row no-gutters data-item">
+                        <div class="col-12 data-title">
+                            <label class="title"><span class="title_name"><span class="language_replace" langkey="帳號">帳號</span></span></label>
+                        </div>
+                        <div class="col-12 data-content">
+                            <div class="form-control-underline">
+                                <input type="text" class="form-control" name="LoginAccount" id="LoginAccount" language_replace="placeholder" placeholder="請輸入帳號" langkey="請輸入帳號">
+                                <label for="password" class="form-label "><span class="language_replace" langkey="請輸入帳號">請輸入帳號</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 form-group row no-gutters data-item ">
+                        <div class="col-12 data-title">
+                            <label class="title"><span class="title_name"><span class="language_replace" langkey="登入密碼">登入密碼</span></span></label>
+                        </div>
+                        <div class="col-12 data-content">
+                            <div class="form-control-underline">
+                                <input type="password" class="form-control" name="LoginPassword" id="LoginPassword" language_replace="placeholder" placeholder="請輸入密碼" langkey="請輸入密碼">
+                                    <label for="password" class="form-label "><span class="language_replace" langkey="請輸入密碼">請輸入密碼</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6  col-lg-12  form-group row no-gutters data-item">
+                        <div class="col-12 data-title">
+                            <label class="title"><span class="title_name"><span class="language_replace" langkey="驗證碼">驗證碼</span></span></label>
+                        </div>
+                        <div class="col-12 data-content">
+                            <div class="form-control-underline">
+                                <input type="text" class="form-control" name="ValidateCode" id="ValidateCode" language_replace="placeholder" placeholder="請輸入驗證碼" langkey="請輸入驗證碼">
+                                <label for="password" class="form-label "><span class="language_replace" langkey="請輸入驗證碼">請輸入驗證碼</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6  col-lg-12  form-group row no-gutters data-item">
+                        <div class="col-12 data-title">
+                            <div class="form-group form-group-btnLogin btn-group-lg" style="padding-top:0px !important">
+                                <div class="btn btn-full-main" onclick="updatePassWord()"><span class="language_replace">修改密碼</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- mask_overlay 半透明遮罩-->
+        <div class="mask_overlay_popup mask_overlay_loading"></div>
+    </div>
 </body>
 <script type="text/javascript">
     ac.listenScreenMove();

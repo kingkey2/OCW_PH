@@ -13,56 +13,26 @@ using Newtonsoft.Json;
 public partial class BankCard_Maint : System.Web.UI.Page {
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.SpriteAgent.UserAccountSummaryResult GetUserAccountSummary(string AID, string SearchLoginAccount, string LoginAccount, int RowsPage, int PageNumber, string CurrencyType) {
+    public static EWin.SpriteAgent.UserBankCardListResult GetUserBankCard(string AID) {
+
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
-        EWin.SpriteAgent.UserAccountSummaryResult RetValue = new EWin.SpriteAgent.UserAccountSummaryResult();
-        int MaxSearchUserAccountID = 0;
-        string strRedisData = string.Empty;
-        JObject redisSaveData = new JObject();
-        int ExpireTimeoutSeconds = 0;
+        return api.GetUserBankCard(AID); 
 
-        if (string.IsNullOrEmpty(SearchLoginAccount)) {
+    }
 
-            strRedisData = RedisCache.Agent.GetTeamMemberInfoByLoginAccount(LoginAccount);
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public static EWin.SpriteAgent.APIResult SetUserBankCardState(string AID, string BankCardGUID, int BankCardState)
+    {
+        EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
+        return api.SetUserBankCardState(AID, BankCardGUID, BankCardState);
+    }
 
-            //沒有redis資料一律將PageNumber改為1，避免用戶在該頁面放置到Redis已消失的狀態，最大會員編號已失效資料的數量會有問題
-            if (string.IsNullOrEmpty(strRedisData)) {
-                RetValue = api.GetUserAccountSummary(AID, SearchLoginAccount, CurrencyType, RowsPage, 1, MaxSearchUserAccountID);
-
-                if (RetValue.Result == EWin.SpriteAgent.enumResult.OK) {
-                    MaxSearchUserAccountID = RetValue.MaxUserID;
-                    redisSaveData.Add("MaxSearchUserAccountID", MaxSearchUserAccountID.ToString());
-                    ExpireTimeoutSeconds = 300;
-                    redisSaveData.Add(PageNumber.ToString(), JsonConvert.SerializeObject(RetValue));
-
-                    RedisCache.Agent.UpdateTeamMemberInfoByLoginAccount(JsonConvert.SerializeObject(redisSaveData), LoginAccount, ExpireTimeoutSeconds);
-                }
-            } else {
-                redisSaveData = JObject.Parse(strRedisData);
-                //有該頁面的資料
-                if (redisSaveData[PageNumber.ToString()] != null) {
-                    RetValue = JsonConvert.DeserializeObject<EWin.SpriteAgent.UserAccountSummaryResult>((string)redisSaveData[PageNumber.ToString()]);
-                } else {
-
-                    if (redisSaveData["MaxSearchUserAccountID"] != null) {
-                        MaxSearchUserAccountID = (int)redisSaveData["MaxSearchUserAccountID"];
-                    }
-
-                    RetValue = api.GetUserAccountSummary(AID, SearchLoginAccount, CurrencyType, RowsPage, PageNumber, MaxSearchUserAccountID);
-
-                    if (RetValue.Result == EWin.SpriteAgent.enumResult.OK) {
-                        redisSaveData.Add(PageNumber.ToString(), JsonConvert.SerializeObject(RetValue));
-
-                        RedisCache.Agent.UpdateTeamMemberInfoByLoginAccount(JsonConvert.SerializeObject(redisSaveData), LoginAccount, ExpireTimeoutSeconds);
-                    }
-                }
-
-            }
-
-        } else {
-            RetValue = api.GetUserAccountSummary(AID, SearchLoginAccount, CurrencyType, RowsPage, PageNumber, MaxSearchUserAccountID);
-        }
-
-        return RetValue;
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public static EWin.SpriteAgent.APIResult AddUserBankCard(string AID, string CurrencyType, int PaymentMethod, string BankName, string BranchName, string BankNumber, string AccountName, string BankProvince, string BankCity, string Description)
+    {
+        EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
+        return api.AddUserBankCard(AID,EWinWeb.MainCurrencyType, PaymentMethod, BankName, BranchName, BankNumber, AccountName, BankProvince, BankCity, Description);
     }
 }

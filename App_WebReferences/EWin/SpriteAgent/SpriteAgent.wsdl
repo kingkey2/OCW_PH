@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://tempuri.org/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:element name="AgentLogin">
@@ -422,6 +422,9 @@
               <s:element minOccurs="0" maxOccurs="1" name="SelfSortKey" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="SelfInsideLevel" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Page" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DataCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="PageCount" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfAccountData" />
             </s:sequence>
           </s:extension>
@@ -477,7 +480,6 @@
             <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
             <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
             <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="Page" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -497,8 +499,8 @@
               <s:element minOccurs="0" maxOccurs="1" name="SelfSortKey" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="SelfInsideLevel" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="HasNextPage" type="s:boolean" />
               <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfOrderSummary" />
+              <s:element minOccurs="1" maxOccurs="1" name="HasNextPage" type="s:boolean" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -511,6 +513,7 @@
       <s:complexType name="OrderSummary">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ParentUserAccountID" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
@@ -583,6 +586,7 @@
       <s:complexType name="DepositeSummary">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ParentUserAccountID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
@@ -1003,6 +1007,88 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="AddUserBankCard">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PaymentMethod" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="BankName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BranchName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BankNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BankProvince" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BankCity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddUserBankCardResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddUserBankCardResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserBankCardState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BankCardGUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="BankCardState" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserBankCardStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetUserBankCardStateResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserBankCard">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserBankCardResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserBankCardResult" type="tns:UserBankCardListResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserBankCardListResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="BankCardList" type="tns:ArrayOfUserBankCard" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfUserBankCard">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserBankCard" nillable="true" type="tns:UserBankCard" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserBankCard">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="BankCardGUID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BankCardState" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaymentMethod" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="BankName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BranchName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BankNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BankProvince" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BankCity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="CreateUserInfo">
         <s:complexType>
           <s:sequence>
@@ -1245,6 +1331,7 @@
       <s:element name="UserInfoResult2" nillable="true" type="tns:UserInfoResult2" />
       <s:element name="AgentAccountingDetailResult" nillable="true" type="tns:AgentAccountingDetailResult" />
       <s:element name="UserInfoResult" nillable="true" type="tns:UserInfoResult" />
+      <s:element name="UserBankCardListResult" nillable="true" type="tns:UserBankCardListResult" />
       <s:element name="ChildUserInfoResult" nillable="true" type="tns:ChildUserInfoResult" />
       <s:element name="UserAccountPropertyResult" nillable="true" type="tns:UserAccountPropertyResult" />
     </s:schema>
@@ -1405,6 +1492,24 @@
   <wsdl:message name="CheckAccountExistSoapOut">
     <wsdl:part name="parameters" element="tns:CheckAccountExistResponse" />
   </wsdl:message>
+  <wsdl:message name="AddUserBankCardSoapIn">
+    <wsdl:part name="parameters" element="tns:AddUserBankCard" />
+  </wsdl:message>
+  <wsdl:message name="AddUserBankCardSoapOut">
+    <wsdl:part name="parameters" element="tns:AddUserBankCardResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetUserBankCardStateSoapIn">
+    <wsdl:part name="parameters" element="tns:SetUserBankCardState" />
+  </wsdl:message>
+  <wsdl:message name="SetUserBankCardStateSoapOut">
+    <wsdl:part name="parameters" element="tns:SetUserBankCardStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserBankCardSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserBankCard" />
+  </wsdl:message>
+  <wsdl:message name="GetUserBankCardSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserBankCardResponse" />
+  </wsdl:message>
   <wsdl:message name="CreateUserInfoSoapIn">
     <wsdl:part name="parameters" element="tns:CreateUserInfo" />
   </wsdl:message>
@@ -1560,7 +1665,6 @@
     <wsdl:part name="QueryBeginDate" type="s:string" />
     <wsdl:part name="QueryEndDate" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
-    <wsdl:part name="Page" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetAgentTotalOrderSummaryHttpGetOut">
     <wsdl:part name="Body" element="tns:OrderSummaryResult" />
@@ -1692,6 +1796,35 @@
   </wsdl:message>
   <wsdl:message name="CheckAccountExistHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="AddUserBankCardHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="PaymentMethod" type="s:string" />
+    <wsdl:part name="BankName" type="s:string" />
+    <wsdl:part name="BranchName" type="s:string" />
+    <wsdl:part name="BankNumber" type="s:string" />
+    <wsdl:part name="AccountName" type="s:string" />
+    <wsdl:part name="BankProvince" type="s:string" />
+    <wsdl:part name="BankCity" type="s:string" />
+    <wsdl:part name="Description" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddUserBankCardHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="SetUserBankCardStateHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="BankCardGUID" type="s:string" />
+    <wsdl:part name="BankCardState" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetUserBankCardStateHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserBankCardHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserBankCardHttpGetOut">
+    <wsdl:part name="Body" element="tns:UserBankCardListResult" />
   </wsdl:message>
   <wsdl:message name="QueryChildUserInfoHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
@@ -1851,7 +1984,6 @@
     <wsdl:part name="QueryBeginDate" type="s:string" />
     <wsdl:part name="QueryEndDate" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
-    <wsdl:part name="Page" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetAgentTotalOrderSummaryHttpPostOut">
     <wsdl:part name="Body" element="tns:OrderSummaryResult" />
@@ -1983,6 +2115,35 @@
   </wsdl:message>
   <wsdl:message name="CheckAccountExistHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="AddUserBankCardHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="PaymentMethod" type="s:string" />
+    <wsdl:part name="BankName" type="s:string" />
+    <wsdl:part name="BranchName" type="s:string" />
+    <wsdl:part name="BankNumber" type="s:string" />
+    <wsdl:part name="AccountName" type="s:string" />
+    <wsdl:part name="BankProvince" type="s:string" />
+    <wsdl:part name="BankCity" type="s:string" />
+    <wsdl:part name="Description" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddUserBankCardHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="SetUserBankCardStateHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="BankCardGUID" type="s:string" />
+    <wsdl:part name="BankCardState" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetUserBankCardStateHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserBankCardHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserBankCardHttpPostOut">
+    <wsdl:part name="Body" element="tns:UserBankCardListResult" />
   </wsdl:message>
   <wsdl:message name="QueryChildUserInfoHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
@@ -2146,6 +2307,18 @@
       <wsdl:input message="tns:CheckAccountExistSoapIn" />
       <wsdl:output message="tns:CheckAccountExistSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="AddUserBankCard">
+      <wsdl:input message="tns:AddUserBankCardSoapIn" />
+      <wsdl:output message="tns:AddUserBankCardSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserBankCardState">
+      <wsdl:input message="tns:SetUserBankCardStateSoapIn" />
+      <wsdl:output message="tns:SetUserBankCardStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserBankCard">
+      <wsdl:input message="tns:GetUserBankCardSoapIn" />
+      <wsdl:output message="tns:GetUserBankCardSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="CreateUserInfo">
       <wsdl:input message="tns:CreateUserInfoSoapIn" />
       <wsdl:output message="tns:CreateUserInfoSoapOut" />
@@ -2288,6 +2461,18 @@
       <wsdl:input message="tns:CheckAccountExistHttpGetIn" />
       <wsdl:output message="tns:CheckAccountExistHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="AddUserBankCard">
+      <wsdl:input message="tns:AddUserBankCardHttpGetIn" />
+      <wsdl:output message="tns:AddUserBankCardHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserBankCardState">
+      <wsdl:input message="tns:SetUserBankCardStateHttpGetIn" />
+      <wsdl:output message="tns:SetUserBankCardStateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserBankCard">
+      <wsdl:input message="tns:GetUserBankCardHttpGetIn" />
+      <wsdl:output message="tns:GetUserBankCardHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="QueryChildUserInfo">
       <wsdl:input message="tns:QueryChildUserInfoHttpGetIn" />
       <wsdl:output message="tns:QueryChildUserInfoHttpGetOut" />
@@ -2421,6 +2606,18 @@
     <wsdl:operation name="CheckAccountExist">
       <wsdl:input message="tns:CheckAccountExistHttpPostIn" />
       <wsdl:output message="tns:CheckAccountExistHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddUserBankCard">
+      <wsdl:input message="tns:AddUserBankCardHttpPostIn" />
+      <wsdl:output message="tns:AddUserBankCardHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserBankCardState">
+      <wsdl:input message="tns:SetUserBankCardStateHttpPostIn" />
+      <wsdl:output message="tns:SetUserBankCardStateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserBankCard">
+      <wsdl:input message="tns:GetUserBankCardHttpPostIn" />
+      <wsdl:output message="tns:GetUserBankCardHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="QueryChildUserInfo">
       <wsdl:input message="tns:QueryChildUserInfoHttpPostIn" />
@@ -2680,6 +2877,33 @@
     </wsdl:operation>
     <wsdl:operation name="CheckAccountExist">
       <soap:operation soapAction="http://tempuri.org/CheckAccountExist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUserBankCard">
+      <soap:operation soapAction="http://tempuri.org/AddUserBankCard" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserBankCardState">
+      <soap:operation soapAction="http://tempuri.org/SetUserBankCardState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserBankCard">
+      <soap:operation soapAction="http://tempuri.org/GetUserBankCard" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3005,6 +3229,33 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AddUserBankCard">
+      <soap12:operation soapAction="http://tempuri.org/AddUserBankCard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserBankCardState">
+      <soap12:operation soapAction="http://tempuri.org/SetUserBankCardState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserBankCard">
+      <soap12:operation soapAction="http://tempuri.org/GetUserBankCard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateUserInfo">
       <soap12:operation soapAction="http://tempuri.org/CreateUserInfo" style="document" />
       <wsdl:input>
@@ -3323,6 +3574,33 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AddUserBankCard">
+      <http:operation location="/AddUserBankCard" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserBankCardState">
+      <http:operation location="/SetUserBankCardState" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserBankCard">
+      <http:operation location="/GetUserBankCard" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="QueryChildUserInfo">
       <http:operation location="/QueryChildUserInfo" />
       <wsdl:input>
@@ -3616,6 +3894,33 @@
     </wsdl:operation>
     <wsdl:operation name="CheckAccountExist">
       <http:operation location="/CheckAccountExist" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUserBankCard">
+      <http:operation location="/AddUserBankCard" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserBankCardState">
+      <http:operation location="/SetUserBankCardState" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserBankCard">
+      <http:operation location="/GetUserBankCard" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
