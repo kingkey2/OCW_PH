@@ -512,6 +512,10 @@
         }
     }
 
+    function ReplaceSpace() {
+        $("#idLoginAccount").val($("#idLoginAccount").val().replace(/ /g, ''));
+    }
+
     function ChangeRegister(registertype) {
         $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_register" + registertype).addClass("active");
@@ -592,7 +596,7 @@
                         <div class="form-group mt-4">
                             <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
-                                <input id="idLoginAccount" name="" type="text" class="form-control custom-style"  language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內"  onblur="CheckLoginAccountExist()"/>
+                                <input id="idLoginAccount" name="" type="text" class="form-control custom-style"  language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" onkeyup="ReplaceSpace()"  onblur="CheckLoginAccountExist()"/>
                             </div>
                         </div>
                         <div class="form-row">
