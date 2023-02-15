@@ -34,7 +34,7 @@ public partial class SetWalletPassword : System.Web.UI.Page {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult GetLoginAccount(string PhonePrefix, string PhoneNumber)
+    public static EWin.Lobby.APIResult GetLoginAccount(string PhonePrefix, string PhoneNumber)
     {
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult()
         {
@@ -58,46 +58,43 @@ public partial class SetWalletPassword : System.Web.UI.Page {
         return R;
     }
 
-    //[WebMethod]
-    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public EWin.Lobby.APIResult SetWalletPasswordByValidateCode(string LoginAccount, int ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword)
-    //{
-    //    EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-    //    EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
-    //    RedisCache.SessionContext.SIDInfo SI;
-    //    SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
-    //    EWin.Lobby.APIResult R;
-    //    EWin.FANTA.APIResult R2;
-    //    string Token = GetToken();
-    //    if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
-    //    { 
-    //        R2 = fantaAPI.SetWalletPasswordByValidateCode(Token, LoginAccount, (EWin.FANTA.enumValidateType)ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public static EWin.Lobby.APIResult SetWalletPasswordByValidateCode(string LoginAccount, int ValidateType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ValidateCode, string NewPassword)
+    {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
+        EWin.Lobby.APIResult R;
+        EWin.FANTA.APIResult R2;
+        string Token = GetToken();
+        string GUID = Guid.NewGuid().ToString();
+        R2 = fantaAPI.SetWalletPasswordByValidateCode(Token, LoginAccount, (EWin.FANTA.enumValidateType)ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber, ValidateCode, NewPassword);
 
-    //        if (R2.ResultState == EWin.FANTA.enumResultState.OK)
-    //        {
-    //            R = lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, "IsSetWalletPassword", "true");
-    //        }
-    //        else
-    //        {
-    //            R = new EWin.Lobby.APIResult()
-    //            {
-    //                Result = EWin.Lobby.enumResult.ERR,
-    //                Message = R2.Message,
-    //                GUID = GUID
-    //            };
-    //        }
-    //    }
-    //    else
-    //    {
-    //        R = new EWin.Lobby.APIResult()
-    //        {
-    //            Result = EWin.Lobby.enumResult.ERR,
-    //            Message = "InvalidWebSID",
-    //            GUID = GUID
-    //        };
-    //    }
+            if (R2.ResultState == EWin.FANTA.enumResultState.OK)
+            {
+                R = lobbyAPI.SetUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, LoginAccount, "IsSetWalletPassword", "true");
+            }
+            else
+            {
+                R = new EWin.Lobby.APIResult()
+                {
+                    Result = EWin.Lobby.enumResult.ERR,
+                    Message = R2.Message,
+                    GUID = GUID
+                };
+            }
 
-    //    return R;
-    //}
+        return R;
+    }
 
+    private static string GetToken()
+    {
+        string Token;
+        int RValue;
+        Random R = new Random();
+        RValue = R.Next(100000, 9999999);
+        Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
+
+        return Token;
+    }
 }

@@ -82,5 +82,6 @@
   "電話已存在": "This phone number has already been used, please use another phone number, thank you!",
   "請輸入國碼": "Please enter the country code.",
   "請輸入電話": "Please enter the phone number.",
-  "提醒": "System Message"
+  "提醒": "System Message",
+  "電話格式有誤": "The phone format is incorrect."
 }

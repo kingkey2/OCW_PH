@@ -50,74 +50,6 @@
     var lang;
     var isSent = false;
     var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
-    var LoginAccount;
-    function transfer() {
-        let transOutVal = $("#idTransOut").val();
-        let retValue = true;
-        let wallet;
-        let walletPoint = 0;
-        wallet = EWinInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == "PHP");
-
-        if (wallet) {
-            if (wallet.PointValue > 0) {
-                walletPoint = wallet.PointValue;
-            } else {
-                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("轉帳金額不足!!"));
-                retValue = false;
-            }
-        } else {
-            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("無可用錢包!!"));
-            retValue = false;
-        }
-
-        if (transOutVal == "") {
-            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入轉出金額!!"));
-            retValue = false;
-        } else if (isNaN(transOutVal) == true) {
-            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("轉出金額輸入錯誤!!"));
-            retValue = false;
-        } else if (parseInt(transOutVal) < 0) {
-            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("轉出金額不可輸入負數!!"));
-            retValue = false;
-        } else if (parseInt(transOutVal) < 0) {
-            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("轉出金額不可輸入負數!!"));
-            retValue = false;
-        } else if (parseInt(transOutVal) > walletPoint) {
-            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("轉出金額超過可轉金額!!"));
-            retValue = false;
-        }
-
-        if (retValue) {
-            var postData = {
-                AID: EWinInfo.ASID,
-                CurrencyType: "PHP",
-                TransOutValue: transOutVal
-            };
-
-            window.parent.API_ShowLoading();
-            c.callService(ApiUrl + "/TransToGameAccount", postData, function (success, o) {
-                if (success) {
-                    var obj = c.getJSON(o);
-
-                    if (obj.Result == 0) {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("轉帳完成"), mlp.getLanguageKey("轉帳完成"), function () {
-                            window.parent.API_MainWindow('Main', 'home_Casino.aspx');
-                        });
-                    } else {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
-                    }
-                } else {
-                    if (o == "Timeout") {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
-                    } else {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
-                    }
-                }
-
-                window.parent.API_CloseLoading();
-            });
-        }
-    }
 
     function init() {
         EWinInfo = window.parent.EWinInfo;
@@ -217,7 +149,7 @@
                 var obj = c.getJSON(o);
 
                 if (obj.Result == 0) {
-                    LoginAccount = obj.Message;
+                   
                     p.SetUserMail(GUID, 1, 1, "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
                         if (success) {
                             if (o.Result == 0) {
@@ -306,22 +238,37 @@
         var EMail = '';
         var ValidateCode = validCode;
         var NewPassword = newPassword;
+ 
+        var postData = {
+            LoginAccount: EWinInfo.LoginAccount,
+            ValidateType: 1,
+            EMail: '',
+            ContactPhonePrefix: idPhonePrefix.value,
+            ContactPhoneNumber: idPhoneNumber.value,
+            ValidateCode, ValidateCode,
+            NewPassword: NewPassword
+        }
 
-
-        //c.callService(LobbyAPIUrl + "/SetUserPasswordByValidateCode", postObj, function (success, content) {
-        p.SetWalletPasswordByValidateCode(WebInfo.SID, GUID, ValidateType, EMail, idPhonePrefix.value, idPhoneNumber.value, ValidateCode, NewPassword, function (success, o) {
+        c.callService(ApiUrl + "/SetWalletPasswordByValidateCode", postData, function (success, o) {
             if (success) {
-                if (o.Result == 0) {
-                    window.parent.showMessageOK("", mlp.getLanguageKey("已成功修改密碼！"), function () {
-                        window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx', true);
-                    });
+                var obj = c.getJSON(o);
+
+                if (obj.Result == 0) {
+                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已成功修改密碼！"));
                 } else {
-                    window.parent.showMessageOK("", mlp.getLanguageKey("錯誤") + ":" + mlp.getLanguageKey(o.Message));
+                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
                 }
             } else {
-                window.parent.showMessageOK("", mlp.getLanguageKey("發送失敗，請重新發送"));
+                if (o == "Timeout") {
+                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                } else {
+                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                }
             }
+
+            window.parent.API_CloseLoading();
         });
+  
     }
 
     window.onload = init;
@@ -356,7 +303,7 @@
 
 
                         <div class="wrapper_center btn-group-lg" style="padding-bottom: 10px;">
-                            <button type="button" class="btn btn-full-main" onclick="btnSend()"><span class="language_replace">取得驗證碼</span></button>
+                            <button type="button" class="btn btn-full-main" id="btnSend" onclick="SendPhone()"><span class="language_replace">取得驗證碼</span></button>
                         </div>
 
                         <div class="form-group">
