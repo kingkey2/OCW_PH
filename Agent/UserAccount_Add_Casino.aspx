@@ -234,6 +234,9 @@
         if (el.value.trim() != "") {
             document.getElementsByClassName("icon-loading")[0].style.display = "";
         }
+
+        $("#LoginAccount").val(el.value.replace(/ /g, ''));
+
         timerChkUserAccount = window.setTimeout(function () {
             if (el.value.trim() != "") {
 
