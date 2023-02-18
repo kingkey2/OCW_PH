@@ -76,5 +76,6 @@
   "SMSNumberNotExist": "Phone number not exist.",
   "NormalizeError": "The phone format is incorrect.",
   "設定錢包密碼": "Set wallet password",
-  "設定出款卡": "Set bank card"
+  "設定出款卡": "Set bank card",
+  "出款紀錄": "Payment history"
 }

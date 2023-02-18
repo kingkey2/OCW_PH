@@ -308,7 +308,7 @@
 
             bankcarddata = bankData.find(w => w.BankCardGUID == $("#idSelectGCashAccount").val());
         } else if (paymentMethod == 'BANK') {
-            paymentCode = ".Withdrawal.Gcash";
+            paymentCode = ".Withdrawal.BANK";
             if ($('#idSelectBankCard').val() == "-1") {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇出款卡"), function () { });
                 return;
@@ -316,7 +316,7 @@
 
             bankcarddata = bankData.find(w => w.BankCardGUID == $("#idSelectBankCard").val());
         } else {
-            paymentCode = ".Withdrawal.BANK";
+            paymentCode = "";
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇出款卡"), function () { });
             return;
         }

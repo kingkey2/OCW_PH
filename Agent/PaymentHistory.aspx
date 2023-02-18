@@ -200,21 +200,18 @@
 
                 paymentRecordStatus = 0;
                 paymentRecordText = mlp.getLanguageKey('進行中');
-          
-                // 0=一般/1=銀行卡/2=區塊鏈
-                switch (record.BasicType) {
-                    case 0:
-                        BasicType = mlp.getLanguageKey('一般');
-                        break;
-                    case 1:
-                        BasicType = mlp.getLanguageKey('銀行卡');
-                        break;
-                    case 2:
-                        BasicType = mlp.getLanguageKey('區塊鏈');
-                        break;
-                    default:
-                }
 
+                var splitPaymentMethodName = record.PaymentMethodName.split('.');
+                if (splitPaymentMethodName.length == 2) {
+                    if (splitPaymentMethodName[1] == 'BANK') {
+                        BasicType = mlp.getLanguageKey('銀行卡');
+                    } else {
+                        BasicType = mlp.getLanguageKey('GCash');
+                    }
+                } else {
+                    BasicType = mlp.getLanguageKey('區塊鏈');
+                }
+           
                 if (record.PaymentType == 0) {
                     Amount = record.Amount;
                 } else {
@@ -236,7 +233,7 @@
                 c.setClassText(RecordDom, "BasicType", null, BasicType);
                 c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
 
-                idList.appendChild(t);
+                idList.appendChild(RecordDom);
             }
         }
 
@@ -269,18 +266,16 @@
                             break;
                     }
 
-                    // 0=一般/1=銀行卡/2=區塊鏈
-                    switch (record.BasicType) {
-                        case 0:
-                            BasicType = mlp.getLanguageKey('一般');
-                            break;
-                        case 1:
+
+                    var splitPaymentMethodName = record.PaymentMethodName.split('.');
+                    if (splitPaymentMethodName.length == 2) {
+                        if (splitPaymentMethodName[1] == 'Bank') {
                             BasicType = mlp.getLanguageKey('銀行卡');
-                            break;
-                        case 2:
-                            BasicType = mlp.getLanguageKey('區塊鏈');
-                            break;
-                        default:
+                        } else {
+                            BasicType = mlp.getLanguageKey('GCash');
+                        }
+                    } else {
+                        BasicType = mlp.getLanguageKey('區塊鏈');
                     }
 
                     if (record.PaymentType == 0) {
@@ -304,12 +299,8 @@
                     c.setClassText(RecordDom, "BasicType", null, BasicType);
                     c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
 
-                    c.setClassText(RecordDom_M, "PaymentStatus", null, paymentRecordText);
-                    c.setClassText(RecordDom_M, "FinishDate", null, record.FinishDate);
-                    c.setClassText(RecordDom_M, "BasicType", null, BasicType);
-                    c.setClassText(RecordDom_M, "PaymentSerial", null, record.PaymentSerial);
 
-                    idList.appendChild(t);
+                idList.appendChild(RecordDom);
             }
         }
  
@@ -540,7 +531,7 @@
                             </div>
                             <div class="tbody__td td-3 nonTitle">
                                 <span class="td__title"><span class="language_replace">金額</span></span>
-                                <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="Amount"></span></span>
+                                <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="amount"></span></span>
                             </div>
                        
                              <div class="tbody__td td-3 nonTitle">
