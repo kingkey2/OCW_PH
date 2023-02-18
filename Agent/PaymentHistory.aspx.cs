@@ -54,7 +54,10 @@ public partial class PaymentHistory : System.Web.UI.Page {
                     var Row = DT.Rows[i];
                     PaymentCommonData data = CovertFromRow(Row);
 
-                    R.NotFinishDatas.Add(data);
+                    if (StartDate<= DateTime.Parse(data.CreateDate)&& DateTime.Parse(data.CreateDate) <= EndDate)
+                    {
+                        R.NotFinishDatas.Add(data);
+                    }
                 }
             }
 

@@ -15,5 +15,12 @@
   "金額": "Amount",
   "訂單編號": "No.",
   "出款類型": "Payment",
-  "訂單狀態": "Status"
+  "訂單狀態": "Status",
+  "完成": "Completed",
+  "主動取消": "Cancelled",
+  "審核拒絕": "Reject",
+  "一般": "Bank Transfer",
+  "銀行卡": "Bank Transfer",
+  "區塊鏈": "Blockchain",
+  "進行中": "Processing"
 }
