@@ -11,11 +11,16 @@ using System.Text.RegularExpressions;
 public partial class UserAccountAgent_Maint2_Casino : System.Web.UI.Page {
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.SpriteAgent.UserAccountSummaryResult GetUserAccountSummary(string AID, string LoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType) {
+    public static EWin.SpriteAgent.GroupAgentResult GetUserAccountSummary(string AID, int TargetUserAccountID, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType, int Page) {
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
-        EWin.SpriteAgent.UserAccountSummaryResult RetValue = new EWin.SpriteAgent.UserAccountSummaryResult();
-//       RetValue = api.GetUserAccountSummary_Agent(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType);
+        return api.GetGroupAgent(AID, TargetUserAccountID, QueryBeginDate, QueryEndDate, CurrencyType, Page);
+    }
 
-        return RetValue;
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public static EWin.SpriteAgent.GroupAgentResult GetUserAccountSummaryBySearch(string AID, string TargetLoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType)
+    {
+        EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
+        return api.GetGroupBySearch(AID, TargetLoginAccount, QueryBeginDate, QueryEndDate, CurrencyType);
     }
 }

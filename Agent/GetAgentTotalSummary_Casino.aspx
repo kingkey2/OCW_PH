@@ -109,16 +109,22 @@
     var startDate;
     var endDate;
     var currencyType = "";
-    //var hasDataExpand;
+    var basicInsideLevel;
+    var basicSortKey;    
 
-    function agentExpand(SortKey) {
+    function agentExpand(SortKey, UserAccountID) {
         var expandBtn = event.currentTarget;
         if (expandBtn) {
             var exists = !(expandBtn.classList.toggle("agentPlus"));
             if (exists) {
-                //s
+                var isLoaded = expandBtn.dataset.isloaded;
                 expandBtn.innerText = "-";
-                checkParentLoginAccountExists(SortKey)
+
+                if (isLoaded == "Y") {
+                    checkParentLoginAccountExists(SortKey);
+                } else {
+                    queryData(UserAccountID, expandBtn.parentElement.parentElement.parentElement);
+                }
             } else {
                 //c
                 expandBtn.innerText = "+";
@@ -192,6 +198,14 @@
         }
     }
 
+    function moreBtnClick(userAccountID) {
+        var targetBtn = event.currentTarget;
+        var targetDom = targetBtn.parentElement.parentElement;
+        //var page = Number(targetBtn.dataset.page);
+        //queryData(userAccountID, (page + 1), targetDom);
+    }
+
+
     function querySelfData() {
         var currencyTypeDom = "";
 
@@ -210,17 +224,30 @@
             }
         }
 
-        queryData();
+
+        if (loginAccount.value.trim() != '') {
+            querySearchData(loginAccount.value);
+        } else {
+            queryData(0, null);
+        }    
     }
 
-    function queryData() {
+    function queryData(targetUserAccountID, targetDom) {
         if (currencyType != "") {
+            var UserAccountID;
+
+            if (targetUserAccountID) {
+                UserAccountID = targetUserAccountID;
+            } else {
+                UserAccountID = 0;
+            }
+
             var postData = {
                 AID: EWinInfo.ASID,
-                LoginAccount: loginAccount.value,
+                TargetUserAccountID: UserAccountID,
                 QueryBeginDate: startDate.value,
                 QueryEndDate: endDate.value,
-                CurrencyType: currencyType
+                CurrencyType: currencyType,
             };
 
             if (new Date(postData.QueryBeginDate) <= new Date(postData.QueryEndDate)) {
@@ -231,7 +258,7 @@
                         var obj = c.getJSON(o);
 
                         if (obj.Result == 0) {
-                            updateList(obj);
+                            updateList(obj, UserAccountID, targetDom);
                         } else {
 
                             window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
@@ -255,24 +282,103 @@
         }
     }
 
-    function updateList(o) {
+    function querySearchData(LoginAccount) {
+        if (currencyType != "") {
+            var postData = {
+                AID: EWinInfo.ASID,
+                TargetLoginAccount: LoginAccount,
+                QueryBeginDate: startDate.value,
+                QueryEndDate: endDate.value,
+                CurrencyType: currencyType
+            };
+
+            if (new Date(postData.QueryBeginDate) <= new Date(postData.QueryEndDate)) {
+
+                window.parent.API_ShowLoading();
+                c.callService(ApiUrl + "/GetAgentTotalOrderSummaryBySearch", postData, function (success, o) {
+                    if (success) {
+                        var obj = c.getJSON(o);
+
+                        if (obj.Result == 0) {
+                            updateSearchList(obj);
+                        } else {
+
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                        }
+                    } else {
+                        if (o == "Timeout") {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                        } else {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                        }
+                    }
+
+                    window.parent.API_CloseLoading();
+                });
+            } else {
+                window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("結束日期不可小於起起始日期"));
+            }
+        }
+        else {
+            window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("請至少選擇一個幣別!!"));
+        }
+    }
+
+    function updateList(o, userAccountID, targetDom) {
         var idList = document.getElementById("idList");
 
-        c.clearChildren(idList);
-        //expandDiv.style.display = "none";
+        if (userAccountID == 0) {
+            basicInsideLevel = o.SelfInsideLevel;
+            basicSortKey = o.SelfSortKey;
+        }
+
+        var moreBtnRowDom;
+        var moreBtnDom;
 
         if (o.SummaryList && o.SummaryList.length > 0) {
+            if (targetDom) {
+                //page == 1 =>  targetDom =加號按鈕的Row
+                moreBtnRowDom = c.getTemplate("templateMoreRow");
+                moreBtnDom = moreBtnRowDom.querySelector(".moreBtn");
+                moreBtnDom.dataset.page = "1";
+                moreBtnDom.onclick = new Function("moreBtnClick('" + userAccountID + "')");
+                moreBtnDom.style.marginLeft = ((o.SelfInsideLevel + 1) * 20) + "px";
+                idList.insertBefore(moreBtnRowDom, targetDom.nextSibling);
+
+                targetDom.querySelector(".Expand").dataset.isloaded = "Y";
+
+       
+                moreBtnRowDom.style.display = "none";
+           
+
+
+            } else {
+
+                //初始化
+                c.clearChildren(idList);
+
+                moreBtnRowDom = c.getTemplate("templateMoreRow");
+                moreBtnDom = moreBtnRowDom.querySelector(".moreBtn");
+                moreBtnDom.dataset.page = "1";
+                moreBtnDom.onclick = new Function("moreBtnClick('" + userAccountID + "')");
+                moreBtnDom.style.marginLeft = ((o.SelfInsideLevel + 1) * 20) + "px";
+                idList.appendChild(moreBtnRowDom);
+                moreBtnRowDom.style.display = "none";
+            }
+
+
             document.getElementById("idResultTable").classList.remove("MT_tableDiv__hasNoData");
             idList.classList.remove("tbody__hasNoData");
             //expandDiv.style.display = "block";
             for (var i = 0; i < o.SummaryList.length; i++) {
                 var item = o.SummaryList[i];
+                var DealUserAccountInsideLevel = item.UserAccountInsideLevel - basicInsideLevel;
+                var DealUserAccountSortKey = item.UserAccountSortKey.substring(basicSortKey.length);
                 var t = c.getTemplate("templateTableItem");
                 var expandBtn;
-                var parentSortKey = "";
                 c.setClassText(t, "LoginAccount", null, item.LoginAccount);
                 c.setClassText(t, "ParentLoginAccount", null, item.ParentLoginAccount);
-                c.setClassText(t, "InsideLevel", null, item.DealUserAccountInsideLevel);
+                c.setClassText(t, "InsideLevel", null, DealUserAccountInsideLevel);
                 c.setClassText(t, "CurrencyType", null, item.CurrencyType);
 
                 if (parseFloat(item.TotalRewardValue) < 0) {
@@ -300,92 +406,158 @@
                 c.setClassText(t, "SelfOrderCount", null, c.toCurrency(item.SelfOrderCount));
 
                 expandBtn = t.querySelector(".Expand");
-                t.querySelector(".Space").style.paddingLeft = ((item.DealUserAccountInsideLevel - 1) * 20) + "px";
+                t.querySelector(".Space").style.paddingLeft = ((DealUserAccountInsideLevel - 1) * 20) + "px";
 
 
                 if (item.HasChild) {
-                    expandBtn.onclick = new Function("agentExpand('" + item.DealUserAccountSortKey + "')");
+                    expandBtn.onclick = new Function("agentExpand('" + DealUserAccountSortKey + "', " + item.UserAccountID.toString() + ")");
                     expandBtn.classList.add("agentPlus");
+                    expandBtn.dataset.isloaded = "N";
                 } else {
                     expandBtn.style.display = "none";
                     t.querySelector(".noChild").style.display = "inline-block";
                 }
 
-                if (item.DealUserAccountInsideLevel != 1) {
-                    if (item.DealUserAccountInsideLevel % 2 == 0) {
+                if (DealUserAccountInsideLevel != 1) {
+                    if (DealUserAccountInsideLevel % 2 == 0) {
                         t.classList.add("switch_tr");
                     }
 
-                    for (var ii = 1; ii < (item.DealUserAccountSortKey.length / 6) - 1; ii++) {
-                        var tempClass = item.DealUserAccountSortKey.substring(0, (ii + 1) * 6);
+
+                    for (var ii = 1; ii < (DealUserAccountSortKey.length / 6); ii++) {
+                        var tempClass = DealUserAccountSortKey.substring(0, ii * 6);
                         t.classList.add("row_c_" + tempClass);
 
-                        if (ii == ((item.DealUserAccountSortKey.length / 6) - 2)) {
+                        if (ii == ((DealUserAccountSortKey.length / 6) - 1)) {
                             parentSortKey = tempClass;
                             t.classList.add("row_s_" + tempClass);
                         }
                     }
 
                     t.classList.add("row_child");
-                    t.style.display = "none";
                 } else {
                     t.classList.add("row_top");
                 }
 
-                //有搜尋的結果處理
-                if (o.SearchLoginAccount) {
+                idList.insertBefore(t, moreBtnRowDom);
+            }
+        } else {
+            if (!targetDom) {               
+                var div = document.createElement("DIV");
 
-                    if (item.IsTarget) {
-                        t.style.display = "table-row";
-                        t.classList.add("searchTarget");
+                div.id = "hasNoData_DIV"
+                div.innerHTML = mlp.getLanguageKey("無數據");
+                div.classList.add("td__content", "td__hasNoData");
+                document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
+                idList.classList.add("tbody__hasNoData");
+                idList.appendChild(div);
+                window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("無數據"));
+            }           
+        }
+    }
 
-                        for (var ii = 0; ii < o.SearchParentSortKeys.length; ii++) {
-                            if (o.SearchParentSortKeys[ii] == item.DealUserAccountSortKey) {
-                                expandBtn.classList.remove("agentPlus");
-                                expandBtn.innerText = "-";
+    function updateSearchList(o) {
+        var idList = document.getElementById("idList");
+        c.clearChildren(idList);
 
-                                break;
-                            }
-                        }
-                    } else {
-                        if (o.SearchParentSortKeys && o.SearchParentSortKeys.length > 0) {
-                            for (var ii = 0; ii < o.SearchParentSortKeys.length; ii++) {
-                                var isParent = false;
+        if (o.SummaryList && o.SummaryList.length > 0) {  
+            document.getElementById("idResultTable").classList.remove("MT_tableDiv__hasNoData");
+            idList.classList.remove("tbody__hasNoData");
+            //expandDiv.style.display = "block";
+            for (var i = 0; i < o.SummaryList.length; i++) {
+                var item = o.SummaryList[i];
 
-                                switch (o.SearchParentSortKeys[ii]) {
-                                    case parentSortKey:
-                                        t.style.display = "table-row";
-                                        break;
-                                    case item.DealUserAccountSortKey:
-                                        isParent = true;
-                                        t.style.display = "table-row";
-                                        expandBtn.classList.remove("agentPlus");
-                                        expandBtn.innerText = "-";
-                                        break;
-                                    default:
-                                }
-
-                                if (isParent)
-                                    break;
-                            }
-                        }
-                    }
+                if (item.UserAccountSortKey == o.TopSortKey) {
+                    continue;
                 }
 
+                var DealUserAccountInsideLevel = item.UserAccountInsideLevel - o.TopInsideLevel;
+                var DealUserAccountSortKey = item.UserAccountSortKey.substring(o.TopSortKey.length);
+                var t = c.getTemplate("templateTableItem");
+                var expandBtn;
+                c.setClassText(t, "LoginAccount", null, item.LoginAccount);
+                c.setClassText(t, "ParentLoginAccount", null, item.ParentLoginAccount);
+                c.setClassText(t, "InsideLevel", null, DealUserAccountInsideLevel);
+                c.setClassText(t, "CurrencyType", null, item.CurrencyType);
+
+                if (parseFloat(item.TotalRewardValue) < 0) {
+                    t.getElementsByClassName("RewardValue")[0].classList.add("num-negative");
+                }
+                c.setClassText(t, "RewardValue", null, c.toCurrency(item.RewardValue));
+
+                if (parseFloat(item.TotalValidBetValue) < 0) {
+                    t.getElementsByClassName("ValidBetValue")[0].classList.add("num-negative");
+                }
+                c.setClassText(t, "ValidBetValue", null, c.toCurrency(item.ValidBetValue));
+
+                c.setClassText(t, "OrderCount", null, c.toCurrency(item.OrderCount));
+
+                if (parseFloat(item.RewardValue) < 0) {
+                    t.getElementsByClassName("SelfRewardValue")[0].classList.add("num-negative");
+                }
+                c.setClassText(t, "SelfRewardValue", null, c.toCurrency(item.SelfRewardValue));
+
+                if (parseFloat(item.ValidBetValue) < 0) {
+                    t.getElementsByClassName("SelfValidBetValue")[0].classList.add("num-negative");
+                }
+                c.setClassText(t, "SelfValidBetValue", null, c.toCurrency(item.SelfValidBetValue));
+
+                c.setClassText(t, "SelfOrderCount", null, c.toCurrency(item.SelfOrderCount));
+
+                expandBtn = t.querySelector(".Expand");
+                t.querySelector(".Space").style.paddingLeft = ((DealUserAccountInsideLevel - 1) * 20) + "px";
+
+
+                if (item.HasChild) {
+                    expandBtn.onclick = new Function("agentExpand('" + DealUserAccountSortKey + "', " + item.UserAccountID.toString() + ")");
+                    expandBtn.innerText = "-";
+                    expandBtn.dataset.isloaded = "Y";
+                } else {
+                    expandBtn.style.display = "none";
+                    t.querySelector(".noChild").style.display = "inline-block";
+                }
+
+                if (DealUserAccountInsideLevel != 1) {
+                    if (DealUserAccountInsideLevel % 2 == 0) {
+                        t.classList.add("switch_tr");
+                    }
+
+
+                    for (var ii = 1; ii < (DealUserAccountSortKey.length / 6); ii++) {
+                        var tempClass = DealUserAccountSortKey.substring(0, ii * 6);
+                        t.classList.add("row_c_" + tempClass);
+
+                        if (ii == ((DealUserAccountSortKey.length / 6) - 1)) {
+                            parentSortKey = tempClass;
+                            t.classList.add("row_s_" + tempClass);
+                        }
+                    }
+
+                    t.classList.add("row_child");
+                } else {
+                    t.classList.add("row_top");
+                }
+
+
+                if (item.UserAccountSortKey == o.SelfSortKey) {
+                    t.style.display = "table-row";
+                    t.classList.add("searchTarget");
+                } 
 
                 idList.appendChild(t);
             }
         } else {
-            var div = document.createElement("DIV");
+            if (!targetDom) {
+                var div = document.createElement("DIV");
 
-            div.id = "hasNoData_DIV"
-            div.innerHTML = mlp.getLanguageKey("無數據");
-            div.classList.add("td__content", "td__hasNoData");
-            document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
-            idList.classList.add("tbody__hasNoData");
-            idList.appendChild(div);
-
-            window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("無數據"));
+                div.id = "hasNoData_DIV"
+                div.innerHTML = mlp.getLanguageKey("無數據");
+                div.classList.add("td__content", "td__hasNoData");
+                document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
+                idList.classList.add("tbody__hasNoData");
+                idList.appendChild(div);
+                window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("無數據"));
+            }
         }
     }
 
@@ -601,13 +773,6 @@
 
                             </div>
 
-                            <div id="expandDiv" class="col-12 col-md-3 col-lg-1 col-xl-1">
-                                <div class="form-group wrapper_center row">
-                                    <button class="btn2 btn-outline-main language_replace col-6 col-md-12 col-lg-12" onclick="toggleAllRow(true)">展開</button>
-                                    <button class="btn2 btn-outline-main language_replace col-6 col-md-12 col-lg-12" onclick="toggleAllRow(false)">收合</button>
-                                </div>
-                            </div>
-
                             <div class="col-12 col-md-12 col-lg-5 col-xl-6">
                                 <div id="idTabMainContent">
                                     <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
@@ -738,6 +903,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div id="templateMoreRow" style="display: none;">
+                   <div class="tbody__tr td-non-underline-last-2">
+                            <div class="tbody__td date td-100 nonTitle expand_tr">
+                                  <button class="moreBtn btn2 btn-outline-main language_replace">更多</button>
+                            </div>                           
+                        </div>
         </div>
     </main>
 </body>

@@ -570,6 +570,8 @@
               <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SelfSortKey" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="SelfInsideLevel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TopSortKey" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TopInsideLevel" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="Page" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="DataCount" type="s:int" />
@@ -648,6 +650,8 @@
               <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SelfSortKey" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="SelfInsideLevel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TopSortKey" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TopInsideLevel" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfOrderSummary" />
               <s:element minOccurs="1" maxOccurs="1" name="HasNextPage" type="s:boolean" />
@@ -722,6 +726,8 @@
               <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SelfSortKey" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="SelfInsideLevel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TopSortKey" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TopInsideLevel" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfDepositeSummary" />
             </s:sequence>

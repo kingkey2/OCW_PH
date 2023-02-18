@@ -12,7 +12,7 @@ public partial class GetAgentAccountingDetail_Casino : System.Web.UI.Page {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.SpriteAgent.AgentAccountingDetailResult GetAgentAccountingDetail(string AID, string CurrencyType, int AccountingID, string StartDate, string EndDate,string LoginAccount) {
+    public static EWin.SpriteAgent.AgentAccountingDetailResult GetAgentAccountingDetail(string AID, string CurrencyType, int AccountingID, string LoginAccount) {
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
         EWin.SpriteAgent.AgentAccountingDetailResult RetValue = new EWin.SpriteAgent.AgentAccountingDetailResult();
         string RedisTmp = string.Empty;
