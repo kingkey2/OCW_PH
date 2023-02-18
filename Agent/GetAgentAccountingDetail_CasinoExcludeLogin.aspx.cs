@@ -12,7 +12,7 @@ public partial class GetAgentAccountingDetail_CasinoExcludeLogin : System.Web.UI
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.SpriteAgent.AgentAccountingDetailResult GetAgentAccountingDetail(int AccountingID, string StartDate, string EndDate,string LoginAccount) {
+    public static EWin.SpriteAgent.AgentAccountingDetailResult GetAgentAccountingDetail(int AccountingID, string LoginAccount) {
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
         EWin.SpriteAgent.AgentAccountingDetailResult RetValue = new EWin.SpriteAgent.AgentAccountingDetailResult();
         string RedisTmp = string.Empty;
@@ -20,7 +20,7 @@ public partial class GetAgentAccountingDetail_CasinoExcludeLogin : System.Web.UI
         RedisTmp = RedisCache.Agent.GetAccountDetailByLoginAccount(LoginAccount, AccountingID);
 
         if (string.IsNullOrEmpty(RedisTmp)) {
-            RetValue = api.GetAgentAccountingDetailExcludeLogin(EWinWeb.CompanyCode, LoginAccount, EWinWeb.MainCurrencyType, AccountingID, StartDate, EndDate);
+            RetValue = api.GetAgentAccountingDetailExcludeLogin(EWinWeb.CompanyCode, LoginAccount, EWinWeb.MainCurrencyType, AccountingID);
 
             RedisCache.Agent.UpdateAccountDetailByLoginAccount(Newtonsoft.Json.JsonConvert.SerializeObject(RetValue), LoginAccount, AccountingID);
         } else {

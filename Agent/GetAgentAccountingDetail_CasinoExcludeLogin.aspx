@@ -53,8 +53,6 @@
 
         postData = {
             AccountingID: accountingID,
-            StartDate: StartDate,
-            EndDate: EndDate,
             LoginAccount: LoginAccount
         };
 

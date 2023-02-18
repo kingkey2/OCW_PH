@@ -10,14 +10,27 @@ using System.Text.RegularExpressions;
 
 public partial class GetAgentTotalDepositeSummary_Casino : System.Web.UI.Page
 {
-    //[WebMethod]
-    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public static EWin.SpriteAgent.AgentTotalSummaryResult GetAgentTotalOrderSummary(string AID, string LoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType) {
-    //    EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
-    //    EWin.SpriteAgent.AgentTotalSummaryResult RetValue = new EWin.SpriteAgent.AgentTotalSummaryResult();
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public static EWin.SpriteAgent.DepositeSummaryResult GetAgentTotalDepositeSummary(string AID, int TargetUserAccountID, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType)
+    {
+        EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
+        EWin.SpriteAgent.DepositeSummaryResult RetValue = new EWin.SpriteAgent.DepositeSummaryResult();
 
-    //    RetValue = api.GetAgentTotalOrderDepositeSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType);
+        RetValue = api.GetAgentTotalDepositeSummary(AID, TargetUserAccountID, QueryBeginDate, QueryEndDate, CurrencyType);
+        return RetValue;
+    }
 
-    //    return RetValue;
-    //}
+    
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public static EWin.SpriteAgent.DepositeSummaryResult GetAgentTotalDepositeSummaryBySearch(string AID, string TargetLoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType)
+    {
+        EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
+        EWin.SpriteAgent.DepositeSummaryResult RetValue = new EWin.SpriteAgent.DepositeSummaryResult();
+
+        RetValue = api.GetSearchAgentTotalDepositSummary(AID, TargetLoginAccount, QueryBeginDate, QueryEndDate, CurrencyType);
+
+        return RetValue;
+    }
 }

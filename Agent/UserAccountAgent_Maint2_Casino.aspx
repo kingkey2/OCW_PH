@@ -109,16 +109,22 @@
     var startDate;
     var endDate;
     var currencyType = "";
-    //var hasDataExpand;
+    var basicInsideLevel;
+    var basicSortKey;    
 
-    function agentExpand(SortKey) {
+    function agentExpand(SortKey, UserAccountID) {
         var expandBtn = event.currentTarget;
         if (expandBtn) {
             var exists = !(expandBtn.classList.toggle("agentPlus"));
             if (exists) {
-                //s
+                var isLoaded = expandBtn.dataset.isloaded;
                 expandBtn.innerText = "-";
-                checkParentLoginAccountExists(SortKey)
+
+                if (isLoaded == "Y") {
+                    checkParentLoginAccountExists(SortKey);
+                } else {
+                    queryData(UserAccountID, 1, expandBtn.parentElement.parentElement.parentElement);
+                }                
             } else {
                 //c
                 expandBtn.innerText = "+";
@@ -149,52 +155,14 @@
         }
     }
 
-    function toggleAllRow(isExpand) {
-        var doms = document.querySelectorAll(".row_child");
-        for (var i = 0; i < doms.length; i++) {
-            var dom = doms[i];
-            var btn = dom.querySelector('.Expand');
-
-            if (isExpand) {
-                dom.style.display = "table-row";
-
-                if (btn) {
-                    btn.classList.remove("agentPlus");
-                    btn.innerText = "-";
-                }
-            } else {
-                dom.style.display = "none";
-
-                if (btn) {
-                    btn.classList.add("agentPlus");
-                    btn.innerText = "+";
-                }
-            }
-        }
-
-        doms = document.querySelectorAll(".row_top");
-
-        for (var i = 0; i < doms.length; i++) {
-            var dom = doms[i];
-            var btn = dom.querySelector('.Expand');
-
-            if (isExpand) {
-                if (btn) {
-                    btn.classList.remove("agentPlus");
-                    btn.innerText = "-";
-                }
-            } else {
-                if (btn) {
-                    btn.classList.add("agentPlus");
-                    btn.innerText = "+";
-                }
-            }
-        }
+    function moreBtnClick(userAccountID) {
+        var targetBtn = event.currentTarget;
+        var targetDom = targetBtn.parentElement.parentElement;
+        var page = Number(targetBtn.dataset.page);
+        queryData(userAccountID, (page + 1), targetDom);
     }
 
-    function querySelfData() {
-        var currencyTypeDom = "";
-
+    function querySelfData() {       
         startDate = document.getElementById("startDate");
         endDate = document.getElementById("endDate");
         currencyTypeDom = document.getElementsByName("chkCurrencyType");
@@ -210,34 +178,46 @@
             }
         }
 
-        queryData();
+        if (loginAccount.value.trim() != '') {
+           querySearchData(loginAccount.value);
+        } else {
+            queryData(0, 1, null);
+        }        
     }
 
-    function queryData() {
+    function queryData(targetUserAccountID, page, targetDom) {
         if (currencyType != "") {
             var LoginAccount = "";
+            var UserAccountID;
 
             if (loginAccount.value.trim() != '') {
                 LoginAccount = loginAccount.value;
             }
 
+            if (targetUserAccountID) {
+                UserAccountID = targetUserAccountID;
+            } else {
+                UserAccountID = 0;
+            }
+
             var postData = {
                 AID: EWinInfo.ASID,
-                LoginAccount: LoginAccount,
+                TargetUserAccountID: UserAccountID,
                 QueryBeginDate: startDate.value,
                 QueryEndDate: endDate.value,
-                CurrencyType: currencyType
+                CurrencyType: currencyType,
+                Page: page
             };
 
             if (new Date(postData.QueryBeginDate) <= new Date(postData.QueryEndDate)) {
 
                 window.parent.API_ShowLoading();
-                callService(ApiUrl + "/GetUserAccountSummary", postData, function (success, o) {
+                c.callService(ApiUrl + "/GetUserAccountSummary", postData, function (success, o) {
                     if (success) {
                         var obj = c.getJSON(o);
 
                         if (obj.Result == 0) {
-                            updateList(obj);
+                            updateList(obj, UserAccountID, page, targetDom);
                         } else {
 
                             window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
@@ -261,61 +241,125 @@
         }
     }
 
-    function callService(URL, postObject, cb) {
-        var xmlHttp = new XMLHttpRequest;
-        var postData;
+    function querySearchData(LoginAccount) {
+        if (currencyType != "") {
+            var postData = {
+                AID: EWinInfo.ASID,
+                TargetLoginAccount: LoginAccount,
+                QueryBeginDate: startDate.value,
+                QueryEndDate: endDate.value,
+                CurrencyType: currencyType
+            };
 
-        if (postObject)
-            postData = JSON.stringify(postObject);
+            if (new Date(postData.QueryBeginDate) <= new Date(postData.QueryEndDate)) {
 
-        xmlHttp.open("POST", URL, true);
-        xmlHttp.onreadystatechange = function () {
-            if (this.readyState == 4) {
-                var contentText = this.responseText;
+                window.parent.API_ShowLoading();
+                c.callService(ApiUrl + "/GetUserAccountSummaryBySearch", postData, function (success, o) {
+                    if (success) {
+                        var obj = c.getJSON(o);
 
-                if (this.status == "200") {
-                    if (cb) {
-                        cb(true, contentText);
+                        if (obj.Result == 0) {
+                            updateSearchList(obj);
+                        } else {
+
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                        }
+                    } else {
+                        if (o == "Timeout") {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                        } else {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                        }
                     }
-                } else {
-                    cb(false, contentText);
-                }
+
+                    window.parent.API_CloseLoading();
+                });
+            } else {
+                window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("結束日期不可小於起起始日期"));
             }
-        };
+        }
+        else {
+            window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("請至少選擇一個幣別!!"));
+        }
+    }
 
-        xmlHttp.timeout = 300000;  // 30s
-        xmlHttp.ontimeout = function () {
-            if (cb)
-                cb(false, "Timeout");
-        };
-
-        xmlHttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-        xmlHttp.send(postData);
-    };
-
-    function updateList(o) {
+    function updateList(o, userAccountID, page, targetDom) {
         var idList = document.getElementById("idList");
+        if (userAccountID == 0) {
+            basicInsideLevel = o.SelfInsideLevel;
+            basicSortKey = o.SelfSortKey;
+        }
+      
+        var moreBtnRowDom;
+        var moreBtnDom;
 
-        c.clearChildren(idList);
+
         //expandDiv.style.display = "none";
 
         if (o.SummaryList && o.SummaryList.length > 0) {
+            if (targetDom) {
+                if (page == 1) {
+                    //page == 1 =>  targetDom =加號按鈕的Row
+                    moreBtnRowDom = c.getTemplate("templateMoreRow");
+                    moreBtnDom = moreBtnRowDom.querySelector(".moreBtn");
+                    moreBtnDom.dataset.page = "1";
+                    moreBtnDom.onclick = new Function("moreBtnClick('" + userAccountID + "')");
+                    moreBtnDom.style.marginLeft = ((o.SelfInsideLevel + 1) * 20) + "px";
+                    idList.insertBefore(moreBtnRowDom, targetDom.nextSibling);
+
+                    targetDom.querySelector(".Expand").dataset.isloaded = "Y";
+
+                    if (o.SummaryList.length < 20) {
+                        moreBtnRowDom.style.display = "none";
+                    }
+                } else {
+                    // page > 1 => targetDom = more按鈕的Row
+                    moreBtnRowDom = targetDom;
+                    moreBtnDom = targetDom.querySelector(".moreBtn");
+                    if (o.SummaryList.length < 20) {
+                        moreBtnRowDom.style.display = "none";
+                    } else {
+                        moreBtnDom.dataset.page = page.toString();
+                    }
+                }
+
+
+            } else {
+
+                //初始化
+                c.clearChildren(idList);
+
+                moreBtnRowDom = c.getTemplate("templateMoreRow");
+                moreBtnDom = moreBtnRowDom.querySelector(".moreBtn");
+                moreBtnDom.dataset.page = "1";
+                moreBtnDom.onclick = new Function("moreBtnClick('" + userAccountID + "')");
+                moreBtnDom.style.marginLeft = ((o.SelfInsideLevel + 1) * 20) + "px";
+                idList.appendChild(moreBtnRowDom);
+
+                if (o.SummaryList.length < 20) {
+                    moreBtnRowDom.style.display = "none";
+                }
+            }
+
+
             document.getElementById("idResultTable").classList.remove("MT_tableDiv__hasNoData");
             idList.classList.remove("tbody__hasNoData");
             //expandDiv.style.display = "block";
             for (var i = 0; i < o.SummaryList.length; i++) {
                 var item = o.SummaryList[i];
+                var DealUserAccountInsideLevel = item.UserAccountInsideLevel - basicInsideLevel;
+                var DealUserAccountSortKey = item.UserAccountSortKey.substring(basicSortKey.length);
                 var t = c.getTemplate("templateTableItem");
                 var expandBtn;
                 var parentSortKey = "";
                 c.setClassText(t, "LoginAccount", null, item.LoginAccount);
-                c.setClassText(t, "InsideLevel", null, item.DealUserAccountInsideLevel);
-                c.setClassText(t, "ParentLoginAccount", null, item.ParentLoginAccount);
+                c.setClassText(t, "InsideLevel", null, item.UserAccountInsideLevel);
+                c.setClassText(t, "ParentLoginAccount", null, item.ParentAccount);
                 c.setClassText(t, "CurrencyType", null, item.CurrencyType);
-                //c.setClassText(t, "AgentCount", null, item.AgentCount);
-                //c.setClassText(t, "PlayerCount", null, item.PlayerCount);
+                c.setClassText(t, "AgentCount", null, item.AgentCount);
+                c.setClassText(t, "PlayerCount", null, item.PlayerCount);
                 c.setClassText(t, "NewUserCount", null, item.NewUserCount);
-                c.setClassText(t, "SelfNewUserCount", null, item.SelfNewUserCount);
+                c.setClassText(t, "NewAgentCount", null, item.NewAgentCount);
                 c.setClassText(t, "PointValue", null, c.toCurrency(item.PointValue));
                 var stateDom = t.querySelector(".UserAccountState");
 
@@ -331,79 +375,144 @@
 
 
                 expandBtn = t.querySelector(".Expand");
-                t.querySelector(".Space").style.paddingLeft = ((item.DealUserAccountInsideLevel - 1) * 20) + "px";
+                t.querySelector(".Space").style.paddingLeft = ((DealUserAccountInsideLevel - 1) * 20) + "px";
 
 
                 if (item.HasChild) {
-                    expandBtn.onclick = new Function("agentExpand('" + item.DealUserAccountSortKey + "')");
+                    expandBtn.onclick = new Function("agentExpand('" + DealUserAccountSortKey + "', " + item.UserAccountID.toString() + ")");
                     expandBtn.classList.add("agentPlus");
+                    expandBtn.dataset.isloaded = "N";
                 } else {
                     expandBtn.style.display = "none";
                     t.querySelector(".noChild").style.display = "inline-block";
                 }
 
-                if (item.DealUserAccountInsideLevel != 1) {
-                    if (item.DealUserAccountInsideLevel % 2 == 0) {
+                if (DealUserAccountInsideLevel != 1) {
+                    if (DealUserAccountInsideLevel % 2 == 0) {
                         t.classList.add("switch_tr");
                     }
 
-                    for (var ii = 1; ii < (item.DealUserAccountSortKey.length / 6) - 1; ii++) {
-                        var tempClass = item.DealUserAccountSortKey.substring(0, (ii + 1) * 6);
+                    for (var ii = 1; ii < (DealUserAccountSortKey.length / 6); ii++) {
+                        var tempClass = DealUserAccountSortKey.substring(0, ii * 6);
                         t.classList.add("row_c_" + tempClass);
 
-                        if (ii == ((item.DealUserAccountSortKey.length / 6) - 2)) {
+                        if (ii == ((DealUserAccountSortKey.length / 6) - 1)) {
                             parentSortKey = tempClass;
                             t.classList.add("row_s_" + tempClass);
                         }
                     }
 
                     t.classList.add("row_child");
-                    t.style.display = "none";
                 } else {
                     t.classList.add("row_top");
                 }
 
-                //有搜尋的結果處理
-                if (o.SearchLoginAccount) {
 
-                    if (item.IsTarget) {
-                        t.style.display = "table-row";
-                        t.classList.add("searchTarget");
+                idList.insertBefore(t, moreBtnRowDom);
+            }
 
-                        for (var ii = 0; ii < o.SearchParentSortKeys.length; ii++) {
-                            if (o.SearchParentSortKeys[ii] == item.DealUserAccountSortKey) {
-                                expandBtn.classList.remove("agentPlus");
-                                expandBtn.innerText = "-";
 
-                                break;
-                            }
-                        }
-                    } else {
-                        if (o.SearchParentSortKeys && o.SearchParentSortKeys.length > 0) {
-                            for (var ii = 0; ii < o.SearchParentSortKeys.length; ii++) {
-                                var isParent = false;
+        } else {
+            if (targetDom) {
+                if (page != 1) {
+                    moreBtnRowDom = targetDom;
+                    moreBtnRowDom.style.display = "none";
+                }
+                window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("已查無數據"));
+            } else {
+            var div = document.createElement("DIV");
 
-                                switch (o.SearchParentSortKeys[ii]) {
-                                    case parentSortKey:
-                                        t.style.display = "table-row";
-                                        break;
-                                    case item.DealUserAccountSortKey:
-                                        isParent = true;
-                                        t.style.display = "table-row";
-                                        expandBtn.classList.remove("agentPlus");
-                                        expandBtn.innerText = "-";
-                                        break;
-                                    default:
-                                }
+            div.id = "hasNoData_DIV"
+            div.innerHTML = mlp.getLanguageKey("無數據");
+            div.classList.add("td__content", "td__hasNoData");
+            document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
+            idList.classList.add("tbody__hasNoData");
+            idList.appendChild(div);
+                window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("無數據"));
+            }           
+        }
+    }
 
-                                if (isParent)
-                                    break;
-                            }
-                        }
-                    }
+    function updateSearchList(o) {
+        var idList = document.getElementById("idList");        
+        c.clearChildren(idList);
+        //expandDiv.style.display = "none";
+
+        if (o.SummaryList && o.SummaryList.length > 0) {
+            document.getElementById("idResultTable").classList.remove("MT_tableDiv__hasNoData");
+            idList.classList.remove("tbody__hasNoData");
+            //expandDiv.style.display = "block";
+            for (var i = 0; i < o.SummaryList.length; i++) {
+                var item = o.SummaryList[i];
+
+                if (item.UserAccountSortKey == o.TopSortKey) {
+                    continue;
                 }
 
+                var DealUserAccountInsideLevel = item.UserAccountInsideLevel - o.TopInsideLevel;
+                var DealUserAccountSortKey = item.UserAccountSortKey.substring(o.TopSortKey);
+                var t = c.getTemplate("templateTableItem");
+                var expandBtn;
+                c.setClassText(t, "LoginAccount", null, item.LoginAccount);
+                c.setClassText(t, "InsideLevel", null, item.UserAccountInsideLevel);
+                c.setClassText(t, "ParentLoginAccount", null, item.ParentAccount);
+                c.setClassText(t, "CurrencyType", null, item.CurrencyType);
+                c.setClassText(t, "AgentCount", null, item.AgentCount);
+                c.setClassText(t, "PlayerCount", null, item.PlayerCount);
+                c.setClassText(t, "NewUserCount", null, item.NewUserCount);
+                c.setClassText(t, "NewAgentCount", null, item.NewAgentCount);
+                c.setClassText(t, "PointValue", null, c.toCurrency(item.PointValue));
+                var stateDom = t.querySelector(".UserAccountState");
 
+                if (item.UserAccountState == 0) {
+                    stateDom.innerText = mlp.getLanguageKey("正常");
+                    stateDom.style.color = "aqua";
+                } else {
+                    stateDom.innerText = mlp.getLanguageKey("停用");
+                    stateDom.style.color = "red";
+                }
+                c.setClassText(t, "LastLoginDate", null, item.LastLoginDate);
+                c.setClassText(t, "CreateDate", null, item.CreateDate);
+
+
+                expandBtn = t.querySelector(".Expand");
+                t.querySelector(".Space").style.paddingLeft = ((DealUserAccountInsideLevel - 1) * 20) + "px";
+
+
+                if (item.UserAccountInsideLevel <= o.SelfInsideLevel) {
+                    expandBtn.onclick = new Function("agentExpand('" + DealUserAccountSortKey + "', " + item.UserAccountID.toString() + ")");
+                    //expandBtn.classList.add("agentPlus");
+                    expandBtn.innerText = "-";
+                    expandBtn.dataset.isloaded = "Y";
+                } else {
+                    expandBtn.style.display = "none";
+                    t.querySelector(".noChild").style.display = "inline-block";
+                }
+
+                if (DealUserAccountInsideLevel != 1) {
+                    if (DealUserAccountInsideLevel % 2 == 0) {
+                        t.classList.add("switch_tr");
+                    }
+
+                    for (var ii = 1; ii < (DealUserAccountSortKey.length / 6); ii++) {
+                        var tempClass = DealUserAccountSortKey.substring(0, ii * 6);
+                        t.classList.add("row_c_" + tempClass);
+
+                        if (ii == ((DealUserAccountSortKey.length / 6) - 1)) {
+                            parentSortKey = tempClass;
+                            t.classList.add("row_s_" + tempClass);
+                        }
+                    }
+
+                    t.classList.add("row_child");
+                } else {
+                    t.classList.add("row_top");
+                }
+
+                if (item.UserAccountSortKey == o.SelfSortKey) {
+                    t.style.display = "table-row";
+                    t.classList.add("searchTarget");                  
+                } 
 
                 idList.appendChild(t);
             }
@@ -566,7 +675,7 @@
             //queryOrderSummary(qYear, qMon);
             window.parent.API_CloseLoading();
             //queryData(EWinInfo.UserInfo.LoginAccount);
-            //querySelfData();
+            querySelfData();
 
             ac.dataToggleCollapseInit();
         });
@@ -633,12 +742,12 @@
 
                             </div>
 
-                          <div id="expandDiv" class="col-12 col-md-3 col-lg-1 col-xl-1">
+<%--                          <div id="expandDiv" class="col-12 col-md-3 col-lg-1 col-xl-1">
                                 <div class="form-group wrapper_center row">
                                     <button class="btn2 btn-outline-main language_replace col-6 col-md-12 col-lg-12" onclick="toggleAllRow(true)">展開</button>
                                     <button class="btn2 btn-outline-main language_replace col-6 col-md-12 col-lg-12" onclick="toggleAllRow(false)">收合</button>
                                 </div>
-                            </div>
+                            </div>--%>
 
                           
                             <div class="col-12 col-md-12 col-lg-5 col-xl-6">
@@ -724,21 +833,21 @@
                                 <span class="td__title"><span class="language_replace">貨幣</span></span>
                                 <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="CurrencyType"></span></span>
                             </div>
-                         <%--   <div class="tbody__td td-number td-3 td-vertical" style="display:none">
+                            <div class="tbody__td td-number td-3 td-vertical" >
                                 <span class="td__title"><i class="icon icon-ewin-default-totalWinLose icon-s icon-before"></i><span class="language_replace">團隊代理數</span></span>
                                 <span class="td__content"><span class="AgentCount"></span></span>
                             </div>
-                            <div class="tbody__td td-number td-3 td-vertical" style="display:none">
+                            <div class="tbody__td td-number td-3 td-vertical" >
                                 <span class="td__title"><i class="icon icon-ewin-default-totalRolling icon-s icon-before"></i><span class="language_replace">團隊會員數</span></span>
                                 <span class="td__content"><span class="PlayerCount"></span></span>
-                            </div>--%>
+                            </div>
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-totalRolling icon-s icon-before"></i><span class="language_replace">期間團隊新增下線數</span></span>
                                 <span class="td__content"><span class="NewUserCount">CON4</span></span>
                             </div>
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-accountWinLose icon-s icon-before"></i><span class="language_replace">期間個人新增會員數</span></span>
-                                <span class="td__content"><span class="SelfNewUserCount">CON4</span></span>
+                                <span class="td__content"><span class="NewAgentCount">CON4</span></span>
                             </div>
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><i class="icon icon-ewin-default-accountRolling icon-s icon-before"></i><span class="language_replace">錢包餘額</span></span>
@@ -766,10 +875,10 @@
                             <div class="thead__th"><span class="language_replace">層級</span></div>
                             <div class="thead__th"><span class="language_replace">上線帳號</span></div>
                             <div class="thead__th"><span class="language_replace">貨幣</span></div>
-<%--                            <div class="thead__th"><span class="language_replace" style="display:none">團隊代理數</span></div>
-                            <div class="thead__th"><span class="language_replace" style="display:none">團隊會員數</span></div>--%>
-                            <div class="thead__th"><span class="language_replace">期間團隊新增下線數</span></div>
-                            <div class="thead__th"><span class="language_replace">期間個人新增會員數</span></div>
+                            <div class="thead__th"><span class="language_replace">團隊代理數</span></div>
+                            <div class="thead__th"><span class="language_replace">團隊會員數</span></div>
+                            <div class="thead__th"><span class="language_replace">期間團隊新增會員數</span></div>
+                            <div class="thead__th"><span class="language_replace">期間團隊新增代理數</span></div>
                             <div class="thead__th"><span class="language_replace">錢包餘額</span></div>
                             <div class="thead__th"><span class="language_replace">狀態</span></div>
                             <div class="thead__th"><span class="language_replace">最後登入時間</span></div>
@@ -781,6 +890,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div id="templateMoreRow" style="display: none;">
+                   <div class="tbody__tr td-non-underline-last-2">
+                            <div class="tbody__td date td-100 nonTitle expand_tr">
+                                  <button class="moreBtn btn2 btn-outline-main language_replace">更多</button>
+                            </div>                           
+                        </div>
         </div>
     </main>
 </body>

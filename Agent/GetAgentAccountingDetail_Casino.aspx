@@ -55,8 +55,6 @@
             AID: EWinInfo.ASID,
             AccountingID: accountingID,
             CurrencyType: currencyType,
-            StartDate: StartDate,
-            EndDate: EndDate,
             LoginAccount: EWinInfo.UserInfo.LoginAccount
         };
 

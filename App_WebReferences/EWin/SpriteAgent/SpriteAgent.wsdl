@@ -44,6 +44,83 @@
           <s:enumeration value="ERR" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="ListPaymentChannel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DirectionType" type="tns:enumPaymentDirectionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="enumPaymentDirectionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Deposit" />
+          <s:enumeration value="Withdrawal" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ListPaymentChannelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListPaymentChannelResult" type="tns:PaymentChannelResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentChannelResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ChannelList" type="tns:ArrayOfPaymentChannel" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfPaymentChannel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaymentChannel" nillable="true" type="tns:PaymentChannel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PaymentChannel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentChannelCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentProvider" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserLevelIndex" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GroupIndex" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="WeightIndex" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AvailableCreditValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AmountMin" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AmountMax" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalCreditValueDay" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreditValueDay" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="AvailableTime" type="tns:PaymentTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PaymentTime">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPaymentChannelByGroupIndex">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DirectionType" type="tns:enumPaymentDirectionType" />
+            <s:element minOccurs="1" maxOccurs="1" name="GroupIndex" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentChannelByGroupIndexResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPaymentChannelByGroupIndexResult" type="tns:PaymentChannelResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetUserSMSNumber">
         <s:complexType>
           <s:sequence>
@@ -68,6 +145,74 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="GetUserTag">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserTagResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserTagResult" type="tns:UserTag" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserTag">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Tag" type="tns:ArrayOfCompanyTag" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfCompanyTag">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CompanyTag" nillable="true" type="tns:CompanyTag" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CompanyTag">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TagID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TagText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FontColor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BGColor" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetUserLevel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserLevelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserLevelResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckPaymentChannelAmount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DirectionType" type="tns:enumPaymentDirectionType" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentChannelCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckPaymentChannelAmountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckPaymentChannelAmountResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetAgentSessionByID">
         <s:complexType>
           <s:sequence>
@@ -267,6 +412,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="UserRebate" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="PaidOPValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="ActiveUser" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParentUserAccountSortKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChildUserCount" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="RC" type="tns:RuleCondition" />
           <s:element minOccurs="0" maxOccurs="1" name="SummaryValueList" type="tns:ArrayOfSummaryValue" />
           <s:element minOccurs="0" maxOccurs="1" name="ChildUser" type="tns:ArrayOfUserSummaryItem" />
@@ -423,6 +570,8 @@
               <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SelfSortKey" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="SelfInsideLevel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TopSortKey" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TopInsideLevel" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="Page" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="DataCount" type="s:int" />
@@ -501,6 +650,8 @@
               <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SelfSortKey" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="SelfInsideLevel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TopSortKey" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TopInsideLevel" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfOrderSummary" />
               <s:element minOccurs="1" maxOccurs="1" name="HasNextPage" type="s:boolean" />
@@ -575,6 +726,8 @@
               <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SelfSortKey" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="SelfInsideLevel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TopSortKey" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TopInsideLevel" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfDepositeSummary" />
             </s:sequence>
@@ -877,8 +1030,6 @@
             <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="AccountingID" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -904,8 +1055,6 @@
             <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="AccountingID" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1007,6 +1156,28 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="CheckAccountExistResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PasswordType" type="tns:enumPasswordType" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="enumPasswordType">
+        <s:restriction base="s:string">
+          <s:enumeration value="LoginPassword" />
+          <s:enumeration value="WalletPassword" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CheckPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckPasswordResult" type="tns:APIResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1321,10 +1492,12 @@
         </s:complexType>
       </s:element>
       <s:element name="LoginResult" nillable="true" type="tns:LoginResult" />
+      <s:element name="PaymentChannelResult" nillable="true" type="tns:PaymentChannelResult" />
       <s:element name="PhoneResult" nillable="true" type="tns:PhoneResult" />
+      <s:element name="UserTag" nillable="true" type="tns:UserTag" />
+      <s:element name="APIResult" nillable="true" type="tns:APIResult" />
       <s:element name="AgentSessionResult" nillable="true" type="tns:AgentSessionResult" />
       <s:element name="ChidUserData" nillable="true" type="tns:ChidUserData" />
-      <s:element name="APIResult" nillable="true" type="tns:APIResult" />
       <s:element name="TotalSummaryResult" nillable="true" type="tns:TotalSummaryResult" />
       <s:element name="UserAccountSummaryResult" nillable="true" type="tns:UserAccountSummaryResult" />
       <s:element name="GroupAgentResult" nillable="true" type="tns:GroupAgentResult" />
@@ -1345,11 +1518,41 @@
   <wsdl:message name="AgentLoginSoapOut">
     <wsdl:part name="parameters" element="tns:AgentLoginResponse" />
   </wsdl:message>
+  <wsdl:message name="ListPaymentChannelSoapIn">
+    <wsdl:part name="parameters" element="tns:ListPaymentChannel" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentChannelSoapOut">
+    <wsdl:part name="parameters" element="tns:ListPaymentChannelResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentChannelByGroupIndexSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPaymentChannelByGroupIndex" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentChannelByGroupIndexSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPaymentChannelByGroupIndexResponse" />
+  </wsdl:message>
   <wsdl:message name="GetUserSMSNumberSoapIn">
     <wsdl:part name="parameters" element="tns:GetUserSMSNumber" />
   </wsdl:message>
   <wsdl:message name="GetUserSMSNumberSoapOut">
     <wsdl:part name="parameters" element="tns:GetUserSMSNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserTagSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserTag" />
+  </wsdl:message>
+  <wsdl:message name="GetUserTagSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserTagResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserLevelSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserLevel" />
+  </wsdl:message>
+  <wsdl:message name="GetUserLevelSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserLevelResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckPaymentChannelAmountSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckPaymentChannelAmount" />
+  </wsdl:message>
+  <wsdl:message name="CheckPaymentChannelAmountSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckPaymentChannelAmountResponse" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDSoapIn">
     <wsdl:part name="parameters" element="tns:GetAgentSessionByID" />
@@ -1495,6 +1698,12 @@
   <wsdl:message name="CheckAccountExistSoapOut">
     <wsdl:part name="parameters" element="tns:CheckAccountExistResponse" />
   </wsdl:message>
+  <wsdl:message name="CheckPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckPassword" />
+  </wsdl:message>
+  <wsdl:message name="CheckPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckPasswordResponse" />
+  </wsdl:message>
   <wsdl:message name="AddUserBankCardSoapIn">
     <wsdl:part name="parameters" element="tns:AddUserBankCard" />
   </wsdl:message>
@@ -1579,11 +1788,51 @@
   <wsdl:message name="AgentLoginHttpGetOut">
     <wsdl:part name="Body" element="tns:LoginResult" />
   </wsdl:message>
+  <wsdl:message name="ListPaymentChannelHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentChannelHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentChannelResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentChannelByGroupIndexHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
+    <wsdl:part name="GroupIndex" type="s:string" />
+    <wsdl:part name="Amount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentChannelByGroupIndexHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentChannelResult" />
+  </wsdl:message>
   <wsdl:message name="GetUserSMSNumberHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetUserSMSNumberHttpGetOut">
     <wsdl:part name="Body" element="tns:PhoneResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserTagHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserTagHttpGetOut">
+    <wsdl:part name="Body" element="tns:UserTag" />
+  </wsdl:message>
+  <wsdl:message name="GetUserLevelHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserLevelHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckPaymentChannelAmountHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="PaymentChannelCode" type="s:string" />
+    <wsdl:part name="Amount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckPaymentChannelAmountHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpGetIn">
     <wsdl:part name="ASID" type="s:string" />
@@ -1771,8 +2020,6 @@
     <wsdl:part name="LoginAccount" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
     <wsdl:part name="AccountingID" type="s:string" />
-    <wsdl:part name="StartDate" type="s:string" />
-    <wsdl:part name="EndDate" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetAgentAccountingDetailExcludeLoginHttpGetOut">
     <wsdl:part name="Body" element="tns:AgentAccountingDetailResult" />
@@ -1781,8 +2028,6 @@
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
     <wsdl:part name="AccountingID" type="s:string" />
-    <wsdl:part name="StartDate" type="s:string" />
-    <wsdl:part name="EndDate" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetAgentAccountingDetailHttpGetOut">
     <wsdl:part name="Body" element="tns:AgentAccountingDetailResult" />
@@ -1798,6 +2043,14 @@
     <wsdl:part name="LoginAccount" type="s:string" />
   </wsdl:message>
   <wsdl:message name="CheckAccountExistHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckPasswordHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="PasswordType" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckPasswordHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="AddUserBankCardHttpGetIn">
@@ -1898,11 +2151,51 @@
   <wsdl:message name="AgentLoginHttpPostOut">
     <wsdl:part name="Body" element="tns:LoginResult" />
   </wsdl:message>
+  <wsdl:message name="ListPaymentChannelHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentChannelHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentChannelResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentChannelByGroupIndexHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
+    <wsdl:part name="GroupIndex" type="s:string" />
+    <wsdl:part name="Amount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentChannelByGroupIndexHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentChannelResult" />
+  </wsdl:message>
   <wsdl:message name="GetUserSMSNumberHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetUserSMSNumberHttpPostOut">
     <wsdl:part name="Body" element="tns:PhoneResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserTagHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserTagHttpPostOut">
+    <wsdl:part name="Body" element="tns:UserTag" />
+  </wsdl:message>
+  <wsdl:message name="GetUserLevelHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserLevelHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckPaymentChannelAmountHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="DirectionType" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="PaymentChannelCode" type="s:string" />
+    <wsdl:part name="Amount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckPaymentChannelAmountHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpPostIn">
     <wsdl:part name="ASID" type="s:string" />
@@ -2090,8 +2383,6 @@
     <wsdl:part name="LoginAccount" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
     <wsdl:part name="AccountingID" type="s:string" />
-    <wsdl:part name="StartDate" type="s:string" />
-    <wsdl:part name="EndDate" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetAgentAccountingDetailExcludeLoginHttpPostOut">
     <wsdl:part name="Body" element="tns:AgentAccountingDetailResult" />
@@ -2100,8 +2391,6 @@
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
     <wsdl:part name="AccountingID" type="s:string" />
-    <wsdl:part name="StartDate" type="s:string" />
-    <wsdl:part name="EndDate" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetAgentAccountingDetailHttpPostOut">
     <wsdl:part name="Body" element="tns:AgentAccountingDetailResult" />
@@ -2117,6 +2406,14 @@
     <wsdl:part name="LoginAccount" type="s:string" />
   </wsdl:message>
   <wsdl:message name="CheckAccountExistHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckPasswordHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="PasswordType" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckPasswordHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="AddUserBankCardHttpPostIn">
@@ -2210,9 +2507,29 @@
       <wsdl:input message="tns:AgentLoginSoapIn" />
       <wsdl:output message="tns:AgentLoginSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <wsdl:input message="tns:ListPaymentChannelSoapIn" />
+      <wsdl:output message="tns:ListPaymentChannelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <wsdl:input message="tns:GetPaymentChannelByGroupIndexSoapIn" />
+      <wsdl:output message="tns:GetPaymentChannelByGroupIndexSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetUserSMSNumber">
       <wsdl:input message="tns:GetUserSMSNumberSoapIn" />
       <wsdl:output message="tns:GetUserSMSNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserTag">
+      <wsdl:input message="tns:GetUserTagSoapIn" />
+      <wsdl:output message="tns:GetUserTagSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLevel">
+      <wsdl:input message="tns:GetUserLevelSoapIn" />
+      <wsdl:output message="tns:GetUserLevelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <wsdl:input message="tns:CheckPaymentChannelAmountSoapIn" />
+      <wsdl:output message="tns:CheckPaymentChannelAmountSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDSoapIn" />
@@ -2310,6 +2627,10 @@
       <wsdl:input message="tns:CheckAccountExistSoapIn" />
       <wsdl:output message="tns:CheckAccountExistSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <wsdl:input message="tns:CheckPasswordSoapIn" />
+      <wsdl:output message="tns:CheckPasswordSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="AddUserBankCard">
       <wsdl:input message="tns:AddUserBankCardSoapIn" />
       <wsdl:output message="tns:AddUserBankCardSoapOut" />
@@ -2364,9 +2685,29 @@
       <wsdl:input message="tns:AgentLoginHttpGetIn" />
       <wsdl:output message="tns:AgentLoginHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <wsdl:input message="tns:ListPaymentChannelHttpGetIn" />
+      <wsdl:output message="tns:ListPaymentChannelHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <wsdl:input message="tns:GetPaymentChannelByGroupIndexHttpGetIn" />
+      <wsdl:output message="tns:GetPaymentChannelByGroupIndexHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetUserSMSNumber">
       <wsdl:input message="tns:GetUserSMSNumberHttpGetIn" />
       <wsdl:output message="tns:GetUserSMSNumberHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserTag">
+      <wsdl:input message="tns:GetUserTagHttpGetIn" />
+      <wsdl:output message="tns:GetUserTagHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLevel">
+      <wsdl:input message="tns:GetUserLevelHttpGetIn" />
+      <wsdl:output message="tns:GetUserLevelHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <wsdl:input message="tns:CheckPaymentChannelAmountHttpGetIn" />
+      <wsdl:output message="tns:CheckPaymentChannelAmountHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDHttpGetIn" />
@@ -2464,6 +2805,10 @@
       <wsdl:input message="tns:CheckAccountExistHttpGetIn" />
       <wsdl:output message="tns:CheckAccountExistHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <wsdl:input message="tns:CheckPasswordHttpGetIn" />
+      <wsdl:output message="tns:CheckPasswordHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="AddUserBankCard">
       <wsdl:input message="tns:AddUserBankCardHttpGetIn" />
       <wsdl:output message="tns:AddUserBankCardHttpGetOut" />
@@ -2510,9 +2855,29 @@
       <wsdl:input message="tns:AgentLoginHttpPostIn" />
       <wsdl:output message="tns:AgentLoginHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <wsdl:input message="tns:ListPaymentChannelHttpPostIn" />
+      <wsdl:output message="tns:ListPaymentChannelHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <wsdl:input message="tns:GetPaymentChannelByGroupIndexHttpPostIn" />
+      <wsdl:output message="tns:GetPaymentChannelByGroupIndexHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetUserSMSNumber">
       <wsdl:input message="tns:GetUserSMSNumberHttpPostIn" />
       <wsdl:output message="tns:GetUserSMSNumberHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserTag">
+      <wsdl:input message="tns:GetUserTagHttpPostIn" />
+      <wsdl:output message="tns:GetUserTagHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLevel">
+      <wsdl:input message="tns:GetUserLevelHttpPostIn" />
+      <wsdl:output message="tns:GetUserLevelHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <wsdl:input message="tns:CheckPaymentChannelAmountHttpPostIn" />
+      <wsdl:output message="tns:CheckPaymentChannelAmountHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDHttpPostIn" />
@@ -2610,6 +2975,10 @@
       <wsdl:input message="tns:CheckAccountExistHttpPostIn" />
       <wsdl:output message="tns:CheckAccountExistHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <wsdl:input message="tns:CheckPasswordHttpPostIn" />
+      <wsdl:output message="tns:CheckPasswordHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="AddUserBankCard">
       <wsdl:input message="tns:AddUserBankCardHttpPostIn" />
       <wsdl:output message="tns:AddUserBankCardHttpPostOut" />
@@ -2662,8 +3031,53 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <soap:operation soapAction="http://tempuri.org/ListPaymentChannel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <soap:operation soapAction="http://tempuri.org/GetPaymentChannelByGroupIndex" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetUserSMSNumber">
       <soap:operation soapAction="http://tempuri.org/GetUserSMSNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserTag">
+      <soap:operation soapAction="http://tempuri.org/GetUserTag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLevel">
+      <soap:operation soapAction="http://tempuri.org/GetUserLevel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <soap:operation soapAction="http://tempuri.org/CheckPaymentChannelAmount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2887,6 +3301,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <soap:operation soapAction="http://tempuri.org/CheckPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AddUserBankCard">
       <soap:operation soapAction="http://tempuri.org/AddUserBankCard" style="document" />
       <wsdl:input>
@@ -3007,8 +3430,53 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <soap12:operation soapAction="http://tempuri.org/ListPaymentChannel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <soap12:operation soapAction="http://tempuri.org/GetPaymentChannelByGroupIndex" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetUserSMSNumber">
       <soap12:operation soapAction="http://tempuri.org/GetUserSMSNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserTag">
+      <soap12:operation soapAction="http://tempuri.org/GetUserTag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLevel">
+      <soap12:operation soapAction="http://tempuri.org/GetUserLevel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <soap12:operation soapAction="http://tempuri.org/CheckPaymentChannelAmount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -3232,6 +3700,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <soap12:operation soapAction="http://tempuri.org/CheckPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AddUserBankCard">
       <soap12:operation soapAction="http://tempuri.org/AddUserBankCard" style="document" />
       <wsdl:input>
@@ -3352,8 +3829,53 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <http:operation location="/ListPaymentChannel" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <http:operation location="/GetPaymentChannelByGroupIndex" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetUserSMSNumber">
       <http:operation location="/GetUserSMSNumber" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserTag">
+      <http:operation location="/GetUserTag" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLevel">
+      <http:operation location="/GetUserLevel" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <http:operation location="/CheckPaymentChannelAmount" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -3570,6 +4092,15 @@
     </wsdl:operation>
     <wsdl:operation name="CheckAccountExist">
       <http:operation location="/CheckAccountExist" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <http:operation location="/CheckPassword" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -3679,8 +4210,53 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ListPaymentChannel">
+      <http:operation location="/ListPaymentChannel" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentChannelByGroupIndex">
+      <http:operation location="/GetPaymentChannelByGroupIndex" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetUserSMSNumber">
       <http:operation location="/GetUserSMSNumber" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserTag">
+      <http:operation location="/GetUserTag" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserLevel">
+      <http:operation location="/GetUserLevel" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPaymentChannelAmount">
+      <http:operation location="/CheckPaymentChannelAmount" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
@@ -3897,6 +4473,15 @@
     </wsdl:operation>
     <wsdl:operation name="CheckAccountExist">
       <http:operation location="/CheckAccountExist" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <http:operation location="/CheckPassword" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
