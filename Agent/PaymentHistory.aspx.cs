@@ -69,7 +69,9 @@ public partial class PaymentHistory : System.Web.UI.Page {
             }
             else
             {
-                SetResultException(R, "NoData");
+                R.Datas = new List<PaymentCommonData>();
+                R.NotFinishDatas = new List<PaymentCommonData>();
+                R.Result = enumResult.OK;
             }
         }
         else
