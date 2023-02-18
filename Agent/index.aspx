@@ -8,6 +8,7 @@
     string Lang = Request["Lang"];
     string AgentVersion = EWinWeb.AgentVersion;
     string AlreadyHaveGameAccount = string.Empty;
+    string UserLevel = "0";
     EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
     EWin.SpriteAgent.AgentSessionResult ASR = null;
     EWin.SpriteAgent.AgentSessionInfo ASI = null;
@@ -33,6 +34,13 @@
         if (UPR!=null && UPR.Result == EWin.SpriteAgent.enumResult.OK) {
             AlreadyHaveGameAccount = UPR.PropertyValue;
         }
+
+        var GetUserLevel= api.GetUserLevel(ASID);
+        if ( GetUserLevel.Result== EWin.SpriteAgent.enumResult.OK)
+        {
+            UserLevel = GetUserLevel.Message;
+        }
+
     }
 %>
 <%="" %>
@@ -108,7 +116,8 @@
         InAppMode: false,
         UserInfo: null,
         CompanyInfo: null,
-        CurrencyType: null
+        CurrencyType: null,
+        UserLevel: <%=UserLevel %>
     };
 
     function API_GetAgentAPI() {
@@ -1086,10 +1095,20 @@
                                             <i class="icon icon-mask icon-ewin-transfer"></i>
                                             <span class="language_replace">設定錢包密碼</span></a>
                                     </li>
-                                      <li class="nav-item submenu dropdown">
+                                    <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('設定出款卡'), 'BankCard_Maint.aspx');ItemClick(this);">
                                             <i class="icon icon-mask icon-ewin-transfer"></i>
                                             <span class="language_replace">設定出款卡</span></a>
+                                    </li>
+                                     <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('出款'), 'WithdrawAgent.aspx');ItemClick(this);">
+                                            <i class="icon icon-mask icon-ewin-transfer"></i>
+                                            <span class="language_replace">出款</span></a>
+                                    </li>
+                                       <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('出款紀錄'), 'PaymentHistory.aspx');ItemClick(this);">
+                                            <i class="icon icon-mask icon-ewin-transfer"></i>
+                                            <span class="language_replace">出款紀錄</span></a>
                                     </li>
                                 </ul>
                             </li>

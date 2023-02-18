@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="BankCard_Maint.aspx.cs" Inherits="BankCard_Maint" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PaymentHistory.aspx.cs" Inherits="PaymentHistory" %>
 
 <%
     string LoginAccount = Request["LoginAccount"];
@@ -136,7 +136,7 @@
 <script type="text/javascript" src="../Scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/date.js"></script>
 <script>
-    var ApiUrl = "BankCard_Maint.aspx";
+    var ApiUrl = "PaymentHistory.aspx";
     var c = new common();
     var ac = new AgentCommon();
     var mlp;
@@ -151,41 +151,27 @@
     var IsSetWalletPassword = "<%=IsSetWalletPassword%>";
     //var hasDataExpand;
 
-    function createBankSelect() {
-        if (BankData) {
-            if (BankData.length > 0) {
-                var strSelectBank = mlp.getLanguageKey("選擇銀行");
-                $('#selectedBank').append(`<option  value="-1" selected="">${strSelectBank}</option>`);
-                for (var i = 0; i < BankData.length; i++) {
-                    $('#selectedBank').append(`<option  value="${BankData[i].BankName}">${BankData[i].BankName}</option>`);
-                }
-            } else {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定銀行列表"), function () {
-                    window.parent.API_Home();
-                });
-            }
-        } else {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定銀行列表"), function () {
-                window.parent.API_Home();
-            });
-        }
-   
-    }
+    
 
     function queryData() {
+            var startDate = $('#startDate').val();
+            var endDate = $('#endDate').val();
+
             var postData = {
-                AID: EWinInfo.ASID
+                AID: EWinInfo.ASID,
+                StartDate: startDate,
+                EndDate: endDate
             };
             window.parent.API_ShowLoading();
-            c.callService(ApiUrl + "/GetUserBankCard", postData, function (success, o) {
+            c.callService(ApiUrl + "/GetPaymentHistory", postData, function (success, o) {
                 if (success) {
-                    var obj = c.getJSON(o);
+                    var o = c.getJSON(o);
 
-                    if (obj.Result == 0) {
-                        updateList(obj);
+                    if (o.Result == 0) {
+                        updateList(o);
                     } else {
 
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                     }
                 } else {
                     if (o == "Timeout") {
@@ -203,36 +189,131 @@
         var idList = document.getElementById("idList");
  
         c.clearChildren(idList);
- 
-        if (o.BankCardList && o.BankCardList.length > 0) {
-            document.getElementById("idResultTable").classList.remove("MT_tableDiv__hasNoData");
-            idList.classList.remove("tbody__hasNoData");
-            for (var i = 0; i < o.BankCardList.length; i++) {
-                var item = o.BankCardList[i];
-                if (item.BankCardState == 0) {
 
-                    var t = c.getTemplate("templateTableItem");
+        if (o.NotFinishDatas.length > 0) {
+            for (var j = 0; j < o.NotFinishDatas.length; j++) {
+                var record = o.NotFinishDatas[j];
+                var RecordDom = c.getTemplate("templateTableItem");
+                var Amount;
+                var paymentRecordText;
+                var BasicType;
 
-                    if (item.PaymentMethod == 0) {
-                        PaymentMethod = mlp.getLanguageKey("銀行卡");
-                        c.setClassText(t, "BranchName", null, item.BranchName);
-                    } else if (item.PaymentMethod == 4) {
-                        PaymentMethod = mlp.getLanguageKey("GCASH");
-                    }
+                paymentRecordStatus = 0;
+                paymentRecordText = mlp.getLanguageKey('進行中');
+          
+                // 0=一般/1=銀行卡/2=區塊鏈
+                switch (record.BasicType) {
+                    case 0:
+                        BasicType = mlp.getLanguageKey('一般');
+                        break;
+                    case 1:
+                        BasicType = mlp.getLanguageKey('銀行卡');
+                        break;
+                    case 2:
+                        BasicType = mlp.getLanguageKey('區塊鏈');
+                        break;
+                    default:
+                }
 
-                    c.setClassText(t, "BankCardGUID", null, item.BankCardGUID);
-                    c.setClassText(t, "BankNumber", null, item.BankNumber);
-                    c.setClassText(t, "AccountName", null, item.AccountName);
-                    c.setClassText(t, "PaymentMethod", null, PaymentMethod);
-                    c.setClassText(t, "BankName", null, item.BankName);
+                if (record.PaymentType == 0) {
+                    Amount = record.Amount;
+                } else {
+                    Amount = record.Amount * -1;
+                }
+
+                //金額處理
+                var countDom = RecordDom.querySelector(".amount");
+                if (Amount >= 0) {
+                    countDom.classList.add("positive");
+                    countDom.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
+                } else {
+                    countDom.classList.add("negative");
+                    countDom.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
+                }
+
+                c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
+                c.setClassText(RecordDom, "FinishDate", null, record.CreateDate);
+                c.setClassText(RecordDom, "BasicType", null, BasicType);
+                c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
+
+                idList.appendChild(t);
+            }
+        }
+
+        if (o.Datas.length > 0) {
+            for (var i = 0; i < o.Datas.length; i++) {
+                var record = o.Datas[i];
+                var RecordDom = c.getTemplate("templateTableItem");
 
               
+                    var paymentRecordText;
+                    var BasicType;
+
+                    switch (record.PaymentFlowType) {
+                        case 2:
+                            paymentRecordStatus = 2;
+                            paymentRecordText = mlp.getLanguageKey('完成');
+                     
+                            break;
+                        case 3:
+                            if (record.BasicType == 1) {
+                                paymentRecordText = mlp.getLanguageKey('審核拒絕');
+                            } else {
+                                paymentRecordText = mlp.getLanguageKey('主動取消');
+                            }
+                            paymentRecordStatus = 3;
+                            break;
+                        case 4:
+                            paymentRecordStatus = 4;
+                            paymentRecordText = mlp.getLanguageKey('審核拒絕');
+                            break;
+                    }
+
+                    // 0=一般/1=銀行卡/2=區塊鏈
+                    switch (record.BasicType) {
+                        case 0:
+                            BasicType = mlp.getLanguageKey('一般');
+                            break;
+                        case 1:
+                            BasicType = mlp.getLanguageKey('銀行卡');
+                            break;
+                        case 2:
+                            BasicType = mlp.getLanguageKey('區塊鏈');
+                            break;
+                        default:
+                    }
+
+                    if (record.PaymentType == 0) {
+                        Amount = record.Amount;
+                    } else {
+                        Amount = record.Amount * -1;
+                    }
+
+                    //金額處理
+                    var countDom = RecordDom.querySelector(".amount");
+                    if (Amount >= 0) {
+                        countDom.classList.add("positive");
+                        countDom.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
+                    } else {
+                        countDom.classList.add("negative");
+                        countDom.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
+                    }
+
+                    c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
+                    c.setClassText(RecordDom, "FinishDate", null, record.FinishDate);
+                    c.setClassText(RecordDom, "BasicType", null, BasicType);
+                    c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
+
+                    c.setClassText(RecordDom_M, "PaymentStatus", null, paymentRecordText);
+                    c.setClassText(RecordDom_M, "FinishDate", null, record.FinishDate);
+                    c.setClassText(RecordDom_M, "BasicType", null, BasicType);
+                    c.setClassText(RecordDom_M, "PaymentSerial", null, record.PaymentSerial);
 
                     idList.appendChild(t);
-                }
             }
-
-        } else {
+        }
+ 
+        if (o.Datas.length == 0 && o.NotFinishDatas.length == 0) {
             var div = document.createElement("DIV");
 
             div.id = "hasNoData_DIV"
@@ -246,22 +327,100 @@
         }
     }
 
-    function showForgetPassWord() {
-        if ($('#idList').children().length >= 10) {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("最多只能新增10張卡片"));
-        } else {
-            $('#idSelectPaymentMethod').val('BANK');
-            SelectPaymentMethod();
-            $("#idPopUpForgetPassWord").addClass("show");
+    function setSearchFrame() {
+    
+        document.getElementById("startDate").value = getFirstDayOfWeek(Date.today()).toString("yyyy-MM-dd");
+        document.getElementById("endDate").value = getLastDayOfWeek(Date.today()).toString("yyyy-MM-dd");
+
+    }
+
+    function changeDateTab(e, type) {
+        window.event.stopPropagation();
+        window.event.preventDefault();
+        var beginDate;
+        var endDate;
+        var tabMainContent = document.getElementById("idTabMainContent");
+        var tabItem = tabMainContent.getElementsByClassName("nav-link");
+        for (var i = 0; i < tabItem.length; i++) {
+            tabItem[i].classList.remove('active');
+            tabItem[i].parentNode.classList.remove('active');
+
+            //tabItem[i].setAttribute("aria-selected", "false");
+
+        }
+
+        document.getElementById("sliderDate").style.display = "block";
+
+        e.parentNode.classList.add('active');
+        e.classList.add('active');
+        //e.setAttribute("aria-selected", "true");
+        switch (type) {
+            case 0:
+                //本日
+                beginDate = Date.today().toString("yyyy-MM-dd");
+                endDate = Date.today().toString("yyyy-MM-dd");
+                document.getElementById("startDate").value = beginDate;
+                document.getElementById("endDate").value = endDate;
+                break;
+            case 1:
+                //昨日
+                beginDate = Date.today().addDays(-1).toString("yyyy-MM-dd");
+                endDate = Date.today().addDays(-1).toString("yyyy-MM-dd");
+                document.getElementById("startDate").value = beginDate;
+                document.getElementById("endDate").value = endDate;
+                break;
+            case 2:
+                //本周
+                beginDate = getFirstDayOfWeek(Date.today()).toString("yyyy-MM-dd");
+                endDate = getLastDayOfWeek(Date.today()).toString("yyyy-MM-dd");
+                document.getElementById("startDate").value = beginDate;
+                document.getElementById("endDate").value = endDate;
+                break;
+            case 3:
+                //上週  
+                beginDate = getFirstDayOfWeek(Date.today().addDays(-7)).toString("yyyy-MM-dd");
+                endDate = getLastDayOfWeek(Date.today().addDays(-7)).toString("yyyy-MM-dd");
+                document.getElementById("startDate").value = beginDate;
+                document.getElementById("endDate").value = endDate;
+                break;
+            case 4:
+                //本月
+                beginDate = Date.today().moveToFirstDayOfMonth().toString("yyyy-MM-dd");
+                endDate = Date.today().moveToLastDayOfMonth().toString("yyyy-MM-dd");
+                document.getElementById("startDate").value = beginDate;
+                document.getElementById("endDate").value = endDate;
+                break;
+            case 5:
+                //上月
+                beginDate = Date.today().addMonths(-1).moveToFirstDayOfMonth().toString("yyyy-MM-dd");
+                endDate = Date.today().addMonths(-1).moveToLastDayOfMonth().toString("yyyy-MM-dd");
+                document.getElementById("startDate").value = beginDate;
+                document.getElementById("endDate").value = endDate;
+                break;
         }
     }
 
-    function closeForgetPassWord() {
-        $("#idPopUpForgetPassWord").removeClass("show");
+    function getFirstDayOfWeek(d) {
+        let date = new Date(d);
+        let day = date.getDay();
+
+        let diff = date.getDate() - day + (day === 0 ? -6 : 1);
+
+        return new Date(date.setDate(diff));
     }
 
+    function getLastDayOfWeek(d) {
+        let firstDay = getFirstDayOfWeek(d);
+        let lastDay = new Date(firstDay);
+
+        return new Date(lastDay.setDate(lastDay.getDate() + 6));
+    }
+
+
     function init() {
-        var d = new Date();
+       
+        document.getElementById("startDate").value = getFirstDayOfWeek(Date.today()).toString("yyyy-MM-dd");
+        document.getElementById("endDate").value = getLastDayOfWeek(Date.today()).toString("yyyy-MM-dd");
      
         EWinInfo = window.parent.EWinInfo;
         api = window.parent.API_GetAgentAPI();
@@ -269,15 +428,9 @@
         lang = window.localStorage.getItem("agent_lang");
         mlp = new multiLanguage();
         mlp.loadLanguage(lang, function () {
-            if (IsSetWalletPassword.toUpperCase() == "TRUE") {
                 window.parent.API_CloseLoading();
-                createBankSelect();
                 queryData();
-            } else {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定錢包密碼"), function () {
-                    window.parent.API_MainWindow(mlp.getLanguageKey("設定錢包密碼"), "SetWalletPassword.aspx");
-                });
-            }
+
         
         });
     }
@@ -291,238 +444,6 @@
         }
     }
 
-    function SelectPaymentMethod() {
-        if ($('#idSelectPaymentMethod').val() == 'BANK') {
-
-            $('#BankModel').show();
-            $('#GCashModel').hide();
-            $('#idBankCardName').val('');
-            $('#selectedBank').val('-1');
-            $('#idBankBranch').val('');
-            $('#idWalletPassword').val('');
-        } else {
-            $('#GCashModel').show();
-            $('#BankModel').hide();
-            $('#idGCashAccount').val('');
-            $('#idPhoneNumber').val('');
-            $('#idWalletPassword2').val('');
-        }
-    }
-
-    function BankCardSave() {
-        if ($('#swiperBankCardContent').next().children().length >= 10) {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("最多只能新增10張卡片"));
-            return false;
-        }
-
-        var BankCardName = $('#idBankCardName').val().trim();
-        var BankCard = $('#idBankCard').val().trim();
-        var WalletPassword = $('#idWalletPassword').val().trim();
-        var BankBranch = $('#idBankBranch').val().trim();
-        var Bank = $('#selectedBank').val();
-
-        if (BankCardName == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入姓名"));
-            return;
-        }
-
-        if (BankCard == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入卡號"));
-            return;
-        }
-
-        if (BankBranch == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入支行"));
-            return;
-        } 
-
-        if (Bank == '-1') {
-            window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未選擇銀行"));
-            return;
-        } 
-
-        if (WalletPassword == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入錢包密碼"));
-            return;
-        }
-
-        var postData = {
-            AID: EWinInfo.ASID,
-            Password: WalletPassword
-        }
-
-        c.callService(ApiUrl + "/CheckPassword", postData, function (success, o) {
-            if (success) {
-                var obj = c.getJSON(o);
-                if (obj.Result == 0) {
-                    var postData2 = {
-                        AID: EWinInfo.ASID,
-                        PaymentMethod: 0,
-                        BankName: Bank,
-                        BranchName: BankBranch,
-                        BankNumber: BankCard,
-                        AccountName: BankCardName,
-                        BankProvince: '',
-                        BankCity: '',
-                        Description: ''
-                    }
-
-                    c.callService(ApiUrl + "/AddUserBankCard", postData2, function (success2, o2) {
-                        if (success2) {
-                            var obj = c.getJSON(o2);
-                            if (obj.Result == 0) {
-                                closeForgetPassWord();
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey('新增成功'), function () {
-                                    queryData();
-                                });
-                            } else {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
-                            }
-                        } else {
-                            if (o == "Timeout") {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
-                            } else {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o2);
-                            }
-                        }
-
-                        window.parent.API_CloseLoading();
-                    });
-                } else {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
-                }
-            } else {
-                if (o == "Timeout") {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
-                } else {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
-                }
-            }
-
-            window.parent.API_CloseLoading();
-        });
-    }
-
-    function GCashSave() {
-        var GCashAccount = $('#idGCashAccount').val().trim();
-        var PhoneNumber = $('#idPhoneNumber').val().trim();
-        var WalletPassword = $('#idWalletPassword2').val().trim();
-
-        var boolChecked = true;
-        if (GCashAccount == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入帳戶名稱"));
-            return;
-        } 
-
-        if (PhoneNumber == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入電話號碼"));
-            return;
-        }
-        else if (PhoneNumber[0] != "0") {
-            window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("電話號碼必須以0開頭"));
-            return;
-        } else if (PhoneNumber.length != 11) {
-            window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("電話號碼長度為11碼"));
-            return;
-        }
-
-
-        if (WalletPassword == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入錢包密碼"));
-            return;
-        }
-
-        var postData = {
-            AID: EWinInfo.ASID,
-            Password: WalletPassword
-        }
-
-        c.callService(ApiUrl + "/CheckPassword", postData, function (success, o) {
-            if (success) {
-                var obj = c.getJSON(o);
-                if (obj.Result == 0) {
-                    var postData2 = {
-                        AID: EWinInfo.ASID,
-                        PaymentMethod: 4,
-                        BankName: 'GCash',
-                        BranchName: '',   
-                        BankNumber: PhoneNumber,
-                        AccountName: GCashAccount,
-                        BankProvince: '',
-                        BankCity: '',
-                        Description: ''
-                    }
-                    c.callService(ApiUrl + "/AddUserBankCard", postData2, function (success2, o2) {
-                        if (success2) {
-                            var obj = c.getJSON(o);
-                            if (obj.Result == 0) {
-                                closeForgetPassWord();
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey('新增成功'), function () {
-                                    queryData();
-                                });
-                            } else {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
-                            }
-                        } else {
-                            if (o == "Timeout") {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
-                            } else {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o2);
-                            }
-                        }
-
-                        window.parent.API_CloseLoading();
-                    });
-                } else {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
-                }
-            } else {
-                if (o == "Timeout") {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
-                } else {
-                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
-                }
-            }
-
-            window.parent.API_CloseLoading();
-        });
-
-    }
-
-    function SetUserBankCardState(doc) {
-        var BankCardGUID = $(doc).parent().parent().parent().find('.BankCardGUID').eq(0).text();
-        var BankNumber = $(doc).parent().parent().parent().find('.BankNumber').eq(0).text();
-        var postData2 = {
-            AID: EWinInfo.ASID,
-            BankCardGUID: BankCardGUID,
-            BankCardState: 1
-        }
-        window.parent.API_ShowMessage('', mlp.getLanguageKey('確認刪除此卡片')+":" + BankNumber + "?", function () {
-            c.callService(ApiUrl + "/SetUserBankCardState", postData2, function (success2, o2) {
-                if (success2) {
-                    var obj = c.getJSON(o2);
-                    if (obj.Result == 0) {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey('刪除成功'), function () {
-                            queryData();
-                        });
-                    } else {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
-                    }
-                } else {
-                    if (o == "Timeout") {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
-                    } else {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o2);
-                    }
-                }
-
-                window.parent.API_CloseLoading();
-            });
-        });
-      
-      
-    }
-
     window.onload = init;
 </script>
 <body class="innerBody">
@@ -531,15 +452,71 @@
             <div class="container-fluid">
                 <div class="collapse-box">
                     <h2 class="collapse-header has-arrow zIndex_overMask_SafariFix" onclick="ac.dataToggleCollapse(this)" data-toggle="collapse" data-target="#searchList" aria-controls="searchList" aria-expanded="true" aria-label="searchList">
-                        <span class="language_replace">卡片設定</span>
+                        <span class="language_replace">出款紀錄</span>
                         <i class="arrow"></i>
                     </h2>
                     <!-- collapse內容 由此開始 ========== -->
-                    <div id="searchList" class="collapse-content collapse show">
+                       <div id="searchList" class="collapse-content collapse show">
                         <div id="divSearchContent" class="row searchListContent">
+                         
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3" style="display:none">
+                                <!-- 起始日期 / 結束日期 -->
+                                <div class="form-group search_date">
+                                    <div class="starDate">
+                                        <div class="title"><span class="language_replace">起始日期</span></div>
+
+                                        <div class="form-control-default">
+                                            <input id="startDate" type="date" class="form-control custom-date" onchange="disableDateSel()">
+                                            <label for="" class="form-label"><i class="icon icon2020-calendar-o"></i></label>
+                                            <%--<input id="startDateChk" type="checkbox" style="position:relative;opacity:0.5;width:50px;height:50px;top:-30px">--%>
+                                        </div>
+
+                                    </div>
+                                    <div class="endDate">
+                                        <div class="title"><span class="language_replace">結束日期</span></div>
+
+                                        <div class="form-control-default">
+                                            <input id="endDate" type="date" class="form-control custom-date" onchange="disableDateSel()">
+                                            <label for="" class="form-label"><i class="icon icon2020-calendar-o"></i></label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                             <div class="col-12 col-md-12 col-lg-5 col-xl-7">
+                                <div id="idTabMainContent">
+                                    <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
+                                        <li class="nav-item">
+                                            <a onclick="changeDateTab(this,0)" class="nav-link language_replace" data-toggle="tab" href="" role="tab" aria-selected="true">本日</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a onclick="changeDateTab(this,1)" class="nav-link language_replace" data-toggle="tab" href="" role="tab" aria-selected="true">昨天</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a onclick="changeDateTab(this,2)" class="nav-link language_replace active" data-toggle="tab" href="" role="tab" aria-selected="true">本週</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a onclick="changeDateTab(this,3)" class="nav-link language_replace" data-toggle="tab" href="" role="tab" aria-selected="true">上週</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a onclick="changeDateTab(this,4)" class="nav-link language_replace" data-toggle="tab" href="" role="tab" aria-selected="true">本月</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a onclick="changeDateTab(this,5)" class="nav-link language_replace" data-toggle="tab" href="" role="tab" aria-selected="true">上月</a>
+                                        </li>
+                                        <li class="tab-slide" id="sliderDate"></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                         
                             <div class="col-12">
                                 <div class="form-group wrapper_center dataList-process">
-                                    <button class="btn btn-full-main btn-roundcorner " onclick="showForgetPassWord()"><i class="icon icon-before icon-ewin-input-submit"></i><span class="language_replace">新增</span></button>
+                                    <%--<button class="btn btn-outline-main" onclick="MaskPopUp(this)">取消</button>--%>
+                                    <button class="btn btn-full-main btn-roundcorner " onclick="queryData()"><i class="icon icon-before icon-ewin-input-submit"></i><span class="language_replace">確認</span></button>
                                 </div>
                             </div>
                             <!-- iOS Safari Virtual Keyboard Fix--------------->
@@ -557,35 +534,26 @@
                 <div class="MT2__table table-col-8 w-200">
                     <div id="templateTableItem" style="display: none">
                         <div class="tbody__tr td-non-underline-last-2">
-                            <span style="display:none;" class="BankCardGUID"></span>
-                            <div class="tbody__td td-3 nonTitle">
-                                <span class="td__title"><span class="language_replace">類型</span></span>
-                                <span class="td__content"><i class="icon icon-s icon-before"></i><span class="PaymentMethod"></span></span>
-                            </div>
-                     <%--         <div class="tbody__td td-number td-3 td-vertical">
-                                <span class="td__title"><i class="icon icon-ewin-default-accountRolling icon-s icon-before"></i><span class="language_replace">狀態</span></span>
-                                <span class="td__content"><span class="BankCardState"></span></span>
-                            </div>--%>
                              <div class="tbody__td td-3 nonTitle">
-                                <span class="td__title"><span class="language_replace">銀行名稱</span></span>
-                                <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="BankName"></span></span>
+                                <span class="td__title"><span class="language_replace">日期</span></span>
+                                <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="FinishDate"></span></span>
                             </div>
                             <div class="tbody__td td-3 nonTitle">
-                                <span class="td__title"><span class="language_replace">卡號/帳號</span></span>
-                                <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="BankNumber"></span></span>
+                                <span class="td__title"><span class="language_replace">金額</span></span>
+                                <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="Amount"></span></span>
                             </div>
                        
                              <div class="tbody__td td-3 nonTitle">
-                                <span class="td__title"><span class="language_replace">支行名稱</span></span>
-                                <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="BranchName"></span></span>
+                                <span class="td__title"><span class="language_replace">出款類型</span></span>
+                                <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="BasicType"></span></span>
                             </div>
-                            <div class="tbody__td td-number td-3 td-vertical">
-                                <span class="td__title"><i class="icon icon-ewin-default-accountRolling icon-s icon-before"></i><span class="language_replace">持卡人名稱</span></span>
-                                <span class="td__content"><span class="AccountName"></span></span>
+                            <div class="tbody__td td-3 nonTitle">
+                                <span class="td__title"><span class="language_replace">訂單編號</span></span>
+                                <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="PaymentSerial"></span></span>
                             </div>
-                             <div class="tbody__td td-number td-3 td-vertical">
-                                <span class="td__title"><i class="icon icon-ewin-default-accountRolling icon-s icon-before"></i><span class="language_replace">刪除</span></span>
-                                <span class="td__content"><button class="language_replace" onclick="SetUserBankCardState(this)" style="color: black;">刪除</button></span>
+                               <div class="tbody__td td-3 nonTitle">
+                                <span class="td__title"><span class="language_replace">訂單狀態</span></span>
+                                <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="PaymentStatus"></span></span>
                             </div>
                         </div>
                     </div>
@@ -593,13 +561,12 @@
                     <div class="thead">
                         <!--標題項目單行 -->
                         <div class="thead__tr">
-                            <div class="thead__th"><span class="language_replace">類型</span></div>
+                            <div class="thead__th"><span class="language_replace">日期</span></div>
                    <%--         <div class="thead__th"><span class="language_replace">狀態</span></div>--%>
-                             <div class="thead__th"><span class="language_replace">銀行名稱</span></div>
-                            <div class="thead__th"><span class="language_replace">卡號/帳號</span></div>
-                            <div class="thead__th"><span class="language_replace">支行名稱</span></div>
-                            <div class="thead__th"><span class="language_replace">持卡人名稱</span></div>
-                            <div class="thead__th"><span class="language_replace"></span></div>
+                             <div class="thead__th"><span class="language_replace">金額</span></div>
+                            <div class="thead__th"><span class="language_replace">出款類型</span></div>
+                            <div class="thead__th"><span class="language_replace">訂單編號</span></div>
+                            <div class="thead__th"><span class="language_replace">訂單狀態</span></div>
                         </div>
                     </div>
                     <!-- 表格上下滑動框 -->

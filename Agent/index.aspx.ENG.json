@@ -74,5 +74,7 @@
   "遊玩帳號": "PlayerAccount",
   "提醒": "System Message",
   "SMSNumberNotExist": "Phone number not exist.",
-  "NormalizeError": "The phone format is incorrect."
+  "NormalizeError": "The phone format is incorrect.",
+  "設定錢包密碼": "Set wallet password",
+  "設定出款卡": "Set bank card"
 }

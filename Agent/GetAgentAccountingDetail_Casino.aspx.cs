@@ -20,7 +20,7 @@ public partial class GetAgentAccountingDetail_Casino : System.Web.UI.Page {
         RedisTmp = RedisCache.Agent.GetAccountDetailByLoginAccount(LoginAccount, AccountingID);
 
         if (string.IsNullOrEmpty(RedisTmp)) {
-            RetValue = api.GetAgentAccountingDetail(AID, CurrencyType, AccountingID, StartDate, EndDate);
+            RetValue = api.GetAgentAccountingDetail(AID, CurrencyType, AccountingID);
 
             RedisCache.Agent.UpdateAccountDetailByLoginAccount(Newtonsoft.Json.JsonConvert.SerializeObject(RetValue), LoginAccount, AccountingID);
         } else {
