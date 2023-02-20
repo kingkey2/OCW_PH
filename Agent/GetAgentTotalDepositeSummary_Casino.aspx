@@ -298,8 +298,8 @@
 
             if (new Date(postData.QueryBeginDate) <= new Date(postData.QueryEndDate)) {
 
-                window.parent.API_ShowLoading();//GetAgentTotalDepositeSummaryBySearch
-                c.callService(ApiUrl + "/GetAgentTotalOrderSummaryBySearch", postData, function (success, o) {
+                window.parent.API_ShowLoading();
+                c.callService(ApiUrl + "/GetAgentTotalDepositeSummaryBySearch", postData, function (success, o) {
                     if (success) {
                         var obj = c.getJSON(o);
 
