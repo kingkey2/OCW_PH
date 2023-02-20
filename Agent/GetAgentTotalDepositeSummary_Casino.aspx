@@ -496,7 +496,7 @@
                 t.querySelector(".Space").style.paddingLeft = ((DealUserAccountInsideLevel - 1) * 20) + "px";
 
 
-                if (item.HasChild) {
+                if (item.UserAccountInsideLevel <= o.SelfInsideLevel) {
                     expandBtn.onclick = new Function("agentExpand('" + DealUserAccountSortKey + "', " + item.UserAccountID.toString() + ")");
                     expandBtn.innerText = "-";
                     expandBtn.dataset.isloaded = "Y";

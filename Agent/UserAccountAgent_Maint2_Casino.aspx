@@ -450,7 +450,7 @@
                 }
 
                 var DealUserAccountInsideLevel = item.UserAccountInsideLevel - o.TopInsideLevel;
-                var DealUserAccountSortKey = item.UserAccountSortKey.substring(o.TopSortKey);
+                var DealUserAccountSortKey = item.UserAccountSortKey.substring(o.TopSortKey.length);
                 var t = c.getTemplate("templateTableItem");
                 var expandBtn;
                 c.setClassText(t, "LoginAccount", null, item.LoginAccount);
