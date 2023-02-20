@@ -862,7 +862,7 @@
 
             if (AlreadyHaveGameAccount == "") {
                 $("#idCreateGameAccount").show();
-                $("#liTrade").hide();
+                $("#liTrade").show();
             } else {
                 $("#idCreateGameAccount").hide();
                 $("#liTrade").show();
@@ -1093,7 +1093,7 @@
                                 
                                 </ul>
                             </li>
-                            <li class="nav-item navbarMenu__catagory" id="liTrade" style="display:none">
+                            <li class="nav-item navbarMenu__catagory" id="liTrade">
                                 <span class="catagory-item"><span class="language_replace">交易</span></span>
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown">

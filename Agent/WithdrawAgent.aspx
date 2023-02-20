@@ -284,6 +284,28 @@
         var walletPassword = $('#idWalletPassword').val().trim();
         var paymentCode = "";
         var bankcarddata;
+        var pointValue = 0;
+        if (EWinInfo.UserInfo.WalletList) {
+            var removeArray = [];
+
+            for (var i = 0; i < EWinInfo.UserInfo.WalletList.length; i++) {
+                //if (EWinInfo.UserInfo.WalletList[i].PointState == 1 ) {
+                //    removeArray.push(i);
+                //}
+                if (EWinInfo.MainCurrencyType == EWinInfo.UserInfo.WalletList[i].CurrencyType) {
+                    if (EWinInfo.UserInfo.WalletList[i].PointState==1) {
+                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("錢包狀態為停用"));
+                        return;
+                    }
+                    pointValue = EWinInfo.UserInfo.WalletList[i].PointValue;
+                }
+            }
+
+            for (var i = 0; i < removeArray.length; i++) {
+                EWinInfo.UserInfo.WalletList.splice(removeArray[i], 1);
+            }
+        }
+
         if (paymentMethod=="-1") {
             window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇出款方式"));
             return;
@@ -291,6 +313,11 @@
 
         if (amount=='') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"));
+            return;
+        }
+
+        if (amount> pointValue ) {
+            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("錢包餘額不足"));
             return;
         }
 
@@ -320,6 +347,8 @@
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇出款卡"), function () { });
             return;
         }
+
+
 
         var bankCard = bankcarddata.BankNumber;
         var bankCardNameFirst = bankcarddata.AccountName;
