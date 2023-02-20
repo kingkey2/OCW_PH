@@ -449,6 +449,10 @@
         queryData();
     }
 
+    function showSearchAccountPrecautions() {
+        window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("請輸入完整帳號"));
+    }
+
     function init() {
         var d = new Date();
 
@@ -492,7 +496,10 @@
                         <div id="divSearchContent" class="row searchListContent">
                             <div id="idSearchButton" class="col-12 col-md-6 col-lg-3 col-xl-2">
                                 <div class="form-group form-group-s2 ">
-                                    <div class="title hidden shown-md"><span class="language_replace">帳號</span></div>
+                                    <div class="title hidden shown-md">
+                                        <span class="language_replace">帳號</span>
+                                         <btn style="font-size: 12px; right: 5px; position: absolute; border: 2px solid; width: 22px; text-align: center; border-radius: 11px; color: #bba480; cursor: pointer;" onclick="showSearchAccountPrecautions()">!</btn>
+                                    </div>
 
                                     <div class="form-control-underline iconCheckAnim placeholder-move-right zIndex_overMask_SafariFix">
                                         <input type="text" class="form-control" id="loginAccount" value="" />
@@ -672,12 +679,12 @@
                     <!-- 表格上下滑動框 -->
                     <div class="tbody" id="idList">
                     </div>
-                         <div class="row" style="position: absolute;left:0;right:0;margin:0 auto;padding-top: 40px;">
-                    <div class="col-12" id="btnShowNextData" style="display:none;">
-                        <div class="form-group wrapper_center dataList-process">
-                            <button style="max-width: 30%;" class="btn btn-full-main btn-roundcorner " onclick="showNextData()"><i class="icon icon-before icon-ewin-input-submit"></i><span class="language_replace">查看更多</span></button>
+                    <div class="row" style="position: absolute; left: 0; right: 0; margin: 0 auto; padding-top: 40px;">
+                        <div class="col-12" id="btnShowNextData" style="display: none;">
+                            <div class="form-group wrapper_center dataList-process">
+                                <button style="max-width: 30%;" class="btn btn-full-main btn-roundcorner " onclick="showNextData()"><i class="icon icon-before icon-ewin-input-submit"></i><span class="language_replace">查看更多</span></button>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
