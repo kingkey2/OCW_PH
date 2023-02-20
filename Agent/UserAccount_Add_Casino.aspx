@@ -370,7 +370,7 @@
 
             userList[userList.length] = { Name: "AllowPayment", Value: AllowPayment };
             userList[userList.length] = { Name: "AllowServiceChat", Value: AllowServiceChat };
-            
+
             userList[userList.length] = { Name: "AllowBet", Value: 3 };
 
 
@@ -389,7 +389,7 @@
 
 
                     if (pointUserRate.value == "") {
-                        
+
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), btnPointNew.getAttribute("btnGameCode") + "-" + mlp.getLanguageKey("佔成率(%)") + " " + mlp.getLanguageKey("不可為空值"));
                         retValue = false;
                         break;
@@ -488,16 +488,16 @@
             window.parent.API_ShowToastMessage(mlp.getLanguageKey("作業進行中"));
         }
     }
-    
+
     function updateBaseInfo(o) {
         var t;
         var btnPointNew;
-        
+
 
         if (o != null) {
             c.setElementText("idCompanyCode", null, o.CompanyCode);
             c.setElementText("ParentLoginAccount", null, o.LoginAccount);
-            
+
             if (o.IsLendChipAccount) {
                 c.setElementText("IsLendChipAccount", null, mlp.getLanguageKey("此帳戶為配碼帳戶"));
                 idLendChipAccount.style.display = "block";
@@ -521,7 +521,7 @@
                     btnPointNew = c.getFirstClassElement(t, "btnPointNew");
                     pointUserRate = c.getFirstClassElement(t, "PointUserRate");
                     pointBuyChipRate = c.getFirstClassElement(t, "PointBuyChipRate");
-                    
+
                     t.setAttribute("default", w.CurrencyType);
                     t.classList.add(w.CurrencyType);
                     t.classList.add("div_GameCode");
@@ -531,7 +531,7 @@
                     c.setClassText(t, "parentBuyChipRate", null, w.BuyChipRate);
                     c.setClassText(t, "parentUserRate", null, w.UserRate);
 
-                    btnPointNew.setAttribute("btnGameCode",  w.CurrencyType);
+                    btnPointNew.setAttribute("btnGameCode", w.CurrencyType);
                     btnPointNew.setAttribute("btnUserRate", w.UserRate);
                     btnPointNew.setAttribute("btnBuyChipRate", w.BuyChipRate);
 
@@ -652,6 +652,14 @@
         });
     }
 
+    function applyGameInfo() {
+        let tmpPointUserRate = $(".tmpPointUserRate").val();
+        let tmpPointBuyChipRate = $(".tmpPointBuyChipRate").val();
+
+        $(".PointUserRate").val(tmpPointUserRate);
+        $(".PointBuyChipRate").val(tmpPointBuyChipRate);
+    }
+
     function init() {
         lang = window.localStorage.getItem("agent_lang");
         p = window.parent.API_GetLobbyAPI();
@@ -734,7 +742,7 @@
                                     </div>
                                     <div class="col-12 form-line d-flex justify-content-between align-items-center">
                                         <span class="language_replace" id="idUserAccountType"></span>
-                                        <button type="button" style="display:none" class="btn btn-icon btn-s btn-outline-main btn-roundcorner" onclick="setUserAccountType()"><i class="icon icon-ewin-input-setUserAccountType icon-before icon-line-vertical"></i><span class="language_replace">狀態變更</span></button>
+                                        <button type="button" style="display: none" class="btn btn-icon btn-s btn-outline-main btn-roundcorner" onclick="setUserAccountType()"><i class="icon icon-ewin-input-setUserAccountType icon-before icon-line-vertical"></i><span class="language_replace">狀態變更</span></button>
                                     </div>
                                 </div>
                                 <div class="col-12 col-smd-12 col-md-6 col-lg-12 form-group row no-gutters">
@@ -850,10 +858,31 @@
 
                         <fieldset class="dataFieldset">
                             <legend class="dataFieldset-title language_replace hidden shown-lg">錢包管理</legend>
-
+                            <div class="row" style="padding-bottom:5px">
+                                <div class="col-12 col-smd-4 pr-smd-1">
+                                    <div>
+                                        <label for="password" class="form-label "><span class="language_replace">佔成率(%)</span></label>
+                                        <input type="text" class="form-control tmpPointUserRate" value="0">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-smd-4 mt-3 mt-smd-0 pl-smd-1">
+                                    <div>
+                                        <label for="password" class="form-label "><span class="language_replace">轉碼率(%)</span></label>
+                                        <input type="text" class="form-control tmpPointBuyChipRate" value="0">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-smd-4 mt-3 mt-smd-0 pl-smd-1">
+                                    <div>
+                                        <label for="password" class="form-label "><span class="language_replace"> </span></label>
+                                       <button type="button" class="btn btn-full-main form-control" onclick="applyGameInfo()">
+                                           <span class="language_replace">套用</span>
+                                       </button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="MT__tableDiv">
                                 <!-- 自訂表格 -->
-                                <div class="MT__table MT__table--Sub table-col-7" >
+                                <div class="MT__table MT__table--Sub table-col-7">
                                     <!-- 標題項目  -->
                                     <div class="thead">
                                         <!--標題項目單行 -->
@@ -883,7 +912,7 @@
                                                 </span>
                                                 <span class="td__content">
                                                     <span class="language_replace PointCurrencyType"></span>
-                                                    <span class="btnPointNew" btntype="create" style="display:none">
+                                                    <span class="btnPointNew" btntype="create" style="display: none">
                                                         <button type="button" class="btn btn-s btn-outline-main "><i class="icon"></i><span class="language_replace btnText">新增</span></button>
                                                     </span>
                                                 </span>
@@ -893,7 +922,7 @@
                                                     <span class="language_replace">遊戲代碼</span>
                                                 </span>
                                                 <span class="td__content">
-                                                     <span class="language_replace GameAccountingCode"></span>
+                                                    <span class="language_replace GameAccountingCode"></span>
                                                 </span>
                                             </div>
                                             <div class="tbody__td td-3 td-vertical">
@@ -916,7 +945,7 @@
                                                 </span>
                                                 <span class="td__content">
                                                     <div class="form-control-hidden ADJ_userRate">
-                                                        <input type="text" class="form-control PointBuyChipRate" language_replace="placeholder" placeholder="轉碼率上限"  value="0">
+                                                        <input type="text" class="form-control PointBuyChipRate" language_replace="placeholder" placeholder="轉碼率上限" value="0">
                                                         <!-- placholder label -->
                                                         <label class="form-label span_parentBuyChipRate">
                                                             <span class="language_replace">上線</span><span class="number"><span class="parentBuyChipRate"></span>%</span>

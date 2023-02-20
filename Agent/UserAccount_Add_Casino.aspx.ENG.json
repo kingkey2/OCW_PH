@@ -83,5 +83,6 @@
   "請輸入國碼": "Please enter the country code.",
   "請輸入電話": "Please enter the phone number.",
   "提醒": "System Message",
-  "電話格式有誤": "The phone format is incorrect."
+  "電話格式有誤": "The phone format is incorrect.",
+  "套用": "Apply"
 }
