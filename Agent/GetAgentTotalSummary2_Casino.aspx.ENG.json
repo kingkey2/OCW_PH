@@ -1,6 +1,5 @@
 {
   "網路異常, 請稍後重新嘗試": "Network exception, please try again.",
-  "錯誤": "System Message",
   "結束日期不可小於起起始日期": "The end date must be greater than start date.",
   "請至少選擇一個幣別!!": "Please select at least one currency.",
   "無數據": "There is no any data yet.",
@@ -26,6 +25,8 @@
   "個人輸贏數": "Personal W/L",
   "個人有效注額": "Personal Valid Bet",
   "個人投注筆數": "Personal Bet Count",
-  "確認": "Send",
-  "提醒": "System Message"
+  "確認": "Search",
+  "提醒": "System Message",
+  "錯誤": "System Message",
+  "完成": "System Message"
 }
