@@ -29,5 +29,6 @@
   "確認": "Search",
   "提醒": "System Message",
   "錯誤": "System Message",
-  "完成": "System Message"
+  "完成": "System Message",
+  "請輸入完整帳號": "Please enter the FULL account."
 }
