@@ -759,12 +759,12 @@
                                 </div>
 
                             </div>
-                            <div id="expandDiv" class="col-12 col-md-3 col-lg-1 col-xl-1">
+               <%--             <div id="expandDiv" class="col-12 col-md-3 col-lg-1 col-xl-1">
                                 <div class="form-group wrapper_center row">
                                     <button class="btn2 btn-outline-main language_replace col-6 col-md-12 col-lg-12" onclick="toggleAllRow(true)">展開</button>
                                     <button class="btn2 btn-outline-main language_replace col-6 col-md-12 col-lg-12" onclick="toggleAllRow(false)">收合</button>
                                 </div>
-                            </div>
+                            </div>--%>
 
                             <div class="col-12 col-md-12 col-lg-5 col-xl-6">
                                 <div id="idTabMainContent">

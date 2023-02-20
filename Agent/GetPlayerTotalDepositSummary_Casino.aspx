@@ -91,14 +91,14 @@
     function queryData(LoginAccount) {
         var startDate;
         var endDate;
-        var targetLoginAccount;
+        var targetLoginAccount = null;
         var idList = document.getElementById("idList");
         var currencyTypeDom = "";
         var currencyType = "";
 
         startDate = document.getElementById("startDate");
         endDate = document.getElementById("endDate");
-        targetLoginAccount = document.getElementById("loginAccount");
+        targetLoginAccount = document.getElementById("loginAccount").value.trim();
         currencyTypeDom = document.getElementsByName("chkCurrencyType");
 
         if (currencyTypeDom) {
@@ -112,41 +112,71 @@
             }
         }
 
-        if (currencyType != "") {
-            postData = {
-                AID: EWinInfo.ASID,
-                LoginAccount: LoginAccount,
-                QueryBeginDate: startDate.value,
-                QueryEndDate: endDate.value,
-                CurrencyType: currencyType,
-                RowsPage: RowsPage, //一頁顯示的比數
-                PageNumber: PageNumber,
-                TargetLoginAccount: targetLoginAccount.value
-            };
-
+        if (currencyType != "") {   
             if (new Date(postData.QueryBeginDate) <= new Date(postData.QueryEndDate)) {
 
                 window.parent.API_ShowLoading();
-                c.callService(ApiUrl + "/GetTotalOrderSummary", postData, function (success, o) {
-                    if (success) {
-                        var obj = c.getJSON(o);
 
-                        if (obj.Result == 0) {
-                            updateList(obj);
+                if (targetLoginAccount) {
+                    postData = {
+                        AID: EWinInfo.ASID,
+                        TargetLoginAccount: targetLoginAccount,
+                        QueryBeginDate: startDate.value,
+                        QueryEndDate: endDate.value,
+                        CurrencyType: currencyType
+                    };
+                    c.callService(ApiUrl + "/GetSearchPlayerTotalDepositSummary", postData, function (success, o) {
+                        if (success) {
+                            var obj = c.getJSON(o);
+
+                            if (obj.Result == 0) {
+                                updateList(obj);
+                            } else {
+
+                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                            }
                         } else {
-
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                            if (o == "Timeout") {
+                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                            } else {
+                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                            }
                         }
-                    } else {
-                        if (o == "Timeout") {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+
+                        window.parent.API_CloseLoading();
+                    });
+                } else {
+                    postData = {
+                        AID: EWinInfo.ASID,
+                        LoginAccount: LoginAccount,
+                        QueryBeginDate: startDate.value,
+                        QueryEndDate: endDate.value,
+                        CurrencyType: currencyType,
+                        RowsPage: RowsPage, //一頁顯示的比數
+                        PageNumber: PageNumber
+                    };
+
+                    c.callService(ApiUrl + "/GetPlayerTotalDepositSummary", postData, function (success, o) {
+                        if (success) {
+                            var obj = c.getJSON(o);
+
+                            if (obj.Result == 0) {
+                                updateList(obj);
+                            } else {
+
+                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                            }
                         } else {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                            if (o == "Timeout") {
+                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                            } else {
+                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                            }
                         }
-                    }
 
-                    window.parent.API_CloseLoading();
-                });
+                        window.parent.API_CloseLoading();
+                    });
+                }
             } else {
                 window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("結束日期不可小於起起始日期"));
             }
@@ -177,10 +207,10 @@
             for (var i = 0; i < o.SummaryList.length; i++) {
                 var item = o.SummaryList[i];
                 var t = c.getTemplate("templateTableItem");
-
+                var DealUserAccountInsideLevel = item.UserAccountInsideLevel - o.TopInsideLevel;
                 c.setClassText(t, "LoginAccount", null, item.LoginAccount);
                 c.setClassText(t, "ParentLoginAccount", null, item.ParentLoginAccount);
-                c.setClassText(t, "InsideLevel", null, item.DealUserAccountInsideLevel);
+                c.setClassText(t, "InsideLevel", null, DealUserAccountInsideLevel);
                 c.setClassText(t, "CurrencyType", null, item.CurrencyType);
                 //c.setClassText(t, "DepositValue", null, c.toCurrency(item.DepositValue));
                 //c.setClassText(t, "FirstDepositValue", null, c.toCurrency(item.FirstDepositValue));;

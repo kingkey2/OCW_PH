@@ -92,7 +92,7 @@
 
         startDate = document.getElementById("startDate");
         endDate = document.getElementById("endDate");
-        targetLoginAccount = document.getElementById("loginAccount");
+        targetLoginAccount = document.getElementById("loginAccount").value.trim();
         currencyTypeDom = document.getElementsByName("chkCurrencyType");
 
         if (currencyTypeDom) {
@@ -107,39 +107,71 @@
         }
 
         if (currencyType != "") {
-            postData = {
-                AID: EWinInfo.ASID,
-                LoginAccount: LoginAccount,
-                QueryBeginDate: startDate.value,
-                QueryEndDate: endDate.value,
-                CurrencyType: currencyType,
-                TargetLoginAccount: targetLoginAccount.value,
-                RowsPage: 50, //一頁顯示的比數
-                PageNumber: PageNumber
-            };
-
+   
             window.parent.API_ShowLoading();
-            c.callService(ApiUrl + "/GetTotalOrderSummary", postData, function (success, o) {
-                if (success) {
-                    var obj = c.getJSON(o);
 
-                    if (obj.Result == 0) {
-                        updateList(obj);
+            if (targetLoginAccount) {
+                postData = {
+                    AID: EWinInfo.ASID,
+                    TargetLoginAccount: targetLoginAccount,
+                    QueryBeginDate: startDate.value,
+                    QueryEndDate: endDate.value,
+                    CurrencyType: currencyType
+                };
+
+
+                c.callService(ApiUrl + "/GetSearchPlayerTotalOrderSummary", postData, function (success, o) {
+                    if (success) {
+                        var obj = c.getJSON(o);
+
+                        if (obj.Result == 0) {
+                            updateList(obj);
+                        } else {
+                            $("#idList").empty();
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                        }
                     } else {
-                        $("#idList").empty();
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                        if (o == "Timeout") {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                        } else {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                        }
                     }
-                } else {
-                    if (o == "Timeout") {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+
+                    window.parent.API_CloseLoading();
+                });
+            } else {
+                postData = {
+                    AID: EWinInfo.ASID,
+                    LoginAccount: LoginAccount,
+                    QueryBeginDate: startDate.value,
+                    QueryEndDate: endDate.value,
+                    CurrencyType: currencyType,
+                    RowsPage: 50, //一頁顯示的比數
+                    PageNumber: PageNumber
+                };
+
+                c.callService(ApiUrl + "/GetPlayerTotalOrderSummary", postData, function (success, o) {
+                    if (success) {
+                        var obj = c.getJSON(o);
+
+                        if (obj.Result == 0) {
+                            updateList(obj);
+                        } else {
+                            $("#idList").empty();
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                        }
                     } else {
-                        window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                        if (o == "Timeout") {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                        } else {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                        }
                     }
-                }
 
-                window.parent.API_CloseLoading();
-            });
-
+                    window.parent.API_CloseLoading();
+                });
+            }
         }
         else {
             window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("請至少選擇一個幣別!!"));
@@ -167,11 +199,12 @@
             for (var i = 0; i < o.SummaryList.length; i++) {
                 var item = o.SummaryList[i];
                 var t = c.getTemplate("templateTableItem");
+                var DealUserAccountInsideLevel = item.UserAccountInsideLevel - o.TopInsideLevel;
 
                 c.setClassText(t, "LoginAccount", null, item.LoginAccount);
                 c.setClassText(t, "ParentLoginAccount", null, item.ParentLoginAccount);
                 c.setClassText(t, "CurrencyType", null, item.CurrencyType);
-
+                c.setClassText(t, "InsideLevel", null, DealUserAccountInsideLevel);
                 //if (parseFloat(item.TotalRewardValue) < 0) {
                 //    t.getElementsByClassName("RewardValue")[0].classList.add("num-negative");
                 //}
@@ -511,6 +544,10 @@
                                     <span class="ParentLoginAccount">CON5</span>
                                 </span>
                             </div>
+                                                        <div class="tbody__td td-3 nonTitle">
+                                <span class="td__title"><span class="language_replace">層級</span></span>
+                                <span class="td__content"><i class="icon icon-s icon-before"></i><span class="InsideLevel"></span></span>
+                            </div>
                             <div class="tbody__td td-3 nonTitle">
                                 <span class="td__title"><span class="language_replace">貨幣</span></span>
                                 <span class="td__content"><i class="icon icon-ewin-default-currencyType icon-s icon-before"></i><span class="CurrencyType">CON3</span></span>
@@ -547,6 +584,7 @@
                         <div class="thead__tr">
                             <div class="thead__th"><span class="language_replace">帳號</span></div>
                             <div class="thead__th"><span class="language_replace">上線帳號</span></div>
+                                                       <div class="thead__th"><span class="language_replace">層級</span></div>
                             <div class="thead__th"><span class="language_replace">貨幣</span></div>
 <%--                            <div class="thead__th"><span class="language_replace">團隊輸贏數</span></div>
                             <div class="thead__th"><span class="language_replace">團隊有效注額</span></div>

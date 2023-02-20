@@ -222,6 +222,8 @@
           <s:enumeration value="Cancel" />
           <s:enumeration value="Reject" />
           <s:enumeration value="Payouting" />
+          <s:enumeration value="WaitProcess" />
+          <s:enumeration value="PrepareFinished" />
         </s:restriction>
       </s:simpleType>
       <s:simpleType name="enumFinishedBy">
