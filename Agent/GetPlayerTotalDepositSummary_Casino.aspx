@@ -112,19 +112,21 @@
             }
         }
 
-        if (currencyType != "") {   
+        if (currencyType != "") {
+            postData = {
+                AID: EWinInfo.ASID,
+                TargetLoginAccount: targetLoginAccount,
+                QueryBeginDate: startDate.value,
+                QueryEndDate: endDate.value,
+                CurrencyType: currencyType
+            };
+
             if (new Date(postData.QueryBeginDate) <= new Date(postData.QueryEndDate)) {
 
                 window.parent.API_ShowLoading();
 
                 if (targetLoginAccount) {
-                    postData = {
-                        AID: EWinInfo.ASID,
-                        TargetLoginAccount: targetLoginAccount,
-                        QueryBeginDate: startDate.value,
-                        QueryEndDate: endDate.value,
-                        CurrencyType: currencyType
-                    };
+               
                     c.callService(ApiUrl + "/GetSearchPlayerTotalDepositSummary", postData, function (success, o) {
                         if (success) {
                             var obj = c.getJSON(o);
