@@ -30,9 +30,18 @@ public partial class BankCard_Maint : System.Web.UI.Page {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.SpriteAgent.APIResult AddUserBankCard(string AID, string CurrencyType, int PaymentMethod, string BankName, string BranchName, string BankNumber, string AccountName, string BankProvince, string BankCity, string Description)
+    public static EWin.SpriteAgent.APIResult AddUserBankCard(string AID,int PaymentMethod, string BankName, string BranchName, string BankNumber, string AccountName, string BankProvince, string BankCity, string Description)
     {
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
         return api.AddUserBankCard(AID,EWinWeb.MainCurrencyType, PaymentMethod, BankName, BranchName, BankNumber, AccountName, BankProvince, BankCity, Description);
+    }
+
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public static EWin.SpriteAgent.APIResult CheckPassword(string AID, string Password)
+    {
+        EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
+        return api.CheckPassword(AID, EWin.SpriteAgent.enumPasswordType.WalletPassword, Password);
     }
 }
