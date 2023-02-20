@@ -304,92 +304,90 @@
                     }
                 }
             }
-        });
-        
 
-        if (paymentMethod=="-1") {
-            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇出款方式"));
-            return;
-        }
+            if (paymentMethod == "-1") {
+                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇出款方式"));
+                return;
+            }
 
-        if (amount=='') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"));
-            return;
-        }
+            if (amount == '') {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"));
+                return;
+            }
 
-        if (amount> pointValue ) {
-            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("錢包餘額不足"));
-            return;
-        }
+            if (amount > pointValue) {
+                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("錢包餘額不足"));
+                return;
+            }
 
-        if (walletPassword == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入錢包密碼"));
-            return;
-        }
+            if (walletPassword == '') {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入錢包密碼"));
+                return;
+            }
 
-        if (paymentMethod == 'GCash') {
-            paymentCode = ".Withdrawal.Gcash";
-            if ($('#idSelectGCashAccount').val() == "-1") {
+            if (paymentMethod == 'GCash') {
+                paymentCode = ".Withdrawal.Gcash";
+                if ($('#idSelectGCashAccount').val() == "-1") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇出款卡"), function () { });
+                    return;
+                }
+
+                bankcarddata = bankData.find(w => w.BankCardGUID == $("#idSelectGCashAccount").val());
+            } else if (paymentMethod == 'BANK') {
+                paymentCode = ".Withdrawal.BANK";
+                if ($('#idSelectBankCard').val() == "-1") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇出款卡"), function () { });
+                    return;
+                }
+
+                bankcarddata = bankData.find(w => w.BankCardGUID == $("#idSelectBankCard").val());
+            } else {
+                paymentCode = "";
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇出款卡"), function () { });
                 return;
             }
 
-            bankcarddata = bankData.find(w => w.BankCardGUID == $("#idSelectGCashAccount").val());
-        } else if (paymentMethod == 'BANK') {
-            paymentCode = ".Withdrawal.BANK";
-            if ($('#idSelectBankCard').val() == "-1") {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇出款卡"), function () { });
-                return;
-            }
-
-            bankcarddata = bankData.find(w => w.BankCardGUID == $("#idSelectBankCard").val());
-        } else {
-            paymentCode = "";
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇出款卡"), function () { });
-            return;
-        }
 
 
+            var bankCard = bankcarddata.BankNumber;
+            var bankCardNameFirst = bankcarddata.AccountName;
+            var bankName = bankcarddata.BankName;
 
-        var bankCard = bankcarddata.BankNumber;
-        var bankCardNameFirst = bankcarddata.AccountName;
-        var bankName = bankcarddata.BankName;
 
+            window.parent.API_ShowLoading();
+            GetPaymentMethod(paymentCode, function (s, paymentMethodID) {
+                if (s) {
+                    checkWalletPassword(walletPassword, function (s1) {
+                        if (s1) {
+                            GetPaymentChannelByGroupIndex(paymentMethod, amount, function (s2, paymentChannelCode) {
+                                if (s2) {
+                                    GetInProgressPaymentByLoginAccount(function (s3) {
+                                        if (s3) {
 
-        window.parent.API_ShowLoading();
-        GetPaymentMethod(paymentCode, function (s, paymentMethodID) {
-            if (s) {
-                checkWalletPassword(walletPassword,function (s1) {
-                    if (s1) {
-                        GetPaymentChannelByGroupIndex(paymentMethod, amount, function (s2, paymentChannelCode) {
-                            if (s2) {
-                                GetInProgressPaymentByLoginAccount(function (s3) {
-                                    if (s3) {
-                                       
-                                        CreateEPayWithdrawalAgent(amount, paymentMethodID, paymentChannelCode, function (s4, orderNumber) {
-                                            if (s4) {
-                                                ConfirmEPayWithdrawal(paymentMethod,orderNumber, function (s5,paymentSerial) {
-                                                    if (s5) {
-                                                        $('#step1').hide();
-                                                        $('#step2').show();
-                                                        $('#idOrderNumber').val(paymentSerial);
-                                                        $('#idPaymentMethod').val(paymentMethod);
-                                                        $('#idUserAccount').val(bankCard);
-                                                        $('#idAmount').val(amount);                                 
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                         });
-                    }
-                });
-            }
+                                            CreateEPayWithdrawalAgent(amount, paymentMethodID, paymentChannelCode, function (s4, orderNumber) {
+                                                if (s4) {
+                                                    ConfirmEPayWithdrawal(paymentMethod, orderNumber, function (s5, paymentSerial) {
+                                                        if (s5) {
+                                                            $('#step1').hide();
+                                                            $('#step2').show();
+                                                            $('#idOrderNumber').val(paymentSerial);
+                                                            $('#idPaymentMethod').val(paymentMethod);
+                                                            $('#idUserAccount').val(bankCard);
+                                                            $('#idAmount').val(amount);
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         });
-
-      
+    
     }
 
     function CreateEPayWithdrawalAgent(amount, paymentMethodID, paymentChannelCode,cb) {
