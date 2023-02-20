@@ -1097,7 +1097,7 @@
                                 
                                 </ul>
                             </li>
-                            <li class="nav-item navbarMenu__catagory" >
+                            <li class="nav-item navbarMenu__catagory" id="liTrade">
                                 <span class="catagory-item"><span class="language_replace">交易</span></span>
                                 <ul class="catagory">
                                <%--     <li class="nav-item submenu dropdown">
