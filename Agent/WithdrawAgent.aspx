@@ -286,7 +286,7 @@
         var bankcarddata;
         var pointValue = 0;
 
-        API_QueryUserInfo(function(){
+        window.parent.API_QueryUserInfo(function(){
             if (EWinInfo.UserInfo.WalletList) {
                 var removeArray = [];
 

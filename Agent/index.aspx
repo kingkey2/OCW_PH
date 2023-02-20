@@ -1097,10 +1097,10 @@
                                 
                                 </ul>
                             </li>
-                            <li class="nav-item navbarMenu__catagory" id="liTrade">
+                            <li class="nav-item navbarMenu__catagory" >
                                 <span class="catagory-item"><span class="language_replace">交易</span></span>
                                 <ul class="catagory">
-                                    <li class="nav-item submenu dropdown">
+                               <%--     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('設定錢包密碼'), 'SetWalletPassword.aspx');ItemClick(this);">
                                             <i class="icon icon-mask icon-ewin-transfer"></i>
                                             <span class="language_replace">設定錢包密碼</span></a>
@@ -1119,7 +1119,7 @@
                                         <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('出款紀錄'), 'PaymentHistory.aspx');ItemClick(this);">
                                             <i class="icon icon-mask icon-ewin-transfer"></i>
                                             <span class="language_replace">出款紀錄</span></a>
-                                    </li>
+                                    </li>--%>
                                     <li class="nav-item submenu dropdown" id="btnTransfer">
                                         <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('轉帳至遊戲帳戶'), 'UserAccountWallet_Transfer.aspx');ItemClick(this);">
                                             <i class="icon icon-mask icon-ewin-transfer"></i>
