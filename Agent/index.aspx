@@ -177,6 +177,10 @@
         refreshWindow(refreshLastWindow);
     }
 
+    function API_QueryUserInfo(cb) {
+        queryUserInfo(cb)
+    }
+
     function API_CurrentWindow() {
         var o;
         var wc;
