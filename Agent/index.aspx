@@ -177,6 +177,10 @@
         refreshWindow(refreshLastWindow);
     }
 
+    function API_QueryUserInfo(cb) {
+        queryUserInfo(cb)
+    }
+
     function API_CurrentWindow() {
         var o;
         var wc;
@@ -862,7 +866,7 @@
 
             if (AlreadyHaveGameAccount == "") {
                 $("#idCreateGameAccount").show();
-                $("#liTrade").hide();
+                $("#liTrade").show();
             } else {
                 $("#idCreateGameAccount").hide();
                 $("#liTrade").show();
@@ -1093,10 +1097,10 @@
                                 
                                 </ul>
                             </li>
-                            <li class="nav-item navbarMenu__catagory" id="liTrade" style="display:none">
+                            <li class="nav-item navbarMenu__catagory" >
                                 <span class="catagory-item"><span class="language_replace">交易</span></span>
                                 <ul class="catagory">
-                                 <%--   <li class="nav-item submenu dropdown">
+                               <%--     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('設定錢包密碼'), 'SetWalletPassword.aspx');ItemClick(this);">
                                             <i class="icon icon-mask icon-ewin-transfer"></i>
                                             <span class="language_replace">設定錢包密碼</span></a>

@@ -59,5 +59,7 @@
   "尚未設定出款卡": "Withdraw card has not been set.",
   "網路異常, 請稍後重新嘗試": "The network is abnormal, please try again later.",
   "只能有一筆進行中之訂單": "There can only be one order in progress",
-  "貨幣未設定匯率": "Currency has no exchange rate set"
+  "貨幣未設定匯率": "Currency has no exchange rate set",
+  "錢包餘額不足": "Insufficient wallet balance.",
+  "錢包狀態為停用": "Wallet status is disabled."
 }
