@@ -299,7 +299,7 @@
             if (new Date(postData.QueryBeginDate) <= new Date(postData.QueryEndDate)) {
 
                 window.parent.API_ShowLoading();
-                c.callService(ApiUrl + "/GetAgentTotalOrderSummaryBySearch", postData, function (success, o) {
+                c.callService(ApiUrl + "/GetAgentTotalDepositeSummaryBySearch", postData, function (success, o) {
                     if (success) {
                         var obj = c.getJSON(o);
 
@@ -535,7 +535,6 @@
                 idList.appendChild(t);
             }
         } else {
-            if (!targetDom) {
                 var div = document.createElement("DIV");
 
                 div.id = "hasNoData_DIV"
@@ -545,7 +544,7 @@
                 idList.classList.add("tbody__hasNoData");
                 idList.appendChild(div);
                 window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("無數據"));
-            }
+            
         }
     }
 
