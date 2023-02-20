@@ -388,7 +388,7 @@
 
                 c.setClassText(t, "LoginAccount", null, item.LoginAccount);
                 c.setClassText(t, "ParentLoginAccount", null, item.ParentLoginAccount);
-                c.setClassText(t, "InsideLevel", null, item.DealUserAccountInsideLevel);
+                c.setClassText(t, "InsideLevel", null, DealUserAccountInsideLevel);
                 c.setClassText(t, "CurrencyType", null, item.CurrencyType);
                 c.setClassText(t, "DepositValue", null, c.toCurrency(item.DepositValue));
                 c.setClassText(t, "FirstDepositValue", null, c.toCurrency(item.FirstDepositValue));;
@@ -406,7 +406,7 @@
                 c.setClassText(t, "SelfWithdrawPaymentCount", null, item.SelfWithdrawPaymentCount);
 
                 expandBtn = t.querySelector(".Expand");
-                t.querySelector(".Space").style.paddingLeft = ((item.DealUserAccountInsideLevel - 1) * 20) + "px";
+                t.querySelector(".Space").style.paddingLeft = ((DealUserAccountInsideLevel - 1) * 20) + "px";
 
                 if (item.HasChild) {
                     expandBtn.onclick = new Function("agentExpand('" + DealUserAccountSortKey + "', " + item.UserAccountID.toString() + ")");
@@ -475,7 +475,7 @@
                 var expandBtn;
                 c.setClassText(t, "LoginAccount", null, item.LoginAccount);
                 c.setClassText(t, "ParentLoginAccount", null, item.ParentLoginAccount);
-                c.setClassText(t, "InsideLevel", null, item.DealUserAccountInsideLevel);
+                c.setClassText(t, "InsideLevel", null, DealUserAccountInsideLevel);
                 c.setClassText(t, "CurrencyType", null, item.CurrencyType);
                 c.setClassText(t, "DepositValue", null, c.toCurrency(item.DepositValue));
                 c.setClassText(t, "FirstDepositValue", null, c.toCurrency(item.FirstDepositValue));;
