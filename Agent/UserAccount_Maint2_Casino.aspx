@@ -268,10 +268,9 @@
             idList.classList.remove("tbody__hasNoData");
             for (var i = 0; i < o.SummaryList.length; i++) {              
                 var item = o.SummaryList[i];
-                var DealUserAccountInsideLevel = item.UserAccountInsideLevel - o.TopInsideLevel;
                 var t = c.getTemplate("templateTableItem");
                 c.setClassText(t, "LoginAccount", null, item.LoginAccount);
-                c.setClassText(t, "InsideLevel", null, DealUserAccountInsideLevel);
+                c.setClassText(t, "InsideLevel", null, item.DealUserAccountInsideLevel);
                 c.setClassText(t, "ParentLoginAccount", null, item.ParentLoginAccount);
                 c.setClassText(t, "CurrencyType", null, item.CurrencyType);
                 c.setClassText(t, "PointValue", null, c.toCurrency(item.PointValue));
