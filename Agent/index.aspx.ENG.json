@@ -77,5 +77,7 @@
   "NormalizeError": "The phone format is incorrect.",
   "設定錢包密碼": "Set Password",
   "設定出款卡": "Set Bank Card",
-  "出款紀錄": "Payment Record"
+  "出款紀錄": "Payment Record",
+  "設定": "Setting",
+  "設定登入密碼": "Set Login Password"
 }

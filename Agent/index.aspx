@@ -1125,8 +1125,21 @@
                                             <i class="icon icon-mask icon-ewin-transfer"></i>
                                             <span class="language_replace">轉帳至遊戲帳戶</span></a>
                                     </li>
+                             
                                 </ul>
                             </li>
+                            <li class="nav-item navbarMenu__catagory">
+                                <span class="catagory-item"><span class="language_replace">設定</span></span>
+                                <ul class="catagory">
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('設定登入密碼'), 'SetPassword.aspx');ItemClick(this);">
+                                            <i class="icon icon-mask icon-ewin-assisant"></i>
+                                            <span class="language_replace">設定登入密碼</span></a>
+                                    </li>
+                                
+                                </ul>
+                            </li>
+
                             <li class="nav-item submenu dropdown">
                                 <a class="nav-link" onclick="LogOut()">
                                     <i class="icon icon-mask icon-ewin-logout"></i>
