@@ -221,6 +221,14 @@
       "ThresholdRate": 100,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "PoPay.Gcash4",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
     }
   ],
   "Rate2": [
@@ -407,6 +415,14 @@
       "ThresholdRate": 100,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "PoPay.Gcash4",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
     }
   ],
   "Rate3": [
@@ -588,6 +604,14 @@
     },
     {
       "PaymentCode": "CLOUDPAY.GcashDirect2",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 100,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "PoPay.Gcash4",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 100,

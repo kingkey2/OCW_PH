@@ -171,7 +171,7 @@
                             var channel = obj.ChannelList[i];
                             //UserLevelIndex
                             if (channel.CurrencyType == EWinInfo.MainCurrencyType) {
-                                if (channel.PaymentProvider != '') {
+                                if (true) {
                                     var startTime = Date.parse("2022/12/19 " + channel.AvailableTime.StartTime).getTime();
                                     var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime).getTime();
                                     startTime = startTime + (TimeZone * 60 * 60 * 1000);
