@@ -1329,6 +1329,8 @@
           <s:element minOccurs="0" maxOccurs="1" name="RealName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ExtraData" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Tag" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastLoginDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="WalletList" type="tns:ArrayOfWallet1" />
           <s:element minOccurs="0" maxOccurs="1" name="GameCodeList" type="tns:ArrayOfGameInfo" />
         </s:sequence>
@@ -1493,6 +1495,40 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetUserAccountByTargetLoginAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TargetLoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="RowsPage" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="PageNumber" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="MaxSearchUserAccountID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountByTargetLoginAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountByTargetLoginAccountResult" type="tns:ChildUserInfoResult1" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ChildUserInfoResult1">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TopSortKey" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TopInsideLevel" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="TotalCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="MaxUserID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="HasNextPage" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="SearchPageNumber" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="ChildInfoList" type="tns:ArrayOfChildInfoResult" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:element name="LoginResult" nillable="true" type="tns:LoginResult" />
       <s:element name="PaymentChannelResult" nillable="true" type="tns:PaymentChannelResult" />
       <s:element name="PhoneResult" nillable="true" type="tns:PhoneResult" />
@@ -1512,6 +1548,7 @@
       <s:element name="UserBankCardListResult" nillable="true" type="tns:UserBankCardListResult" />
       <s:element name="ChildUserInfoResult" nillable="true" type="tns:ChildUserInfoResult" />
       <s:element name="UserAccountPropertyResult" nillable="true" type="tns:UserAccountPropertyResult" />
+      <s:element name="ChildUserInfoResult1" nillable="true" type="tns:ChildUserInfoResult1" />
     </s:schema>
   </wsdl:types>
   <wsdl:message name="AgentLoginSoapIn">
@@ -1777,6 +1814,12 @@
   </wsdl:message>
   <wsdl:message name="SetUserPasswordByValidateCodeSoapOut">
     <wsdl:part name="parameters" element="tns:SetUserPasswordByValidateCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountByTargetLoginAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAccountByTargetLoginAccount" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountByTargetLoginAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAccountByTargetLoginAccountResponse" />
   </wsdl:message>
   <wsdl:message name="AgentLoginHttpGetIn">
     <wsdl:part name="LoginGUID" type="s:string" />
@@ -2141,6 +2184,16 @@
   <wsdl:message name="SetUserPasswordByValidateCodeHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="GetUserAccountByTargetLoginAccountHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+    <wsdl:part name="RowsPage" type="s:string" />
+    <wsdl:part name="PageNumber" type="s:string" />
+    <wsdl:part name="MaxSearchUserAccountID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountByTargetLoginAccountHttpGetOut">
+    <wsdl:part name="Body" element="tns:ChildUserInfoResult1" />
+  </wsdl:message>
   <wsdl:message name="AgentLoginHttpPostIn">
     <wsdl:part name="LoginGUID" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
@@ -2504,6 +2557,16 @@
   <wsdl:message name="SetUserPasswordByValidateCodeHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="GetUserAccountByTargetLoginAccountHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+    <wsdl:part name="RowsPage" type="s:string" />
+    <wsdl:part name="PageNumber" type="s:string" />
+    <wsdl:part name="MaxSearchUserAccountID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountByTargetLoginAccountHttpPostOut">
+    <wsdl:part name="Body" element="tns:ChildUserInfoResult1" />
+  </wsdl:message>
   <wsdl:portType name="SpriteAgentSoap">
     <wsdl:operation name="AgentLogin">
       <wsdl:input message="tns:AgentLoginSoapIn" />
@@ -2681,6 +2744,10 @@
       <wsdl:input message="tns:SetUserPasswordByValidateCodeSoapIn" />
       <wsdl:output message="tns:SetUserPasswordByValidateCodeSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserAccountByTargetLoginAccount">
+      <wsdl:input message="tns:GetUserAccountByTargetLoginAccountSoapIn" />
+      <wsdl:output message="tns:GetUserAccountByTargetLoginAccountSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="SpriteAgentHttpGet">
     <wsdl:operation name="AgentLogin">
@@ -2851,6 +2918,10 @@
       <wsdl:input message="tns:SetUserPasswordByValidateCodeHttpGetIn" />
       <wsdl:output message="tns:SetUserPasswordByValidateCodeHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserAccountByTargetLoginAccount">
+      <wsdl:input message="tns:GetUserAccountByTargetLoginAccountHttpGetIn" />
+      <wsdl:output message="tns:GetUserAccountByTargetLoginAccountHttpGetOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="SpriteAgentHttpPost">
     <wsdl:operation name="AgentLogin">
@@ -3020,6 +3091,10 @@
     <wsdl:operation name="SetUserPasswordByValidateCode">
       <wsdl:input message="tns:SetUserPasswordByValidateCodeHttpPostIn" />
       <wsdl:output message="tns:SetUserPasswordByValidateCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountByTargetLoginAccount">
+      <wsdl:input message="tns:GetUserAccountByTargetLoginAccountHttpPostIn" />
+      <wsdl:output message="tns:GetUserAccountByTargetLoginAccountHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SpriteAgentSoap" type="tns:SpriteAgentSoap">
@@ -3413,6 +3488,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetUserPasswordByValidateCode">
       <soap:operation soapAction="http://tempuri.org/SetUserPasswordByValidateCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountByTargetLoginAccount">
+      <soap:operation soapAction="http://tempuri.org/GetUserAccountByTargetLoginAccount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3819,6 +3903,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserAccountByTargetLoginAccount">
+      <soap12:operation soapAction="http://tempuri.org/GetUserAccountByTargetLoginAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SpriteAgentHttpGet" type="tns:SpriteAgentHttpGet">
     <http:binding verb="GET" />
@@ -4200,6 +4293,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserAccountByTargetLoginAccount">
+      <http:operation location="/GetUserAccountByTargetLoginAccount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SpriteAgentHttpPost" type="tns:SpriteAgentHttpPost">
     <http:binding verb="POST" />
@@ -4574,6 +4676,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetUserPasswordByValidateCode">
       <http:operation location="/SetUserPasswordByValidateCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountByTargetLoginAccount">
+      <http:operation location="/GetUserAccountByTargetLoginAccount" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

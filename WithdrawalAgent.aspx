@@ -140,7 +140,7 @@
                             var channel = o.ChannelList[i];
                             //UserLevelIndex
                             if ( channel.CurrencyType == WebInfo.MainCurrencyType) {
-                                if (channel.PaymentProvider != '') {
+                                if (true) {
                                     var startTime = Date.parse("2022/12/19 " + channel.AvailableTime.StartTime);
                                     var endTime = Date.parse("2022/12/19 " + channel.AvailableTime.EndTime);
                                     startTime = startTime + (TimeZone * 60 * 60 * 1000);

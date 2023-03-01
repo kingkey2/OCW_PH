@@ -1100,7 +1100,7 @@
                             <li class="nav-item navbarMenu__catagory" id="liTrade">
                                 <span class="catagory-item"><span class="language_replace">交易</span></span>
                                 <ul class="catagory">
-                               <%--     <li class="nav-item submenu dropdown">
+                                    <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('設定錢包密碼'), 'SetWalletPassword.aspx');ItemClick(this);">
                                             <i class="icon icon-mask icon-ewin-transfer"></i>
                                             <span class="language_replace">設定錢包密碼</span></a>
@@ -1119,14 +1119,27 @@
                                         <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('出款紀錄'), 'PaymentHistory.aspx');ItemClick(this);">
                                             <i class="icon icon-mask icon-ewin-transfer"></i>
                                             <span class="language_replace">出款紀錄</span></a>
-                                    </li>--%>
+                                    </li>
                                     <li class="nav-item submenu dropdown" id="btnTransfer">
                                         <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('轉帳至遊戲帳戶'), 'UserAccountWallet_Transfer.aspx');ItemClick(this);">
                                             <i class="icon icon-mask icon-ewin-transfer"></i>
                                             <span class="language_replace">轉帳至遊戲帳戶</span></a>
                                     </li>
+                             
                                 </ul>
                             </li>
+                            <li class="nav-item navbarMenu__catagory">
+                                <span class="catagory-item"><span class="language_replace">設定</span></span>
+                                <ul class="catagory">
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_MainWindow(mlp.getLanguageKey('設定登入密碼'), 'SetPassword.aspx');ItemClick(this);">
+                                            <i class="icon icon-mask icon-ewin-assisant"></i>
+                                            <span class="language_replace">設定登入密碼</span></a>
+                                    </li>
+                                
+                                </ul>
+                            </li>
+
                             <li class="nav-item submenu dropdown">
                                 <a class="nav-link" onclick="LogOut()">
                                     <i class="icon icon-mask icon-ewin-logout"></i>
@@ -1162,7 +1175,7 @@
                                     <ul class="nav">
                                         
                                         <li id="idSearchButton" class="navbar-search nav-item ">
-                                            <a href="#" class="btn btn-search btn-round nav-link" role="button" onclick="API_NewWindow(mlp.getLanguageKey('下線列表'), 'UserAccount_Search_Casino.aspx?');"></a>
+                                            <a href="#" class="btn btn-search btn-round nav-link" role="button" onclick="API_NewWindow(mlp.getLanguageKey('團隊帳號'), 'UserAccount_Search1_Casino.aspx?');"></a>
                                         </li>
 
                                         <li id="btnCreateAccount" class="navbar-member nav-item submenu dropdown" style="display: none">
