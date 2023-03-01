@@ -25,8 +25,7 @@ public class MgmtAPI : System.Web.Services.WebService {
 
     //[WebMethod]
     //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public string GetUserAccountSummary2(string a)
-    //{
+    //public string GetUserAccountSummary2(string a) {    
     //    return EWinWeb.GetToken();
     //}
 
@@ -253,7 +252,10 @@ public class MgmtAPI : System.Web.Services.WebService {
                                             if (!CheckUserLevelDowngrade(LoginAccount, UserLevelIndex, ValidBetValue, VIPSettingDetail)) {
                                                 NewUserLevelIndex = UserLevelIndex - 1;
 
-                                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
+                                                try {
+                                                    updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
+                                                } catch (Exception ex) { }
+
                                                 EWinWebDB.UserAccount.UserAccountLevelIndexChange(LoginAccount, 0, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, 0, 0, "SystemAutoCheckUserLevel", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
 
                                             } else { //保級成功時間重新計算
@@ -439,12 +441,63 @@ public class MgmtAPI : System.Web.Services.WebService {
     private void SendUpgradeGiftByUserLevelIndex(string LoginAccount, int UserLevelIndex) {
         System.Data.DataTable DT;
         string ActivityName = string.Empty;
-        JObject ActivityDetail;
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-        ActivityDetail = GetActivityDetail("/App_Data/ActivityDetail/VIPSetting/VIPLev" + UserLevelIndex+".json");
-        if (ActivityDetail != null) {
-            ActivityName = (string)ActivityDetail["Name"];
+        decimal t = 0;
+        decimal b = 0;
+        bool hasgift = false;
 
+        switch (UserLevelIndex) {
+            case 3:
+                ActivityName = "VIPLev3";
+                t = 2500;
+                b = 500;
+                hasgift = true;
+                break;
+            case 4:
+                ActivityName = "VIPLev4";
+                t = 5000;
+                b = 1000;
+                hasgift = true;
+                break;
+            case 5:
+                ActivityName = "VIPLev5";
+                t = 25000;
+                b = 5000;
+                hasgift = true;
+                break;
+            case 6:
+                ActivityName = "VIPLev6";
+                t = 35000;
+                b = 7000;
+                hasgift = true;
+                break;
+            case 7:
+                ActivityName = "VIPLev7";
+                t = 50000;
+                b = 10000;
+                hasgift = true;
+                break;
+            case 8:
+                ActivityName = "VIPLev8";
+                t = 60000;
+                b = 12000;
+                hasgift = true;
+                break;
+            case 9:
+                ActivityName = "VIPLev9";
+                t = 250000;
+                b = 50000;
+                hasgift = true;
+                break;
+            case 10:
+                ActivityName = "VIPLev10";
+                t = 500000;
+                b = 100000;
+                hasgift = true;
+                break;
+        }
+
+        if (hasgift) {
             DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
 
             if (DT != null && DT.Rows.Count > 0) {
@@ -452,16 +505,16 @@ public class MgmtAPI : System.Web.Services.WebService {
             } else {
                 List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
 
-                string description =  ActivityDetail["Name"].ToString();
-                decimal ThresholdValue = (decimal)ActivityDetail["ThresholdValue"];
-                decimal BonusValue = (decimal)ActivityDetail["BonusValue"];
+                string description = ActivityName;
+                decimal ThresholdValue = t;
+                decimal BonusValue = b;
                 string PromotionCode = "VIPLev";
                 string PromotionCategoryCode = "";
                 string JoinActivityCycle = "1";
-                string CollectAreaType =  ActivityDetail["CollectAreaType"].ToString() == null ? "2" :  ActivityDetail["CollectAreaType"].ToString();
+                string CollectAreaType = "2";
 
-                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value =  ThresholdValue.ToString() });
-                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value =  BonusValue.ToString() });
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
+                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
 
                 lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_UpgradeGift", LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                 EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, ThresholdValue, BonusValue);
@@ -666,7 +719,9 @@ public class MgmtAPI : System.Web.Services.WebService {
                             UserLevelIndex_Now = (int)DT.Rows[0]["UserLevelIndex"];
 
                             if (UserLevelIndex_Now != NewUserLevelIndex) {
-                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
+                                try {
+                                    updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
+                                } catch (Exception ex) { }
                                 EWinWebDB.UserAccount.UpdateUserAccountLevel(NewUserLevelIndex, LoginAccount, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
                                 //發升級禮物
                                 if (NewUserLevelIndex > UserLevelIndex_Now) {
@@ -819,6 +874,12 @@ public class MgmtAPI : System.Web.Services.WebService {
                     ValidBetValue = UserLevelAccumulationValidBetValue;
                     DepositLevel = UserLevelIndex;
                     ValidBetLevel = UserLevelIndex;
+                    Setting_DepositMinValue = 0;
+                    Setting_DepositMaxValue = 0;
+                    Setting_ValidBetMinValue = 0;
+                    Setting_ValidBetMaxValue = 0;
+                    CheckDeposit = true;
+                    CheckValidBet = true;
 
                     //最高等時不處理
                     if (UserLevelIndex != VIPSettingDetail.Count - 1) {
@@ -887,14 +948,16 @@ public class MgmtAPI : System.Web.Services.WebService {
                                 SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex + i);
                             }
 
-                            updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
+                            try {
+                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
+                            } catch (Exception ex) { }
+
                             EWinWebDB.UserAccount.UserAccountLevelIndexChange(LoginAccount, 1, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, UserLevelAccumulationDepositAmount, UserLevelAccumulationValidBetValue, "SystemAutoCheckUserLevel", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
 
                             RedisCache.UserAccount.UpdateUserAccountByLoginAccount(LoginAccount);
                             RedisCache.UserAccountVIPInfo.DeleteUserAccountVIPInfo(LoginAccount);
                         }
                     }
-
                 }
             }
         }
