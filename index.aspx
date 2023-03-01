@@ -128,10 +128,11 @@
 
 %>
 <!doctype html>
-<html id="myHTML" lang="zh-Hant-TW" class="mainHtml">
+<html id="myHTML" lang="en" class="mainHtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="content-language" content="en-us">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
     <title>Lucky Sprite - Most popular online casino</title>
