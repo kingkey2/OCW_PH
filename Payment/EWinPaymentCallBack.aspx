@@ -370,6 +370,7 @@
                                     else if (UnderProvider == "CLOUDPAY") { ProviderCode = "CLOUDPAY"; }
                                     else if (UnderProvider == "EASYPAY") { ProviderCode = "EASYPAY"; }
                                     else if (UnderProvider == "GCPay") { ProviderCode = "GCPay"; }
+                                    else if (UnderProvider == "PoPay") { ProviderCode = "PoPay"; }
                                     else
                                     {
                                         CheckUnderProvider = false;
