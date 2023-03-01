@@ -17,7 +17,7 @@ public partial class Backend_CheckRepeatRegisterIP : System.Web.UI.Page {
     public static RepeatInfo CheckRepeatRegisterIP(string ASID, string LoginAccount) {
         RepeatInfo R = new RepeatInfo() { Result = enumResult.ERR };
 
-        //if (CheckPermission(ASID)) {
+        if (CheckPermission(ASID)) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -53,9 +53,9 @@ public partial class Backend_CheckRepeatRegisterIP : System.Web.UI.Page {
             } else {
                 R.Message = "查無帳號";
             }
-        //} else {
-        //    R.Message = "NoPermissions";
-        //}
+        } else {
+            R.Message = "NoPermissions";
+        }
         return R;
     }
 
