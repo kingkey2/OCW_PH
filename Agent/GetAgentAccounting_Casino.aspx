@@ -84,16 +84,33 @@
 
         $('#idList').empty();
         $('#idList').removeClass('tbody__hasNoData');
-        
+
         if (o != null) {
-            if (o.AccountingList != null && o.AccountingList.length>0) {
+            if (o.AccountingList != null && o.AccountingList.length > 0) {
                 var CurrencyType = $("input[name='chkCurrencyType']").val();
                 //只顯示個人投注
                 for (var i = 0; i < o.AccountingList.length; i++) {
 
                     var data = o.AccountingList[i];
+                    let RebateStatus = mlp.getLanguageKey("已派發");
+                    let FailureCondition = "";
 
-                        var doc = ` <div class="tbody__tr td-non-underline-last-2">
+                    if (data.RebateStatus == 2) {
+                        RebateStatus = mlp.getLanguageKey("條件不足");
+                    }
+
+                    if (data.FailureCondition) {
+                        if (data.FailureCondition.indexOf("ActiveUser") > -1) {
+                            FailureCondition += mlp.getLanguageKey("ActiveUser") + ";";
+                        }
+                        if (data.FailureCondition.indexOf("RebateAmountMin") > -1) {
+                            FailureCondition += mlp.getLanguageKey("RebateAmountMin") + ";";
+                        }
+                    } else {
+                        FailureCondition = "--";
+                    }
+
+                    var doc = ` <div class="tbody__tr td-non-underline-last-2">
                             <div class="tbody__td td-function-execute floatT-right">
                                 <!-- <span class="td__title"><span class="language_replace"></span></span> -->
                                 <span class="td__content">
@@ -125,11 +142,11 @@
                             </div>
                               <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">派發狀態</span></span>
-                                <span class="td__content"><span class="BonusValue_Own">${data.RebateStatus}</span></span>
+                                <span class="td__content"><span class="BonusValue_Own">${RebateStatus}</span></span>
                             </div>
                               <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">失敗原因</span></span>
-                                <span class="td__content"><span class="BonusValue_Own">${data.FailureCondition}</span></span>
+                                <span class="td__content"><span class="BonusValue_Own">${FailureCondition}</span></span>
                             </div>
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">結算開始日期</span></span>
@@ -144,7 +161,7 @@
                                 <span class="td__content"><span class="CreateDate">${data.CreateDate}</span></span>
                             </div>
                         </div>`;
-                    
+
 
                     $('#idList').append(doc);
                 }
