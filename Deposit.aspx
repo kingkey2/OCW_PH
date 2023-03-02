@@ -85,6 +85,7 @@
                                     case "ZINPay.GcashQRcode":
                                     case "CLOUDPAY.GcashDirect":
                                     case "EASYPAY.Gcash":
+                                    case "PoPay.Gcash":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.AmountMin!=0) {
