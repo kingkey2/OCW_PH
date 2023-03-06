@@ -45,5 +45,10 @@
   "Live": "Stream",
   "Sport": "Sport",
   "Slot": "Slot",
-  "提醒": "System Message"
+  "提醒": "System Message",
+  "已付佣金": "Paid Profit",
+  "返水佣金": "Commission",
+  "下線總線佣金總計": "Downline Total Profit ",
+  "淨收益 NGR": "Net Gaming Revenue(NGR)",
+  "總線佣金": "Group Profit"
 }

@@ -343,6 +343,7 @@
 
             c.callService(ApiUrl + "/GetOrderSummary", postData, function (success, obj) {
                 if (success) {
+                    window.parent.API_CloseLoading();
                     var o = c.getJSON(obj);
 
                     let TotalValidBetValue = 0;
@@ -390,10 +391,10 @@
                             $(".UserRebate").text(toCurrency(UserRebate));
                             $(".PaidOPValue").text(toCurrency(PaidOPValue));
                             $(".TotalNGR").text(toCurrency(TotalNGR));
-                            $(".ComissionValue").text(toCurrency(CommissionValue));
-                            $(".TotalLineRebate").text(toCurrency(UserRebate));
+                            $(".CommissionValue").text(toCurrency(CommissionValue));
+                            $(".TotalLineRebate").text(toCurrency(TotalLineRebate));
                             $(".TotalChildLineRebate").text(toCurrency(TotalLineRebate - UserRebate));
-                            $(".RewardValue").text(toCurrency(RewardValue));
+                            $(".TotalRewardValue").text(toCurrency(RewardValue));
                             $(".PreferentialCost").text(toCurrency(PreferentialCost));
                             $(".TotalOrderCount").text(toCurrency(TotalOrderCount));
                             $(".NewUserCount").text(toCurrency(NewUserCount));
@@ -407,6 +408,7 @@
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
                     }
                 } else {
+                    window.parent.API_CloseLoading();
                     if (o == "Timeout") {
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
                     } else {
@@ -416,7 +418,6 @@
 
             });
 
-            window.parent.API_CloseLoading();
         }
 
         function getChildUserData() {
@@ -438,7 +439,9 @@
                         $(".UserCount_Under").text(toCurrency(o.UserCount_Under));
                         $(".UserCount_Other").text(toCurrency(o.UserCount - o.UserCount_Under));
                     }
+                    window.parent.API_CloseLoading();
                 } else {
+                    window.parent.API_CloseLoading();
                     if (o == "Timeout") {
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
                     } else {
@@ -448,7 +451,6 @@
 
             });
 
-            window.parent.API_CloseLoading();
         }
 
         function changeDateTab(e, type) {
@@ -721,7 +723,7 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency language_replace">Already Gain Profit</span>
+                                    <span class="currency language_replace">已付佣金</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
                                     <span class="language_replace PaidOPValue data">0</span>
@@ -733,7 +735,7 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency">Net Gaming Revenue(NGR)</span>
+                                    <span class="currency language_replace">淨收益 NGR</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
                                     <span class="language_replace TotalNGR data">0</span>
@@ -746,7 +748,7 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency">Commission</span>
+                                    <span class="currency language_replace">返水佣金</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
                                     <span class="language_replace CommissionValue data">0</span>
@@ -759,7 +761,7 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency">Group Profit</span>
+                                    <span class="currency language_replace">總線佣金</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
                                     <span class="language_replace TotalLineRebate data">0</span>
@@ -772,7 +774,7 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency">Child Total Profit</span>
+                                    <span class="currency language_replace">下線總線佣金總計</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
                                     <span class="language_replace TotalChildLineRebate data">0</span>
