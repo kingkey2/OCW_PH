@@ -86,6 +86,7 @@
                                     case "CLOUDPAY.GcashDirect":
                                     case "EASYPAY.Gcash":
                                     case "PoPay.Gcash":
+                                    case "FIFIPay.GcashQRcode":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.AmountMin!=0) {

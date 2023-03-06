@@ -1,4 +1,4 @@
-﻿var GameCodeBridge = function (url, second, eWinGameItem, notifyGameLoadEnd) {
+﻿var GameCodeBridge = function (url, second, notifyGameLoadEnd, EachGCSyncAction) {
     var GCBSelf = this;
     var myWorker;
     var APIUrl = url;
@@ -11,11 +11,11 @@
         window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
         window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
 
-        myWorker = new Worker("/Scripts/worker.js");
+        myWorker = new Worker("/Scripts/workerByJson.js");
 
         myWorker.postMessage({
             Cmd: "Init",
-            Params: [url, second, eWinGameItem]
+            Params: [url, second]
         });
 
         GCBSelf.InitPromise = new Promise((resolve, reject) => {

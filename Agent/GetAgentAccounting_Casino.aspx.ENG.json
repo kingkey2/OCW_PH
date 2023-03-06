@@ -34,5 +34,9 @@
   "確認": "Search",
   "提醒": "System Message",
   "錯誤": "System Message",
-  "完成": "System Message"
+  "完成": "System Message",
+  "已派發": "Paid",
+  "條件不足": "Insufficient conditions",
+  "ActiveUser": " Insufficient valid members.",
+  "RebateAmountMin": "Distribution commission less than 100 will not be distributed."
 }
