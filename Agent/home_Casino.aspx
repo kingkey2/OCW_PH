@@ -391,7 +391,7 @@
                             $(".PaidOPValue").text(toCurrency(PaidOPValue));
                             $(".TotalNGR").text(toCurrency(TotalNGR));
                             $(".ComissionValue").text(toCurrency(CommissionValue));
-                            $(".TotalLineRebate").text(toCurrency(UserRebate));
+                            $(".TotalLineRebate").text(toCurrency(TotalLineRebate));
                             $(".TotalChildLineRebate").text(toCurrency(TotalLineRebate - UserRebate));
                             $(".RewardValue").text(toCurrency(RewardValue));
                             $(".PreferentialCost").text(toCurrency(PreferentialCost));
