@@ -66,7 +66,7 @@ public class Payment {
             }
 
             URL = (string)EPAYSetting.ApiUrl + "RequireWithdraw3";
-            ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/WithdrawalCallback.aspx";
+            ReturnURL = EWinWeb.CasinoWorldUrl2 + "/Payment/EPay/WithdrawalCallback.aspx";
             CompanyCode = (string)EPAYSetting.CompanyCode;
             CurrencyType = (string)EPAYSetting.CyrrencyType;
             CompanyKey = (string)EPAYSetting.ApiKey;
@@ -243,7 +243,7 @@ public class Payment {
 
             URL = (string)EPAYSetting.ApiUrl + "RequirePayingReturnUrl2";
         
-            ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/PaymentCallback.aspx";
+            ReturnURL = EWinWeb.CasinoWorldUrl2 + "/Payment/EPay/PaymentCallback.aspx";
 
             CompanyCode = (string)EPAYSetting.CompanyCode;
             CurrencyType = (string)EPAYSetting.CyrrencyType;

@@ -29,6 +29,7 @@ public static class EWinWeb {
     public static string RegisterCurrencyType = System.Configuration.ConfigurationManager.AppSettings["RegisterCurrencyType"];
     public static string EWinGameUrl = System.Configuration.ConfigurationManager.AppSettings["EWinGameUrl"];
     public static string CasinoWorldUrl = System.Configuration.ConfigurationManager.AppSettings["CasinoWorldUrl"];
+    public static string CasinoWorldUrl2 = System.Configuration.ConfigurationManager.AppSettings["CasinoWorldUrl2"];
     public static string WebRedisConnStr = System.Configuration.ConfigurationManager.AppSettings["WebRedisConnStr"];
     public static string SharedFolder = System.Configuration.ConfigurationManager.AppSettings["SharedFolder"];
     public static string EPayToken = System.Configuration.ConfigurationManager.AppSettings["EPayToken"];

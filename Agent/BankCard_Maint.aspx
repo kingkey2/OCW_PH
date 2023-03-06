@@ -454,7 +454,7 @@
                     }
                     c.callService(ApiUrl + "/AddUserBankCard", postData2, function (success2, o2) {
                         if (success2) {
-                            var obj = c.getJSON(o);
+                            var obj = c.getJSON(o2);
                             if (obj.Result == 0) {
                                 closeForgetPassWord();
                                 window.parent.API_ShowMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey('新增成功'), function () {
