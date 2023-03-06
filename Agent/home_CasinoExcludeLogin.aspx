@@ -293,6 +293,11 @@
             $(".TotalValidBetValue").text(0);
             $(".TotalRewardValue").text(0);
             $(".UserRebate").text(0);
+            $(".PaidOPValue").text(0);
+            $(".TotalNGR").text(0);
+            $(".ComissionValue").text(0);
+            $(".TotalLineRebate").text(0);
+            $(".TotalChildLineRebate").text(0);
             $(".TotalOrderCount").text(0);
             $(".NewUserCount").text(0);
             $(".WithdrawalValue").text(0);
@@ -328,6 +333,10 @@
 
                     let TotalValidBetValue = 0;
                     let UserRebate = 0;
+                    let TotalLineRebate = 0;
+                    let TotalNGR = 0;
+                    let PaidOPValue = 0;
+                    let f = 0;
                     let RewardValue = 0;
                     let PreferentialCost = 0;
                     let TotalOrderCount = 0;
@@ -337,6 +346,7 @@
                     let DepositValue = 0;
                     let DepositCount = 0;
                     let FirstDepositValue = 0;
+                    let CommissionValue = 0;
 
                     if (o.Result == 0) {
                         $(".FirstDepositCount").text(toCurrency(o.FirstDepositCount));
@@ -346,7 +356,11 @@
                             for (var i = 0; i < o.AgentItemList.length; i++) {
                                 let data = o.AgentItemList[i];
                                 TotalValidBetValue = TotalValidBetValue + data.TotalValidBetValue;
-                                UserRebate = UserRebate + data.UserRebate - data.PaidOPValue;
+                                UserRebate = UserRebate + data.UserRebate;
+                                PaidOPValue = PaidOPValue + data.PaidOPValue;
+                                TotalLineRebate = TotalLineRebate + data.TotalLineRebate;
+                                TotalNGR = TotalNGR + data.TotalNGR;
+                                CommissionValue = CommissionValue + data.CommissionValue;
                                 RewardValue = RewardValue + data.TotalRewardValue;
                                 PreferentialCost = PreferentialCost + data.BonusPointValue;
                                 TotalOrderCount = TotalOrderCount + data.TotalOrderCount;
@@ -360,6 +374,11 @@
 
                             $(".TotalValidBetValue").text(toCurrency(TotalValidBetValue));
                             $(".UserRebate").text(toCurrency(UserRebate));
+                            $(".PaidOPValue").text(toCurrency(PaidOPValue));
+                            $(".TotalNGR").text(toCurrency(TotalNGR));
+                            $(".CommissionValue").text(toCurrency(CommissionValue));
+                            $(".TotalLineRebate").text(toCurrency(TotalLineRebate));
+                            $(".TotalChildLineRebate").text(toCurrency(TotalLineRebate - UserRebate));
                             $(".TotalRewardValue").text(toCurrency(RewardValue));
                             $(".PreferentialCost").text(toCurrency(PreferentialCost));
                             $(".TotalOrderCount").text(toCurrency(TotalOrderCount));
@@ -699,11 +718,75 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency language_replace">總收益</span>
+                                    <span class="currency language_replace">Personal Profit</span><btn style="font-size: 10px;/* right: 5px; */position: absolute;border: 2px solid;width: 20px;text-align: center;border-radius: 10px;color: #bba480;cursor: pointer;margin-left: 5px;" onclick="showCalcMsg()">!</btn>
                                 </div>
                                 <div class="settleAccount__type" style="">
                                     <span class="language_replace UserRebate data">0</span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">已付佣金</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace PaidOPValue data">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">淨收入</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace TotalNGR data">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                           <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">總洗碼佣金</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace CommissionValue data">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                           <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">總線佣金</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace TotalLineRebate data">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">下線總線佣金總計</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace TotalChildLineRebate data">0</span>
+                              </div>
                             </div>
                         </div>
                     </div>

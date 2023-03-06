@@ -390,10 +390,10 @@
                             $(".UserRebate").text(toCurrency(UserRebate));
                             $(".PaidOPValue").text(toCurrency(PaidOPValue));
                             $(".TotalNGR").text(toCurrency(TotalNGR));
-                            $(".ComissionValue").text(toCurrency(CommissionValue));
+                            $(".CommissionValue").text(toCurrency(CommissionValue));
                             $(".TotalLineRebate").text(toCurrency(TotalLineRebate));
                             $(".TotalChildLineRebate").text(toCurrency(TotalLineRebate - UserRebate));
-                            $(".RewardValue").text(toCurrency(RewardValue));
+                            $(".TotalRewardValue").text(toCurrency(RewardValue));
                             $(".PreferentialCost").text(toCurrency(PreferentialCost));
                             $(".TotalOrderCount").text(toCurrency(TotalOrderCount));
                             $(".NewUserCount").text(toCurrency(NewUserCount));
