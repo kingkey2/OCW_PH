@@ -461,7 +461,12 @@
                                     queryData();
                                 });
                             } else {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                                if (obj.Message == "BankNumberExist") {
+                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話號碼已存在"));
+                                } else {
+                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                                }
+                              
                             }
                         } else {
                             if (o == "Timeout") {
