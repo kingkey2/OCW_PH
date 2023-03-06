@@ -84,16 +84,33 @@
 
         $('#idList').empty();
         $('#idList').removeClass('tbody__hasNoData');
-        
+
         if (o != null) {
-            if (o.AccountingList != null && o.AccountingList.length>0) {
+            if (o.AccountingList != null && o.AccountingList.length > 0) {
                 var CurrencyType = $("input[name='chkCurrencyType']").val();
                 //只顯示個人投注
                 for (var i = 0; i < o.AccountingList.length; i++) {
 
                     var data = o.AccountingList[i];
-                    if (data.AccountingOPValue != 0) {
-                        var doc = ` <div class="tbody__tr td-non-underline-last-2">
+                    let RebateStatus = mlp.getLanguageKey("已派發");
+                    let FailureCondition = "";
+
+                    if (data.RebateStatus == 2) {
+                        RebateStatus = mlp.getLanguageKey("條件不足");
+                    }
+
+                    if (data.FailureCondition) {
+                        if (data.FailureCondition.indexOf("ActiveUser") > -1) {
+                            FailureCondition += mlp.getLanguageKey("ActiveUser") + ";";
+                        }
+                        if (data.FailureCondition.indexOf("RebateAmountMin") > -1) {
+                            FailureCondition += mlp.getLanguageKey("RebateAmountMin") + ";";
+                        }
+                    } else {
+                        FailureCondition = "--";
+                    }
+
+                    var doc = ` <div class="tbody__tr td-non-underline-last-2">
                             <div class="tbody__td td-function-execute floatT-right">
                                 <!-- <span class="td__title"><span class="language_replace"></span></span> -->
                                 <span class="td__content">
@@ -123,6 +140,14 @@
                                 <span class="td__title"><span class="language_replace">佔成紅利</span></span>
                                 <span class="td__content"><span class="BonusValue_Own">${toCurrency(data.BonusValue_Own)}</span></span>
                             </div>
+                              <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">派發狀態</span></span>
+                                <span class="td__content"><span class="BonusValue_Own">${RebateStatus}</span></span>
+                            </div>
+                              <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">失敗原因</span></span>
+                                <span class="td__content"><span class="BonusValue_Own">${FailureCondition}</span></span>
+                            </div>
                             <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">結算開始日期</span></span>
                                 <span class="td__content"><span class="StartDate">${data.StartDate}</span></span>
@@ -136,7 +161,7 @@
                                 <span class="td__content"><span class="CreateDate">${data.CreateDate}</span></span>
                             </div>
                         </div>`;
-                    }
+
 
                     $('#idList').append(doc);
                 }
@@ -480,6 +505,8 @@
                             <div class="thead__th"><span class="language_replace">應付傭金</span></div>
                             <div class="thead__th"><span class="language_replace">總紅利</span></div>
                             <div class="thead__th"><span class="language_replace">佔成紅利</span></div>
+                            <div class="thead__th"><span class="language_replace">派發狀態</span></div>
+                            <div class="thead__th"><span class="language_replace">失敗原因</span></div>
                             <div class="thead__th"><span class="language_replace">結算開始日期</span></div>      
                             <div class="thead__th"><span class="language_replace">結算結束日期</span></div>     
                             <div class="thead__th"><span class="language_replace">建立時間</span></div>     

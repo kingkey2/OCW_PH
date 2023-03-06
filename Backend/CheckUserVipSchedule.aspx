@@ -1,13 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CheckRepeatRegisterIP.aspx.cs" Inherits="Backend_CheckRepeatRegisterIP" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CheckUserVipSchedule.aspx.cs" Inherits="Backend_CheckUserVipSchedule" %>
 <% 
     EWin.GlobalPermissionAPI.GlobalPermissionAPI GApi = new EWin.GlobalPermissionAPI.GlobalPermissionAPI();
     EWin.GlobalPermissionAPI.APIResult GR = new EWin.GlobalPermissionAPI.APIResult();
     string ASID = string.Empty;
 
-
     if (string.IsNullOrEmpty(Request["ASID"]) == false) {
         ASID = Request["ASID"];
-        GR = GApi.CheckPermission(ASID, EWinWeb.CompanyCode, "CheckRepeatRegisterIP", "CheckRepeatRegisterIP", "");
+        GR = GApi.CheckPermission(ASID, EWinWeb.CompanyCode, "CheckUserVipSchedule", "CheckUserVipSchedule", "");
 
         if (GR.Result == EWin.GlobalPermissionAPI.enumResult.ERR) {
             Response.Redirect("../Error.aspx?ErrMsg=NoPermissions");
@@ -37,7 +36,7 @@
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script>      
     var c = new common();
-    var ApiUrl = "CheckRepeatRegisterIP.aspx";
+    var ApiUrl = "CheckUserVipSchedule.aspx";
     var ASID = "<%=ASID%>";
 
     function init() {
@@ -53,18 +52,24 @@
         };
 
         $("#LoginAccount").text('');
-        $("#IP").text('');
+        $("#UserLevelIndex").text('');
+        $("#UserLevelUpdateDate").text('');
+        $("#UserLevelAccumulationDepositAmount").text('');
+        $("#UserLevelAccumulationValidBetValue").text('');
 
-        c.callService(ApiUrl + "/CheckRepeatRegisterIP", postData, function (success, o) {
+        c.callService(ApiUrl + "/CheckUserVipSchedule", postData, function (success, o) {
             if (success) {
                 var obj = c.getJSON(o);
                 if (obj.Result == 0) {
                     //alert("完成");
                     if (obj.IP != "") {
                         $("#LoginAccount").text(obj.LoginAccount);
-                        $("#IP").text(obj.IP);
+                        $("#UserLevelIndex").text(obj.UserLevelIndex);
+                        $("#UserLevelUpdateDate").text(obj.UserLevelUpdateDate);
+                        $("#UserLevelAccumulationDepositAmount").text(obj.UserLevelAccumulationDepositAmount);
+                        $("#UserLevelAccumulationValidBetValue").text(obj.UserLevelAccumulationValidBetValue);
                     } else {
-                        alert("無關聯帳戶");
+                        alert("無帳戶");
                     }
 
                     //console.log(obj);
@@ -85,7 +90,7 @@
 
         <!-- 主內容框 -->
         <div class="main-panel">
-            <div id="idRegister" class="form-container cashflowCard-wrapper">
+            <div id="idRegister">
                 <!-- 簡易註冊 -->
                 <div id="contentStep1" class="form-content" data-form-group="registerStep1" style="padding:20px !important">
                     <form id="registerStep1">
@@ -101,12 +106,27 @@
                             </button>
                         </div>
                         <div class="form-group mt-4">
-                            <label class="language_replace">重複帳號：</label>
+                            <label class="language_replace">帳號：</label>
                             <label class="language_replace" id="LoginAccount"></label>
                         </div>
                         <div class="form-group mt-4">
-                            <label class="language_replace">註冊IP：</label>
-                            <label class="language_replace" id="IP"></label>
+                            <label class="language_replace">等級：</label>
+                            <label class="language_replace" id="UserLevelIndex"></label>
+                        </div>
+                        <div class="form-group mt-4">
+                            <label class="language_replace">升級時間：</label>
+                            <label class="language_replace" id="UserLevelUpdateDate"></label>
+                        </div>
+                        <div class="form-group mt-4">
+                            <label class="language_replace">入金金額：</label>
+                            <label class="language_replace" id="UserLevelAccumulationDepositAmount"></label>
+                        </div>
+                        <div class="form-group mt-4">
+                            <label class="language_replace">有效投注：</label>
+                            <label class="language_replace" id="UserLevelAccumulationValidBetValue"></label>
+                        </div>
+                        <div class="form-group mt-4">
+                            <img src="images/VipUpgrade.PNG" />
                         </div>
                     </form>
                 </div>
