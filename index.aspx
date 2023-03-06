@@ -66,7 +66,7 @@
     UserIP = CodingControl.GetUserIP();
     if (!EWinWeb.IsTestSite) {
         if (!string.IsNullOrEmpty(UserIP)) {
-            if (UserIP != "112.121.69.46") {
+            if (!(UserIP == "112.121.69.46"||UserIP == "52.198.128.126"||UserIP == "60.250.37.178"||UserIP == "211.72.13.156")) {
                 EWin.Login.GeoClass GC = loginAPI.GetGeoCode(UserIP);
 
                 if (GC != null) {

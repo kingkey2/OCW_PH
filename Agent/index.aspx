@@ -43,7 +43,7 @@
 
     }
 %>
-<%="" %>
+
 <!doctype html>
 <html id="myHTML" lang="zh-Hant-TW" class="mainHtml">
 <head>
