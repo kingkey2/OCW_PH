@@ -1175,7 +1175,7 @@
                                     <ul class="nav">
                                         
                                         <li id="idSearchButton" class="navbar-search nav-item ">
-                                            <a href="#" class="btn btn-search btn-round nav-link" role="button" onclick="API_NewWindow(mlp.getLanguageKey('團隊帳號'), 'UserAccount_Search1_Casino.aspx?');"></a>
+                                            <a href="#" class="btn btn-search btn-round nav-link" role="button" onclick="API_NewWindow(mlp.getLanguageKey('團隊帳號'), 'UserAccount_Search1_Casino.aspx');"></a>
                                         </li>
 
                                         <li id="btnCreateAccount" class="navbar-member nav-item submenu dropdown" style="display: none">

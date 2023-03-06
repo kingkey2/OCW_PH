@@ -237,6 +237,51 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="FinishCompanyWalletVerifyToken">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="WalletType" type="tns:enumWalletType" />
+            <s:element minOccurs="0" maxOccurs="1" name="WalletAddress" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FinishCompanyWalletVerifyTokenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FinishCompanyWalletVerifyTokenResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableWalletDepositVerifyToken">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="WalletType" type="tns:enumWalletType" />
+            <s:element minOccurs="1" maxOccurs="1" name="LockTimeoutSecond" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableWalletDepositVerifyTokenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableWalletDepositVerifyTokenResult" type="tns:CompanyWalletResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CompanyWalletResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CompanyWalletGUID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="WalletPublicAddress" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="WalletType" type="tns:enumWalletType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:element name="GetAvailableWalletDeposit">
         <s:complexType>
           <s:sequence>
@@ -253,17 +298,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CompanyWalletResult">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:APIResult">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="CompanyWalletGUID" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="WalletPublicAddress" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="WalletType" type="tns:enumWalletType" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
       <s:element name="CreateBigEagle">
         <s:complexType>
           <s:sequence>
@@ -467,6 +501,18 @@
   <wsdl:message name="FinishCompanyWalletSoapOut">
     <wsdl:part name="parameters" element="tns:FinishCompanyWalletResponse" />
   </wsdl:message>
+  <wsdl:message name="FinishCompanyWalletVerifyTokenSoapIn">
+    <wsdl:part name="parameters" element="tns:FinishCompanyWalletVerifyToken" />
+  </wsdl:message>
+  <wsdl:message name="FinishCompanyWalletVerifyTokenSoapOut">
+    <wsdl:part name="parameters" element="tns:FinishCompanyWalletVerifyTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableWalletDepositVerifyTokenSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableWalletDepositVerifyToken" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableWalletDepositVerifyTokenSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableWalletDepositVerifyTokenResponse" />
+  </wsdl:message>
   <wsdl:message name="GetAvailableWalletDepositSoapIn">
     <wsdl:part name="parameters" element="tns:GetAvailableWalletDeposit" />
   </wsdl:message>
@@ -570,6 +616,24 @@
   </wsdl:message>
   <wsdl:message name="FinishCompanyWalletHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="FinishCompanyWalletVerifyTokenHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="WalletType" type="s:string" />
+    <wsdl:part name="WalletAddress" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FinishCompanyWalletVerifyTokenHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableWalletDepositVerifyTokenHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="WalletType" type="s:string" />
+    <wsdl:part name="LockTimeoutSecond" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableWalletDepositVerifyTokenHttpGetOut">
+    <wsdl:part name="Body" element="tns:CompanyWalletResult" />
   </wsdl:message>
   <wsdl:message name="GetAvailableWalletDepositHttpGetIn">
     <wsdl:part name="CT" type="s:string" />
@@ -678,6 +742,24 @@
   <wsdl:message name="FinishCompanyWalletHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="FinishCompanyWalletVerifyTokenHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="WalletType" type="s:string" />
+    <wsdl:part name="WalletAddress" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FinishCompanyWalletVerifyTokenHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableWalletDepositVerifyTokenHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="WalletType" type="s:string" />
+    <wsdl:part name="LockTimeoutSecond" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableWalletDepositVerifyTokenHttpPostOut">
+    <wsdl:part name="Body" element="tns:CompanyWalletResult" />
+  </wsdl:message>
   <wsdl:message name="GetAvailableWalletDepositHttpPostIn">
     <wsdl:part name="CT" type="s:string" />
     <wsdl:part name="WalletType" type="s:string" />
@@ -754,6 +836,14 @@
       <wsdl:input message="tns:FinishCompanyWalletSoapIn" />
       <wsdl:output message="tns:FinishCompanyWalletSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWalletVerifyToken">
+      <wsdl:input message="tns:FinishCompanyWalletVerifyTokenSoapIn" />
+      <wsdl:output message="tns:FinishCompanyWalletVerifyTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDepositVerifyToken">
+      <wsdl:input message="tns:GetAvailableWalletDepositVerifyTokenSoapIn" />
+      <wsdl:output message="tns:GetAvailableWalletDepositVerifyTokenSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAvailableWalletDeposit">
       <wsdl:input message="tns:GetAvailableWalletDepositSoapIn" />
       <wsdl:output message="tns:GetAvailableWalletDepositSoapOut" />
@@ -812,6 +902,14 @@
       <wsdl:input message="tns:FinishCompanyWalletHttpGetIn" />
       <wsdl:output message="tns:FinishCompanyWalletHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWalletVerifyToken">
+      <wsdl:input message="tns:FinishCompanyWalletVerifyTokenHttpGetIn" />
+      <wsdl:output message="tns:FinishCompanyWalletVerifyTokenHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDepositVerifyToken">
+      <wsdl:input message="tns:GetAvailableWalletDepositVerifyTokenHttpGetIn" />
+      <wsdl:output message="tns:GetAvailableWalletDepositVerifyTokenHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAvailableWalletDeposit">
       <wsdl:input message="tns:GetAvailableWalletDepositHttpGetIn" />
       <wsdl:output message="tns:GetAvailableWalletDepositHttpGetOut" />
@@ -865,6 +963,14 @@
     <wsdl:operation name="FinishCompanyWallet">
       <wsdl:input message="tns:FinishCompanyWalletHttpPostIn" />
       <wsdl:output message="tns:FinishCompanyWalletHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWalletVerifyToken">
+      <wsdl:input message="tns:FinishCompanyWalletVerifyTokenHttpPostIn" />
+      <wsdl:output message="tns:FinishCompanyWalletVerifyTokenHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDepositVerifyToken">
+      <wsdl:input message="tns:GetAvailableWalletDepositVerifyTokenHttpPostIn" />
+      <wsdl:output message="tns:GetAvailableWalletDepositVerifyTokenHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetAvailableWalletDeposit">
       <wsdl:input message="tns:GetAvailableWalletDepositHttpPostIn" />
@@ -963,6 +1069,24 @@
     </wsdl:operation>
     <wsdl:operation name="FinishCompanyWallet">
       <soap:operation soapAction="http://tempuri.org/FinishCompanyWallet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWalletVerifyToken">
+      <soap:operation soapAction="http://tempuri.org/FinishCompanyWalletVerifyToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDepositVerifyToken">
+      <soap:operation soapAction="http://tempuri.org/GetAvailableWalletDepositVerifyToken" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1108,6 +1232,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWalletVerifyToken">
+      <soap12:operation soapAction="http://tempuri.org/FinishCompanyWalletVerifyToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDepositVerifyToken">
+      <soap12:operation soapAction="http://tempuri.org/GetAvailableWalletDepositVerifyToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAvailableWalletDeposit">
       <soap12:operation soapAction="http://tempuri.org/GetAvailableWalletDeposit" style="document" />
       <wsdl:input>
@@ -1237,6 +1379,24 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWalletVerifyToken">
+      <http:operation location="/FinishCompanyWalletVerifyToken" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDepositVerifyToken">
+      <http:operation location="/GetAvailableWalletDepositVerifyToken" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAvailableWalletDeposit">
       <http:operation location="/GetAvailableWalletDeposit" />
       <wsdl:input>
@@ -1350,6 +1510,24 @@
     </wsdl:operation>
     <wsdl:operation name="FinishCompanyWallet">
       <http:operation location="/FinishCompanyWallet" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWalletVerifyToken">
+      <http:operation location="/FinishCompanyWalletVerifyToken" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDepositVerifyToken">
+      <http:operation location="/GetAvailableWalletDepositVerifyToken" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

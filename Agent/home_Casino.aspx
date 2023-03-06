@@ -721,7 +721,7 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency language_replace">Already Gain Profit</span>
+                                    <span class="currency language_replace">已付佣金</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
                                     <span class="language_replace PaidOPValue data">0</span>
@@ -733,7 +733,7 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency">Net Gaming Revenue(NGR)</span>
+                                    <span class="currency language_replace">淨收入</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
                                     <span class="language_replace TotalNGR data">0</span>
@@ -746,7 +746,7 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency">Commission</span>
+                                    <span class="currency language_replace">總洗碼佣金</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
                                     <span class="language_replace CommissionValue data">0</span>
@@ -759,7 +759,7 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency">Group Profit</span>
+                                    <span class="currency language_replace">總線佣金</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
                                     <span class="language_replace TotalLineRebate data">0</span>
@@ -772,7 +772,7 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency">Child Total Profit</span>
+                                    <span class="currency language_replace">下線總線佣金總計</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
                                     <span class="language_replace TotalChildLineRebate data">0</span>
