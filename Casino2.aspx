@@ -149,7 +149,7 @@
     function showSearchGameModel() {
         window.parent.API_ShowSearchGameModel();
     }
-    s
+    
     function loginRecover() {
         window.location.href = "LoginRecover.aspx";
     }
@@ -886,12 +886,12 @@
             targetCount = locationData.dcDatas.length;
         }
 
-        if (loadedCount >= targetCount + hidecount) {
+        if (loadedCount >= targetCount + hideCount) {
             return;
         }
 
-        domGameAreas.dataset.isfinished = (targetCount + hidecount) == locationData.dcDatas.length ? "Y" : "N";
-        domGameAreas.dataset.loadcount = targetCount + hidecount;
+        domGameAreas.dataset.isfinished = (targetCount + hideCount) == locationData.dcDatas.length ? "Y" : "N";
+        domGameAreas.dataset.loadcount = targetCount + hideCount;
 
         startIndex =  loadedCount;
         endIndexLimit = targetCount + hideCount;
