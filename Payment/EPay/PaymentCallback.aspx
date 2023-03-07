@@ -73,7 +73,6 @@
 
                     string SS;
                     System.Data.SqlClient.SqlCommand DBCmd;
-                    System.Data.DataTable DT;
 
                     SS = "INSERT INTO BulletinBoard (BulletinTitle, BulletinContent,State) " +
                                  "                VALUES (@BulletinTitle, @BulletinContent,1)";
