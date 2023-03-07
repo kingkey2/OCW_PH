@@ -3,6 +3,7 @@
 <%
     string PostBody;
     string InIP;
+    string OrderID = "";
     using (System.IO.StreamReader reader = new System.IO.StreamReader(Request.InputStream)) {
         PostBody = reader.ReadToEnd();
     };
@@ -20,6 +21,8 @@
             {
                 if (Common.CheckSign(RequestData))
                 {
+                    Newtonsoft.Json.Linq.JObject recordTime = new Newtonsoft.Json.Linq.JObject();
+                    recordTime.Add("StartEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     PaymentOrderDT = EWinWebDB.UserAccountPayment.GetPaymentByPaymentSerial((string)RequestData.OrderID);
 
                     R.ResultState = APIResult.enumResultCode.ERR;
@@ -27,20 +30,24 @@
 
                     if (PaymentOrderDT != null && PaymentOrderDT.Rows.Count > 0)
                     {
+                        OrderID = (string)RequestData.OrderID;
                         if ((string)RequestData.PayingStatus == "0")
                         {
                             if ((int)PaymentOrderDT.Rows[0]["FlowStatus"] == 1)
                             {
                                 EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
+                                recordTime.Add("StartToEwinRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                 var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"],-1);
 
                                 if (finishResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                 {
+                                    recordTime.Add("EndEwinRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                     R.ResultState = APIResult.enumResultCode.OK;
                                     R.Message = "SUCCESS";
                                 }
                                 else
                                 {
+                                    recordTime.Add("EndEwinRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                     R.ResultState = APIResult.enumResultCode.ERR;
                                     R.Message = "Finished Fail " + Newtonsoft.Json.JsonConvert.SerializeObject(finishResult);
                                 }
@@ -62,6 +69,23 @@
                         R.ResultState = APIResult.enumResultCode.ERR;
                         R.Message = "OtherOrderNumberNotFound";
                     }
+
+                    recordTime.Add("EndEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                    string SS;
+                    System.Data.SqlClient.SqlCommand DBCmd;
+                    System.Data.DataTable DT;
+
+                    SS = "INSERT INTO BulletinBoard (BulletinTitle, BulletinContent,State) " +
+                                 "                VALUES (@BulletinTitle, @BulletinContent,1)";
+
+                    DBCmd = new System.Data.SqlClient.SqlCommand();
+                    DBCmd.CommandText = SS;
+                    DBCmd.CommandType = System.Data.CommandType.Text;
+                    DBCmd.Parameters.Add("@BulletinTitle", System.Data.SqlDbType.NVarChar).Value = OrderID;
+                    DBCmd.Parameters.Add("@BulletinContent", System.Data.SqlDbType.NVarChar).Value = recordTime.ToString();
+
+                    DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
                 }
                 else
                 {
