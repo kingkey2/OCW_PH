@@ -122,6 +122,10 @@ public class Payment {
                         // 將 data 轉為 json
                         string json = sendData.ToString();
                         request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                        Newtonsoft.Json.Linq.JObject recordTime = new Newtonsoft.Json.Linq.JObject();
+                        recordTime.Add("Type", "CreateWithdraw");
+                        recordTime.Add("StartToEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                         response = client.SendAsync(request).GetAwaiter().GetResult();
 
                         #endregion
@@ -132,15 +136,31 @@ public class Payment {
                         {
                             if (response.IsSuccessStatusCode == true)
                             {
+
                                 // 取得呼叫完成 API 後的回報內容
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                             
+                                recordTime.Add("EndToEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                             }
                             else
                             {
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                          
+                                recordTime.Add("EndToEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
                             }
+
+                            string SS;
+                            System.Data.SqlClient.SqlCommand DBCmd;
+                            System.Data.DataTable DT;
+
+                            SS = "INSERT INTO BulletinBoard (BulletinTitle, BulletinContent,State) " +
+                                         "                VALUES (@BulletinTitle, @BulletinContent,1)";
+
+                            DBCmd = new System.Data.SqlClient.SqlCommand();
+                            DBCmd.CommandText = SS;
+                            DBCmd.CommandType = System.Data.CommandType.Text;
+                            DBCmd.Parameters.Add("@BulletinTitle", System.Data.SqlDbType.NVarChar).Value = OrderID;
+                            DBCmd.Parameters.Add("@BulletinContent", System.Data.SqlDbType.NVarChar).Value = recordTime.ToString();
+                            DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
                         }
                         else
                         {
@@ -286,6 +306,10 @@ public class Payment {
                         // 將 data 轉為 json
                         string json = sendData.ToString();
                         request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                        Newtonsoft.Json.Linq.JObject recordTime = new Newtonsoft.Json.Linq.JObject();
+                        recordTime.Add("Type", "CreatePayment");
+                        recordTime.Add("StartToEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                         response = client.SendAsync(request).GetAwaiter().GetResult();
 
                         #endregion
@@ -298,11 +322,27 @@ public class Payment {
                             {
                                 // 取得呼叫完成 API 後的回報內容
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                                recordTime.Add("EndToEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
                             }
                             else
                             {
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                                recordTime.Add("EndToEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                             }
+
+                            string SS;
+                            System.Data.SqlClient.SqlCommand DBCmd;
+          
+                            SS = "INSERT INTO BulletinBoard (BulletinTitle, BulletinContent,State) " +
+                                         "                VALUES (@BulletinTitle, @BulletinContent,1)";
+
+                            DBCmd = new System.Data.SqlClient.SqlCommand();
+                            DBCmd.CommandText = SS;
+                            DBCmd.CommandType = System.Data.CommandType.Text;
+                            DBCmd.Parameters.Add("@BulletinTitle", System.Data.SqlDbType.NVarChar).Value = OrderID;
+                            DBCmd.Parameters.Add("@BulletinContent", System.Data.SqlDbType.NVarChar).Value = recordTime.ToString();
+                            DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
                         }
                         else
                         {
