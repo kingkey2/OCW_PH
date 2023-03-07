@@ -1001,7 +1001,7 @@
         appendGameFrame();
     }
 
-    function game_userlogout() {
+    function game_userlogout(cb) {
         $('#GameMask').hide();
         var guid = Math.uuid();
         lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
@@ -1027,10 +1027,24 @@
                                     updateBaseInfo();
                                 }
                             });
+
+                            if (cb) {
+                                cb();
+                            }
                         });
+                    } else {
+                        if (cb) {
+                            cb();
+                        }
                     }
                 } else {
-
+                    if (cb) {
+                        cb();
+                    }
+                }
+            } else {
+                if (cb) {
+                    cb();
                 }
             }
         });
@@ -2253,9 +2267,12 @@
                                 if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
                                     lobbyClient.GetWebSiteMaintainStatus(function (success, o1) {
                                         if (o1.Message == "1") { //維護中
-                                            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("系統維護中"), function () {
-                                                window.location.reload();
+                                            game_userlogout(function () {
+                                                API_Logout(true);
                                             });
+                                            //showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("系統維護中"), function () {
+                                            //    window.location.reload();
+                                            //});
                                         }
                                     })
 
