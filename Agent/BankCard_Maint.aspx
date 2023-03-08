@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="BankCard_Maint.aspx.cs" Inherits="BankCard_Maint" %>
+02<%@ Page Language="C#" AutoEventWireup="true" CodeFile="BankCard_Maint.aspx.cs" Inherits="BankCard_Maint" %>
 
 <%
     string LoginAccount = Request["LoginAccount"];

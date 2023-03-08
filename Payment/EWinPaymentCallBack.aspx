@@ -17,10 +17,7 @@
             PostBody = reader.ReadToEnd();
         };
 
-
         if (string.IsNullOrEmpty(PostBody) == false) {
-
-
             try { BodyObj = Newtonsoft.Json.JsonConvert.DeserializeObject<PaymentCallbackInfo>(PostBody); } catch (Exception ex) {
                 BodyObj = null;
             }
@@ -81,7 +78,7 @@
                                         if (addThresholdResult.Result == EWin.Lobby.enumResult.OK || addThresholdResult.Message == "-2") {
                                             //若有重製門檻將只能遊玩電子遊戲的限制移除
                                             if (ResetThreshold) {
-                                                fantaAPI.ClearGameAclByLoginAccount(Token, BodyObj.LoginAccount, System.Guid.NewGuid().ToString());
+                                               fantaAPI.ClearGameAclByLoginAccount(Token, BodyObj.LoginAccount, System.Guid.NewGuid().ToString());
                                             }
 
                                             if (tagInfoData.IsJoinDepositActivity) {
@@ -403,7 +400,8 @@
                                                 }
                                             }
                                             else {
-                                                  SetResultException(R, "RepeatCall");
+                                                R.Result = 0;
+                                                R.Message = "RepeatCall";
                                             }
 
                                         }
