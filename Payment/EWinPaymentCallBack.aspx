@@ -368,6 +368,10 @@
                                     else if (UnderProvider == "EASYPAY") { ProviderCode = "EASYPAY"; }
                                     else if (UnderProvider == "GCPay") { ProviderCode = "GCPay"; }
                                     else if (UnderProvider == "PoPay") { ProviderCode = "PoPay"; }
+                                    else if (UnderProvider == "LUMIPay") { ProviderCode = "LUMIPay"; }
+                                    else if (UnderProvider == "JBPay") { ProviderCode = "JBPay"; }
+                                    else if (UnderProvider == "DiDiPay2") { ProviderCode = "DiDiPay2"; }
+                                    else if (UnderProvider == "GstarPay") { ProviderCode = "GstarPay"; }
                                     else
                                     {
                                         CheckUnderProvider = false;
