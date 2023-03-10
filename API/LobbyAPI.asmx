@@ -18,8 +18,6 @@ using System.Linq;
 [System.Web.Script.Services.ScriptService]
 public class LobbyAPI : System.Web.Services.WebService
 {
-
-
     [WebMethod]
     public void GetGcSyncSetting()
     {
@@ -28,12 +26,10 @@ public class LobbyAPI : System.Web.Services.WebService
             Ret = "{\"Url\":\"https://gcfdev.ewin888.com/" + EWinWeb.CompanyID + EWinWeb.CompanyCode + "\",\"Domain\":\"gcfdev.ewin888.com\"}";
         else
             Ret = "{\"Url\":\"https://gcfprod.ewin888.com/" + EWinWeb.CompanyID + EWinWeb.CompanyCode + "\",\"Domain\":\"gcfprod.ewin888.com\"}";
-        //Ret = "{\"Url\":\"https://gcfprod.ewin-soft.com/" + EWinWeb.CompanyID + EWinWeb.CompanyCode + "\",\"Domain\":\"gcfprod.ewin-soft.com\"}";
 
 
         Context.Response.Write(Ret);
     }
-
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
