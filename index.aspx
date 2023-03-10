@@ -2270,9 +2270,6 @@
                                             game_userlogout(function () {
                                                 API_Logout(true);
                                             });
-                                            //showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("系統維護中"), function () {
-                                            //    window.location.reload();
-                                            //});
                                         }
                                     })
 
