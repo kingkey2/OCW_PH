@@ -866,7 +866,7 @@
                 divMessageBoxTitle.innerHTML = title;
 
                 $.ajax({
-                    url: "https://ewin.dev.mts.idv.tw/GetDocument.aspx?DocNumber=" + docNumber,
+                    url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + docNumber,
                     success: function (res) {
                         divMessageBoxContent.innerHTML = res;
                     },
