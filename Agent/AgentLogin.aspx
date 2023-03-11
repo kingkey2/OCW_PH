@@ -4,7 +4,14 @@
     bool showMsg = false;
     string msgContent = null;
     string DefaultCompany = Request["CompanyCode"];
-    string Lang = Request.Form.GetValues("Lang")[0];
+    string Lang = string.Empty;
+
+    if (string.IsNullOrEmpty(Request["Lang"]) == false) {
+        Lang = Request["Lang"];
+    } else {
+        Lang = "ENG";
+    }
+
     string AgentVersion = EWinWeb.AgentVersion;
     //EWin.Agent.AgentAPI agentAPI = new EWin.Agent.AgentAPI();
     EWin.SpriteAgent.SpriteAgent agentAPI = new EWin.SpriteAgent.SpriteAgent();
