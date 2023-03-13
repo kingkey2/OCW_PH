@@ -4,5 +4,5 @@
   "ApiKey": "0751f4f2bf184e3dafaff841440e05f0",
   "ServiceType": "JOOB01",
   "CyrrencyType": "PHP",
-  "ProviderIP": [ "43.132.149.133", "43.129.21.67" ]
+  "ProviderIP": [ "43.132.149.133", "43.129.21.67", "20.212.19.217" ]
 }

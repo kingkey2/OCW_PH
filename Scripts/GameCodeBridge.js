@@ -101,7 +101,7 @@
 
         xmlHttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
         xmlHttp.send(postData);
-    }
+    };
 
     var getJSON = function (text) {
         var obj = JSON.parse(text);
@@ -113,7 +113,7 @@
                 return obj;
             }
         }
-    }
+    };
     //搜尋方法 cb回傳統一為一個或多個GameCodeItem
 
     /**
@@ -148,29 +148,15 @@
     };
 
     this.GetByGameCode = function (GameCode, cb) {
-        //test
         if (GCBSelf.IsFirstLoaded) {
-            try {
-                var queue = (IndexedDB) => {
-                    var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
-                    var objectStore = transaction.objectStore('GameCodes');
+            return GCBSelf.GetByGameCode2(GameCode, cb);
+        }
 
-                    objectStore.get(GameCode).onsuccess = function (event) {
-                        if (cb) {
-                            if (event.target.result) {
-                                cb(event.target.result);
-                            } else {
-                                cb(null);
-                            }
-                        }
+        var isDone = false;
+        var queueBackUp = () => {
+            if (!isDone) {
+                isDone = true;
 
-                        IndexedDB.close();
-                    };
-                };
-
-                GCBSelf.InitPromise.then(getDB).then(queue);
-            }
-            catch (e) {
                 GCBSelf.GetCompanyGameCode(Math.uuid(), GameCode, function (success, o) {
                     if (success) {
                         if (o.Result == 0) {
@@ -199,42 +185,33 @@
                     }
                 });
             }
-      
-        } else {
-            GCBSelf.GetCompanyGameCode(Math.uuid(), GameCode, function (success, o) {
-                if (success) {
-                    if (o.Result == 0) {
-                        let data = o.Data;
-                        data.ChampionType = 0;
-                        data.FavoTimeStamp = null;
-                        data.PlayedTimeStamp = null;
-                        if (data.Language != "null") {
-                            data.Language = JSON.parse(data.Language);
-                        } else {
-                            data.Language = [];
+        };
+        var queue = (IndexedDB) => {
+            if (!isDone) {
+                isDone = true;
+
+                try {
+                    var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
+                    var objectStore = transaction.objectStore('GameCodes');
+
+                    objectStore.get(GameCode).onsuccess = function (event) {
+                        if (cb) {
+                            if (event.target.result) {
+                                cb(event.target.result);
+                            } else {
+                                cb(null);
+                            }
                         }
+                        IndexedDB.close();
+                    };
+                } catch (e) {
+                    isDone = false;
+                }               
+            }
+        };
 
-                        if (data.Tags != "null" && data.Tags != "") {
-                            data.Tags = JSON.parse(data.Tags);
-                        } else {
-                            data.Tags = [];
-                        }
-
-                        cb(data);
-                    } else {
-                        cb(null);
-                    }
-                } else {
-                    cb(null);
-                }
-            });
-        }
-
-        //if (GCBSelf.IsFirstLoaded) {
-        //    event();
-        //} else {
-
-        //}
+        setTimeout(queueBackUp, 1000);
+        GCBSelf.InitPromise.then(getDB).then(queue);
     };
 
     /**

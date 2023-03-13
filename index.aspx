@@ -866,7 +866,7 @@
                 divMessageBoxTitle.innerHTML = title;
 
                 $.ajax({
-                    url: "https://ewin.dev.mts.idv.tw/GetDocument.aspx?DocNumber=" + docNumber,
+                    url: "<%=EWinWeb.EWinUrl%>/GetDocument.aspx?DocNumber=" + docNumber,
                     success: function (res) {
                         divMessageBoxContent.innerHTML = res;
                     },
@@ -2102,7 +2102,7 @@
             return;
         }
 
-        GCB = new GameCodeBridge("/API/LobbyAPI2.asmx", 300, null,
+        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 300, null,
             () => {
                 notifyWindowEvent("GameLoadEnd", null);
             }

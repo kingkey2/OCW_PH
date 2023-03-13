@@ -15,9 +15,9 @@ self.addEventListener('message', function (e) {
             if (WorkerSetting) {
                 wokerControl = new worker(e.data.Params[0], e.data.Params[1], WorkerSetting.Version);
             } else {
-                wokerControl = new worker(e.data.Params[0], e.data.Params[1], 13);
+                wokerControl = new worker(e.data.Params[0], e.data.Params[1], 14);
             }
-                       
+
             //dataExist,true => indexedDB已經有資料，可不等同步直接使用
             wokerControl.OnInitSyncStart = function (dataExist) {
                 self.postMessage({
@@ -43,7 +43,7 @@ self.addEventListener('message', function (e) {
 //#region  Class
 var worker = function (Url, Second, Version) {
     var workerSelf = this;
-    
+
     var SettingData;
     var GetSdUrl = Url;
 
@@ -120,7 +120,7 @@ var worker = function (Url, Second, Version) {
     //property
     this.SyncEventData = {
         IsSyncing: false,
-        Database: null,        
+        Database: null,
         NowTimeStamp: 0,
         NowPage: 0,
         IntervalSecond: Second,
@@ -249,7 +249,7 @@ var worker = function (Url, Second, Version) {
 
     };
 
-    this.NextSync = function (Second) {      
+    this.NextSync = function (Second) {
         setTimeout(workerSelf.Sync, Second * 1000)
     };
 
@@ -295,7 +295,7 @@ var worker = function (Url, Second, Version) {
                 }
             }).then((res) => res.json())
                 .catch(workerSelf.SyncFaliure)
-                .then((timeStampArray) => {                    
+                .then((timeStampArray) => {
                     workerSelf.SyncEventData.TimeStampList = timeStampArray.sort();
                     if (workerSelf.GetNextTimeStamp()) {
                         workerSelf.SyncEventData.IsSyncing = true;
@@ -322,7 +322,7 @@ var worker = function (Url, Second, Version) {
             console.log('workerSelf.SyncEventData.NowTimeStamp = ' + workerSelf.SyncEventData.NowTimeStamp);
 
             fetch(SettingData.Url + "/GameCode_" + workerSelf.SyncEventData.NowTimeStamp + "_" + workerSelf.SyncEventData.NowPage + ".json")
-                .then((res) =>  res.json())
+                .then((res) => res.json())
                 .catch(workerSelf.SyncFaliure)
                 .then(
                     (jsonObj) => {
@@ -391,7 +391,7 @@ var worker = function (Url, Second, Version) {
                                     IsHot: gameCodeItem.IsHot,
                                     IsNew: gameCodeItem.IsNew,
                                     IsFavo: 0,
-                                    IsPlayed: 0,                                    
+                                    IsPlayed: 0,
                                     SortIndex: gameCodeItem.SortIndex,
                                     Tags: tags,
                                     Language: gameCodeItem.Language,
@@ -409,20 +409,21 @@ var worker = function (Url, Second, Version) {
                                         GameCategoryCode: InsertData.GameCategoryCode
                                     });
 
-                                   
+
 
                                     //必須在此處決定是否需要繼續同步
                                     if (i == (data.GameCodeList.length - 1)) {
-                                        if (workerSelf.SyncEventData.NowPage == data.PageCount) {
-                                            if (workerSelf.SyncEventData.NowPage == 0) {
-                                                workerSelf.SyncEventData.IsSyncing = true;
+                                        if (workerSelf.SyncEventData.NowPage == (data.PageCount - 1)) {
+                                            if (workerSelf.SyncEventData.NowTimeStamp == 0) {
+                                                //TimeStamp 0的首次同步
+                                                workerSelf.SyncEventData.IsSyncing = false;
                                                 workerSelf.SyncEventData.NowPage = 0;
                                                 workerSelf.SyncEventData.NowTimeStamp = gameCodeItem.UpdateTimestamp;
                                             } else {
                                                 if (workerSelf.GetNextTimeStamp()) {
-                                                    
+
                                                 } else {
-                                                    workerSelf.SyncEventData.IsSyncing = true;
+                                                    workerSelf.SyncEventData.IsSyncing = false;
                                                 }
                                             }
                                         } else {
@@ -434,25 +435,24 @@ var worker = function (Url, Second, Version) {
                                                 SyncID: 1,
                                                 TimeStamp: gameCodeItem.UpdateTimestamp,
                                                 LastUpdateDate: new Date().toISOString(),
+                                                StatusText: "Continue"
+                                            };
+
+                                            console.log("SyncContinue");
+                                            //console.log(syncData);
+                                            objectSyncStore.put(syncData);
+
+                                        } else {
+                                            let syncData = {
+                                                SyncID: 1,
+                                                TimeStamp: gameCodeItem.UpdateTimestamp,
+                                                LastUpdateDate: new Date().toISOString(),
                                                 StatusText: "Finish"
                                             };
 
                                             console.log("SyncFinish");
                                             //console.log(syncData);
 
-                                            objectSyncStore.put(syncData);
-
-                                        } else {
-                                            let syncData = {
-                                                SyncID: 1,
-                                                GameID: gameCodeItem.GameID,
-                                                TimeStamp: gameCodeItem.UpdateTimestamp,
-                                                LastUpdateDate: new Date().toISOString(),
-                                                StatusText: "Continue"
-                                            };
-
-                                            console.log("SyncContinue");
-                                            //console.log(syncData);
                                             objectSyncStore.put(syncData);
                                         }
                                     }
@@ -464,10 +464,10 @@ var worker = function (Url, Second, Version) {
 
                             transaction.oncomplete = function (event) {
                                 if (workerSelf.SyncEventData.IsSyncing) {
-                                    console.log("hasSyncing, SyncSuccess");
-                                    workerSelf.SyncSuccess(true);
-                                } else {
                                     workerSelf.RecursiveSyncGameCode();
+                                } else {
+                                    console.log("hasSyncing, SyncSuccess");
+                                    workerSelf.SyncSuccess(true);                                    
                                 }
                             };
                         }

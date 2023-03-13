@@ -1,6 +1,6 @@
 ﻿//站點各自的Worker設定
 var WorkerSetting = {
-    Version : 13,
+    Version : 14,
     EachGameCode: function (GameItem, InsertData) {
         let temps = GameItem.GameCodeCategory;
         let ChampionType = 0;

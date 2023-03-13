@@ -875,6 +875,7 @@ public class MgmtAPI : System.Web.Services.WebService {
             if (UserDT != null && UserDT.Rows.Count > 0) {
                 VIPSettingDetail = JArray.Parse(VIPSetting["VIPSetting"].ToString());
                 foreach (System.Data.DataRow dr in UserDT.Rows) {
+                    UserLevelUpgradeTempDatas = new List<UserLevelUpgradeTempData>();
                     UserLevelIndex = (int)dr["UserLevelIndex"];
                     LoginAccount = (string)dr["LoginAccount"];
                     UserLevelAccumulationDepositAmount = (decimal)dr["UserLevelAccumulationDepositAmount"];
