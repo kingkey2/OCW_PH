@@ -445,6 +445,7 @@ public class MgmtAPI : System.Web.Services.WebService {
         decimal t = 0;
         decimal b = 0;
         bool hasgift = false;
+        bool ActivityIsAlreadyJoin = false;
 
         switch (UserLevelIndex) {
             case 3:
@@ -498,9 +499,17 @@ public class MgmtAPI : System.Web.Services.WebService {
         }
 
         if (hasgift) {
-            DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
+            DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccount(LoginAccount);
 
             if (DT != null && DT.Rows.Count > 0) {
+                for (int i = 0; i < DT.Rows.Count; i++) {
+                    if ((string)DT.Rows[i]["ActivityName"] == ActivityName) {
+                        ActivityIsAlreadyJoin = true;
+                    }
+                }
+            }
+
+            if (ActivityIsAlreadyJoin) {
 
             } else {
                 List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
