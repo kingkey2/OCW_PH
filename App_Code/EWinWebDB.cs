@@ -435,7 +435,7 @@ public static class EWinWebDB {
 
             if (ReturnValue == 0) {
                 RedisCache.UserAccountEventSummary.UpdateUserAccountEventSummaryByLoginAccount(LoginAccount);
-                RedisCache.UserAccountEventSummary.UpdateUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
+                //RedisCache.UserAccountEventSummary.UpdateUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
             }
 
             return ReturnValue;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://tempuri.org/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:element name="AgentLogin">
@@ -408,8 +408,12 @@
           <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="BonusPointCost" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebateUserRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebateCommission" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UserCommissionProfit" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UserRebate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRebateUserRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRebateCommission" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="PaidOPValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="ActiveUser" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="ParentUserAccountSortKey" type="s:string" />
@@ -424,12 +428,31 @@
           <s:element minOccurs="1" maxOccurs="1" name="AccountingRuleID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="AccountingType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentUserRateRuleType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentUserRateRuleValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentBuyChipRateRuleType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentBuyChipRateRuleValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="AgentRebatePayoutType" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="AgentMinActiveUserCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinValidBet" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinDepositValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="AgentMinDepositValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="RebateAmountMin" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="GACList" type="tns:ArrayOfRuleConditionGameAccountingCode" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRuleConditionGameAccountingCode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RuleConditionGameAccountingCode" nillable="true" type="tns:RuleConditionGameAccountingCode" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RuleConditionGameAccountingCode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GameAccountingCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRateRuleType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRateRuleValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRateRuleType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRateRuleValue" type="s:decimal" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfSummaryValue">

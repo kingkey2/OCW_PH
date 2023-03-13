@@ -18,8 +18,6 @@ using System.Linq;
 [System.Web.Script.Services.ScriptService]
 public class LobbyAPI : System.Web.Services.WebService
 {
-
-
     [WebMethod]
     public void GetGcSyncSetting()
     {
@@ -28,12 +26,10 @@ public class LobbyAPI : System.Web.Services.WebService
             Ret = "{\"Url\":\"https://gcfdev.ewin888.com/" + EWinWeb.CompanyID + EWinWeb.CompanyCode + "\",\"Domain\":\"gcfdev.ewin888.com\"}";
         else
             Ret = "{\"Url\":\"https://gcfprod.ewin888.com/" + EWinWeb.CompanyID + EWinWeb.CompanyCode + "\",\"Domain\":\"gcfprod.ewin888.com\"}";
-        //Ret = "{\"Url\":\"https://gcfprod.ewin-soft.com/" + EWinWeb.CompanyID + EWinWeb.CompanyCode + "\",\"Domain\":\"gcfprod.ewin-soft.com\"}";
 
 
         Context.Response.Write(Ret);
     }
-
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -3081,25 +3077,29 @@ public class LobbyAPI : System.Web.Services.WebService
         }
     }
 
-    private void SendUpgradeGiftByUserLevelIndex(string LoginAccount, int UserLevelIndex)
-    {
+    private void SendUpgradeGiftByUserLevelIndex(string LoginAccount, int UserLevelIndex) {
         System.Data.DataTable DT;
         string ActivityName = string.Empty;
         Newtonsoft.Json.Linq.JObject ActivityDetail;
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        bool ActivityIsAlreadyJoin = false;
         ActivityDetail = GetActivityDetail("/App_Data/ActivityDetail/VIPSetting/VIPLev" + UserLevelIndex + ".json");
-        if (ActivityDetail != null)
-        {
+        if (ActivityDetail != null) {
             ActivityName = (string)ActivityDetail["Name"];
+                
+            DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccount(LoginAccount);
 
-            DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
-
-            if (DT != null && DT.Rows.Count > 0)
-            {
-
+            if (DT != null && DT.Rows.Count > 0) {
+                for (int i = 0; i < DT.Rows.Count; i++) {
+                    if ((string)DT.Rows[i]["ActivityName"] == ActivityName) {
+                        ActivityIsAlreadyJoin = true;
+                    }
+                }
             }
-            else
-            {
+
+            if (ActivityIsAlreadyJoin) {
+
+            } else {
                 List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
 
                 string description = ActivityDetail["Name"].ToString();

@@ -128,13 +128,22 @@ public partial class Backend_ManualUserLevelAdjust : System.Web.UI.Page {
         string ActivityName = string.Empty;
         JObject ActivityDetail;
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        bool ActivityIsAlreadyJoin = false;
         ActivityDetail = GetActivityDetail("/App_Data/ActivityDetail/VIPSetting/VIPLev" + UserLevelIndex + ".json");
         if (ActivityDetail != null) {
             ActivityName = (string)ActivityDetail["Name"];
 
-            DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
+            DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccount(LoginAccount);
 
             if (DT != null && DT.Rows.Count > 0) {
+                for (int i = 0; i < DT.Rows.Count; i++) {
+                    if ((string)DT.Rows[i]["ActivityName"] == ActivityName) {
+                        ActivityIsAlreadyJoin = true;
+                    }
+                }
+            }
+
+            if (ActivityIsAlreadyJoin) {
 
             } else {
                 List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
