@@ -210,7 +210,7 @@
             }
         };
 
-        setTimeout(queueBackUp, 1000);
+        setTimeout(queueBackUp, 10);
         GCBSelf.InitPromise.then(getDB).then(queue);
     };
 
