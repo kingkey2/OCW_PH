@@ -20,6 +20,7 @@
     string ImageUrl = EWinWeb.ImageUrl;
     string EwinLoginUrl = string.Empty;
     string UserIP = string.Empty;
+    string Page = string.Empty;
 
     if (string.IsNullOrEmpty(Request["SID"]) == false) {
         SID = Request["SID"];
@@ -42,6 +43,10 @@
 
     if (string.IsNullOrEmpty(Request["PageType"]) == false) {
         PageType = Request["PageType"];
+    }
+
+    if (string.IsNullOrEmpty(Request["page"]) == false) {
+        Page = Request["page"];
     }
 
     if (GoEwinLogin == 1) {
@@ -230,6 +235,7 @@
     var clickCount=0;
     var PCode = "<%=PCode%>";
     var PageType = "<%=PageType%>";
+    var Page = "<%=Page%>";
     var JoinActivitys;
 
     //#region TOP API
@@ -2168,13 +2174,17 @@
 
             }
             else {
-                if (EWinWebInfo.SID != "") {
-                     API_GetUserAccountProperty("JoinActivity", function (d) {
-                         JoinActivitys = d;
-                    });
-                    API_Casino();
+                if (Page != null && Page != "" && (Page == "Casino" || Page == "Register")) {
+                    API_LoadPage(Page, Page + ".aspx");
                 } else {
-                     API_Casino();
+                    if (EWinWebInfo.SID != "") {
+                        API_GetUserAccountProperty("JoinActivity", function (d) {
+                            JoinActivitys = d;
+                        });
+                        API_Casino();
+                    } else {
+                        API_Casino();
+                    }
                 }
             }
 

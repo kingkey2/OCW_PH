@@ -1662,8 +1662,7 @@ public static class RedisCache {
 
             return DT;
         }
-
-
+        
         public static System.Data.DataTable GetUserAccountEventSummaryByLoginAccountAndActivityName(string LoginAccount, string ActivityName) {
             string Key;
             System.Data.DataTable DT;
