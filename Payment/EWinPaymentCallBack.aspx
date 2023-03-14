@@ -224,20 +224,6 @@
                                                 } else {
                                                     SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                                                 }
-
-                                                string SS;
-                                                System.Data.SqlClient.SqlCommand DBCmd;
-                       
-                                                SS = "INSERT INTO BulletinBoard (BulletinTitle, BulletinContent,State) " +
-                                                             "                VALUES (@BulletinTitle, @BulletinContent,1)";
-
-                                                DBCmd = new System.Data.SqlClient.SqlCommand();
-                                                DBCmd.CommandText = SS;
-                                                DBCmd.CommandType = System.Data.CommandType.Text;
-                                                DBCmd.Parameters.Add("@BulletinTitle", System.Data.SqlDbType.NVarChar).Value = OrderID;
-                                                DBCmd.Parameters.Add("@BulletinContent", System.Data.SqlDbType.NVarChar).Value = recordTime.ToString();
-                                                DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
-
                                             } else {
                                                 SetResultException(R, "AllParentBonusAfterDepositResultError,Msg=" + allParentBonusAfterDepositResult.Message);
                                             }
@@ -255,6 +241,19 @@
                             } else {
                                 SetResultException(R, "TagInfoFormatError");
                             }
+
+                                string SS;
+                                System.Data.SqlClient.SqlCommand DBCmd;
+                       
+                                SS = "INSERT INTO BulletinBoard (BulletinTitle, BulletinContent,State) " +
+                                                "                VALUES (@BulletinTitle, @BulletinContent,1)";
+
+                                DBCmd = new System.Data.SqlClient.SqlCommand();
+                                DBCmd.CommandText = SS;
+                                DBCmd.CommandType = System.Data.CommandType.Text;
+                                DBCmd.Parameters.Add("@BulletinTitle", System.Data.SqlDbType.NVarChar).Value = OrderID;
+                                DBCmd.Parameters.Add("@BulletinContent", System.Data.SqlDbType.NVarChar).Value = recordTime.ToString();
+                                DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
                         } else if (BodyObj.Action == "Cancel") {
                             int FinishPaymentRet;
 
