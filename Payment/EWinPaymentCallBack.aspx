@@ -320,7 +320,7 @@
                         else if (BodyObj.Action == "Finished")
                         {
                             //log
-                            recordTime.Add("Type", "FinishedDeposit");
+                            recordTime.Add("Type", "FinishedWithdrawal");
                             int FinishPaymentRet;
                             recordTime.Add("StartFinishPaymentFlowStatus", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                             FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Success, BodyObj.PaymentSerial);
