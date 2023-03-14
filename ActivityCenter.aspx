@@ -393,7 +393,7 @@
 <p><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;"> </span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;">1000*10%=1100</span></p>
 <p><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;"> </span></p>
-<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;">1100*(10 times the bet)=11000</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;">1100*(15 times the bet)=165000</span></p>
 <p><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;"> </span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;">Withdrawal approved when the bet amount reaches 11000</span></p>
 <p><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;"> </span></p>
@@ -403,7 +403,7 @@
 <p><span style="font-family: arial, helvetica, sans-serif; font-size: 16px; background-color: #ffffff;"> </span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">Event Threshold Description:</span></p>
 <p><span style="font-family: arial, helvetica, sans-serif; font-size: 16px; background-color: #ffffff;"> </span></p>
-<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">The total threshold is (Capital + Bonus) * 10.</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">The total threshold is (Capital + Bonus) * 15.</span></p>
 <p><span style="font-family: arial, helvetica, sans-serif; font-size: 16px; background-color: #ffffff;"> </span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">Please note that the capital threshold is "Deposit amount * 1" and the other thresholds will be added when you choose to receive a Bonus.</span></p>
 <p><span style="font-family: arial, helvetica, sans-serif; font-size: 16px; background-color: #ffffff;"> </span></p>
@@ -413,7 +413,7 @@
 <p><span style="font-family: arial, helvetica, sans-serif; font-size: 16px; background-color: #ffffff;"> </span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">Deposit amount is 10,000 and choose to receive Bonus 1,000. </span></p>
 <p><span style="font-family: arial, helvetica, sans-serif; font-size: 16px; background-color: #ffffff;"> </span></p>
-<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">In this case, the total threshold is (10,000 + 1,000) * 10=110,000.</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">In this case, the total threshold is (10,000 + 1,000) * 15=165,000.</span></p>
 <p><span style="font-family: arial, helvetica, sans-serif; font-size: 16px; background-color: #ffffff;"> </span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">The threshold is 10,000 when depositing, and the other thresholds 100,000 will be added when you choose to receive a Bonus.</span></p>
 <p><span style="font-family: arial, helvetica, sans-serif; font-size: 16px; background-color: #ffffff;"> </span></p>
@@ -630,17 +630,17 @@
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;">Example: </span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;">Deposit 1000</span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;">1000*10%=1100</span></p>
-<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;">1100*(10 times the bet)=11000</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;">1100*(15 times the bet)=165000</span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;">Withdrawal approved when the bet amount reaches 11000</span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;">A single deposit of 1000 or more is required to participate in this activity</span></p>
 <p class="MsoNormal">&nbsp;</p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">Event Threshold Description:</span></p>
-<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">The total threshold is (Capital + Bonus) * 10.&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">The total threshold is (Capital + Bonus) * 15.&nbsp;</span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">Please note that the capital threshold is "Deposit amount * 1" and the other thresholds will be added when you choose to receive a Bonus.</span></p>
 <p class="MsoNormal">&nbsp;</p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">For example:</span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">Deposit amount is 10,000 and choose to receive Bonus 1,000.</span></p>
-<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">In this case, the total threshold is (10,000 + 1,000) * 10=110,000.</span></p>
+<p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">In this case, the total threshold is (10,000 + 1,000) * 15=165,000.</span></p>
 <p class="MsoNormal"><span style="font-family: arial, helvetica, sans-serif; background: #ffffff; font-size: 16px;">The threshold is 10,000 when depositing, and the other thresholds 100,000 will be added when you choose to receive a Bonus.</span></p>
 <p>&nbsp;</p>
 <p class="MsoNormal"><strong><span style="font-family: arial, helvetica, sans-serif; font-size: 16px;">Event rules and terms:</span></strong></p>
@@ -771,7 +771,7 @@
                                 </div>
                             </div>
                         </figure>
-                        <figure class="activity-item" onclick="showPropUp('NewPlayerFirstTimeDepositEvent')">
+<%--                        <figure class="activity-item" onclick="showPropUp('NewPlayerFirstTimeDepositEvent')">
                             <div class="activity-item-inner">
 
                                 <div class="activity-item-link" data-toggle="modal">
@@ -793,7 +793,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </figure>
+                        </figure>--%>
                         <figure class="activity-item" onclick="showPropUp('ReferFriendsAndPlay')">
                             <div class="activity-item-inner">
 

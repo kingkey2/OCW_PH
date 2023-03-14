@@ -42,7 +42,7 @@
       "PaymentCode": ".ERC-HLN",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -50,7 +50,7 @@
       "PaymentCode": ".ERC-USDT",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -58,7 +58,7 @@
       "PaymentCode": ".ERC-USDC",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -66,7 +66,7 @@
       "PaymentCode": ".XRP-XRP",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -74,7 +74,7 @@
       "PaymentCode": ".BTC-BTC",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -82,7 +82,7 @@
       "PaymentCode": ".TRC-USDC",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -90,7 +90,7 @@
       "PaymentCode": ".TRC-USDT",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -98,7 +98,7 @@
       "PaymentCode": ".ERC-ETH",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -106,7 +106,7 @@
       "PaymentCode": "FeibaoPaymaya.Paymaya1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -114,7 +114,7 @@
       "PaymentCode": "DiDiPay.GcashQRcode1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -122,7 +122,7 @@
       "PaymentCode": "FIFIPay.GcashDirect1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -130,7 +130,7 @@
       "PaymentCode": "FeibaoGcash.Gcash2",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -138,7 +138,7 @@
       "PaymentCode": "DiDiPay.Gcash1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -146,7 +146,7 @@
       "PaymentCode": "YuHong.GcashQRcode2",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -154,7 +154,7 @@
       "PaymentCode": "FeibaoGrabpay.Grabpay1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -162,7 +162,7 @@
       "PaymentCode": "YuHong.QRPH1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -170,7 +170,7 @@
       "PaymentCode": "YuHong.GcashH5_1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -178,7 +178,7 @@
       "PaymentCode": "FeibaoBank.Bank1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -186,7 +186,7 @@
       "PaymentCode": "GCPay.GcashDirect4",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -194,7 +194,7 @@
       "PaymentCode": "ZINPay.GcashDirect3",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -202,7 +202,7 @@
       "PaymentCode": "ZINPay.GcashQRcode3",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -210,7 +210,7 @@
       "PaymentCode": "EASYPAY.Gcash3",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -218,7 +218,7 @@
       "PaymentCode": "CLOUDPAY.GcashDirect2",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -226,7 +226,7 @@
       "PaymentCode": "PoPay.Gcash4",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -234,7 +234,7 @@
       "PaymentCode": "FIFIPay.GcashQRcode4",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -242,7 +242,7 @@
       "PaymentCode": "GstarPay.Gcash7",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -250,7 +250,7 @@
       "PaymentCode": "JBPay.Gcash6",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -258,7 +258,7 @@
       "PaymentCode": "LUMIPay.GcashDirect5",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -266,7 +266,7 @@
       "PaymentCode": "DiDiPay2.Gcash5",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -274,7 +274,7 @@
       "PaymentCode": "DiDiPay2.GcashQRcode5",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -282,7 +282,7 @@
       "PaymentCode": "JBPay.GcashQRcode6",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     }
@@ -292,7 +292,7 @@
       "PaymentCode": ".ERC-HLN",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -300,7 +300,7 @@
       "PaymentCode": ".ERC-USDT",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -308,7 +308,7 @@
       "PaymentCode": ".ERC-USDC",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -316,7 +316,7 @@
       "PaymentCode": ".XRP-XRP",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -324,7 +324,7 @@
       "PaymentCode": ".BTC-BTC",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -332,7 +332,7 @@
       "PaymentCode": ".TRC-USDC",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -340,7 +340,7 @@
       "PaymentCode": ".TRC-USDT",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -348,7 +348,7 @@
       "PaymentCode": ".ERC-ETH",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -356,7 +356,7 @@
       "PaymentCode": "FeibaoPaymaya.Paymaya1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -364,7 +364,7 @@
       "PaymentCode": "DiDiPay.GcashQRcode1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -372,7 +372,7 @@
       "PaymentCode": "FIFIPay.GcashDirect1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -380,7 +380,7 @@
       "PaymentCode": "FeibaoGcash.Gcash2",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -388,7 +388,7 @@
       "PaymentCode": "DiDiPay.Gcash1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -396,7 +396,7 @@
       "PaymentCode": "YuHong.GcashQRcode2",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -404,7 +404,7 @@
       "PaymentCode": "FeibaoGrabpay.Grabpay1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -412,7 +412,7 @@
       "PaymentCode": "YuHong.GcashH5_1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -420,7 +420,7 @@
       "PaymentCode": "YuHong.QRPH1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -428,7 +428,7 @@
       "PaymentCode": "FeibaoBank.Bank1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -436,7 +436,7 @@
       "PaymentCode": "GCPay.GcashDirect4",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -444,7 +444,7 @@
       "PaymentCode": "ZINPay.GcashDirect3",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -452,7 +452,7 @@
       "PaymentCode": "ZINPay.GcashQRcode3",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -460,7 +460,7 @@
       "PaymentCode": "EASYPAY.Gcash3",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -468,7 +468,7 @@
       "PaymentCode": "CLOUDPAY.GcashDirect2",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -476,7 +476,7 @@
       "PaymentCode": "PoPay.Gcash4",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -484,7 +484,7 @@
       "PaymentCode": "FIFIPay.GcashQRcode4",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -492,7 +492,7 @@
       "PaymentCode": "GstarPay.Gcash7",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -500,7 +500,7 @@
       "PaymentCode": "JBPay.Gcash6",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -508,7 +508,7 @@
       "PaymentCode": "LUMIPay.GcashDirect5",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -516,7 +516,7 @@
       "PaymentCode": "DiDiPay2.Gcash5",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -524,7 +524,7 @@
       "PaymentCode": "DiDiPay2.GcashQRcode5",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -532,7 +532,7 @@
       "PaymentCode": "JBPay.GcashQRcode6",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     }
@@ -542,7 +542,7 @@
       "PaymentCode": ".ERC-HLN",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -550,7 +550,7 @@
       "PaymentCode": ".ERC-USDT",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -558,7 +558,7 @@
       "PaymentCode": ".ERC-USDC",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -566,7 +566,7 @@
       "PaymentCode": ".XRP-XRP",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -574,7 +574,7 @@
       "PaymentCode": ".BTC-BTC",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -582,7 +582,7 @@
       "PaymentCode": ".TRC-USDC",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -590,7 +590,7 @@
       "PaymentCode": ".TRC-USDT",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -598,7 +598,7 @@
       "PaymentCode": ".ERC-ETH",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -606,7 +606,7 @@
       "PaymentCode": "FeibaoPaymaya.Paymaya1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -614,7 +614,7 @@
       "PaymentCode": "DiDiPay.GcashQRcode1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -622,7 +622,7 @@
       "PaymentCode": "FIFIPay.GcashDirect1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -630,7 +630,7 @@
       "PaymentCode": "FeibaoGcash.Gcash2",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -638,7 +638,7 @@
       "PaymentCode": "DiDiPay.Gcash1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -646,7 +646,7 @@
       "PaymentCode": "YuHong.GcashQRcode2",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -654,7 +654,7 @@
       "PaymentCode": "FeibaoGrabpay.Grabpay1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -662,7 +662,7 @@
       "PaymentCode": "YuHong.GcashH5_1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -670,7 +670,7 @@
       "PaymentCode": "YuHong.QRPH1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -678,7 +678,7 @@
       "PaymentCode": "FeibaoBank.Bank1",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -686,7 +686,7 @@
       "PaymentCode": "GCPay.GcashDirect4",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -694,7 +694,7 @@
       "PaymentCode": "ZINPay.GcashDirect3",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -702,7 +702,7 @@
       "PaymentCode": "ZINPay.GcashQRcode3",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -710,7 +710,7 @@
       "PaymentCode": "EASYPAY.Gcash3",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -718,7 +718,7 @@
       "PaymentCode": "CLOUDPAY.GcashDirect2",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -726,7 +726,7 @@
       "PaymentCode": "PoPay.Gcash4",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -734,7 +734,7 @@
       "PaymentCode": "FIFIPay.GcashQRcode4",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -742,7 +742,7 @@
       "PaymentCode": "GstarPay.Gcash7",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -750,7 +750,7 @@
       "PaymentCode": "JBPay.Gcash6",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -758,7 +758,7 @@
       "PaymentCode": "LUMIPay.GcashDirect5",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -766,7 +766,7 @@
       "PaymentCode": "DiDiPay2.Gcash5",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -774,7 +774,7 @@
       "PaymentCode": "DiDiPay2.GcashQRcode5",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     },
@@ -782,7 +782,7 @@
       "PaymentCode": "JBPay.GcashQRcode6",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
-      "ThresholdRate": 100,
+      "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
     }

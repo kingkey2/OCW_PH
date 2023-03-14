@@ -1,12 +1,12 @@
 {
   "BasicPath": "/App_Data/ActivityDetail/",
   "Deposit": [
-    {
-      "Name": "FirstDepositBonus",
-      "Path": "Common/FirstDepositBonus.json",
-      "MethodName": "FirstDepositBonus",
-      "InfoMethodName": "FirstDepositBonus"
-    },
+    //{
+    //  "Name": "FirstDepositBonus",
+    //  "Path": "Common/FirstDepositBonus.json",
+    //  "MethodName": "FirstDepositBonus",
+    //  "InfoMethodName": "FirstDepositBonus"
+    //},
     {
       "Name": "Act001",
       "Path": "2022_10/Act001.json",
@@ -111,12 +111,12 @@
       "MethodName": "RegisterBounsToParent",
       "InfoMethodName": "RegisterBounsToParent"
     },
-    {
-      "Name": "FirstDepositBonus",
-      "Path": "Common/FirstDepositBonus.json",
-      "MethodName": "FirstDepositBonus",
-      "InfoMethodName": "FirstDepositBonus"
-    },
+    //{
+    //  "Name": "FirstDepositBonus",
+    //  "Path": "Common/FirstDepositBonus.json",
+    //  "MethodName": "FirstDepositBonus",
+    //  "InfoMethodName": "FirstDepositBonus"
+    //},
     {
       "Name": "DepositBounsToParent",
       "Path": "Common/DepositBounsToParent.json",
