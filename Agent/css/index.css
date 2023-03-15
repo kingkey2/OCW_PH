@@ -132,6 +132,42 @@ animation:name duration | timing-function | delay | iteration-count | direction 
       -webkit-box-flex: 1;
       -ms-flex: 1;
       flex: 1; }
+.currencyWalletList .currencyWallet__currencyFocus .balance1 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column wrap;
+    flex-flow: column wrap;
+    position: relative;
+    padding-right: 8px;
+}
+
+    .currencyWalletList .currencyWallet__currencyFocus .balance1::after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        opacity: .4;
+        background-size: auto 82%;
+    }
+
+    .currencyWalletList .currencyWallet__currencyFocus .balance1 .title-s {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+    }
+
+    .currencyWalletList .currencyWallet__currencyFocus .balance1 .data {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+    }
   .currencyWalletList .currencyWallet__currencyFocus .revenue {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
