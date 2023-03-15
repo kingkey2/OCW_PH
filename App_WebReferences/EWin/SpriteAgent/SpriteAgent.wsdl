@@ -347,6 +347,10 @@
               <s:element minOccurs="1" maxOccurs="1" name="TotalDepositUsers" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="FirstDepositCount" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="NextDepositCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="CanReceiveUserRebateUserRate" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AgentMinActiveUserCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="RebateAmountMin" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="FailureCondition" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="AgentItemList" type="tns:ArrayOfUserSummaryItem" />
             </s:sequence>
           </s:extension>
@@ -398,6 +402,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="SelfRewardValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalGGRUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalVenueFeeValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalVenueFeeUserRateValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalOrderCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalOrderValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalRewardValue" type="s:decimal" />
@@ -410,6 +416,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebate" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebateUserRate" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebateCommission" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChildenRebateUserRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChildenRebateCommission" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UserCommissionProfit" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UserRebate" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UserRebateUserRate" type="s:decimal" />
@@ -437,6 +445,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinValidBet" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinDepositValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="AgentMinDepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentVenueFeeRate" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="RebateAmountMin" type="s:decimal" />
           <s:element minOccurs="0" maxOccurs="1" name="GACList" type="tns:ArrayOfRuleConditionGameAccountingCode" />
         </s:sequence>
