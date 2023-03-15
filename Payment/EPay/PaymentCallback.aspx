@@ -23,9 +23,9 @@
                 {
                     Newtonsoft.Json.Linq.JObject recordTime = new Newtonsoft.Json.Linq.JObject();
                     recordTime.Add("Type", "PaymentCallback");
-                    recordTime.Add("StartEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    recordTime.Add("StartGetPaymentByPaymentSerial", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     PaymentOrderDT = EWinWebDB.UserAccountPayment.GetPaymentByPaymentSerial((string)RequestData.OrderID);
-
+                      recordTime.Add("EndGetPaymentByPaymentSerial", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     R.ResultState = APIResult.enumResultCode.ERR;
                     R.Message = (string)RequestData.OrderID;
 
