@@ -1,24 +1,7 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="GetAgentTotalDepositeSummary_CasinoExcludeLogin.aspx.cs" Inherits="GetAgentTotalDepositeSummary_CasinoExcludeLogin" %>
 
 <%
-    string LoginAccount = Request["LoginAccount"];
-    string ASID = Request["ASID"];
     string AgentVersion = EWinWeb.AgentVersion;
-    EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
-    EWin.SpriteAgent.AgentSessionResult ASR = null;
-    EWin.SpriteAgent.AgentSessionInfo ASI = null;
-
-    ASR = api.GetAgentSessionByID(ASID);
-
-    if (ASR.Result != EWin.SpriteAgent.enumResult.OK)
-    {
-        Response.Redirect("login.aspx");
-    }
-    else
-    {
-        ASI = ASR.AgentSessionInfo;
-    }
-
 %>
 <!doctype html>
 <html lang="zh-Hant-TW" class="innerHtml">
@@ -29,7 +12,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/basic.min.css?<%:AgentVersion%>">
     <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">
+    <script src="js/jquery-3.3.1.min.js"></script>
     <style>
+         #idList {
+            background-color:black;
+        }
+
         .tree-btn {
             padding: 0px 9px;
             border: none;
@@ -97,6 +85,8 @@
             animation-iteration-count: infinite;
         }
     </style>
+
+
 </head>
 <!-- <script type="text/javascript" src="js/AgentCommon.js"></script> -->
 <script type="text/javascript" src="js/AgentCommon.js"></script>
@@ -111,12 +101,12 @@
     var ac = new AgentCommon();
     var mlp;
     var EWinInfo;
-    var api;
     var lang;
     var startDate;
     var endDate;
-    var currencyType = "";
-
+    var currencyType = "PHP";
+    var mainLoginAccount;
+    
     function agentExpand(SortKey, UserAccountID) {
         var expandBtn = event.currentTarget;
         if (expandBtn) {
@@ -228,6 +218,11 @@
             }
         }
 
+        mainLoginAccount = $('#mainLoginAccount').val();
+        if (mainLoginAccount.trim() == '') {
+            alert("帳號不能為空");
+            return;
+        }
 
         if (loginAccount.value.trim() != '') {
             querySearchData(loginAccount.value);
@@ -247,7 +242,7 @@
             }
 
             var postData = {
-                AID: EWinInfo.ASID,
+                LoginAccount: mainLoginAccount,
                 TargetUserAccountID: UserAccountID,
                 QueryBeginDate: startDate.value,
                 QueryEndDate: endDate.value,
@@ -256,7 +251,7 @@
 
             if (new Date(postData.QueryBeginDate) <= new Date(postData.QueryEndDate)) {
 
-                window.parent.API_ShowLoading();
+              ShowLoading();
                 c.callService(ApiUrl + "/GetAgentTotalDepositeSummary", postData, function (success, o) {
                     if (success) {
                         var obj = c.getJSON(o);
@@ -264,32 +259,49 @@
                         if (obj.Result == 0) {
                             updateList(obj, UserAccountID, targetDom);
                         } else {
-
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                            alert("錯誤:" + obj.Message);
+          
                         }
                     } else {
                         if (o == "Timeout") {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                            alert("錯誤:" + "網路異常, 請稍後重新嘗試");
                         } else {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                            alert("錯誤:" + o);
                         }
                     }
 
-                    window.parent.API_CloseLoading();
+                    CloseLoading();
                 });
             } else {
-                window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("結束日期不可小於起起始日期"));
+                alert("錯誤:" + "結束日期不可小於起起始日期");
+  
             }
         }
         else {
-            window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("請至少選擇一個幣別!!"));
+            alert("錯誤:" + "請至少選擇一個幣別!!");
         }
+    }
+
+    function ShowLoading(showText) {
+        var idShowLoading = document.getElementById("idShowLoading");
+
+        if (showText == "" || showText == null) {
+            showText = "Loading";
+        }
+        document.getElementsByClassName("loading_text")[0].innerText = showText;
+        c.addClassName(idShowLoading, "show");
+    }
+
+    function CloseLoading() {
+        var idShowLoading = document.getElementById("idShowLoading");
+
+        c.removeClassName(idShowLoading, "show");
     }
 
     function querySearchData(LoginAccount) {
         if (currencyType != "") {
             var postData = {
-                AID: EWinInfo.ASID,
+                LoginAccount: mainLoginAccount,
                 TargetLoginAccount: LoginAccount,
                 QueryBeginDate: startDate.value,
                 QueryEndDate: endDate.value,
@@ -298,7 +310,7 @@
 
             if (new Date(postData.QueryBeginDate) <= new Date(postData.QueryEndDate)) {
 
-                window.parent.API_ShowLoading();
+              ShowLoading();
                 c.callService(ApiUrl + "/GetAgentTotalDepositeSummaryBySearch", postData, function (success, o) {
                     if (success) {
                         var obj = c.getJSON(o);
@@ -306,25 +318,24 @@
                         if (obj.Result == 0) {
                             updateSearchList(obj);
                         } else {
-
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
+                            alert("錯誤:" + obj.Message);
                         }
                     } else {
                         if (o == "Timeout") {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
+                            alert("錯誤:" + "網路異常, 請稍後重新嘗試");
                         } else {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                            alert("錯誤:" + o);
                         }
                     }
 
-                    window.parent.API_CloseLoading();
+                    CloseLoading();
                 });
             } else {
-                window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("結束日期不可小於起起始日期"));
+                alert("錯誤:" + "結束日期不可小於起起始日期");
             }
         }
         else {
-            window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("請至少選擇一個幣別!!"));
+            alert("錯誤:" + "請至少選擇一個幣別");
         }
     }
 
@@ -442,15 +453,15 @@
             }
         } else {
             if (!targetDom) {
-                var div = document.createElement("DIV");
+                //var div = document.createElement("DIV");
 
-                div.id = "hasNoData_DIV"
-                div.innerHTML = mlp.getLanguageKey("無數據");
-                div.classList.add("td__content", "td__hasNoData");
-                document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
-                idList.classList.add("tbody__hasNoData");
-                idList.appendChild(div);
-                window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("無數據"));
+                //div.id = "hasNoData_DIV"
+                //div.innerHTML = mlp.getLanguageKey("無數據");
+                //div.classList.add("td__content", "td__hasNoData");
+                //document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
+                //idList.classList.add("tbody__hasNoData");
+                //idList.appendChild(div);
+                alert("提醒:" + "無數據");
             }           
         }
     }
@@ -535,15 +546,15 @@
                 idList.appendChild(t);
             }
         } else {
-                var div = document.createElement("DIV");
+                //var div = document.createElement("DIV");
 
-                div.id = "hasNoData_DIV"
-                div.innerHTML = mlp.getLanguageKey("無數據");
-                div.classList.add("td__content", "td__hasNoData");
-                document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
-                idList.classList.add("tbody__hasNoData");
-                idList.appendChild(div);
-                window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("無數據"));
+                //div.id = "hasNoData_DIV"
+                //div.innerHTML = mlp.getLanguageKey("無數據");
+                //div.classList.add("td__content", "td__hasNoData");
+                //document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
+                //idList.classList.add("tbody__hasNoData");
+                //idList.appendChild(div);
+                 alert("提醒:" + "無數據");
             
         }
     }
@@ -624,32 +635,6 @@
 
         document.getElementById("startDate").value = getFirstDayOfWeek(Date.today()).toString("yyyy-MM-dd");
         document.getElementById("endDate").value = getLastDayOfWeek(Date.today()).toString("yyyy-MM-dd");
-
-        if (EWinInfo.UserInfo != null) {
-            if (EWinInfo.UserInfo.WalletList != null) {
-                pi = EWinInfo.UserInfo.WalletList;
-                if (pi.length > 0) {
-                    for (var i = 0; i < pi.length; i++) {
-                        templateDiv = c.getTemplate("templateDiv");
-
-                        tempCurrencyRadio = c.getFirstClassElement(templateDiv, "tempRadio");
-                        tempCurrencyName = c.getFirstClassElement(templateDiv, "tempName");
-                        tempCurrencyRadio.value = pi[i].CurrencyType;
-                        tempCurrencyRadio.name = "chkCurrencyType";
-                        tempCurrencyName.innerText = pi[i].CurrencyType;
-
-                        if (i == 0) {
-                            tempCurrencyRadio.checked = true;
-                        }
-
-                        tempCurrencyRadio.classList.remove("tempRadio");
-                        tempCurrencyName.classList.remove("tempName");
-
-                        CurrencyTypeDiv.appendChild(templateDiv);
-                    }
-                }
-            }
-        }
     }
 
     function getFirstDayOfWeek(d) {
@@ -682,22 +667,21 @@
     }
 
     function showSearchAccountPrecautions() {
-        window.parent.API_ShowMessageOK(mlp.getLanguageKey("提醒"), mlp.getLanguageKey("請輸入完整帳號"));
+        alert("提醒:" + "請輸入完整帳號");
     }
 
     function init() {
         var d = new Date();
 
         EWinInfo = window.parent.EWinInfo;
-        api = window.parent.API_GetAgentAPI();
         setSearchFrame();
 
         lang = window.localStorage.getItem("agent_lang");
         mlp = new multiLanguage();
         mlp.loadLanguage(lang, function () {
             //queryOrderSummary(qYear, qMon);
-            window.parent.API_CloseLoading();
-            querySelfData();
+            CloseLoading();
+            //querySelfData();
             ac.dataToggleCollapseInit();
         });
     }
@@ -727,6 +711,16 @@
                         <div id="divSearchContent" class="row searchListContent">
                             <div id="idSearchButton" class="col-12 col-md-4 col-lg-2 col-xl-2">
                                 <div class="form-group form-group-s2 ">
+                                      <div class="form-group form-group-s2 ">
+                                    <div class="title hidden shown-md"><span class="language_replace">主帳號</span></div>
+
+                                    <div class="form-control-underline iconCheckAnim placeholder-move-right zIndex_overMask_SafariFix">
+                                        <input type="text" class="form-control" id="mainLoginAccount" value="" />
+                                        <label for="member" class="form-label"><span class="language_replace">主帳號</span></label>
+                                    </div>
+
+                                </div>
+
                                     <div class="title hidden shown-md"><span class="language_replace">帳號</span>
                                          <btn style="font-size: 12px; right: 5px; position: absolute; border: 2px solid; width: 22px; text-align: center; border-radius: 11px; color: #bba480; cursor: pointer;" onclick="showSearchAccountPrecautions()">!</btn>
 										 </div>
@@ -916,6 +910,22 @@
                         </div>
         </div>
     </main>
+          <!-- Loading PopUp 要放在 message 及 toast 前面  -->
+    <div class="popUp loading" id="idShowLoading">
+        <div class="global__loading">
+            <!-- <div class="logo"><img src="Images/theme/dark/img/logo_eWin.svg" alt=""></div> -->
+            <div class="gooey">
+                <span class="dot"></span>
+                <div class="dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="loading_text">Loading</div>
+        </div>
+        <div id="mask_overlay_popup" class="mask_overlay_popup mask_overlay_loading"></div>
+    </div>
 </body>
 <script type="text/javascript">
     ac.listenScreenMove();

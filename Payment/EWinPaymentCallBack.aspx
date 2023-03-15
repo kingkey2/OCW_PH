@@ -6,12 +6,12 @@
     string Token = GetToken();
     string PromotionCollectKey;
     string PromotionCode = "";
+    string OrderID = "";
     string PromotionCategoryCode = "";
-
+    Newtonsoft.Json.Linq.JObject recordTime = new Newtonsoft.Json.Linq.JObject();
     if (CodingControl.FormSubmit()) {
         string PostBody = String.Empty;
         PaymentCallbackInfo BodyObj = new PaymentCallbackInfo();
-
 
         using (System.IO.StreamReader reader = new System.IO.StreamReader(Request.InputStream)) {
             PostBody = reader.ReadToEnd();
@@ -28,15 +28,19 @@
                 EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
                 EWin.OCW.OCW ocwAPI = new EWin.OCW.OCW();
                 EWin.FANTA.APIResult fanta_Result = new EWin.FANTA.APIResult();
-
+                recordTime.Add("StartCheckPayment", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 EWin.Payment.PaymentResult paymentResult = paymentAPI.GetPaymentByClientOrderNumber(Token, GUID, BodyObj.ClientOrderNumber);
+                recordTime.Add("EndCheckPayment", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 //回去EWin確認該筆訂單存在
 
                 if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK) {
+                    OrderID = paymentResult.PaymentSerial;
                     if (BodyObj.DirectionType == "Deposit") {
                         if (BodyObj.Action == "Create") {
                             R.Result = 0;
                         } else if (BodyObj.Action == "Finished") {
+                            //log
+                            recordTime.Add("Type", "FinishedDeposit");
                             EWinTagInfoData tagInfoData;
                             //訂單完成，先處理入金產生的流水
 
@@ -45,9 +49,9 @@
                             }
 
                             if (tagInfoData != null) {
-
+                                recordTime.Add("StartGetPayment(Web)", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                 System.Data.DataTable PaymentDT = EWinWebDB.UserAccountPayment.GetPaymentByOrderNumber(BodyObj.ClientOrderNumber);
-
+                                recordTime.Add("EndGetPayment(Web)", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                 if (PaymentDT != null && PaymentDT.Rows.Count > 0) {
                                     EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
                                     EWin.Lobby.APIResult addThresholdResult;
@@ -66,19 +70,23 @@
                                         ResetThreshold = CheckResetThreshold(BodyObj.LoginAccount);
                                         ThresholdValue = GetUserThresholdValue(BodyObj.LoginAccount);
                                         PointValue = GetUserPointValue(BodyObj.LoginAccount);
-
+                                        recordTime.Add("StartRemoveUserAccountProperty", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                         if (ThresholdValue == 0) {
                                             lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinActivity");
                                         } else if (ResetThreshold) {
                                             lobbyAPI.RemoveUserAccountProperty(GetToken(), GUID, EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinActivity");
                                         }
+                                        recordTime.Add("EndRemoveUserAccountProperty", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
 
+                                        recordTime.Add("StartAddThreshold", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                         addThresholdResult = lobbyAPI.AddThreshold(Token, GUID, transactionCode, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, tagInfoData.ThresholdValue, description, ResetThreshold);
-
+                                        recordTime.Add("EndAddThreshold", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                         if (addThresholdResult.Result == EWin.Lobby.enumResult.OK || addThresholdResult.Message == "-2") {
                                             //若有重製門檻將只能遊玩電子遊戲的限制移除
                                             if (ResetThreshold) {
-                                               fantaAPI.ClearGameAclByLoginAccount(Token, BodyObj.LoginAccount, System.Guid.NewGuid().ToString());
+                                                recordTime.Add("StartClearGameAclByLoginAccount", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                                                fantaAPI.ClearGameAclByLoginAccount(Token, BodyObj.LoginAccount, System.Guid.NewGuid().ToString());
+                                                recordTime.Add("EndClearGameAclByLoginAccount", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                             }
 
                                             if (tagInfoData.IsJoinDepositActivity) {
@@ -95,9 +103,12 @@
                                                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
                                                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                                                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
-
+                                                    recordTime.Add("StartAddPromotionCollect:"+PromotionCollectKey, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                     lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                                    recordTime.Add("EndAddPromotionCollect:"+PromotionCollectKey, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                                                    recordTime.Add("StartUpdateUserAccountEventSummary:"+PromotionCollectKey, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                     EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
+                                                    recordTime.Add("EndUpdateUserAccountEventSummary:"+PromotionCollectKey, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                 }
                                             }
 
@@ -130,16 +141,19 @@
                                                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
                                                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                                                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
-
+                                                        recordTime.Add("StartAddPromotionCollect2:"+PromotionCollectKey, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                         lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, activityData.ParentLoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                                        recordTime.Add("EndAddPromotionCollect2:"+PromotionCollectKey, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                                                        recordTime.Add("StartUpdateUserAccountEventSummary2:"+PromotionCollectKey, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                         EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, 0, 0);
+                                                        recordTime.Add("EndUpdateUserAccountEventSummary2:"+PromotionCollectKey, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                     }
                                                 }
 
                                                 int FinishPaymentRet;
-
+                                                recordTime.Add("StartFinishPaymentFlowStatus", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                 FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Success, BodyObj.PaymentSerial);
-
+                                                recordTime.Add("EndFinishPaymentFlowStatus", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                 if (FinishPaymentRet == 0) {
                                                     RedisCache.UserAccount.UpdateUserAccountByLoginAccount(BodyObj.LoginAccount);
 
@@ -169,29 +183,42 @@
                                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = "0" });
                                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = "200" });
                                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = "1" });
-
+                                                                recordTime.Add("StartAddPromotionCollect:"+description, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                                 lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, PromotionCode, PromotionCategoryCode, 2, 90, description, PropertySets.ToArray());
+                                                                recordTime.Add("EndAddPromotionCollect:"+description, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                             }
                                                         }
-
+                                                        recordTime.Add("StartResetUserPointValueAndThresholdValueByCurrencyType", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                         fantaAPI.ResetUserPointValueAndThresholdValueByCurrencyType(GetToken(), BodyObj.LoginAccount, System.Guid.NewGuid().ToString(), EWinWeb.BonusCurrencyType, "FirstDepositRestBonusWallet");
+                                                        recordTime.Add("EndResetUserPointValueAndThresholdValueByCurrencyType", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                     }
 
                                                     //錢包金額少於100或門檻歸0時取消只有特定遊戲扣除門檻限制
                                                     if (PointValue <= 100) {
+                                                        recordTime.Add("StartResetThresholdAddRate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                         fantaAPI.ResetThresholdAddRate(Token, BodyObj.LoginAccount);
+                                                        recordTime.Add("EndResetThresholdAddRate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                                                        recordTime.Add("StartRemoveUserAccountProperty", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                         lobbyAPI.RemoveUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinHasThresholdAddRateActivity");
+                                                        recordTime.Add("EndRemoveUserAccountProperty", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                     } else {
-                                                        if (ThresholdValue == 0) {
+                                                        if (ThresholdValue == 0)
+                                                        {
+                                                            recordTime.Add("StartResetThresholdAddRate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                             fantaAPI.ResetThresholdAddRate(Token, BodyObj.LoginAccount);
+                                                            recordTime.Add("EndResetThresholdAddRate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                                                            recordTime.Add("StartRemoveUserAccountProperty", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                             lobbyAPI.RemoveUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.ByLoginAccount, BodyObj.LoginAccount, "JoinHasThresholdAddRateActivity");
+                                                            recordTime.Add("EndRemoveUserAccountProperty", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                         }
                                                     }
 
                                                     R.Result = 0;
                                                     RedisCache.UserAccountVIPInfo.DeleteUserAccountVIPInfo(BodyObj.LoginAccount);
                                                     RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
+                                                    recordTime.Add("StartCreateUserAccountPayment(ReportSystem)", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                     ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
+                                                    recordTime.Add("EndCreateUserAccountPayment(ReportSystem)", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                                     RedisCache.UserAccount.UpdateUserAccountByLoginAccount(BodyObj.LoginAccount);
                                                     RedisCache.UserAccountSummary.UpdateUserAccountSummary(BodyObj.LoginAccount, DateTime.Now.Date);
                                                 } else {
@@ -214,6 +241,19 @@
                             } else {
                                 SetResultException(R, "TagInfoFormatError");
                             }
+
+                                string SS;
+                                System.Data.SqlClient.SqlCommand DBCmd;
+                       
+                                SS = "INSERT INTO BulletinBoard (BulletinTitle, BulletinContent,State) " +
+                                                "                VALUES (@BulletinTitle, @BulletinContent,1)";
+
+                                DBCmd = new System.Data.SqlClient.SqlCommand();
+                                DBCmd.CommandText = SS;
+                                DBCmd.CommandType = System.Data.CommandType.Text;
+                                DBCmd.Parameters.Add("@BulletinTitle", System.Data.SqlDbType.NVarChar).Value = OrderID;
+                                DBCmd.Parameters.Add("@BulletinContent", System.Data.SqlDbType.NVarChar).Value = recordTime.ToString();
+                                DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
                         } else if (BodyObj.Action == "Cancel") {
                             int FinishPaymentRet;
 
@@ -278,15 +318,19 @@
                         }
                         else if (BodyObj.Action == "Finished")
                         {
+                            //log
+                            recordTime.Add("Type", "FinishedWithdrawal");
                             int FinishPaymentRet;
-
+                            recordTime.Add("StartFinishPaymentFlowStatus", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                             FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus(BodyObj.ClientOrderNumber, EWinWebDB.UserAccountPayment.FlowStatus.Success, BodyObj.PaymentSerial);
-
+                            recordTime.Add("EndFinishPaymentFlowStatus", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                             if (FinishPaymentRet == 0)
                             {
                                 R.Result = 0;
                                 RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
+                                recordTime.Add("StartCreateUserAccountPayment", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                 ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
+                                recordTime.Add("EndCreateUserAccountPayment", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                 RedisCache.UserAccount.UpdateUserAccountByLoginAccount(BodyObj.LoginAccount);
                                 RedisCache.UserAccountSummary.UpdateUserAccountSummary(BodyObj.LoginAccount, DateTime.Now.Date);
                             }
@@ -294,6 +338,19 @@
                             {
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
+
+                            string SS;
+                            System.Data.SqlClient.SqlCommand DBCmd;
+                    
+                            SS = "INSERT INTO BulletinBoard (BulletinTitle, BulletinContent,State) " +
+                                         "                VALUES (@BulletinTitle, @BulletinContent,1)";
+
+                            DBCmd = new System.Data.SqlClient.SqlCommand();
+                            DBCmd.CommandText = SS;
+                            DBCmd.CommandType = System.Data.CommandType.Text;
+                            DBCmd.Parameters.Add("@BulletinTitle", System.Data.SqlDbType.NVarChar).Value = OrderID;
+                            DBCmd.Parameters.Add("@BulletinContent", System.Data.SqlDbType.NVarChar).Value = recordTime.ToString();
+                            DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
                         }
                         else if (BodyObj.Action == "Cancel")
                         {

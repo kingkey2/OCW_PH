@@ -12,24 +12,24 @@ public partial class GetAgentTotalDepositeSummary_CasinoExcludeLogin : System.We
 {
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.SpriteAgent.DepositeSummaryResult GetAgentTotalDepositeSummary(string AID, int TargetUserAccountID, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType)
+    public static EWin.SpriteAgent.DepositeSummaryResult GetAgentTotalDepositeSummary(string LoginAccount, int TargetUserAccountID, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType)
     {
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
         EWin.SpriteAgent.DepositeSummaryResult RetValue = new EWin.SpriteAgent.DepositeSummaryResult();
 
-        RetValue = api.GetAgentTotalDepositeSummary(AID, TargetUserAccountID, QueryBeginDate, QueryEndDate, CurrencyType);
+        RetValue = api.GetAgentTotalDepositeSummaryExcludeLogin(EWinWeb.CompanyCode, LoginAccount, TargetUserAccountID, QueryBeginDate, QueryEndDate, CurrencyType);
         return RetValue;
     }
 
     
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.SpriteAgent.DepositeSummaryResult GetAgentTotalDepositeSummaryBySearch(string AID, string TargetLoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType)
+    public static EWin.SpriteAgent.DepositeSummaryResult GetAgentTotalDepositeSummaryBySearch(string LoginAccount, string TargetLoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType)
     {
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
         EWin.SpriteAgent.DepositeSummaryResult RetValue = new EWin.SpriteAgent.DepositeSummaryResult();
 
-        RetValue = api.GetSearchAgentTotalDepositSummary(AID, TargetLoginAccount, QueryBeginDate, QueryEndDate, CurrencyType);
+        RetValue = api.GetSearchAgentTotalDepositSummaryExcludeLogin(EWinWeb.CompanyCode, LoginAccount, TargetLoginAccount, QueryBeginDate, QueryEndDate, CurrencyType);
 
         return RetValue;
     }
