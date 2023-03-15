@@ -1525,4 +1525,44 @@ public static class EWinWebDB {
             return RetValue;
         }
     }
+
+    public static class APIException {
+
+        public static System.Data.DataTable GetAPIExceptionByExceptionType(int ExceptionType) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT * " +
+                     " FROM APIException WITH (NOLOCK) " +
+                     " WHERE ExceptionType = @ExceptionType";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@ExceptionType", System.Data.SqlDbType.Int).Value = ExceptionType;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
+        public static int InsertAPIException(string LoginAccount, int ExceptionType, int ExceptionCode, string JSONContent) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " INSERT INTO APIException (LoginAccount, ExceptionType, ExceptionCode, JSONContent) " +
+                                  " VALUES (@LoginAccount, @ExceptionType, @ExceptionCode, @JSONContent) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@ExceptionType", System.Data.SqlDbType.Int).Value = ExceptionType;
+            DBCmd.Parameters.Add("@ExceptionCode", System.Data.SqlDbType.Int).Value = ExceptionCode;
+            DBCmd.Parameters.Add("@JSONContent", System.Data.SqlDbType.NVarChar).Value = JSONContent;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
+
+    }
 }

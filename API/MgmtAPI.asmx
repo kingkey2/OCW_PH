@@ -14,6 +14,10 @@ using System.Threading.Tasks;
 //using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using System.Net;
+using System.IO;
+using System.Text;
+using System.Xml;
 
 [WebService(Namespace = "http://tempuri.org/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -28,6 +32,64 @@ public class MgmtAPI : System.Web.Services.WebService {
     //public string GetUserAccountSummary2(string a) {    
     //    return EWinWeb.GetToken();
     //}
+
+    public string HttpPostWebService(string url, string method, string num1, string num2) {
+        string result = string.Empty;
+        string param = string.Empty;
+        byte[] bytes = null;
+        Stream writer = null;
+        HttpWebRequest request = null;
+        HttpWebResponse response = null;
+
+        param = HttpUtility.UrlEncode("a") + "=" + HttpUtility.UrlEncode(num1) + "&amp;" + HttpUtility.UrlEncode("b") + "=" + HttpUtility.UrlEncode(num2);
+        bytes = Encoding.UTF8.GetBytes(param);
+
+        request = (HttpWebRequest)WebRequest.Create(url + "/" + method);
+        request.Method = "POST";
+        request.ContentType = "application/x-www-form-urlencoded";
+        request.ContentLength = bytes.Length;
+
+        try {
+            writer = request.GetRequestStream();        //获取用于写入请求数据的Stream对象
+        } catch (Exception ex) {
+            return "";
+        }
+
+        writer.Write(bytes, 0, bytes.Length);       //把参数数据写入请求数据流
+        writer.Close();
+
+        try {
+            response = (HttpWebResponse)request.GetResponse();      //获得响应
+        } catch (WebException ex) {
+            return "";
+        }
+
+        #region 这种方式读取到的是一个返回的结果字符串
+        Stream stream = response.GetResponseStream();        //获取响应流
+        XmlTextReader Reader = new XmlTextReader(stream);
+        Reader.MoveToContent();
+        result = Reader.ReadInnerXml();
+        #endregion
+
+        #region 这种方式读取到的是一个Xml格式的字符串
+        //StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+        //result = reader.ReadToEnd();
+        #endregion 
+
+        response.Dispose();
+        response.Close();
+
+        //reader.Close();
+        //reader.Dispose();
+
+        Reader.Dispose();
+        Reader.Close();
+
+        stream.Dispose();
+        stream.Close();
+
+        return result;
+    }
 
     [WebMethod]
     public void RefreshRedis(string password) {
@@ -981,10 +1043,38 @@ public class MgmtAPI : System.Web.Services.WebService {
     }
 
     private EWin.FANTA.APIResult updateEwinUserLevel(string LoginAccount, int UserLevelIndex) {
-        EWin.FANTA.APIResult R = new EWin.FANTA.APIResult();
+        EWin.FANTA.APIResult R = new EWin.FANTA.APIResult() { ResultState = EWin.FANTA.enumResultState.ERR };
         EWin.FANTA.FANTA API = new EWin.FANTA.FANTA();
+        JObject jsonData = new JObject();
 
-        R = API.UpdateUserLevel(GetToken(), LoginAccount, UserLevelIndex);
+        try {
+            R = API.UpdateUserLevel(GetToken(), LoginAccount, UserLevelIndex);
+
+            //新增錯誤LOG
+            if (R.ResultState != EWin.FANTA.enumResultState.OK) {
+                for (int _i = 0; _i < 3; _i++) {
+                    try {
+                        R = API.UpdateUserLevel(GetToken(), LoginAccount, UserLevelIndex);
+                    } catch (Exception ex) {
+                        //jsonData.Add("LoginAccount", LoginAccount);
+                        //jsonData.Add("UserLevelIndex", UserLevelIndex);
+
+                        //EWinWebDB.APIException.InsertAPIException(LoginAccount, 1, 0, Newtonsoft.Json.JsonConvert.SerializeObject(jsonData));
+                    }
+
+                    if (R.ResultState == EWin.FANTA.enumResultState.OK) {
+                        break;
+                    }
+                }
+            }
+
+        } catch (Exception ex) {
+            //新增錯誤LOG
+            //jsonData.Add("LoginAccount", LoginAccount);
+            //jsonData.Add("UserLevelIndex", UserLevelIndex);
+
+            //EWinWebDB.APIException.InsertAPIException(LoginAccount, 1, 0, Newtonsoft.Json.JsonConvert.SerializeObject(jsonData));
+        }
 
         return R;
     }
