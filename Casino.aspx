@@ -1428,13 +1428,7 @@
     function setBanner() {
         if (WebInfo.DeviceType_B == 1) {
             $("#divBanner").html(`        
-                <div class="swiper-slide">
-                        <div class="hero-item">
-                            <div class="hero-item-box mobile casinobanner_m" >
-                                <img src="images/casinobanner/CasinoBanner1_M.jpg?1" />
-                            </div>
-                        </div>
-                    </div>
+          
 
                     <div class="swiper-slide">
                         <div class="hero-item">
@@ -1468,15 +1462,7 @@
                         </div>
                     </div>`);
         } else {
-            $("#divBanner").html(`                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <div class="hero-item-box desktop casinobanner_p" >
-                                <div class="img-wrap">
-                                    <img src="images/casinobanner/CasinoBanner1_P.jpg?1" class="bg" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            $("#divBanner").html(`                   
 
                     <div class="swiper-slide">
                         <div class="hero-item">
