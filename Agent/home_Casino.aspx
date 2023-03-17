@@ -62,6 +62,16 @@
         var endDate = Date.today().toString("yyyy-MM-dd");
         var UserAccountID = "<%=UserAccountID%>";
         var DefaultCurrencyType = "<%=DefaultCurrencyType%>";
+        var MsgText = " Group Profit - DownLine Total Profit = Pesonal Profit,<br/>"
+            + " NGR * Share (at that time) = Group Profit,<br/>"
+            + " Valid Bet * Rebate (at that time) = Group Profit,<br/>"
+            + "<br/>"
+            + "「Win/Loss」, 「NGR」, 「Valid Bet」 are group statistics.<br/>"
+            + "<br/>"
+            + "Numbers are trial calculations.<br/>"
+            + "Don't represent final results.<br/>"
+            + "They are for reference only.";
+
 
         function queryUserInfo(cb) {
             var idUserInfo = document.getElementById("idUserInfo");
@@ -525,17 +535,9 @@
         }
 
         function showCalcMsg() {
-            var msgText = " Pesonal Profit - Already Gain Profit = Available Profit,<br/>"
-                + " Group Profit - Child Total Profit = Pesonal Profit,<br/>"
-                + " NGR * Share(at that time) + Commission = Group Profit,<br/>"
-                + "<br/>"
-                + "「W/L」, 「NGR」, 「Valid Bet」 are group statistics.<br/>"
-                + "<br/>"
-                + "Numbers are trial calculations.<br/>"
-                + "Don't represent final results.<br/>"
-                + "They are for reference only.";
+            
 
-            window.parent.API_ShowMessageOK("Tips", msgText);
+            window.parent.API_ShowMessageOK("Tips", MsgText);
         }
 
         function getFirstDayOfWeek(d) {
