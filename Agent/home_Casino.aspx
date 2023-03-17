@@ -396,7 +396,24 @@
                         $(".FirstDepositCount").text(toCurrency(o.FirstDepositCount));
                         $(".NotFirstDepositCount").text(toCurrency(o.NextDepositCount));
                         if (o.CanReceiveUserRebateUserRate == 0) {
-                            $(".FailureCondition").text(o.FailureCondition);
+                            let strFailureCondition = "";
+                            if (o.FailureCondition.indexOf(";") > 0) {
+                                let FailureConditions = o.FailureCondition.split(";");
+
+                                for (var i = 0; i < FailureConditions.length; i++) {
+                                    switch (FailureConditions[i]) {
+                                        case "AgentMinActiveUserCount":
+                                            strFailureCondition += " Active members is less than " + o.AgentMinActiveUserCount + "; ";
+                                            break;
+                                        case "RebateAmountMin":
+                                            strFailureCondition += " Personal Profit is less than " + toCurrency(o.RebateAmountMin) + "; ";
+                                            break;
+                                    }
+                                }
+                            }
+
+                            $(".FailureCondition").text(strFailureCondition);
+
                         }
 
                         MsgText += ` Minimum Available Personal Profit = ${toCurrency(o.RebateAmountMin)} </br>`;
@@ -669,7 +686,7 @@
                             <div class="wrapper_revenueAmount">
                                 <div class="detailItem">
                                     <span class="title-s"><span class="language_replace"></span></span>
-                                    <span class="data FailureCondition" style="color: red"></span>
+                                    <span class="data FailureCondition" style="color: #FF4D00"></span>
                                 </div>
                             </div>
                         </div>
