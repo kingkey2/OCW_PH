@@ -341,7 +341,6 @@
             $(".NotFirstDepositCount").text(0);
             $(".PreferentialCost").text(0);
             $(".FailureCondition").text("");
-            $(".RebateAmountMin").text(0);
             $(".UserRebateUserRate").text(0);
             $(".UserRebateCommission").text(0);
             $(".TotalLineRebateUserRate").text(0);
@@ -349,6 +348,15 @@
             $(".TotalLineRebateCommission").text(0);
             $(".TotalChildLineRebateCommission").text(0);
             $(".ActiveUser").text(0);
+            MsgText = " Group Profit - DownLine Total Profit = Pesonal Profit,<br/>"
+            + " NGR * Share (at that time) = Group Profit,<br/>"
+            + " Valid Bet * Rebate (at that time) = Group Profit,<br/>"
+            + "<br/>"
+            + "「Win/Loss」, 「NGR」, 「Valid Bet」 are group statistics.<br/>"
+            + "<br/>"
+            + "Numbers are trial calculations.<br/>"
+            + "Don't represent final results.<br/>"
+            + "They are for reference only.";
 
             postData = {
                 AID: EWinInfo.ASID,
@@ -390,7 +398,9 @@
                         if (o.CanReceiveUserRebateUserRate == 0) {
                             $(".FailureCondition").text(o.FailureCondition);
                         }
-                        $(".RebateAmountMin").text(toCurrency(o.RebateAmountMin));
+
+                        MsgText += ` Minimum Available Personal Profit = ${toCurrency(o.RebateAmountMin)} </br>`;
+                        MsgText += ` Avaliable Member Count = ${o.AgentMinActiveUserCount} </br>`;
 
                         if (o.AgentItemList.length > 0) {
                             for (var i = 0; i < o.AgentItemList.length; i++) {
@@ -535,8 +545,6 @@
         }
 
         function showCalcMsg() {
-            
-
             window.parent.API_ShowMessageOK("Tips", MsgText);
         }
 
@@ -945,7 +953,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3" style="display:none">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -999,7 +1007,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3" style="display:none">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
