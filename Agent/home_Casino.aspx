@@ -330,6 +330,15 @@
             $(".RewardValue").text(0);
             $(".NotFirstDepositCount").text(0);
             $(".PreferentialCost").text(0);
+            $(".FailureCondition").text("");
+            $(".RebateAmountMin").text(0);
+            $(".UserRebateUserRate").text(0);
+            $(".UserRebateCommission").text(0);
+            $(".TotalLineRebateUserRate").text(0);
+            $(".TotalChildLineRebateUserRate").text(0);
+            $(".TotalLineRebateCommission").text(0);
+            $(".TotalChildLineRebateCommission").text(0);
+            $(".ActiveUser").text(0);
 
             postData = {
                 AID: EWinInfo.ASID,
@@ -368,6 +377,10 @@
                     if (o.Result == 0) {
                         $(".FirstDepositCount").text(toCurrency(o.FirstDepositCount));
                         $(".NotFirstDepositCount").text(toCurrency(o.NextDepositCount));
+                        if (o.CanReceiveUserRebateUserRate == 0) {
+                            $(".FailureCondition").text(o.FailureCondition);
+                        }
+                        $(".RebateAmountMin").text(toCurrency(o.RebateAmountMin));
 
                         if (o.AgentItemList.length > 0) {
                             for (var i = 0; i < o.AgentItemList.length; i++) {
@@ -646,7 +659,7 @@
                             <div class="wrapper_revenueAmount">
                                 <div class="detailItem">
                                     <span class="title-s"><span class="language_replace"></span></span>
-                                    <span class="data"></span>
+                                    <span class="data FailureCondition" style="color: red"></span>
                                 </div>
                             </div>
                         </div>
@@ -984,7 +997,24 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">最低派發佣金</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace RebateAmountMin data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data "></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
                     <div class="col-6 col-md-6 col-lg-6 col-gx-6 col-xl-6" style="display: none">
