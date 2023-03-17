@@ -356,7 +356,7 @@
             + "<br/>"
             + "Numbers are trial calculations.<br/>"
             + "Don't represent final results.<br/>"
-            + "They are for reference only.";
+            + "They are for reference only.<br/>";
 
             postData = {
                 AID: EWinInfo.ASID,
@@ -403,7 +403,7 @@
                                 for (var i = 0; i < FailureConditions.length; i++) {
                                     switch (FailureConditions[i]) {
                                         case "AgentMinActiveUserCount":
-                                            strFailureCondition += " Active members is less than " + o.AgentMinActiveUserCount + "; ";
+                                            strFailureCondition += " Valid members is less than " + o.AgentMinActiveUserCount + "; ";
                                             break;
                                         case "RebateAmountMin":
                                             strFailureCondition += " Personal Profit is less than " + toCurrency(o.RebateAmountMin) + "; ";
@@ -416,8 +416,8 @@
 
                         }
 
-                        MsgText += ` Minimum Available Personal Profit = ${toCurrency(o.RebateAmountMin)} </br>`;
-                        MsgText += ` Avaliable Member Count = ${o.AgentMinActiveUserCount} </br>`;
+                        MsgText += ` Minimum Available Personal Profit = ${toCurrency(o.RebateAmountMin)} <br/>`;
+                        MsgText += ` Valid Member Count = ${o.AgentMinActiveUserCount} <br/>`;
 
                         if (o.AgentItemList.length > 0) {
                             for (var i = 0; i < o.AgentItemList.length; i++) {
