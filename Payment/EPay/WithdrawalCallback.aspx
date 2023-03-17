@@ -43,16 +43,18 @@
                             {
                                 recordTime.Add("StartToEwinRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                 var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"], -1);
-                                recordTime.Add("EndEwinRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                  
                                 if (finishResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                 {
+                                    recordTime.Add("EndEwinRequestTime Success", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                     R.ResultState = APIResult.enumResultCode.OK;
                                     R.Message = "SUCCESS";
                                 }
                                 else
                                 {
+                                    recordTime.Add("EndEwinRequestTime Error ", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                                     R.ResultState = APIResult.enumResultCode.ERR;
-                                    R.Message = "Finished Fail";
+                                    R.Message = "Finished Fail:"+Newtonsoft.Json.JsonConvert.SerializeObject(finishResult);
                                 }
                             }
                             else if ((string)RequestData.WithdrawStatus == "1")
