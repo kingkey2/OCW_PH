@@ -179,7 +179,11 @@
             if (success) {
                 if (o.Result == 0) {
                     window.parent.showMessageOK("", mlp.getLanguageKey("已成功修改密碼！"), function () {
-                        window.parent.API_LoadPage("Login", "Login.aspx");
+                        if (WebInfo.UserLogined) {
+                            window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx', true);
+                        } else {
+                            window.parent.API_LoadPage("Login", "Login.aspx");
+                        }
                     });
                 } else {
                     window.parent.showMessageOK("", mlp.getLanguageKey("錯誤") + ":" + mlp.getLanguageKey(o.Message));
