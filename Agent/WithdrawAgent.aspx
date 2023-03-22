@@ -314,6 +314,11 @@
                 return;
             }
 
+            if (!Number.isInteger(parseFloat(amount))) {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("金額只能輸入整數"));
+                return;
+            }
+
             if (amount > pointValue) {
                 window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("錢包餘額不足"));
                 return;

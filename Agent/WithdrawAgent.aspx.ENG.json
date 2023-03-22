@@ -61,5 +61,6 @@
   "只能有一筆進行中之訂單": "There can only be one order in progress",
   "貨幣未設定匯率": "Currency has no exchange rate set",
   "錢包餘額不足": "The wallet balance is insufficient, please check the wallet balance first.",
-  "錢包狀態為停用": "The wallet status is disabled, please contact customer service if you have any questions."
+  "錢包狀態為停用": "The wallet status is disabled, please contact customer service if you have any questions.",
+  "金額只能輸入整數": "The amount can only be entered as an integer."
 }

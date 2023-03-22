@@ -380,6 +380,13 @@
             return false;
         }
 
+        if (!Number.isInteger(parseFloat($("#amount").val()))) {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("金額只能輸入整數"), function () { });
+            window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
+            return false;
+        }
+
         if (phoneNumber == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入電話"), function () { });
             window.parent.API_LoadingEnd(1);
