@@ -289,14 +289,14 @@
     }
 
     function setAmount() {
-        var amount = $("#amount").val().replace(/[^\-?\d.]/g, '')
+        var amount = $("#amount").val().replace(/\D/g, '');
         amount = amount.replace('.', '');
         $("#amount").val(amount);
 
     }
 
     function bankcardCheck() {
-        var baankCard = $("#bankCard").val().replace(/[^\-?\d.]/g, '')
+        var baankCard = $("#bankCard").val().replace(/\D/g, '');
         $("#bankCard").val(baankCard);
 
     }
