@@ -43,6 +43,15 @@
         var startDate = Date.today().toString("yyyy-MM-dd");
         var endDate = Date.today().toString("yyyy-MM-dd");
         var DefaultCurrencyType = "<%=DefaultCurrencyType%>";
+        var MsgText = " Group Profit - DownLine Total Profit = Pesonal Profit,<br/>"
+            + " NGR * Share (at that time) = Group Profit,<br/>"
+            + " Valid Bet * Rebate (at that time) = Group Profit,<br/>"
+            + "<br/>"
+            + "「Win/Loss」, 「NGR」, 「Valid Bet」 are group statistics.<br/>"
+            + "<br/>"
+            + "Numbers are trial calculations.<br/>"
+            + "Don't represent final results.<br/>"
+            + "They are for reference only.";
 
         function queryUserInfo(cb) {
             var idUserInfo = document.getElementById("idUserInfo");
@@ -309,21 +318,37 @@
             $(".RewardValue").text(0);
             $(".NotFirstDepositCount").text(0);
             $(".PreferentialCost").text(0);
-
+            $(".FailureCondition").text("");
+            $(".UserRebateUserRate").text(0);
+            $(".UserRebateCommission").text(0);
+            $(".TotalLineRebateUserRate").text(0);
+            $(".TotalChildLineRebateUserRate").text(0);
+            $(".TotalLineRebateCommission").text(0);
+            $(".TotalChildLineRebateCommission").text(0);
+            $(".ActiveUser").text(0);
+            MsgText = " Group Profit - DownLine Total Profit = Pesonal Profit,<br/>"
+            + " NGR * Share (at that time) = Group Profit,<br/>"
+            + " Valid Bet * Rebate (at that time) = Group Profit,<br/>"
+            + "<br/>"
+            + "「Win/Loss」, 「NGR」, 「Valid Bet」 are group statistics.<br/>"
+            + "<br/>"
+            + "Numbers are trial calculations.<br/>"
+            + "Don't represent final results.<br/>"
+            + "They are for reference only.<br/>";
             var LoginAccount = $('#loginAccount').val();
 
             if (LoginAccount=='') {
                 alert('尚未輸入帳號');
                 return;
             }
-
+            
             postData = {
                 QueryBeginDate: startDate,
                 QueryEndDate: endDate,
                 CurrencyType: DefaultCurrencyType,
                 LoginAccount: LoginAccount
             };
-
+            
             ShowLoading();
 
             c.callService(ApiUrl + "/GetOrderSummary", postData, function (success, obj) {
@@ -332,11 +357,10 @@
                     var o = c.getJSON(obj);
 
                     let TotalValidBetValue = 0;
-                    let UserRebate = 0;
+                    let UserRebateUserRate = 0;
                     let TotalLineRebate = 0;
                     let TotalNGR = 0;
                     let PaidOPValue = 0;
-                    let f = 0;
                     let RewardValue = 0;
                     let PreferentialCost = 0;
                     let TotalOrderCount = 0;
@@ -346,42 +370,76 @@
                     let DepositValue = 0;
                     let DepositCount = 0;
                     let FirstDepositValue = 0;
-                    let CommissionValue = 0;
+                    let UserRebateCommission = 0;
+                    let ActiveUser = 0;
+                    let TotalLineRebateUserRate = 0;
+                    let TotalLineRebateCommission = 0;
 
                     if (o.Result == 0) {
                         $(".FirstDepositCount").text(toCurrency(o.FirstDepositCount));
                         $(".NotFirstDepositCount").text(toCurrency(o.NextDepositCount));
+                        if (o.CanReceiveUserRebateUserRate == 0) {
+                            let strFailureCondition = "";
+
+                            if (o.FailureCondition != null) {
+                                if (o.FailureCondition.indexOf(";") > 0) {
+                                    let FailureConditions = o.FailureCondition.split(";");
+
+                                    for (var i = 0; i < FailureConditions.length; i++) {
+                                        switch (FailureConditions[i]) {
+                                            case "AgentMinActiveUserCount":
+                                                strFailureCondition += " Valid members is less than " + o.AgentMinActiveUserCount + "; ";
+                                                break;
+                                            case "RebateAmountMin":
+                                                strFailureCondition += " Personal Profit is less than " + toCurrency(o.RebateAmountMin) + "; ";
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            $(".FailureCondition").text(strFailureCondition);
+
+                        }
+
+                        MsgText += ` Minimum Available Personal Profit = ${toCurrency(o.RebateAmountMin)} <br/>`;
+                        MsgText += ` Valid Member Count = ${o.AgentMinActiveUserCount} <br/>`;
 
                         if (o.AgentItemList.length > 0) {
                             for (var i = 0; i < o.AgentItemList.length; i++) {
                                 let data = o.AgentItemList[i];
                                 TotalValidBetValue = TotalValidBetValue + data.TotalValidBetValue;
-                                UserRebate = UserRebate + data.UserRebate;
+                                UserRebateUserRate = UserRebateUserRate + data.UserRebateUserRate;
                                 PaidOPValue = PaidOPValue + data.PaidOPValue;
-                                TotalLineRebate = TotalLineRebate + data.TotalLineRebate;
                                 TotalNGR = TotalNGR + data.TotalNGR;
-                                CommissionValue = CommissionValue + data.CommissionValue;
+                                UserRebateCommission = UserRebateCommission + data.UserRebateCommission;
                                 RewardValue = RewardValue + data.TotalRewardValue;
                                 PreferentialCost = PreferentialCost + data.BonusPointValue;
                                 TotalOrderCount = TotalOrderCount + data.TotalOrderCount;
+                                ActiveUser = ActiveUser + data.ActiveUser;
                                 NewUserCount = NewUserCount + data.NewUserCount + data.NewAgentCount;
                                 WithdrawalValue = WithdrawalValue + data.WithdrawalValue;
                                 WithdrawalCount = WithdrawalCount + data.WithdrawalCount;
                                 DepositValue = DepositValue + data.DepositValue;
                                 DepositCount = DepositCount + data.DepositCount;
                                 FirstDepositValue = FirstDepositValue + data.FirstDepositValue;
+                                TotalLineRebateUserRate = TotalLineRebateUserRate + data.TotalLineRebateUserRate;
+                                TotalLineRebateCommission = TotalLineRebateCommission + data.TotalLineRebateCommission;
                             }
 
                             $(".TotalValidBetValue").text(toCurrency(TotalValidBetValue));
-                            $(".UserRebate").text(toCurrency(UserRebate));
+                            $(".UserRebateUserRate").text(toCurrency(UserRebateUserRate));
                             $(".PaidOPValue").text(toCurrency(PaidOPValue));
                             $(".TotalNGR").text(toCurrency(TotalNGR));
-                            $(".CommissionValue").text(toCurrency(CommissionValue));
-                            $(".TotalLineRebate").text(toCurrency(TotalLineRebate));
-                            $(".TotalChildLineRebate").text(toCurrency(TotalLineRebate - UserRebate));
+                            $(".UserRebateCommission").text(toCurrency(UserRebateCommission));
+                            $(".TotalLineRebateUserRate").text(toCurrency(TotalLineRebateUserRate));
+                            $(".TotalChildLineRebateUserRate").text(toCurrency(TotalLineRebateUserRate - UserRebateUserRate));
+                            $(".TotalLineRebateCommission").text(toCurrency(TotalLineRebateCommission));
+                            $(".TotalChildLineRebateCommission").text(toCurrency(TotalLineRebateCommission - UserRebateCommission));
                             $(".TotalRewardValue").text(toCurrency(RewardValue));
                             $(".PreferentialCost").text(toCurrency(PreferentialCost));
                             $(".TotalOrderCount").text(toCurrency(TotalOrderCount));
+                            $(".ActiveUser").text(toCurrency(ActiveUser));
                             $(".NewUserCount").text(toCurrency(NewUserCount));
                             $(".WithdrawalValue").text(toCurrency(WithdrawalValue));
                             $(".WithdrawalCount").text(toCurrency(WithdrawalCount));
@@ -403,7 +461,6 @@
 
             });
 
-  
         }
 
         function ShowLoading(showText) {
@@ -629,182 +686,121 @@
             </div>
         </div>
 
-        <div class="currencyWalletList">
-            <div class="container-fluid">
-                <div id="idUserWalletInfo" class="row">
-                </div>
-            </div>
-        </div>
-
-        <div class="currencyWalletList" style="margin-top: 5px">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-6 col-gx-4 col-xl-4 divCurrencyType">
-                        <div class="item">
-                            <div class="currencyWallet__type">
-                                <div class="wallet__type">
-                                    <span class="currency CurrencyType language_replace">代理</span>
-                                </div>
-                            </div>
-                            <div class="currencyWallet__currencyFocus">
-                                <div class="">
-                                    <span class="title-s"><span class="language_replace">總數</span></span>
-                                    <span class="data AgentCount">0</span>
-                                </div>
-                            </div>
-                            <div class="currencyWallet__detail">
-                                <div class="wrapper_revenueAmount">
-                                    <div class="detailItem">
-                                        <span class="title-s"><i class="icon icon-ewin-default-periodWinLose icon-s icon-before"></i><span class="language_replace">直屬</span></span>
-                                        <span class="data AgentCount_Under">0</span>
-                                    </div>
-                                    <div class="detailItem">
-                                        <span class="title-s"><i class="icon icon-ewin-default-periodRolling icon-s icon-before"></i><span class="language_replace">下線</span></span>
-                                        <span class="data AgentCount_Other">0</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-6 col-gx-4 col-xl-4 divCurrencyType">
-                        <div class="item">
-                            <div class="currencyWallet__type">
-                                <div class="wallet__type">
-                                    <span class="currency CurrencyType language_replace">會員</span>
-                                </div>
-                            </div>
-                            <div class="currencyWallet__currencyFocus">
-                                <div class="">
-                                    <span class="title-s"><span class="language_replace">總數</span></span>
-                                    <span class="data UserCount">0</span>
-                                </div>
-                            </div>
-                            <div class="currencyWallet__detail">
-                                <div class="wrapper_revenueAmount">
-                                    <div class="detailItem">
-                                        <span class="title-s"><i class="icon icon-ewin-default-periodWinLose icon-s icon-before"></i><span class="language_replace">直屬</span></span>
-                                        <span class="data UserCount_Under">0</span>
-                                    </div>
-                                    <div class="detailItem">
-                                        <span class="title-s"><i class="icon icon-ewin-default-periodRolling icon-s icon-before"></i><span class="language_replace">下線</span></span>
-                                        <span class="data UserCount_Other">0</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="currencyWalletList" style="margin-top: 5px">
             <div class="container-fluid">
                 <div id="idUserInfo" class="row">
 
-                    <div class="col-6 col-md-6 col-lg-6 col-gx-6 col-xl-6" style="display: none">
+
+                    <div class="col-12 col-md-12 col-lg-6 col-gx-6 col-xl-6">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency language_replace">總返水</span>
+                                    <span class="currency language_replace">Personal Profit</span><btn style="font-size: 10px; /* right: 5px; */position: absolute; border: 2px solid; width: 20px; text-align: center; border-radius: 10px; color: #bba480; cursor: pointer; margin-left: 5px;" onclick="showCalcMsg()">!</btn>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace data">0</span>
+                                    <span class="language_replace UserRebateUserRate data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data FailureCondition" style="color: #FF4D00"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-12 col-md-12 col-lg-6 col-gx-6 col-xl-6">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency language_replace">Personal Profit</span><btn style="font-size: 10px;/* right: 5px; */position: absolute;border: 2px solid;width: 20px;text-align: center;border-radius: 10px;color: #bba480;cursor: pointer;margin-left: 5px;" onclick="showCalcMsg()">!</btn>
+                                    <span class="currency language_replace">返水佣金</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace UserRebate data">0</span>
+                                    <span class="language_replace UserRebateCommission data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency language_replace">已付佣金</span>
+                                    <span class="currency language_replace">總線佔成佣金</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace PaidOPValue data">0</span>
+                                    <span class="language_replace TotalLineRebateUserRate data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency language_replace">淨收入</span>
+                                    <span class="currency language_replace">下線總線佔成佣金總計</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace TotalNGR data">0</span>
+                                    <span class="language_replace TotalChildLineRebateUserRate data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                           <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency language_replace">總洗碼佣金</span>
+                                    <span class="currency language_replace">總線返水佣金</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace CommissionValue data">0</span>
+                                    <span class="language_replace TotalLineRebateCommission data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                           <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency language_replace">總線佣金</span>
+                                    <span class="currency language_replace">下線總線返水佣金總計</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace TotalLineRebate data">0</span>
+                                    <span class="language_replace TotalChildLineRebateCommission data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
-                        <div class="item">
-                            <div class="currencyWallet__type">
-                                <div class="wallet__type">
-                                    <span class="currency language_replace">下線總線佣金總計</span>
-                                </div>
-                                <div class="settleAccount__type" style="">
-                                    <span class="language_replace TotalChildLineRebate data">0</span>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
-                        <div class="item">
-                            <div class="currencyWallet__type">
-                                <div class="wallet__type">
-                                    <span class="currency language_replace">有效投注</span>
-                                </div>
-                                <div class="settleAccount__type" style="">
-                                    <span class="language_replace TotalValidBetValue data">0</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -814,49 +810,33 @@
                                     <span class="language_replace TotalRewardValue data">0</span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3" style="display: none">
-                        <div class="item">
-                            <div class="currencyWallet__type">
-                                <div class="wallet__type">
-                                    <span class="currency language_replace">總佔成</span>
-                                </div>
-                                <div class="settleAccount__type" style="">
-                                    <span class="language_replace data ">0</span>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency language_replace">優惠成本</span>
+                                    <span class="currency language_replace">有效投注</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace PreferentialCost data">0</span>
+                                    <span class="language_replace TotalValidBetValue data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
-                        <div class="item">
-                            <div class="currencyWallet__type">
-                                <div class="wallet__type">
-                                    <span class="currency language_replace">投注筆數</span>
-                                </div>
-                                <div class="settleAccount__type" style="">
-                                    <span class="language_replace TotalOrderCount data">0</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -866,36 +846,15 @@
                                     <span class="language_replace NewUserCount data">0</span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
-                        <div class="item">
-                            <div class="currencyWallet__type">
-                                <div class="wallet__type">
-                                    <span class="currency language_replace">首存人數</span>
-                                </div>
-                                <div class="settleAccount__type" style="">
-                                    <span class="language_replace FirstDepositCount data">0</span>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
-                        <div class="item">
-                            <div class="currencyWallet__type">
-                                <div class="wallet__type">
-                                    <span class="currency language_replace">複存人數</span>
-                                </div>
-                                <div class="settleAccount__type" style="">
-                                    <span class="language_replace NotFirstDepositCount data">0</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -921,27 +880,115 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency language_replace">充值金額</span>
+                                    <span class="currency language_replace">優惠成本</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace DepositValue data">0</span>
+                                    <span class="language_replace PreferentialCost data">0</span>
                                 </div>
                             </div>
                             <div class="wrapper_revenueAmount">
                                 <div class="detailItem">
-                                    <span class="title-s"><span class="language_replace">筆數</span></span>
-                                    <span class="data DepositCount">0</span>
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">淨收益 NGR</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace TotalNGR data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">首存人數</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace FirstDepositCount data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">複存人數</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace NotFirstDepositCount data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">投注筆數</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace TotalOrderCount data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">有效會員數</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace ActiveUser data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
@@ -959,47 +1006,183 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">充值金額</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace DepositValue data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace">筆數</span></span>
+                                    <span class="data DepositCount">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3" style="display:none">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">已付佣金</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace PaidOPValue data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3" style="display:none">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">最低派發佣金</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace RebateAmountMin data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data "></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-6 col-lg-6 col-gx-6 col-xl-6" style="display: none">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">總返水</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace data">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3" style="display: none">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">總佔成</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace data ">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="currencyWalletList" style="margin-top: 20px">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-6 col-gx-6 col-xl-6">
+                        <div id="idUserWalletInfo">
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-6 col-gx-6 col-xl-6">
+                                <div>
+                                    <div class="item">
+                                        <div class="currencyWallet__type">
+                                            <div class="wallet__type">
+                                                <span class="currency CurrencyType language_replace">代理</span>
+                                            </div>
+                                        </div>
+                                        <div class="currencyWallet__currencyFocus" style="border-bottom: none">
+                                            <div class="balance1">
+                                                <span class="title-s"><span class="language_replace">總數</span></span>
+                                                <span class="data AgentCount">0</span>
+                                            </div>
+                                            <div class="balance1">
+                                                <span class="title-s"><span class="language_replace">直屬</span></span>
+                                                <span class="data AgentCount_Under">0</span>
+                                            </div>
+                                            <div class="balance1">
+                                                <span class="title-s"><span class="language_replace">下線</span></span>
+                                                <span class="data AgentCount_Other">0</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6 col-gx-6 col-xl-6">
+                                <div>
+                                    <div class="item">
+                                        <div class="currencyWallet__type">
+                                            <div class="wallet__type">
+                                                <span class="currency CurrencyType language_replace">會員</span>
+                                            </div>
+                                        </div>
+                                        <div class="currencyWallet__currencyFocus" style="border-bottom: none">
+                                            <div class="balance1">
+                                                <span class="title-s"><span class="language_replace">總數</span></span>
+                                                <span class="data UserCount">0</span>
+                                            </div>
+                                            <div class="balance1">
+                                                <span class="title-s"><span class="language_replace">直屬</span></span>
+                                                <span class="data UserCount_Under">0</span>
+                                            </div>
+                                            <div class="balance1">
+                                                <span class="title-s"><span class="language_replace">下線</span></span>
+                                                <span class="data UserCount_Other">0</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-12 col-lg-6 col-gx-6 col-xl-6 GameAccountingCodeList">
+                    </div>
 
                 </div>
             </div>
         </div>
 
         <div id="templateWalletInfo" style="display: none">
-            <div class="col-12 col-md-12 col-lg-12 col-gx-12 col-xl-12">
-                <div class="item row" style="border-bottom: hidden">
-                    <div class="col-md-4 col-lg-4 col-gx-4 col-xl-4">
-                        <div class="currencyWallet__type">
-                            <div class="wallet__type">
-                                <span class="title"><i class="icon icon2020-ico-coin-o"></i><span class="language_replace"></span></span>
-                                <span class="currency CurrencyType">CNY</span>
-                            </div>
-                            <!-- 錢包啟用 狀態加入 class="status-active" -->
-                            <div class="wallet__status status-active" style="display: none">
-                                <i class="icon icon-ewin-default-walletStatus"></i>
-                                <span class="language_replace mtWalletState">啟用</span>
-                            </div>
-                        </div>
-                        <div class="currencyWallet__currencyFocus divWalletList" style="border-bottom: none">
-                            <div class="balance">
-                                <span class="title-s"><span class="language_replace">可用餘額</span></span>
-                                <span class="data WalletBalance">0</span>
-                            </div>
-                        </div>
+            <div>
+                <div class="currencyWallet__type">
+                    <div class="wallet__type">
+                        <span class="title"><i class="icon icon2020-ico-coin-o"></i><span class="language_replace"></span></span>
+                        <span class="currency CurrencyType">CNY</span>
                     </div>
-                    <div class="col-md-8 col-lg-8 col-gx-8 col-xl-8">
-                        <div class="form-group wrapper_center dataList-process">
-                            <button class="btn btn-outline-main language_replace btnOpen">展開</button>
-                            <button class="btn btn-outline-main language_replace btnClose">收合</button>
-                        </div>
-                        <div class="GameAccountingCodeList">
-                        </div>
+                    <!-- 錢包啟用 狀態加入 class="status-active" -->
+                    <div class="wallet__status status-active" style="display: none">
+                        <i class="icon icon-ewin-default-walletStatus"></i>
+                        <span class="language_replace mtWalletState">啟用</span>
+                    </div>
+                </div>
+                <div class="currencyWallet__currencyFocus divWalletList">
+                    <div class="balance1">
+                        <span class="title-s"><span class="language_replace">可用餘額</span></span>
+                        <span class="data WalletBalance">0</span>
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="templateRateInfo" style="display: none">
-            <div class="revenue">
+            <div class="balance1">
                 <span class="share spanUserRate">
                     <span class="title-s"><span class="language_replace">佔成率</span></span>
                     <span class="data"><span class="data UserRate">0</span>%</span>
@@ -1012,9 +1195,12 @@
         </div>
 
         <div id="tempGameAccountingCode" style="display: none">
-            <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15); width: 48%; float: left; padding-left: 10px">
-                <div class="detailItem">
-                    <span><span class="language_replace GameAccountingCode"></span></span>
+            <div class="downline__currencyDetail" style="border-bottom: solid 1px rgba(227, 195, 141, 0.15); width: 98%; float: left; padding-left: 10px">
+
+                <div class="currencyWallet__type">
+                    <div class="wallet__type">
+                        <span class="currency GameAccountingCode language_replace"></span>
+                    </div>
                 </div>
 
                 <div class="detailItem">

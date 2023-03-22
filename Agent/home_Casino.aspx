@@ -62,6 +62,16 @@
         var endDate = Date.today().toString("yyyy-MM-dd");
         var UserAccountID = "<%=UserAccountID%>";
         var DefaultCurrencyType = "<%=DefaultCurrencyType%>";
+        var MsgText = " Group Profit - DownLine Total Profit = Pesonal Profit,<br/>"
+            + " NGR * Share (at that time) = Group Profit,<br/>"
+            + " Valid Bet * Rebate (at that time) = Group Profit,<br/>"
+            + "<br/>"
+            + "「Win/Loss」, 「NGR」, 「Valid Bet」 are group statistics.<br/>"
+            + "<br/>"
+            + "Numbers are trial calculations.<br/>"
+            + "Don't represent final results.<br/>"
+            + "They are for reference only.";
+
 
         function queryUserInfo(cb) {
             var idUserInfo = document.getElementById("idUserInfo");
@@ -331,7 +341,6 @@
             $(".NotFirstDepositCount").text(0);
             $(".PreferentialCost").text(0);
             $(".FailureCondition").text("");
-            $(".RebateAmountMin").text(0);
             $(".UserRebateUserRate").text(0);
             $(".UserRebateCommission").text(0);
             $(".TotalLineRebateUserRate").text(0);
@@ -339,6 +348,15 @@
             $(".TotalLineRebateCommission").text(0);
             $(".TotalChildLineRebateCommission").text(0);
             $(".ActiveUser").text(0);
+            MsgText = " Group Profit - DownLine Total Profit = Pesonal Profit,<br/>"
+            + " NGR * Share (at that time) = Group Profit,<br/>"
+            + " Valid Bet * Rebate (at that time) = Group Profit,<br/>"
+            + "<br/>"
+            + "「Win/Loss」, 「NGR」, 「Valid Bet」 are group statistics.<br/>"
+            + "<br/>"
+            + "Numbers are trial calculations.<br/>"
+            + "Don't represent final results.<br/>"
+            + "They are for reference only.<br/>";
 
             postData = {
                 AID: EWinInfo.ASID,
@@ -378,9 +396,31 @@
                         $(".FirstDepositCount").text(toCurrency(o.FirstDepositCount));
                         $(".NotFirstDepositCount").text(toCurrency(o.NextDepositCount));
                         if (o.CanReceiveUserRebateUserRate == 0) {
-                            $(".FailureCondition").text(o.FailureCondition);
+                            let strFailureCondition = "";
+
+                            if (o.FailureCondition != null) {
+                                if (o.FailureCondition.indexOf(";") > 0) {
+                                    let FailureConditions = o.FailureCondition.split(";");
+
+                                    for (var i = 0; i < FailureConditions.length; i++) {
+                                        switch (FailureConditions[i]) {
+                                            case "AgentMinActiveUserCount":
+                                                strFailureCondition += " Valid members is less than " + o.AgentMinActiveUserCount + "; ";
+                                                break;
+                                            case "RebateAmountMin":
+                                                strFailureCondition += " Personal Profit is less than " + toCurrency(o.RebateAmountMin) + "; ";
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            $(".FailureCondition").text(strFailureCondition);
+
                         }
-                        $(".RebateAmountMin").text(toCurrency(o.RebateAmountMin));
+
+                        MsgText += ` Minimum Available Personal Profit = ${toCurrency(o.RebateAmountMin)} <br/>`;
+                        MsgText += ` Valid Member Count = ${o.AgentMinActiveUserCount} <br/>`;
 
                         if (o.AgentItemList.length > 0) {
                             for (var i = 0; i < o.AgentItemList.length; i++) {
@@ -525,17 +565,7 @@
         }
 
         function showCalcMsg() {
-            var msgText = " Pesonal Profit - Already Gain Profit = Available Profit,<br/>"
-                + " Group Profit - Child Total Profit = Pesonal Profit,<br/>"
-                + " NGR * Share(at that time) + Commission = Group Profit,<br/>"
-                + "<br/>"
-                + "「W/L」, 「NGR」, 「Valid Bet」 are group statistics.<br/>"
-                + "<br/>"
-                + "Numbers are trial calculations.<br/>"
-                + "Don't represent final results.<br/>"
-                + "They are for reference only.";
-
-            window.parent.API_ShowMessageOK("Tips", msgText);
+            window.parent.API_ShowMessageOK("Tips", MsgText);
         }
 
         function getFirstDayOfWeek(d) {
@@ -659,7 +689,7 @@
                             <div class="wrapper_revenueAmount">
                                 <div class="detailItem">
                                     <span class="title-s"><span class="language_replace"></span></span>
-                                    <span class="data FailureCondition" style="color: red"></span>
+                                    <span class="data FailureCondition" style="color: #FF4D00"></span>
                                 </div>
                             </div>
                         </div>
@@ -911,60 +941,6 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency language_replace">首存金額</span>
-                                </div>
-                                <div class="settleAccount__type" style="">
-                                    <span class="language_replace FirstDepositValue data">0</span>
-                                </div>
-                            </div>
-                            <div class="wrapper_revenueAmount">
-                                <div class="detailItem">
-                                    <span class="title-s"><span class="language_replace">筆數</span></span>
-                                    <span class="data FirstDepositCount">0</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
-                        <div class="item">
-                            <div class="currencyWallet__type">
-                                <div class="wallet__type">
-                                    <span class="currency language_replace">充值金額</span>
-                                </div>
-                                <div class="settleAccount__type" style="">
-                                    <span class="language_replace DepositValue data">0</span>
-                                </div>
-                            </div>
-                            <div class="wrapper_revenueAmount">
-                                <div class="detailItem">
-                                    <span class="title-s"><span class="language_replace">筆數</span></span>
-                                    <span class="data DepositCount">0</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
-                        <div class="item">
-                            <div class="currencyWallet__type">
-                                <div class="wallet__type">
-                                    <span class="currency language_replace">已付佣金</span>
-                                </div>
-                                <div class="settleAccount__type" style="">
-                                    <span class="language_replace PaidOPValue data">0</span>
-                                </div>
-                            </div>
-                            <div class="wrapper_revenueAmount">
-                                <div class="detailItem">
-                                    <span class="title-s"><span class="language_replace"></span></span>
-                                    <span class="data"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
-                        <div class="item">
-                            <div class="currencyWallet__type">
-                                <div class="wallet__type">
                                     <span class="currency language_replace">投注筆數</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
@@ -998,6 +974,60 @@
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">首存金額</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace FirstDepositValue data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace">筆數</span></span>
+                                    <span class="data FirstDepositCount">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">充值金額</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace DepositValue data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace">筆數</span></span>
+                                    <span class="data DepositCount">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3" style="display:none">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">已付佣金</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace PaidOPValue data">0</span>
+                                </div>
+                            </div>
+                            <div class="wrapper_revenueAmount">
+                                <div class="detailItem">
+                                    <span class="title-s"><span class="language_replace"></span></span>
+                                    <span class="data"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 col-gx-3 col-xl-3" style="display:none">
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">

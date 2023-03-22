@@ -47,8 +47,12 @@
   "Slot": "Slot",
   "提醒": "System Message",
   "已付佣金": "Paid Profit",
-  "返水佣金": "Commission",
+  "返水佣金": "Personal Commission",
   "下線總線佣金總計": "Downline Total Profit ",
   "淨收益 NGR": "Net Gaming Revenue(NGR)",
-  "總線佣金": "Group Profit"
+  "總線佔成佣金": "Group Profit",
+  "下線總線佔成佣金總計": "DownLine Total Profit",
+  "總線返水佣金": "Group Commission",
+  "下線總線返水佣金總計": "DownLine Total Commission",
+  "有效會員數": "Valid Members"
 }
