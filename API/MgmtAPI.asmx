@@ -886,10 +886,11 @@ public class MgmtAPI : System.Web.Services.WebService {
         APIResult R = new APIResult() { Result = enumResult.ERR };
         System.Data.DataTable DT = new System.Data.DataTable();
         System.Data.DataTable UserDT = new System.Data.DataTable();
-        JObject VIPSetting;
+        JObject VIPSetting = null;
         JArray VIPSettingDetail;
         int UserLevelIndex = 0;
         int NewUserLevelIndex = 0;
+        string strVIPSetting = string.Empty;
         decimal UserLevelAccumulationDepositAmount = 0; //下一級累積入金金額(若有晉級，當前累積要扣除升級所需條件，再更新至資料表中讓使用者繼續累積下一等級)
         decimal UserLevelAccumulationValidBetValue = 0;    //下一級累積有效投注(若有晉級，當前累積要扣除升級所需條件，再更新至資料表中讓使用者繼續累積下一等級)
         decimal DeposiAmount = 0;
@@ -905,7 +906,17 @@ public class MgmtAPI : System.Web.Services.WebService {
         bool CheckValidBet = true;
         List<UserLevelUpgradeTempData> UserLevelUpgradeTempDatas = new List<UserLevelUpgradeTempData>();
 
-        VIPSetting = GetActivityDetail("../App_Data/VIPSetting.json");
+        strVIPSetting = RedisCache.UserAccountVIPInfo.GetVipSetting();
+
+        if (string.IsNullOrEmpty(strVIPSetting)) {
+            VIPSetting = GetActivityDetail("../App_Data/VIPSetting.json");
+            if (VIPSetting != null) {
+                RedisCache.UserAccountVIPInfo.UpdateVipSetting(VIPSetting.ToString());
+            }
+        } else {
+            VIPSetting = JObject.Parse(strVIPSetting);
+        }
+
         if (VIPSetting != null) {
             UserDT = EWinWebDB.UserAccount.GetNeedCheckVipUpgradeUserByLoginAccount(DateTime.Now.AddMinutes(-5), LoginAccount);
 
