@@ -824,6 +824,194 @@ public class MgmtAPI : System.Web.Services.WebService {
     }
 
     [WebMethod]
+    public APIResult ImmediateUpgradeUserLevelInfoByLoginAccount(string WebSID) {
+        APIResult R = new APIResult() { Result = enumResult.ERR };
+        RedisCache.SessionContext.SIDInfo SI;
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+        EWin.FANTA.FANTA api = new EWin.FANTA.FANTA();
+        EWin.FANTA.SelfValidBetResult callResult = new EWin.FANTA.SelfValidBetResult();
+        System.Data.DataTable DT = new System.Data.DataTable();
+        System.Data.DataTable UserDT = new System.Data.DataTable();
+        string SearchStartDate;
+        string SearchEndDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+        string LoginAccount;
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            LoginAccount = SI.LoginAccount;
+            UserDT = RedisCache.UserAccount.GetUserAccountByLoginAccount(LoginAccount);
+
+            if (UserDT != null && UserDT.Rows.Count > 0) {
+                SearchStartDate = ((DateTime)UserDT.Rows[0]["LastValidBetValueSummaryDate"]).ToString("yyyy/MM/dd 00:00:00");
+                callResult = api.GetUserSelfValidBetValueFromSummaryByDateByLoginAccount(GetToken(), System.Guid.NewGuid().ToString(), EWinWeb.MainCurrencyType, SearchStartDate, SearchEndDate, LoginAccount);
+
+                if (callResult.ResultState == EWin.FANTA.enumResultState.OK) {
+                    decimal ValidBetValue;
+                    string SummaryDate = string.Empty;
+
+                    if (callResult.SelfValidBetList.Count() > 0) {
+                        var SummaryList = callResult.SelfValidBetList.GroupBy(x => new { x.SummaryDate, x.LoginAccount }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
+                            TotalValidBetValue = sum.Sum(y => y.SelfValidBetValue),
+                            LoginAccount = key.LoginAccount,
+                            SummaryDate = key.SummaryDate
+                        }).OrderBy(x => x.SummaryDate).ToList();
+
+                        for (int i = 0; i < SummaryList.Count; i++) {
+                            ValidBetValue = SummaryList[i].TotalValidBetValue;
+                            SummaryDate = DateTime.Parse(SummaryList[i].SummaryDate).ToString("yyyy/MM/dd 00:00:00");
+
+                            EWinWebDB.UserAccount.UpdateUserVipValidBetValueInfo(LoginAccount, ValidBetValue, ValidBetValue, DateTime.Parse(SummaryDate));
+
+                            RedisCache.UserAccount.UpdateUserAccountByLoginAccount(LoginAccount);
+                            RedisCache.UserAccountVIPInfo.DeleteUserAccountVIPInfo(LoginAccount);
+                        }
+                    }
+
+                    ImmediateUpgradeUserLevelByLoginAccount(LoginAccount);
+                    R.Result = enumResult.OK;
+                } else {
+                    SetResultException(R, callResult.Message);
+                }
+            } else {
+                SetResultException(R, "InvalidLoginAccount");
+            }
+
+        } else {
+            SetResultException(R, "InvalidWebSID");
+        }
+
+        return R;
+    }
+
+    private APIResult ImmediateUpgradeUserLevelByLoginAccount(string LoginAccount) {
+        APIResult R = new APIResult() { Result = enumResult.ERR };
+        System.Data.DataTable DT = new System.Data.DataTable();
+        System.Data.DataTable UserDT = new System.Data.DataTable();
+        JObject VIPSetting;
+        JArray VIPSettingDetail;
+        int UserLevelIndex = 0;
+        int NewUserLevelIndex = 0;
+        decimal UserLevelAccumulationDepositAmount = 0; //下一級累積入金金額(若有晉級，當前累積要扣除升級所需條件，再更新至資料表中讓使用者繼續累積下一等級)
+        decimal UserLevelAccumulationValidBetValue = 0;    //下一級累積有效投注(若有晉級，當前累積要扣除升級所需條件，再更新至資料表中讓使用者繼續累積下一等級)
+        decimal DeposiAmount = 0;
+        decimal ValidBetValue = 0;
+        int Setting_UserLevelIndex = 0;
+        decimal Setting_DepositMinValue = 0;
+        decimal Setting_DepositMaxValue = 0;
+        decimal Setting_ValidBetMinValue = 0;
+        decimal Setting_ValidBetMaxValue = 0;
+        int DepositLevel = 0;    //儲值符合等級
+        int ValidBetLevel = 0;   //流水符合等級
+        bool CheckDeposit = true;
+        bool CheckValidBet = true;
+        List<UserLevelUpgradeTempData> UserLevelUpgradeTempDatas = new List<UserLevelUpgradeTempData>();
+
+        VIPSetting = GetActivityDetail("../App_Data/VIPSetting.json");
+        if (VIPSetting != null) {
+            UserDT = EWinWebDB.UserAccount.GetNeedCheckVipUpgradeUserByLoginAccount(DateTime.Now.AddMinutes(-5), LoginAccount);
+
+            if (UserDT != null && UserDT.Rows.Count > 0) {
+                VIPSettingDetail = JArray.Parse(VIPSetting["VIPSetting"].ToString());
+                foreach (System.Data.DataRow dr in UserDT.Rows) {
+                    UserLevelUpgradeTempDatas = new List<UserLevelUpgradeTempData>();
+                    UserLevelIndex = (int)dr["UserLevelIndex"];
+                    UserLevelAccumulationDepositAmount = (decimal)dr["UserLevelAccumulationDepositAmount"];
+                    UserLevelAccumulationValidBetValue = (decimal)dr["UserLevelAccumulationValidBetValue"];
+                    DeposiAmount = UserLevelAccumulationDepositAmount;
+                    ValidBetValue = UserLevelAccumulationValidBetValue;
+                    DepositLevel = UserLevelIndex;
+                    ValidBetLevel = UserLevelIndex;
+                    Setting_DepositMinValue = 0;
+                    Setting_DepositMaxValue = 0;
+                    Setting_ValidBetMinValue = 0;
+                    Setting_ValidBetMaxValue = 0;
+                    CheckDeposit = true;
+                    CheckValidBet = true;
+
+                    //最高等時不處理
+                    if (UserLevelIndex != VIPSettingDetail.Count - 1) {
+                        for (int i = UserLevelIndex + 1; i < VIPSettingDetail.Count; i++) {
+                            Setting_UserLevelIndex = (int)VIPSettingDetail[i]["UserLevelIndex"];
+                            Setting_DepositMinValue += (decimal)VIPSettingDetail[i]["DepositMinValue"];
+                            Setting_DepositMaxValue += (decimal)VIPSettingDetail[i]["DepositMaxValue"];
+                            Setting_ValidBetMinValue += (decimal)VIPSettingDetail[i]["ValidBetMinValue"];
+                            Setting_ValidBetMaxValue += (decimal)VIPSettingDetail[i]["ValidBetMaxValue"];
+
+                            UserLevelUpgradeTempData k = new UserLevelUpgradeTempData() {
+                                NewLevelIndex = Setting_UserLevelIndex,
+                                DepositMinValue = Setting_DepositMinValue,
+                                ValidBetMinValue = Setting_ValidBetMinValue
+                            };
+
+                            UserLevelUpgradeTempDatas.Add(k);
+
+                            if (CheckDeposit) {
+                                if (DeposiAmount >= Setting_DepositMinValue) {
+                                    if (DeposiAmount < Setting_DepositMaxValue) {
+                                        DepositLevel = Setting_UserLevelIndex;
+                                        CheckDeposit = false;
+                                    } else {
+                                        DepositLevel = Setting_UserLevelIndex;
+                                    }
+                                } else {
+                                    CheckDeposit = false;
+                                }
+                            }
+
+                            if (CheckValidBet) {
+                                if (ValidBetValue >= Setting_ValidBetMinValue) {
+                                    if (ValidBetValue < Setting_ValidBetMaxValue) {
+                                        ValidBetLevel = Setting_UserLevelIndex;
+                                        CheckValidBet = false;
+                                    } else {
+                                        ValidBetLevel = Setting_UserLevelIndex;
+                                    }
+                                } else {
+                                    CheckValidBet = false;
+                                }
+                            }
+                        }
+
+                        if (DepositLevel == ValidBetLevel) {
+                            NewUserLevelIndex = DepositLevel;
+                        } else if (DepositLevel < ValidBetLevel) {
+                            NewUserLevelIndex = DepositLevel;
+                        } else {
+                            NewUserLevelIndex = ValidBetLevel;
+                        }
+
+                        //等級有變動再處裡
+                        if (NewUserLevelIndex > UserLevelIndex) {
+
+                            foreach (var item in UserLevelUpgradeTempDatas) {
+                                if (item.NewLevelIndex == NewUserLevelIndex) {
+                                    UserLevelAccumulationDepositAmount = UserLevelAccumulationDepositAmount - item.DepositMinValue;
+                                    UserLevelAccumulationValidBetValue = UserLevelAccumulationValidBetValue - item.ValidBetMinValue;
+                                }
+                            }
+
+                            //發升級禮物
+                            for (int i = 1; i <= NewUserLevelIndex - UserLevelIndex; i++) {
+                                SendUpgradeGiftByUserLevelIndex(LoginAccount, UserLevelIndex + i);
+                            }
+
+                            try {
+                                updateEwinUserLevelInfo(LoginAccount, NewUserLevelIndex);
+                            } catch (Exception ex) { }
+
+                            EWinWebDB.UserAccount.UserAccountLevelIndexChange(LoginAccount, 1, UserLevelIndex, NewUserLevelIndex, DeposiAmount, ValidBetValue, UserLevelAccumulationDepositAmount, UserLevelAccumulationValidBetValue, "SystemAutoCheckUserLevel", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+
+                            RedisCache.UserAccount.UpdateUserAccountByLoginAccount(LoginAccount);
+                            RedisCache.UserAccountVIPInfo.DeleteUserAccountVIPInfo(LoginAccount);
+                        }
+                    }
+                }
+            }
+        }
+
+        return R;
+    }
+
+    [WebMethod]
     public APIResult ImmediateUpgradeUserLevelInfo(string Password) {
         APIResult R = new APIResult() { Result = enumResult.ERR };
         EWin.FANTA.FANTA api = new EWin.FANTA.FANTA();

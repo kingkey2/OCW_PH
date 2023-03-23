@@ -278,6 +278,25 @@
           <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccountResult" type="tns:SelfValidBetResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="UpdateThresholdAddRate">
         <s:complexType>
           <s:sequence>
@@ -457,6 +476,12 @@
   <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateSoapOut">
     <wsdl:part name="parameters" element="tns:GetUserSelfValidBetValueFromSummaryByDateResponse" />
   </wsdl:message>
+  <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserSelfValidBetValueFromSummaryByDateByLoginAccount" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserSelfValidBetValueFromSummaryByDateByLoginAccountResponse" />
+  </wsdl:message>
   <wsdl:message name="UpdateThresholdAddRateSoapIn">
     <wsdl:part name="parameters" element="tns:UpdateThresholdAddRate" />
   </wsdl:message>
@@ -574,6 +599,17 @@
     <wsdl:part name="QueryEndDate" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateHttpGetOut">
+    <wsdl:part name="Body" element="tns:SelfValidBetResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccountHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccountHttpGetOut">
     <wsdl:part name="Body" element="tns:SelfValidBetResult" />
   </wsdl:message>
   <wsdl:message name="ResetThresholdAddRateHttpGetIn">
@@ -709,6 +745,17 @@
   <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateHttpPostOut">
     <wsdl:part name="Body" element="tns:SelfValidBetResult" />
   </wsdl:message>
+  <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccountHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccountHttpPostOut">
+    <wsdl:part name="Body" element="tns:SelfValidBetResult" />
+  </wsdl:message>
   <wsdl:message name="ResetThresholdAddRateHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="LoginAccount" type="s:string" />
@@ -800,6 +847,10 @@
       <wsdl:input message="tns:GetUserSelfValidBetValueFromSummaryByDateSoapIn" />
       <wsdl:output message="tns:GetUserSelfValidBetValueFromSummaryByDateSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccount">
+      <wsdl:input message="tns:GetUserSelfValidBetValueFromSummaryByDateByLoginAccountSoapIn" />
+      <wsdl:output message="tns:GetUserSelfValidBetValueFromSummaryByDateByLoginAccountSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateThresholdAddRate">
       <wsdl:input message="tns:UpdateThresholdAddRateSoapIn" />
       <wsdl:output message="tns:UpdateThresholdAddRateSoapOut" />
@@ -862,6 +913,10 @@
       <wsdl:input message="tns:GetUserSelfValidBetValueFromSummaryByDateHttpGetIn" />
       <wsdl:output message="tns:GetUserSelfValidBetValueFromSummaryByDateHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccount">
+      <wsdl:input message="tns:GetUserSelfValidBetValueFromSummaryByDateByLoginAccountHttpGetIn" />
+      <wsdl:output message="tns:GetUserSelfValidBetValueFromSummaryByDateByLoginAccountHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="ResetThresholdAddRate">
       <wsdl:input message="tns:ResetThresholdAddRateHttpGetIn" />
       <wsdl:output message="tns:ResetThresholdAddRateHttpGetOut" />
@@ -919,6 +974,10 @@
     <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDate">
       <wsdl:input message="tns:GetUserSelfValidBetValueFromSummaryByDateHttpPostIn" />
       <wsdl:output message="tns:GetUserSelfValidBetValueFromSummaryByDateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccount">
+      <wsdl:input message="tns:GetUserSelfValidBetValueFromSummaryByDateByLoginAccountHttpPostIn" />
+      <wsdl:output message="tns:GetUserSelfValidBetValueFromSummaryByDateByLoginAccountHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="ResetThresholdAddRate">
       <wsdl:input message="tns:ResetThresholdAddRateHttpPostIn" />
@@ -1026,6 +1085,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDate">
       <soap:operation soapAction="http://tempuri.org/GetUserSelfValidBetValueFromSummaryByDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccount">
+      <soap:operation soapAction="http://tempuri.org/GetUserSelfValidBetValueFromSummaryByDateByLoginAccount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1180,6 +1248,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccount">
+      <soap12:operation soapAction="http://tempuri.org/GetUserSelfValidBetValueFromSummaryByDateByLoginAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdateThresholdAddRate">
       <soap12:operation soapAction="http://tempuri.org/UpdateThresholdAddRate" style="document" />
       <wsdl:input>
@@ -1318,6 +1395,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccount">
+      <http:operation location="/GetUserSelfValidBetValueFromSummaryByDateByLoginAccount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ResetThresholdAddRate">
       <http:operation location="/ResetThresholdAddRate" />
       <wsdl:input>
@@ -1440,6 +1526,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDate">
       <http:operation location="/GetUserSelfValidBetValueFromSummaryByDate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserSelfValidBetValueFromSummaryByDateByLoginAccount">
+      <http:operation location="/GetUserSelfValidBetValueFromSummaryByDateByLoginAccount" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

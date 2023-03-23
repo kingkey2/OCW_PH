@@ -175,6 +175,7 @@
     crossorigin="anonymous"></script>
 <script type="text/javascript" src="/Scripts/PaymentAPI.js?<%:Version%>"></script>
 <script type="text/javascript" src="Scripts/popper.min.js"></script>
+<script type="text/javascript" src="/Scripts/MgmtAPI.js?<%:Version%>"></script>
 <script type="text/javascript" src="/Scripts/LobbyAPI.js?<%:Version%>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
@@ -197,6 +198,7 @@
     var mlpByGameCode;
     var mlpByGameBrand;
     var lobbyClient;
+    var mgmtClient;
     var paymentClient;
     var needCheckLogin = false;
     var lastWalletList = null; // 記錄最後一次同步的錢包, 用來分析是否錢包有變動    
@@ -2144,6 +2146,7 @@
             var dstPage = c.getParameter("DstPage");
             var closeGameBtn = $('#closeGameBtn');
             lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
+            mgmtClient= new MgmtAPI("/API/MgmtAPI.asmx");
             paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
 
             closeGameBtn.attr('title', mlp.getLanguageKey("關閉遊戲"));
@@ -2291,6 +2294,23 @@
 
                 }
             }, 10000);
+
+            //檢查用戶等級
+            window.setInterval(function () {
+                console.log("ImmediateUpgradeUserLevelInfoByLoginAccount Strat");
+                if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+                    mgmtClient.ImmediateUpgradeUserLevelInfoByLoginAccount(EWinWebInfo.SID, function (success, o) {
+                        if (success == true) {
+                            if (o.Result == 0) {
+                                console.log("ImmediateUpgradeUserLevelInfoByLoginAccount success");
+                            } else {
+                                console.log("ImmediateUpgradeUserLevelInfoByLoginAccount err");
+                            }
+                        }
+                    });
+
+                }
+            }, 300000);
 
             window.setInterval(function () {
                 if (needCheckLogin == true) {

@@ -18,10 +18,9 @@
         string LoginType = Request["LoginType"]; //0=信箱 / 1=電話
         string NewFingerPrint = Request["FingerPrint"];
         bool FirstLogin = bool.Parse(Request["FirstLogin"]);
-        bool IsOldFingerPrint = false;
         string UserAgent = Request["UserAgent"];
         string Birthday = string.Empty;
-        bool FirstLogin2 = false;
+        bool CanLogin = false;
         Newtonsoft.Json.Linq.JObject obj_FingerPrint = new Newtonsoft.Json.Linq.JObject();
 
         string UserIP = CodingControl.GetUserIP();
@@ -35,48 +34,31 @@
         RValue = R.Next(100000, 9999999);
         Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
 
-        if (!FirstLogin) {
-            LoginAPIResult = LoginAPI.UserLoginByCustomValidate(Token, LoginAccount, LoginPassword, EWinWeb.CompanyCode, UserIP);
-        } else if (LoginType == "1") {
-            telPhoneNormalize = new TelPhoneNormalize(PhonePrefix, PhoneNumber);
-            LoginAPIResult = LoginAPI.UserLoginByPhoneNumber(Token, LoginGUID, telPhoneNormalize.PhonePrefix, telPhoneNormalize.PhoneNumber, LoginPassword, EWinWeb.CompanyCode, ValidImg, UserIP);
-        } else {
-            LoginAPIResult = LoginAPI.UserLogin(Token, LoginGUID, LoginAccount, LoginPassword, EWinWeb.CompanyCode, ValidImg, UserIP);
-        }
-        
+        LoginAPIResult = LoginAPI.UserLogin(Token, LoginGUID, LoginAccount, LoginPassword, EWinWeb.CompanyCode, ValidImg, UserIP);
+
         if (LoginAPIResult.ResultState == EWin.Login.enumResultState.OK) {
-            if (FirstLogin) {
-                EWin.Lobby.UserInfoResult infoResult = lobbyAPI.GetUserInfo(Token, LoginAPIResult.SID, System.Guid.NewGuid().ToString());
-                if (infoResult.UserAccountType != 0) {
-                    var _GetUserAccountProperty = lobbyAPI.GetUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.BySID, LoginAPIResult.SID, "AlreadyHaveGameAccount");
-                    if (_GetUserAccountProperty.Result == EWin.Lobby.enumResult.OK) {
-                        Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
-                        LoginAPIResult = LoginAPI.UserLoginByCustomValidate(Token, _GetUserAccountProperty.PropertyValue, LoginPassword, EWinWeb.CompanyCode, UserIP);
-                        FirstLogin2 = true;
-                        //Response.Write("<script> var defaultError2 = function(){ AgentAccountLogin('" + _GetUserAccountProperty.PropertyValue + "','" + LoginAccount + "','" + LoginPassword + "',true);};</script>");
-                    } else {
-                        Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' + mlp.getLanguageKey('尚未建立遊戲帳號') ,function () { })};</script>");
-                    }
+            EWin.Lobby.UserInfoResult infoResult = lobbyAPI.GetUserInfo(Token, LoginAPIResult.SID, System.Guid.NewGuid().ToString());
+
+            if (infoResult.UserAccountType != 0) {
+                var _GetUserAccountProperty = lobbyAPI.GetUserAccountProperty(Token, System.Guid.NewGuid().ToString(), EWin.Lobby.enumUserTypeParam.BySID, LoginAPIResult.SID, "AlreadyHaveGameAccount");
+                if (_GetUserAccountProperty.Result == EWin.Lobby.enumResult.OK) {
+                    Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
+                    LoginAPIResult = LoginAPI.UserLoginByCustomValidate(Token, _GetUserAccountProperty.PropertyValue, LoginPassword, EWinWeb.CompanyCode, UserIP);
+
+                    LoginAccount = _GetUserAccountProperty.PropertyValue;
+
+                    CanLogin = true;
 
                 } else {
-                    FirstLogin2 = true;
+                    Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' + mlp.getLanguageKey('尚未建立遊戲帳號') ,function () { })};</script>");
                 }
+
             } else {
-                FirstLogin2 = true;
+                CanLogin = true;
             }
 
-            if (FirstLogin2) {
-                if (LoginType == "1") {
-                    EWin.Lobby.UserInfoResult infoResult = lobbyAPI.GetUserInfo(Token, LoginAPIResult.SID, System.Guid.NewGuid().ToString());
-
-                    if (infoResult.Result == EWin.Lobby.enumResult.OK) {
-                        LoginAccount = infoResult.LoginAccount;
-
-                        WebSID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
-                    }
-                } else {
-                    WebSID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
-                }
+            if (CanLogin) {
+                WebSID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
 
                 DT1 = RedisCache.UserAccount.GetUserAccountByLoginAccount(LoginAccount);
 
@@ -142,36 +124,6 @@
     var v = "<%:Version%>";
     var visitorId;
      
-     function AgentAccountLogin(loginaccount, agentLoginAccount, password, haveGameAccount) {
-         var form = document.getElementById("idFormUserLogin");
-       
-         form.FirstLogin.value = "false";
-         form.action = "Login.aspx";
-
-         if (haveGameAccount) {
-             form.LoginAccount.value = loginaccount;
-             form.LoginPassword.value = password;
-             form.submit();
-         } else {
-             window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' + mlp.getLanguageKey('尚未建立遊戲帳號'), function () { })
-         }
-
-         //window.parent.showMessageAgentAccount(function () {
-         //    form.LoginAccount.value = agentLoginAccount;
-         //    form.LoginPassword.value = password;
-         //    form.submit();
-
-         //}, function () {
-         //    if (haveGameAccount) {
-         //        form.LoginAccount.value = loginaccount;
-         //        form.LoginPassword.value = password;
-         //        form.submit();
-         //    } else {
-         //        window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' + mlp.getLanguageKey('尚未建立遊戲帳號'), function () { })
-         //    }
-         //});
-     }
-
     function updateBaseInfo() {
     }
 
