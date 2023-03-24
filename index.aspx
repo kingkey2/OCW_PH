@@ -3129,8 +3129,8 @@
                     },
                 init: function () {
                     var n = t.createElement("script");
-                    n.async = 1,
-                        n.defer = 1,
+                    n.async = !0,
+                        n.defer = !0,
                         n.type = "text/javascript",
                         n.src = "https://cdn.livechatinc.com/tracking.js", t.head.appendChild(n)
                 }
