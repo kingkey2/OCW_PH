@@ -2297,14 +2297,14 @@
 
             //檢查用戶等級
             window.setInterval(function () {
-                console.log("ImmediateUpgradeUserLevelInfoByLoginAccount Strat");
+                //console.log("ImmediateUpgradeUserLevelInfoByLoginAccount Strat");
                 if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
                     mgmtClient.ImmediateUpgradeUserLevelInfoByLoginAccount(EWinWebInfo.SID, function (success, o) {
                         if (success == true) {
                             if (o.Result == 0) {
-                                console.log("ImmediateUpgradeUserLevelInfoByLoginAccount success");
+                                //console.log("ImmediateUpgradeUserLevelInfoByLoginAccount success");
                             } else {
-                                console.log("ImmediateUpgradeUserLevelInfoByLoginAccount err");
+                                //console.log("ImmediateUpgradeUserLevelInfoByLoginAccount err");
                             }
                         }
                     });
