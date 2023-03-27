@@ -1,15 +1,6 @@
 ﻿<%@ Page Language="C#" %>
 
 <%
-//r
-//string Token;
-//int RValue;
-//Random R = new Random();
-
-
-//RValue = R.Next(100000, 9999999);
-
-//Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
    string Version=EWinWeb.Version;
 
 %>
@@ -143,28 +134,6 @@
             if (success) {
                 if (o1.Result == 0) {
                     LoginAccount = o1.Message;
-                    //p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
-                    //    if (success) {
-                    //        if (o.Result == 0) {
-
-                    //            p.SetUserMail(GUID, 1, 1, "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
-                    //                if (success) {
-                    //                    if (o.Result == 0) {
-                    //                        isSent = true;
-                    //                        startCountDown(120);
-                    //                        window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已寄送認證碼"));
-                    //                    } else {
-                    //                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("發送失敗，請重新發送"));
-                    //                    }
-                    //                } else {
-                    //                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
-                    //                }
-                    //            });
-                    //        } else {
-                    //            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話不存在"));
-                    //        }
-                    //    }
-                    //});
 
                     p.SetUserMail(GUID, 1, 1, "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
                         if (success) {
@@ -257,9 +226,7 @@
 
         let countInterval = setInterval(function () {
             let BtnSend = document.getElementById("btnSend");
-
-            //min = parseInt(secondsRemaining / 60);
-            //sec = parseInt(secondsRemaining % 60);
+            
             BtnSend.querySelector("span").innerText = secondsRemaining + "s"
 
             secondsRemaining = secondsRemaining - 1;

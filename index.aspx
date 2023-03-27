@@ -71,7 +71,7 @@
     UserIP = CodingControl.GetUserIP();
     if (!EWinWeb.IsTestSite) {
         if (!string.IsNullOrEmpty(UserIP)) {
-            if (!(UserIP == "112.121.69.46"||UserIP == "52.198.128.126"||UserIP == "60.250.37.178"||UserIP == "211.72.13.156")) {
+            if (!(UserIP == "112.121.69.46" || UserIP == "52.198.128.126" || UserIP == "60.250.37.178" || UserIP == "211.72.13.156")) {
                 EWin.Login.GeoClass GC = loginAPI.GetGeoCode(UserIP);
 
                 if (GC != null) {
@@ -153,13 +153,13 @@
     <%--<meta property="og:image" content="https://casino-maharaja.com/images/share_pic_en.png" />--%>
 
     <!-- Share image -->
-    <link rel="shortcut icon" href="images/favicon.png"/>
-    <link rel="bookmark" href="images/favicon.png"/>
-    <link rel="apple-touch-icon" href="images/share_pic.png?<%:Version%>"/>
+    <link rel="shortcut icon" href="images/favicon.png" />
+    <link rel="bookmark" href="images/favicon.png" />
+    <link rel="apple-touch-icon" href="images/share_pic.png?<%:Version%>" />
 
 
     <link rel="stylesheet" href="css/basic.min.css">
-    <link rel="stylesheet" href="css/main.css?<%:Version%>">  
+    <link rel="stylesheet" href="css/main.css?<%:Version%>">
 
     <link rel="alternate" hreflang="ja" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
     <link rel="alternate" hreflang="ja-jp" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
@@ -175,6 +175,7 @@
     crossorigin="anonymous"></script>
 <script type="text/javascript" src="/Scripts/PaymentAPI.js?<%:Version%>"></script>
 <script type="text/javascript" src="Scripts/popper.min.js"></script>
+<script type="text/javascript" src="/Scripts/MgmtAPI.js?<%:Version%>"></script>
 <script type="text/javascript" src="/Scripts/LobbyAPI.js?<%:Version%>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
@@ -197,6 +198,7 @@
     var mlpByGameCode;
     var mlpByGameBrand;
     var lobbyClient;
+    var mgmtClient;
     var paymentClient;
     var needCheckLogin = false;
     var lastWalletList = null; // 記錄最後一次同步的錢包, 用來分析是否錢包有變動    
@@ -232,7 +234,7 @@
     var LobbyGameList = {};
     var UserThisWeekTotalValidBetValueData = [];
     var SearchControll;
-    var clickCount=0;
+    var clickCount = 0;
     var PCode = "<%=PCode%>";
     var PageType = "<%=PageType%>";
     var Page = "<%=Page%>";
@@ -266,7 +268,7 @@
     function API_IsAndroidAPI() {
         return isAndroid();
     }
-    
+
     function API_GetCurrency() {
         var selectedCurrency;
 
@@ -591,7 +593,7 @@
     }
 
     $(document).on('shown.bs.modal', '#alertSearch', function () {
-        if ($('#search-brand-wrapper').css('display')=='none') {
+        if ($('#search-brand-wrapper').css('display') == 'none') {
             $('.input-fake-select').trigger("click");
         }
     });
@@ -696,7 +698,7 @@
             }
         }
     }
-    
+
     function showMessageAgentAccount(cbOK, cbCancel) {
         if ($("#alertMsgAgentAccount").attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("alertMsgAgentAccount");
@@ -938,7 +940,7 @@
         if (gameWindow) {
             gameWindow.close();
         }
-        
+
         if (alertSearch.css("display") == "block") {
             alertSearchCloseButton.click();
         }
@@ -998,11 +1000,11 @@
 
         }
     }
-    
+
     function CloseGameFrame() {
 
         $('#divGameFrame').css('display', 'none');
-      
+
         game_userlogout();
         appendGameFrame();
     }
@@ -1236,7 +1238,7 @@
         }
 
     }
-    
+
     function setFavoToIndexDB(cb) {
         if (EWinWebInfo.UserLogined) {
             lobbyClient.GetUserAccountProperty(EWinWebInfo.SID, Math.uuid(), "Favo", function (success, o) {
@@ -1404,7 +1406,7 @@
             $("#btn_PupLangClose").click();
             clickCount = 0;
         }
-        
+
     }
     //#endregion
 
@@ -1898,7 +1900,7 @@
             } else {
                 wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.MainCurrencyType.toLocaleUpperCase());
             }
-   
+
             //Check Balance Change
             if (selectedWallet != null) {
                 if (wallet.PointValue != selectedWallet.PointValue) {
@@ -1954,7 +1956,7 @@
                     });
                 }
             }
-         
+
             // 已登入
             idMenuLogin.classList.remove("is-hide");
             idLoginBtn.classList.add("is-hide");
@@ -1971,7 +1973,7 @@
             selectedWallet = null;
         }
     }
-     //小數點後兩位無條件捨去
+    //小數點後兩位無條件捨去
     function roundDown(num, decimal) {
         return Math.floor((num + Number.EPSILON) * Math.pow(10, decimal)) / Math.pow(10, decimal);
     }
@@ -2144,6 +2146,7 @@
             var dstPage = c.getParameter("DstPage");
             var closeGameBtn = $('#closeGameBtn');
             lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
+            mgmtClient = new MgmtAPI("/API/MgmtAPI.asmx");
             paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
 
             closeGameBtn.attr('title', mlp.getLanguageKey("關閉遊戲"));
@@ -2292,6 +2295,23 @@
                 }
             }, 10000);
 
+            //檢查用戶等級
+            window.setInterval(function () {
+                //console.log("ImmediateUpgradeUserLevelInfoByLoginAccount Strat");
+                if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+                    mgmtClient.ImmediateUpgradeUserLevelInfoByLoginAccount(EWinWebInfo.SID, function (success, o) {
+                        if (success == true) {
+                            if (o.Result == 0) {
+                                //console.log("ImmediateUpgradeUserLevelInfoByLoginAccount success");
+                            } else {
+                                //console.log("ImmediateUpgradeUserLevelInfoByLoginAccount err");
+                            }
+                        }
+                    });
+
+                }
+            }, 300000);
+
             window.setInterval(function () {
                 if (needCheckLogin == true) {
                     needCheckLogin = false;
@@ -2309,11 +2329,13 @@
             }, 1000);
 
             new ResizeObserver(reportWindowSize).observe(document.body);
+
+            openChat();
         });
 
         API_changeAvatarImg(getCookie("selectAvatar"));
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
-        
+
         //resize();
     }
 
@@ -2440,7 +2462,7 @@
                 if (o.Result == 0) {
                     var ParentMain2 = document.getElementById("idBulletinBoardContent2");
                     ParentMain2.innerHTML = "";
-                    
+
                     if (o.DocumentList.length > 0) {
                         var RecordDom2;
 
@@ -3084,6 +3106,42 @@
         window.open("https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&rlh=25cde581dbaa53d3e5241d0863b2d92f");
     }
 
+    function openChat() {
+        window.__lc = window.__lc || {};
+        window.__lc.license = 14275560;
+        window.__lc.asyncInit = true;
+        ; (function (n, t, c) {
+            function i(n) {
+                return e._h ? e._h.apply(null, n) : e._q.push(n)
+            }
+            var e = {
+                _q: [], _h: null, _v: "2.0", on: function () {
+                    i(["on", c.call(arguments)])
+                },
+                once: function () { i(["once", c.call(arguments)]) }, off:
+                    function () {
+                        i(["off", c.call(arguments)])
+                    }, get: function () {
+                        if (!e._h) throw new Error("[LiveChatWidget] You can't use getters before load.");
+                        return i(["get", c.call(arguments)])
+                    }, call: function () {
+                        i(["call", c.call(arguments)])
+                    },
+                init: function () {
+                    var n = t.createElement("script");
+                    n.async = !0,
+                        n.defer = !0,
+                        n.type = "text/javascript",
+                        n.src = "https://cdn.livechatinc.com/tracking.js", t.head.appendChild(n)
+                }
+            };
+            !n.__lc.asyncInit && e.init(), n.LiveChatWidget = n.LiveChatWidget || e
+
+        }(window, document, [].slice));
+
+        LiveChatWidget.init();
+    }
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
@@ -3178,7 +3236,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="nav-item navbarMenu__catagory"  id="paymentCategory">
+                                <li class="nav-item navbarMenu__catagory" id="paymentCategory">
                                     <ul class="catagory">
                                         <li class="nav-item submenu dropdown"
                                             onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
@@ -3253,9 +3311,9 @@
                                     </ul>
                                 </li>
                                 --%>
-                            <li class="nav-item submenu dropdown" id="liWithdrawalAgent" style="display: none">
-                                    <a class="nav-link">   
-                                         <i class="icon icon-mask icon-coin"></i>
+                                <li class="nav-item submenu dropdown" id="liWithdrawalAgent" style="display: none">
+                                    <a class="nav-link">
+                                        <i class="icon icon-mask icon-coin"></i>
                                         <span class="title language_replace">代理出款</span></a>
                                 </li>
                                 <li class="nav-item submenu dropdown" id="idLogoutItem">
@@ -3291,7 +3349,8 @@
                         <div class="header_rightWrapper">
 
                             <div class="header_setting">
-                                <a href="/Download/pcdownload.aspx" target="_blank" class="mobile_download"><img src="images/mobile_head.svg"><span>mobile</span></a>
+                                <a href="/Download/pcdownload.aspx" target="_blank" class="mobile_download">
+                                    <img src="images/mobile_head.svg"><span>mobile</span></a>
                                 <ul class="nav header_setting_content">
                                     <!-- Search -->
                                     <li class="navbar-search nav-item" id="SearchGame2">
@@ -3567,8 +3626,8 @@
                         </div>
                     </div>
 
-                    <div class="company-detail" style="justify-content:center">
-                  <%--      --%>
+                    <div class="company-detail" style="justify-content: center">
+                        <%--      --%>
                         <div>
                             <img id="imgCuracao" src="images/Curacao.PNG" height="50" width="150" onclick="window.parent.openCuracao()" />
                         </div>
@@ -3876,7 +3935,7 @@
         </div>
     </div>
 
-        <!--alert Msg-->
+    <!--alert Msg-->
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertMsgAgentAccount" aria-hidden="true" id="alertMsgAgentAccount" style="z-index: 10000;">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -3896,7 +3955,7 @@
                 <div class="modal-footer">
                     <div class="btn-container">
                         <button type="button" class="alertMsgAgentAccount_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">代理帳號</span></button>
-                        <button type="button" style="color: #fff;background-color: #007bff;  border-color: #007bff;" class="alertMsgAgentAccount_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">遊戲帳號</span></button>
+                        <button type="button" style="color: #fff; background-color: #007bff; border-color: #007bff;" class="alertMsgAgentAccount_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">遊戲帳號</span></button>
                     </div>
                 </div>
             </div>
@@ -4048,8 +4107,8 @@
         <div id="idTempBulletinBoard" style="display: none;">
             <!-- <div> -->
             <li class="item" style="cursor: pointer">
-                <span class="date CreateDate" style="display:none"></span>
-                <span class="info BulletinTitle" style="padding-left:5px"></span>
+                <span class="date CreateDate" style="display: none"></span>
+                <span class="info BulletinTitle" style="padding-left: 5px"></span>
             </li>
             <!-- </div> -->
         </div>
@@ -4216,13 +4275,5 @@
             </label>
         </li>
     </div>
-
-    <script>
-        window.__lc = window.__lc || {};
-        window.__lc.license = 14275560;
-        ; (function (n, t, c) { function i(n) { return e._h ? e._h.apply(null, n) : e._q.push(n) } var e = { _q: [], _h: null, _v: "2.0", on: function () { i(["on", c.call(arguments)]) }, once: function () { i(["once", c.call(arguments)]) }, off: function () { i(["off", c.call(arguments)]) }, get: function () { if (!e._h) throw new Error("[LiveChatWidget] You can't use getters before load."); return i(["get", c.call(arguments)]) }, call: function () { i(["call", c.call(arguments)]) }, init: function () { var n = t.createElement("script"); n.async = !0, n.type = "text/javascript", n.src = "https://cdn.livechatinc.com/tracking.js", t.head.appendChild(n) } }; !n.__lc.asyncInit && e.init(), n.LiveChatWidget = n.LiveChatWidget || e }(window, document, [].slice))
-    </script>
-    <noscript><a href="https://www.livechat.com/chat-with/14275560/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
-
 </body>
 </html>

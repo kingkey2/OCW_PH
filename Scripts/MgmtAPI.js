@@ -64,6 +64,27 @@
             }
         });
     };
+
+    this.ImmediateUpgradeUserLevelInfoByLoginAccount = function (WebSID, cb) {
+        var url = APIUrl + "/ImmediateUpgradeUserLevelInfoByLoginAccount";
+        var postData;
+
+        postData = {
+            WebSID: WebSID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
     
     function callService(URL, postObject, timeoutMS, cb) {
         var xmlHttp = new XMLHttpRequest;
