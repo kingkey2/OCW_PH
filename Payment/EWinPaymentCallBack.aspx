@@ -372,6 +372,7 @@
                                     else if (UnderProvider == "DiDiPay2") { ProviderCode = "DiDiPay2"; }
                                     else if (UnderProvider == "GstarPay") { ProviderCode = "GstarPay"; }
                                     else if (UnderProvider == "LUMIPay2") { ProviderCode = "LUMIPay2"; }
+                                    else if (UnderProvider == "CPay") { ProviderCode = "CPay"; }
                                     else
                                     {
                                         CheckUnderProvider = false;
