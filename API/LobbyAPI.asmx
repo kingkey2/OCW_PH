@@ -1413,77 +1413,6 @@ public class LobbyAPI : System.Web.Services.WebService
 
         return R;
     }
-
-    //[WebMethod]
-    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public EWin.Lobby.APIResult SendCSMail(string WebSID, string GUID, string EMail, string Topic, string SendBody)
-    //{
-    //    EWin.Lobby.APIResult R;
-
-    //    RedisCache.SessionContext.SIDInfo SI;
-
-    //    SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
-
-    //    if (SI != null && !string.IsNullOrEmpty(SI.EWinSID) || string.IsNullOrEmpty(EMail) == false)
-    //    {
-    //        if (string.IsNullOrEmpty(Topic) == false && string.IsNullOrEmpty(SendBody) == false)
-    //        {
-    //            string returnMail = string.IsNullOrEmpty(EMail) ? SI.LoginAccount : EMail;
-    //            string returnLoginAccount = string.IsNullOrEmpty(SI.LoginAccount) ? "" : SI.LoginAccount;
-    //            //string subjectString = String.Format("問題分類：{0},回覆信箱：{1}", Topic, returnMail);
-    //            //string bodyString = String.Format("問題分類：{0}\r\n"
-    //            //                        + "問題內容：{1}\r\n"
-    //            //                        + "回覆信箱：{2}\r\n"
-    //            //                        + "相關帳號：{3}\r\n"
-    //            //                        + "詢問時間：{4}\r\n"
-    //            //                        , Topic, SendBody, returnMail, returnLoginAccount, DateTime.Now);
-    //            string subjectString = String.Format("お問い合わせ類型：{0},お返事のメールアドレス：{1}", Topic, returnMail);
-    //            string bodyString = String.Format("お問い合わせ類型：{0}\r\n"
-    //                                    + "お問い合わせ内容：{1}\r\n"
-    //                                    + "お返事のメールアドレス：{2}\r\n"
-    //                                    + "アカウント：{3}\r\n"
-    //                                    + "お問い合わせ時間：{4}\r\n"
-    //                                    , Topic, SendBody, returnMail, returnLoginAccount, DateTime.Now);
-
-    //            /*
-    //            お問い合わせ類型:
-    //            お問い合わせ内容:
-    //            お返事のメールアドレス:
-    //            アカウント:
-    //            お問い合わせ時間:
-    //            */
-    //            CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <edm@casino-maharaja.com>"), new System.Net.Mail.MailAddress("edm@casino-maharaja.com"), subjectString, bodyString, "edm@casino-maharaja.com", "wjggvbkjosunoilx", "utf-8", true);
-
-    //            R = new EWin.Lobby.APIResult()
-    //            {
-    //                Result = EWin.Lobby.enumResult.OK,
-    //                Message = "",
-    //                GUID = GUID
-    //            };
-    //        }
-    //        else
-    //        {
-    //            R = new EWin.Lobby.APIResult()
-    //            {
-    //                Result = EWin.Lobby.enumResult.ERR,
-    //                Message = "SubjectOrSendBodyIsEmpty",
-    //                GUID = GUID
-    //            };
-    //        }
-    //    }
-    //    else
-    //    {
-    //        R = new EWin.Lobby.APIResult()
-    //        {
-    //            Result = EWin.Lobby.enumResult.ERR,
-    //            Message = "EMailNotFind",
-    //            GUID = GUID
-    //        };
-    //    }
-
-    //    return R;
-    //}
-
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult SendCSMail(string GUID, string EMail, string Topic, string SendBody)
@@ -1752,55 +1681,7 @@ public class LobbyAPI : System.Web.Services.WebService
         return R;
     }
 
-    //private EWin.Lobby.APIResult SendMail(string EMail, string ValidateCode, EWin.Lobby.APIResult result, CodingControl.enumSendMailType SendMailType)
-    //{
-    //    string Subject = string.Empty;
-    //    string SendBody = string.Empty;
-    //    Subject = "Verify Code";
-
-    //    SendBody = CodingControl.GetEmailTemp(EMail, ValidateCode, SendMailType);
-
-    //    try
-    //    {
-    //        //CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <service@OCW888.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "service@OCW888.com", "koajejksxfyiwixx", "utf-8", true);
-    //        CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <edm@casino-maharaja.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "edm@casino-maharaja.com", "eanrbmhmqflaqzac", "utf-8", true);
-    //        result.Result = EWin.Lobby.enumResult.OK;
-    //        result.Message = "";
-
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        result.Result = EWin.Lobby.enumResult.ERR;
-    //        result.Message = "";
-    //    }
-    //    return result;
-    //}
-
-    //private EWin.Lobby.APIResult SendRegisterReceiveRewardMail(string EMail, EWin.Lobby.APIResult result, string ReceiveRegisterRewardURL)
-    //{
-    //    string Subject = string.Empty;
-    //    string SendBody = string.Empty;
-    //    Subject = "RegisterReceiveReward";
-
-    //    SendBody = CodingControl.GetRegisterReceiveRewardEmailTemp(EMail, ReceiveRegisterRewardURL);
-
-    //    try
-    //    {
-    //        CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <edm@casino-maharaja.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "edm@casino-maharaja.com", "eanrbmhmqflaqzac", "utf-8", true);
-    //        result.Result = EWin.Lobby.enumResult.OK;
-    //        result.Message = "";
-
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        result.Result = EWin.Lobby.enumResult.ERR;
-    //        result.Message = "";
-    //    }
-    //    return result;
-    //}
-
-    private EWin.Lobby.APIResult SendMail(string EMail, string ValidateCode, EWin.Lobby.APIResult result, CodingControl.enumSendMailType SendMailType)
-    {
+    private EWin.Lobby.APIResult SendMail(string EMail, string ValidateCode, EWin.Lobby.APIResult result, CodingControl.enumSendMailType SendMailType) {
         string Subject = string.Empty;
         string SendBody = string.Empty;
         string apiURL = "https://mail.surenotifyapi.com/v1/messages";
@@ -1809,8 +1690,7 @@ public class LobbyAPI : System.Web.Services.WebService
 
         SendBody = CodingControl.GetEmailTemp(EMail, ValidateCode, SendMailType);
 
-        try
-        {
+        try {
             Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
             Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
             Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
@@ -1830,50 +1710,7 @@ public class LobbyAPI : System.Web.Services.WebService
             result.Result = EWin.Lobby.enumResult.OK;
             result.Message = "";
 
-        }
-        catch (Exception ex)
-        {
-            result.Result = EWin.Lobby.enumResult.ERR;
-            result.Message = "";
-        }
-        return result;
-    }
-
-    private EWin.Lobby.APIResult SendRegisterReceiveRewardMail(string EMail, EWin.Lobby.APIResult result, string ReceiveRegisterRewardURL)
-    {
-        string Subject = string.Empty;
-        string SendBody = string.Empty;
-        string apiURL = "https://mail.surenotifyapi.com/v1/messages";
-        string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
-        Subject = "RegisterReceiveReward";
-
-        SendBody = CodingControl.GetRegisterReceiveRewardEmailTemp(EMail, ReceiveRegisterRewardURL);
-
-        try
-        {
-
-            Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
-            Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
-            Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
-
-            objBody.Add("subject", Subject);
-            objBody.Add("fromName", "マハラジャ");
-            objBody.Add("fromAddress", "edm@casino-maharaja.com");
-            objBody.Add("content", SendBody);
-
-            objRecipients.Add("name", EMail);
-            objRecipients.Add("address", EMail);
-            aryRecipients.Add(objRecipients);
-
-            objBody.Add("recipients", aryRecipients);
-
-            CodingControl.GetWebTextContent(apiURL, "POST", objBody.ToString(), "x-api-key:" + apiKey, "application/json", System.Text.Encoding.UTF8);
-            result.Result = EWin.Lobby.enumResult.OK;
-            result.Message = "";
-
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             result.Result = EWin.Lobby.enumResult.ERR;
             result.Message = "";
         }
@@ -1882,32 +1719,27 @@ public class LobbyAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult SetUserMail(string GUID, EWin.Lobby.enumValidateType ValidateType, CodingControl.enumSendMailType SendMailType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ReceiveRegisterRewardURL)
-    {
+    public EWin.Lobby.APIResult SetUserMail(string GUID, EWin.Lobby.enumValidateType ValidateType, CodingControl.enumSendMailType SendMailType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber, string ReceiveRegisterRewardURL) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         EWin.Lobby.ValidateCodeResult validateCodeResult;
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { GUID = GUID, Result = EWin.Lobby.enumResult.ERR };
         string ValidateCode = string.Empty;
         TelPhoneNormalize telPhoneNormalize = new TelPhoneNormalize(ContactPhonePrefix, ContactPhoneNumber);
-        if (telPhoneNormalize != null)
-        {
+        if (telPhoneNormalize != null) {
             ContactPhonePrefix = telPhoneNormalize.PhonePrefix;
             ContactPhoneNumber = telPhoneNormalize.PhoneNumber;
         }
 
-        switch (SendMailType)
-        {
+        switch (SendMailType) {
             case CodingControl.enumSendMailType.Register:
                 validateCodeResult = lobbyAPI.SetValidateCodeOnlyNumber(GetToken(), GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber);
-                if (validateCodeResult.Result == EWin.Lobby.enumResult.OK)
-                {
+                if (validateCodeResult.Result == EWin.Lobby.enumResult.OK) {
                     ValidateCode = validateCodeResult.ValidateCode;
                 }
                 break;
             case CodingControl.enumSendMailType.ForgetPassword:
                 validateCodeResult = lobbyAPI.SetValidateCodeOnlyNumber(GetToken(), GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber);
-                if (validateCodeResult.Result == EWin.Lobby.enumResult.OK)
-                {
+                if (validateCodeResult.Result == EWin.Lobby.enumResult.OK) {
                     ValidateCode = validateCodeResult.ValidateCode;
                 }
                 break;
@@ -1916,17 +1748,9 @@ public class LobbyAPI : System.Web.Services.WebService
                 break;
         }
 
-        switch (ValidateType)
-        {
+        switch (ValidateType) {
             case EWin.Lobby.enumValidateType.EMail:
-                if (SendMailType == CodingControl.enumSendMailType.RegisterReceiveReward)
-                {
-                    R = SendRegisterReceiveRewardMail(EMail, R, ReceiveRegisterRewardURL);
-                }
-                else
-                {
-                    R = SendMail(EMail, ValidateCode, R, SendMailType);
-                }
+                R = SendMail(EMail, ValidateCode, R, SendMailType);
                 break;
             case EWin.Lobby.enumValidateType.PhoneNumber:
                 string smsContent = "Your Lucky Sprite OTP code is " + ValidateCode;
@@ -3086,7 +2910,7 @@ public class LobbyAPI : System.Web.Services.WebService
         ActivityDetail = GetActivityDetail("/App_Data/ActivityDetail/VIPSetting/VIPLev" + UserLevelIndex + ".json");
         if (ActivityDetail != null) {
             ActivityName = (string)ActivityDetail["Name"];
-                
+
             DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccount(LoginAccount);
 
             if (DT != null && DT.Rows.Count > 0) {
