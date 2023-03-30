@@ -749,10 +749,10 @@
                     <div class="container-fluid ">
                         <div class="row">
                             <div id="idTabMainContent" class="tab__Wrapper col-12 col-md">
-                                <ul class="nav-tabs-block nav nav-tabs tab-items-6" role="tablist">
-                                    <li class="nav-item ">
+                                <ul class="nav-tabs-block nav nav-tabs tab-items-5" role="tablist">
+                                    <%--<li class="nav-item ">
                                         <a onclick="changeDateTab(this,0)" class="nav-link active language_replace" data-toggle="tab" href="" role="tab" aria-selected="true">本日</a>
-                                    </li>
+                                    </li>--%>
                                     <li class="nav-item active">
                                         <a onclick="changeDateTab(this,1)" class="nav-link language_replace" data-toggle="tab" href="" role="tab" aria-selected="true">昨天</a>
                                     </li>
