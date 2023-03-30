@@ -1186,7 +1186,7 @@
                                                 <li id="idCreateAccount" class="nav-item" style="display: none">
                                                     <a class="nav-link icon icon-ewin-default-n-user-add language_replace " onclick="API_NewWindow(mlp.getLanguageKey('新增下線'), 'UserAccount_Add_Casino.aspx')" target="mainiframe">新增下線</a>
                                                 </li>
-                                                <li id="idMyQRCode" class="nav-item">
+                                                <li id="idMyQRCode" class="nav-item" style="display:none">
                                                     <a class="nav-link icon icon-ewin-default-myQrCode language_replace" onclick="showQRCode()" target="mainiframe">我的推廣碼</a>
                                                 </li>
                                                 <li id="idCreateGameAccount" class="nav-item" style="display:none">

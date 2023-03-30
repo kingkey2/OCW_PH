@@ -345,16 +345,32 @@
               <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="TotalDepositUsers" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="TotalWithdrawUsers" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="TotalOrderUsers" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="FirstDepositCount" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="NextDepositCount" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="CanReceiveUserRebateUserRate" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="AgentMinActiveUserCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ActivateUserCount" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="RebateAmountMin" type="s:decimal" />
               <s:element minOccurs="0" maxOccurs="1" name="FailureCondition" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="UserOrderList" type="tns:ArrayOfUserOrderData" />
               <s:element minOccurs="0" maxOccurs="1" name="AgentItemList" type="tns:ArrayOfUserSummaryItem" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfUserOrderData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserOrderData" nillable="true" type="tns:UserOrderData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserOrderData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfRewardValue" type="s:decimal" />
+        </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfUserSummaryItem">
         <s:sequence>
@@ -1452,21 +1468,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="UpdateUserInfo">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="UserField" type="tns:ArrayOfPropertySet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="UpdateUserInfoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="UpdateUserInfoResult" type="tns:APIResult" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="UpdateUserAccountNote">
         <s:complexType>
           <s:sequence>
@@ -1863,12 +1864,6 @@
   </wsdl:message>
   <wsdl:message name="QueryCurrentUserInfoForSearchPageSoapOut">
     <wsdl:part name="parameters" element="tns:QueryCurrentUserInfoForSearchPageResponse" />
-  </wsdl:message>
-  <wsdl:message name="UpdateUserInfoSoapIn">
-    <wsdl:part name="parameters" element="tns:UpdateUserInfo" />
-  </wsdl:message>
-  <wsdl:message name="UpdateUserInfoSoapOut">
-    <wsdl:part name="parameters" element="tns:UpdateUserInfoResponse" />
   </wsdl:message>
   <wsdl:message name="UpdateUserAccountNoteSoapIn">
     <wsdl:part name="parameters" element="tns:UpdateUserAccountNote" />
@@ -2857,10 +2852,6 @@
       <wsdl:input message="tns:QueryCurrentUserInfoForSearchPageSoapIn" />
       <wsdl:output message="tns:QueryCurrentUserInfoForSearchPageSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="UpdateUserInfo">
-      <wsdl:input message="tns:UpdateUserInfoSoapIn" />
-      <wsdl:output message="tns:UpdateUserInfoSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="UpdateUserAccountNote">
       <wsdl:input message="tns:UpdateUserAccountNoteSoapIn" />
       <wsdl:output message="tns:UpdateUserAccountNoteSoapOut" />
@@ -3612,15 +3603,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdateUserInfo">
-      <soap:operation soapAction="http://tempuri.org/UpdateUserInfo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="UpdateUserAccountNote">
       <soap:operation soapAction="http://tempuri.org/UpdateUserAccountNote" style="document" />
       <wsdl:input>
@@ -4031,15 +4013,6 @@
     </wsdl:operation>
     <wsdl:operation name="QueryCurrentUserInfoForSearchPage">
       <soap12:operation soapAction="http://tempuri.org/QueryCurrentUserInfoForSearchPage" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateUserInfo">
-      <soap12:operation soapAction="http://tempuri.org/UpdateUserInfo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
