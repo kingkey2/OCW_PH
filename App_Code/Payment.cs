@@ -12,8 +12,10 @@ using System.Web;
 /// <summary>
 /// Payment 的摘要描述
 /// </summary>
-public class Payment {
-    public Payment() {
+public class Payment
+{
+    public Payment()
+    {
         //
         // TODO: 在這裡新增建構函式邏輯
         //
@@ -22,7 +24,7 @@ public class Payment {
     public static class EPay
     {
         public static string SettingFile = "EPaySetting.json";
-        public static APIResult CreateEPayWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName,string BankBranchCode,string PhoneNumber,string ProviderCode,string ServiceType)
+        public static APIResult CreateEPayWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName, string BankBranchCode, string PhoneNumber, string ProviderCode, string ServiceType)
         {
             APIResult R = new APIResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject sendData = new JObject();
@@ -33,7 +35,7 @@ public class Payment {
             string CurrencyType;
             string CompanyKey;
             string Sign;
-            string result="";
+            string result = "";
             string token = EWinWeb.EPayToken;
             dynamic EPAYSetting = null;
             JObject returnResult;
@@ -79,7 +81,8 @@ public class Payment {
                 sendData.Add("BankCardName", "BankCardName");
                 sendData.Add("BankComponentName", "BankBranchCode");
             }
-            else {
+            else
+            {
                 sendData.Add("BankCardName", BankCardName);
                 sendData.Add("BankComponentName", "BankBranchCode");
                 sendData.Add("BankCard", BankCard);
@@ -97,7 +100,7 @@ public class Payment {
             sendData.Add("RevolveUrl", ReturnURL);
             sendData.Add("ClientIP", CodingControl.GetUserIP());
             sendData.Add("Sign", Sign);
-       
+
             using (HttpClientHandler handler = new HttpClientHandler())
             {
                 using (HttpClient client = new HttpClient(handler))
@@ -122,10 +125,6 @@ public class Payment {
                         // 將 data 轉為 json
                         string json = sendData.ToString();
                         request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-                        Newtonsoft.Json.Linq.JObject recordTime = new Newtonsoft.Json.Linq.JObject();
-                        recordTime.Add("Type", "CreateWithdraw");
-                        recordTime.Add("StartToEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                         response = client.SendAsync(request).GetAwaiter().GetResult();
 
                         #endregion
@@ -136,31 +135,15 @@ public class Payment {
                         {
                             if (response.IsSuccessStatusCode == true)
                             {
-
                                 // 取得呼叫完成 API 後的回報內容
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                                recordTime.Add("EndToEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
                             }
                             else
                             {
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                                recordTime.Add("EndToEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
 
                             }
-
-                            string SS;
-                            System.Data.SqlClient.SqlCommand DBCmd;
-                            System.Data.DataTable DT;
-
-                            SS = "INSERT INTO BulletinBoard (BulletinTitle, BulletinContent,State) " +
-                                         "                VALUES (@BulletinTitle, @BulletinContent,1)";
-
-                            DBCmd = new System.Data.SqlClient.SqlCommand();
-                            DBCmd.CommandText = SS;
-                            DBCmd.CommandType = System.Data.CommandType.Text;
-                            DBCmd.Parameters.Add("@BulletinTitle", System.Data.SqlDbType.NVarChar).Value = OrderID;
-                            DBCmd.Parameters.Add("@BulletinContent", System.Data.SqlDbType.NVarChar).Value = recordTime.ToString();
-                            DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
                         }
                         else
                         {
@@ -172,12 +155,12 @@ public class Payment {
                     }
                     catch (Exception ex)
                     {
-                        R.Message = "Create Order Fail:"+ex.Message;
+                        R.Message = "Create Order Fail:" + ex.Message;
                         return R;
                     }
                 }
             }
-        
+
             if (!string.IsNullOrEmpty(result))
             {
                 returnResult = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(result);
@@ -199,7 +182,7 @@ public class Payment {
             }
         }
 
-        public static EPayDepositPaymentResult CreateEPayDeposite(string OrderID, decimal OrderAmount, string Type, string UserName,string ContactPhoneNumber,string ServiceType,string ProviderCode)
+        public static EPayDepositPaymentResult CreateEPayDeposite(string OrderID, decimal OrderAmount, string Type, string UserName, string ContactPhoneNumber, string ServiceType, string ProviderCode)
         {
             EPayDepositPaymentResult R = new EPayDepositPaymentResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject sendData = new JObject();
@@ -211,21 +194,25 @@ public class Payment {
             string CompanyKey;
             DateTime OrderDate = DateTime.Now;
             string Sign;
-            string result="";
+            string result = "";
             System.Data.DataTable DT = new System.Data.DataTable();
             string token = EWinWeb.EPayToken;
             decimal JPYRate = 0;
             dynamic EPAYSetting = null;
             JObject returnResult;
 
-            if (ProviderCode== "Feibao")
+            if (ProviderCode == "Feibao")
             {
                 if (ServiceType == "PHP01")
                 {
                     ProviderCode = "FeibaoPay";
-                } else if (ServiceType == "PHP02") {
+                }
+                else if (ServiceType == "PHP02")
+                {
                     ProviderCode = "FeibaoPayGrabpay";
-                } else if (ServiceType == "PHP03") {
+                }
+                else if (ServiceType == "PHP03")
+                {
                     ProviderCode = "FeibaoPayPaymaya";
                 }
                 else if (ServiceType == "PHP08")
@@ -262,7 +249,7 @@ public class Payment {
             }
 
             URL = (string)EPAYSetting.ApiUrl + "RequirePayingReturnUrl2";
-        
+
             ReturnURL = EWinWeb.CasinoWorldUrl2 + "/Payment/EPay/PaymentCallback.aspx";
 
             CompanyCode = (string)EPAYSetting.CompanyCode;
@@ -281,7 +268,7 @@ public class Payment {
             sendData.Add("UserName", UserName);
             sendData.Add("State", ContactPhoneNumber);
             sendData.Add("Sign", Sign);
-            
+
             using (HttpClientHandler handler = new HttpClientHandler())
             {
                 using (HttpClient client = new HttpClient(handler))
@@ -306,10 +293,6 @@ public class Payment {
                         // 將 data 轉為 json
                         string json = sendData.ToString();
                         request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-                        Newtonsoft.Json.Linq.JObject recordTime = new Newtonsoft.Json.Linq.JObject();
-                        recordTime.Add("Type", "CreatePayment");
-                        recordTime.Add("StartToEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                         response = client.SendAsync(request).GetAwaiter().GetResult();
 
                         #endregion
@@ -322,27 +305,11 @@ public class Payment {
                             {
                                 // 取得呼叫完成 API 後的回報內容
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                                recordTime.Add("EndToEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-
                             }
                             else
                             {
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                                recordTime.Add("EndToEwinPayRequestTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                             }
-
-                            string SS;
-                            System.Data.SqlClient.SqlCommand DBCmd;
-          
-                            SS = "INSERT INTO BulletinBoard (BulletinTitle, BulletinContent,State) " +
-                                         "                VALUES (@BulletinTitle, @BulletinContent,1)";
-
-                            DBCmd = new System.Data.SqlClient.SqlCommand();
-                            DBCmd.CommandText = SS;
-                            DBCmd.CommandType = System.Data.CommandType.Text;
-                            DBCmd.Parameters.Add("@BulletinTitle", System.Data.SqlDbType.NVarChar).Value = OrderID;
-                            DBCmd.Parameters.Add("@BulletinContent", System.Data.SqlDbType.NVarChar).Value = recordTime.ToString();
-                            DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
                         }
                         else
                         {
@@ -354,7 +321,7 @@ public class Payment {
                     }
                     catch (Exception ex)
                     {
-                        R.Message = "Create Order Fail:"+ex.Message;
+                        R.Message = "Create Order Fail:" + ex.Message;
                         return R;
                     }
                 }
@@ -367,7 +334,7 @@ public class Payment {
                 {
                     R.ResultState = APIResult.enumResultCode.OK;
                     R.Message = returnResult["Message"].ToString();
-                    R.ProviderCode= returnResult["Code"].ToString();
+                    R.ProviderCode = returnResult["Code"].ToString();
                     return R;
                 }
                 else
@@ -418,7 +385,7 @@ public class Payment {
     {
         public static string SettingFile = "FIFIPay.json";
 
-        public static EPayDepositPaymentResult CreateDeposite(string OrderID, decimal OrderAmount,string UserName, string ContactPhoneNumber, string ServiceType)
+        public static EPayDepositPaymentResult CreateDeposite(string OrderID, decimal OrderAmount, string UserName, string ContactPhoneNumber, string ServiceType)
         {
             Common.ProviderSetting SettingData = Common.GetProverderSetting(SettingFile);
             EPayDepositPaymentResult R = new EPayDepositPaymentResult() { ResultState = APIResult.enumResultCode.ERR };
@@ -521,12 +488,12 @@ public class Payment {
                         R.Message = revjsonObj["data"]["view_url"].ToString().Replace("\\", "");
                         R.ProviderCode = SettingData.ProviderCode;
 
-                        Common.InsertPaymentTransferLog("(充值單)申請完成:" + result,SettingData.ProviderCode, OrderID);
+                        Common.InsertPaymentTransferLog("(充值單)申請完成:" + result, SettingData.ProviderCode, OrderID);
                         return R;
                     }
                     else
                     {
-                        Common.InsertPaymentTransferLog("(充值單)供應商回傳有誤:" + result,SettingData.ProviderCode, OrderID);
+                        Common.InsertPaymentTransferLog("(充值單)供應商回傳有誤:" + result, SettingData.ProviderCode, OrderID);
                         return R;
                     }
                 }
@@ -537,7 +504,7 @@ public class Payment {
             }
             catch (Exception ex)
             {
-                Common.InsertPaymentTransferLog("(充值單)系統錯誤:" + ex.Message,SettingData.ProviderCode, OrderID);
+                Common.InsertPaymentTransferLog("(充值單)系統錯誤:" + ex.Message, SettingData.ProviderCode, OrderID);
                 return R;
             }
         }
@@ -546,7 +513,7 @@ public class Payment {
         {
             Common.ProviderSetting SettingData = Common.GetProverderSetting(SettingFile);
 
-            Common.PaymentByProvider Ret = new Common.PaymentByProvider() { IsQuerySuccess=false,IsPaymentSuccess=false, ProviderCode= SettingData.ProviderCode };
+            Common.PaymentByProvider Ret = new Common.PaymentByProvider() { IsQuerySuccess = false, IsPaymentSuccess = false, ProviderCode = SettingData.ProviderCode };
 
             string sign;
             string result;
@@ -606,7 +573,7 @@ public class Payment {
                             {
                                 // 取得呼叫完成 API 後的回報內容
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                                Ret.IsQuerySuccess=true;
+                                Ret.IsQuerySuccess = true;
                             }
                             else
                             {
@@ -615,7 +582,7 @@ public class Payment {
                         }
                         else
                         {
-      
+
                             Common.InsertPaymentTransferLog("(充值單查詢)供應商回傳為空值", SettingData.ProviderCode, OrderID);
                             return Ret;
                         }
@@ -640,12 +607,12 @@ public class Payment {
                     {
                         if (revjsonObj["data"]["status"].ToString().ToUpper() == "1" || revjsonObj["data"]["status"].ToString().ToUpper() == "2")
                         {
-                            Common.InsertPaymentTransferLog("(充值單查詢)成功",SettingData.ProviderCode, OrderID);
+                            Common.InsertPaymentTransferLog("(充值單查詢)成功", SettingData.ProviderCode, OrderID);
                             Ret.IsPaymentSuccess = true;
                         }
                         else
                         {
-                            Common.InsertPaymentTransferLog("(充值單查詢)處理中",SettingData.ProviderCode, OrderID);
+                            Common.InsertPaymentTransferLog("(充值單查詢)處理中", SettingData.ProviderCode, OrderID);
                             Ret.IsPaymentSuccess = false;
                         }
 
@@ -654,7 +621,7 @@ public class Payment {
                     }
                     else
                     {
-                        Common.InsertPaymentTransferLog("(充值單查詢)訂單狀態不符:" + result,SettingData.ProviderCode, OrderID);
+                        Common.InsertPaymentTransferLog("(充值單查詢)訂單狀態不符:" + result, SettingData.ProviderCode, OrderID);
                         Ret.IsPaymentSuccess = false;
                         return Ret;
                     }
@@ -668,7 +635,7 @@ public class Payment {
             }
             catch (Exception ex)
             {
-                Common.InsertPaymentTransferLog("(充值單查詢)系統錯誤:" + ex.Message,SettingData.ProviderCode, OrderID);
+                Common.InsertPaymentTransferLog("(充值單查詢)系統錯誤:" + ex.Message, SettingData.ProviderCode, OrderID);
                 Ret.IsPaymentSuccess = false;
                 return Ret;
             }
@@ -677,7 +644,7 @@ public class Payment {
         public static Common.ReturnWithdrawByProvider CreateWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName, string BankBranchCode, string PhoneNumber, string ProviderCode, string ServiceType)
         {
             Common.ProviderSetting SettingData = Common.GetProverderSetting(SettingFile);
-            Common.ReturnWithdrawByProvider R = new Common.ReturnWithdrawByProvider() { ReturnResult = "", UpOrderID = "", SendStatus= 0 };
+            Common.ReturnWithdrawByProvider R = new Common.ReturnWithdrawByProvider() { ReturnResult = "", UpOrderID = "", SendStatus = 0 };
             Dictionary<string, string> sendDic = new Dictionary<string, string>();
             string result;
             string sign;
@@ -708,7 +675,7 @@ public class Payment {
                 sendDic.Add("pay_md5_sign", sign);
 
 
-                Common.InsertPaymentTransferLog("(提現單)建立訂單:" + JsonConvert.SerializeObject(sendDic),SettingData.ProviderCode,OrderID);
+                Common.InsertPaymentTransferLog("(提現單)建立訂單:" + JsonConvert.SerializeObject(sendDic), SettingData.ProviderCode, OrderID);
 
                 using (HttpClientHandler handler = new HttpClientHandler())
                 {
@@ -777,12 +744,12 @@ public class Payment {
                         R.UpOrderID = "";
                         R.WithdrawSerial = OrderID;
                         R.ReturnResult = result;
-                        Common.InsertPaymentTransferLog("(提現單)申請完成:"+result,SettingData.ProviderCode, OrderID);
+                        Common.InsertPaymentTransferLog("(提現單)申請完成:" + result, SettingData.ProviderCode, OrderID);
                     }
                     else
                     {
 
-                        Common.InsertPaymentTransferLog("(提現單)回傳有誤:"+result, SettingData.ProviderCode, OrderID);
+                        Common.InsertPaymentTransferLog("(提現單)回傳有誤:" + result, SettingData.ProviderCode, OrderID);
                         R.ReturnResult = result;
                         R.SendStatus = 0;
                     }
@@ -790,7 +757,7 @@ public class Payment {
                 }
                 else
                 {
-    
+
                     Common.InsertPaymentTransferLog("(提現單)回傳為空值", SettingData.ProviderCode, OrderID);
                     R.ReturnResult = "";
                     R.SendStatus = 0;
@@ -807,13 +774,15 @@ public class Payment {
 
     }
 
-    public static class PayPal {
+    public static class PayPal
+    {
         public static string SettingFile = "PayPalSetting.json";
 
         public static dynamic PayPalSetting;
         public static dynamic ExchangeRateSetting;
 
-        public static APIResult CreatePayPalPayment(string CurrencyType, decimal Amount, string Lang, string OrderNumber) {
+        public static APIResult CreatePayPalPayment(string CurrencyType, decimal Amount, string Lang, string OrderNumber)
+        {
             PayPalSetting = LoadSetting();
             APIResult result = new APIResult();
             APIResult result_token = new APIResult();
@@ -821,10 +790,13 @@ public class Payment {
 
             result_token = GetToken();
 
-            if (result_token.ResultState==  APIResult.enumResultCode.OK) {
+            if (result_token.ResultState == APIResult.enumResultCode.OK)
+            {
                 PayPalToken = result_token.Message;
                 result = CreatePayment(CurrencyType, Amount, PayPalToken, Lang, OrderNumber);
-            } else {
+            }
+            else
+            {
                 result.ResultState = APIResult.enumResultCode.ERR;
                 result.Message = result_token.Message;
             }
@@ -832,7 +804,8 @@ public class Payment {
             return result;
         }
 
-        private static APIResult GetToken() {
+        private static APIResult GetToken()
+        {
             PayPalSetting = LoadSetting();
             APIResult result = new APIResult();
             Newtonsoft.Json.Linq.JObject returnResult;
@@ -843,15 +816,21 @@ public class Payment {
 
             returnResult = CodingControl.GetWebJSONContent(GetTokenURL, "POST", "grant_type=client_credentials", GetTokenHeaderString(PayPalSetting.Username.ToString(), PayPalSetting.Password.ToString()), "application/x-www-form-urlencoded");
 
-            try {
-                if (returnResult["access_token"] != null) {
+            try
+            {
+                if (returnResult["access_token"] != null)
+                {
                     result.ResultState = APIResult.enumResultCode.OK;
                     result.Message = returnResult["access_token"].ToString();
-                } else {
+                }
+                else
+                {
                     result.ResultState = APIResult.enumResultCode.ERR;
                     result.Message = "No token";
                 }
-            } catch (RuntimeBinderException) {
+            }
+            catch (RuntimeBinderException)
+            {
 
                 result.ResultState = APIResult.enumResultCode.ERR;
                 result.Message = "GetToken Error";
@@ -860,9 +839,10 @@ public class Payment {
             return result;
         }
 
-        private static APIResult CreatePayment(string CurrencyType, decimal Amount, string PaypalToken, string Lang, string OrderNumber) {
+        private static APIResult CreatePayment(string CurrencyType, decimal Amount, string PaypalToken, string Lang, string OrderNumber)
+        {
             PayPalSetting = LoadSetting();
-            APIResult result = new APIResult() { ResultState = APIResult.enumResultCode.ERR};
+            APIResult result = new APIResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject returnResult;
             JObject jsonContent = new JObject();
             JObject application_context = new JObject();
@@ -872,7 +852,8 @@ public class Payment {
             JObject returnMsg = new JObject();
             string PayPalLang;
 
-            switch (Lang) {
+            switch (Lang)
+            {
                 case "CHT":
                     PayPalLang = "zh-TW";
                     break;
@@ -906,17 +887,22 @@ public class Payment {
 
             returnResult = CodingControl.GetWebJSONContent(GetTokenURL, "POST", jsonContent.ToString(), GetHeaderString(PaypalToken));
 
-            try {
-                if (returnResult["id"] != null) {
+            try
+            {
+                if (returnResult["id"] != null)
+                {
                     string TransactionID = returnResult["id"].ToString();
                     var ret_jobject = JObject.Parse(returnResult.ToString());
 
-                    if (ret_jobject["links"] != null) {
+                    if (ret_jobject["links"] != null)
+                    {
 
                         var link_jarray = JArray.FromObject(ret_jobject["links"]);
 
-                        for (int i = 0; i < link_jarray.Count; i++) {
-                            if (link_jarray[i]["rel"].ToString() == "approve") {
+                        for (int i = 0; i < link_jarray.Count; i++)
+                        {
+                            if (link_jarray[i]["rel"].ToString() == "approve")
+                            {
                                 result.ResultState = APIResult.enumResultCode.OK;
                                 returnMsg["PayPalTransactionID"] = TransactionID;
                                 returnMsg["href"] = link_jarray[i]["href"].ToString();
@@ -924,16 +910,22 @@ public class Payment {
                             }
                         }
 
-                    } else {
+                    }
+                    else
+                    {
                         result.ResultState = APIResult.enumResultCode.ERR;
                         result.Message = "CreatePayment Return Data err";
                     }
 
-                } else {
+                }
+                else
+                {
                     result.ResultState = APIResult.enumResultCode.ERR;
                     result.Message = "No id";
                 }
-            } catch (RuntimeBinderException) {
+            }
+            catch (RuntimeBinderException)
+            {
 
                 result.ResultState = APIResult.enumResultCode.ERR;
                 result.Message = "CreatePayment Error";
@@ -942,7 +934,8 @@ public class Payment {
             return result;
         }
 
-        public static APIResult CheckPaymentState(string PayPalOrderID, string PaypalToken) {
+        public static APIResult CheckPaymentState(string PayPalOrderID, string PaypalToken)
+        {
             APIResult result = new APIResult();
             APIResult ConfirmEWinPaymentresult = new APIResult();
             Newtonsoft.Json.Linq.JObject returnResult;
@@ -950,22 +943,31 @@ public class Payment {
 
             returnResult = CodingControl.GetWebJSONContent(GetTokenURL, "GET", "", GetHeaderString(PaypalToken));
 
-            try {
-                if (returnResult["id"] != null) {
+            try
+            {
+                if (returnResult["id"] != null)
+                {
                     string TransactionID = returnResult["id"].ToString();
 
-                    if (TransactionID == PayPalOrderID) {
+                    if (TransactionID == PayPalOrderID)
+                    {
                         result.ResultState = APIResult.enumResultCode.OK;
                         result.Message = returnResult.ToString();
-                    } else {
+                    }
+                    else
+                    {
                         result.ResultState = APIResult.enumResultCode.ERR;
                         result.Message = "PayPalOrderID err";
                     }
-                } else {
+                }
+                else
+                {
                     result.ResultState = APIResult.enumResultCode.ERR;
                     result.Message = "No id";
                 }
-            } catch (RuntimeBinderException) {
+            }
+            catch (RuntimeBinderException)
+            {
 
                 result.ResultState = APIResult.enumResultCode.ERR;
                 result.Message = "CheckPaymentState Error";
@@ -974,7 +976,8 @@ public class Payment {
             return result;
         }
 
-        public static APIResult CapturePayment(string PayPalOrderID, string PaypalToken) {
+        public static APIResult CapturePayment(string PayPalOrderID, string PaypalToken)
+        {
             APIResult result = new APIResult();
             APIResult ConfirmEWinPaymentresult = new APIResult();
             Newtonsoft.Json.Linq.JObject returnResult;
@@ -982,28 +985,40 @@ public class Payment {
 
             returnResult = CodingControl.GetWebJSONContent(GetTokenURL, "POST", "", GetHeaderString(PaypalToken));
 
-            try {
-                if (returnResult["id"] != null) {
+            try
+            {
+                if (returnResult["id"] != null)
+                {
                     string TransactionID = returnResult["id"].ToString();
 
-                    if (TransactionID == PayPalOrderID) {
+                    if (TransactionID == PayPalOrderID)
+                    {
 
-                        if (returnResult["status"].ToString() == "COMPLETED") {
+                        if (returnResult["status"].ToString() == "COMPLETED")
+                        {
                             result.ResultState = APIResult.enumResultCode.OK;
                             result.Message = returnResult.ToString();
-                        } else {
+                        }
+                        else
+                        {
                             result.ResultState = APIResult.enumResultCode.ERR;
                             result.Message = "用戶未付款";
                         }
-                    } else {
+                    }
+                    else
+                    {
                         result.ResultState = APIResult.enumResultCode.ERR;
                         result.Message = "PayPalOrderID err";
                     }
-                } else {
+                }
+                else
+                {
                     result.ResultState = APIResult.enumResultCode.ERR;
                     result.Message = "No id";
                 }
-            } catch (RuntimeBinderException) {
+            }
+            catch (RuntimeBinderException)
+            {
 
                 result.ResultState = APIResult.enumResultCode.ERR;
                 result.Message = "CheckPaymentState Error";
@@ -1012,7 +1027,8 @@ public class Payment {
             return result;
         }
 
-        private static string GetTokenHeaderString(string Username, string Password) {
+        private static string GetTokenHeaderString(string Username, string Password)
+        {
             string Ret;
             string HeaderStr = CodingControl.Base64URLEncode(Username + ":" + Password);
 
@@ -1020,29 +1036,36 @@ public class Payment {
             return Ret;
         }
 
-        private static string GetHeaderString(string HeaderStr) {
+        private static string GetHeaderString(string HeaderStr)
+        {
             string Ret;
 
             Ret = "Authorization:Bearer " + HeaderStr;
             return Ret;
         }
 
-        private static dynamic LoadSetting() {
+        private static dynamic LoadSetting()
+        {
             dynamic o = null;
             string Filename;
 
-            if (EWinWeb.IsTestSite) {
+            if (EWinWeb.IsTestSite)
+            {
                 Filename = HttpContext.Current.Server.MapPath("/App_Data/PayPal/Test_" + SettingFile);
-            } else {
+            }
+            else
+            {
                 Filename = HttpContext.Current.Server.MapPath("/App_Data/PayPal/Formal_" + SettingFile);
             }
 
-            if (System.IO.File.Exists(Filename)) {
+            if (System.IO.File.Exists(Filename))
+            {
                 string SettingContent;
 
                 SettingContent = System.IO.File.ReadAllText(Filename);
 
-                if (string.IsNullOrEmpty(SettingContent) == false) {
+                if (string.IsNullOrEmpty(SettingContent) == false)
+                {
                     try { o = Newtonsoft.Json.JsonConvert.DeserializeObject(SettingContent); } catch (Exception ex) { }
                 }
             }
@@ -1052,7 +1075,8 @@ public class Payment {
 
     }
 
-    public static class Common {
+    public static class Common
+    {
         public static ProviderSetting GetProverderSetting(string SettingFile)
         {
             ProviderSetting RetValue;
@@ -1082,7 +1106,7 @@ public class Payment {
             return RetValue;
         }
 
-        public static void InsertPaymentTransferLog(string Content, string ProviderCode,string OrderID)
+        public static void InsertPaymentTransferLog(string Content, string ProviderCode, string OrderID)
         {
             ReportSystem.CreatePaymentContent(Content, ProviderCode, OrderID);
 
@@ -1187,8 +1211,10 @@ public class Payment {
         }
     }
 
-    public class APIResult {
-        public enum enumResultCode {
+    public class APIResult
+    {
+        public enum enumResultCode
+        {
             OK = 0,
             ERR = 1
         }
@@ -1198,7 +1224,7 @@ public class Payment {
         public string Message { get; set; }
     }
 
-    public class EPayDepositPaymentResult: APIResult
+    public class EPayDepositPaymentResult : APIResult
     {
         public string ProviderCode { get; set; }
     }

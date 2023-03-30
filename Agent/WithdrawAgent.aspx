@@ -246,8 +246,7 @@
     }
 
     function setAmount() {
-        var amount = $("#amount").val().replace(/[^\-?\d.]/g, '')
-        amount = amount.replace('.', '');
+        var amount = $("#amount").val().replace(/\D/g, '');
         $("#amount").val(amount);
 
     }
@@ -312,6 +311,11 @@
 
             if (amount == '') {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"));
+                return;
+            }
+
+            if (!Number.isInteger(parseFloat(amount))) {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("金額只能輸入整數"));
                 return;
             }
 

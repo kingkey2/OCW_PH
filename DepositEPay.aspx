@@ -108,10 +108,10 @@
 
     function setAmount() {
         $("input[name=amount]").prop("checked", false);
-        var amount = $("#amount").val().replace(/[^\-?\d.]/g, '');
-        amount = amount.replace('.', '');
-        $("#amount").val(amount);
+      
+        var amount = $("#amount").val().replace(/\D/g, '');
 
+        $("#amount").val(amount);
     }
 
     function btn_NextStep() {
@@ -218,6 +218,13 @@
                 if (GCashAccount == '') {
                     var checkGCashAccount = false;
                 }
+            }
+
+            if (!Number.isInteger(parseFloat($("#amount").val()))) {
+                window.parent.API_LoadingEnd(1);
+                $("#btnStep2").removeAttr("disabled");
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("金額只能輸入整數"));
+                return false;
             }
 
             if (checkGCashAccount) {

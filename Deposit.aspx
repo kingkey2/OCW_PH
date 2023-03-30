@@ -93,6 +93,10 @@
                                     case "JBPay.GcashQRcode":
                                     case "JBPay.Gcash":
                                     case "LUMIPay.GcashDirect":
+                                    case "LUMIPay2.GcashQRcode":
+                                    case "LUMIPay2.Gcash":
+                                    case "CPay.GcashQRcode":
+                                    case "CPay.Gcash":
                                         var minAmount = "unlimited";
                                         var maxAmount = "unlimited";
                                         if (channel.AmountMin!=0) {

@@ -289,14 +289,14 @@
     }
 
     function setAmount() {
-        var amount = $("#amount").val().replace(/[^\-?\d.]/g, '')
+        var amount = $("#amount").val().replace(/\D/g, '');
         amount = amount.replace('.', '');
         $("#amount").val(amount);
 
     }
 
     function bankcardCheck() {
-        var baankCard = $("#bankCard").val().replace(/[^\-?\d.]/g, '')
+        var baankCard = $("#bankCard").val().replace(/\D/g, '');
         $("#bankCard").val(baankCard);
 
     }
@@ -356,6 +356,13 @@
         var idWalletPassword = $("#idWalletPassword").val().trim();
         if ($("#amount").val().trim() == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"), function () { });
+            window.parent.API_LoadingEnd(1);
+            $("#btnStep2").removeAttr("disabled");
+            return false;
+        }
+
+        if (!Number.isInteger(parseFloat($("#amount").val()))) {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("金額只能輸入整數"), function () { });
             window.parent.API_LoadingEnd(1);
             $("#btnStep2").removeAttr("disabled");
             return false;

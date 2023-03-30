@@ -71,5 +71,6 @@
   "step3": "step3",
   "Finish": "Finish",
   "輸入GCash帳號": "輸入GCash帳號",
-  "請輸入GCash帳號": "請輸入GCash帳號"
+  "請輸入GCash帳號": "請輸入GCash帳號",
+  "金額只能輸入整數": "金額只能輸入整數"
 }

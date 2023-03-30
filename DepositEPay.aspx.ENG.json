@@ -45,5 +45,6 @@
   "禮金部份": "Gift",
   "*獎金和禮金的出金流水在BOUNS箱領取後才會追加": "The withdrawal valid bet requirements of bonus and gift will be added after claiming BONUS",
   "輸入GCash帳號": "enter GCash account",
-  "請輸入GCash帳號": "Please enter GCash account."
+  "請輸入GCash帳號": "Please enter GCash account.",
+  "金額只能輸入整數": "The amount can only be entered as an integer."
 }

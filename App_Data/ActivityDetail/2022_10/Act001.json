@@ -285,6 +285,22 @@
       "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "LUMIPay2.GcashQRcode7",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 155,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "LUMIPay2.Gcash8",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 155,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
     }
   ],
   "Rate2": [
@@ -535,6 +551,22 @@
       "ThresholdRate": 155,
       "DepositMinValue": 1000,
       "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "LUMIPay2.GcashQRcode7",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 155,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "LUMIPay2.Gcash8",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 155,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
     }
   ],
   "Rate3": [
@@ -780,6 +812,22 @@
     },
     {
       "PaymentCode": "JBPay.GcashQRcode6",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 155,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "LUMIPay2.Gcash8",
+      "ReceiveValueMaxLimit": 999999999,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 155,
+      "DepositMinValue": 1000,
+      "BonusRate": 0.1
+    },
+    {
+      "PaymentCode": "LUMIPay2.GcashQRcode7",
       "ReceiveValueMaxLimit": 999999999,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 155,

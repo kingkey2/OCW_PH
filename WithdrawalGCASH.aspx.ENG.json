@@ -104,5 +104,6 @@
   "輸入錢包密碼": "Enter your wallet password",
   "請輸入錢包密碼": "Please enter the wallet password.",
   "錢包密碼有誤": "Wallet password error.",
-  "請聯繫客服": "Please contact customer service."
+  "請聯繫客服": "Please contact customer service.",
+  "金額只能輸入整數": "The amount can only be entered as an integer."
 }
