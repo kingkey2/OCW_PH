@@ -439,25 +439,11 @@
                         </div>
                     </div>
                 </div>
-            <%--    <div class="notice-container mt-5">
-                    <div class="notice-item">
-                        <i class="icon-info_circle_outline"></i>
-                        <div class="text-wrap">
-                            <p class="title language_replace text-link" onclick="window.parent.API_LoadPage('record','Article/guide_withdrawMoney_jp.html', true)">各出金方法の手順説明</p>
-                        </div>
-                    </div>
-                </div>--%>
                 <!-- 溫馨提醒 -->
                 <div class="notice-container mt-5">
                     <div class="notice-item">
                         <i class="icon-info_circle_outline"></i>
                         <div class="text-wrap">
-                            <!-- <p class="title language_replace">溫馨提醒</p>
-                            <p class="language_replace">1.OCOIN是客人在マハラジャ遊玩的幣別總稱</p>
-                            <p class="language_replace">2.因為選擇的送金方法有所不同，在帳戶上反映的時間是出金之後最多一個營業日為範圍。</p>
-                            <p class="language_replace">3. 1日出金最高限度額及び回数:​1アカウントにつき1日出最高限度額100万Ocoin、最高回数三回。</p>
-                            <p class="language_replace">4.若達到上述任何限制，請隔天以後再申請出金。</p>
-                            <p class="language_replace">5.出金時間為365天日本時間早上10點到下午18點為止。</p> -->
                             <p class="language_replace" style="text-indent: -1rem; margin-left: 1rem;">1. Using Lucky
                                 Sprite's fully automated recharge and withdrawal channels, you'll enjoy the best gaming
                                 experience, and your recharge and withdrawal will arrive within seconds!</p>

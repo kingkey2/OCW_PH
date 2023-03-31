@@ -510,30 +510,6 @@
         });
     };
 
-    this.SendCSMail = function (GUID, EMail, Topic, SendBody, cb) {
-        var url = APIUrl + "/SendCSMail";
-        var postData;
-
-        postData = {
-            GUID: GUID,
-            EMail: EMail,
-            Topic: Topic,
-            SendBody: SendBody
-        };
-
-        callService(url, postData, 10000, function (success, text) {
-            if (success == true) {
-                var obj = getJSON(text);
-
-                if (cb)
-                    cb(true, obj);
-            } else {
-                if (cb)
-                    cb(false, text);
-            }
-        });
-    };
-
     this.CheckAccountExist = function (GUID, LoginAccount, cb) {
         var url = APIUrl + "/CheckAccountExist";
         var postData;

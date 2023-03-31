@@ -1558,8 +1558,6 @@
                                                         <span class="value lacking language_replace">不可出金</span>
                                                         <span class="value enough language_replace">可出金</span>
                                                         <!-- 出金說明 -->
-                                                     <%--   <span class="btn btn-Q-mark btn-round btn-sm" onclick="window.parent.API_LoadPage('','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span>--%>
-
                                                     </div>      
                                                 </div>        
                                                 <div class="limit-amount">

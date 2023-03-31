@@ -92,19 +92,6 @@ public class CodingControl
         return stroutput;
     }
 
-    public static string GetEmailTemp1() {
-        Stream myStream;
-
-        myStream = new FileStream(HttpContext.Current.Server.MapPath(@"/Html/temp.html"), FileMode.Open);
-
-        Encoding encode = System.Text.Encoding.GetEncoding("GB2312");
-        StreamReader myStreamReader = new StreamReader(myStream, encode);
-        string strhtml = myStreamReader.ReadToEnd();
-        myStream.Close();
-
-        return strhtml;
-    }
-
     public static string GetEmailTemp2() {
         Stream myStream;
 
@@ -116,21 +103,6 @@ public class CodingControl
         myStream.Close();
 
         return strhtml;
-    }
-
-    public static string GetRegisterReceiveRewardEmailTemp(string LoginAccount, string URL) {
-        Stream myStream;
-        myStream = new FileStream(HttpContext.Current.Server.MapPath(@"/Html/RegisterReceiveReward.html"), FileMode.Open);
-
-        Encoding encode = System.Text.Encoding.GetEncoding("GB2312");
-        StreamReader myStreamReader = new StreamReader(myStream, encode);
-        string strhtml = myStreamReader.ReadToEnd();
-        myStream.Close();
-        string stroutput = string.Empty;
-        stroutput = strhtml.Replace("{0}", LoginAccount);
-        stroutput = stroutput.Replace("{1}", URL);
-
-        return stroutput;
     }
 
     public static string GetUnicodeEscape(string s) {

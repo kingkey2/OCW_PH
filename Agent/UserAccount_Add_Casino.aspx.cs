@@ -14,7 +14,7 @@ public partial class UserAccount_Add_Casino : System.Web.UI.Page {
     public static EWin.SpriteAgent.APIResult CreateUserInfo(string AID, string LoginAccount, EWin.SpriteAgent.PropertySet[] UserField) {
         EWin.SpriteAgent.SpriteAgent api = new EWin.SpriteAgent.SpriteAgent();
         EWin.SpriteAgent.APIResult RetValue = new EWin.SpriteAgent.APIResult();
-
+        
         RetValue = api.CreateUserInfo(AID, LoginAccount, UserField);
 
         return RetValue;

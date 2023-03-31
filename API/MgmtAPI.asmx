@@ -1781,26 +1781,6 @@ public class MgmtAPI : System.Web.Services.WebService {
         return Token;
     }
 
-    //[WebMethod]
-    //public void SendMail() {
-    //    //string Subject = string.Empty;
-    //    //string SendBody = string.Empty;
-    //    //string EMail = string.Empty;
-    //    //var f = "['oidon.s+maharaja@gmail.com','renya1979@icloud.com','mammothkoh3zoh3@yahoo.co.jp','grow7002@gmail.com','o8026370695@gmail.com','usako.to.chibiusa.2@gmail.com','shimiyan84@gmail.com','shinkigyo@gmail.com','yomachi8810@gmail.com','nana.yo.0909@gmail.com','catmineko@gmail.com','taira4119a@gmail.com','volvo.960.1981@gmail.com','sakayumi2014@gmail.com','nsys81118@gmail.com','ma9satoru25ko@gmail.com','kuniaki.tsukamoto.0107@gmail.com','hana.3.3@icloud.com','wsr.goto@gmail.com','makuri3713@gmail.com','emi_miyakita@yahoo.co.jp','youko1212tide526@gmail.com','t.t.toshiki@gmail.com','kayoko1904@icloud.com','panorama.19791115@gmail.com','Kurumaya.hisa@gmail.com','tomo16yuka24@gmail.com','dasmarudas@gmail.com','junko51716@gmail.com','trust.358@water.ocn.ne.jp','yaeko847@gmail.com','michiko.hana.2615@gmail.com','kaitai7647@gmail.com','a9725051@gmail.com','xingyilangguao@gmail.com','hibiki20020117@au.com','ehp55te@yahoo.co.jp','yasu-abu9@docomo.ne.jp','fumie.ema@gmail.com','good6700jp@gmail.com','Wakka0902@yahoo.co.jp','s-_-t.2003-1214@docomo.ne.jp','oi.michie@icloud.com','soratsuba.11@gmal.com','usuk.0830.mycn18@gmail.com','marrrrbe@yahoo.co.jp','enjya.sy@gmail.com','qcktj741@gmail.com','etarnity3450ctm@gmail.com','kaori4901@outlook.jp','corp.jandj3588@gmail.com','civic5557788@gmail.com','yujipost@gmail.com','manataro.0208@gmail.com','mior.vkmz@gmail.com','q9epade5u10j7an6qvz0@docomo.ne.jp','tkurodamail@gmail.com','yuuji.37.16@gmail.com','yuuji.37.16+3@gmail.com','atsumouri0303@gmail.com','mikiyuki.1234.mikiyuki@gmail.com','maeda4837@au.com','kaizinnopera@gmail.com','jeffmasutaka@gmail.com','tatsuo1234515@gmail.com','Erictse44@gmail.com','zard111jp@gmail.com','sumibi410@gmail.com','take.take.sasaki10@gmail.com','takkumi333@icloud.com','irifune1950m@gmail.com','cockroach0723@gmail.com','jun71106.21@gmail.com','fuji2811k@gmail.com','rabuyuma@gmail.com','tamariba.mochiken@gmail.com','nasu.oneoff@gmail.com','navy511058@gmail.com','luna_uf@yahoo.co.jp','katsuya0319@icloud.com','mba.realization2020@gmail.com','aigold.8376@gmail.com','mineko.3166@gmail.com','akimichu1005@yahoo.co.jp','asa1127@me.com','otsuka@akimitsu.tokyo','bangkok9z.pc@gmail.com','kyasarin20160411@gmail.com','yu.ryo.mo@icioud.com','mizuharu.8282@gmail.com','luxurious.cat@gmail.com','Harufu7788@gmail.com','risette.no2@gmail.com','t.marimari0321@gmail.com','sakamaki0130@gmail.com','Seitatakuya@gmail.com','shuji5hama@gmail.com','akamine888@gmail.com','yamaha-hatsujo-ki.4d9@i.softbank.jp','nongsnk81@gmail.com','yasuhiro.tamatsu@ezweb.ne.jp','ksoda.mobile@gmail.com','kazukino.adoresu@i.softbank.jp','soratsuba.11@gmail.com','bigtreeokinawa@gmail.com','noboru.1323@gmail.com','kimiko126ja@gmail.com','hiron.f3810@gmail.com','hirokazu.nakanishi@gmail.com','hamamatsu.aikido@gmail.com','yamamotoseitai@gmail.com','kakkonntou_nomisugi@yahoo.co.jp','fivefourkato@gmail.com','uchihiko48@gmail.com','termkh1874@gmail.com','goldjackal777@gmail.com','queenkellys8448@gmail.com','0825tomiko@gmail.com','sgr-s11g88@i.softbank.jp','kuritaku.tigers.4123@gmail.com','moppy77777@gmail.com','h4506h0423@gmail.com','ryou1213@yahoo.com','nagaoka.t1169@gmail.com','imc88@dolphin.ocn.ne.jp','service@99play.com','handmade_rin1977@yahoo.co.jp','yuyamam31@gmail.com','ian@kingkey.com.tw','koala19580928@gmail.com','sky3100604@gmail.com','enh6nsa6pm@i.softbank.jp','y.s-todo1.12@i.softbank.jp','ichita724@gmail.com','syan88@hotmail.co.jp','astus391@gmail.com','rsimacddmi@yahoo.co.jp','ganesha.ayur@gmail.com','nobu49774977@gmail.com','superogihara@yahoo.co.jp','p.man8p.man8@icloud.com','kumstaka@gmail.com','Zhengxingbaomu77@gmail.com','jdabc-destiny7@ezweb.ne.jp','kazukoku0@gmail.com','yoshiko@fushiki-arch.jp','hatsumi0011@i.softbank.jp','shunpei.yaguchi0326@gmail.com','qq3682sd@yahoo.co.jp','eikou1236@gmail.com','1703.1214.akr47@gmail.com','yunamaeda@gmail.com','0406yamamoto@mtc.biglobe.ne.jp','michikomining622@gmail.com','kazuie6677suzuki@gmail.com','youis5720@gmail.com','aikoinagaki1899@gmail.com','saitou19700929@gmail.com','ichikawa296@gmail.com','exile610@icloud.com','case4418@gmail.com','mimori_japan@yahoo.co.jp','nishigaki@global-invest.jp','toshiko10450921@gmail.com','n7321ri@gmail.com','toshie2741@gmail.com','rurumeru1102@gmail.com','n.sho19920523@gmail.com','yo.zi.0201@gmail.com','watagumomura15@gmail.com','miyaoka.8879@gmail.com','rinns1990@gmail.com','souwa.shimizu.kazutaka@gmail.com','krgn000@gmail.com','ko.ko1127@icloud.com','kimiyama72@gmail.com','shion.omijya@gmail.com','sin509a@gmail.com','odaiba0825@gmail.com','hiro2sweet2@gmail.com','skks.rh@gmail.com','o8019047617@gmail.com','superbookers@gmail.com','y.takeya0506@gmail.com','harada@dorisapo.jp','kekusafe-amam@yahoo.co.jp','mizukei1201@icloud.com','toriton0714@softbank.ne.jp','laetitia21shanke@gmail.com','ktu56tkhr@gmail.com','kanarie7@yahoo.co.jp','highaverage5@gmail.com','kojikibi2@yahoo.co.jp','husark@nifty.com','kazumasakagawa@gmail.com','an0825m@gmail.com','tiphareth2020@gmail.com','shigekatsu2038@gmail.com','ai.h.k314@gmail.com','momo-ryu-ura@simaenaga.com','atlifekochi@yahoo.co.jp','masa05221001@gmail.com','reichan1717.0717@gmail.com','Yo.chi.shyu.mama1109@gmail.com','nagatonoken@yahoo.co.jp','takemoto12201220@gmail.com','yu.haya.19982001@icloud.com','canzunori@gmail.com','fujinomiya.kobayashi@docomo.ne.jp','sachi-0416@docomo.ne.jp','subciety5@ezweb.ne.jp','akito1abcde1@gmail.com','bit.premium2020@gmail.com','tsuyoshi.k.hamamatsu@docomo.ne.jp','kozman2372@gmail.com','yuji0914gs@yahoo.co.jp','nobu461@gmail.com','mediagive@gaia.eonet.ne.jp','ishii@erwzs.com','gotojun2365@yahoo.co.jp','kimodo@i.softbank.jp','lovesan358@gmail.com','beatnikalk@icloud.com','taka.achan5@gmail.com','wind8tao@gmail.com','ken-zi428@docomo.ne.jp','satellite696@gmail.com','daisuke2804@gmail.com','fujimailaddress@yahoo.co.jp','tamtam10jp@yahoo.co.jp','m.sakaguchi@hotmail.co.jp','iwakumajj505050@gmail.com','info@qolmedia.online','tynoyk57@gmail.com','info@meike-home.com','pcdos2006@gmail.com','mizuhiro68@gmail.com','shinobu125125@gmail.com','hidekazuhata@gmail.com','gin43166@gmail.com','murofushi1124@docomo.ne.jp','kusunoki626@gmail.com','essencefimin@gmail.com','matsumura.9614@gmail.com','akemi.sumita@icloud.com','bunta0929ah@gmail.com','naokisonic85@gmail.com','test0328@gmail.com','Test5678@gmail.com','yachie1997@icloud.com','kabukimono_info@yahoo.co.jp','eve441211@gmail.com','livmitueasanosanpo@docomo.ne.jp','aoboshi32@gmail.com','rira3588@gmail.com','hikaru.wkym@gmail.com','xmasakix0001@icloud.com','pl.gakuen.60@gmail.com','yuchaco88628@i.softbank.jp','akirada0126@gamil.com','kimi0520.kimi@gmail.com','yellowsun0582@gmail.com','soulmate.marian@gmail.com']";
-    //    //Newtonsoft.Json.Linq.JArray gg = Newtonsoft.Json.Linq.JArray.Parse(f);
-    //    //SendBody = CodingControl.GetEmailTemp1();
-    //    //Subject = "カジノマハラジャ、プレオープンから 4週間での衝撃発表!!!!";
-
-    //    //for (int i = 0; i < gg.Count; i++) {
-    //    //    EMail = (string)gg[i];
-    //    //    SendMail(EMail, "1234", CodingControl.enumSendMailType.Register);
-    //    //}
-
-    //    for (int i = 0; i < 1000; i++) {
-    //        SendMail("kevin@kingkey.com.tw", "1234", CodingControl.enumSendMailType.Register);
-    //    }
-    //}
-
     [WebMethod]
     public void SendMail(string EMail, string Subject) {
         if (!string.IsNullOrEmpty(EMail)) {
@@ -1823,48 +1803,6 @@ public class MgmtAPI : System.Web.Services.WebService {
             objRecipients.Add("name", EMail);
             objRecipients.Add("address", EMail);
             aryRecipients.Add(objRecipients);
-
-            objBody.Add("recipients", aryRecipients);
-
-            CodingControl.GetWebTextContent(apiURL, "POST", objBody.ToString(), "x-api-key:" + apiKey, "application/json", System.Text.Encoding.UTF8);
-        }
-    }
-
-    [WebMethod]
-    public void SendMailMult(string JsonStrEmail, string Subject) {
-        if (!string.IsNullOrEmpty(JsonStrEmail)) {
-            string SendBody = string.Empty;
-            string apiURL = "https://mail.surenotifyapi.com/v1/messages";
-            string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
-
-            SendBody = CodingControl.GetEmailTemp2();
-
-            Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
-            Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
-            Newtonsoft.Json.Linq.JObject objVariables = new Newtonsoft.Json.Linq.JObject();
-            Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
-
-            objBody.Add("subject", Subject);
-            objBody.Add("fromName", "マハラジャ");
-            objBody.Add("fromAddress", "edm@casino-maharaja.com");
-            objBody.Add("content", SendBody);
-
-            //var f = "['kevin@kingkey.com.tw','tony800517@hotmail.com']";
-            var f = JsonStrEmail;
-            Newtonsoft.Json.Linq.JArray gg = Newtonsoft.Json.Linq.JArray.Parse(f);
-
-            for (int i = 0; i < gg.Count; i++) {
-                objRecipients = new Newtonsoft.Json.Linq.JObject();
-                //objVariables = new Newtonsoft.Json.Linq.JObject();
-
-                objRecipients.Add("name", (string)gg[i]);
-                objRecipients.Add("address", (string)gg[i]);
-                //寄信範本中使用 {{account}}，下列方式可在範本中做替換
-                //objVariables.Add("account", (string)gg[i]);
-                //objRecipients.Add("variables", objVariables);
-
-                aryRecipients.Add(objRecipients);
-            }
 
             objBody.Add("recipients", aryRecipients);
 

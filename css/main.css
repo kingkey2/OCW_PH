@@ -3,38 +3,7 @@
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
 
-@font-face {
-    font-family: "maharaja";
-    src: url("fonts/maharaja.eot");
-    src: url("fonts/maharaja.eot?#iefix") format("embedded-opentype"), url("fonts/maharaja.woff") format("woff"), url("fonts/maharaja.ttf") format("truetype"), url("fonts/maharaja.svg#maharaja") format("svg");
-    font-weight: normal;
-    font-style: normal;
-}
-[data-icon]:before {
-    font-family: "maharaja" !important;
-    content: attr(data-icon);
-    font-style: normal !important;
-    font-weight: normal !important;
-    font-variant: normal !important;
-    text-transform: none !important;
-    speak: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
 
-[class^=icon-m]:before,
-[class*=" icon-m"]:before {
-    font-family: "maharaja" !important;
-    font-style: normal !important;
-    font-weight: normal !important;
-    font-variant: normal !important;
-    text-transform: none !important;
-    speak: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
 .icon-m-heart-f:before {
   content: "a";
 }
@@ -1168,7 +1137,15 @@ hr.line {
   .sec-title-container.sec-col-2 .btn {
     margin: 0;
   }
-
+  .sec-title-wrapper {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+  }
   .sec-title-wrapper .tab-scroller {
     width: 100%;
   }
@@ -5861,8 +5838,8 @@ i {
   width: 5%;
   min-width: 60px;
   max-width: 80px;
-  height: 100%;
-  top: 0px;
+  height: calc(100% - 60px);
+  top: 10px;
   margin-top: 0;
   cursor: pointer;
 }
@@ -5889,7 +5866,9 @@ i {
   background: url(../images/icon/ico-arrow-L.svg) center center no-repeat;
   background-size: cover;
 }
-
+.game_slider .swiper-button-next.swiper-button-disabled, .game_slider .swiper-button-prev.swiper-button-disabled {
+  opacity: 0;
+}
 .game_slider .swiper-button-next {
   right: 0;
   background: -webkit-gradient(linear, right top, left top, from(rgba(255, 255, 255, 0.9)), color-stop(50%, rgba(255, 255, 255, 0.9)), to(rgba(255, 255, 255, 0)));
@@ -5924,10 +5903,13 @@ i {
 }
 
 .game-item {
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
   width: 100%;
-  cursor:pointer;
 }
 .game-item .img-wrap {
+  position: relative;
+  padding-bottom: 100%;
   border-radius: 8px;
   background-repeat: no-repeat;
   background-position: center;
@@ -5935,6 +5917,15 @@ i {
   overflow: hidden;
 }
 .game-item .img-wrap img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   width: 100%;
   height: 100%;
 }
@@ -6004,10 +5995,12 @@ i {
   background-color: rgba(255, 255, 255, 0.45);
 }
 .game-item-img {
+  position: relative;
   z-index: 2;
 }
 .game-item-link {
   display: block;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
@@ -6017,6 +6010,7 @@ i {
   z-index: 2;
 }
 .game-item-inner {
+  position: relative;
   background-color: #fff;
   border-radius: 15px;
 }
@@ -6032,7 +6026,6 @@ i {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  word-break:break-all;
 }
 .game-item.label-new .label-push-status {
   background-image: url(../images/theme/icon/label-new.svg);
@@ -6041,8 +6034,10 @@ i {
   background-image: url(../images/theme/icon/label-hot.svg);
 }
 
-.game-item-focus {  
+.game-item-focus {
+  position: relative;
   width: 100%;
+  height: calc(100% + 55px);
 }
 
 .game-item-info-detail {
@@ -6234,8 +6229,7 @@ i {
   -webkit-transform: translateY(0) scale(1, 1);
           transform: translateY(0) scale(1, 1);
 }
-/*test*/
-/*.gameinfo-pack-bg .game-item-img:after {
+.gameinfo-pack-bg .game-item-img:after {
   content: "";
   display: block;
   width: 100%;
@@ -6256,7 +6250,7 @@ i {
   opacity: 0.15;
   -webkit-transition: all 0.35s linear;
   transition: all 0.35s linear;
-}*/
+}
 .gameinfo-pack-bg .game-item-info {
   padding: 0.5rem;
   width: 100%;
@@ -6343,7 +6337,7 @@ i {
 .gameinfo-hover .game-item.crownLevel-3 .game-item-img::before {
   background-image: url(../images/icon/ico-crown-dog-star-3.svg);
 }
-/*.gameinfo-hover .swiper-slide.desktop .game-item .game-item-focus {
+.gameinfo-hover .swiper-slide.desktop .game-item .game-item-focus {
   overflow: hidden;
   height: calc(100% + 55px);
 }
@@ -6383,7 +6377,7 @@ i {
 }
 .gameinfo-hover .swiper-slide.desktop .game-item[class*=crownLevel-]:hover .game-item-inner::before {
   opacity: 0;
-}*/
+}
 .gameinfo-hover .swiper-slide:first-child {
   margin-left: 10px;
 }
@@ -6480,18 +6474,18 @@ i {
   left: auto;
   right: 0;
 }
-/*.gameinfo-hover .sideRight .game-item-img {
+.gameinfo-hover .sideRight .game-item-img {
   left: auto;
   right: auto;
   -webkit-transform: translateX(-38%);
           transform: translateX(-38%);
-}*/
+}
 
 .game_slider .swiper-slide {
   -webkit-transition: all 0.35s linear;
   transition: all 0.35s linear;
 }
-/*.game_slider .swiper-slide.desktop:last-child .game-item-info-detail {
+.game_slider .swiper-slide.desktop:last-child .game-item-info-detail {
   left: auto;
   right: 0;
 }
@@ -6517,14 +6511,16 @@ i {
   right: auto !important;
   -webkit-transform: translateX(38%) !important;
           transform: translateX(38%) !important;
-}*/
+}
 .game_slider .img-wrap {
   border-radius: 15px;
   background: url(../images/icon/image.png) center center no-repeat;
   background-color: #031d4b;
   background-size: 60px;
 }
-
+.game_slider.swiper-cover {
+  padding-bottom: 100px;
+}
 .game_slider.swiper-cover .swiper-slide {
   background-position: center;
   background-size: cover;
@@ -7100,6 +7096,10 @@ i {
   }
 }
 @media (min-width: 1920px) {
+  .game_slider .swiper-button-next, .game_slider .swiper-button-prev {
+    height: calc(100% - 62px);
+  }
+
   .game-item-info-inner .game-item-name {
     font-size: 0.9375rem;
   }
@@ -7108,7 +7108,11 @@ i {
     font-size: 1.25rem;
   }
 }
-
+@media screen and (max-width: 640px) {
+  .section-levelUp .sec-title-wrapper {
+    margin-bottom: 0;
+  }
+}
 @media screen and (max-width: 575px) {
   .section-levelUp .sec-title-wrapper .sec-title {
     font-size: 1.21875rem;

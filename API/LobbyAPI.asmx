@@ -1413,77 +1413,6 @@ public class LobbyAPI : System.Web.Services.WebService
 
         return R;
     }
-    [WebMethod]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult SendCSMail(string GUID, string EMail, string Topic, string SendBody)
-    {
-        EWin.Lobby.APIResult R;
-
-        if (string.IsNullOrEmpty(Topic) == false && string.IsNullOrEmpty(SendBody) == false)
-        {
-            string returnMail = EMail;
-            string returnLoginAccount = EMail;
-            string apiURL = "https://mail.surenotifyapi.com/v1/messages";
-            string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
-            //string subjectString = String.Format("問題分類：{0},回覆信箱：{1}", Topic, returnMail);
-            //string bodyString = String.Format("問題分類：{0}\r\n"
-            //                        + "問題內容：{1}\r\n"
-            //                        + "回覆信箱：{2}\r\n"
-            //                        + "相關帳號：{3}\r\n"
-            //                        + "詢問時間：{4}\r\n"
-            //                        , Topic, SendBody, returnMail, returnLoginAccount, DateTime.Now);
-            string subjectString = String.Format("お問い合わせ類型：{0},お返事のメールアドレス：{1}", Topic, returnMail);
-            string bodyString = String.Format("お問い合わせ類型：{0}\r\n"
-                                    + "お問い合わせ内容：{1}\r\n"
-                                    + "お返事のメールアドレス：{2}\r\n"
-                                    + "アカウント：{3}\r\n"
-                                    + "お問い合わせ時間：{4}\r\n"
-                                    , Topic, SendBody, returnMail, returnLoginAccount, DateTime.Now);
-
-            /*
-            お問い合わせ類型:
-            お問い合わせ内容:
-            お返事のメールアドレス:
-            アカウント:
-            お問い合わせ時間:
-            */
-
-            Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
-            Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
-            Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
-
-            objBody.Add("subject", subjectString);
-            objBody.Add("fromName", "マハラジャ");
-            objBody.Add("fromAddress", "edm@casino-maharaja.com");
-            objBody.Add("content", bodyString);
-
-            objRecipients.Add("name", "service@casino-maharaja.com");
-            objRecipients.Add("address", "service@casino-maharaja.com");
-            aryRecipients.Add(objRecipients);
-
-            objBody.Add("recipients", aryRecipients);
-
-            CodingControl.GetWebTextContent(apiURL, "POST", objBody.ToString(), "x-api-key:" + apiKey, "application/json", System.Text.Encoding.UTF8);
-
-            R = new EWin.Lobby.APIResult()
-            {
-                Result = EWin.Lobby.enumResult.OK,
-                Message = "",
-                GUID = GUID
-            };
-        }
-        else
-        {
-            R = new EWin.Lobby.APIResult()
-            {
-                Result = EWin.Lobby.enumResult.ERR,
-                Message = "SubjectOrSendBodyIsEmpty",
-                GUID = GUID
-            };
-        }
-
-        return R;
-    }
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -1578,8 +1507,6 @@ public class LobbyAPI : System.Web.Services.WebService
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         return lobbyAPI.SetValidateCodeOnlyNumber(GetToken(), GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber);
     }
-
-
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -2467,64 +2394,6 @@ public class LobbyAPI : System.Web.Services.WebService
         var a = lobbyAPI.CheckDocumentByTagName(GetToken(), GUID, TagName);
         return a;
     }
-
-    //[WebMethod]
-    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public EWin.FANTA.AgentAccountingResult GetAccountingDetailBySummaryDate(string WebSID, string GUID, string StartDate, string EndDate) {
-    //    EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
-    //    EWin.FANTA.AgentAccountingResult callResult = new EWin.FANTA.AgentAccountingResult();
-    //    EWin.FANTA.AgentAccountingResult R;
-    //    RedisCache.SessionContext.SIDInfo SI;
-
-    //    SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
-
-    //    if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-    //        R = fantaAPI.GetAccountingDetailBySummaryDate(GetToken(), SI.EWinSID, GUID, StartDate, EndDate);
-
-    //    } else {
-    //        R = new EWin.FANTA.AgentAccountingResult() {
-    //            ResultState = EWin.FANTA.enumResultState.ERR,
-    //            Message = "InvalidWebSID"
-    //        };
-    //    }
-
-    //    return R;
-    //}
-
-    //[WebMethod]
-    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public EWin.FANTA.ChildUserResult GetChildUserBySID(string WebSID, string GUID) {
-    //    EWin.FANTA.FANTA fantaAPI = new EWin.FANTA.FANTA();
-    //    EWin.FANTA.ChildUserResult callResult = new EWin.FANTA.ChildUserResult();
-    //    EWin.FANTA.ChildUserResult R = new EWin.FANTA.ChildUserResult() {
-    //        ResultState =  EWin.FANTA.enumResultState.ERR
-    //    };
-    //    RedisCache.SessionContext.SIDInfo SI;
-    //    string strUserAccountChild = string.Empty;
-
-    //    SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
-
-    //    if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-
-    //        strUserAccountChild = RedisCache.UserAccountChild.GetUserAccountChildByLoginAccount(SI.LoginAccount);
-
-    //        if (string.IsNullOrEmpty(strUserAccountChild)) {
-    //            R = fantaAPI.GetChildUserBySID(GetToken(), SI.EWinSID, GUID);
-    //            RedisCache.UserAccountChild.UpdateUserAccountChild(R.ChildUserList, SI.LoginAccount);
-    //        } else {
-    //            R.ResultState = EWin.FANTA.enumResultState.OK;
-    //            R.ChildUserList = strUserAccountChild;
-    //        }
-
-    //    } else {
-    //        R = new EWin.FANTA.ChildUserResult() {
-    //            ResultState = EWin.FANTA.enumResultState.ERR,
-    //            Message = "InvalidWebSID"
-    //        };
-    //    }
-
-    //    return R;
-    //}
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
