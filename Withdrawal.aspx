@@ -159,7 +159,7 @@
                                         if (compareDate(startTimetext, endTimetext)) {
                                             $('#idWithdrawalBankCard').show();
                                         }
-
+                             
                                         break;
                                     case ".Withdrawal.Gcash":
                                         var minAmount = "unlimited";
@@ -186,7 +186,7 @@
                                         if (compareDate(startTimetext, endTimetext)) {
                                             $('#idWithdrawalGCASH').show();
                                         }
-
+                               
                                      
                                         break;
                                     default:
